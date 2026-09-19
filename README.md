@@ -1,1 +1,1 @@
-# RUC-YOJ
+# RUC_YOJ
