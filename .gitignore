@@ -10,3 +10,10 @@ __pycache__/
 .venv/
 tmp/
 logs/
+.DS_Store
+.yoj-sync/
+candidates/
+staging/
+sessions/
+*.sqlite
+*.sqlite3

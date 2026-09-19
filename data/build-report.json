@@ -6,12 +6,15 @@
   "hashMismatches": 0,
   "formulaCount": 227,
   "imageCount": 155,
+  "imageLocalCount": 151,
   "assetCount": 0,
+  "resourceDownloadFailures": 4,
+  "warningRecordCount": 17,
+  "warningCount": 38,
   "publicReady": 0,
   "notes": [
     "题面来自 p_content，不公开原始 HTML。",
     "公式转换为尽量可读的 LaTeX；含 warnings 的题目必须人工复核。",
-    "图片暂保留为原站 Markdown 链接，后续可在非维护窗口按哈希缓存本地附件。",
-    "题面附件在发现后下载到对应题目目录的 assets/；失败项保留原始链接并记录 warning。"
+    "题面图片和附件在发现后下载到对应题目目录的 assets/；失败项保留原始链接并记录 warning。"
   ]
 }

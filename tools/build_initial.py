@@ -55,6 +55,11 @@ ASSET_EXTENSIONS = {
     ".xls",
     ".xlsx",
     ".zip",
+    ".gif",
+    ".jpeg",
+    ".jpg",
+    ".svg",
+    ".webp",
 }
 
 
@@ -93,35 +98,35 @@ def normalize_inline_text(value: str) -> str:
 
 
 MATH_OPERATORS = {
-    "≤": r"\\le",
-    "≥": r"\\ge",
-    "≠": r"\\ne",
-    "≈": r"\\approx",
-    "±": r"\\pm",
-    "×": r"\\times",
-    "÷": r"\\div",
-    "·": r"\\cdot",
-    "∈": r"\\in",
-    "∉": r"\\notin",
-    "⊆": r"\\subseteq",
-    "⊂": r"\\subset",
-    "⊇": r"\\supseteq",
-    "⊃": r"\\supset",
-    "∪": r"\\cup",
-    "∩": r"\\cap",
-    "∧": r"\\land",
-    "∨": r"\\lor",
-    "¬": r"\\lnot",
-    "→": r"\\to",
-    "←": r"\\leftarrow",
-    "↔": r"\\leftrightarrow",
-    "∞": r"\\infty",
-    "∑": r"\\sum",
-    "∏": r"\\prod",
-    "∫": r"\\int",
-    "√": r"\\sqrt",
-    "…": r"\\ldots",
-    "⋯": r"\\cdots",
+    "≤": r"\le ",
+    "≥": r"\ge ",
+    "≠": r"\ne ",
+    "≈": r"\approx ",
+    "±": r"\pm ",
+    "×": r"\times ",
+    "÷": r"\div ",
+    "·": r"\cdot ",
+    "∈": r"\in ",
+    "∉": r"\notin ",
+    "⊆": r"\subseteq ",
+    "⊂": r"\subset ",
+    "⊇": r"\supseteq ",
+    "⊃": r"\supset ",
+    "∪": r"\cup ",
+    "∩": r"\cap ",
+    "∧": r"\land ",
+    "∨": r"\lor ",
+    "¬": r"\lnot ",
+    "→": r"\to ",
+    "←": r"\leftarrow ",
+    "↔": r"\leftrightarrow ",
+    "∞": r"\infty ",
+    "∑": r"\sum ",
+    "∏": r"\prod ",
+    "∫": r"\int ",
+    "√": r"\sqrt ",
+    "…": r"\ldots",
+    "⋯": r"\cdots",
     "−": "-",
     "–": "-",
     "—": "-",
@@ -151,7 +156,7 @@ def math_text(node: Any) -> str:
     if tag in {"mrow", "mstack", "mline"}:
         return "".join(math_text(child) for child in children)
     if tag in {"mi", "mn", "mtext", "ms"}:
-        return normalize_inline_text(text_content(node)).strip()
+        return normalize_inline_text(text_content(node)).strip().replace("%", r"\%")
     if tag == "mo":
         value = normalize_inline_text(text_content(node)).strip()
         return MATH_OPERATORS.get(value, value)
@@ -176,8 +181,8 @@ def math_text(node: Any) -> str:
         base = math_text(children[0])
         if tag == "mover" and len(children) >= 2:
             accent = math_text(children[1])
-            command = {"^": r"\\hat", "~": r"\\tilde", "¯": r"\\bar"}.get(accent, r"\\overset")
-            return f"{command}{{{base}}}" if command != r"\\overset" else f"\\overset{{{accent}}}{{{base}}}"
+            command = {"^": r"\hat", "~": r"\tilde", "¯": r"\bar"}.get(accent, r"\overset")
+            return f"{command}{{{base}}}" if command != r"\overset" else f"\\overset{{{accent}}}{{{base}}}"
         if tag == "munder" and len(children) >= 2:
             return f"\\underset{{{math_text(children[1])}}}{{{base}}}"
         if len(children) >= 3:
@@ -227,10 +232,69 @@ class StatementConverter:
         self.asset_dir = asset_dir
         self.download_assets = download_assets
         self.assets: list[dict[str, Any]] = []
+        self.image_assets: list[dict[str, Any]] = []
         self._asset_by_url: dict[str, dict[str, Any]] = {}
+        self._image_by_url: dict[str, dict[str, Any]] = {}
 
     def absolute_url(self, value: str) -> str:
         return urljoin(self.problem_url, value)
+
+    def visible_math_text(self, node: Any) -> str:
+        visible_nodes = node.xpath('.//*[contains(concat(" ", normalize-space(@class), " "), " katex-html ")]')
+        if not visible_nodes:
+            return ""
+        return normalize_inline_text(text_content(visible_nodes[0])).strip()
+
+    def visible_math_to_latex(self, value: str) -> str:
+        return "".join(MATH_OPERATORS.get(char, r"\%" if char == "%" else char) for char in value)
+
+    def interleave_formula_fallback(
+        self, value: str, siblings: Iterable[Any], emitted: set[int]
+    ) -> str:
+        """Interleave KaTeX with legacy plain text in the same HTML node.
+
+        Some snapshots contain a plain-text rendering in ``node.text`` and
+        the KaTeX nodes as children.  Matching the visible formula value in
+        order lets us replace that fallback in place instead of emitting all
+        prose first and all formulas afterwards.
+        """
+
+        result: list[str] = []
+        cursor = 0
+        sibling_list = list(siblings)
+        for sibling in sibling_list:
+            if "katex" not in classes(sibling):
+                continue
+            rendered = "".join(self.visible_math_text(sibling).split())
+            if len(rendered) < 2:
+                continue
+            pattern = r"\s*".join(re.escape(char) for char in rendered)
+            match = re.search(pattern, value[cursor:])
+            if not match:
+                continue
+            start = cursor + match.start()
+            end = cursor + match.end()
+            result.append(normalize_inline_text(value[cursor:start]))
+            if id(sibling) not in emitted:
+                result.append(self.inline(sibling))
+                emitted.add(id(sibling))
+            cursor = end
+        remaining = value[cursor:]
+        unmatched_katex = [sibling for sibling in sibling_list if "katex" in classes(sibling) and id(sibling) not in emitted]
+        if unmatched_katex and any(marker in remaining for marker in ("≤", "≥", "≠", "=", "<", ">", "�")):
+            starts = [remaining.find(marker) for marker in ("≤", "≥", "≠", "=", "<", ">", "�") if remaining.find(marker) >= 0]
+            if starts:
+                # Keep the prose immediately before a legacy formula and let
+                # the still-unmatched KaTeX node render the formula once.
+                first_marker = min(starts)
+                variable_start = first_marker
+                while variable_start > 0 and remaining[variable_start - 1].isspace():
+                    variable_start -= 1
+                while variable_start > 0 and remaining[variable_start - 1].isalnum():
+                    variable_start -= 1
+                remaining = remaining[:variable_start]
+        result.append(normalize_inline_text(remaining))
+        return "".join(result)
 
     def is_download_candidate(self, source: str, label: str) -> bool:
         parsed = urlparse(source)
@@ -291,6 +355,52 @@ class StatementConverter:
         self._asset_by_url[source] = item
         return item
 
+    def materialize_image(self, source: str, label: str) -> dict[str, Any]:
+        if source in self._image_by_url:
+            return self._image_by_url[source]
+        index = len(self.image_assets) + 1
+        raw_name = Path(unquote(urlparse(source).path)).name or "image"
+        raw_name = re.sub(r"[^0-9A-Za-z一-龥._-]+", "_", raw_name).strip("._") or "image"
+        filename = f"img_{index:02d}_{raw_name}"
+        local_path = self.asset_dir / filename if self.asset_dir is not None else None
+        item: dict[str, Any] = {
+            "url": source,
+            "label": label or filename,
+            "filename": filename,
+            "relativePath": f"assets/{filename}",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
+            "error": "",
+        }
+        if self.download_assets and local_path is not None:
+            try:
+                local_path.parent.mkdir(parents=True, exist_ok=True)
+                if local_path.is_file() and local_path.stat().st_size > 0:
+                    item["status"] = "CACHED"
+                    item["bytes"] = local_path.stat().st_size
+                    item["sha256"] = source_file_hash(local_path)
+                else:
+                    request = Request(source, headers={"User-Agent": "RUC-YOJ-Archive/1.0"})
+                    with urlopen(request, timeout=20) as response:  # nosec B310 - URL comes from captured problem HTML
+                        content_type = response.headers.get_content_type()
+                        content = response.read(MAX_ASSET_BYTES + 1)
+                    if content_type == "text/html" or content.lstrip().lower().startswith((b"<!doctype html", b"<html")):
+                        raise ValueError("服务器返回 HTML 而非图片")
+                    if len(content) > MAX_ASSET_BYTES:
+                        raise ValueError(f"图片超过 {MAX_ASSET_BYTES // (1024 * 1024)} MiB 限制")
+                    local_path.write_bytes(content)
+                    item["status"] = "DOWNLOADED"
+                    item["bytes"] = len(content)
+                    item["sha256"] = hashlib.sha256(content).hexdigest()
+            except (OSError, ValueError, TimeoutError) as exc:
+                item["status"] = "DOWNLOAD_FAILED"
+                item["error"] = f"{exc.__class__.__name__}: {exc}"
+                self.warnings.append(f"题面图片下载失败: {source} ({item['error']})")
+        self.image_assets.append(item)
+        self._image_by_url[source] = item
+        return item
+
     def inline(self, node: Any) -> str:
         tag = local_name(node)
         if tag in {"script", "style", "noscript", "svg", "canvas"}:
@@ -306,7 +416,9 @@ class StatementConverter:
             if source not in self.images:
                 self.images.append(source)
             alt = normalize_inline_text(node.get("alt") or "题面图片").strip() or "题面图片"
-            return f"![{alt}]({source})"
+            image = self.materialize_image(source, alt)
+            image_target = image["relativePath"] if image["status"] in {"DOWNLOADED", "CACHED"} else source
+            return f"![{alt}]({image_target})"
         if "katex" in classes(node):
             math_nodes = node.xpath('.//*[local-name()="math"]')
             self.formula_count += 1
@@ -314,6 +426,14 @@ class StatementConverter:
                 self.warnings.append("KaTeX 节点缺少 MathML")
                 return r"\(公式待核对\)"
             latex = math_text(math_nodes[0]).strip()
+            if "\ufffd" in latex:
+                visible = self.visible_math_text(node)
+                if visible:
+                    latex = self.visible_math_to_latex(visible)
+                    self.warnings.append("部分 MathML 含替换字符，已采用页面可见 KaTeX 文本")
+                else:
+                    self.warnings.append("KaTeX 的 MathML 和可见文本均含替换字符，公式需要人工复核")
+                    return "[公式待核对]"
             ancestor_classes = set()
             parent = node.getparent()
             if parent is not None:
@@ -349,12 +469,22 @@ class StatementConverter:
 
     def inline_children(self, node: Any, own_text: bool = True) -> str:
         parts: list[str] = []
+        children = list(node)
+        emitted: set[int] = set()
+        legacy_formula_mode = bool(
+            any("katex" in classes(child) for child in children)
+            and any(marker in (node.text or "") for marker in ("≤", "≥", "≠", "=", "<", ">", "�"))
+        )
         if own_text and node.text:
-            parts.append(normalize_inline_text(node.text))
-        for child in node:
-            parts.append(self.inline(child))
+            parts.append(self.interleave_formula_fallback(node.text, children, emitted))
+        for index, child in enumerate(children):
+            skip_legacy_sup = legacy_formula_mode and local_name(child) in {"sup", "sub"}
+            if id(child) not in emitted and not skip_legacy_sup:
+                parts.append(self.inline(child))
+                if "katex" in classes(child):
+                    emitted.add(id(child))
             if child.tail:
-                parts.append(normalize_inline_text(child.tail))
+                parts.append(self.interleave_formula_fallback(child.tail, [child, *children[index + 1 :],], emitted))
         return "".join(parts)
 
     def render_list(self, node: Any, indent: str = "") -> str:
@@ -429,15 +559,25 @@ class StatementConverter:
 
     def render_children(self, node: Any) -> str:
         parts: list[str] = []
+        children = list(node)
+        emitted: set[int] = set()
+        legacy_formula_mode = bool(
+            any("katex" in classes(child) for child in children)
+            and any(marker in (node.text or "") for marker in ("≤", "≥", "≠", "=", "<", ">", "�"))
+        )
         if node.text:
-            parts.append(normalize_inline_text(node.text))
-        for child in node:
-            if local_name(child) in self.block_tags | self.list_tags | {"pre", "table", "h1", "h2", "h3", "h4", "h5", "h6"}:
-                parts.append(self.render_block(child))
-            else:
-                parts.append(self.inline(child))
+            parts.append(self.interleave_formula_fallback(node.text, children, emitted))
+        for index, child in enumerate(children):
+            skip_legacy_sup = legacy_formula_mode and local_name(child) in {"sup", "sub"}
+            if id(child) not in emitted and not skip_legacy_sup:
+                if local_name(child) in self.block_tags | self.list_tags | {"pre", "table", "h1", "h2", "h3", "h4", "h5", "h6"}:
+                    parts.append(self.render_block(child))
+                else:
+                    parts.append(self.inline(child))
+                if "katex" in classes(child):
+                    emitted.add(id(child))
             if child.tail:
-                parts.append(normalize_inline_text(child.tail))
+                parts.append(self.interleave_formula_fallback(child.tail, [child, *children[index + 1 :],], emitted))
         return "".join(parts)
 
     def convert(self, document: Any) -> str:
@@ -449,6 +589,10 @@ class StatementConverter:
             return ""
         body = self.render_block(candidates[0])
         body = re.sub(r"[ \t]+\n", "\n", body)
+        body = re.sub(r"([，。；：、])\1+", r"\1", body)
+        if "\ufffd" in body:
+            self.warnings.append("题面快照含 U+FFFD 替换字符，已改为显式待核对标记")
+            body = body.replace("\ufffd", "[原题字符待核对]")
         body = re.sub(r"\n{3,}", "\n\n", body).strip()
         return body
 
@@ -486,6 +630,31 @@ def parse_html_snapshot(path: Path) -> Any:
     return html.fromstring(raw.decode("utf-8", errors="replace"))
 
 
+def extract_statement_limits(document: Any) -> dict[str, str]:
+    """Read limits from the problem page, never from an AC result row.
+
+    The submission-detail metadata also has ``time`` and ``memory`` fields,
+    but those are measurements for one accepted run.  The problem page's
+    labelled badges are the authoritative source for the constraints shown to
+    a solver.
+    """
+
+    limits = {"time": "", "memory": ""}
+    labelled_nodes = document.xpath(
+        '//*[contains(concat(" ", normalize-space(@class), " "), " label ")]'
+    )
+    for node in labelled_nodes:
+        value = normalize_inline_text(text_content(node)).strip()
+        memory_match = re.match(r"^内存限制\s*[:：]\s*(.+?)\s*$", value, re.IGNORECASE)
+        if memory_match and not limits["memory"]:
+            limits["memory"] = memory_match.group(1).strip()
+            continue
+        time_match = re.match(r"^时间限制\s*[:：]\s*(.+?)\s*$", value, re.IGNORECASE)
+        if time_match and not limits["time"]:
+            limits["time"] = time_match.group(1).strip()
+    return limits
+
+
 def safe_language(value: Any, fallback: str) -> str:
     value = str(value or fallback or "unknown")
     return value.replace("\n", " ").strip() or "unknown"
@@ -506,6 +675,7 @@ def build_statement(
     code_meta = metadata.get("code", {})
     title = str(problem.get("title") or entry.get("title") or "未命名题目").strip()
     problem_no = str(problem.get("problemNo") or entry.get("problemNo") or "0")
+    problem_no_padded = problem_no.zfill(4)
     problem_url = str(problem.get("problemUrl") or "").strip()
     html_name = str((metadata.get("files") or {}).get("problemHtml") or Path(entry["files"]["problem"]).name)
     html_path = raw_dir / html_name
@@ -514,6 +684,7 @@ def build_statement(
     converter = StatementConverter(problem_url, asset_dir=asset_dir, download_assets=download_assets)
     status = "CONVERTED_FROM_HTML_SNAPSHOT"
     body = ""
+    document = None
     if not html_path.is_file():
         converter.warnings.append(f"题面快照不存在: {html_name}")
         status = "NEEDS_REVIEW"
@@ -527,8 +698,16 @@ def build_statement(
             converter.warnings.append(f"题面快照解析失败: {exc.__class__.__name__}")
             status = "NEEDS_REVIEW"
 
-    memory = str(problem.get("memory") or "未记录").strip()
-    time_limit = str(problem.get("time") or "未记录").strip()
+    statement_limits = extract_statement_limits(document) if document is not None else {"time": "", "memory": ""}
+    if document is not None and not statement_limits["time"]:
+        converter.warnings.append("未从题面页面识别时间限制")
+    if document is not None and not statement_limits["memory"]:
+        converter.warnings.append("未从题面页面识别内存限制")
+    time_limit = statement_limits["time"] or "未记录"
+    memory_limit = statement_limits["memory"] or "未记录"
+    submission = metadata.get("submission") or problem
+    accepted_time = str(submission.get("time") or problem.get("time") or "未记录").strip()
+    accepted_memory = str(submission.get("memory") or problem.get("memory") or "未记录").strip()
     source_files = metadata.get("files") or {}
     complete_code = str(source_files.get("completeCode") or entry["files"].get("completeCode") or "")
     direct_code = str(source_files.get("directlySubmittableCode") or entry["files"].get("directlySubmittableCode") or "")
@@ -542,19 +721,21 @@ def build_statement(
     if not direct_path.is_file():
         converter.warnings.append(f"可提交代码不存在: {direct_code}")
 
-    statement_rel = Path("题解") / folder / f"{problem_no.zfill(4)}_题目.md"
+    statement_rel = Path("题解") / folder / f"{problem_no_padded}_题目.md"
     statement_text = [
-        f"# {problem_no}. {title}",
+        f"# {problem_no_padded}. {title}",
         "",
-        "> 当前文件由 YOJ 原始题面快照的 `p_content` 离线转换生成。公式尽量转换为 LaTeX，图片保留为 Markdown 图片链接。",
+        "> 当前文件由 YOJ 原始题面快照的题面主体离线转换生成。公式尽量转换为 LaTeX，图片优先本地化为 Markdown 图片链接；下载失败时保留原始链接并记录 warning。",
         "> 当前仓库阶段：`RAW_CAPTURED`。代码尚未完成脱敏清理、版本规范化、提交形态核验和在线复验。",
         "",
         "## 题目信息",
         "",
         f"- 原题地址：[{problem_url or '未记录'}]({problem_url or SITE_BASE})",
-        f"- 时间限制：{time_limit}",
-        f"- 内存限制：{memory}",
+        f"- 题目时间限制（题面）：{time_limit}",
+        f"- 题目内存限制（题面）：{memory_limit}",
         f"- 归档语言：`{safe_language(problem.get('language'), code_meta.get('language') or entry.get('language'))}`",
+        f"- 本次 AC 实际耗时（提交详情）：{accepted_time}",
+        f"- 本次 AC 实际内存占用（提交详情）：{accepted_memory}",
         "",
         "---",
         "",
@@ -583,7 +764,11 @@ def build_statement(
         "title": title,
         "folder": folder,
         "problemUrl": problem_url,
-        "limits": {"time": time_limit, "memory": memory},
+        "limits": {
+            "source": "problem_statement",
+            "time": time_limit,
+            "memory": memory_limit,
+        },
         "language": safe_language(problem.get("language"), code_meta.get("language") or entry.get("language")),
         "archive": {
             "status": "RAW_CAPTURED",
@@ -594,6 +779,14 @@ def build_statement(
             "sourceHashMatchesMetadata": hash_match,
             "completeCode": relative_path(complete_path) if complete_path.is_file() else None,
             "directlySubmittableCode": relative_path(direct_path) if direct_path.is_file() else None,
+            "acceptedRun": {
+                "source": "submission_detail",
+                "status": str(submission.get("status") or problem.get("status") or "").strip(),
+                "score": str(submission.get("score") or problem.get("score") or "").strip(),
+                "language": safe_language(submission.get("language"), problem.get("language") or code_meta.get("language") or entry.get("language")),
+                "time": accepted_time,
+                "memory": accepted_memory,
+            },
             "blockHandling": code_meta.get("blockHandling") or {"status": "unknown"},
         },
         "public": {
@@ -609,6 +802,8 @@ def build_statement(
             "formulaCount": converter.formula_count,
             "imageCount": len(converter.images),
             "imageUrls": converter.images,
+            "imageAssets": converter.image_assets,
+            "imageLocalCount": sum(item["status"] in {"DOWNLOADED", "CACHED"} for item in converter.image_assets),
             "assets": converter.assets,
             "warnings": sorted(set(converter.warnings)),
         },
@@ -622,7 +817,7 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
     lines = [
         "# RUC YOJ 题解归档",
         "",
-        "> 这是按 Method 指引生成的离线初步构建。当前只把原始题面快照转换成 Markdown：公式尽量保留为 LaTeX，图片保留为题面原始图片链接；原始 HTML 不进入公开索引。",
+        "> 这是按 Method 指引生成的离线初步构建。当前把原始题面快照转换成 Markdown：公式尽量保留为 LaTeX，题面图片优先本地化到对应题目目录；原始 HTML 不进入公开索引。",
         "> `代码库/` 是抓取原始归档，代码仍处于待脱敏、待 C++17/Python 3.14 规范化、待提交形态核验和待在线复验状态，不能把本页的“原始代码”链接理解为最终公开题解。",
         "",
         "## 当前状态",
@@ -708,7 +903,14 @@ def build() -> int:
             "hashMismatches": hash_mismatches,
             "formulaCount": sum(r["statement"]["formulaCount"] for r in records),
             "imageCount": sum(r["statement"]["imageCount"] for r in records),
+            "imageLocalCount": sum(r["statement"]["imageLocalCount"] for r in records),
             "assetCount": sum(len(r["statement"]["assets"]) for r in records),
+            "resourceDownloadFailures": sum(
+                sum(item["status"] == "DOWNLOAD_FAILED" for item in r["statement"]["imageAssets"] + r["statement"]["assets"])
+                for r in records
+            ),
+            "warningRecordCount": sum(bool(r["statement"]["warnings"]) for r in records),
+            "warningCount": sum(len(r["statement"]["warnings"]) for r in records),
         }
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0 if not failures else 1
@@ -737,13 +939,19 @@ def build() -> int:
             "hashMismatches": hash_mismatches,
             "formulaCount": sum(r["statement"]["formulaCount"] for r in records),
             "imageCount": sum(r["statement"]["imageCount"] for r in records),
+            "imageLocalCount": sum(r["statement"]["imageLocalCount"] for r in records),
             "assetCount": sum(len(r["statement"]["assets"]) for r in records),
+            "resourceDownloadFailures": sum(
+                sum(item["status"] == "DOWNLOAD_FAILED" for item in r["statement"]["imageAssets"] + r["statement"]["assets"])
+                for r in records
+            ),
+            "warningRecordCount": sum(bool(r["statement"]["warnings"]) for r in records),
+            "warningCount": sum(len(r["statement"]["warnings"]) for r in records),
             "publicReady": 0,
             "notes": [
                 "题面来自 p_content，不公开原始 HTML。",
                 "公式转换为尽量可读的 LaTeX；含 warnings 的题目必须人工复核。",
-                "图片暂保留为原站 Markdown 链接，后续可在非维护窗口按哈希缓存本地附件。",
-                "题面附件在发现后下载到对应题目目录的 assets/；失败项保留原始链接并记录 warning。",
+                "题面图片和附件在发现后下载到对应题目目录的 assets/；失败项保留原始链接并记录 warning。",
             ],
         },
     )
@@ -758,7 +966,14 @@ def build() -> int:
                 "hashMismatches": hash_mismatches,
                 "formulaCount": sum(r["statement"]["formulaCount"] for r in records),
                 "imageCount": sum(r["statement"]["imageCount"] for r in records),
+                "imageLocalCount": sum(r["statement"]["imageLocalCount"] for r in records),
                 "assetCount": sum(len(r["statement"]["assets"]) for r in records),
+                "resourceDownloadFailures": sum(
+                    sum(item["status"] == "DOWNLOAD_FAILED" for item in r["statement"]["imageAssets"] + r["statement"]["assets"])
+                    for r in records
+                ),
+                "warningRecordCount": sum(bool(r["statement"]["warnings"]) for r in records),
+                "warningCount": sum(len(r["statement"]["warnings"]) for r in records),
                 "publicReady": 0,
             },
             ensure_ascii=False,
