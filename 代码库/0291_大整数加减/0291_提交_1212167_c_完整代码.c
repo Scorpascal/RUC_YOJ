@@ -101,4 +101,4 @@ int main(void){
     }
     accu(temp,a1,b1,a,b,c1);    
     return 0;
-}//ZhangH
+}

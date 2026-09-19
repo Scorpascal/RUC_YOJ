@@ -1234,7 +1234,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/119.html",
+            "label": "下载代码文件",
+            "filename": "01_119.cpp",
+            "relativePath": "assets/01_119.cpp",
+            "status": "CACHED",
+            "bytes": 211,
+            "sha256": "fa0476eb51ee442f48158fcbefd8dfa4122788bd8af032a009061e7e4178f7ea",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -2003,7 +2016,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/132.html",
+            "label": "下载代码文件",
+            "filename": "01_132.cpp",
+            "relativePath": "assets/01_132.cpp",
+            "status": "CACHED",
+            "bytes": 418,
+            "sha256": "dc6ca5f0ff5c15669d847672c585c4dcd16a1535dad18463985c69383980fc00",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -2524,7 +2550,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/144.html",
+            "label": "下载代码文件",
+            "filename": "01_144.cpp",
+            "relativePath": "assets/01_144.cpp",
+            "status": "CACHED",
+            "bytes": 532,
+            "sha256": "5793b4bfe603948efab58595056ea38f3f864ba613ef74fea70da539f44a6f6e",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -3388,7 +3427,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/168.html",
+            "label": "下载代码文件",
+            "filename": "01_168.cpp",
+            "relativePath": "assets/01_168.cpp",
+            "status": "CACHED",
+            "bytes": 146,
+            "sha256": "903cf9fa9a6679cca0bfc7564df288b1cd8fee66e09293a504abfa48cb928eec",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -5379,7 +5431,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/261.html",
+            "label": "下载代码文件",
+            "filename": "01_261.cpp",
+            "relativePath": "assets/01_261.cpp",
+            "status": "CACHED",
+            "bytes": 169,
+            "sha256": "10393c0671a77c2ddb23ba83ac0dcc8fab7622e48cf63597cf1d87f8600b1459",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -5772,7 +5837,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/284.html",
+            "label": "下载代码文件",
+            "filename": "01_284.cpp",
+            "relativePath": "assets/01_284.cpp",
+            "status": "CACHED",
+            "bytes": 535,
+            "sha256": "a4dacabca3bcfd983505075d6dece5300e5051bd95ab76b3b6b2b96fb6d047e5",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -5827,8 +5905,23 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
-        "warnings": []
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/285.html",
+            "label": "下载代码文件",
+            "filename": "01_285.cpp",
+            "relativePath": "assets/01_285.cpp",
+            "status": "DOWNLOAD_FAILED",
+            "bytes": 0,
+            "sha256": "",
+            "sourceSha256": "",
+            "transform": "",
+            "error": "ValueError: 服务器返回 HTML 而非附件"
+          }
+        ],
+        "warnings": [
+          "附件下载失败: http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/285.html (ValueError: 服务器返回 HTML 而非附件)"
+        ]
       }
     },
     {
@@ -5882,8 +5975,23 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
-        "warnings": []
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/286.html",
+            "label": "下载代码文件",
+            "filename": "01_286.cpp",
+            "relativePath": "assets/01_286.cpp",
+            "status": "DOWNLOAD_FAILED",
+            "bytes": 0,
+            "sha256": "",
+            "sourceSha256": "",
+            "transform": "",
+            "error": "ValueError: 服务器返回 HTML 而非附件"
+          }
+        ],
+        "warnings": [
+          "附件下载失败: http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/286.html (ValueError: 服务器返回 HTML 而非附件)"
+        ]
       }
     },
     {
@@ -6121,8 +6229,8 @@
         "status": "RAW_CAPTURED",
         "submissionNo": "1212167",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "d9e4d220e08b54082bb71b3847e3f23f36f2ccc27e7544349e6ed4fbafae1814",
-        "recordedSha256": "d9e4d220e08b54082bb71b3847e3f23f36f2ccc27e7544349e6ed4fbafae1814",
+        "sourceSha256": "719936d6d4457fc065e745404b5fe0b134391029a4c765281742e363e6333b6f",
+        "recordedSha256": "719936d6d4457fc065e745404b5fe0b134391029a4c765281742e363e6333b6f",
         "sourceHashMatchesMetadata": true,
         "completeCode": "代码库/0291_大整数加减/0291_提交_1212167_c_完整代码.c",
         "directlySubmittableCode": "代码库/0291_大整数加减/0291_提交_1212167_c_可提交代码.c",
@@ -7320,7 +7428,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/391.html",
+            "label": "下载代码文件",
+            "filename": "01_391.cpp",
+            "relativePath": "assets/01_391.cpp",
+            "status": "CACHED",
+            "bytes": 686,
+            "sha256": "f8b1d607443a3cee6860f851d221ab09a6a875d5bc240d6a691eb1e9bb7f59ef",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -7485,7 +7606,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/421.html",
+            "label": "下载代码文件",
+            "filename": "01_421.cpp",
+            "relativePath": "assets/01_421.cpp",
+            "status": "CACHED",
+            "bytes": 582,
+            "sha256": "79638b80bfb9ebcbafed07831db99385fea5650ae700b89e5534d1908b81964d",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -8775,7 +8909,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/626.html",
+            "label": "下载代码文件",
+            "filename": "01_626.cpp",
+            "relativePath": "assets/01_626.cpp",
+            "status": "CACHED",
+            "bytes": 1148,
+            "sha256": "c8bc9b3d43191d3beeec6c3bb8adcfd702b72c32787e36cc5339dd582e033699",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -8830,7 +8977,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/627.html",
+            "label": "下载代码文件",
+            "filename": "01_627.cpp",
+            "relativePath": "assets/01_627.cpp",
+            "status": "CACHED",
+            "bytes": 2490,
+            "sha256": "2f4467e1015020662321d89e8e763676f5a025da97742d40a62d038e96f2806c",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -8885,7 +9045,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/628.html",
+            "label": "下载代码文件",
+            "filename": "01_628.cpp",
+            "relativePath": "assets/01_628.cpp",
+            "status": "CACHED",
+            "bytes": 622,
+            "sha256": "74e8fbd9c500876f8f3ddcb15272dd1880d4686880e752ff4bf8f347c0ff52e1",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -8940,7 +9113,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/629.html",
+            "label": "下载代码文件",
+            "filename": "01_629.cpp",
+            "relativePath": "assets/01_629.cpp",
+            "status": "CACHED",
+            "bytes": 622,
+            "sha256": "74e8fbd9c500876f8f3ddcb15272dd1880d4686880e752ff4bf8f347c0ff52e1",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -8995,7 +9181,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/630.html",
+            "label": "下载代码文件",
+            "filename": "01_630.cpp",
+            "relativePath": "assets/01_630.cpp",
+            "status": "CACHED",
+            "bytes": 735,
+            "sha256": "05002dbd9369740f9f9790375917660e3609abe571524a4b7ecb3d0a97869bbc",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -10032,7 +10231,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/685.html",
+            "label": "下载代码文件",
+            "filename": "01_685.cpp",
+            "relativePath": "assets/01_685.cpp",
+            "status": "CACHED",
+            "bytes": 3353,
+            "sha256": "b5d1b67cbac0899469a58226c2f832acafbe4cf47ab0d9300d31cf611801eecb",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -15551,7 +15763,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/999.html",
+            "label": "下载代码文件",
+            "filename": "01_999.cpp",
+            "relativePath": "assets/01_999.cpp",
+            "status": "CACHED",
+            "bytes": 8635,
+            "sha256": "4868de1e26371148cbc3c30d47ae1ca6762ad5032a7460ef0b5f7f5aa1173847",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -22307,7 +22532,20 @@
           }
         ],
         "imageLocalCount": 4,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/1286.html",
+            "label": "下载代码文件",
+            "filename": "01_1286.cpp",
+            "relativePath": "assets/01_1286.cpp",
+            "status": "CACHED",
+            "bytes": 2539,
+            "sha256": "0a6648a3deb3d3f498f4a0a5f933d8ca96bf59e452a4713cb1b4b2a853ccfc71",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -22586,7 +22824,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/1362.html",
+            "label": "下载代码文件",
+            "filename": "01_1362.cpp",
+            "relativePath": "assets/01_1362.cpp",
+            "status": "CACHED",
+            "bytes": 3025,
+            "sha256": "5260ce5ec7b437e856c2e58d5214a5018caba95fba6249ed1a00557a27918cc7",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -22641,7 +22892,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/1363.html",
+            "label": "下载代码文件",
+            "filename": "01_1363.cpp",
+            "relativePath": "assets/01_1363.cpp",
+            "status": "CACHED",
+            "bytes": 5788,
+            "sha256": "8e3bb25365a1942b8710fc1d81d0870467eee68a1e5e75da67f9696bcb2d3824",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -22696,7 +22960,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/1370.html",
+            "label": "下载代码文件",
+            "filename": "01_1370.cpp",
+            "relativePath": "assets/01_1370.cpp",
+            "status": "CACHED",
+            "bytes": 1714,
+            "sha256": "47764c20a78af8dfdebfeda0e254cf7f0df18c2f212bb178056819b153e94646",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -22751,7 +23028,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/1371.html",
+            "label": "下载代码文件",
+            "filename": "01_1371.cpp",
+            "relativePath": "assets/01_1371.cpp",
+            "status": "CACHED",
+            "bytes": 1612,
+            "sha256": "ffc1e7d8f10ebca19487cb9727f7b816212262888c5da2a098ebd5780e70e947",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -22806,7 +23096,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/1378.html",
+            "label": "下载代码文件",
+            "filename": "01_1378.cpp",
+            "relativePath": "assets/01_1378.cpp",
+            "status": "CACHED",
+            "bytes": 2227,
+            "sha256": "b66390e8574647ea4c6cc622c496d79fedc037b60a0edd63a87902c6ae988b6d",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -22861,7 +23164,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/1379.html",
+            "label": "下载代码文件",
+            "filename": "01_1379.cpp",
+            "relativePath": "assets/01_1379.cpp",
+            "status": "CACHED",
+            "bytes": 3934,
+            "sha256": "12f3447cf813ebe5a6bc9489cb8853f4bc719f6b95fca98be5e2800f110fae49",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -22971,7 +23287,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/1408.html",
+            "label": "下载代码文件",
+            "filename": "01_1408.cpp",
+            "relativePath": "assets/01_1408.cpp",
+            "status": "CACHED",
+            "bytes": 3264,
+            "sha256": "d80163d48813261b95759176a72792260b934f0f3f8d7edda98a53cf958c0423",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -23026,7 +23355,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/1409.html",
+            "label": "下载代码文件",
+            "filename": "01_1409.cpp",
+            "relativePath": "assets/01_1409.cpp",
+            "status": "CACHED",
+            "bytes": 5140,
+            "sha256": "03a36e3fa4ae4ed988a6d376fb07e49f162a9451eef4f1f1485ed4ea35bb1172",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -23081,7 +23423,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/1410.html",
+            "label": "下载代码文件",
+            "filename": "01_1410.cpp",
+            "relativePath": "assets/01_1410.cpp",
+            "status": "CACHED",
+            "bytes": 3459,
+            "sha256": "a75621a09dcf5291dd85285364fe969cd337b6654cce2c4b5cefc596958cc67b",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -23136,7 +23491,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/1411.html",
+            "label": "下载代码文件",
+            "filename": "01_1411.cpp",
+            "relativePath": "assets/01_1411.cpp",
+            "status": "CACHED",
+            "bytes": 6529,
+            "sha256": "ca53e3768fb2fa4e963151fc076779fc648174bf014c62cf99675a44afb3d3cc",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -26124,7 +26492,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/1560.html",
+            "label": "下载代码文件",
+            "filename": "01_1560.cpp",
+            "relativePath": "assets/01_1560.cpp",
+            "status": "CACHED",
+            "bytes": 552,
+            "sha256": "648ed8afe0716b675423bc647eb3ea6fda916913f1f4097edfa50f10c57a247e",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -26179,7 +26560,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/1561.html",
+            "label": "下载代码文件",
+            "filename": "01_1561.cpp",
+            "relativePath": "assets/01_1561.cpp",
+            "status": "CACHED",
+            "bytes": 291,
+            "sha256": "b2edc12b29f580803dd8dc00145f695da375bb550de59de1274fab0032df4353",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -26289,7 +26683,20 @@
         "imageUrls": [],
         "imageAssets": [],
         "imageLocalCount": 0,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/1563.html",
+            "label": "下载代码文件",
+            "filename": "01_1563.cpp",
+            "relativePath": "assets/01_1563.cpp",
+            "status": "CACHED",
+            "bytes": 254,
+            "sha256": "d9379d783dee08f8c1b61a40d1766f25ce8f849fe31afacdf37fec17da5b29f0",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },
@@ -26412,7 +26819,20 @@
           }
         ],
         "imageLocalCount": 1,
-        "assets": [],
+        "assets": [
+          {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/1576.html",
+            "label": "下载代码文件",
+            "filename": "01_1576.cpp",
+            "relativePath": "assets/01_1576.cpp",
+            "status": "CACHED",
+            "bytes": 160,
+            "sha256": "7586ac3f0fb4f54559b5712f74559173385a5f27d74d44c306835912296a0c10",
+            "sourceSha256": "",
+            "transform": "",
+            "error": ""
+          }
+        ],
         "warnings": []
       }
     },

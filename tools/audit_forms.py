@@ -1,0 +1,146 @@
+#!/usr/bin/env python3
+"""Audit observed YOJ submission forms without sending a request."""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+from collections import Counter
+from pathlib import Path
+from typing import Any
+
+from lxml import html
+
+
+ROOT = Path(__file__).resolve().parents[1]
+RAW_ROOT = ROOT / "代码库"
+DATA_PATH = ROOT / "data" / "problems.json"
+REPORT_PATH = ROOT / "staging" / "form-audit.json"
+
+
+def parse_snapshot(path: Path) -> Any:
+    raw = path.read_bytes()
+    for encoding in ("utf-8", "gb18030", "big5"):
+        try:
+            return html.fromstring(raw.decode(encoding))
+        except UnicodeDecodeError:
+            continue
+    return html.fromstring(raw.decode("utf-8", errors="replace"))
+
+
+def signature_for(form: Any, document: Any) -> dict[str, Any]:
+    hidden = []
+    for node in form.xpath('.//input[@type="hidden"]'):
+        name = node.get("name") or ""
+        value = node.get("value") or ""
+        # pid is a per-problem value; retain the field but not its changing ID.
+        if name == "pid":
+            value = "<problem_no>"
+        hidden.append((name, node.get("id") or "", value))
+    languages = []
+    for node in form.xpath('.//*[contains(concat(" ", normalize-space(@class), " "), " item ")]'):
+        languages.append(
+            (
+                node.get("data-value") or "",
+                node.get("data-mode") or "",
+                "active" in (node.get("class") or "").split(),
+            )
+        )
+    return {
+        "action": form.get("action") or "",
+        "method": (form.get("method") or "").lower(),
+        "enctype": form.get("enctype") or "",
+        "hidden": sorted(hidden),
+        "editorCount": len(document.xpath('//*[@id="editor"]')),
+        "fileInputCount": len(form.xpath('.//input[@type="file"]')),
+        "languageOptions": languages,
+        "activeLanguage": [item for item in languages if item[2]],
+        "contenteditableCount": len(document.xpath('//*[@contenteditable="true"]')),
+    }
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="离线审计 YOJ 提交表单契约")
+    parser.add_argument("--check", action="store_true", help="只运行并打印检查，不写报告")
+    args = parser.parse_args()
+
+    records = json.loads(DATA_PATH.read_text(encoding="utf-8"))["records"]
+    rows = []
+    signatures = Counter()
+    mismatches = []
+    for record in records:
+        raw_path = ROOT / str(record["archive"]["completeCode"])
+        detail_path = RAW_ROOT / raw_path.relative_to(RAW_ROOT).parent / (
+            raw_path.name.split("_完整代码", 1)[0].replace("_提交_", "_提交_") + "_详情.html"
+        )
+        # The metadata is authoritative for the detail HTML filename.
+        folder = RAW_ROOT / str(record["folder"])
+        metadata_files = list(folder.glob("*_元数据.json"))
+        metadata = json.loads(metadata_files[0].read_text(encoding="utf-8")) if metadata_files else {}
+        detail_name = str((metadata.get("files") or {}).get("submissionHtml") or "")
+        detail_path = folder / detail_name if detail_name else detail_path
+        document = parse_snapshot(detail_path)
+        forms = document.xpath('//form[@id="submit_code"]')
+        form = forms[0] if forms else None
+        signature = signature_for(form, document) if form is not None else {"form": "missing"}
+        signature_json = json.dumps(signature, ensure_ascii=False, sort_keys=True)
+        signature_hash = hashlib.sha256(signature_json.encode("utf-8")).hexdigest()
+        signatures[signature_hash] += 1
+        hidden_names = {item[0] for item in signature.get("hidden", [])}
+        active = signature.get("activeLanguage", [])
+        expected_language = str(record.get("language") or "")
+        if form is None or signature.get("editorCount") != 1 or not {"code", "language", "pid"}.issubset(hidden_names):
+            mismatches.append({"problemNo": record["problemNo"], "reason": "form_shape_not_observed"})
+        available_languages = {item[0] for item in signature.get("languageOptions", [])}
+        if expected_language not in available_languages:
+            mismatches.append(
+                {
+                    "problemNo": record["problemNo"],
+                    "reason": "archived_language_not_in_form_options",
+                    "available": sorted(available_languages),
+                    "archived": expected_language,
+                }
+            )
+        rows.append(
+            {
+                "problemNo": record["problemNo"],
+                "title": record["title"],
+                "detail": detail_path.relative_to(ROOT).as_posix(),
+                "signatureHash": signature_hash,
+                "signature": signature,
+                "archivedLanguage": expected_language,
+                "archivedLanguageAvailable": expected_language in available_languages,
+                "classification": "FORM_OBSERVED_ONE_EDITOR_HIDDEN_CODE" if form is not None else "FORM_NOT_FOUND",
+            }
+        )
+
+    report = {
+        "schemaVersion": 1,
+        "purpose": "offline observation only; no submission request sent",
+        "records": len(rows),
+        "uniqueFormSignatures": len(signatures),
+        "signatureCounts": dict(signatures),
+        "mismatches": mismatches,
+        "rows": rows,
+        "nextGate": "FORM_MAPPED requires one controlled dry-run and round-trip verification; the captured page defaults to cpp, so a real submission must explicitly set the selected language",
+    }
+    if not args.check:
+        REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+        REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(
+        json.dumps(
+            {
+                "records": len(rows),
+                "uniqueFormSignatures": len(signatures),
+                "mismatches": len(mismatches),
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -29,6 +29,11 @@ try:
 except ImportError as exc:  # pragma: no cover - exercised only on a bad host
     raise SystemExit("缺少 lxml；请先安装 lxml 后再运行 tools/build_initial.py") from exc
 
+try:
+    from normalize_cpp_headers import BITS_INCLUDE, PORTABLE_HEADERS
+except ImportError:  # pragma: no cover - supports importing this file as a package module
+    from tools.normalize_cpp_headers import BITS_INCLUDE, PORTABLE_HEADERS
+
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW_ROOT = ROOT / "代码库"
@@ -38,6 +43,7 @@ MANIFEST_PATH = RAW_ROOT / "AC抓取清单.json"
 SITE_BASE = "http://yoj.ruc.edu.cn/"
 SCHEMA_VERSION = 1
 MAX_ASSET_BYTES = 64 * 1024 * 1024
+CODE_ASSET_SUFFIXES = {".cc", ".cpp", ".cxx"}
 ASSET_EXTENSIONS = {
     ".7z",
     ".bin",
@@ -224,13 +230,20 @@ class StatementConverter:
     block_tags = {"p", "div", "section", "article", "blockquote", "figure", "figcaption"}
     list_tags = {"ul", "ol"}
 
-    def __init__(self, problem_url: str, asset_dir: Path | None = None, download_assets: bool = False) -> None:
+    def __init__(
+        self,
+        problem_url: str,
+        asset_dir: Path | None = None,
+        download_assets: bool = False,
+        asset_extension: str = "",
+    ) -> None:
         self.problem_url = problem_url or SITE_BASE
         self.images: list[str] = []
         self.formula_count = 0
         self.warnings: list[str] = []
         self.asset_dir = asset_dir
         self.download_assets = download_assets
+        self.asset_extension = asset_extension
         self.assets: list[dict[str, Any]] = []
         self.image_assets: list[dict[str, Any]] = []
         self._asset_by_url: dict[str, dict[str, Any]] = {}
@@ -301,16 +314,23 @@ class StatementConverter:
         if parsed.scheme.lower() in {"javascript", "data", "mailto"}:
             return False
         path = unquote(parsed.path).lower()
-        if not path or path.endswith((".html", ".htm")):
+        if not path:
+            return False
+        markers = ("/download/", "/downloadtk/", "/upload/", "/uploads/", "/data/")
+        if any(marker in path for marker in markers) or "下载" in label or "附件" in label:
+            return True
+        if path.endswith((".html", ".htm")):
             return False
         if Path(path).suffix in ASSET_EXTENSIONS:
             return True
-        markers = ("/download/", "/upload/", "/uploads/", "/data/")
-        return any(marker in path for marker in markers) or "下载" in label or "附件" in label
+        return False
 
     def asset_filename(self, source: str, index: int) -> str:
-        raw_name = Path(unquote(urlparse(source).path)).name or "resource"
+        parsed = urlparse(source)
+        raw_name = Path(unquote(parsed.path)).name or "resource"
         raw_name = re.sub(r"[^0-9A-Za-z一-龥._-]+", "_", raw_name).strip("._") or "resource"
+        if "/downloadtk/" in parsed.path.lower() and self.asset_extension and Path(raw_name).suffix.lower() in {".html", ".htm"}:
+            raw_name = f"{Path(raw_name).stem}{self.asset_extension}"
         return f"{index:02d}_{raw_name}"
 
     def materialize_asset(self, source: str, label: str) -> dict[str, Any]:
@@ -327,26 +347,42 @@ class StatementConverter:
             "status": "DETECTED_NOT_DOWNLOADED",
             "bytes": 0,
             "sha256": "",
+            "sourceSha256": "",
+            "transform": "",
             "error": "",
         }
         if self.download_assets and local_path is not None:
             try:
                 local_path.parent.mkdir(parents=True, exist_ok=True)
                 if local_path.is_file() and local_path.stat().st_size > 0:
-                    content_hash = source_file_hash(local_path)
+                    cached_content = local_path.read_bytes()
+                    materialized, transform = normalize_code_asset(filename, cached_content)
+                    if materialized != cached_content:
+                        local_path.write_bytes(materialized)
+                    content_hash = hashlib.sha256(materialized).hexdigest()
                     item["status"] = "CACHED"
-                    item["bytes"] = local_path.stat().st_size
+                    item["bytes"] = len(materialized)
                     item["sha256"] = content_hash
+                    if transform:
+                        item["sourceSha256"] = hashlib.sha256(cached_content).hexdigest()
+                        item["transform"] = transform
                 else:
                     request = Request(source, headers={"User-Agent": "RUC-YOJ-Archive/1.0"})
                     with urlopen(request, timeout=20) as response:  # nosec B310 - URL comes from captured problem HTML
+                        content_type = response.headers.get_content_type()
                         content = response.read(MAX_ASSET_BYTES + 1)
+                    if content_type == "text/html" or content.lstrip().lower().startswith((b"<!doctype html", b"<html", b"\xef\xbb\xbf<!doctype html")):
+                        raise ValueError("服务器返回 HTML 而非附件")
                     if len(content) > MAX_ASSET_BYTES:
                         raise ValueError(f"资源超过 {MAX_ASSET_BYTES // (1024 * 1024)} MiB 限制")
-                    local_path.write_bytes(content)
+                    source_content_hash = hashlib.sha256(content).hexdigest()
+                    materialized, transform = normalize_code_asset(filename, content)
+                    local_path.write_bytes(materialized)
                     item["status"] = "DOWNLOADED"
-                    item["bytes"] = len(content)
-                    item["sha256"] = hashlib.sha256(content).hexdigest()
+                    item["bytes"] = len(materialized)
+                    item["sha256"] = hashlib.sha256(materialized).hexdigest()
+                    item["sourceSha256"] = source_content_hash
+                    item["transform"] = transform
             except (OSError, ValueError, TimeoutError) as exc:
                 item["status"] = "DOWNLOAD_FAILED"
                 item["error"] = f"{exc.__class__.__name__}: {exc}"
@@ -613,6 +649,27 @@ def source_file_hash(path: Path) -> str:
     return digest.hexdigest()
 
 
+def normalize_code_asset(filename: str, content: bytes) -> tuple[bytes, str]:
+    """Make downloaded C++ templates usable by macOS Clang.
+
+    The downloaded response is still represented by ``sourceSha256``; the
+    file placed in the public statement asset directory is a deterministic
+    materialized candidate.  C templates are intentionally excluded because
+    the C++ header bundle is not valid C17.
+    """
+
+    if Path(filename).suffix.lower() not in CODE_ASSET_SUFFIXES:
+        return content, ""
+    try:
+        text = content.decode("utf-8")
+    except UnicodeDecodeError:
+        return content, ""
+    if not BITS_INCLUDE.search(text):
+        return content, ""
+    normalized = BITS_INCLUDE.sub(PORTABLE_HEADERS, text).encode("utf-8")
+    return normalized, "replace bits/stdc++.h with portable C++17 headers"
+
+
 def parse_html_snapshot(path: Path) -> Any:
     """Decode captured HTML before handing it to lxml.
 
@@ -660,6 +717,17 @@ def safe_language(value: Any, fallback: str) -> str:
     return value.replace("\n", " ").strip() or "unknown"
 
 
+def code_extension_for_language(value: Any) -> str:
+    language = str(value or "").strip().lower()
+    if language.startswith("cpp") or language in {"c++", "cc", "cxx"}:
+        return ".cpp"
+    if language == "c" or language.startswith("c-"):
+        return ".c"
+    if language.startswith("python"):
+        return ".py"
+    return ".txt"
+
+
 def get_problem_no(entry: dict[str, Any]) -> int:
     try:
         return int(str(entry.get("problemNo", "0")))
@@ -681,7 +749,13 @@ def build_statement(
     html_path = raw_dir / html_name
     folder = raw_dir.name
     asset_dir = PUBLIC_ROOT / folder / "assets"
-    converter = StatementConverter(problem_url, asset_dir=asset_dir, download_assets=download_assets)
+    archived_language = safe_language(problem.get("language"), code_meta.get("language") or entry.get("language"))
+    converter = StatementConverter(
+        problem_url,
+        asset_dir=asset_dir,
+        download_assets=download_assets,
+        asset_extension=code_extension_for_language(archived_language),
+    )
     status = "CONVERTED_FROM_HTML_SNAPSHOT"
     body = ""
     document = None
@@ -692,6 +766,15 @@ def build_statement(
         try:
             document = parse_html_snapshot(html_path)
             body = converter.convert(document)
+            # Download links for hidden-code/template files live outside the
+            # public statement body.  Collect only explicit resource links;
+            # normal navigation links are still ignored.
+            for link in document.xpath('//a[@href]'):
+                href = (link.get("href") or "").strip()
+                label = normalize_inline_text(text_content(link)).strip()
+                external_source = converter.absolute_url(href)
+                if href and converter.is_download_candidate(external_source, label):
+                    converter.materialize_asset(external_source, label)
             if not body:
                 status = "NEEDS_REVIEW"
         except (OSError, ValueError, html.ParserError) as exc:
@@ -733,7 +816,7 @@ def build_statement(
         f"- 原题地址：[{problem_url or '未记录'}]({problem_url or SITE_BASE})",
         f"- 题目时间限制（题面）：{time_limit}",
         f"- 题目内存限制（题面）：{memory_limit}",
-        f"- 归档语言：`{safe_language(problem.get('language'), code_meta.get('language') or entry.get('language'))}`",
+        f"- 归档语言：`{archived_language}`",
         f"- 本次 AC 实际耗时（提交详情）：{accepted_time}",
         f"- 本次 AC 实际内存占用（提交详情）：{accepted_memory}",
         "",
@@ -741,6 +824,12 @@ def build_statement(
         "",
     ]
     statement_text.append(body or "> 题面未能自动提取，请在后续同步中人工复核。")
+    if converter.assets:
+        statement_text.extend(["", "## 题面下载资源", ""])
+        for asset in converter.assets:
+            target = asset["relativePath"] if asset["status"] in {"DOWNLOADED", "CACHED"} else asset["url"]
+            label = normalize_inline_text(asset["label"]).strip() or asset["filename"]
+            statement_text.append(f"- [{label}]({target})（状态：`{asset['status']}`）")
     statement_text.extend(
         [
             "",
@@ -769,7 +858,7 @@ def build_statement(
             "time": time_limit,
             "memory": memory_limit,
         },
-        "language": safe_language(problem.get("language"), code_meta.get("language") or entry.get("language")),
+        "language": archived_language,
         "archive": {
             "status": "RAW_CAPTURED",
             "submissionNo": str(problem.get("submissionNo") or entry.get("submissionNo") or ""),
