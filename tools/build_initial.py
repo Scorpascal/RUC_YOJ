@@ -914,21 +914,22 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         f"- 原始归档时间：`{captured_at}`",
         f"- 已生成题面：`{len(records)}` 道",
         f"- 状态统计：`{dict(sorted(status_counts.items()))}`",
+        f"- 原始代码同步：完整代码 `{sum(bool(record['archive'].get('completeCode')) for record in records)}/{len(records)}`，可提交代码 `{sum(bool(record['archive'].get('directlySubmittableCode')) for record in records)}/{len(records)}`；两者均为原始归档，尚不代表已清洗或已完成提交形态核验",
         "- 题面中的时间/内存是题目页限制；每条归档记录的 `archive.acceptedRun` 单独保存某次 AC 的实测耗时/内存，二者不混用",
         "- 自动同步、提交测试、AC 复抓和 GitHub 更新：本轮未执行",
         "- 维护窗口：按 Method 约定，`23:55–00:10` 暂停网络操作；题面更新需要重新抓取并复核图片、公式和题面差异",
         "",
         "## 题目索引",
         "",
-        "| 题号 | 题目 | 题面（LaTeX/图片） | 原始完整代码 | 原始可提交代码 | 语言 | 状态 |",
+        "| 题号 | 题目 | 题面（LaTeX/图片） | 原始完整代码（同步状态） | 原始可提交代码（同步状态） | 语言 | 状态 |",
         "| ---: | --- | --- | --- | --- | --- | --- |",
     ]
     for record in records:
         statement = markdown_path(record["public"]["statement"])
         complete = record["archive"].get("completeCode")
         direct = record["archive"].get("directlySubmittableCode")
-        complete_link = f"[待清理]({markdown_path(complete)})" if complete else "—"
-        direct_link = f"[待核验]({markdown_path(direct)})" if direct else "—"
+        complete_link = f"[已同步（待清洗）]({markdown_path(complete)})" if complete else "未同步"
+        direct_link = f"[已同步（提交形态待核验）]({markdown_path(direct)})" if direct else "未同步"
         title = record["title"].replace("|", r"\|").replace("\n", " ")
         lines.append(
             f"| {record['problemNo']} | {title} | [查看题面]({statement}) | {complete_link} | {direct_link} | `{record['language']}` | `{record['public']['status']}` |"
