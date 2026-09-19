@@ -1,0 +1,3 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){int n,q;if(scanf("%d%d",&n,&q)!=2)return 0;vector<long long> bit(n+1);auto add=[&](int i,long long v){for(;i<=n;i+=i&-i)bit[i]+=v;};auto sum=[&](int i){long long r=0;for(;i>0;i-=i&-i)r+=bit[i];return r;};for(int i=1;i<=n;i++){long long x;scanf("%lld",&x);add(i,x);}while(q--){int op;scanf("%d",&op);if(op==1){int i;long long x;scanf("%d%lld",&i,&x);add(i,x);}else{int l,r;scanf("%d%d",&l,&r);printf("%lld\n",sum(r)-sum(l-1));}}return 0;}

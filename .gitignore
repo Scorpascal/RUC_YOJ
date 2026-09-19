@@ -1,0 +1,12 @@
+# 后台操作指南，不上传
+method/
+
+# 运行时产物
+.env
+.session/
+cookies.json
+__pycache__/
+*.pyc
+.venv/
+tmp/
+logs/

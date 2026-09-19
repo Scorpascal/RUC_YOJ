@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1231443",
+    "problemNo": "1247",
+    "title": "[RUC ICPC newbie contest] 除得尽吗",
+    "status": "Accepted",
+    "score": "100",
+    "time": "32 ms",
+    "memory": "4212 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1762097414",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1231443.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1247.html",
+    "listPage": 20,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1231443",
+    "problemNo": "1247",
+    "title": "[RUC ICPC newbie contest] 除得尽吗",
+    "status": "Accepted",
+    "score": "100",
+    "time": "32 ms",
+    "memory": "4212 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1762097414",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1231443.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1247.html",
+    "listPage": 20
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "3f6fd4b567e7102b066bc7308bb33ccb6932848e638b09f5faeed06b15d1bb21"
+  },
+  "files": {
+    "problemHtml": "1247_题目原文.html",
+    "submissionHtml": "1247_提交_1231443_详情.html",
+    "completeCode": "1247_提交_1231443_c_完整代码.c",
+    "directlySubmittableCode": "1247_提交_1231443_c_可提交代码.c"
+  },
+  "code": {
+    "language": "c",
+    "extension": ".c",
+    "bytesUtf8": 3373,
+    "sha256": "e53adcd6affb4924cd2aba250a2435a04dee9e70590c4a6647fd0a37f680b49f",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1247_提交_1231443_c_完整代码.c",
+      "directlySubmittableFile": "1247_提交_1231443_c_可提交代码.c",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

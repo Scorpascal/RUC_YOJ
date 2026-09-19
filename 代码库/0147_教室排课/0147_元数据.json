@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1177703",
+    "problemNo": "147",
+    "title": "教室排课",
+    "status": "Accepted",
+    "score": "100",
+    "time": "65 ms",
+    "memory": "504 KB",
+    "language": "cpp17-clang",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1760062390",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1177703.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/147.html",
+    "listPage": 28,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1177703",
+    "problemNo": "147",
+    "title": "教室排课",
+    "status": "Accepted",
+    "score": "100",
+    "time": "65 ms",
+    "memory": "504 KB",
+    "language": "cpp17-clang",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1760062390",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1177703.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/147.html",
+    "listPage": 28
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "c4c72928dd93e44398daf55cc7f3c2a05f422b267cd60afce6873a595e3a0f7b"
+  },
+  "files": {
+    "problemHtml": "0147_题目原文.html",
+    "submissionHtml": "0147_提交_1177703_详情.html",
+    "completeCode": "0147_提交_1177703_cpp17-clang_完整代码.cpp",
+    "directlySubmittableCode": "0147_提交_1177703_cpp17-clang_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp17-clang",
+    "extension": ".cpp",
+    "bytesUtf8": 2129,
+    "sha256": "9bb41453ae33227fca6f79919c7b040c97a4ab0a6d2b5782c4e08a00996e9824",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "0147_提交_1177703_cpp17-clang_完整代码.cpp",
+      "directlySubmittableFile": "0147_提交_1177703_cpp17-clang_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

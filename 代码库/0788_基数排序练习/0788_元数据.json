@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1173286",
+    "problemNo": "788",
+    "title": "基数排序练习",
+    "status": "Accepted",
+    "score": "100",
+    "time": "104 ms",
+    "memory": "1136 KB",
+    "language": "cpp",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1759755770",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1173286.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/788.html",
+    "listPage": 29,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1173286",
+    "problemNo": "788",
+    "title": "基数排序练习",
+    "status": "Accepted",
+    "score": "100",
+    "time": "104 ms",
+    "memory": "1136 KB",
+    "language": "cpp",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1759755770",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1173286.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/788.html",
+    "listPage": 29
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "800b64b2b5a13a521dec63deab77fe2855eaab875e11f86701ea3a76e94cd755"
+  },
+  "files": {
+    "problemHtml": "0788_题目原文.html",
+    "submissionHtml": "0788_提交_1173286_详情.html",
+    "completeCode": "0788_提交_1173286_cpp_完整代码.cpp",
+    "directlySubmittableCode": "0788_提交_1173286_cpp_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp",
+    "extension": ".cpp",
+    "bytesUtf8": 1902,
+    "sha256": "e6981985f3e9795143906dca37a87269e3fc29543c6a03c8b5e14b28f5580c67",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "0788_提交_1173286_cpp_完整代码.cpp",
+      "directlySubmittableFile": "0788_提交_1173286_cpp_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

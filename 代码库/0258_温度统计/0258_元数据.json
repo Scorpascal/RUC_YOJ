@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1280410",
+    "problemNo": "258",
+    "title": "温度统计",
+    "status": "Accepted",
+    "score": "100",
+    "time": "84 ms",
+    "memory": "628 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1764297164",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1280410.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/258.html",
+    "listPage": 16,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1280410",
+    "problemNo": "258",
+    "title": "温度统计",
+    "status": "Accepted",
+    "score": "100",
+    "time": "84 ms",
+    "memory": "628 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1764297164",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1280410.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/258.html",
+    "listPage": 16
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "4129fa835af75eea35576f49799f8eb11c0e9ef2d959f21560e1fccb06f8b726"
+  },
+  "files": {
+    "problemHtml": "0258_题目原文.html",
+    "submissionHtml": "0258_提交_1280410_详情.html",
+    "completeCode": "0258_提交_1280410_c_完整代码.c",
+    "directlySubmittableCode": "0258_提交_1280410_c_可提交代码.c"
+  },
+  "code": {
+    "language": "c",
+    "extension": ".c",
+    "bytesUtf8": 4679,
+    "sha256": "57563404d162954136eb769d33cae52f5631ba8270cfd3be7d8c985f5a6ef994",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "0258_提交_1280410_c_完整代码.c",
+      "directlySubmittableFile": "0258_提交_1280410_c_可提交代码.c",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

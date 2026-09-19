@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1225326",
+    "problemNo": "1413",
+    "title": "机器人复健指南（CSP 202506-2）",
+    "status": "Accepted",
+    "score": "100",
+    "time": "77 ms",
+    "memory": "632 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1761807041",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1225326.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1413.html",
+    "listPage": 21,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1225326",
+    "problemNo": "1413",
+    "title": "机器人复健指南（CSP 202506-2）",
+    "status": "Accepted",
+    "score": "100",
+    "time": "77 ms",
+    "memory": "632 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1761807041",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1225326.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1413.html",
+    "listPage": 21
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "3bff07c3b1dc8ee4f75fd30585b1a41486178313bb844003ef8c28f2113c3411"
+  },
+  "files": {
+    "problemHtml": "1413_题目原文.html",
+    "submissionHtml": "1413_提交_1225326_详情.html",
+    "completeCode": "1413_提交_1225326_c_完整代码.c",
+    "directlySubmittableCode": "1413_提交_1225326_c_可提交代码.c"
+  },
+  "code": {
+    "language": "c",
+    "extension": ".c",
+    "bytesUtf8": 1303,
+    "sha256": "2c944302c7ae1f7270a2df3276104ccd6532c9b460b8f2e3cfaa4c2f48f5a523",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1413_提交_1225326_c_完整代码.c",
+      "directlySubmittableFile": "1413_提交_1225326_c_可提交代码.c",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

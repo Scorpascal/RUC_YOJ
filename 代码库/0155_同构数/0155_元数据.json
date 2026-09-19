@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1189018",
+    "problemNo": "155",
+    "title": "同构数",
+    "status": "Accepted",
+    "score": "100",
+    "time": "78 ms",
+    "memory": "504 KB",
+    "language": "cpp",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1760516013",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1189018.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/155.html",
+    "listPage": 26,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1189018",
+    "problemNo": "155",
+    "title": "同构数",
+    "status": "Accepted",
+    "score": "100",
+    "time": "78 ms",
+    "memory": "504 KB",
+    "language": "cpp",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1760516013",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1189018.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/155.html",
+    "listPage": 26
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "899742d65018d4f20be5333b0d9c1f4a7b927701ccdd83a81622cbb42ea8c74d"
+  },
+  "files": {
+    "problemHtml": "0155_题目原文.html",
+    "submissionHtml": "0155_提交_1189018_详情.html",
+    "completeCode": "0155_提交_1189018_cpp_完整代码.cpp",
+    "directlySubmittableCode": "0155_提交_1189018_cpp_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp",
+    "extension": ".cpp",
+    "bytesUtf8": 259,
+    "sha256": "3b6e5197a6c869ab0aa3e1aacea39e8a119c66d58fcbaf4aa78f85e74f11587f",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "0155_提交_1189018_cpp_完整代码.cpp",
+      "directlySubmittableFile": "0155_提交_1189018_cpp_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

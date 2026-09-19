@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1229140",
+    "problemNo": "1429",
+    "title": "集体锻炼（CSP 202503-4）",
+    "status": "Accepted",
+    "score": "100",
+    "time": "2529 ms",
+    "memory": "8300 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1761932652",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1229140.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1429.html",
+    "listPage": 20,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1229140",
+    "problemNo": "1429",
+    "title": "集体锻炼（CSP 202503-4）",
+    "status": "Accepted",
+    "score": "100",
+    "time": "2529 ms",
+    "memory": "8300 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1761932652",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1229140.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1429.html",
+    "listPage": 20
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "3df4ec758bb1cb4479ee1457797d360e2a482d950e9d13342a3722cf9e5a243a"
+  },
+  "files": {
+    "problemHtml": "1429_题目原文.html",
+    "submissionHtml": "1429_提交_1229140_详情.html",
+    "completeCode": "1429_提交_1229140_c_完整代码.c",
+    "directlySubmittableCode": "1429_提交_1229140_c_可提交代码.c"
+  },
+  "code": {
+    "language": "c",
+    "extension": ".c",
+    "bytesUtf8": 2581,
+    "sha256": "99219546378e0539c78fab1fb7aff06ca591ff6b147725c6b9ded8611ac96dcc",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1429_提交_1229140_c_完整代码.c",
+      "directlySubmittableFile": "1429_提交_1229140_c_可提交代码.c",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

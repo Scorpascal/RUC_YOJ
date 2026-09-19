@@ -1,0 +1,3 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){ios::sync_with_stdio(false);cin.tie(nullptr);int n;if(!(cin>>n)) return 0;deque<int> q,mx;while(n--){int op;cin>>op;if(op==1){int x;cin>>x;q.push_back(x);while(!mx.empty()&&mx.back()<x)mx.pop_back();mx.push_back(x);}else if(op==0){int x=q.front();q.pop_front();if(!mx.empty()&&mx.front()==x)mx.pop_front();}else if(op==2){cout<<mx.front()<<endl;}}return 0;}

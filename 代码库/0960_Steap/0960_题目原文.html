@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="position: fixed; width: 100%; overflow: hidden; ">
+
+<head>
+  
+  <title>960.Steap 题目详情</title>
+  <meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=1200">
+<link href="/Public/static/cdnjs/layui/css/layui.css" rel="stylesheet">
+<link href="/Public/static/cdnjs/semantic-ui/2.4.1/semantic.css" rel="stylesheet">
+<link href="/Public/static/self/tomorrow.css" rel="stylesheet">
+<link href="/Public/static/self/mathjax.css" rel="stylesheet">
+<link href="/Public/static/self/style.css" rel="stylesheet">
+<link href="/Public/css/jquery.datatables.min.css" rel="stylesheet">
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?52b314b9a24d899e6427360feba551a2";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+<script src="/Public/js/unicourse.js"></script>
+
+
+  <script src="/Public/static/cdnjs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="/Public/static/cdnjs/layui/layui.js"></script>
+  <script src="/Public/static/cdnjs/semantic-ui/2.4.1/semantic.js"></script>
+
+</head>
+
+<body style="position: relative; margin-top: 49px; height: calc(100% - 49px); overflow-y: overlay; ">
+  <div class="ui basic modal">
+  <div class="ui icon header" id="modal_header">
+    <i class="ban icon"></i>
+    失败: AC本题才能添加标签
+  </div>
+  <div class="actions">
+    <div class="ui green ok inverted button">
+      <i class="checkmark icon"></i>
+      OK
+    </div>
+  </div>
+</div>
+  <div class="ui fixed borderless menu" style="position: fixed; height: 49px; ">
+  <div class="ui container">
+    <a class="header item" href="/"><span
+        style="font-family: 'Exo 2'; font-size: 1.5em; font-weight: 600; ">YOJ2.0</span></a>
+    <a class="item" href="/index.php/index/index/index.html"><i class="home icon"></i> 首页</a>
+    <a class="item" href="/index.php/index/problem/index.html"><i class="list icon"></i> 题库</a>
+    <!-- <a class="item" href="/class"><i class="comments icon"></i> 班级</a> -->
+    <a class="item" href="/index.php/index/contest/index.html"><i class="calendar icon"></i> 考试</a>
+    <a class="item" href="/index.php/index/submissions/index.html"><i class="tasks icon"></i> 评测</a>
+    <a class="item" href="/index.php/index/rank/index.html"><i class="signal icon"></i> 排名</a>
+    
+        <div class="ui simple dropdown item"><a href="/index.php/index/course/index.html" style="color: inherit; "><i class="building  icon"></i> 课程
+       <i class="dropdown icon"></i>
+      </a>
+      <div class="menu"><a href="/index.php/index/course/index.html" style="color: inherit; ">
+        </a>
+        <a class="item" href="/index.php/index/course/detail/cno/2025090sqk9bd0bg.html"><i class="book icon"></i>2025程序设计荣誉课程</a><a class="item" href="/index.php/index/course/detail/cno/202511ohpxm492ye.html"><i class="book icon"></i>2025-2026 程序设计荣誉课程</a><a class="item" href="/index.php/index/course/detail/cno/202609794p43vokg.html"><i class="book icon"></i>数据结构与算法I-强基</a>        <li class="divider"></li>
+        <a class="item" href="/index.php/index/course/index.html"><i class="rocket icon"></i>全部课程</a>
+      </div>
+    </div>
+        <!-- <a class="item" href="/ranklist"><i class="signal icon"></i> 排名</a>
+            <a class="item" href="/discussion/global"><i class="comments icon"></i> 讨论</a>
+            <a class="item" href="/help"><i class="help circle icon"></i> 帮助</a> -->
+    <!-- <% if (typeof contest !== 'undefined' && contest && contest.id) { %>
+              <a id="back_to_contest" class="item" href="<%= syzoj.utils.makeUrl(['contest', contest.id]) %>"><i class="arrow left icon"></i> 返回考试</a>
+            <% } %> -->
+    <div class="right menu">
+      <!-- <% if (user) { %> -->
+      <!-- <a href="<%= syzoj.utils.makeUrl(['user', user.id]) %>" style="color: inherit; ">
+              <div class="ui simple dropdown item">
+                <div class="menu">
+                  <a class="item" href="<%= syzoj.utils.makeUrl(['user', user.id, 'edit']) %>"><i class="edit icon"></i>修改资料</a>
+                  
+                    <a class="item" href="<%= syzoj.utils.makeUrl(['admin', 'info']) %>"><i class="settings icon"></i>后台管理</a>
+                  <a class="item" href-post="<%= syzoj.utils.makeUrl(['logout'], { url: req.originalUrl }) %>"><i class="power icon"></i>注销</a>
+                </div>
+              </div>
+              </a> -->
+      <!-- <% } else { %> -->
+      <div class="item">
+        <span>
+          
+        </span>
+       
+       
+
+        
+        
+                 <!-- <a></a> -->
+                 <div class="right menu">
+                  <a href="/index.php/index/user/detail.html" style="color: inherit; ">
+                    完成题目数：488 &nbsp 排名：3                  </a>
+                 </div>
+        <!-- <a href="/index.php/index/login/logout.html"></a> -->
+        <!-- <a class="ui primary button" style="margin-right: 0.5em; " href="/index.php/index/index/stats.html">
+            查看排名
+          </a>
+          <a class="ui primary button" style="margin-right: 0.5em; " href="/index.php/index/index/editpsw.html">
+            修改密码
+          </a>
+          <a class="ui primary button" style="margin-right: 0.5em; " href="/index.php/index/login/logout.html">
+            注销
+          </a> -->
+
+        <div class="right menu">
+
+          <a href="/index.php/index/user/detail.html" style="color: inherit; ">
+          </a>
+          <div class="ui simple dropdown item"><a href="/index.php/index/user/detail.html" style="color: inherit; ">
+            本人 <i class="dropdown icon"></i>
+            </a>
+            <div class="menu"><a href="/index.php/index/user/detail.html" style="color: inherit; ">
+              </a>
+
+
+              
+              
+              <a class="item" href="/index.php/index/user/detail.html"><i class="edit icon"></i>我的数据</a>
+
+              <a class="item" href="/index.php/index/user/edit.html"><i class="settings icon"></i>修改资料</a>
+              
+              <a class="item" href="/index.php/index/user/editpsw.html"><i class="settings icon"></i>修改密码</a>
+
+              <a class="item" href="/index.php/index/login/logout.html"><i class="power icon"></i>退出登录</a>
+            </div>
+          </div>
+
+
+        </div>
+        
+      </div>
+      <!-- <% } %> -->
+    </div>
+  </div>
+</div>
+
+
+  <div style="margin-top: 28px; ">
+    <div class="ui main container">
+
+
+      <style>
+        #languages-menu::-webkit-scrollbar,
+        #testcase-menu::-webkit-scrollbar {
+          width: 0px;
+          background: transparent;
+        }
+
+        #languages-menu .item::after,
+        #testcase-menu .item::after {
+          display: none;
+        }
+      </style>
+
+      <script>
+        window.pathLib = "/Public/cdn/package/cdnjs/";
+        window.pathSelfLib = "/Public/cdn/package/self/";
+
+        var originalConsoleWarn = console.warn;
+        console.warn = function (message) {
+          if (message.startsWith('Duplicate definition of module')) return;
+          originalConsoleWarn.apply(console, arguments);
+        };
+      </script>
+
+      <!-- Load monaco-editor -->
+      <script
+        src="/Public/cdn/package/cdnjs/monaco-editor/0.16.2/min/vs/loader.js"></script>
+      <script src="/Public/cdn/package/self/monaco-editor.js"></script>
+      <link rel="stylesheet" href="/Public/cdn/package/self/monaco-editor.css">
+
+
+
+
+      <div class="ui center aligned grid">
+        <div class="row">
+          <h1 class="ui header">
+
+            #<span id="problem_pno">960</span>. Steap
+          </h1>
+        </div>
+
+        <div class="row" style="margin-top: -15px">
+          <span class="ui label">内存限制：256MiB</span>
+          <span class="ui label">时间限制：1000 ms</span>
+
+          <span class="ui label">标准输入输出</span>
+
+        </div>
+
+
+        <div class="row" style="margin-top: -23px">
+          <span class="ui label">题目类型：传统</span>
+          <span class="ui label">评测方式：文本比较</span>
+        </div>
+
+
+        <div class="row" style="margin-top: -23px">
+          <span class="ui label">上传者：
+
+            <a href="#">20160053</a>
+
+          </span>
+
+        </div>
+
+      </div>
+      <div class="ui grid">
+        <div class="row">
+          <div class="column">
+            <div class="ui buttons">
+
+              <a class="small ui positive button" href="/index.php/index/submissions/index/pno/960.html">提交记录</a>
+                              讨论
+
+              </a>
+
+            </div>
+
+
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="column">
+            <h4 class="ui top attached block header">题目描述</h4>
+            <div class="ui bottom attached segment font-content" id='p_content'><p>steap是一种具有特殊结构的栈,在普通的栈结构的基础上,增加一个辅助栈,使栈结构拥有求最大值的作用. 本题需要你在不借助STL的基础上,自行实现一个steap结构,使之具有pop, push, 和get Max(求当前栈中的最大值)功能.</p><p>[输入格式]</p><p>第一行,一个整数n,表示操作次数</p><p>第1~n+1行,每行一到两个数字,第一个数字表示操作类型:</p><p>0-&gt;pop;&nbsp;</p><p>1 e-&gt;push(e);&nbsp;</p><p>2-&gt;getMax();</p><p>[输出格式]</p><p>x行,每行一个数,为每次getMax的结果.</p><p><br/></p><p>[输入样例]</p><p>5</p><p>1 7</p><p>1 4</p><p>2</p><p>0</p><p>2</p><p>[输出样例]</p><p>7</p><p>7</p><p>[样例解释]</p><p>依次在栈中压入7,4. 第一次getmax,结果为最大值7; pop操作弹出4, 再次getmax,最大值为7.</p><p><br/></p><p>[注意事项]</p><p>数据范围: 0&lt;n&lt;10001, 栈中均为int整数. 本题不会出现栈空的情况, 但实际应用中务必考虑此问题.</p><p>oj自动测评仅用于检查代码正确性.</p></div>
+          </div>
+        </div>
+        <div class="row" style="">
+          <div class="column">
+            <div class="ui top attached block header"><h4>题目标签</h4></div>
+            <div class="ui bottom attached segment font-content" id='p_label'>
+              <div class="ui mini right labeled left icon input">
+                <i class="tags icon"></i>
+                <input type="text" placeholder="键入标签..." id="tag_adding">
+                <a class="ui green tag label" id="tag_post">
+                  添加标签
+                </a>
+                <div class="ui button blue compact" id="tag_toggle">显示标签</div>
+              </div>
+                          </div>
+          </div>
+        </div>
+        <script type="text/javascript">
+        $('#tag_toggle').click(function (){
+          if($(this).hasClass('tag_shown')){
+            $(this).text('显示标签');
+            $(this).removeClass('tag_shown');
+          }
+          else{
+            $(this).text('隐藏标签');
+            $(this).addClass('tag_shown');
+          }
+          $('.tag_names').toggle();
+        });
+        $('#tag_post').click(function (){
+          var tag_name = $('#tag_adding').val();
+          if(tag_name === '')
+            return;
+          var pno = parseInt($('#problem_pno').text());
+          $.post("/index.php/index/problem/editProblemTag.html", {pno: pno, name: tag_name, action: 'add' },function(res){
+            console.log(res);
+            if(res.status=='success'){
+              var tag_DOM = '<div class="ui tag label grey tag_names"';
+              if($('#tag_toggle').hasClass('tag_shown'))
+                tag_DOM += '>';
+              else
+                tag_DOM += ' style="display: none;">';
+              tag_DOM += tag_name;
+              tag_DOM += '</div>';
+              $('#tag_toggle').parent().after(tag_DOM);
+              $('#tag_adding').val('');
+            }
+            else{
+              $('.ui.basic.modal').modal('show');
+              // TODO: 处理更多异常信息
+            }
+          });
+        });
+        </script>
+        <div class="row" style="height: 40px">
+          <div class="eleven wide column">
+          </div>
+          <div class="three wide column">
+      
+
+          </div>
+        </div>
+
+
+
+
+
+
+        <div class="row">
+          <div class="column">
+
+            <form action="/index.php/index/index/prob_submit.html" method="post" onsubmit="return submit_code()"
+              id="submit_code" enctype="multipart/form-data">
+
+              <input name="language" type="hidden" id="form">
+              <input name="code" type="hidden">
+              <input name="pid" type="hidden" value="960">
+              <div class="ui grid">
+                <div class="four wide column" style="margin-right: -25px; ">
+                  <div class="ui attached vertical fluid pointing menu" id="languages-menu"
+                    style="height: 370px; overflow-y: scroll; overflow-x: hidden; ">
+
+
+                    <a style="border-radius: 0; " class="item active" data-value="cpp" data-mode="cpp">
+                      C++
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">GCC 8.2.0
+                      </div>
+                    </a> 
+                    
+                    <a style="border-radius: 0; " class="item" data-value="python3" data-mode="python">
+                      Python 3
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">PyPy 6.0.0
+                        (Python 3.5.3)</div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="python2" data-mode="python">
+                      Python 2
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">PyPy 6.0.0
+                        (Python 2.7.13)</div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="c" data-mode="c">
+                      C
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">Clang
+                        7.0.1</div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="cpp11" data-mode="cpp">
+                      C++ 11
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">GCC 8.2.0
+                      </div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="cpp17" data-mode="cpp">
+                      C++ 17
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">GCC 8.2.0
+                      </div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="cpp-noilinux" data-mode="cpp">
+                      C++ (NOI)
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">GCC 4.8.4
+                        (NOILinux 1.4.1)</div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="cpp11-noilinux" data-mode="cpp">
+                      C++ 11 (NOI)
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">GCC 4.8.4
+                        (NOILinux 1.4.1)</div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="cpp11-clang" data-mode="cpp">
+                      C++ 11 (Clang)
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">Clang
+                        7.0.1</div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="cpp17-clang" data-mode="cpp">
+                      C++ 17 (Clang)
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">Clang
+                        7.0.1</div>
+                    </a>
+
+                    
+
+                    <a style="border-radius: 0; " class="item" data-value="c-noilinux" data-mode="c">
+                      C (NOI)
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">GCC 4.8.4
+                        (NOILinux 1.4.1)</div>
+                    </a>
+
+                    <!-- <a style="border-radius: 0; " class="item" data-value="csharp" data-mode="csharp">
+                      C#
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">Mono
+                        5.16.0.220</div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="java" data-mode="java">
+                      Java
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">OpenJDK
+                        10.0.2</div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="pascal" data-mode="pascal">
+                      Pascal
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">Free
+                        Pascal 3.0.4</div>
+                    </a>
+
+                    
+
+                    <a style="border-radius: 0; " class="item" data-value="nodejs" data-mode="javascript">
+                      Node.js
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">10.14.0
+                      </div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="ruby" data-mode="ruby">
+                      Ruby
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">2.5.1
+                      </div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="haskell" data-mode="haskell">
+                      Haskell
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">GHC 8.6.2
+                      </div>
+                    </a> -->
+
+                  </div>
+                </div>
+                <div class="twelve wide stretched column"
+                  style="position: relative; padding-left: 0; margin-left: calc(-1rem - 1px); width: calc(75% + 1rem + 13px) !important; ">
+                  <div id="editor"
+                    style="position: absolute; width: 100%; height: calc(100% - 28px); border: 1px solid #D4D4D5; overflow: hidden; "
+                    class="editor" contenteditable="true">
+
+                    <div class="ui active medium text loader">编辑器加载中 …</div>
+
+                  </div>
+                </div>
+                <div class="ui form" style="width: 100%; ">
+                  <div class="inline fields" style="width: 100%; ">
+                    <div class="field" style="margin: 0 auto;display:none; ">
+                      <label for="answer">或者，上传代码文件</label>
+                      <input type="file" id="answer" name="answer">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="ui center aligned vertical segment" style="padding-bottom: 0; ">
+                <button type="submit" class="ui labeled icon button"  id="btn-submit"><i class="ui edit icon"></i>提交</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+
+      <script type="text/javascript">
+        var editor;
+        window.onEditorLoaded(function () {
+          var editorElement = document.getElementById('editor');
+          var content = '';
+          content = "";
+          editor = window.createCodeEditor(editorElement, $('#languages-menu .item.active').data('mode'), content);
+          window.editor = editor;
+        });
+        var lastSubmitted = '';
+        function submit_code() {
+          $("#btn-submit").html('<i class="ui edit icon">正在提交...</i>')
+          $("#btn-submit").attr('disabled',true); 
+          if (!$('#submit_code input[name=answer]').val().trim() && !editor.getValue().trim()) return false;
+          $('#submit_code input[name=language]').val($('#languages-menu .item.active').data('value'));
+          lastSubmitted = editor.getValue();
+          $('#submit_code input[name=code]').val(editor.getValue());
+          return true;
+        }
+        $('#languages-menu')[0].scrollTop = $('#languages-menu .active')[0].offsetTop - $('#languages-menu')[0].firstElementChild.offsetTop;
+        $(function () {
+          $('#languages-menu .item').click(function () {
+            $(this)
+              .addClass('active')
+              .closest('.ui.menu')
+              .find('.item')
+              .not($(this))
+              .removeClass('active')
+              ;
+            monaco.editor.setModelLanguage(editor.getModel(), $(this).data('mode'));
+          });
+        });
+
+      </script>
+      
+
+
+    </div>
+  </div>
+  <script data-cfasync="false"
+    src="/Public/cdn/semantic.min.js"></script>
+  <script src="/Public/cdn/package/self/script.js?20170710"></script>
+  <div class="ui vertical footer segment">
+        <div class="ui center aligned container">
+          <span style="color: #999;">YOJ Powered by <a href="#" target="_blank">YOJ</a>.</span>
+          <span style="color: #999;">友情链接：
+            <a href="http://202.112.113.190:8080" target="_blank">YOJ旧版 </a>;
+            <!-- <a href="http://obe.ruc.edu.cn" target="_blank">Unicourse </a>; -->
+            <a href="https://syzoj.org/" target="_blank">SYZOJ </a>;
+            <a href="http://obe.ruc.edu.cn" target="_blank">OBE </a>
+            
+          </span>
+        </div>
+      </div>
+
+      
+</body>
+
+</html>

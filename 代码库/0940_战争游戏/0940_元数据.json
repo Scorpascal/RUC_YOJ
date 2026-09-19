@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1282280",
+    "problemNo": "940",
+    "title": "战争游戏",
+    "status": "Accepted",
+    "score": "100",
+    "time": "2305 ms",
+    "memory": "640 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1764421445",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1282280.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/940.html",
+    "listPage": 13,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1282280",
+    "problemNo": "940",
+    "title": "战争游戏",
+    "status": "Accepted",
+    "score": "100",
+    "time": "2305 ms",
+    "memory": "640 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1764421445",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1282280.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/940.html",
+    "listPage": 13
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "bde2725b22ba0e9fc82f16caece10b123d1921c234c68cf1b9805879053bfc07"
+  },
+  "files": {
+    "problemHtml": "0940_题目原文.html",
+    "submissionHtml": "0940_提交_1282280_详情.html",
+    "completeCode": "0940_提交_1282280_c_完整代码.c",
+    "directlySubmittableCode": "0940_提交_1282280_c_可提交代码.c"
+  },
+  "code": {
+    "language": "c",
+    "extension": ".c",
+    "bytesUtf8": 2723,
+    "sha256": "4132c97b7e798e46ddd604b6baa8401bcc9c61accff338a16ed1b243bbc66ea6",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "0940_提交_1282280_c_完整代码.c",
+      "directlySubmittableFile": "0940_提交_1282280_c_可提交代码.c",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

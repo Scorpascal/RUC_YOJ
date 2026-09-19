@@ -1,0 +1,2 @@
+#include <bits/stdc++.h>
+using namespace std;int main(){ios::sync_with_stdio(false);cin.tie(nullptr);int n;if(!(cin>>n))return 0;priority_queue<int,vector<int>,greater<int>>q;for(int i=0;i<n;i++){int a;cin>>a;if(a==0){int b;cin>>b;q.push(b);}else if(a==1){if(q.empty())cout<<-1<<endl;else{cout<<q.top()<<endl;q.pop();}}else if(a==2)cout<<q.size()<<endl;}return 0;}

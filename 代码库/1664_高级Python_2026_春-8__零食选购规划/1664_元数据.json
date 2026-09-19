@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1388111",
+    "problemNo": "1664",
+    "title": "高级Python 2026 春-8: 零食选购规划",
+    "status": "Accepted",
+    "score": "100",
+    "time": "306 ms",
+    "memory": "3060 KB",
+    "language": "python3",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1783891930",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1388111.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1664.html",
+    "listPage": 5,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1388111",
+    "problemNo": "1664",
+    "title": "高级Python 2026 春-8: 零食选购规划",
+    "status": "Accepted",
+    "score": "100",
+    "time": "306 ms",
+    "memory": "3060 KB",
+    "language": "python3",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1783891930",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1388111.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1664.html",
+    "listPage": 5
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "683db8010eed212345328fc8043a960c714c69550d896b17ed8c486dabf057e1"
+  },
+  "files": {
+    "problemHtml": "1664_题目原文.html",
+    "submissionHtml": "1664_提交_1388111_详情.html",
+    "completeCode": "1664_提交_1388111_python3_完整代码.py",
+    "directlySubmittableCode": "1664_提交_1388111_python3_可提交代码.py"
+  },
+  "code": {
+    "language": "python3",
+    "extension": ".py",
+    "bytesUtf8": 484,
+    "sha256": "351183ec5eb2037c39f7bd53ba5359243f9f7744e7223900f9dd231ba6a47ea5",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1664_提交_1388111_python3_完整代码.py",
+      "directlySubmittableFile": "1664_提交_1388111_python3_可提交代码.py",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

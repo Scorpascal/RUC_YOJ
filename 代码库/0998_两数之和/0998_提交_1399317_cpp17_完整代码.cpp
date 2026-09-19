@@ -1,0 +1,3 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){ios::sync_with_stdio(false);cin.tie(nullptr);int n; long long target;if(!(cin>>n>>target)) return 0; vector<long long>a(n); unordered_map<long long,int> pos; for(int i=0;i<n;i++) cin>>a[i]; for(int i=0;i<n;i++){long long need=target-a[i]; auto it=pos.find(need); if(it!=pos.end()){cout<<it->second<<" "<<i<<endl; return 0;} pos[a[i]]=i;} cout<<-1<<endl;}

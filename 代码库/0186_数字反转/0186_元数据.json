@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1277307",
+    "problemNo": "186",
+    "title": "数字反转",
+    "status": "Accepted",
+    "score": "100",
+    "time": "66 ms",
+    "memory": "508 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1764165245",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1277307.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/186.html",
+    "listPage": 16,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1277307",
+    "problemNo": "186",
+    "title": "数字反转",
+    "status": "Accepted",
+    "score": "100",
+    "time": "66 ms",
+    "memory": "508 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1764165245",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1277307.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/186.html",
+    "listPage": 16
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "96404b27e94a97566963531c5f8b291f2c3404635ee9f53efa72660636ef58cb"
+  },
+  "files": {
+    "problemHtml": "0186_题目原文.html",
+    "submissionHtml": "0186_提交_1277307_详情.html",
+    "completeCode": "0186_提交_1277307_c_完整代码.c",
+    "directlySubmittableCode": "0186_提交_1277307_c_可提交代码.c"
+  },
+  "code": {
+    "language": "c",
+    "extension": ".c",
+    "bytesUtf8": 480,
+    "sha256": "c79f8358d51113bb07514208523fe06941174bd2df5cfedfb03c691ae30271d1",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "0186_提交_1277307_c_完整代码.c",
+      "directlySubmittableFile": "0186_提交_1277307_c_可提交代码.c",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

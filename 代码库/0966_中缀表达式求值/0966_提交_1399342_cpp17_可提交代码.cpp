@@ -1,0 +1,3 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){ios::sync_with_stdio(false);cin.tie(nullptr);string s;if(!(cin>>s))return 0;const long long M=10000;int i=0,n=s.size();auto readnum=[&](){long long x=0;while(i<n&&isdigit((unsigned char)s[i])){x=(x*10+(s[i]-'0'))%M;i++;}return x;};long long term=readnum(),total=0;while(i<n){char op=s[i++];long long x=readnum();if(op=='*')term=term*x%M;else{total=(total+term)%M;term=x;}}cout<<(total+term)%M<<endl;return 0;}

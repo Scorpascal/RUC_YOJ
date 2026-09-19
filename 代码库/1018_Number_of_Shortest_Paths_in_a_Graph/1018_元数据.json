@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1399375",
+    "problemNo": "1018",
+    "title": "Number of Shortest Paths in a Graph",
+    "status": "Accepted",
+    "score": "100",
+    "time": "945 ms",
+    "memory": "6420 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1789813732",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399375.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1018.html",
+    "listPage": 2,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1399375",
+    "problemNo": "1018",
+    "title": "Number of Shortest Paths in a Graph",
+    "status": "Accepted",
+    "score": "100",
+    "time": "945 ms",
+    "memory": "6420 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1789813732",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399375.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1018.html",
+    "listPage": 2
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "f4137412cadb67bbd45d1b62485a462dbe412dbc7540c2b6611171a13251bfae"
+  },
+  "files": {
+    "problemHtml": "1018_题目原文.html",
+    "submissionHtml": "1018_提交_1399375_详情.html",
+    "completeCode": "1018_提交_1399375_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "1018_提交_1399375_cpp17_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 541,
+    "sha256": "11cbf78365cb682b73d10e50b9bbb9f7317fd379f54f0727f7d90a24ee263922",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1018_提交_1399375_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "1018_提交_1399375_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

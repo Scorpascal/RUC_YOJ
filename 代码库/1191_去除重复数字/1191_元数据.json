@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1399380",
+    "problemNo": "1191",
+    "title": "去除重复数字",
+    "status": "Accepted",
+    "score": "100",
+    "time": "85 ms",
+    "memory": "512 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1789813957",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399380.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1191.html",
+    "listPage": 2,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1399380",
+    "problemNo": "1191",
+    "title": "去除重复数字",
+    "status": "Accepted",
+    "score": "100",
+    "time": "85 ms",
+    "memory": "512 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1789813957",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399380.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1191.html",
+    "listPage": 2
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "8097df218d1c67fc10f0d01622da5e0a8b302d567228becd9e6e5812c615ac27"
+  },
+  "files": {
+    "problemHtml": "1191_题目原文.html",
+    "submissionHtml": "1191_提交_1399380_详情.html",
+    "completeCode": "1191_提交_1399380_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "1191_提交_1399380_cpp17_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 319,
+    "sha256": "1d9d461ce80163f5e1b86b5cb2f5207ec60681381274d05546918ab078ccc844",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1191_提交_1399380_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "1191_提交_1399380_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

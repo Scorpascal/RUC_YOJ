@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1396739",
+    "problemNo": "629",
+    "title": "STL容器练习（2）",
+    "status": "Accepted",
+    "score": "100",
+    "time": "15 ms",
+    "memory": "376 KB",
+    "language": "cpp11",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1789636015",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1396739.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/629.html",
+    "listPage": 4,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1396739",
+    "problemNo": "629",
+    "title": "STL容器练习（2）",
+    "status": "Accepted",
+    "score": "100",
+    "time": "15 ms",
+    "memory": "376 KB",
+    "language": "cpp11",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1789636015",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1396739.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/629.html",
+    "listPage": 4
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "8be971d522b24840944286ce6418aca2495ffb66ecdc87f1029466da902e2886"
+  },
+  "files": {
+    "problemHtml": "0629_题目原文.html",
+    "submissionHtml": "0629_提交_1396739_详情.html",
+    "completeCode": "0629_提交_1396739_cpp11_完整代码.cpp",
+    "directlySubmittableCode": "0629_提交_1396739_cpp11_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp11",
+    "extension": ".cpp",
+    "bytesUtf8": 982,
+    "sha256": "a0ca30c9b996b42035ed4d98ee544d937c5d9a199aa3f67f5f0cf18768e45a86",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "0629_提交_1396739_cpp11_完整代码.cpp",
+      "directlySubmittableFile": "0629_提交_1396739_cpp11_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

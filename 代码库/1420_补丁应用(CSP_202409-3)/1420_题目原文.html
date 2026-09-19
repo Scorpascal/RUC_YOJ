@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="position: fixed; width: 100%; overflow: hidden; ">
+
+<head>
+  
+  <title>1420.补丁应用（CSP 202409-3） 题目详情</title>
+  <meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=1200">
+<link href="/Public/static/cdnjs/layui/css/layui.css" rel="stylesheet">
+<link href="/Public/static/cdnjs/semantic-ui/2.4.1/semantic.css" rel="stylesheet">
+<link href="/Public/static/self/tomorrow.css" rel="stylesheet">
+<link href="/Public/static/self/mathjax.css" rel="stylesheet">
+<link href="/Public/static/self/style.css" rel="stylesheet">
+<link href="/Public/css/jquery.datatables.min.css" rel="stylesheet">
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?52b314b9a24d899e6427360feba551a2";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+<script src="/Public/js/unicourse.js"></script>
+
+
+  <script src="/Public/static/cdnjs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="/Public/static/cdnjs/layui/layui.js"></script>
+  <script src="/Public/static/cdnjs/semantic-ui/2.4.1/semantic.js"></script>
+
+</head>
+
+<body style="position: relative; margin-top: 49px; height: calc(100% - 49px); overflow-y: overlay; ">
+  <div class="ui basic modal">
+  <div class="ui icon header" id="modal_header">
+    <i class="ban icon"></i>
+    失败: AC本题才能添加标签
+  </div>
+  <div class="actions">
+    <div class="ui green ok inverted button">
+      <i class="checkmark icon"></i>
+      OK
+    </div>
+  </div>
+</div>
+  <div class="ui fixed borderless menu" style="position: fixed; height: 49px; ">
+  <div class="ui container">
+    <a class="header item" href="/"><span
+        style="font-family: 'Exo 2'; font-size: 1.5em; font-weight: 600; ">YOJ2.0</span></a>
+    <a class="item" href="/index.php/index/index/index.html"><i class="home icon"></i> 首页</a>
+    <a class="item" href="/index.php/index/problem/index.html"><i class="list icon"></i> 题库</a>
+    <!-- <a class="item" href="/class"><i class="comments icon"></i> 班级</a> -->
+    <a class="item" href="/index.php/index/contest/index.html"><i class="calendar icon"></i> 考试</a>
+    <a class="item" href="/index.php/index/submissions/index.html"><i class="tasks icon"></i> 评测</a>
+    <a class="item" href="/index.php/index/rank/index.html"><i class="signal icon"></i> 排名</a>
+    
+        <div class="ui simple dropdown item"><a href="/index.php/index/course/index.html" style="color: inherit; "><i class="building  icon"></i> 课程
+       <i class="dropdown icon"></i>
+      </a>
+      <div class="menu"><a href="/index.php/index/course/index.html" style="color: inherit; ">
+        </a>
+        <a class="item" href="/index.php/index/course/detail/cno/2025090sqk9bd0bg.html"><i class="book icon"></i>2025程序设计荣誉课程</a><a class="item" href="/index.php/index/course/detail/cno/202511ohpxm492ye.html"><i class="book icon"></i>2025-2026 程序设计荣誉课程</a><a class="item" href="/index.php/index/course/detail/cno/202609794p43vokg.html"><i class="book icon"></i>数据结构与算法I-强基</a>        <li class="divider"></li>
+        <a class="item" href="/index.php/index/course/index.html"><i class="rocket icon"></i>全部课程</a>
+      </div>
+    </div>
+        <!-- <a class="item" href="/ranklist"><i class="signal icon"></i> 排名</a>
+            <a class="item" href="/discussion/global"><i class="comments icon"></i> 讨论</a>
+            <a class="item" href="/help"><i class="help circle icon"></i> 帮助</a> -->
+    <!-- <% if (typeof contest !== 'undefined' && contest && contest.id) { %>
+              <a id="back_to_contest" class="item" href="<%= syzoj.utils.makeUrl(['contest', contest.id]) %>"><i class="arrow left icon"></i> 返回考试</a>
+            <% } %> -->
+    <div class="right menu">
+      <!-- <% if (user) { %> -->
+      <!-- <a href="<%= syzoj.utils.makeUrl(['user', user.id]) %>" style="color: inherit; ">
+              <div class="ui simple dropdown item">
+                <div class="menu">
+                  <a class="item" href="<%= syzoj.utils.makeUrl(['user', user.id, 'edit']) %>"><i class="edit icon"></i>修改资料</a>
+                  
+                    <a class="item" href="<%= syzoj.utils.makeUrl(['admin', 'info']) %>"><i class="settings icon"></i>后台管理</a>
+                  <a class="item" href-post="<%= syzoj.utils.makeUrl(['logout'], { url: req.originalUrl }) %>"><i class="power icon"></i>注销</a>
+                </div>
+              </div>
+              </a> -->
+      <!-- <% } else { %> -->
+      <div class="item">
+        <span>
+          
+        </span>
+       
+       
+
+        
+        
+                 <!-- <a></a> -->
+                 <div class="right menu">
+                  <a href="/index.php/index/user/detail.html" style="color: inherit; ">
+                    完成题目数：488 &nbsp 排名：3                  </a>
+                 </div>
+        <!-- <a href="/index.php/index/login/logout.html"></a> -->
+        <!-- <a class="ui primary button" style="margin-right: 0.5em; " href="/index.php/index/index/stats.html">
+            查看排名
+          </a>
+          <a class="ui primary button" style="margin-right: 0.5em; " href="/index.php/index/index/editpsw.html">
+            修改密码
+          </a>
+          <a class="ui primary button" style="margin-right: 0.5em; " href="/index.php/index/login/logout.html">
+            注销
+          </a> -->
+
+        <div class="right menu">
+
+          <a href="/index.php/index/user/detail.html" style="color: inherit; ">
+          </a>
+          <div class="ui simple dropdown item"><a href="/index.php/index/user/detail.html" style="color: inherit; ">
+            本人 <i class="dropdown icon"></i>
+            </a>
+            <div class="menu"><a href="/index.php/index/user/detail.html" style="color: inherit; ">
+              </a>
+
+
+              
+              
+              <a class="item" href="/index.php/index/user/detail.html"><i class="edit icon"></i>我的数据</a>
+
+              <a class="item" href="/index.php/index/user/edit.html"><i class="settings icon"></i>修改资料</a>
+              
+              <a class="item" href="/index.php/index/user/editpsw.html"><i class="settings icon"></i>修改密码</a>
+
+              <a class="item" href="/index.php/index/login/logout.html"><i class="power icon"></i>退出登录</a>
+            </div>
+          </div>
+
+
+        </div>
+        
+      </div>
+      <!-- <% } %> -->
+    </div>
+  </div>
+</div>
+
+
+  <div style="margin-top: 28px; ">
+    <div class="ui main container">
+
+
+      <style>
+        #languages-menu::-webkit-scrollbar,
+        #testcase-menu::-webkit-scrollbar {
+          width: 0px;
+          background: transparent;
+        }
+
+        #languages-menu .item::after,
+        #testcase-menu .item::after {
+          display: none;
+        }
+      </style>
+
+      <script>
+        window.pathLib = "/Public/cdn/package/cdnjs/";
+        window.pathSelfLib = "/Public/cdn/package/self/";
+
+        var originalConsoleWarn = console.warn;
+        console.warn = function (message) {
+          if (message.startsWith('Duplicate definition of module')) return;
+          originalConsoleWarn.apply(console, arguments);
+        };
+      </script>
+
+      <!-- Load monaco-editor -->
+      <script
+        src="/Public/cdn/package/cdnjs/monaco-editor/0.16.2/min/vs/loader.js"></script>
+      <script src="/Public/cdn/package/self/monaco-editor.js"></script>
+      <link rel="stylesheet" href="/Public/cdn/package/self/monaco-editor.css">
+
+
+
+
+      <div class="ui center aligned grid">
+        <div class="row">
+          <h1 class="ui header">
+
+            #<span id="problem_pno">1420</span>. 补丁应用（CSP 202409-3）
+          </h1>
+        </div>
+
+        <div class="row" style="margin-top: -15px">
+          <span class="ui label">内存限制：512MiB</span>
+          <span class="ui label">时间限制：1000 ms</span>
+
+          <span class="ui label">标准输入输出</span>
+
+        </div>
+
+
+        <div class="row" style="margin-top: -23px">
+          <span class="ui label">题目类型：传统</span>
+          <span class="ui label">评测方式：文本比较</span>
+        </div>
+
+
+        <div class="row" style="margin-top: -23px">
+          <span class="ui label">上传者：
+
+            <a href="#">20210129</a>
+
+          </span>
+
+        </div>
+
+      </div>
+      <div class="ui grid">
+        <div class="row">
+          <div class="column">
+            <div class="ui buttons">
+
+              <a class="small ui positive button" href="/index.php/index/submissions/index/pno/1420.html">提交记录</a>
+                              讨论
+
+              </a>
+
+            </div>
+
+
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="column">
+            <h4 class="ui top attached block header">题目描述</h4>
+            <div class="ui bottom attached segment font-content" id='p_content'><h2 style="box-sizing: border-box; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-weight: 500; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 30px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">题目背景</h2><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">西西艾弗岛运营公司的信息技术部门，需要协作开展程序开发和代码审查工作。他们的工作流程是这样的： 首先，开发者将代码复制一份，并修改代码副本，从而得到期望的代码。然后，开发者使用&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">diff</code>&nbsp;工具比较修改前后的代码的区别，并将其输出用邮件发送给代码审查者。审查者收到邮件后， 可以直接观察开发者作出的代码变更，并提出意见。反复进行后，当代码审查者对变更满意时， 会使用&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">patch</code>&nbsp;程序，将开发者提出的修改应用到原代码上，从而得到最终的代码。</p><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">现在，他们已经可以实现&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">diff</code>&nbsp;程序，但是需要你帮助他们实现这个&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">patch</code>&nbsp;程序。</p><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);"><code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">diff</code>&nbsp;的输出称作<span style="box-sizing: border-box; font-weight: 700;">补丁</span>。补丁由一个或多个块组成。每个块包含若干行文本，表示对文件的一处修改。 其中第一行以&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">@@</code>&nbsp;开头和结尾，形如：</p><pre class="language-none" tabindex="0" style="box-sizing: border-box; overflow: auto; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 0.9em; padding: 1em; line-height: 1.2em; color: rgb(57, 58, 52); word-break: normal; overflow-wrap: break-word; background-color: rgb(255, 255, 255); border: 1px solid rgb(221, 221, 221); border-radius: 4px; direction: ltr; word-spacing: normal; tab-size: 4; hyphens: none;">@@&nbsp;-NN,MM&nbsp;+nn,mm&nbsp;@@</pre><p><copy-button style="box-sizing: border-box;"></copy-button></p><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">其中&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">NN</code>、<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">MM</code>、<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">nn</code>、<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">mm</code>&nbsp;表示一个 1 至 9 之间的字符和零个或多个 0 至 9 之间的字符组成的字符串， 表示一个正整数。每块的第一行表示原文件和新文件的行号范围。其中，<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">NN</code>&nbsp;表示这处修改在原文件的第&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">NN</code>&nbsp;行开始（原文件的行号从 1 开始编号）；&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">MM</code>&nbsp;表示这处修改涉及原文件的&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">MM</code>&nbsp;行；<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">nn</code>&nbsp;表示这处修改，在修改后从新文件的第&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">nn</code>&nbsp;行开始；&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">mm</code>&nbsp;表示这处修改在修改后，在新文件中有&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">mm</code>&nbsp;行。</p><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">随后会有若干行文本，表示修改的内容。如果一行文本以&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">-</code>&nbsp;开头，表示这行文本在原文件中被删除； 如果一行文本以&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">+</code>&nbsp;开头，表示这行文本在新文件中被添加；如果一行文本以空格开头， 表示这行文本在原文件和新文件中都存在，未发生变化。因此，一个块中所有以&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">-</code>&nbsp;开头的行和以空格开头的行的总数，应该等于&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">MM</code>；一个块中所有以&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">+</code>&nbsp;开头的行和以空格开头的行的总数，应该等于&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">mm</code>。一处修改的描述中，可以适当包含若干不变的行， 以便确定修改的上下文。</p><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">例如，下面是一个块的内容：</p><pre class="language-none" tabindex="0" style="box-sizing: border-box; overflow: auto; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 0.9em; padding: 1em; line-height: 1.2em; color: rgb(57, 58, 52); word-break: normal; overflow-wrap: break-word; background-color: rgb(255, 255, 255); border: 1px solid rgb(221, 221, 221); border-radius: 4px; direction: ltr; word-spacing: normal; tab-size: 4; hyphens: none;">@@&nbsp;-1,4&nbsp;+1,5&nbsp;@@
+-a
++b
+&nbsp;1
++c
+&nbsp;2
+&nbsp;3</pre><p><copy-button style="box-sizing: border-box;"></copy-button></p><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">表示该处修改自原文件的第 1 行开始，共 4 行；修改后的文本从新文件的第 1 行开始，共 5 行。 此处修改前，原文件的内容应该为：</p><pre class="language-none" tabindex="0" style="box-sizing: border-box; overflow: auto; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 0.9em; padding: 1em; line-height: 1.2em; color: rgb(57, 58, 52); word-break: normal; overflow-wrap: break-word; background-color: rgb(255, 255, 255); border: 1px solid rgb(221, 221, 221); border-radius: 4px; direction: ltr; word-spacing: normal; tab-size: 4; hyphens: none;">a
+1
+2
+3</pre><p><copy-button style="box-sizing: border-box;"></copy-button></p><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">修改后，新文件的内容应该为：</p><pre class="language-none" tabindex="0" style="box-sizing: border-box; overflow: auto; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 0.9em; padding: 1em; line-height: 1.2em; color: rgb(57, 58, 52); word-break: normal; overflow-wrap: break-word; background-color: rgb(255, 255, 255); border: 1px solid rgb(221, 221, 221); border-radius: 4px; direction: ltr; word-spacing: normal; tab-size: 4; hyphens: none;">b
+1
+c
+2
+3</pre><p><copy-button style="box-sizing: border-box;"></copy-button></p><h2 style="box-sizing: border-box; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-weight: 500; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 30px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">题目描述</h2><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">但是，<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">patch</code>&nbsp;程序在处理&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">diff</code>&nbsp;的输出时，对格式的要求可以较为宽松。例如， 它可以允许块内有注释，也可以允许块的行号与实际原文件的行号不匹配。这是因为， 在实际应用中，<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">diff</code>&nbsp;生成后，源文件可能经历了其它的变更，导致行号出现了挪动。<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">patch</code>&nbsp;程序的具体工作过程是：</p><ol style="box-sizing: border-box; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);" class=" list-paddingleft-2"><li><p>读取全部输入，将&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">#</code>&nbsp;开头的行视为注释，并移除；</p></li><li><p>寻找&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">@</code>&nbsp;开头的行，并将该行至下一个&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">@</code>&nbsp;开头的行（或文本结尾）之间的内容视为一个块，如果没有找到&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">@</code>&nbsp;开头的行，则认为补丁损坏；</p></li><li><p>从前到后依次对每个块：</p></li><li><p>解析第一行，检查其格式是否正确，如果不正确，则认为补丁损坏；</p></li><li><p>解析出&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">NN</code>、<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">MM</code>、<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">nn</code>、<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">mm</code>，其中忽略&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">nn</code>；</p></li><li><p>如果这个块不是第一个块，检查&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">NN</code>&nbsp;是否不小于前一个块的&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">NN</code>&nbsp;与&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">MM</code>&nbsp;之和，如果不是，则认为补丁损坏；</p></li><li><p>解析其余行，如果这些行中存在不是以&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">-</code>、<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">+</code>、空格开头的行，则认为补丁损坏；</p></li><li><p>将块中所有以&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">-</code>&nbsp;开头的行和以空格开头的行提取出来，作为原文件的内容片段；</p></li><li><p>检查原文件的内容片段的行数是否与&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">MM</code>&nbsp;一致，如果不一致，则认为补丁损坏；</p></li><li><p>将块中所有以&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">+</code>&nbsp;开头的行和以空格开头的行提取出来，作为新文件的内容片段；</p></li><li><p>检查新文件的内容片段的行数是否与&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">mm</code>&nbsp;一致，如果不一致，则认为补丁损坏；</p></li><li><p>如果所有块都通过了检查，则对于每个块：</p></li><li><p>检查是否存在绝对值小于&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">MM</code>&nbsp;的整数&nbsp;<span style="box-sizing: border-box;"><span class="katex" style="box-sizing: border-box; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 1.21em; line-height: 1.2; font-family: KaTeX_Main, &quot;Times New Roman&quot;, serif; text-rendering: auto;"><span class="katex-mathml" style="box-sizing: border-box; border: 0px; clip: rect(1px, 1px, 1px, 1px); height: 1px; overflow: hidden; padding: 0px; position: absolute; width: 1px;"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi></mrow></semantics></math></span><span class="katex-html" aria-hidden="true" style="box-sizing: border-box; border-color: currentcolor;"><span class="base" style="box-sizing: border-box; border-color: currentcolor; position: relative; text-wrap-mode: nowrap; width: min-content; display: inline-block;"><span class="strut" style="box-sizing: border-box; border-color: currentcolor; display: inline-block; height: 0.6944em;"></span><span class="mord mathnormal" style="box-sizing: border-box; border-color: currentcolor; font-family: KaTeX_Math; font-style: italic; margin-right: 0.0379em;">δ</span></span></span></span></span>，使得自原文件的第&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">NN</code>&nbsp;+&nbsp;<span style="box-sizing: border-box;"><span class="katex" style="box-sizing: border-box; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 1.21em; line-height: 1.2; font-family: KaTeX_Main, &quot;Times New Roman&quot;, serif; text-rendering: auto;"><span class="katex-mathml" style="box-sizing: border-box; border: 0px; clip: rect(1px, 1px, 1px, 1px); height: 1px; overflow: hidden; padding: 0px; position: absolute; width: 1px;"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi></mrow></semantics></math></span><span class="katex-html" aria-hidden="true" style="box-sizing: border-box; border-color: currentcolor;"><span class="base" style="box-sizing: border-box; border-color: currentcolor; position: relative; text-wrap-mode: nowrap; width: min-content; display: inline-block;"><span class="strut" style="box-sizing: border-box; border-color: currentcolor; display: inline-block; height: 0.6944em;"></span><span class="mord mathnormal" style="box-sizing: border-box; border-color: currentcolor; font-family: KaTeX_Math; font-style: italic; margin-right: 0.0379em;">δ</span></span></span></span></span>&nbsp;行开始的&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">MM</code>&nbsp;行， 与块的原文件内容片段完全匹配。如果不是第一个块，还需满足&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">NN</code>&nbsp;+&nbsp;<span style="box-sizing: border-box;"><span class="katex" style="box-sizing: border-box; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 1.21em; line-height: 1.2; font-family: KaTeX_Main, &quot;Times New Roman&quot;, serif; text-rendering: auto;"><span class="katex-mathml" style="box-sizing: border-box; border: 0px; clip: rect(1px, 1px, 1px, 1px); height: 1px; overflow: hidden; padding: 0px; position: absolute; width: 1px;"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi></mrow></semantics></math></span><span class="katex-html" aria-hidden="true" style="box-sizing: border-box; border-color: currentcolor;"><span class="base" style="box-sizing: border-box; border-color: currentcolor; position: relative; text-wrap-mode: nowrap; width: min-content; display: inline-block;"><span class="strut" style="box-sizing: border-box; border-color: currentcolor; display: inline-block; height: 0.6944em;"></span><span class="mord mathnormal" style="box-sizing: border-box; border-color: currentcolor; font-family: KaTeX_Math; font-style: italic; margin-right: 0.0379em;">δ</span></span></span></span></span>&nbsp;不小于前一个块的&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">NN</code>&nbsp;与&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">MM</code>&nbsp;之和，即满足每块对应的原文区域没有重叠。如果不存在这样的&nbsp;<span style="box-sizing: border-box;"><span class="katex" style="box-sizing: border-box; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 1.21em; line-height: 1.2; font-family: KaTeX_Main, &quot;Times New Roman&quot;, serif; text-rendering: auto;"><span class="katex-mathml" style="box-sizing: border-box; border: 0px; clip: rect(1px, 1px, 1px, 1px); height: 1px; overflow: hidden; padding: 0px; position: absolute; width: 1px;"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi></mrow></semantics></math></span><span class="katex-html" aria-hidden="true" style="box-sizing: border-box; border-color: currentcolor;"><span class="base" style="box-sizing: border-box; border-color: currentcolor; position: relative; text-wrap-mode: nowrap; width: min-content; display: inline-block;"><span class="strut" style="box-sizing: border-box; border-color: currentcolor; display: inline-block; height: 0.6944em;"></span><span class="mord mathnormal" style="box-sizing: border-box; border-color: currentcolor; font-family: KaTeX_Math; font-style: italic; margin-right: 0.0379em;">δ</span></span></span></span></span>，则认为补丁损坏；</p></li><li><p>如果存在多个这样的&nbsp;<span style="box-sizing: border-box;"><span class="katex" style="box-sizing: border-box; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 1.21em; line-height: 1.2; font-family: KaTeX_Main, &quot;Times New Roman&quot;, serif; text-rendering: auto;"><span class="katex-mathml" style="box-sizing: border-box; border: 0px; clip: rect(1px, 1px, 1px, 1px); height: 1px; overflow: hidden; padding: 0px; position: absolute; width: 1px;"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi></mrow></semantics></math></span><span class="katex-html" aria-hidden="true" style="box-sizing: border-box; border-color: currentcolor;"><span class="base" style="box-sizing: border-box; border-color: currentcolor; position: relative; text-wrap-mode: nowrap; width: min-content; display: inline-block;"><span class="strut" style="box-sizing: border-box; border-color: currentcolor; display: inline-block; height: 0.6944em;"></span><span class="mord mathnormal" style="box-sizing: border-box; border-color: currentcolor; font-family: KaTeX_Math; font-style: italic; margin-right: 0.0379em;">δ</span></span></span></span></span>，则取绝对值最小的那个，如果仍然存在多个，则取最小的那个；</p></li><li><p>将原文件的第&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">NN</code>&nbsp;+&nbsp;<span style="box-sizing: border-box;"><span class="katex" style="box-sizing: border-box; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 1.21em; line-height: 1.2; font-family: KaTeX_Main, &quot;Times New Roman&quot;, serif; text-rendering: auto;"><span class="katex-mathml" style="box-sizing: border-box; border: 0px; clip: rect(1px, 1px, 1px, 1px); height: 1px; overflow: hidden; padding: 0px; position: absolute; width: 1px;"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi></mrow></semantics></math></span><span class="katex-html" aria-hidden="true" style="box-sizing: border-box; border-color: currentcolor;"><span class="base" style="box-sizing: border-box; border-color: currentcolor; position: relative; text-wrap-mode: nowrap; width: min-content; display: inline-block;"><span class="strut" style="box-sizing: border-box; border-color: currentcolor; display: inline-block; height: 0.6944em;"></span><span class="mord mathnormal" style="box-sizing: border-box; border-color: currentcolor; font-family: KaTeX_Math; font-style: italic; margin-right: 0.0379em;">δ</span></span></span></span></span>&nbsp;行开始的&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">MM</code>&nbsp;行替换为块的新文件内容片段；</p></li><li><p>将该块和此后的所有块的&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">NN</code>&nbsp;加上&nbsp;<span style="box-sizing: border-box;"><span class="katex" style="box-sizing: border-box; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 1.21em; line-height: 1.2; font-family: KaTeX_Main, &quot;Times New Roman&quot;, serif; text-rendering: auto;"><span class="katex-mathml" style="box-sizing: border-box; border: 0px; clip: rect(1px, 1px, 1px, 1px); height: 1px; overflow: hidden; padding: 0px; position: absolute; width: 1px;"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi></mrow></semantics></math></span><span class="katex-html" aria-hidden="true" style="box-sizing: border-box; border-color: currentcolor;"><span class="base" style="box-sizing: border-box; border-color: currentcolor; position: relative; text-wrap-mode: nowrap; width: min-content; display: inline-block;"><span class="strut" style="box-sizing: border-box; border-color: currentcolor; display: inline-block; height: 0.6944em;"></span><span class="mord mathnormal" style="box-sizing: border-box; border-color: currentcolor; font-family: KaTeX_Math; font-style: italic; margin-right: 0.0379em;">δ</span></span></span></span></span>。</p></li></ol><h2 style="box-sizing: border-box; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-weight: 500; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 30px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">输入格式</h2><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">从标准输入读入数据。</p><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">输入的第一行包含一个正整数&nbsp;<span style="box-sizing: border-box;"><span class="katex" style="box-sizing: border-box; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 1.21em; line-height: 1.2; font-family: KaTeX_Main, &quot;Times New Roman&quot;, serif; text-rendering: auto;"><span class="katex-mathml" style="box-sizing: border-box; border: 0px; clip: rect(1px, 1px, 1px, 1px); height: 1px; overflow: hidden; padding: 0px; position: absolute; width: 1px;"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span><span class="katex-html" aria-hidden="true" style="box-sizing: border-box; border-color: currentcolor;"><span class="base" style="box-sizing: border-box; border-color: currentcolor; position: relative; text-wrap-mode: nowrap; width: min-content; display: inline-block;"><span class="strut" style="box-sizing: border-box; border-color: currentcolor; display: inline-block; height: 0.4306em;"></span><span class="mord mathnormal" style="box-sizing: border-box; border-color: currentcolor; font-family: KaTeX_Math; font-style: italic;">n</span></span></span></span></span>，表示原文件的总行数。</p><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">接下来的&nbsp;<span style="box-sizing: border-box;"><span class="katex" style="box-sizing: border-box; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 1.21em; line-height: 1.2; font-family: KaTeX_Main, &quot;Times New Roman&quot;, serif; text-rendering: auto;"><span class="katex-mathml" style="box-sizing: border-box; border: 0px; clip: rect(1px, 1px, 1px, 1px); height: 1px; overflow: hidden; padding: 0px; position: absolute; width: 1px;"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span><span class="katex-html" aria-hidden="true" style="box-sizing: border-box; border-color: currentcolor;"><span class="base" style="box-sizing: border-box; border-color: currentcolor; position: relative; text-wrap-mode: nowrap; width: min-content; display: inline-block;"><span class="strut" style="box-sizing: border-box; border-color: currentcolor; display: inline-block; height: 0.4306em;"></span><span class="mord mathnormal" style="box-sizing: border-box; border-color: currentcolor; font-family: KaTeX_Math; font-style: italic;">n</span></span></span></span></span>&nbsp;行文本，表示原文件的内容。</p><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">接下来的若干行，表示待应用的补丁，其中补丁可能是损坏的。</p><h2 style="box-sizing: border-box; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-weight: 500; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 30px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">输出格式</h2><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">输出到标准输出。</p><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">输出应用补丁后的文件内容；如果补丁损坏，输出&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">Patch is damaged.</code>。</p><h2 style="box-sizing: border-box; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-weight: 500; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 30px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">样例1输入</h2><pre class="language-plain" tabindex="0" style="box-sizing: border-box; overflow: auto; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 0.9em; padding: 1em; line-height: 1.2em; color: rgb(57, 58, 52); word-break: normal; overflow-wrap: break-word; background-color: rgb(255, 255, 255); border: 1px solid rgb(221, 221, 221); border-radius: 4px; direction: ltr; word-spacing: normal; tab-size: 4; hyphens: none;">7
+bbb
+a
+1
+2
+3
+4
+5
+dummy
+@@&nbsp;-1,4&nbsp;+1,5&nbsp;@@
+-a
++b
+&nbsp;1
++c
+&nbsp;2
+&nbsp;3
+@@&nbsp;-6,2&nbsp;+6,2&nbsp;@@
+-4
++6
+&nbsp;5</pre><p><copy-button style="box-sizing: border-box;"></copy-button></p><h2 style="box-sizing: border-box; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-weight: 500; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 30px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">样例1输出</h2><pre class="language-plain" tabindex="0" style="box-sizing: border-box; overflow: auto; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 0.9em; padding: 1em; line-height: 1.2em; color: rgb(57, 58, 52); word-break: normal; overflow-wrap: break-word; background-color: rgb(255, 255, 255); border: 1px solid rgb(221, 221, 221); border-radius: 4px; direction: ltr; word-spacing: normal; tab-size: 4; hyphens: none;">bbb
+b
+1
+c
+2
+3
+6
+5</pre><p><copy-button style="box-sizing: border-box;"></copy-button></p><h2 style="box-sizing: border-box; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-weight: 500; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 30px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">样例1解释</h2><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">输入原始文本共有 7 行，之后开始解析补丁。遇到的第一个以&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">@</code>&nbsp;开头的行是&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">@@ -1,4 +1,5 @@</code>，表示第一个块内容的开始，因此忽略此前的&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">dummy</code>&nbsp;行，即输入的第 8 行。第一个块即为题目描述中的块， 该块的原始内容与输入的原始内容的第 2 行到第 5 行相同，因此对应将这些行替换，且将该块及其后的所有块的行号加上 1。所以此时输出&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">bbb</code>（未包括于第一个块）、<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">b</code>、<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">1</code>、<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">c</code>、<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">2</code>、<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">3</code>。第二个块的头部标识该块起始于原始文件的第 6 行，加上 1 为第 7 行，该块的原始内容共两行，分别为&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">4</code>、<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">5</code>。这一内容与原始文件的第 6 行、第 7 行相同，因此对应将这两行替换，且将该块及其后的所有块的行号减去 1。所以此时接下来输出&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">6</code>、<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">5</code>。</p><h2 style="box-sizing: border-box; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-weight: 500; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 30px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">样例2输入</h2><pre class="language-plain" tabindex="0" style="box-sizing: border-box; overflow: auto; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 0.9em; padding: 1em; line-height: 1.2em; color: rgb(57, 58, 52); word-break: normal; overflow-wrap: break-word; background-color: rgb(255, 255, 255); border: 1px solid rgb(221, 221, 221); border-radius: 4px; direction: ltr; word-spacing: normal; tab-size: 4; hyphens: none;">7
+bbb
+a
+1
+2
+3
+4
+5
+dummy</pre><p><copy-button style="box-sizing: border-box;"></copy-button></p><h2 style="box-sizing: border-box; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-weight: 500; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 30px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">样例2输出</h2><pre class="language-plain" tabindex="0" style="box-sizing: border-box; overflow: auto; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 0.9em; padding: 1em; line-height: 1.2em; color: rgb(57, 58, 52); word-break: normal; overflow-wrap: break-word; background-color: rgb(255, 255, 255); border: 1px solid rgb(221, 221, 221); border-radius: 4px; direction: ltr; word-spacing: normal; tab-size: 4; hyphens: none;">Patch&nbsp;is&nbsp;damaged.</pre><p><copy-button style="box-sizing: border-box;"></copy-button></p><h2 style="box-sizing: border-box; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-weight: 500; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 30px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">样例2解释</h2><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">输入原始文本共有 7 行，之后开始解析补丁。补丁中不含有有效的块，因此为非法补丁。</p><h2 style="box-sizing: border-box; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-weight: 500; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 30px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">样例3输入</h2><pre class="language-plain" tabindex="0" style="box-sizing: border-box; overflow: auto; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 0.9em; padding: 1em; line-height: 1.2em; color: rgb(57, 58, 52); word-break: normal; overflow-wrap: break-word; background-color: rgb(255, 255, 255); border: 1px solid rgb(221, 221, 221); border-radius: 4px; direction: ltr; word-spacing: normal; tab-size: 4; hyphens: none;">8
+bbb
+a
+1
+2
+3
+4
+5
+6
+dummy
+@@&nbsp;-1,4&nbsp;+1,5&nbsp;@@
+-a
++b
+&nbsp;1
++c
+&nbsp;2
+&nbsp;3
+@@&nbsp;-6,2&nbsp;+6,2&nbsp;@@
+-4
++6
+&nbsp;5
+&nbsp;6</pre><p><copy-button style="box-sizing: border-box;"></copy-button></p><h2 style="box-sizing: border-box; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-weight: 500; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 30px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">样例3输出</h2><pre class="language-plain" tabindex="0" style="box-sizing: border-box; overflow: auto; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 0.9em; padding: 1em; line-height: 1.2em; color: rgb(57, 58, 52); word-break: normal; overflow-wrap: break-word; background-color: rgb(255, 255, 255); border: 1px solid rgb(221, 221, 221); border-radius: 4px; direction: ltr; word-spacing: normal; tab-size: 4; hyphens: none;">Patch&nbsp;is&nbsp;damaged.</pre><p><copy-button style="box-sizing: border-box;"></copy-button></p><h2 style="box-sizing: border-box; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-weight: 500; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 30px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">样例3解释</h2><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">输入原始文本共有 8 行，之后开始解析补丁。补丁的第二个块中，其第一行表示其原始内容有 2 行，但随后却给出了 3 行的原始内容，因此为非法补丁。</p><h2 style="box-sizing: border-box; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-weight: 500; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 30px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">样例4输入</h2><pre class="language-plain" tabindex="0" style="box-sizing: border-box; overflow: auto; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 0.9em; padding: 1em; line-height: 1.2em; color: rgb(57, 58, 52); word-break: normal; overflow-wrap: break-word; background-color: rgb(255, 255, 255); border: 1px solid rgb(221, 221, 221); border-radius: 4px; direction: ltr; word-spacing: normal; tab-size: 4; hyphens: none;">8
+bbb
+a
+1
+2
+3
+4
+5
+6
+dummy
+@@&nbsp;-1,4&nbsp;+1,5&nbsp;@@
+-a
++b
+&nbsp;1
++c
+&nbsp;2
+&nbsp;3
+@@&nbsp;-6,2&nbsp;+6,2&nbsp;@@
+-4
++6
+&nbsp;5
+#&nbsp;6</pre><p><copy-button style="box-sizing: border-box;"></copy-button></p><h2 style="box-sizing: border-box; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-weight: 500; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 30px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">样例4输出</h2><pre class="language-plain" tabindex="0" style="box-sizing: border-box; overflow: auto; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 0.9em; padding: 1em; line-height: 1.2em; color: rgb(57, 58, 52); word-break: normal; overflow-wrap: break-word; background-color: rgb(255, 255, 255); border: 1px solid rgb(221, 221, 221); border-radius: 4px; direction: ltr; word-spacing: normal; tab-size: 4; hyphens: none;">bbb
+b
+1
+c
+2
+3
+6
+5
+6</pre><p><copy-button style="box-sizing: border-box;"></copy-button></p><h2 style="box-sizing: border-box; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-weight: 500; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 30px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">样例4解释</h2><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">与样例 3 相比，多出来的一行前增加了&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">#</code>&nbsp;号被忽略，因此为合法补丁，其应用过程与样例 1 类似。</p><h2 style="box-sizing: border-box; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-weight: 500; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 30px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">子任务</h2><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">对于 30% 的数据，补丁仅包含一个块，且不含有注释。</p><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">对于 60% 的数据，有&nbsp;<span style="box-sizing: border-box;"><span class="katex" style="box-sizing: border-box; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 1.21em; line-height: 1.2; font-family: KaTeX_Main, &quot;Times New Roman&quot;, serif; text-rendering: auto;"><span class="katex-mathml" style="box-sizing: border-box; border: 0px; clip: rect(1px, 1px, 1px, 1px); height: 1px; overflow: hidden; padding: 0px; position: absolute; width: 1px;"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≤</mo><mn>60</mn></mrow></semantics></math></span><span class="katex-html" aria-hidden="true" style="box-sizing: border-box; border-color: currentcolor;"><span class="base" style="box-sizing: border-box; border-color: currentcolor; position: relative; text-wrap-mode: nowrap; width: min-content; display: inline-block;"><span class="strut" style="box-sizing: border-box; border-color: currentcolor; display: inline-block; height: 0.7719em; vertical-align: -0.136em;"></span><span class="mord mathnormal" style="box-sizing: border-box; border-color: currentcolor; font-family: KaTeX_Math; font-style: italic;">n</span><span class="mspace" style="box-sizing: border-box; border-color: currentcolor; display: inline-block; margin-right: 0.2778em;"></span><span class="mrel" style="box-sizing: border-box; border-color: currentcolor;">≤</span><span class="mspace" style="box-sizing: border-box; border-color: currentcolor; display: inline-block; margin-right: 0.2778em;"></span></span><span class="base" style="box-sizing: border-box; border-color: currentcolor; position: relative; text-wrap-mode: nowrap; width: min-content; display: inline-block;"><span class="strut" style="box-sizing: border-box; border-color: currentcolor; display: inline-block; height: 0.6444em;"></span><span class="mord" style="box-sizing: border-box; border-color: currentcolor;">60</span></span></span></span></span>，且输入中行的长度不超过 120，补丁是合法补丁，补丁块相对于原始内容无偏移。</p><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">对于 100% 的数据，有&nbsp;<span style="box-sizing: border-box;"><span class="katex" style="box-sizing: border-box; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 1.21em; line-height: 1.2; font-family: KaTeX_Main, &quot;Times New Roman&quot;, serif; text-rendering: auto;"><span class="katex-mathml" style="box-sizing: border-box; border: 0px; clip: rect(1px, 1px, 1px, 1px); height: 1px; overflow: hidden; padding: 0px; position: absolute; width: 1px;"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≤</mo><mn>2000</mn></mrow></semantics></math></span><span class="katex-html" aria-hidden="true" style="box-sizing: border-box; border-color: currentcolor;"><span class="base" style="box-sizing: border-box; border-color: currentcolor; position: relative; text-wrap-mode: nowrap; width: min-content; display: inline-block;"><span class="strut" style="box-sizing: border-box; border-color: currentcolor; display: inline-block; height: 0.7719em; vertical-align: -0.136em;"></span><span class="mord mathnormal" style="box-sizing: border-box; border-color: currentcolor; font-family: KaTeX_Math; font-style: italic;">n</span><span class="mspace" style="box-sizing: border-box; border-color: currentcolor; display: inline-block; margin-right: 0.2778em;"></span><span class="mrel" style="box-sizing: border-box; border-color: currentcolor;">≤</span><span class="mspace" style="box-sizing: border-box; border-color: currentcolor; display: inline-block; margin-right: 0.2778em;"></span></span><span class="base" style="box-sizing: border-box; border-color: currentcolor; position: relative; text-wrap-mode: nowrap; width: min-content; display: inline-block;"><span class="strut" style="box-sizing: border-box; border-color: currentcolor; display: inline-block; height: 0.6444em;"></span><span class="mord" style="box-sizing: border-box; border-color: currentcolor;">2000</span></span></span></span></span>，且输入中行的长度不超过 830，且输入的总长度不超过 500KiB，输入数据中仅包含 ASCII 码在 32 至 126 之间的字符和换行符（ASCII 码为 10），且补丁块不超过 25 个。</p><h2 style="box-sizing: border-box; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-weight: 500; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 30px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">评分方式</h2><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">本题共包括十个测试点：</p><ul style="box-sizing: border-box; margin-bottom: 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);" class=" list-paddingleft-2"><li><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 0px;">前六个测试点每通过一个可得&nbsp;<span style="box-sizing: border-box;"><span class="katex" style="box-sizing: border-box; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 1.21em; line-height: 1.2; font-family: KaTeX_Main, &quot;Times New Roman&quot;, serif; text-rendering: auto;"><span class="katex-mathml" style="box-sizing: border-box; border: 0px; clip: rect(1px, 1px, 1px, 1px); height: 1px; overflow: hidden; padding: 0px; position: absolute; width: 1px;"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn></mrow></semantics></math></span><span class="katex-html" aria-hidden="true" style="box-sizing: border-box; border-color: currentcolor;"><span class="base" style="box-sizing: border-box; border-color: currentcolor; position: relative; text-wrap-mode: nowrap; width: min-content; display: inline-block;"><span class="strut" style="box-sizing: border-box; border-color: currentcolor; display: inline-block; height: 0.6444em;"></span><span class="mord" style="box-sizing: border-box; border-color: currentcolor;">10</span></span></span></span></span>&nbsp;分；</p></li><li><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 0px;">后四个测试点同时通过可得&nbsp;<span style="box-sizing: border-box;"><span class="katex" style="box-sizing: border-box; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 1.21em; line-height: 1.2; font-family: KaTeX_Main, &quot;Times New Roman&quot;, serif; text-rendering: auto;"><span class="katex-mathml" style="box-sizing: border-box; border: 0px; clip: rect(1px, 1px, 1px, 1px); height: 1px; overflow: hidden; padding: 0px; position: absolute; width: 1px;"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>40</mn></mrow></semantics></math></span><span class="katex-html" aria-hidden="true" style="box-sizing: border-box; border-color: currentcolor;"><span class="base" style="box-sizing: border-box; border-color: currentcolor; position: relative; text-wrap-mode: nowrap; width: min-content; display: inline-block;"><span class="strut" style="box-sizing: border-box; border-color: currentcolor; display: inline-block; height: 0.6444em;"></span><span class="mord" style="box-sizing: border-box; border-color: currentcolor;">40</span></span></span></span></span>&nbsp;分，否则不得分。换言之，对所有测试点皆输出补丁损坏不会得分。</p></li></ul><h2 style="box-sizing: border-box; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-weight: 500; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 30px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">提示</h2><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-wrap-mode: wrap; background-color: rgb(255, 255, 255);">本题目的输入数据中，每一行，包括最后一行在内，都以换行符（ASCII 码为 10，即 16 进制的&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;">0x0a</code>，亦为 escape 序列&nbsp;<code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12.6px; padding: 2px 4px; color: rgb(199, 37, 78); background-color: rgb(249, 242, 244); border-radius: 4px;"></code>）结束。</p><p><br/></p></div>
+          </div>
+        </div>
+        <div class="row" style="">
+          <div class="column">
+            <div class="ui top attached block header"><h4>题目标签</h4></div>
+            <div class="ui bottom attached segment font-content" id='p_label'>
+              <div class="ui mini right labeled left icon input">
+                <i class="tags icon"></i>
+                <input type="text" placeholder="键入标签..." id="tag_adding">
+                <a class="ui green tag label" id="tag_post">
+                  添加标签
+                </a>
+                <div class="ui button blue compact" id="tag_toggle">显示标签</div>
+              </div>
+                          </div>
+          </div>
+        </div>
+        <script type="text/javascript">
+        $('#tag_toggle').click(function (){
+          if($(this).hasClass('tag_shown')){
+            $(this).text('显示标签');
+            $(this).removeClass('tag_shown');
+          }
+          else{
+            $(this).text('隐藏标签');
+            $(this).addClass('tag_shown');
+          }
+          $('.tag_names').toggle();
+        });
+        $('#tag_post').click(function (){
+          var tag_name = $('#tag_adding').val();
+          if(tag_name === '')
+            return;
+          var pno = parseInt($('#problem_pno').text());
+          $.post("/index.php/index/problem/editProblemTag.html", {pno: pno, name: tag_name, action: 'add' },function(res){
+            console.log(res);
+            if(res.status=='success'){
+              var tag_DOM = '<div class="ui tag label grey tag_names"';
+              if($('#tag_toggle').hasClass('tag_shown'))
+                tag_DOM += '>';
+              else
+                tag_DOM += ' style="display: none;">';
+              tag_DOM += tag_name;
+              tag_DOM += '</div>';
+              $('#tag_toggle').parent().after(tag_DOM);
+              $('#tag_adding').val('');
+            }
+            else{
+              $('.ui.basic.modal').modal('show');
+              // TODO: 处理更多异常信息
+            }
+          });
+        });
+        </script>
+        <div class="row" style="height: 40px">
+          <div class="eleven wide column">
+          </div>
+          <div class="three wide column">
+      
+
+          </div>
+        </div>
+
+
+
+
+
+
+        <div class="row">
+          <div class="column">
+
+            <form action="/index.php/index/index/prob_submit.html" method="post" onsubmit="return submit_code()"
+              id="submit_code" enctype="multipart/form-data">
+
+              <input name="language" type="hidden" id="form">
+              <input name="code" type="hidden">
+              <input name="pid" type="hidden" value="1420">
+              <div class="ui grid">
+                <div class="four wide column" style="margin-right: -25px; ">
+                  <div class="ui attached vertical fluid pointing menu" id="languages-menu"
+                    style="height: 370px; overflow-y: scroll; overflow-x: hidden; ">
+
+
+                    <a style="border-radius: 0; " class="item active" data-value="cpp" data-mode="cpp">
+                      C++
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">GCC 8.2.0
+                      </div>
+                    </a> 
+                    
+                    <a style="border-radius: 0; " class="item" data-value="python3" data-mode="python">
+                      Python 3
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">PyPy 6.0.0
+                        (Python 3.5.3)</div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="python2" data-mode="python">
+                      Python 2
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">PyPy 6.0.0
+                        (Python 2.7.13)</div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="c" data-mode="c">
+                      C
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">Clang
+                        7.0.1</div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="cpp11" data-mode="cpp">
+                      C++ 11
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">GCC 8.2.0
+                      </div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="cpp17" data-mode="cpp">
+                      C++ 17
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">GCC 8.2.0
+                      </div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="cpp-noilinux" data-mode="cpp">
+                      C++ (NOI)
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">GCC 4.8.4
+                        (NOILinux 1.4.1)</div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="cpp11-noilinux" data-mode="cpp">
+                      C++ 11 (NOI)
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">GCC 4.8.4
+                        (NOILinux 1.4.1)</div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="cpp11-clang" data-mode="cpp">
+                      C++ 11 (Clang)
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">Clang
+                        7.0.1</div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="cpp17-clang" data-mode="cpp">
+                      C++ 17 (Clang)
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">Clang
+                        7.0.1</div>
+                    </a>
+
+                    
+
+                    <a style="border-radius: 0; " class="item" data-value="c-noilinux" data-mode="c">
+                      C (NOI)
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">GCC 4.8.4
+                        (NOILinux 1.4.1)</div>
+                    </a>
+
+                    <!-- <a style="border-radius: 0; " class="item" data-value="csharp" data-mode="csharp">
+                      C#
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">Mono
+                        5.16.0.220</div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="java" data-mode="java">
+                      Java
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">OpenJDK
+                        10.0.2</div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="pascal" data-mode="pascal">
+                      Pascal
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">Free
+                        Pascal 3.0.4</div>
+                    </a>
+
+                    
+
+                    <a style="border-radius: 0; " class="item" data-value="nodejs" data-mode="javascript">
+                      Node.js
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">10.14.0
+                      </div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="ruby" data-mode="ruby">
+                      Ruby
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">2.5.1
+                      </div>
+                    </a>
+
+                    <a style="border-radius: 0; " class="item" data-value="haskell" data-mode="haskell">
+                      Haskell
+                      <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">GHC 8.6.2
+                      </div>
+                    </a> -->
+
+                  </div>
+                </div>
+                <div class="twelve wide stretched column"
+                  style="position: relative; padding-left: 0; margin-left: calc(-1rem - 1px); width: calc(75% + 1rem + 13px) !important; ">
+                  <div id="editor"
+                    style="position: absolute; width: 100%; height: calc(100% - 28px); border: 1px solid #D4D4D5; overflow: hidden; "
+                    class="editor" contenteditable="true">
+
+                    <div class="ui active medium text loader">编辑器加载中 …</div>
+
+                  </div>
+                </div>
+                <div class="ui form" style="width: 100%; ">
+                  <div class="inline fields" style="width: 100%; ">
+                    <div class="field" style="margin: 0 auto;display:none; ">
+                      <label for="answer">或者，上传代码文件</label>
+                      <input type="file" id="answer" name="answer">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="ui center aligned vertical segment" style="padding-bottom: 0; ">
+                <button type="submit" class="ui labeled icon button"  id="btn-submit"><i class="ui edit icon"></i>提交</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+
+      <script type="text/javascript">
+        var editor;
+        window.onEditorLoaded(function () {
+          var editorElement = document.getElementById('editor');
+          var content = '';
+          content = "";
+          editor = window.createCodeEditor(editorElement, $('#languages-menu .item.active').data('mode'), content);
+          window.editor = editor;
+        });
+        var lastSubmitted = '';
+        function submit_code() {
+          $("#btn-submit").html('<i class="ui edit icon">正在提交...</i>')
+          $("#btn-submit").attr('disabled',true); 
+          if (!$('#submit_code input[name=answer]').val().trim() && !editor.getValue().trim()) return false;
+          $('#submit_code input[name=language]').val($('#languages-menu .item.active').data('value'));
+          lastSubmitted = editor.getValue();
+          $('#submit_code input[name=code]').val(editor.getValue());
+          return true;
+        }
+        $('#languages-menu')[0].scrollTop = $('#languages-menu .active')[0].offsetTop - $('#languages-menu')[0].firstElementChild.offsetTop;
+        $(function () {
+          $('#languages-menu .item').click(function () {
+            $(this)
+              .addClass('active')
+              .closest('.ui.menu')
+              .find('.item')
+              .not($(this))
+              .removeClass('active')
+              ;
+            monaco.editor.setModelLanguage(editor.getModel(), $(this).data('mode'));
+          });
+        });
+
+      </script>
+      
+
+
+    </div>
+  </div>
+  <script data-cfasync="false"
+    src="/Public/cdn/semantic.min.js"></script>
+  <script src="/Public/cdn/package/self/script.js?20170710"></script>
+  <div class="ui vertical footer segment">
+        <div class="ui center aligned container">
+          <span style="color: #999;">YOJ Powered by <a href="#" target="_blank">YOJ</a>.</span>
+          <span style="color: #999;">友情链接：
+            <a href="http://202.112.113.190:8080" target="_blank">YOJ旧版 </a>;
+            <!-- <a href="http://obe.ruc.edu.cn" target="_blank">Unicourse </a>; -->
+            <a href="https://syzoj.org/" target="_blank">SYZOJ </a>;
+            <a href="http://obe.ruc.edu.cn" target="_blank">OBE </a>
+            
+          </span>
+        </div>
+      </div>
+
+      
+</body>
+
+</html>

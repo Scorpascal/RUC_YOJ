@@ -1,0 +1,3 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){ios::sync_with_stdio(false);cin.tie(nullptr);string s,t;int K;if(!(cin>>s>>t>>K))return 0;int n=s.size(),m=t.size();size_t W=(size_t)(n+1)*(m+1);vector<int>dp((size_t)(K+1)*W,0);auto id=[&](int k,int i,int j){return (size_t)k*W+(size_t)i*(m+1)+j;};for(int k=0;k<=K;k++)for(int i=1;i<=n;i++)for(int j=1;j<=m;j++){int v=max(dp[id(k,i-1,j)],dp[id(k,i,j-1)]);if(s[i-1]==t[j-1])v=max(v,dp[id(k,i-1,j-1)]+1);else if(k>0)v=max(v,dp[id(k-1,i-1,j-1)]+1);dp[id(k,i,j)]=v;}cout<<dp[id(K,n,m)]<<endl;return 0;}

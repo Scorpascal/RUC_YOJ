@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1399367",
+    "problemNo": "1001",
+    "title": "二叉堆的维护",
+    "status": "Accepted",
+    "score": "100",
+    "time": "118 ms",
+    "memory": "628 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1789813492",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399367.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1001.html",
+    "listPage": 2,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1399367",
+    "problemNo": "1001",
+    "title": "二叉堆的维护",
+    "status": "Accepted",
+    "score": "100",
+    "time": "118 ms",
+    "memory": "628 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1789813492",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399367.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1001.html",
+    "listPage": 3
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "7800d100edae48895d4c5ad90559760c940edb7251cf1c8e0a03ffa0785b02b2"
+  },
+  "files": {
+    "problemHtml": "1001_题目原文.html",
+    "submissionHtml": "1001_提交_1399367_详情.html",
+    "completeCode": "1001_提交_1399367_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "1001_提交_1399367_cpp17_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 365,
+    "sha256": "550c7972611e639ef80ae3b4b70525e6ca9ac3903c0e4aef7c785eebcbbbe85d",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1001_提交_1399367_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "1001_提交_1399367_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

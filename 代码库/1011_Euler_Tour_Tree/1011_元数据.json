@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1399371",
+    "problemNo": "1011",
+    "title": "Euler Tour Tree",
+    "status": "Accepted",
+    "score": "100",
+    "time": "1453 ms",
+    "memory": "4768 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1789813535",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399371.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1011.html",
+    "listPage": 2,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1399371",
+    "problemNo": "1011",
+    "title": "Euler Tour Tree",
+    "status": "Accepted",
+    "score": "100",
+    "time": "1453 ms",
+    "memory": "4768 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1789813535",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399371.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1011.html",
+    "listPage": 2
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "940b691a70f844f6cd6f375af08ce695cecb371c2fc27336b3968307532ab03d"
+  },
+  "files": {
+    "problemHtml": "1011_题目原文.html",
+    "submissionHtml": "1011_提交_1399371_详情.html",
+    "completeCode": "1011_提交_1399371_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "1011_提交_1399371_cpp17_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 812,
+    "sha256": "33bd90aca09cd8f9bd2d6972c2ecf028c6424c9867050d62b0134a06f4cd637d",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1011_提交_1399371_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "1011_提交_1399371_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

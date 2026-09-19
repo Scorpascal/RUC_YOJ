@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1399477",
+    "problemNo": "992",
+    "title": "红黑树的基本操作",
+    "status": "Accepted",
+    "score": "100",
+    "time": "90 ms",
+    "memory": "632 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1789822870",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399477.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/992.html",
+    "listPage": 1,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1399477",
+    "problemNo": "992",
+    "title": "红黑树的基本操作",
+    "status": "Accepted",
+    "score": "100",
+    "time": "90 ms",
+    "memory": "632 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1789822870",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399477.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/992.html",
+    "listPage": 1
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "8c868db8c6b1d21f2f87528b2656c3dee77d7bd05aec7d7ebd6398cb883c60bc"
+  },
+  "files": {
+    "problemHtml": "0992_题目原文.html",
+    "submissionHtml": "0992_提交_1399477_详情.html",
+    "completeCode": "0992_提交_1399477_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "0992_提交_1399477_cpp17_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 14048,
+    "sha256": "3aa2ea125710b745a72dea961ed5a666a036773ed281d491d52428e0118b48d7",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "0992_提交_1399477_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "0992_提交_1399477_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

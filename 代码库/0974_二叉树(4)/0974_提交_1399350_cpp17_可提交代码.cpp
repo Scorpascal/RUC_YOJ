@@ -1,0 +1,3 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){ios::sync_with_stdio(false);cin.tie(nullptr);int n;if(!(cin>>n))return 0;vector<long long>a(n),ord;for(auto&x:a)cin>>x;long long key;cin>>key;function<void(int)>dfs=[&](int u){if(u>=n)return;dfs(2*u+1);ord.push_back(a[u]);dfs(2*u+2);};dfs(0);int pos=find(ord.begin(),ord.end(),key)-ord.begin();long long pre=pos>0?ord[pos-1]:-1,suc=pos+1<(int)ord.size()?ord[pos+1]:-1;cout<<pre<<' '<<suc<<endl;return 0;}

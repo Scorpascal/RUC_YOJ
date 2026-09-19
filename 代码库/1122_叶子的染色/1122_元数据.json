@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1340374",
+    "problemNo": "1122",
+    "title": "叶子的染色",
+    "status": "Accepted",
+    "score": "100",
+    "time": "124 ms",
+    "memory": "1404 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1766735979",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1340374.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1122.html",
+    "listPage": 9,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1340374",
+    "problemNo": "1122",
+    "title": "叶子的染色",
+    "status": "Accepted",
+    "score": "100",
+    "time": "124 ms",
+    "memory": "1404 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1766735979",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1340374.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1122.html",
+    "listPage": 9
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "68ca6e09d22cc39ea838215135b146db5c34b5e254a05ecaf94f786cb192e28b"
+  },
+  "files": {
+    "problemHtml": "1122_题目原文.html",
+    "submissionHtml": "1122_提交_1340374_详情.html",
+    "completeCode": "1122_提交_1340374_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "1122_提交_1340374_cpp17_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 6254,
+    "sha256": "300d4ddf99896139ba7da3457292a9a85e09e7b9695b09edf396b040caba8c4f",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1122_提交_1340374_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "1122_提交_1340374_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

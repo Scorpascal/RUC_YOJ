@@ -1,0 +1,2 @@
+#include <bits/stdc++.h>
+using namespace std;struct E{int u,v;long long w;};int main(){ios::sync_with_stdio(false);cin.tie(nullptr);int n,m;if(!(cin>>n>>m))return 0;vector<E>e(m);for(auto &x:e)cin>>x.u>>x.v>>x.w;sort(e.begin(),e.end(),[](const E&a,const E&b){return a.w<b.w;});vector<int>p(n+1);iota(p.begin(),p.end(),0);function<int(int)>f=[&](int x){return p[x]==x?x:p[x]=f(p[x]);};long long ans=0;int cnt=0;for(auto x:e){int a=f(x.u),b=f(x.v);if(a!=b){p[a]=b;ans+=x.w;if(++cnt==n-1)break;}}cout<<ans<<endl;return 0;}

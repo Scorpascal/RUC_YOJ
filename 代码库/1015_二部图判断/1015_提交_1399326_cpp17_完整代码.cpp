@@ -1,0 +1,3 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){ios::sync_with_stdio(false);cin.tie(nullptr);int n,m;if(!(cin>>n>>m))return 0;vector<vector<int>>g(n+1);for(int i=0,u,v;i<m;i++){cin>>u>>v;g[u].push_back(v);g[v].push_back(u);}vector<int>c(n+1,-1);bool ok=true;queue<int>q;for(int s=1;s<=n&&ok;s++)if(c[s]==-1){c[s]=0;q.push(s);while(!q.empty()&&ok){int u=q.front();q.pop();for(int v:g[u]){if(c[v]==-1){c[v]=c[u]^1;q.push(v);}else if(c[v]==c[u]){ok=false;break;}}}}cout<<(ok?"Yes":"No")<<endl;}

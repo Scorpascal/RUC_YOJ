@@ -1,0 +1,2 @@
+#include <bits/stdc++.h>
+using namespace std;int main(){int n,m;string s;cin>>n>>s>>m;long long v=0;for(char c:s)v=v*n+(isdigit(c)?c-'0':c-'A'+10);string d="0123456789ABCDEF",r;if(v==0)r="0";while(v){r+=d[v%m];v/=m;}reverse(r.begin(),r.end());cout<<r<<endl;}

@@ -1,0 +1,3 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){ios::sync_with_stdio(false);cin.tie(nullptr);string s,p;if(!(cin>>s>>p))return 0;int n=s.size(),m=p.size();vector<int>pi(m);for(int i=1;i<m;i++){int j=pi[i-1];while(j&&p[i]!=p[j])j=pi[j-1];if(p[i]==p[j])j++;pi[i]=j;}vector<int>occ;for(int i=0,j=0;i<n;i++){while(j&&s[i]!=p[j])j=pi[j-1];if(s[i]==p[j])j++;if(j==m){occ.push_back(i-m+2);j=pi[j-1];}}for(int x:occ)cout<<x<<endl;for(int i=0;i<m;i++){if(i)cout<<' ';cout<<pi[i];}cout<<endl;return 0;}

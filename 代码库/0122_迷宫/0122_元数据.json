@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1267504",
+    "problemNo": "122",
+    "title": "迷宫",
+    "status": "Accepted",
+    "score": "100",
+    "time": "73 ms",
+    "memory": "504 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1763709669",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1267504.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/122.html",
+    "listPage": 18,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1267504",
+    "problemNo": "122",
+    "title": "迷宫",
+    "status": "Accepted",
+    "score": "100",
+    "time": "73 ms",
+    "memory": "504 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1763709669",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1267504.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/122.html",
+    "listPage": 18
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "e9312eebdc7d9ca6bd99b5cc7048fd23e14b15f5874ea17b8594c81d11fb16e4"
+  },
+  "files": {
+    "problemHtml": "0122_题目原文.html",
+    "submissionHtml": "0122_提交_1267504_详情.html",
+    "completeCode": "0122_提交_1267504_c_完整代码.c",
+    "directlySubmittableCode": "0122_提交_1267504_c_可提交代码.c"
+  },
+  "code": {
+    "language": "c",
+    "extension": ".c",
+    "bytesUtf8": 855,
+    "sha256": "1f3e48d12df1ca0eef329756ebec47c580516521331b8e23f39e5809afa9710f",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "0122_提交_1267504_c_完整代码.c",
+      "directlySubmittableFile": "0122_提交_1267504_c_可提交代码.c",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

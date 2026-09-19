@@ -1,0 +1,3 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){ios::sync_with_stdio(false);cin.tie(nullptr);int n,m,s;if(!(cin>>n>>m>>s))return 0;vector<vector<pair<int,long long>>>g(n+1);for(int i=0,u,v;i<m;i++){long long w;cin>>u>>v>>w;g[u].push_back({v,w});}const long long INF=LLONG_MAX/4;vector<long long>d(n+1,INF);priority_queue<pair<long long,int>,vector<pair<long long,int>>,greater<pair<long long,int>>>q;d[s]=0;q.push({0,s});while(!q.empty()){auto [du,u]=q.top();q.pop();if(du!=d[u])continue;for(auto [v,w]:g[u])if(d[v]>du+w){d[v]=du+w;q.push({d[v],v});}}for(int i=1;i<=n;i++){if(i>1)cout<<' ';cout<<d[i];}cout<<endl;return 0;}

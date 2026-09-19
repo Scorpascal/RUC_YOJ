@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1340368",
+    "problemNo": "1118",
+    "title": "运输问题",
+    "status": "Accepted",
+    "score": "100",
+    "time": "132 ms",
+    "memory": "632 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1766735306",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1340368.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1118.html",
+    "listPage": 9,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1340368",
+    "problemNo": "1118",
+    "title": "运输问题",
+    "status": "Accepted",
+    "score": "100",
+    "time": "132 ms",
+    "memory": "632 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1766735306",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1340368.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1118.html",
+    "listPage": 9
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "081c1590833f6b9b5067eb80be80a0cfe827a8cf64cf9e4af4949118dac467cc"
+  },
+  "files": {
+    "problemHtml": "1118_题目原文.html",
+    "submissionHtml": "1118_提交_1340368_详情.html",
+    "completeCode": "1118_提交_1340368_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "1118_提交_1340368_cpp17_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 5199,
+    "sha256": "49c3cceafa0fd68d8127dce669d8f9f3d3f459f4209b8b1269ade53327313d90",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1118_提交_1340368_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "1118_提交_1340368_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

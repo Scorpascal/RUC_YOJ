@@ -1,0 +1,5 @@
+#include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace std;using namespace __gnu_pbds;using T=tree<pair<int,int>,null_type,less<pair<int,int>>,rb_tree_tag,tree_order_statistics_node_update>;
+int main(){ios::sync_with_stdio(false);cin.tie(nullptr);int n;if(!(cin>>n))return 0;T t;int uid=0;for(int i=0;i<n;i++){int op,x;cin>>op>>x;if(op==1)t.insert({x,uid++});else if(op==2){auto it=t.lower_bound({x,INT_MIN});if(it!=t.end()&&it->first==x)t.erase(it);}else if(op==3)cout<<t.order_of_key({x,INT_MIN})+1<<endl;else if(op==4){auto it=t.find_by_order(x-1);cout<<it->first<<endl;}else if(op==5){auto it=t.lower_bound({x,INT_MIN});--it;cout<<it->first<<endl;}else if(op==6){auto it=t.upper_bound({x,INT_MAX});cout<<it->first<<endl;}}return 0;}

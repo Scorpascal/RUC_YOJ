@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1399370",
+    "problemNo": "1010",
+    "title": "Post-Order Traversal from Pre-Order and In-Order",
+    "status": "Accepted",
+    "score": "100",
+    "time": "82 ms",
+    "memory": "504 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1789813531",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399370.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1010.html",
+    "listPage": 2,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1399370",
+    "problemNo": "1010",
+    "title": "Post-Order Traversal from Pre-Order and In-Order",
+    "status": "Accepted",
+    "score": "100",
+    "time": "82 ms",
+    "memory": "504 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1789813531",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399370.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1010.html",
+    "listPage": 2
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "e4ad90e3ddeb50235e0aa922a9bd95892dcd9142b8c8d7ca2c3fe5d4cc330621"
+  },
+  "files": {
+    "problemHtml": "1010_题目原文.html",
+    "submissionHtml": "1010_提交_1399370_详情.html",
+    "completeCode": "1010_提交_1399370_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "1010_提交_1399370_cpp17_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 547,
+    "sha256": "84b97059071b523f8d98a8230d7c9103734bf04f04b324281f0589296eb1386c",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1010_提交_1399370_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "1010_提交_1399370_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

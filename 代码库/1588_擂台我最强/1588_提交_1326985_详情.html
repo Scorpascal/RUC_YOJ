@@ -1,0 +1,1752 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="position: fixed; width: 100%; overflow: hidden; ">
+
+<head>
+    
+    <title>提交记录 1326985</title>
+    <meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=1200">
+<link href="/Public/static/cdnjs/layui/css/layui.css" rel="stylesheet">
+<link href="/Public/static/cdnjs/semantic-ui/2.4.1/semantic.css" rel="stylesheet">
+<link href="/Public/static/self/tomorrow.css" rel="stylesheet">
+<link href="/Public/static/self/mathjax.css" rel="stylesheet">
+<link href="/Public/static/self/style.css" rel="stylesheet">
+<link href="/Public/css/jquery.datatables.min.css" rel="stylesheet">
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?52b314b9a24d899e6427360feba551a2";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+<script src="/Public/js/unicourse.js"></script>
+
+    <link href="/Public/css/sub.css" rel="stylesheet">
+
+    <script src="/Public/static/cdnjs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/Public/static/cdnjs/layui/layui.js"></script>
+    <script src="/Public/static/cdnjs/semantic-ui/2.4.1/semantic.js"></script>
+
+
+    <style>
+        #languages-menu::-webkit-scrollbar,
+        #testcase-menu::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+        #languages-menu .item::after,
+        #testcase-menu .item::after {
+            display: none;
+        }
+    </style>
+
+    <script>
+        window.pathLib = "/Public/cdn/package/cdnjs/";
+        window.pathSelfLib = "/Public/cdn/package/self/";
+
+        var originalConsoleWarn = console.warn;
+        console.warn = function (message) {
+            if (message.startsWith('Duplicate definition of module')) return;
+            originalConsoleWarn.apply(console, arguments);
+        };
+    </script>
+
+    <!-- Load monaco-editor -->
+    <script src="/Public/cdn/package/cdnjs/monaco-editor/0.16.2/min/vs/loader.js"></script>
+    <script src="/Public/cdn/package/self/monaco-editor.js"></script>
+    <link rel="stylesheet" href="/Public/cdn/package/self/monaco-editor.css">
+
+</head>
+
+<body style="position: relative; margin-top: 49px; height: calc(100% - 49px); overflow-y: overlay; ">
+    <div class="ui fixed borderless menu" style="position: fixed; height: 49px; ">
+  <div class="ui container">
+    <a class="header item" href="/"><span
+        style="font-family: 'Exo 2'; font-size: 1.5em; font-weight: 600; ">YOJ2.0</span></a>
+    <a class="item" href="/index.php/index/index/index.html"><i class="home icon"></i> 首页</a>
+    <a class="item" href="/index.php/index/problem/index.html"><i class="list icon"></i> 题库</a>
+    <!-- <a class="item" href="/class"><i class="comments icon"></i> 班级</a> -->
+    <a class="item" href="/index.php/index/contest/index.html"><i class="calendar icon"></i> 考试</a>
+    <a class="item" href="/index.php/index/submissions/index.html"><i class="tasks icon"></i> 评测</a>
+    <a class="item" href="/index.php/index/rank/index.html"><i class="signal icon"></i> 排名</a>
+    
+        <div class="ui simple dropdown item"><a href="/index.php/index/course/index.html" style="color: inherit; "><i class="building  icon"></i> 课程
+       <i class="dropdown icon"></i>
+      </a>
+      <div class="menu"><a href="/index.php/index/course/index.html" style="color: inherit; ">
+        </a>
+        <a class="item" href="/index.php/index/course/detail/cno/2025090sqk9bd0bg.html"><i class="book icon"></i>2025程序设计荣誉课程</a><a class="item" href="/index.php/index/course/detail/cno/202511ohpxm492ye.html"><i class="book icon"></i>2025-2026 程序设计荣誉课程</a><a class="item" href="/index.php/index/course/detail/cno/202609794p43vokg.html"><i class="book icon"></i>数据结构与算法I-强基</a>        <li class="divider"></li>
+        <a class="item" href="/index.php/index/course/index.html"><i class="rocket icon"></i>全部课程</a>
+      </div>
+    </div>
+        <!-- <a class="item" href="/ranklist"><i class="signal icon"></i> 排名</a>
+            <a class="item" href="/discussion/global"><i class="comments icon"></i> 讨论</a>
+            <a class="item" href="/help"><i class="help circle icon"></i> 帮助</a> -->
+    <!-- <% if (typeof contest !== 'undefined' && contest && contest.id) { %>
+              <a id="back_to_contest" class="item" href="<%= syzoj.utils.makeUrl(['contest', contest.id]) %>"><i class="arrow left icon"></i> 返回考试</a>
+            <% } %> -->
+    <div class="right menu">
+      <!-- <% if (user) { %> -->
+      <!-- <a href="<%= syzoj.utils.makeUrl(['user', user.id]) %>" style="color: inherit; ">
+              <div class="ui simple dropdown item">
+                <div class="menu">
+                  <a class="item" href="<%= syzoj.utils.makeUrl(['user', user.id, 'edit']) %>"><i class="edit icon"></i>修改资料</a>
+                  
+                    <a class="item" href="<%= syzoj.utils.makeUrl(['admin', 'info']) %>"><i class="settings icon"></i>后台管理</a>
+                  <a class="item" href-post="<%= syzoj.utils.makeUrl(['logout'], { url: req.originalUrl }) %>"><i class="power icon"></i>注销</a>
+                </div>
+              </div>
+              </a> -->
+      <!-- <% } else { %> -->
+      <div class="item">
+        <span>
+          
+        </span>
+       
+       
+
+        
+        
+                 <!-- <a></a> -->
+                 <div class="right menu">
+                  <a href="/index.php/index/user/detail.html" style="color: inherit; ">
+                    完成题目数：488 &nbsp 排名：3                  </a>
+                 </div>
+        <!-- <a href="/index.php/index/login/logout.html"></a> -->
+        <!-- <a class="ui primary button" style="margin-right: 0.5em; " href="/index.php/index/index/stats.html">
+            查看排名
+          </a>
+          <a class="ui primary button" style="margin-right: 0.5em; " href="/index.php/index/index/editpsw.html">
+            修改密码
+          </a>
+          <a class="ui primary button" style="margin-right: 0.5em; " href="/index.php/index/login/logout.html">
+            注销
+          </a> -->
+
+        <div class="right menu">
+
+          <a href="/index.php/index/user/detail.html" style="color: inherit; ">
+          </a>
+          <div class="ui simple dropdown item"><a href="/index.php/index/user/detail.html" style="color: inherit; ">
+            本人 <i class="dropdown icon"></i>
+            </a>
+            <div class="menu"><a href="/index.php/index/user/detail.html" style="color: inherit; ">
+              </a>
+
+
+              
+              
+              <a class="item" href="/index.php/index/user/detail.html"><i class="edit icon"></i>我的数据</a>
+
+              <a class="item" href="/index.php/index/user/edit.html"><i class="settings icon"></i>修改资料</a>
+              
+              <a class="item" href="/index.php/index/user/editpsw.html"><i class="settings icon"></i>修改密码</a>
+
+              <a class="item" href="/index.php/index/login/logout.html"><i class="power icon"></i>退出登录</a>
+            </div>
+          </div>
+
+
+        </div>
+        
+      </div>
+      <!-- <% } %> -->
+    </div>
+  </div>
+</div>
+
+
+    <input type="hidden" value="1326985" id="subid_help" />
+    <div style="margin-top: 28px; ">
+        <div class="ui main container">
+            <!-- <script src="/textFit.js"></script> -->
+            <span id="submission_content">
+                <div class="padding">
+                    <table class="ui very basic center aligned table" id="status_table">
+                        <thead>
+                            <tr>
+                                <th>编号</th>
+                                <th>题目名称</th>
+                                <th>状态</th>
+                                <th>分数</th>
+                                <th>总时间</th>
+                                <th>内存</th>
+                                <th>代码</th>
+                                <th>提交者</th>
+                                <th>提交时间</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> <a href="/index.php/index/submissions/detail/subno/1326985.html">#1326985</a>
+                                </td>
+                                <td> <a href="/index.php/index/problem/detail/pno/1588.html">#1588                                        擂台我最强</a></td>
+                                <td><span class="status">Accepted</span></td>
+                                <td> <span class="score">100</span></td>
+                                <td>
+                                    157                                     ms
+                                </td>
+                                <td>
+                                     500 KB
+                                </td>
+                                <td> <a href="addr">c</a> / 1362 B</td>
+                                <td> <a href="/index.php/index/user/detail/uid/已脱敏.html" target="_blank">本人(已脱敏)</a></td>
+                                <td class="stime"> 1766224971</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                                            </div>
+                    
+                    <span style="color: rgba(0, 0, 0, 0.4);font-weight: bold;">下边这个缩略输入输出，老师同意可以拉开看了^_^ (但考试时候不给看)</span>
+
+                    <div class="ui styled fluid accordion" id="subtasks_list" style="margin-bottom:30px;margin-top:25px;">
+                        
+                        <div class="title auto_update">
+                                <div class="ui grid">
+                                    <div class="three wide column">测试点 #0</div>
+
+                                    <div class="four wide column status status_detail accepted">
+                                            
+                                    <i class="checkmark icon"></i>
+                                                                            
+                                    2                                </div>
+                                <div class="three wide column">得分：<span
+                                        style="font-weight: normal; ">100</span>
+                                </div>
+                                <div class="three wide column">用时：<span style="font-weight: normal; ">7                                        ms</span>
+                                </div>
+                                <div class="three wide column">内存：<span style="font-weight: normal; ">392                                        KiB</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="content auto_update">
+                        <p>
+                            <strong>输入文件（<span style="font-family: monospace; ">data0.in</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>24
+20250011 67
+20254059 89
+20250075 88
+20252832 88
+20254359 42
+20253432 68
+20257125 61
+20256831 60
+2
+<190 bytes omitted></code></pre>
+                            </div>
+
+                            <strong>输出文件（<span style="font-family: monospace; ">data0.out</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>1 20256831 17
+1 20259470 17
+1 20259559 17
+4 20259361 15
+5 20252832 10
+6 20256683 8
+7 20254059 5
+8 20
+<231 bytes omitted></code></pre>
+                            </div>
+                            <strong>选手输出</strong>
+                            <div class="ui existing segment">
+                                <pre style="margin-top: 0; margin-bottom: 0; "><code>1 20256831 17
+1 20259470 17
+1 20259559 17
+4 20259361 15
+5 20252832 10
+6 20256683 8
+7 20254059 5
+8 20250075 4
+8 20255559 4
+8 2025
+<203 bytes omitted></code></pre>
+                            </div>
+                        </p>
+                    </div><div class="title auto_update">
+                                <div class="ui grid">
+                                    <div class="three wide column">测试点 #1</div>
+
+                                    <div class="four wide column status status_detail accepted">
+                                            
+                                    <i class="checkmark icon"></i>
+                                                                            
+                                    2                                </div>
+                                <div class="three wide column">得分：<span
+                                        style="font-weight: normal; ">100</span>
+                                </div>
+                                <div class="three wide column">用时：<span style="font-weight: normal; ">8                                        ms</span>
+                                </div>
+                                <div class="three wide column">内存：<span style="font-weight: normal; ">368                                        KiB</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="content auto_update">
+                        <p>
+                            <strong>输入文件（<span style="font-family: monospace; ">data1.in</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>8
+20254093 59
+20250091 72
+20253242 7
+20254812 54
+20256425 89
+20258467 33
+20259093 69
+20253342 91</code></pre>
+                            </div>
+
+                            <strong>输出文件（<span style="font-family: monospace; ">data1.out</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>1 20250091 11
+2 20256425 10
+3 20253342 4
+4 20254812 3
+4 20259093 3
+6 20253242 0
+6 20254093 0
+6 20258
+<6 bytes omitted></code></pre>
+                            </div>
+                            <strong>选手输出</strong>
+                            <div class="ui existing segment">
+                                <pre style="margin-top: 0; margin-bottom: 0; "><code>1 20250091 11
+2 20256425 10
+3 20253342 4
+4 20254812 3
+4 20259093 3
+6 20253242 0
+6 20254093 0
+6 20258467 0
+</code></pre>
+                            </div>
+                        </p>
+                    </div><div class="title auto_update">
+                                <div class="ui grid">
+                                    <div class="three wide column">测试点 #2</div>
+
+                                    <div class="four wide column status status_detail accepted">
+                                            
+                                    <i class="checkmark icon"></i>
+                                                                            
+                                    2                                </div>
+                                <div class="three wide column">得分：<span
+                                        style="font-weight: normal; ">100</span>
+                                </div>
+                                <div class="three wide column">用时：<span style="font-weight: normal; ">8                                        ms</span>
+                                </div>
+                                <div class="three wide column">内存：<span style="font-weight: normal; ">372                                        KiB</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="content auto_update">
+                        <p>
+                            <strong>输入文件（<span style="font-family: monospace; ">data2.in</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>26
+20255223 84
+20252147 49
+20257686 38
+20255291 98
+20256851 66
+20257569 40
+20252602 55
+20257391 9
+20
+<211 bytes omitted></code></pre>
+                            </div>
+
+                            <strong>输出文件（<span style="font-family: monospace; ">data2.out</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>1 20259385 17
+2 20255291 16
+3 20255223 11
+4 20252520 10
+4 20253532 10
+6 20251349 9
+7 20252602 8
+8 20
+<257 bytes omitted></code></pre>
+                            </div>
+                            <strong>选手输出</strong>
+                            <div class="ui existing segment">
+                                <pre style="margin-top: 0; margin-bottom: 0; "><code>1 20259385 17
+2 20255291 16
+3 20255223 11
+4 20252520 10
+4 20253532 10
+6 20251349 9
+7 20252602 8
+8 20250563 4
+8 20251961 4
+8 2025
+<229 bytes omitted></code></pre>
+                            </div>
+                        </p>
+                    </div><div class="title auto_update">
+                                <div class="ui grid">
+                                    <div class="three wide column">测试点 #3</div>
+
+                                    <div class="four wide column status status_detail accepted">
+                                            
+                                    <i class="checkmark icon"></i>
+                                                                            
+                                    2                                </div>
+                                <div class="three wide column">得分：<span
+                                        style="font-weight: normal; ">100</span>
+                                </div>
+                                <div class="three wide column">用时：<span style="font-weight: normal; ">7                                        ms</span>
+                                </div>
+                                <div class="three wide column">内存：<span style="font-weight: normal; ">388                                        KiB</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="content auto_update">
+                        <p>
+                            <strong>输入文件（<span style="font-family: monospace; ">data3.in</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>21
+20251113 72
+20254877 39
+20251494 47
+20252579 77
+20258957 26
+20259922 28
+20253468 22
+20254977 76
+2
+<153 bytes omitted></code></pre>
+                            </div>
+
+                            <strong>输出文件（<span style="font-family: monospace; ">data3.out</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>1 20253510 25
+2 20252579 24
+3 20251113 11
+4 20257399 10
+5 20250263 4
+5 20252643 4
+5 20255691 4
+5 202
+<189 bytes omitted></code></pre>
+                            </div>
+                            <strong>选手输出</strong>
+                            <div class="ui existing segment">
+                                <pre style="margin-top: 0; margin-bottom: 0; "><code>1 20253510 25
+2 20252579 24
+3 20251113 11
+4 20257399 10
+5 20250263 4
+5 20252643 4
+5 20255691 4
+5 20257800 4
+5 20259540 4
+10 2025
+<161 bytes omitted></code></pre>
+                            </div>
+                        </p>
+                    </div><div class="title auto_update">
+                                <div class="ui grid">
+                                    <div class="three wide column">测试点 #4</div>
+
+                                    <div class="four wide column status status_detail accepted">
+                                            
+                                    <i class="checkmark icon"></i>
+                                                                            
+                                    2                                </div>
+                                <div class="three wide column">得分：<span
+                                        style="font-weight: normal; ">100</span>
+                                </div>
+                                <div class="three wide column">用时：<span style="font-weight: normal; ">5                                        ms</span>
+                                </div>
+                                <div class="three wide column">内存：<span style="font-weight: normal; ">376                                        KiB</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="content auto_update">
+                        <p>
+                            <strong>输入文件（<span style="font-family: monospace; ">data4.in</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>6
+20259981 5
+20258003 64
+20259689 13
+20256813 77
+20259183 39
+20255343 4</code></pre>
+                            </div>
+
+                            <strong>输出文件（<span style="font-family: monospace; ">data4.out</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>1 20256813 16
+2 20258003 11
+3 20255343 0
+3 20259183 0
+3 20259689 0
+3 20259981 0
+</code></pre>
+                            </div>
+                            <strong>选手输出</strong>
+                            <div class="ui existing segment">
+                                <pre style="margin-top: 0; margin-bottom: 0; "><code>1 20256813 16
+2 20258003 11
+3 20255343 0
+3 20259183 0
+3 20259689 0
+3 20259981 0
+</code></pre>
+                            </div>
+                        </p>
+                    </div><div class="title auto_update">
+                                <div class="ui grid">
+                                    <div class="three wide column">测试点 #5</div>
+
+                                    <div class="four wide column status status_detail accepted">
+                                            
+                                    <i class="checkmark icon"></i>
+                                                                            
+                                    2                                </div>
+                                <div class="three wide column">得分：<span
+                                        style="font-weight: normal; ">100</span>
+                                </div>
+                                <div class="three wide column">用时：<span style="font-weight: normal; ">8                                        ms</span>
+                                </div>
+                                <div class="three wide column">内存：<span style="font-weight: normal; ">248                                        KiB</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="content auto_update">
+                        <p>
+                            <strong>输入文件（<span style="font-family: monospace; ">data5.in</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>34
+20256039 45
+20251313 60
+20258674 78
+20250846 32
+20251736 61
+20251182 94
+20258567 45
+20257588 53
+2
+<308 bytes omitted></code></pre>
+                            </div>
+
+                            <strong>输出文件（<span style="font-family: monospace; ">data5.out</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>1 20255416 25
+2 20255134 17
+3 20251182 10
+3 20257601 10
+3 20258674 10
+3 20259257 10
+7 20250143 9
+7 2
+<371 bytes omitted></code></pre>
+                            </div>
+                            <strong>选手输出</strong>
+                            <div class="ui existing segment">
+                                <pre style="margin-top: 0; margin-bottom: 0; "><code>1 20255416 25
+2 20255134 17
+3 20251182 10
+3 20257601 10
+3 20258674 10
+3 20259257 10
+7 20250143 9
+7 20253233 9
+7 20253416 9
+7 202
+<343 bytes omitted></code></pre>
+                            </div>
+                        </p>
+                    </div><div class="title auto_update">
+                                <div class="ui grid">
+                                    <div class="three wide column">测试点 #6</div>
+
+                                    <div class="four wide column status status_detail accepted">
+                                            
+                                    <i class="checkmark icon"></i>
+                                                                            
+                                    2                                </div>
+                                <div class="three wide column">得分：<span
+                                        style="font-weight: normal; ">100</span>
+                                </div>
+                                <div class="three wide column">用时：<span style="font-weight: normal; ">7                                        ms</span>
+                                </div>
+                                <div class="three wide column">内存：<span style="font-weight: normal; ">372                                        KiB</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="content auto_update">
+                        <p>
+                            <strong>输入文件（<span style="font-family: monospace; ">data6.in</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>284
+20253888 253
+20259535 564
+20256869 45
+20256092 545
+20258687 140
+20255232 980
+20257232 805
+202557
+<3568 bytes omitted></code></pre>
+                            </div>
+
+                            <strong>输出文件（<span style="font-family: monospace; ">data6.out</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>1 20253182 44
+2 20253898 43
+3 20258276 33
+4 20250910 25
+4 20254737 25
+4 20256321 25
+4 20259785 25
+4 
+<4102 bytes omitted></code></pre>
+                            </div>
+                            <strong>选手输出</strong>
+                            <div class="ui existing segment">
+                                <pre style="margin-top: 0; margin-bottom: 0; "><code>1 20253182 44
+2 20253898 43
+3 20258276 33
+4 20250910 25
+4 20254737 25
+4 20256321 25
+4 20259785 25
+4 20259806 25
+9 20251592 24
+9 
+<4074 bytes omitted></code></pre>
+                            </div>
+                        </p>
+                    </div><div class="title auto_update">
+                                <div class="ui grid">
+                                    <div class="three wide column">测试点 #7</div>
+
+                                    <div class="four wide column status status_detail accepted">
+                                            
+                                    <i class="checkmark icon"></i>
+                                                                            
+                                    2                                </div>
+                                <div class="three wide column">得分：<span
+                                        style="font-weight: normal; ">100</span>
+                                </div>
+                                <div class="three wide column">用时：<span style="font-weight: normal; ">10                                        ms</span>
+                                </div>
+                                <div class="three wide column">内存：<span style="font-weight: normal; ">500                                        KiB</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="content auto_update">
+                        <p>
+                            <strong>输入文件（<span style="font-family: monospace; ">data7.in</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>128
+20258759 110
+20253798 358
+20258221 625
+20253889 214
+20253861 182
+20254520 132
+20250760 964
+20250
+<1552 bytes omitted></code></pre>
+                            </div>
+
+                            <strong>输出文件（<span style="font-family: monospace; ">data7.out</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>1 20257381 34
+2 20254322 25
+2 20257097 25
+2 20258221 25
+5 20252236 24
+5 20256178 24
+5 20258394 24
+8 
+<1706 bytes omitted></code></pre>
+                            </div>
+                            <strong>选手输出</strong>
+                            <div class="ui existing segment">
+                                <pre style="margin-top: 0; margin-bottom: 0; "><code>1 20257381 34
+2 20254322 25
+2 20257097 25
+2 20258221 25
+5 20252236 24
+5 20256178 24
+5 20258394 24
+8 20251551 17
+8 20253701 17
+8 
+<1678 bytes omitted></code></pre>
+                            </div>
+                        </p>
+                    </div><div class="title auto_update">
+                                <div class="ui grid">
+                                    <div class="three wide column">测试点 #8</div>
+
+                                    <div class="four wide column status status_detail accepted">
+                                            
+                                    <i class="checkmark icon"></i>
+                                                                            
+                                    2                                </div>
+                                <div class="three wide column">得分：<span
+                                        style="font-weight: normal; ">100</span>
+                                </div>
+                                <div class="three wide column">用时：<span style="font-weight: normal; ">7                                        ms</span>
+                                </div>
+                                <div class="three wide column">内存：<span style="font-weight: normal; ">380                                        KiB</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="content auto_update">
+                        <p>
+                            <strong>输入文件（<span style="font-family: monospace; ">data8.in</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>81
+20258073 599
+20253322 461
+20254161 523
+20258323 370
+20253769 943
+20254878 775
+20255044 277
+202598
+<951 bytes omitted></code></pre>
+                            </div>
+
+                            <strong>输出文件（<span style="font-family: monospace; ">data8.out</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>1 20254487 25
+1 20256954 25
+3 20259143 24
+4 20254507 17
+4 20254870 17
+4 20256273 17
+7 20250477 16
+8 
+<1034 bytes omitted></code></pre>
+                            </div>
+                            <strong>选手输出</strong>
+                            <div class="ui existing segment">
+                                <pre style="margin-top: 0; margin-bottom: 0; "><code>1 20254487 25
+1 20256954 25
+3 20259143 24
+4 20254507 17
+4 20254870 17
+4 20256273 17
+7 20250477 16
+8 20257561 15
+9 20252163 10
+9 
+<1006 bytes omitted></code></pre>
+                            </div>
+                        </p>
+                    </div><div class="title auto_update">
+                                <div class="ui grid">
+                                    <div class="three wide column">测试点 #9</div>
+
+                                    <div class="four wide column status status_detail accepted">
+                                            
+                                    <i class="checkmark icon"></i>
+                                                                            
+                                    2                                </div>
+                                <div class="three wide column">得分：<span
+                                        style="font-weight: normal; ">100</span>
+                                </div>
+                                <div class="three wide column">用时：<span style="font-weight: normal; ">8                                        ms</span>
+                                </div>
+                                <div class="three wide column">内存：<span style="font-weight: normal; ">268                                        KiB</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="content auto_update">
+                        <p>
+                            <strong>输入文件（<span style="font-family: monospace; ">data9.in</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>55
+20251854 927
+20251594 760
+20251841 924
+20259195 611
+20250641 759
+20257271 794
+20254186 718
+202558
+<614 bytes omitted></code></pre>
+                            </div>
+
+                            <strong>输出文件（<span style="font-family: monospace; ">data9.out</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>1 20254186 17
+2 20252584 16
+2 20253691 16
+2 20259624 16
+5 20257049 15
+6 20251413 10
+6 20251841 10
+6 
+<670 bytes omitted></code></pre>
+                            </div>
+                            <strong>选手输出</strong>
+                            <div class="ui existing segment">
+                                <pre style="margin-top: 0; margin-bottom: 0; "><code>1 20254186 17
+2 20252584 16
+2 20253691 16
+2 20259624 16
+5 20257049 15
+6 20251413 10
+6 20251841 10
+6 20254484 10
+6 20255567 10
+6 
+<642 bytes omitted></code></pre>
+                            </div>
+                        </p>
+                    </div><div class="title auto_update">
+                                <div class="ui grid">
+                                    <div class="three wide column">测试点 #10</div>
+
+                                    <div class="four wide column status status_detail accepted">
+                                            
+                                    <i class="checkmark icon"></i>
+                                                                            
+                                    2                                </div>
+                                <div class="three wide column">得分：<span
+                                        style="font-weight: normal; ">100</span>
+                                </div>
+                                <div class="three wide column">用时：<span style="font-weight: normal; ">8                                        ms</span>
+                                </div>
+                                <div class="three wide column">内存：<span style="font-weight: normal; ">500                                        KiB</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="content auto_update">
+                        <p>
+                            <strong>输入文件（<span style="font-family: monospace; ">data10.in</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>461
+20251522 511
+20258765 695
+20255880 73
+20253698 13
+20254400 534
+20256928 280
+20256826 928
+2025626
+<5854 bytes omitted></code></pre>
+                            </div>
+
+                            <strong>输出文件（<span style="font-family: monospace; ">data10.out</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>1 20255896 34
+1 20257805 34
+1 20257830 34
+4 20251869 33
+4 20256943 33
+6 20256161 25
+6 20257088 25
+6 
+<6771 bytes omitted></code></pre>
+                            </div>
+                            <strong>选手输出</strong>
+                            <div class="ui existing segment">
+                                <pre style="margin-top: 0; margin-bottom: 0; "><code>1 20255896 34
+1 20257805 34
+1 20257830 34
+4 20251869 33
+4 20256943 33
+6 20256161 25
+6 20257088 25
+6 20259276 25
+9 20250974 24
+9 
+<6743 bytes omitted></code></pre>
+                            </div>
+                        </p>
+                    </div><div class="title auto_update">
+                                <div class="ui grid">
+                                    <div class="three wide column">测试点 #11</div>
+
+                                    <div class="four wide column status status_detail accepted">
+                                            
+                                    <i class="checkmark icon"></i>
+                                                                            
+                                    2                                </div>
+                                <div class="three wide column">得分：<span
+                                        style="font-weight: normal; ">100</span>
+                                </div>
+                                <div class="three wide column">用时：<span style="font-weight: normal; ">7                                        ms</span>
+                                </div>
+                                <div class="three wide column">内存：<span style="font-weight: normal; ">372                                        KiB</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="content auto_update">
+                        <p>
+                            <strong>输入文件（<span style="font-family: monospace; ">data11.in</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>410
+20252617 437
+20258777 545
+20256527 275
+20257870 905
+20259158 307
+20256411 70
+20254065 87
+2025826
+<5194 bytes omitted></code></pre>
+                            </div>
+
+                            <strong>输出文件（<span style="font-family: monospace; ">data11.out</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>1 20255438 42
+2 20252052 34
+3 20254648 32
+4 20252041 25
+4 20254055 25
+4 20254157 25
+4 20254733 25
+4 
+<6022 bytes omitted></code></pre>
+                            </div>
+                            <strong>选手输出</strong>
+                            <div class="ui existing segment">
+                                <pre style="margin-top: 0; margin-bottom: 0; "><code>1 20255438 42
+2 20252052 34
+3 20254648 32
+4 20252041 25
+4 20254055 25
+4 20254157 25
+4 20254733 25
+4 20256774 25
+4 20259251 25
+10
+<5994 bytes omitted></code></pre>
+                            </div>
+                        </p>
+                    </div><div class="title auto_update">
+                                <div class="ui grid">
+                                    <div class="three wide column">测试点 #12</div>
+
+                                    <div class="four wide column status status_detail accepted">
+                                            
+                                    <i class="checkmark icon"></i>
+                                                                            
+                                    2                                </div>
+                                <div class="three wide column">得分：<span
+                                        style="font-weight: normal; ">100</span>
+                                </div>
+                                <div class="three wide column">用时：<span style="font-weight: normal; ">7                                        ms</span>
+                                </div>
+                                <div class="three wide column">内存：<span style="font-weight: normal; ">380                                        KiB</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="content auto_update">
+                        <p>
+                            <strong>输入文件（<span style="font-family: monospace; ">data12.in</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>210
+20251547 233
+20254385 786
+20254466 72
+20252903 37
+20258408 776
+20259557 383
+20253738 214
+2025995
+<2607 bytes omitted></code></pre>
+                            </div>
+
+                            <strong>输出文件（<span style="font-family: monospace; ">data12.out</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>1 20257172 44
+2 20250929 34
+2 20252374 34
+4 20255310 33
+5 20258408 32
+6 20250593 25
+7 20252457 24
+7 
+<2981 bytes omitted></code></pre>
+                            </div>
+                            <strong>选手输出</strong>
+                            <div class="ui existing segment">
+                                <pre style="margin-top: 0; margin-bottom: 0; "><code>1 20257172 44
+2 20250929 34
+2 20252374 34
+4 20255310 33
+5 20258408 32
+6 20250593 25
+7 20252457 24
+7 20256266 24
+7 20259374 24
+10
+<2953 bytes omitted></code></pre>
+                            </div>
+                        </p>
+                    </div><div class="title auto_update">
+                                <div class="ui grid">
+                                    <div class="three wide column">测试点 #13</div>
+
+                                    <div class="four wide column status status_detail accepted">
+                                            
+                                    <i class="checkmark icon"></i>
+                                                                            
+                                    2                                </div>
+                                <div class="three wide column">得分：<span
+                                        style="font-weight: normal; ">100</span>
+                                </div>
+                                <div class="three wide column">用时：<span style="font-weight: normal; ">8                                        ms</span>
+                                </div>
+                                <div class="three wide column">内存：<span style="font-weight: normal; ">260                                        KiB</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="content auto_update">
+                        <p>
+                            <strong>输入文件（<span style="font-family: monospace; ">data13.in</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>73
+20255599 211
+20257538 580
+20251962 835
+20255432 127
+20250141 924
+20250222 871
+20256643 990
+202517
+<850 bytes omitted></code></pre>
+                            </div>
+
+                            <strong>输出文件（<span style="font-family: monospace; ">data13.out</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>1 20255225 17
+1 20256972 17
+1 20257379 17
+4 20250549 16
+5 20252729 15
+5 20254816 15
+7 20251603 10
+7 
+<922 bytes omitted></code></pre>
+                            </div>
+                            <strong>选手输出</strong>
+                            <div class="ui existing segment">
+                                <pre style="margin-top: 0; margin-bottom: 0; "><code>1 20255225 17
+1 20256972 17
+1 20257379 17
+4 20250549 16
+5 20252729 15
+5 20254816 15
+7 20251603 10
+7 20251962 10
+7 20253933 10
+7 
+<894 bytes omitted></code></pre>
+                            </div>
+                        </p>
+                    </div><div class="title auto_update">
+                                <div class="ui grid">
+                                    <div class="three wide column">测试点 #14</div>
+
+                                    <div class="four wide column status status_detail accepted">
+                                            
+                                    <i class="checkmark icon"></i>
+                                                                            
+                                    2                                </div>
+                                <div class="three wide column">得分：<span
+                                        style="font-weight: normal; ">100</span>
+                                </div>
+                                <div class="three wide column">用时：<span style="font-weight: normal; ">8                                        ms</span>
+                                </div>
+                                <div class="three wide column">内存：<span style="font-weight: normal; ">376                                        KiB</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="content auto_update">
+                        <p>
+                            <strong>输入文件（<span style="font-family: monospace; ">data14.in</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>539
+20256463 682106967775160
+20257263 428051498528109
+20255746 337421587805812
+20255778 138893585243
+<13298 bytes omitted></code></pre>
+                            </div>
+
+                            <strong>输出文件（<span style="font-family: monospace; ">data14.out</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>1 20253114 41
+2 20254880 34
+3 20257235 33
+3 20258421 33
+5 20258772 32
+6 20255337 31
+7 20256463 26
+8 
+<7967 bytes omitted></code></pre>
+                            </div>
+                            <strong>选手输出</strong>
+                            <div class="ui existing segment">
+                                <pre style="margin-top: 0; margin-bottom: 0; "><code>1 20253114 41
+2 20254880 34
+3 20257235 33
+3 20258421 33
+5 20258772 32
+6 20255337 31
+7 20256463 26
+8 20251040 25
+8 20251574 25
+8 
+<7939 bytes omitted></code></pre>
+                            </div>
+                        </p>
+                    </div><div class="title auto_update">
+                                <div class="ui grid">
+                                    <div class="three wide column">测试点 #15</div>
+
+                                    <div class="four wide column status status_detail accepted">
+                                            
+                                    <i class="checkmark icon"></i>
+                                                                            
+                                    2                                </div>
+                                <div class="three wide column">得分：<span
+                                        style="font-weight: normal; ">100</span>
+                                </div>
+                                <div class="three wide column">用时：<span style="font-weight: normal; ">10                                        ms</span>
+                                </div>
+                                <div class="three wide column">内存：<span style="font-weight: normal; ">496                                        KiB</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="content auto_update">
+                        <p>
+                            <strong>输入文件（<span style="font-family: monospace; ">data15.in</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>950
+20259824 113611964013899
+20254360 346885308645641
+20258556 718301417898664
+20250845 564215418785
+<23536 bytes omitted></code></pre>
+                            </div>
+
+                            <strong>输出文件（<span style="font-family: monospace; ">data15.out</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>1 20251513 34
+1 20252315 34
+1 20255873 34
+1 20257408 34
+1 20258104 34
+6 20251402 33
+6 20257235 33
+8 
+<14238 bytes omitted></code></pre>
+                            </div>
+                            <strong>选手输出</strong>
+                            <div class="ui existing segment">
+                                <pre style="margin-top: 0; margin-bottom: 0; "><code>1 20251513 34
+1 20252315 34
+1 20255873 34
+1 20257408 34
+1 20258104 34
+6 20251402 33
+6 20257235 33
+8 20256504 32
+8 20259820 32
+10
+<14210 bytes omitted></code></pre>
+                            </div>
+                        </p>
+                    </div><div class="title auto_update">
+                                <div class="ui grid">
+                                    <div class="three wide column">测试点 #16</div>
+
+                                    <div class="four wide column status status_detail accepted">
+                                            
+                                    <i class="checkmark icon"></i>
+                                                                            
+                                    2                                </div>
+                                <div class="three wide column">得分：<span
+                                        style="font-weight: normal; ">100</span>
+                                </div>
+                                <div class="three wide column">用时：<span style="font-weight: normal; ">8                                        ms</span>
+                                </div>
+                                <div class="three wide column">内存：<span style="font-weight: normal; ">248                                        KiB</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="content auto_update">
+                        <p>
+                            <strong>输入文件（<span style="font-family: monospace; ">data16.in</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>534
+20259933 860605379248075
+20259650 625617782128131
+20256353 203857390355885
+20250888 587092707341
+<13198 bytes omitted></code></pre>
+                            </div>
+
+                            <strong>输出文件（<span style="font-family: monospace; ">data16.out</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>1 20252559 34
+1 20254998 34
+3 20251624 33
+3 20252039 33
+3 20254991 33
+6 20251162 31
+7 20250240 25
+7 
+<7886 bytes omitted></code></pre>
+                            </div>
+                            <strong>选手输出</strong>
+                            <div class="ui existing segment">
+                                <pre style="margin-top: 0; margin-bottom: 0; "><code>1 20252559 34
+1 20254998 34
+3 20251624 33
+3 20252039 33
+3 20254991 33
+6 20251162 31
+7 20250240 25
+7 20251209 25
+7 20251393 25
+7 
+<7858 bytes omitted></code></pre>
+                            </div>
+                        </p>
+                    </div><div class="title auto_update">
+                                <div class="ui grid">
+                                    <div class="three wide column">测试点 #17</div>
+
+                                    <div class="four wide column status status_detail accepted">
+                                            
+                                    <i class="checkmark icon"></i>
+                                                                            
+                                    2                                </div>
+                                <div class="three wide column">得分：<span
+                                        style="font-weight: normal; ">100</span>
+                                </div>
+                                <div class="three wide column">用时：<span style="font-weight: normal; ">9                                        ms</span>
+                                </div>
+                                <div class="three wide column">内存：<span style="font-weight: normal; ">236                                        KiB</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="content auto_update">
+                        <p>
+                            <strong>输入文件（<span style="font-family: monospace; ">data17.in</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>946
+20257037 294255308001646
+20256729 635620265082923
+20251359 224111010583484
+20255072 827082886520
+<23449 bytes omitted></code></pre>
+                            </div>
+
+                            <strong>输出文件（<span style="font-family: monospace; ">data17.out</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>1 20253921 34
+1 20259030 34
+3 20255480 33
+3 20259211 33
+5 20250068 32
+5 20255671 32
+7 20251862 31
+8 
+<14150 bytes omitted></code></pre>
+                            </div>
+                            <strong>选手输出</strong>
+                            <div class="ui existing segment">
+                                <pre style="margin-top: 0; margin-bottom: 0; "><code>1 20253921 34
+1 20259030 34
+3 20255480 33
+3 20259211 33
+5 20250068 32
+5 20255671 32
+7 20251862 31
+8 20250727 25
+8 20251362 25
+8 
+<14122 bytes omitted></code></pre>
+                            </div>
+                        </p>
+                    </div><div class="title auto_update">
+                                <div class="ui grid">
+                                    <div class="three wide column">测试点 #18</div>
+
+                                    <div class="four wide column status status_detail accepted">
+                                            
+                                    <i class="checkmark icon"></i>
+                                                                            
+                                    2                                </div>
+                                <div class="three wide column">得分：<span
+                                        style="font-weight: normal; ">100</span>
+                                </div>
+                                <div class="three wide column">用时：<span style="font-weight: normal; ">8                                        ms</span>
+                                </div>
+                                <div class="three wide column">内存：<span style="font-weight: normal; ">356                                        KiB</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="content auto_update">
+                        <p>
+                            <strong>输入文件（<span style="font-family: monospace; ">data18.in</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>726
+20254730 456129124345940
+20251740 31033840158669
+20250876 591837658283133
+20251906 9633019215155
+<17966 bytes omitted></code></pre>
+                            </div>
+
+                            <strong>输出文件（<span style="font-family: monospace; ">data18.out</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>1 20254774 44
+2 20250744 34
+2 20253841 34
+4 20255272 33
+4 20256923 33
+6 20252269 25
+6 20253213 25
+6 
+<10775 bytes omitted></code></pre>
+                            </div>
+                            <strong>选手输出</strong>
+                            <div class="ui existing segment">
+                                <pre style="margin-top: 0; margin-bottom: 0; "><code>1 20254774 44
+2 20250744 34
+2 20253841 34
+4 20255272 33
+4 20256923 33
+6 20252269 25
+6 20253213 25
+6 20253393 25
+6 20253428 25
+6 
+<10747 bytes omitted></code></pre>
+                            </div>
+                        </p>
+                    </div><div class="title auto_update">
+                                <div class="ui grid">
+                                    <div class="three wide column">测试点 #19</div>
+
+                                    <div class="four wide column status status_detail accepted">
+                                            
+                                    <i class="checkmark icon"></i>
+                                                                            
+                                    2                                </div>
+                                <div class="three wide column">得分：<span
+                                        style="font-weight: normal; ">100</span>
+                                </div>
+                                <div class="three wide column">用时：<span style="font-weight: normal; ">9                                        ms</span>
+                                </div>
+                                <div class="three wide column">内存：<span style="font-weight: normal; ">224                                        KiB</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="content auto_update">
+                        <p>
+                            <strong>输入文件（<span style="font-family: monospace; ">data19.in</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>622
+20257234 273703320756763
+20259456 398776730605401
+20254441 487916720866105
+20256379 166009133418
+<15378 bytes omitted></code></pre>
+                            </div>
+
+                            <strong>输出文件（<span style="font-family: monospace; ">data19.out</span>）</strong>
+                            <div class="ui existing segment">
+                                <pre
+                                    style="margin-top: 0; margin-bottom: 0; "><code>1 20251589 43
+1 20257387 43
+3 20250418 34
+3 20256590 34
+5 20250449 25
+5 20251242 25
+5 20252250 25
+5 
+<9217 bytes omitted></code></pre>
+                            </div>
+                            <strong>选手输出</strong>
+                            <div class="ui existing segment">
+                                <pre style="margin-top: 0; margin-bottom: 0; "><code>1 20251589 43
+1 20257387 43
+3 20250418 34
+3 20256590 34
+5 20250449 25
+5 20251242 25
+5 20252250 25
+5 20252557 25
+5 20252703 25
+5 
+<9189 bytes omitted></code></pre>
+                            </div>
+                        </p>
+                    </div>                </div>
+
+
+                <div class="ui grid">
+                                    </div>
+
+
+
+
+                <form action="/index.php/index/index/prob_submit.html" method="post" onsubmit="return submit_code()"
+                    id="submit_code" enctype="multipart/form-data">
+
+                    <input name="language" type="hidden" id="form">
+                    <input name="code" type="hidden">
+                    <input name="pid" type="hidden" value="1588">
+                    <div class="ui grid" style="margin-top:30px;">
+                        <div class="four wide column" style="margin-right: -25px; ">
+                            <div class="ui attached vertical fluid pointing menu" id="languages-menu"
+                                style="height: 370px; overflow-y: scroll; overflow-x: hidden; ">
+
+
+                                <a style="border-radius: 0; " class="item active" data-value="cpp" data-mode="cpp">
+                                    C++
+                                    <div class="ui right floated"
+                                        style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">GCC 8.2.0</div>
+                                </a>
+
+                                <a style="border-radius: 0; " class="item" data-value="cpp11" data-mode="cpp">
+                                    C++ 11
+                                    <div class="ui right floated"
+                                        style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">GCC 8.2.0</div>
+                                </a>
+
+                                <a style="border-radius: 0; " class="item" data-value="cpp17" data-mode="cpp">
+                                    C++ 17
+                                    <div class="ui right floated"
+                                        style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">GCC 8.2.0</div>
+                                </a>
+
+                                <a style="border-radius: 0; " class="item" data-value="cpp-noilinux" data-mode="cpp">
+                                    C++ (NOI)
+                                    <div class="ui right floated"
+                                        style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">GCC 4.8.4 (NOILinux
+                                        1.4.1)</div>
+                                </a>
+
+                                <a style="border-radius: 0; " class="item" data-value="cpp11-noilinux" data-mode="cpp">
+                                    C++ 11 (NOI)
+                                    <div class="ui right floated"
+                                        style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">GCC 4.8.4 (NOILinux
+                                        1.4.1)</div>
+                                </a>
+
+                                <a style="border-radius: 0; " class="item" data-value="cpp11-clang" data-mode="cpp">
+                                    C++ 11 (Clang)
+                                    <div class="ui right floated"
+                                        style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">Clang 7.0.1</div>
+                                </a>
+
+                                <a style="border-radius: 0; " class="item" data-value="cpp17-clang" data-mode="cpp">
+                                    C++ 17 (Clang)
+                                    <div class="ui right floated"
+                                        style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">Clang 7.0.1</div>
+                                </a>
+
+                                <a style="border-radius: 0; " class="item" data-value="c" data-mode="c">
+                                    C
+                                    <div class="ui right floated"
+                                        style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">Clang 7.0.1</div>
+                                </a>
+
+                                <a style="border-radius: 0; " class="item" data-value="c-noilinux" data-mode="c">
+                                    C (NOI)
+                                    <div class="ui right floated"
+                                        style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">GCC 4.8.4 (NOILinux
+                                        1.4.1)</div>
+                                </a>
+
+                                <a style="border-radius: 0; " class="item" data-value="csharp" data-mode="csharp">
+                                    C#
+                                    <div class="ui right floated"
+                                        style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">Mono 5.16.0.220</div>
+                                </a>
+
+                                <a style="border-radius: 0; " class="item" data-value="java" data-mode="java">
+                                    Java
+                                    <div class="ui right floated"
+                                        style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">OpenJDK 10.0.2</div>
+                                </a>
+
+                                <a style="border-radius: 0; " class="item" data-value="pascal" data-mode="pascal">
+                                    Pascal
+                                    <div class="ui right floated"
+                                        style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">Free Pascal 3.0.4
+                                    </div>
+                                </a>
+
+                                <a style="border-radius: 0; " class="item" data-value="python2" data-mode="python">
+                                    Python 2
+                                    <div class="ui right floated"
+                                        style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">PyPy 6.0.0 (Python
+                                        2.7.13)</div>
+                                </a>
+
+                                <a style="border-radius: 0; " class="item" data-value="python3" data-mode="python">
+                                    Python 3
+                                    <div class="ui right floated"
+                                        style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">PyPy 6.0.0 (Python
+                                        3.5.3)</div>
+                                </a>
+
+                                <a style="border-radius: 0; " class="item" data-value="nodejs" data-mode="javascript">
+                                    Node.js
+                                    <div class="ui right floated"
+                                        style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">10.14.0</div>
+                                </a>
+
+                                <a style="border-radius: 0; " class="item" data-value="ruby" data-mode="ruby">
+                                    Ruby
+                                    <div class="ui right floated"
+                                        style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">2.5.1</div>
+                                </a>
+
+                                <a style="border-radius: 0; " class="item" data-value="haskell" data-mode="haskell">
+                                    Haskell
+                                    <div class="ui right floated"
+                                        style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; ">GHC 8.6.2</div>
+                                </a>
+
+                            </div>
+                        </div>
+                        <div class="twelve wide stretched column"
+                            style="position: relative; padding-left: 0; margin-left: calc(-1rem - 1px); width: calc(75% + 1rem + 13px) !important; ">
+                            <div id="editor"
+                                style="position: absolute; width: 100%; height: calc(100% - 28px); border: 1px solid #D4D4D5; overflow: hidden; "
+                                class="editor">
+
+                                <div class="ui active medium text loader">编辑器加载中 …</div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui center aligned vertical segment" style="padding-bottom: 0;display:none; ">
+                        <button type="submit" class="ui labeled icon button"><i class="ui edit icon"></i>提交</button>
+                    </div>
+
+
+        </div>
+        </form>
+
+        <script>
+            $(function () {
+                $('.ui.accordion').accordion({
+                    selector: {
+                        trigger: '.title:not(.pending)'
+                    }
+                });
+            });
+        </script>
+
+        <div>
+            <div id="not_pending"></div>
+        </div>
+        <script>
+
+        </script>
+        </span>
+    </div>
+    <div class="ui vertical footer segment">
+        <div class="ui center aligned container">
+            <span style="color: #999;">YOJ Powered by YOJ</a>.</span>
+        </div>
+    </div>
+    <script data-cfasync="false" src="/Public/cdn/semantic.min.js"></script>
+    <!-- <script src="/Public/cdn/fChart.bundle.min.js"></script> -->
+    <script src="/Public/cdn/package/self/script.js?20170710"></script>
+
+    <script>
+        function getLocalTime(nS) {
+            return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
+        }
+        $(document).ready(function () {
+            $(".stime").each(function () {
+                stime = $(this).text()
+                // console.log(getLocalTime(stime))
+                $(this).html(getLocalTime(stime))
+
+            })
+
+            $(".score").each(function () {
+                sscore = $(this).text()
+                sscore = parseInt(sscore)
+                s_para = parseInt(sscore / 10)
+                $(this).addClass("score_" + s_para.toString())
+            })
+            status_dict = {
+                "Accepted": ['accepted', '<i class="checkmark icon"></i>'],
+                'Compile Error': ['compile_error', '<i class="code icon"></i>'],
+                'Runtime Error': ['runtime_error', '<i class="bomb icon"></i>'],
+                'Time Limit Exceeded': ['time_limit_exceeded', '<i class="clock icon"></i>'],
+                'Wrong Answer': ['wrong_answer', '<i class="remove icon"></i>'],
+                'Waiting': ['waiting', '<i class="clock icon"></i>'],
+                'System Error': ['system_error', '<i class="server icon"></i>'],
+                'Memory Limit Exceeded': ['memory_limit_exceeded', '<i class="icon microchip"></i>'],
+                'No Testdata': ['no_testdata', '<i class="icon folder open outline"></i>'],
+                'Waiting': ["pending", '<i class="hourglass half icon"></i>']
+            }
+            
+            $(".status").each(function () {
+                sstatus = $(this).text()
+                if (!status_dict.hasOwnProperty(sstatus)) {
+                    sstatus = 'System Error'
+                }
+                $(this).addClass(status_dict[sstatus][0])
+                $(this).prepend(status_dict[sstatus][1])
+
+            })
+
+            cnt = 1
+            $(".point_idx").each(function () {
+                $(this).html(cnt)
+                cnt += 1
+            })
+
+
+
+
+        })
+    </script>
+
+    <script type="text/javascript">
+        var editor;
+        $.post("/index.php/index/submissions/getcode.html", { subid: $("#subid_help").val() }, function (res) {
+
+
+            window.onEditorLoaded(function () {
+                var editorElement = document.getElementById('editor');
+                var content = '';
+                content = "#include\u003Cstdio.h\u003E  \r\nint main()  \r\n{  \r\nint i=1;  \r\nint a;  \r\nscanf(\"%d\",&a);  \r\ndo  \r\n{  \r\n    printf(\"hello world\\n\",i=i+1);  \r\n}  \r\nwhile(i\u003C=a);  \r\nreturn 0;  \r\n}  ";
+                content = res['code']
+                editor = window.createCodeEditor(editorElement, $('#languages-menu .item.active').data('mode'), content);
+                window.editor = editor;
+            });
+
+
+            $('#languages-menu')[0].scrollTop = $('#languages-menu .active')[0].offsetTop - $('#languages-menu')[0].firstElementChild.offsetTop;
+            $(function () {
+                $('#languages-menu .item').click(function () {
+                    $(this)
+                        .addClass('active')
+                        .closest('.ui.menu')
+                        .find('.item')
+                        .not($(this))
+                        .removeClass('active')
+                        ;
+                    monaco.editor.setModelLanguage(editor.getModel(), $(this).data('mode'));
+                });
+            });
+
+        })
+
+        var lastSubmitted = '';
+        function submit_code() {
+
+            evalue = editor.getValue().trim()
+
+            if (!evalue) {
+                return false;
+            }
+            $('#submit_code input[name=language]').val($('#languages-menu .item.active').data('value'));
+            lastSubmitted = editor.getValue();
+            $('#submit_code input[name=code]').val(editor.getValue());
+            return true;
+        }
+
+
+
+    </script>
+    <div class="ui vertical footer segment">
+        <div class="ui center aligned container">
+          <span style="color: #999;">YOJ Powered by <a href="#" target="_blank">YOJ</a>.</span>
+          <span style="color: #999;">友情链接：
+            <a href="http://202.112.113.190:8080" target="_blank">YOJ旧版 </a>;
+            <!-- <a href="http://obe.ruc.edu.cn" target="_blank">Unicourse </a>; -->
+            <a href="https://syzoj.org/" target="_blank">SYZOJ </a>;
+            <a href="http://obe.ruc.edu.cn" target="_blank">OBE </a>
+            
+          </span>
+        </div>
+      </div>
+
+      
+</body>
+
+</html>

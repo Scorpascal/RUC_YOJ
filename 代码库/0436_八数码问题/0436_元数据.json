@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1167845",
+    "problemNo": "436",
+    "title": "八数码问题",
+    "status": "Accepted",
+    "score": "100",
+    "time": "90 ms",
+    "memory": "5368 KB",
+    "language": "cpp",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1759161472",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1167845.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/436.html",
+    "listPage": 31,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1167845",
+    "problemNo": "436",
+    "title": "八数码问题",
+    "status": "Accepted",
+    "score": "100",
+    "time": "90 ms",
+    "memory": "5368 KB",
+    "language": "cpp",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1759161472",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1167845.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/436.html",
+    "listPage": 31
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "72f754930d4c30162f252275d26f16516f8523e53041ffe4e6adced382f76e6d"
+  },
+  "files": {
+    "problemHtml": "0436_题目原文.html",
+    "submissionHtml": "0436_提交_1167845_详情.html",
+    "completeCode": "0436_提交_1167845_cpp_完整代码.cpp",
+    "directlySubmittableCode": "0436_提交_1167845_cpp_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp",
+    "extension": ".cpp",
+    "bytesUtf8": 2505,
+    "sha256": "aeecfd8c6f45741d0c2dd326d7e288fabf75d2252c6ecfcebe069df8b5e4356e",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "0436_提交_1167845_cpp_完整代码.cpp",
+      "directlySubmittableFile": "0436_提交_1167845_cpp_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

@@ -1,0 +1,2 @@
+#include <bits/stdc++.h>
+using namespace std;void ms(vector<int>&a,vector<int>&t,int l,int r){if(r-l<2)return;int m=(l+r)/2;ms(a,t,l,m);ms(a,t,m,r);int i=l,j=m,k=l;while(i<m||j<r)t[k++]=(j==r||(i<m&&a[i]<=a[j]))?a[i++]:a[j++];for(i=l;i<r;++i)a[i]=t[i];}int main(){int n;cin>>n;vector<int>a(n),t(n);for(int&x:a)cin>>x;ms(a,t,0,n);for(int i=0;i<n;++i){if(i)cout<<' ';cout<<a[i];}cout<<endl;}

@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1342110",
+    "problemNo": "1561",
+    "title": "两点间距离函数",
+    "status": "Accepted",
+    "score": "100",
+    "time": "103 ms",
+    "memory": "416 KB",
+    "language": "cpp",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1767254053",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1342110.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1561.html",
+    "listPage": 7,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1342110",
+    "problemNo": "1561",
+    "title": "两点间距离函数",
+    "status": "Accepted",
+    "score": "100",
+    "time": "103 ms",
+    "memory": "416 KB",
+    "language": "cpp",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1767254053",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1342110.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1561.html",
+    "listPage": 7
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "57609cde3d550e2c880026fa6837b6e8320ce067a696884071eea1f324a4c6fe"
+  },
+  "files": {
+    "problemHtml": "1561_题目原文.html",
+    "submissionHtml": "1561_提交_1342110_详情.html",
+    "completeCode": "1561_提交_1342110_cpp_完整代码.cpp",
+    "directlySubmittableCode": "1561_提交_1342110_cpp_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp",
+    "extension": ".cpp",
+    "bytesUtf8": 429,
+    "sha256": "b340ddc0143dc22646facde5ec0f468b4f0a3e61d69443431db735c1f1d11813",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1561_提交_1342110_cpp_完整代码.cpp",
+      "directlySubmittableFile": "1561_提交_1342110_cpp_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

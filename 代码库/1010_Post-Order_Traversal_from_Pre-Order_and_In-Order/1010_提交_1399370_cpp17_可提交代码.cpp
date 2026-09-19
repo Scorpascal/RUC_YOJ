@@ -1,0 +1,2 @@
+#include <bits/stdc++.h>
+using namespace std;int main(){ios::sync_with_stdio(false);cin.tie(nullptr);int n;if(!(cin>>n))return 0;vector<int>pre(n),in(n),pos;for(int&i:pre)cin>>i;for(int&i:in)cin>>i;unordered_map<int,int>mp;for(int i=0;i<n;i++)mp[in[i]]=i;vector<int>ans;function<void(int,int,int,int)>dfs=[&](int pl,int pr,int il,int ir){if(pl>pr)return;int root=pre[pl],k=mp[root],ls=k-il;dfs(pl+1,pl+ls,il,k-1);dfs(pl+ls+1,pr,k+1,ir);ans.push_back(root);};dfs(0,n-1,0,n-1);for(int i=0;i<n;i++){if(i)cout<<' ';cout<<ans[i];}cout<<endl;return 0;}

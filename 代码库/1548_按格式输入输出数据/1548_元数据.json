@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1196318",
+    "problemNo": "1548",
+    "title": "按格式输入输出数据",
+    "status": "Accepted",
+    "score": "100",
+    "time": "98 ms",
+    "memory": "524 KB",
+    "language": "cpp17-clang",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1760696986",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1196318.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1548.html",
+    "listPage": 25,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1196318",
+    "problemNo": "1548",
+    "title": "按格式输入输出数据",
+    "status": "Accepted",
+    "score": "100",
+    "time": "98 ms",
+    "memory": "524 KB",
+    "language": "cpp17-clang",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1760696986",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1196318.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1548.html",
+    "listPage": 25
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "4e6e1a84906e62bf0aaaec1d126029e591a788fea376750726af5720875b342f"
+  },
+  "files": {
+    "problemHtml": "1548_题目原文.html",
+    "submissionHtml": "1548_提交_1196318_详情.html",
+    "completeCode": "1548_提交_1196318_cpp17-clang_完整代码.cpp",
+    "directlySubmittableCode": "1548_提交_1196318_cpp17-clang_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp17-clang",
+    "extension": ".cpp",
+    "bytesUtf8": 3072,
+    "sha256": "5c8d10206b401ee42ebe1e96b58dcc440a8109169756d25968668d439380db90",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1548_提交_1196318_cpp17-clang_完整代码.cpp",
+      "directlySubmittableFile": "1548_提交_1196318_cpp17-clang_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

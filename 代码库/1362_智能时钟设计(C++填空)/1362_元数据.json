@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1298568",
+    "problemNo": "1362",
+    "title": "智能时钟设计（C++填空）",
+    "status": "Accepted",
+    "score": "100",
+    "time": "8 ms",
+    "memory": "376 KB",
+    "language": "cpp",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1765191325",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1298568.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1362.html",
+    "listPage": 12,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1298568",
+    "problemNo": "1362",
+    "title": "智能时钟设计（C++填空）",
+    "status": "Accepted",
+    "score": "100",
+    "time": "8 ms",
+    "memory": "376 KB",
+    "language": "cpp",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1765191325",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1298568.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1362.html",
+    "listPage": 12
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "5c69f7a15992624b43d1556c11ca4b6a93ff706a1e5123e80f6f13639ef48e3b"
+  },
+  "files": {
+    "problemHtml": "1362_题目原文.html",
+    "submissionHtml": "1362_提交_1298568_详情.html",
+    "completeCode": "1362_提交_1298568_cpp_完整代码.cpp",
+    "directlySubmittableCode": "1362_提交_1298568_cpp_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp",
+    "extension": ".cpp",
+    "bytesUtf8": 3082,
+    "sha256": "058665b04df23fa9a837cfcbda8d305852c4c408293604ce51061f6d5934a798",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1362_提交_1298568_cpp_完整代码.cpp",
+      "directlySubmittableFile": "1362_提交_1298568_cpp_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

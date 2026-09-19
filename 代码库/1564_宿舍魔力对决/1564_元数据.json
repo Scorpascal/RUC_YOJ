@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1268655",
+    "problemNo": "1564",
+    "title": "宿舍魔力对决",
+    "status": "Accepted",
+    "score": "100",
+    "time": "69 ms",
+    "memory": "632 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1763814028",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1268655.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1564.html",
+    "listPage": 17,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1268655",
+    "problemNo": "1564",
+    "title": "宿舍魔力对决",
+    "status": "Accepted",
+    "score": "100",
+    "time": "69 ms",
+    "memory": "632 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1763814028",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1268655.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1564.html",
+    "listPage": 17
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "3c0e455188ac30719aaa12e8b7c7a6ae50f8639b17254275811721e9ccd1a93c"
+  },
+  "files": {
+    "problemHtml": "1564_题目原文.html",
+    "submissionHtml": "1564_提交_1268655_详情.html",
+    "completeCode": "1564_提交_1268655_c_完整代码.c",
+    "directlySubmittableCode": "1564_提交_1268655_c_可提交代码.c"
+  },
+  "code": {
+    "language": "c",
+    "extension": ".c",
+    "bytesUtf8": 3031,
+    "sha256": "d90508a1a3947a6ac0268bd87a58634a290ccced2c067d476f30b7d1378782a4",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1564_提交_1268655_c_完整代码.c",
+      "directlySubmittableFile": "1564_提交_1268655_c_可提交代码.c",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

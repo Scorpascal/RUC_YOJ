@@ -1,0 +1,2 @@
+#include <bits/stdc++.h>
+using namespace std;long long f(vector<int>&a,vector<int>&t,int l,int r){if(r-l<2)return 0;int m=(l+r)/2;long long z=f(a,t,l,m)+f(a,t,m,r);int i=l,j=m,k=l;while(i<m||j<r){if(j==r||(i<m&&a[i]<=a[j]))t[k++]=a[i++];else{t[k++]=a[j++];z+=m-i;}}for(i=l;i<r;++i)a[i]=t[i];return z;}int main(){ios::sync_with_stdio(false);cin.tie(nullptr);int n;cin>>n;vector<int>a(n),t(n);for(int&x:a)cin>>x;cout<<f(a,t,0,n)<<endl;}

@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1396440",
+    "problemNo": "946",
+    "title": "向量遍历",
+    "status": "Accepted",
+    "score": "100",
+    "time": "24 ms",
+    "memory": "376 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1789634575",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1396440.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/946.html",
+    "listPage": 5,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1396440",
+    "problemNo": "946",
+    "title": "向量遍历",
+    "status": "Accepted",
+    "score": "100",
+    "time": "24 ms",
+    "memory": "376 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1789634575",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1396440.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/946.html",
+    "listPage": 5
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "30a936eee2d049134c87ad1bc525bbcead4631e8b27264a3b201a231733a3365"
+  },
+  "files": {
+    "problemHtml": "0946_题目原文.html",
+    "submissionHtml": "0946_提交_1396440_详情.html",
+    "completeCode": "0946_提交_1396440_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "0946_提交_1396440_cpp17_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 806,
+    "sha256": "f992166e22c852d4c49d1ebb47f95f701c3062e9d97c3a7e7d6a0a430a43e3e0",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "0946_提交_1396440_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "0946_提交_1396440_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

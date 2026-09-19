@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1277306",
+    "problemNo": "185",
+    "title": "迭代法求平方根",
+    "status": "Accepted",
+    "score": "100",
+    "time": "38 ms",
+    "memory": "496 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1764165139",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1277306.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/185.html",
+    "listPage": 16,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1277306",
+    "problemNo": "185",
+    "title": "迭代法求平方根",
+    "status": "Accepted",
+    "score": "100",
+    "time": "38 ms",
+    "memory": "496 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1764165139",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1277306.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/185.html",
+    "listPage": 16
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "35d1f4ab060671431cbed9af4611d5b3c1d4f49d554586a1f77891766dd022f8"
+  },
+  "files": {
+    "problemHtml": "0185_题目原文.html",
+    "submissionHtml": "0185_提交_1277306_详情.html",
+    "completeCode": "0185_提交_1277306_c_完整代码.c",
+    "directlySubmittableCode": "0185_提交_1277306_c_可提交代码.c"
+  },
+  "code": {
+    "language": "c",
+    "extension": ".c",
+    "bytesUtf8": 435,
+    "sha256": "58469b2be91d90c3efe76d418576dffc6de496b559e0f61fdd58b4d9cb4b4047",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "0185_提交_1277306_c_完整代码.c",
+      "directlySubmittableFile": "0185_提交_1277306_c_可提交代码.c",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

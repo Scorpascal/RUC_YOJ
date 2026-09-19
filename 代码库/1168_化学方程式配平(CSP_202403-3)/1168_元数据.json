@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1225012",
+    "problemNo": "1168",
+    "title": "化学方程式配平（CSP 202403-3）",
+    "status": "Accepted",
+    "score": "100",
+    "time": "37 ms",
+    "memory": "504 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1761794288",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1225012.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1168.html",
+    "listPage": 21,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1225012",
+    "problemNo": "1168",
+    "title": "化学方程式配平（CSP 202403-3）",
+    "status": "Accepted",
+    "score": "100",
+    "time": "37 ms",
+    "memory": "504 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1761794288",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1225012.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1168.html",
+    "listPage": 21
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "dddcdeba71642cb9bc9e2f15da84c83234362cbe1ba708f301728f6e43a5743d"
+  },
+  "files": {
+    "problemHtml": "1168_题目原文.html",
+    "submissionHtml": "1168_提交_1225012_详情.html",
+    "completeCode": "1168_提交_1225012_c_完整代码.c",
+    "directlySubmittableCode": "1168_提交_1225012_c_可提交代码.c"
+  },
+  "code": {
+    "language": "c",
+    "extension": ".c",
+    "bytesUtf8": 2986,
+    "sha256": "57d796a2cbe38198eebafc1f6f2394e43923026a9fbbd52c62580e61a598b53d",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1168_提交_1225012_c_完整代码.c",
+      "directlySubmittableFile": "1168_提交_1225012_c_可提交代码.c",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

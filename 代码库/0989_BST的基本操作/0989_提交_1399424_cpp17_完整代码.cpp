@@ -1,0 +1,5 @@
+#include <bits/stdc++.h>
+using namespace std;struct Node{int k;Node*l,*r;Node(int v):k(v),l(nullptr),r(nullptr){}};
+void ins(Node*&t,int x){if(!t){t=new Node(x);return;}Node**p=&t;while(*p){if(x==(*p)->k)return;p=(x<(*p)->k?&(*p)->l:&(*p)->r);}*p=new Node(x);}
+void del(Node*&t,int x){Node**p=&t;while(*p&&(*p)->k!=x)p=(x<(*p)->k?&(*p)->l:&(*p)->r);if(!*p)return;Node*u=*p;if(!u->l){*p=u->r;delete u;}else if(!u->r){*p=u->l;delete u;}else{Node**q=&u->r;while((*q)->l)q=&(*q)->l;u->k=(*q)->k;Node*v=*q;*q=v->r;delete v;}}
+int main(){ios::sync_with_stdio(false);cin.tie(nullptr);int n;if(!(cin>>n))return 0;Node*root=nullptr;while(n--){int a,b;cin>>a>>b;if(a==1)ins(root,b);else del(root,b);}vector<int>outv;vector<Node*>st;if(root)st.push_back(root);while(!st.empty()){Node*u=st.back();st.pop_back();outv.push_back(u->k);if(u->r)st.push_back(u->r);if(u->l)st.push_back(u->l);}string out;for(size_t i=0;i<outv.size();i++){if(i)out.push_back(' ');out+=to_string(outv[i]);}cout<<out<<endl;}

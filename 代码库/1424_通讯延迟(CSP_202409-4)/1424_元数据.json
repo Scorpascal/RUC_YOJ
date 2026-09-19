@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1228208",
+    "problemNo": "1424",
+    "title": "通讯延迟（CSP 202409-4）",
+    "status": "Accepted",
+    "score": "100",
+    "time": "470 ms",
+    "memory": "784 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1761894771",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1228208.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1424.html",
+    "listPage": 20,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1228208",
+    "problemNo": "1424",
+    "title": "通讯延迟（CSP 202409-4）",
+    "status": "Accepted",
+    "score": "100",
+    "time": "470 ms",
+    "memory": "784 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1761894771",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1228208.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1424.html",
+    "listPage": 20
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "ffeac70d49dd7ac62b6114b0d7c2bfac43473566439f58eaf2c0685f63693357"
+  },
+  "files": {
+    "problemHtml": "1424_题目原文.html",
+    "submissionHtml": "1424_提交_1228208_详情.html",
+    "completeCode": "1424_提交_1228208_c_完整代码.c",
+    "directlySubmittableCode": "1424_提交_1228208_c_可提交代码.c"
+  },
+  "code": {
+    "language": "c",
+    "extension": ".c",
+    "bytesUtf8": 4619,
+    "sha256": "358aec059470b50663144f3accd64803e9ceee6cb09d449edf33256f7fd3a438",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1424_提交_1228208_c_完整代码.c",
+      "directlySubmittableFile": "1424_提交_1228208_c_可提交代码.c",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

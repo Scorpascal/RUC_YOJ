@@ -1,0 +1,2 @@
+#include <bits/stdc++.h>
+using namespace std;int main(){string s;getline(cin,s,'@');int d=0;bool ok=true;for(char c:s){if(c=='(')++d;else if(c==')'){if(--d<0){ok=false;break;}}}cout<<(ok&&d==0?"YES":"NO")<<endl;}

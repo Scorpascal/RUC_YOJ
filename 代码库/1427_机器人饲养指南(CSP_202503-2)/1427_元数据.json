@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1340624",
+    "problemNo": "1427",
+    "title": "机器人饲养指南（CSP 202503-2）",
+    "status": "Accepted",
+    "score": "100",
+    "time": "104 ms",
+    "memory": "620 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1766766962",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1340624.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1427.html",
+    "listPage": 7,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1340624",
+    "problemNo": "1427",
+    "title": "机器人饲养指南（CSP 202503-2）",
+    "status": "Accepted",
+    "score": "100",
+    "time": "104 ms",
+    "memory": "620 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1766766962",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1340624.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1427.html",
+    "listPage": 8
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "3c90aab7edacf5d49fe793ce8e6256a6ceba11658f5cbac86553a57081a6ce2e"
+  },
+  "files": {
+    "problemHtml": "1427_题目原文.html",
+    "submissionHtml": "1427_提交_1340624_详情.html",
+    "completeCode": "1427_提交_1340624_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "1427_提交_1340624_cpp17_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 715,
+    "sha256": "8139452da7eb3847db035aeffc959da828cef702ba90d6ba1e6930e5e47294f6",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1427_提交_1340624_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "1427_提交_1340624_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

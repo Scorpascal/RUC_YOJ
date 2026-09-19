@@ -1,0 +1,2 @@
+#include <bits/stdc++.h>
+using namespace std;int main(){ios::sync_with_stdio(false);cin.tie(nullptr);int n;cin>>n;vector<int>a(n);for(int&x:a)cin>>x;int m;cin>>m;while(m--){int op,q,p;cin>>op>>q;if(op){cin>>p;a.insert(a.begin()+p-1,q);}else{auto it=find(a.begin(),a.end(),q);if(it!=a.end())a.erase(it);}}for(size_t i=0;i<a.size();++i){if(i)cout<<' ';cout<<a[i];}cout<<endl;}

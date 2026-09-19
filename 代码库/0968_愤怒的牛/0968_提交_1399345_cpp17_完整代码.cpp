@@ -1,0 +1,3 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){ios::sync_with_stdio(false);cin.tie(nullptr);int n,m;if(!(cin>>n>>m))return 0;vector<long long>x(n);for(auto&v:x)cin>>v;sort(x.begin(),x.end());auto ok=[&](long long d){int cnt=1;long long last=x[0];for(int i=1;i<n;i++)if(x[i]-last>=d){cnt++;last=x[i];}return cnt>=m;};long long lo=0,hi=x.back()-x.front()+1;while(hi-lo>1){long long mid=(lo+hi)/2;if(ok(mid))lo=mid;else hi=mid;}cout<<lo<<endl;return 0;}

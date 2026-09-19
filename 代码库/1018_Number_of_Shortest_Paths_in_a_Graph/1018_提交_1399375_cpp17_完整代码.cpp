@@ -1,0 +1,3 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){ios::sync_with_stdio(false);cin.tie(nullptr);int n,m;if(!(cin>>n>>m))return 0;vector<vector<int>> g(n+1);for(int i=0,u,v;i<m;i++){cin>>u>>v;g[u].push_back(v);g[v].push_back(u);}const int MOD=100003;vector<int>d(n+1,-1),w(n+1);queue<int>q;d[1]=0;w[1]=1;q.push(1);while(!q.empty()){int u=q.front();q.pop();for(int v:g[u]){if(d[v]<0){d[v]=d[u]+1;w[v]=w[u];q.push(v);}else if(d[v]==d[u]+1){w[v]+=w[u];if(w[v]>=MOD)w[v]-=MOD;}}}for(int i=1;i<=n;i++)cout<<(d[i]<0?0:w[i])<<endl;return 0;}

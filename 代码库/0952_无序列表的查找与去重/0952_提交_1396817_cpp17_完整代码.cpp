@@ -1,0 +1,2 @@
+#include <bits/stdc++.h>
+using namespace std;int main(){ios::sync_with_stdio(false);cin.tie(nullptr);int n;cin>>n;vector<int>a(n),b;for(int&x:a)cin>>x;unordered_set<int>s;for(int i=n-1;i>=0;--i)if(s.insert(a[i]).second)b.push_back(a[i]);reverse(b.begin(),b.end());for(size_t i=0;i<b.size();++i){if(i)cout<<' ';cout<<b[i];}cout<<endl;}

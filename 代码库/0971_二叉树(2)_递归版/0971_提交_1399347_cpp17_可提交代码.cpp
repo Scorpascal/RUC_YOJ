@@ -1,0 +1,3 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n;vector<long long>a,pre,in,post;void dfs(int i){if(i>=n)return;pre.push_back(a[i]);dfs(2*i+1);in.push_back(a[i]);dfs(2*i+2);post.push_back(a[i]);}void printv(const vector<long long>&v){for(int i=0;i<(int)v.size();i++){if(i)cout<<' ';cout<<v[i];}cout<<endl;}int main(){ios::sync_with_stdio(false);cin.tie(nullptr);if(!(cin>>n))return 0;a.resize(n);for(auto&x:a)cin>>x;dfs(0);printv(pre);printv(in);printv(post);return 0;}

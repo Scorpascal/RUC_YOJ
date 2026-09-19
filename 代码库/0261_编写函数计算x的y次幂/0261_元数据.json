@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1280413",
+    "problemNo": "261",
+    "title": "编写函数计算x的y次幂",
+    "status": "Accepted",
+    "score": "100",
+    "time": "37 ms",
+    "memory": "492 KB",
+    "language": "cpp",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1764297283",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1280413.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/261.html",
+    "listPage": 16,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1280413",
+    "problemNo": "261",
+    "title": "编写函数计算x的y次幂",
+    "status": "Accepted",
+    "score": "100",
+    "time": "37 ms",
+    "memory": "492 KB",
+    "language": "cpp",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1764297283",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1280413.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/261.html",
+    "listPage": 16
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "322ce265507591460399d46844714e1de17e3d26a681d75dcebe2d1ca95469a4"
+  },
+  "files": {
+    "problemHtml": "0261_题目原文.html",
+    "submissionHtml": "0261_提交_1280413_详情.html",
+    "completeCode": "0261_提交_1280413_cpp_完整代码.cpp",
+    "directlySubmittableCode": "0261_提交_1280413_cpp_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp",
+    "extension": ".cpp",
+    "bytesUtf8": 382,
+    "sha256": "ff6f93a753b51649f892b7dd93a9c6e3bf3f138f3327fb8d049348f330029578",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "0261_提交_1280413_cpp_完整代码.cpp",
+      "directlySubmittableFile": "0261_提交_1280413_cpp_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

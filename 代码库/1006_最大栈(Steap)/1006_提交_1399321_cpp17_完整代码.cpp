@@ -1,0 +1,3 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){ios::sync_with_stdio(false);cin.tie(nullptr);int n;if(!(cin>>n))return 0;vector<pair<long long,long long>> st;while(n--){int op;cin>>op;if(op==1){long long x;cin>>x;long long m=st.empty()?x:max(x,st.back().second);st.push_back({x,m});}else if(op==2){st.pop_back();}else if(op==3){cout<<st.back().first<<endl;}else if(op==4){cout<<st.back().second<<endl;}}}

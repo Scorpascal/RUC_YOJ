@@ -1,0 +1,3 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){ios::sync_with_stdio(false);cin.tie(nullptr);int n;long long k;if(!(cin>>n>>k))return 0;vector<long long> p(n+1);for(int i=1,x;i<=n;i++){cin>>x;p[i]=p[i-1]+x;}deque<int> dq;int ans=n+1;for(int i=0;i<=n;i++){while(!dq.empty()&&p[i]-p[dq.front()]>=k){ans=min(ans,i-dq.front());dq.pop_front();}while(!dq.empty()&&p[i]<=p[dq.back()])dq.pop_back();dq.push_back(i);}cout<<(ans==n+1?-1:ans)<<endl;}

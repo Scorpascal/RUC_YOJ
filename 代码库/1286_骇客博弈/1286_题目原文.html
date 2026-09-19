@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="position: fixed; width: 100%; overflow: hidden; ">
+
+<head>
+  
+  <title>1286.骇客博弈 题目详情</title>
+  <meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=1200">
+<link href="/Public/static/cdnjs/layui/css/layui.css" rel="stylesheet">
+<link href="/Public/static/cdnjs/semantic-ui/2.4.1/semantic.css" rel="stylesheet">
+<link href="/Public/static/self/tomorrow.css" rel="stylesheet">
+<link href="/Public/static/self/mathjax.css" rel="stylesheet">
+<link href="/Public/static/self/style.css" rel="stylesheet">
+<link href="/Public/css/jquery.datatables.min.css" rel="stylesheet">
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?52b314b9a24d899e6427360feba551a2";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+<script src="/Public/js/unicourse.js"></script>
+
+  <script src="/Public/static/cdnjs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="/Public/static/cdnjs/layui/layui.js"></script>
+  <script src="/Public/static/cdnjs/semantic-ui/2.4.1/semantic.js"></script>
+    <style>
+      rt{
+        color:red;
+      }
+    </style>
+</head>
+
+<body style="position: relative; margin-top: 49px; height: calc(100% - 49px); overflow-y: overlay; ">
+  <div class="ui fixed borderless menu" style="position: fixed; height: 49px; ">
+  <div class="ui container">
+    <a class="header item" href="/"><span
+        style="font-family: 'Exo 2'; font-size: 1.5em; font-weight: 600; ">YOJ2.0</span></a>
+    <a class="item" href="/index.php/index/index/index.html"><i class="home icon"></i> 首页</a>
+    <a class="item" href="/index.php/index/problem/index.html"><i class="list icon"></i> 题库</a>
+    <!-- <a class="item" href="/class"><i class="comments icon"></i> 班级</a> -->
+    <a class="item" href="/index.php/index/contest/index.html"><i class="calendar icon"></i> 考试</a>
+    <a class="item" href="/index.php/index/submissions/index.html"><i class="tasks icon"></i> 评测</a>
+    <a class="item" href="/index.php/index/rank/index.html"><i class="signal icon"></i> 排名</a>
+    
+        <div class="ui simple dropdown item"><a href="/index.php/index/course/index.html" style="color: inherit; "><i class="building  icon"></i> 课程
+       <i class="dropdown icon"></i>
+      </a>
+      <div class="menu"><a href="/index.php/index/course/index.html" style="color: inherit; ">
+        </a>
+        <a class="item" href="/index.php/index/course/detail/cno/2025090sqk9bd0bg.html"><i class="book icon"></i>2025程序设计荣誉课程</a><a class="item" href="/index.php/index/course/detail/cno/202511ohpxm492ye.html"><i class="book icon"></i>2025-2026 程序设计荣誉课程</a><a class="item" href="/index.php/index/course/detail/cno/202609794p43vokg.html"><i class="book icon"></i>数据结构与算法I-强基</a>        <li class="divider"></li>
+        <a class="item" href="/index.php/index/course/index.html"><i class="rocket icon"></i>全部课程</a>
+      </div>
+    </div>
+        <!-- <a class="item" href="/ranklist"><i class="signal icon"></i> 排名</a>
+            <a class="item" href="/discussion/global"><i class="comments icon"></i> 讨论</a>
+            <a class="item" href="/help"><i class="help circle icon"></i> 帮助</a> -->
+    <!-- <% if (typeof contest !== 'undefined' && contest && contest.id) { %>
+              <a id="back_to_contest" class="item" href="<%= syzoj.utils.makeUrl(['contest', contest.id]) %>"><i class="arrow left icon"></i> 返回考试</a>
+            <% } %> -->
+    <div class="right menu">
+      <!-- <% if (user) { %> -->
+      <!-- <a href="<%= syzoj.utils.makeUrl(['user', user.id]) %>" style="color: inherit; ">
+              <div class="ui simple dropdown item">
+                <div class="menu">
+                  <a class="item" href="<%= syzoj.utils.makeUrl(['user', user.id, 'edit']) %>"><i class="edit icon"></i>修改资料</a>
+                  
+                    <a class="item" href="<%= syzoj.utils.makeUrl(['admin', 'info']) %>"><i class="settings icon"></i>后台管理</a>
+                  <a class="item" href-post="<%= syzoj.utils.makeUrl(['logout'], { url: req.originalUrl }) %>"><i class="power icon"></i>注销</a>
+                </div>
+              </div>
+              </a> -->
+      <!-- <% } else { %> -->
+      <div class="item">
+        <span>
+          
+        </span>
+       
+       
+
+        
+        
+                 <!-- <a></a> -->
+                 <div class="right menu">
+                  <a href="/index.php/index/user/detail.html" style="color: inherit; ">
+                    完成题目数：488 &nbsp 排名：3                  </a>
+                 </div>
+        <!-- <a href="/index.php/index/login/logout.html"></a> -->
+        <!-- <a class="ui primary button" style="margin-right: 0.5em; " href="/index.php/index/index/stats.html">
+            查看排名
+          </a>
+          <a class="ui primary button" style="margin-right: 0.5em; " href="/index.php/index/index/editpsw.html">
+            修改密码
+          </a>
+          <a class="ui primary button" style="margin-right: 0.5em; " href="/index.php/index/login/logout.html">
+            注销
+          </a> -->
+
+        <div class="right menu">
+
+          <a href="/index.php/index/user/detail.html" style="color: inherit; ">
+          </a>
+          <div class="ui simple dropdown item"><a href="/index.php/index/user/detail.html" style="color: inherit; ">
+            本人 <i class="dropdown icon"></i>
+            </a>
+            <div class="menu"><a href="/index.php/index/user/detail.html" style="color: inherit; ">
+              </a>
+
+
+              
+              
+              <a class="item" href="/index.php/index/user/detail.html"><i class="edit icon"></i>我的数据</a>
+
+              <a class="item" href="/index.php/index/user/edit.html"><i class="settings icon"></i>修改资料</a>
+              
+              <a class="item" href="/index.php/index/user/editpsw.html"><i class="settings icon"></i>修改密码</a>
+
+              <a class="item" href="/index.php/index/login/logout.html"><i class="power icon"></i>退出登录</a>
+            </div>
+          </div>
+
+
+        </div>
+        
+      </div>
+      <!-- <% } %> -->
+    </div>
+  </div>
+</div>
+
+
+  <div style="margin-top: 28px; ">
+    <div class="ui main container">
+
+
+      <style>
+        .languages-menu::-webkit-scrollbar,
+        #testcase-menu::-webkit-scrollbar {
+          width: 0px;
+          background: transparent;
+        }
+
+        .languages-menu .item::after,
+        #testcase-menu .item::after {
+          display: none;
+        }
+      </style>
+
+<script>
+  window.pathLib = "/Public/cdn/package/cdnjs/";
+  window.pathSelfLib = "/Public/cdn/package/self/";
+
+  var originalConsoleWarn = console.warn;
+  console.warn = function (message) {
+    if (message.startsWith('Duplicate definition of module')) return;
+    originalConsoleWarn.apply(console, arguments);
+  };
+</script>
+
+<!-- Load monaco-editor -->
+<script src="/Public/cdn/package/cdnjs/monaco-editor/0.16.2/min/vs/loader.js"></script>
+<script src="/Public/cdn/package/self/monaco-editor.js"></script>
+<link rel="stylesheet" href="/Public/cdn/package/self/monaco-editor.css">
+
+
+      <div class="ui center aligned grid">
+        <div class="row">
+          <h1 class="ui header">
+
+            #1286. 骇客博弈
+          </h1>
+        </div>
+
+        <div class="row" style="margin-top: -15px">
+          <span class="ui label">内存限制：256MiB</span>
+          <span class="ui label">时间限制：1000 ms</span>
+
+          <span class="ui label">标准输入输出</span>
+
+        </div>
+
+
+        <div class="row" style="margin-top: -23px">
+          <span class="ui label">题目类型：传统</span>
+          <span class="ui label">评测方式：文本比较</span>
+        </div>
+
+
+        <div class="row" style="margin-top: -23px">
+          <span class="ui label">上传者：
+
+            <a href="#">youwei</a>
+
+          </span>
+          <span class="ui label">编译环境:
+
+            <a href="#">cpp</a>
+  
+          </span>
+
+        </div>
+
+      </div>
+      <input name="pid" type="hidden" value="1286" id="pnohelp">
+      <div class="ui grid"  id="base-row">
+        <div class="row">
+          <div class="column">
+            <div class="ui buttons">
+
+
+
+              <a class="small ui positive button" href="/index.php/index/submissions/index/pno/1286.html">提交记录</a>
+              
+
+            </div>
+
+
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="column">
+            <h4 class="ui top attached block header">题目描述</h4>
+            <div class="ui bottom attached segment font-content"><p style="margin-top:16px"><span style="font-size:16px;font-family:宋体">【问题描述】</span></p><p style="text-indent:28px"><span style="font-size:16px;font-family:宋体">在一个高度仿真的网络安全模拟游戏中，有两个对立的骇客阵营：白帽（</span><span style="font-size:16px">White Hat</span><span style="font-size:16px;font-family:宋体">）和黑帽（</span><span style="font-size:16px">BlackHat</span><span style="font-size:16px;font-family:宋体">）。游戏的目标是两个骇客阵营通过一系列的网络攻防操作来获取网络空间的控制权。给你一个字符串，代表依次出场的每个骇客的阵营归属。字母</span><span style="font-size:16px"> &#39;W&#39; </span><span style="font-size:16px;font-family:宋体">和</span><span style="font-size:16px">&#39;B&#39; </span><span style="font-size:16px;font-family:宋体">分别代表了白帽阵营和黑帽阵营。如果有</span><span style="font-size:16px"> n </span><span style="font-size:16px;font-family:宋体">个骇客，给定字符串的长度将是</span><span style="font-size:16px"> n</span><span style="font-size:16px;font-family:宋体">。</span></p><p style="text-indent:28px"><span style="font-size:16px;font-family:宋体">游戏以轮为过程进行，每一轮是所有未失去操作权力的骇客选手按出场次序依次完成攻击操作。在每一轮中，每一位骇客都可以攻击最近一个即将出场的敌对骇客，使其在本轮和后续所有轮中丧失操作权利。失去所有操作权力的选手不会被重复攻击，换言之，每一个选手只能被攻击一次。这一过程将持续到场上只有一个阵营的骇客，游戏结束，剩余阵营的骇客获胜。假设每一位骇客都足够聪明，会为自己的阵营做出最好的策略，你需要预测哪一方最终会获胜。</span></p><p style="margin-top:8px"><span style="font-size:16px;font-family:宋体">【输入格式】</span></p><p style="text-indent:32px"><span style="font-size:16px;font-family:宋体">一行，字符串代表依次出场的每个骇客的阵营归属。</span></p><p style="margin-top:8px"><span style="font-size:16px;font-family:宋体">【输出格式】</span></p><p style="text-indent:32px"><span style="font-size:16px;font-family:宋体">一行，字符串</span><span style="font-size:16px"> &quot;White Hat Win!&quot; </span><span style="font-size:16px;font-family:宋体">或</span><span style="font-size:16px"> &quot;BlackHat Win!&quot;</span><span style="font-size:16px;font-family:宋体">，代表获胜的一方。</span></p><p style="margin-top:8px"><span style="font-size:16px;font-family:宋体">【数据说明】</span></p><p style="text-indent:32px"><span style="font-size:16px;font-family:宋体">对于所有数据，</span><span style="font-size:16px">1 &lt;= n &lt;= 10000</span><span style="font-size:16px;font-family:宋体">。</span></p><p style="margin-top:8px"><span style="font-size:16px;font-family:宋体">【解题思路】</span></p><p style="margin-left:60px"><span style="font-size:16px;font-family:Wingdings">l<span style="font:9px &#39;Times New Roman&#39;">&nbsp; </span></span><span style="font-size:16px;font-family:宋体">算法维护两个队列：白帽阵营队列（简称白队），黑帽阵营队列（简称黑队），分别存放白帽阵营和黑帽阵营现存队员的出场次序；</span></p><p style="margin-left:60px"><span style="font-size:16px;font-family:Wingdings">l<span style="font:9px &#39;Times New Roman&#39;">&nbsp; </span></span><span style="font-size:16px;font-family:宋体">首先我们会初始化白队和黑队，即分别将白帽骇客和黑帽骇客的次序号入队到白队和黑队；</span></p><p style="margin-left:60px"><span style="font-size:16px;font-family:Wingdings">l<span style="font:9px &#39;Times New Roman&#39;">&nbsp; </span></span><span style="font-size:16px;font-family:宋体">按照次序号从小到大的顺序，各个骇客依次进行操作，攻击最近的一个即将出场的敌对骇客，攻击的本质其实就是将敌方队列位于队首的骇客出队；</span></p><p style="margin-left:60px"><span style="font-size:16px;font-family:Wingdings">l<span style="font:9px &#39;Times New Roman&#39;">&nbsp; </span></span><span style="font-size:16px;font-family:宋体">攻击者完成攻击后，需要等到其它骇客全部轮流过后才有机会再次轮到他进行操作，因此他需要更改次序号并到本队队尾；</span></p><p style="margin-left:60px"><span style="font-size:16px;font-family:Wingdings">l<span style="font:9px &#39;Times New Roman&#39;">&nbsp; </span></span><span style="font-size:16px;font-family:宋体">两队互相使对方队的骇客出队，直到有一队为空，即可宣布比赛结果。</span></p><p><span style="font-size:16px">&nbsp;</span></p><table cellspacing="0" cellpadding="0"><tbody><tr style=";height:42px"><td width="296" valign="top" style="border: 1px solid windowtext; padding: 0px 7px;" height="42"><p><span style="font-size:16px;font-family:宋体">【输入样例</span><span style="font-size:16px">1</span><span style="font-size:16px;font-family:宋体">】</span></p><p><span style="font-size:16px">WBBW</span></p></td><td width="231" valign="top" style="border-top: 1px solid windowtext; border-right: 1px solid windowtext; border-bottom: 1px solid windowtext; border-image: initial; border-left: none; padding: 0px 7px;" height="42"><p><span style="font-size:16px;font-family:宋体">【输出样例】</span></p><p><span style="font-size:16px">White Hat Win!</span></p></td></tr></tbody></table><p><strong><span style="font-size:16px">&nbsp;</span></strong></p><p><span style="font-size:16px;font-family:宋体">【样例解释】</span></p><p style="text-indent:32px"><span style="font-size:16px">“WBBW”</span><span style="font-size:16px;font-family:宋体">代表第一个白帽骇客的次序为</span><span style="font-size:16px">0</span><span style="font-size:16px;font-family:宋体">、第一个黑帽骇客次序为</span><span style="font-size:16px">1</span><span style="font-size:16px;font-family:宋体">、第二个黑帽骇客次序为</span><span style="font-size:16px">2</span><span style="font-size:16px;font-family:宋体">、第二个白帽骇客次序为</span><span style="font-size:16px">3</span><span style="font-size:16px;font-family:宋体">。</span></p><p style="text-indent:32px"><span style="font-size:16px">&nbsp;</span></p><p style="text-indent:32px"><span style="font-size:16px;font-family:宋体">首先我们进行队列初始化，将白帽骇客和黑帽骇客的次序号分别入队到白队和黑队中（这时各队内部，其序号已经从小到大排序了），如下图。</span></p><p><span style="font-size:16px">&nbsp;</span></p><p style="text-align: center;"><span style="font-size:16px"><img src="http://yoj.ruc.edu.cn/Data/Ueditor/php/upload//20250102/17358139648480.png"/></span></p><p><strong>&nbsp;</strong></p><p style="text-indent:32px"><span style="font-size:16px;font-family:宋体">第一轮第一次，白队和黑队的队首序号进行比较，白队队首</span><span style="font-size:16px">0</span><span style="font-size:16px;font-family:宋体">号小于黑队队首</span><span style="font-size:16px">1</span><span style="font-size:16px;font-family:宋体">号，先获得操作权，它将攻击黑队队首成员黑队队首</span><span style="font-size:16px">1</span><span style="font-size:16px;font-family:宋体">号（即最近一个即将出场的敌对骇客），使其出队，在本轮和后续所有轮中丧失操作权利；然后白队</span><span style="font-size:16px">0</span><span style="font-size:16px;font-family:宋体">号需要等到其它骇客全部操作完成后才有机会再次轮到他进行操作，所以他需要改变自己的次序号，</span><span style="font-size:16px;font-family:宋体">变为</span><span style="font-size:16px">0+n</span><span style="font-size:16px;font-family:宋体">号，</span><span style="font-size:16px;font-family:宋体">即</span><span style="font-size:16px">4</span><span style="font-size:16px;font-family:宋体">号，同时到白队队尾，如下图。</span></p><p style="text-align:center"><img src="http://yoj.ruc.edu.cn/Data/Ueditor/php/upload//20250102/17358139644953.png"/></p><p><strong>&nbsp;</strong></p><p style="text-indent:32px"><span style="font-size:16px;font-family:宋体">第一轮第二次，再次比较两队队首序号，黑队队首</span><span style="font-size:16px">2</span><span style="font-size:16px;font-family:宋体">号小于白队队首</span><span style="font-size:16px">3</span><span style="font-size:16px;font-family:宋体">号，黑队</span><span style="font-size:16px">2</span><span style="font-size:16px;font-family:宋体">号获得操作权，他将攻击白队队首</span><span style="font-size:16px">3</span><span style="font-size:16px;font-family:宋体">号（即最近一个即将出场的敌对骇客），使其出队，在本轮和后续所有轮中丧失操作权利；然后更改次序为</span><span style="font-size:16px">2+n</span><span style="font-size:16px;font-family:宋体">号，即</span><span style="font-size:16px">6</span><span style="font-size:16px;font-family:宋体">号，同时到黑队队尾，如下图。</span></p><p style="text-indent:28px">&nbsp;</p><p style="text-align:center"><img src="http://yoj.ruc.edu.cn/Data/Ueditor/php/upload//20250102/17358139644292.png"/></p><p>&nbsp;</p><p style="text-indent:32px"><span style="font-size:16px;font-family:宋体">至此，第一轮完成，进行第二轮。第二轮第一次，比较两队队首序号，白队队首</span><span style="font-size:16px">4</span><span style="font-size:16px;font-family:宋体">号小于黑队队首</span><span style="font-size:16px">6</span><span style="font-size:16px;font-family:宋体">号，白队队首</span><span style="font-size:16px">4</span><span style="font-size:16px;font-family:宋体">号获得操作权，他将攻击黑队队首</span><span style="font-size:16px">6</span><span style="font-size:16px;font-family:宋体">号（即最近一个即将出场的敌对骇客），使其出队，在本轮和后续所有轮中丧失操作权利，同时更改序号为</span><span style="font-size:16px">4+n</span><span style="font-size:16px;font-family:宋体">号，即</span><span style="font-size:16px">8</span><span style="font-size:16px;font-family:宋体">号，并进入白队队尾，如下图。</span></p><p style="text-indent:28px">&nbsp;</p><p style="text-align:center"><img src="http://yoj.ruc.edu.cn/Data/Ueditor/php/upload//20250102/17358139645814.png"/></p><p>&nbsp;</p><p style="text-indent:32px"><span style="font-size:16px;font-family:宋体">至此，除了白队</span><span style="font-size:16px">8</span><span style="font-size:16px;font-family:宋体">号骇客，其余骇客均已失去操作权利（黑队为空，白队非空），宣布白队胜利，输出</span><span style="font-size:16px">“White Hat Win!”</span><span style="font-size:16px;font-family:宋体">。</span></p></div>
+            
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="column">
+            <h4 class="ui top attached block header">题目代码</h4>
+            <div class="ui bottom attached segment font-content">
+                <a href="/index.php/index/problem/downloadtk/pno/1286.html">下载代码文件</a>
+                <h3>需要填充的代码使用____qcodep____表示</h3>
+                
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <h1 id="tk-info"></h1>
+        </div>
+        <div class="row" style="height: 40px">
+          <div class="eleven wide column">
+          </div>
+          <div class="three wide column">
+    
+
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="field" style="display:none;">
+        <label>编译器</label>
+        <select id="compiler_select" class="ui fluid search dropdown">
+            <option value="cpp" selected>cpp</option>
+            <option value="cpp11">cpp11</option>
+            <option value="cpp17">cpp17</option>
+            <option value="python3">python3</option>
+        </select>
+    </div>
+      <div class="ui center aligned vertical segment" style="padding-bottom: 0; ">
+        <!-- <select>
+
+        </select> -->
+        <button class="ui labeled icon button" id="btn-submit"><i class="ui edit icon"></i>提交</button>
+      </div>
+
+
+      <script type="text/javascript">
+        var editor;
+        var editors = []
+        window.onEditorLoaded(function () {
+          // var editorElement = document.getElementById('editor');
+          var content = '';
+          pno = $("#pnohelp").val()
+          $.post("/index.php/index/problem/gettkcode.html", { pno: pno }, function (res) {
+            console.log(res)
+            code_list = res.content_arr
+            new_code_list = []
+            content = "";
+            if (res.status == 1) {
+              esum = 0
+              content = res.content
+              while(content.trim()){
+                j = content.indexOf("____qcodep____")
+                if(j < 0){
+                  new_code_list.push({ "code": content, "edit": 0 })
+                  break
+                }
+                tmp_code_block = content.substr(0,j)
+                if(tmp_code_block.trim()){
+                  new_code_list.push({ "code": tmp_code_block, "edit": 0 })
+                }
+                esum += 1
+                new_code_list.push({ "code": "", "edit": 1 })
+                content = content.substr(j+"____qcodep____".length)
+              }
+              
+           
+              $("#tk-info").html("注意：本题共<rt>"+esum.toString()+"</rt>个填空区")
+              editcnt = 1
+              for (var i = 0 ; i < new_code_list.length ; i++) {
+                if(new_code_list[i]['edit']){
+                  $("#base-row").append("<h1>待填区-"+editcnt.toString()+"</h1>")
+                  editcnt += 1
+                }
+                if(new_code_list[i]['edit'] == 1){
+                  $("#base-row").append('<div class="row"><div class="column"><input name="code" type="hidden"><div class="ui grid"><div class="four wide column" style="margin-right: -25px; "><div class="ui attached vertical fluid pointing menu language-menu"  id="languages-menu-'+i.toString()+'" \
+                  style="height: 370px; overflow-y: scroll; overflow-x: hidden; "><a style="border-radius: 0;" class="item active" data-value="cpp" data-mode="cpp">cpp \
+                    <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; "></div></a></div></div><div class="twelve wide stretched column"style="position: relative; padding-left: 0; margin-left: calc(-1rem - 1px); width: calc(75% + 1rem + 13px) !important; "> \
+                      <div id="editor-'+i.toString()+'"  contenteditable="true" style="position: absolute; width: 100%; height: calc(100% - 28px); border: 1px solid #D4D4D5; overflow: hidden; "  class="editor"> <div class="ui active medium text loader">编辑器加载中 …</div></div> \
+                        </div></div></div> </div>') 
+                        content = ""
+  
+                content = new_code_list[i]['code']
+                var editorElement = document.getElementById('editor-'+i.toString()+'');
+                editor = window.createCodeEditor(editorElement, $('#languages-menu-'+i.toString()+' .item.active').data('mode'), content);
+                if(new_code_list[i]['edit'] == 1){
+                  editors.push(editor)
+                }
+                if(new_code_list[i]['edit'] == 0){
+                  editor.updateOptions({readOnly: true});
+                }
+                
+                $('#languages-menu-'+i.toString()+'')[0].scrollTop = $('#languages-menu-'+i.toString()+' .active')[0].offsetTop - $('#languages-menu-'+i.toString()+'')[0].firstElementChild.offsetTop;
+                $(function () {
+                  $('#languages-menu-'+i.toString()+' .item').click(function () {
+                    $(this)
+                      .addClass('active')
+                      .closest('.ui.menu')
+                      .find('.item')
+                      .not($(this))
+                      .removeClass('active')
+                      ;
+                    monaco.editor.setModelLanguage(editor.getModel(), $(this).data('mode'));
+                    
+                  });
+                });
+                }
+              }
+              console.log(new_code_list)
+              console.log(editors)
+            }
+           
+            // window.editor = editor;
+          })
+        });
+        var lastSubmitted = '';
+
+        $("#btn-submit").click(function(){
+          $("#btn-submit").html('<i class="ui edit icon"></i>正在提交...')
+          $("#btn-submit").attr('disabled',true);  
+          codes_block = []
+          for(var i = 0; i<editors.length; i++){
+            editor = editors[i]
+            console.log()
+            codes_block.push(editor.getValue())
+          }
+          pno = $("#pnohelp").val()
+
+          $.post("/index.php/index/index/prob_submit_tk.html",{pno:pno,codes:JSON.stringify(codes_block),compiler:$("#compiler_select").val()},function(res){
+            console.log(res)
+            $("#btn-submit").html('<i class="ui edit icon"></i>提交')
+            $("#btn-submit").attr('disabled',false);  
+
+            if(res.status == 1){
+              console.log(res.submo)
+              location.href="/index.php/index/submissions/index.html"
+            }else if(res.info == '请重新登录！'){
+              alert("请登录！")
+              location.href = "/index.php/index/index/signin.html"
+            }else if(res.status == 2){
+              alert(res.info)
+            }
+          })
+        })
+
+      </script>
+
+
+    </div>
+    <div class="ui vertical footer segment" style="margin-top: 15px; ">
+      <div class="ui center aligned container">
+        <span style="color: #999;">YOJ Powered by YOJ.</span>
+      </div>
+    </div>
+  </div>
+  <script data-cfasync="false"
+    src="/Public/cdn/semantic.min.js"></script>
+  <script src="/Public/cdn/fChart.bundle.min.js"></script>
+  <script src="/Public/cdn/package/self/script.js?20170710"></script>
+</body>
+
+</html>

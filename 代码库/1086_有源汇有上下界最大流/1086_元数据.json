@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1317179",
+    "problemNo": "1086",
+    "title": "有源汇有上下界最大流",
+    "status": "Accepted",
+    "score": "100",
+    "time": "151 ms",
+    "memory": "1388 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1765960726",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1317179.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1086.html",
+    "listPage": 11,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1317179",
+    "problemNo": "1086",
+    "title": "有源汇有上下界最大流",
+    "status": "Accepted",
+    "score": "100",
+    "time": "151 ms",
+    "memory": "1388 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1765960726",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1317179.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1086.html",
+    "listPage": 11
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "ca158682f1853ee02811986ac83a5e487244a65c5d215c33847509a1aba26cf3"
+  },
+  "files": {
+    "problemHtml": "1086_题目原文.html",
+    "submissionHtml": "1086_提交_1317179_详情.html",
+    "completeCode": "1086_提交_1317179_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "1086_提交_1317179_cpp17_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 2689,
+    "sha256": "fe6a49d8d3d884faf866a44b2906cbc099b36aaf1eceff0f5d6b44dd8d015937",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1086_提交_1317179_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "1086_提交_1317179_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

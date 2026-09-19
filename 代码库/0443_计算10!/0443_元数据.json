@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1153134",
+    "problemNo": "443",
+    "title": "计算10!",
+    "status": "Accepted",
+    "score": "100",
+    "time": "7 ms",
+    "memory": "364 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1758455926",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1153134.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/443.html",
+    "listPage": 32,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1153134",
+    "problemNo": "443",
+    "title": "计算10!",
+    "status": "Accepted",
+    "score": "100",
+    "time": "7 ms",
+    "memory": "364 KB",
+    "language": "c",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1758455926",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1153134.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/443.html",
+    "listPage": 32
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "d71db51b24cd2785278345492e575b243149022f0f64e4a909f958c4361e19e7"
+  },
+  "files": {
+    "problemHtml": "0443_题目原文.html",
+    "submissionHtml": "0443_提交_1153134_详情.html",
+    "completeCode": "0443_提交_1153134_c_完整代码.c",
+    "directlySubmittableCode": "0443_提交_1153134_c_可提交代码.c"
+  },
+  "code": {
+    "language": "c",
+    "extension": ".c",
+    "bytesUtf8": 94,
+    "sha256": "c76afc0c0254e7d019f24cb5ec228fa3ecd7e453c4e7c3c4693fe665862259ee",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "0443_提交_1153134_c_完整代码.c",
+      "directlySubmittableFile": "0443_提交_1153134_c_可提交代码.c",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

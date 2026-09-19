@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1356713",
+    "problemNo": "1656",
+    "title": "你好",
+    "status": "Accepted",
+    "score": "100",
+    "time": "140 ms",
+    "memory": "2980 KB",
+    "language": "python3",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1774765621",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1356713.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1656.html",
+    "listPage": 6,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1356713",
+    "problemNo": "1656",
+    "title": "你好",
+    "status": "Accepted",
+    "score": "100",
+    "time": "140 ms",
+    "memory": "2980 KB",
+    "language": "python3",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1774765621",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1356713.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1656.html",
+    "listPage": 6
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "0aec7032201e81c2423954a50a27ef659f5f3bfb77cd66eeddb8c720849cf382"
+  },
+  "files": {
+    "problemHtml": "1656_题目原文.html",
+    "submissionHtml": "1656_提交_1356713_详情.html",
+    "completeCode": "1656_提交_1356713_python3_完整代码.py",
+    "directlySubmittableCode": "1656_提交_1356713_python3_可提交代码.py"
+  },
+  "code": {
+    "language": "python3",
+    "extension": ".py",
+    "bytesUtf8": 72,
+    "sha256": "090a899384db39fb004bf9413411fed99924a3a9245706352a3651585a3537e9",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1656_提交_1356713_python3_完整代码.py",
+      "directlySubmittableFile": "1656_提交_1356713_python3_可提交代码.py",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

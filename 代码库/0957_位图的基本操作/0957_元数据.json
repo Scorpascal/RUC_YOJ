@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1396848",
+    "problemNo": "957",
+    "title": "位图的基本操作",
+    "status": "Accepted",
+    "score": "100",
+    "time": "75 ms",
+    "memory": "520 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1789636818",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1396848.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/957.html",
+    "listPage": 4,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1396848",
+    "problemNo": "957",
+    "title": "位图的基本操作",
+    "status": "Accepted",
+    "score": "100",
+    "time": "75 ms",
+    "memory": "520 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1789636818",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1396848.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/957.html",
+    "listPage": 4
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "073aa6f0e87fcd2da661539f89ba44eb195c755e10abe3bed057fceafdf6dafd"
+  },
+  "files": {
+    "problemHtml": "0957_题目原文.html",
+    "submissionHtml": "0957_提交_1396848_详情.html",
+    "completeCode": "0957_提交_1396848_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "0957_提交_1396848_cpp17_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 170,
+    "sha256": "6e8e7447a24f1fb18f43082ea95627b93a4b763f144be7eab6f960c983bcb4df",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "0957_提交_1396848_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "0957_提交_1396848_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

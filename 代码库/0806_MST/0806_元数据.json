@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1167957",
+    "problemNo": "806",
+    "title": "MST",
+    "status": "Accepted",
+    "score": "100",
+    "time": "2913 ms",
+    "memory": "3596 KB",
+    "language": "cpp11-noilinux",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1759190683",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1167957.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/806.html",
+    "listPage": 30,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1167957",
+    "problemNo": "806",
+    "title": "MST",
+    "status": "Accepted",
+    "score": "100",
+    "time": "2913 ms",
+    "memory": "3596 KB",
+    "language": "cpp11-noilinux",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1759190683",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1167957.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/806.html",
+    "listPage": 30
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "22a98a0000584a8491d363477b41146a19bb483391ffdcc1e12cfc90bd37523d"
+  },
+  "files": {
+    "problemHtml": "0806_题目原文.html",
+    "submissionHtml": "0806_提交_1167957_详情.html",
+    "completeCode": "0806_提交_1167957_cpp11-noilinux_完整代码.cpp",
+    "directlySubmittableCode": "0806_提交_1167957_cpp11-noilinux_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp11-noilinux",
+    "extension": ".cpp",
+    "bytesUtf8": 3058,
+    "sha256": "378d758199398726cc785f931d6c4b1b3209bd43ded54d4e9a9342638c835b83",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "0806_提交_1167957_cpp11-noilinux_完整代码.cpp",
+      "directlySubmittableFile": "0806_提交_1167957_cpp11-noilinux_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}

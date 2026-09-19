@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="position: fixed; width: 100%; overflow: hidden; ">
+
+<head>
+  
+  <title>1371.实现多项式类 题目详情</title>
+  <meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=1200">
+<link href="/Public/static/cdnjs/layui/css/layui.css" rel="stylesheet">
+<link href="/Public/static/cdnjs/semantic-ui/2.4.1/semantic.css" rel="stylesheet">
+<link href="/Public/static/self/tomorrow.css" rel="stylesheet">
+<link href="/Public/static/self/mathjax.css" rel="stylesheet">
+<link href="/Public/static/self/style.css" rel="stylesheet">
+<link href="/Public/css/jquery.datatables.min.css" rel="stylesheet">
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?52b314b9a24d899e6427360feba551a2";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+<script src="/Public/js/unicourse.js"></script>
+
+  <script src="/Public/static/cdnjs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="/Public/static/cdnjs/layui/layui.js"></script>
+  <script src="/Public/static/cdnjs/semantic-ui/2.4.1/semantic.js"></script>
+    <style>
+      rt{
+        color:red;
+      }
+    </style>
+</head>
+
+<body style="position: relative; margin-top: 49px; height: calc(100% - 49px); overflow-y: overlay; ">
+  <div class="ui fixed borderless menu" style="position: fixed; height: 49px; ">
+  <div class="ui container">
+    <a class="header item" href="/"><span
+        style="font-family: 'Exo 2'; font-size: 1.5em; font-weight: 600; ">YOJ2.0</span></a>
+    <a class="item" href="/index.php/index/index/index.html"><i class="home icon"></i> 首页</a>
+    <a class="item" href="/index.php/index/problem/index.html"><i class="list icon"></i> 题库</a>
+    <!-- <a class="item" href="/class"><i class="comments icon"></i> 班级</a> -->
+    <a class="item" href="/index.php/index/contest/index.html"><i class="calendar icon"></i> 考试</a>
+    <a class="item" href="/index.php/index/submissions/index.html"><i class="tasks icon"></i> 评测</a>
+    <a class="item" href="/index.php/index/rank/index.html"><i class="signal icon"></i> 排名</a>
+    
+        <div class="ui simple dropdown item"><a href="/index.php/index/course/index.html" style="color: inherit; "><i class="building  icon"></i> 课程
+       <i class="dropdown icon"></i>
+      </a>
+      <div class="menu"><a href="/index.php/index/course/index.html" style="color: inherit; ">
+        </a>
+        <a class="item" href="/index.php/index/course/detail/cno/2025090sqk9bd0bg.html"><i class="book icon"></i>2025程序设计荣誉课程</a><a class="item" href="/index.php/index/course/detail/cno/202511ohpxm492ye.html"><i class="book icon"></i>2025-2026 程序设计荣誉课程</a><a class="item" href="/index.php/index/course/detail/cno/202609794p43vokg.html"><i class="book icon"></i>数据结构与算法I-强基</a>        <li class="divider"></li>
+        <a class="item" href="/index.php/index/course/index.html"><i class="rocket icon"></i>全部课程</a>
+      </div>
+    </div>
+        <!-- <a class="item" href="/ranklist"><i class="signal icon"></i> 排名</a>
+            <a class="item" href="/discussion/global"><i class="comments icon"></i> 讨论</a>
+            <a class="item" href="/help"><i class="help circle icon"></i> 帮助</a> -->
+    <!-- <% if (typeof contest !== 'undefined' && contest && contest.id) { %>
+              <a id="back_to_contest" class="item" href="<%= syzoj.utils.makeUrl(['contest', contest.id]) %>"><i class="arrow left icon"></i> 返回考试</a>
+            <% } %> -->
+    <div class="right menu">
+      <!-- <% if (user) { %> -->
+      <!-- <a href="<%= syzoj.utils.makeUrl(['user', user.id]) %>" style="color: inherit; ">
+              <div class="ui simple dropdown item">
+                <div class="menu">
+                  <a class="item" href="<%= syzoj.utils.makeUrl(['user', user.id, 'edit']) %>"><i class="edit icon"></i>修改资料</a>
+                  
+                    <a class="item" href="<%= syzoj.utils.makeUrl(['admin', 'info']) %>"><i class="settings icon"></i>后台管理</a>
+                  <a class="item" href-post="<%= syzoj.utils.makeUrl(['logout'], { url: req.originalUrl }) %>"><i class="power icon"></i>注销</a>
+                </div>
+              </div>
+              </a> -->
+      <!-- <% } else { %> -->
+      <div class="item">
+        <span>
+          
+        </span>
+       
+       
+
+        
+        
+                 <!-- <a></a> -->
+                 <div class="right menu">
+                  <a href="/index.php/index/user/detail.html" style="color: inherit; ">
+                    完成题目数：488 &nbsp 排名：3                  </a>
+                 </div>
+        <!-- <a href="/index.php/index/login/logout.html"></a> -->
+        <!-- <a class="ui primary button" style="margin-right: 0.5em; " href="/index.php/index/index/stats.html">
+            查看排名
+          </a>
+          <a class="ui primary button" style="margin-right: 0.5em; " href="/index.php/index/index/editpsw.html">
+            修改密码
+          </a>
+          <a class="ui primary button" style="margin-right: 0.5em; " href="/index.php/index/login/logout.html">
+            注销
+          </a> -->
+
+        <div class="right menu">
+
+          <a href="/index.php/index/user/detail.html" style="color: inherit; ">
+          </a>
+          <div class="ui simple dropdown item"><a href="/index.php/index/user/detail.html" style="color: inherit; ">
+            本人 <i class="dropdown icon"></i>
+            </a>
+            <div class="menu"><a href="/index.php/index/user/detail.html" style="color: inherit; ">
+              </a>
+
+
+              
+              
+              <a class="item" href="/index.php/index/user/detail.html"><i class="edit icon"></i>我的数据</a>
+
+              <a class="item" href="/index.php/index/user/edit.html"><i class="settings icon"></i>修改资料</a>
+              
+              <a class="item" href="/index.php/index/user/editpsw.html"><i class="settings icon"></i>修改密码</a>
+
+              <a class="item" href="/index.php/index/login/logout.html"><i class="power icon"></i>退出登录</a>
+            </div>
+          </div>
+
+
+        </div>
+        
+      </div>
+      <!-- <% } %> -->
+    </div>
+  </div>
+</div>
+
+
+  <div style="margin-top: 28px; ">
+    <div class="ui main container">
+
+
+      <style>
+        .languages-menu::-webkit-scrollbar,
+        #testcase-menu::-webkit-scrollbar {
+          width: 0px;
+          background: transparent;
+        }
+
+        .languages-menu .item::after,
+        #testcase-menu .item::after {
+          display: none;
+        }
+      </style>
+
+<script>
+  window.pathLib = "/Public/cdn/package/cdnjs/";
+  window.pathSelfLib = "/Public/cdn/package/self/";
+
+  var originalConsoleWarn = console.warn;
+  console.warn = function (message) {
+    if (message.startsWith('Duplicate definition of module')) return;
+    originalConsoleWarn.apply(console, arguments);
+  };
+</script>
+
+<!-- Load monaco-editor -->
+<script src="/Public/cdn/package/cdnjs/monaco-editor/0.16.2/min/vs/loader.js"></script>
+<script src="/Public/cdn/package/self/monaco-editor.js"></script>
+<link rel="stylesheet" href="/Public/cdn/package/self/monaco-editor.css">
+
+
+      <div class="ui center aligned grid">
+        <div class="row">
+          <h1 class="ui header">
+
+            #1371. 实现多项式类
+          </h1>
+        </div>
+
+        <div class="row" style="margin-top: -15px">
+          <span class="ui label">内存限制：256MiB</span>
+          <span class="ui label">时间限制：1000 ms</span>
+
+          <span class="ui label">标准输入输出</span>
+
+        </div>
+
+
+        <div class="row" style="margin-top: -23px">
+          <span class="ui label">题目类型：传统</span>
+          <span class="ui label">评测方式：文本比较</span>
+        </div>
+
+
+        <div class="row" style="margin-top: -23px">
+          <span class="ui label">上传者：
+
+            <a href="#">20210129</a>
+
+          </span>
+          <span class="ui label">编译环境:
+
+            <a href="#">cpp17</a>
+  
+          </span>
+
+        </div>
+
+      </div>
+      <input name="pid" type="hidden" value="1371" id="pnohelp">
+      <div class="ui grid"  id="base-row">
+        <div class="row">
+          <div class="column">
+            <div class="ui buttons">
+
+
+
+              <a class="small ui positive button" href="/index.php/index/submissions/index/pno/1371.html">提交记录</a>
+              
+
+            </div>
+
+
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="column">
+            <h4 class="ui top attached block header">题目描述</h4>
+            <div class="ui bottom attached segment font-content"><p data-start="26" data-end="124" class="">在数学中，多项式是由一个或多个项组成的代数表达式，每个项包括一个系数和一个变量的指数。在计算机科学中，我们可以使用类来表示多项式，并通过运算符重载、函数指针等技术对其进行操作。</p><p data-start="126" data-end="192" class="">本题要求你实现一个 <code data-start="136" data-end="148">Polynomial</code> 类，支持多项式的加法、减法、求值、输出等功能，并通过运算符重载和函数指针进行动态调用。</p><ol data-start="205" data-end="670" class=" list-paddingleft-2"><li><p data-start="208" data-end="218" class=""><strong data-start="208" data-end="218">多项式加法：</strong></p></li><ul data-start="222" data-end="295" class=" list-paddingleft-2"><li><p data-start="224" data-end="246" class="">重载 <code data-start="227" data-end="230">+</code> 运算符，实现两个多项式的加法。</p></li><li><p data-start="252" data-end="295" class="">多项式相加时，如果次数不同，应当按次数较大的多项式为标准，较小次数的多项式补齐为 0。</p></li></ul><li><p data-start="300" data-end="310" class=""><strong data-start="300" data-end="310">多项式减法：</strong></p></li><ul data-start="314" data-end="368" class=" list-paddingleft-2"><li><p data-start="316" data-end="338" class="">重载 <code data-start="319" data-end="322">-</code> 运算符，实现两个多项式的减法。</p></li><li><p data-start="344" data-end="368" class="">多项式相减时，同样需要考虑补齐较小次数的多项式。</p></li></ul><li><p data-start="373" data-end="383" class=""><strong data-start="373" data-end="383">多项式求值：</strong></p></li><p data-start="389" data-end="523" class="">实现一个 <code data-start="394" data-end="404">evaluate</code> 成员函数，根据给定的 x 值计算多项式的值。例如，若多项式为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mn>3</mn><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>x</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">P(x) = 3x^2 + 2x + 1</annotation></semantics></math></span></span>，求 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">P(2)</annotation></semantics></math></span></span>时，计算结果为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>⋅</mo><msup><mn>2</mn><mn>2</mn></msup><mo>+</mo><mn>2</mn><mo>⋅</mo><mn>2</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>17</mn></mrow><annotation encoding="application/x-tex">3 cdot 2^2 + 2 cdot 2 + 1 = 17</annotation></semantics></math></span></span>。</p><li><p data-start="528" data-end="540" class=""><strong data-start="528" data-end="540">输出运算符重载：</strong>重载 <code data-start="549" data-end="553">&lt;&lt;</code> 输出运算符，使其能以标准格式输出多项式。</p></li><li><p data-start="602" data-end="613" class=""><strong data-start="602" data-end="613">使用函数指针：</strong></p></li><ul data-start="617" data-end="670" class=" list-paddingleft-2"><li><p data-start="619" data-end="646" class="">定义一个函数指针类型，动态调用多项式的加法或减法运算。</p></li><li><p data-start="652" data-end="670" class="">通过函数指针实现对多项式加法的调用。</p></li></ul></ol></div>
+            
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="column">
+            <h4 class="ui top attached block header">题目代码</h4>
+            <div class="ui bottom attached segment font-content">
+                <a href="/index.php/index/problem/downloadtk/pno/1371.html">下载代码文件</a>
+                <h3>需要填充的代码使用____qcodep____表示</h3>
+                
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <h1 id="tk-info"></h1>
+        </div>
+        <div class="row" style="height: 40px">
+          <div class="eleven wide column">
+          </div>
+          <div class="three wide column">
+    
+
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="field" style="display:none;">
+        <label>编译器</label>
+        <select id="compiler_select" class="ui fluid search dropdown">
+            <option value="cpp" selected>cpp</option>
+            <option value="cpp11">cpp11</option>
+            <option value="cpp17">cpp17</option>
+            <option value="python3">python3</option>
+        </select>
+    </div>
+      <div class="ui center aligned vertical segment" style="padding-bottom: 0; ">
+        <!-- <select>
+
+        </select> -->
+        <button class="ui labeled icon button" id="btn-submit"><i class="ui edit icon"></i>提交</button>
+      </div>
+
+
+      <script type="text/javascript">
+        var editor;
+        var editors = []
+        window.onEditorLoaded(function () {
+          // var editorElement = document.getElementById('editor');
+          var content = '';
+          pno = $("#pnohelp").val()
+          $.post("/index.php/index/problem/gettkcode.html", { pno: pno }, function (res) {
+            console.log(res)
+            code_list = res.content_arr
+            new_code_list = []
+            content = "";
+            if (res.status == 1) {
+              esum = 0
+              content = res.content
+              while(content.trim()){
+                j = content.indexOf("____qcodep____")
+                if(j < 0){
+                  new_code_list.push({ "code": content, "edit": 0 })
+                  break
+                }
+                tmp_code_block = content.substr(0,j)
+                if(tmp_code_block.trim()){
+                  new_code_list.push({ "code": tmp_code_block, "edit": 0 })
+                }
+                esum += 1
+                new_code_list.push({ "code": "", "edit": 1 })
+                content = content.substr(j+"____qcodep____".length)
+              }
+              
+           
+              $("#tk-info").html("注意：本题共<rt>"+esum.toString()+"</rt>个填空区")
+              editcnt = 1
+              for (var i = 0 ; i < new_code_list.length ; i++) {
+                if(new_code_list[i]['edit']){
+                  $("#base-row").append("<h1>待填区-"+editcnt.toString()+"</h1>")
+                  editcnt += 1
+                }
+                if(new_code_list[i]['edit'] == 1){
+                  $("#base-row").append('<div class="row"><div class="column"><input name="code" type="hidden"><div class="ui grid"><div class="four wide column" style="margin-right: -25px; "><div class="ui attached vertical fluid pointing menu language-menu"  id="languages-menu-'+i.toString()+'" \
+                  style="height: 370px; overflow-y: scroll; overflow-x: hidden; "><a style="border-radius: 0;" class="item active" data-value="cpp" data-mode="cpp">cpp17 \
+                    <div class="ui right floated" style="opacity: 0.4; margin-top: 8px; font-size: 0.7em; "></div></a></div></div><div class="twelve wide stretched column"style="position: relative; padding-left: 0; margin-left: calc(-1rem - 1px); width: calc(75% + 1rem + 13px) !important; "> \
+                      <div id="editor-'+i.toString()+'"  contenteditable="true" style="position: absolute; width: 100%; height: calc(100% - 28px); border: 1px solid #D4D4D5; overflow: hidden; "  class="editor"> <div class="ui active medium text loader">编辑器加载中 …</div></div> \
+                        </div></div></div> </div>') 
+                        content = ""
+  
+                content = new_code_list[i]['code']
+                var editorElement = document.getElementById('editor-'+i.toString()+'');
+                editor = window.createCodeEditor(editorElement, $('#languages-menu-'+i.toString()+' .item.active').data('mode'), content);
+                if(new_code_list[i]['edit'] == 1){
+                  editors.push(editor)
+                }
+                if(new_code_list[i]['edit'] == 0){
+                  editor.updateOptions({readOnly: true});
+                }
+                
+                $('#languages-menu-'+i.toString()+'')[0].scrollTop = $('#languages-menu-'+i.toString()+' .active')[0].offsetTop - $('#languages-menu-'+i.toString()+'')[0].firstElementChild.offsetTop;
+                $(function () {
+                  $('#languages-menu-'+i.toString()+' .item').click(function () {
+                    $(this)
+                      .addClass('active')
+                      .closest('.ui.menu')
+                      .find('.item')
+                      .not($(this))
+                      .removeClass('active')
+                      ;
+                    monaco.editor.setModelLanguage(editor.getModel(), $(this).data('mode'));
+                    
+                  });
+                });
+                }
+              }
+              console.log(new_code_list)
+              console.log(editors)
+            }
+           
+            // window.editor = editor;
+          })
+        });
+        var lastSubmitted = '';
+
+        $("#btn-submit").click(function(){
+          $("#btn-submit").html('<i class="ui edit icon"></i>正在提交...')
+          $("#btn-submit").attr('disabled',true);  
+          codes_block = []
+          for(var i = 0; i<editors.length; i++){
+            editor = editors[i]
+            console.log()
+            codes_block.push(editor.getValue())
+          }
+          pno = $("#pnohelp").val()
+
+          $.post("/index.php/index/index/prob_submit_tk.html",{pno:pno,codes:JSON.stringify(codes_block),compiler:$("#compiler_select").val()},function(res){
+            console.log(res)
+            $("#btn-submit").html('<i class="ui edit icon"></i>提交')
+            $("#btn-submit").attr('disabled',false);  
+
+            if(res.status == 1){
+              console.log(res.submo)
+              location.href="/index.php/index/submissions/index.html"
+            }else if(res.info == '请重新登录！'){
+              alert("请登录！")
+              location.href = "/index.php/index/index/signin.html"
+            }else if(res.status == 2){
+              alert(res.info)
+            }
+          })
+        })
+
+      </script>
+
+
+    </div>
+    <div class="ui vertical footer segment" style="margin-top: 15px; ">
+      <div class="ui center aligned container">
+        <span style="color: #999;">YOJ Powered by YOJ.</span>
+      </div>
+    </div>
+  </div>
+  <script data-cfasync="false"
+    src="/Public/cdn/semantic.min.js"></script>
+  <script src="/Public/cdn/fChart.bundle.min.js"></script>
+  <script src="/Public/cdn/package/self/script.js?20170710"></script>
+</body>
+
+</html>

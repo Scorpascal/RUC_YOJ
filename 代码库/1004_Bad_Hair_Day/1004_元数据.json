@@ -1,0 +1,63 @@
+{
+  "problem": {
+    "submissionNo": "1399320",
+    "problemNo": "1004",
+    "title": "Bad Hair Day",
+    "status": "Accepted",
+    "score": "100",
+    "time": "163 ms",
+    "memory": "888 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1789811550",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399320.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1004.html",
+    "listPage": 4,
+    "error": ""
+  },
+  "submission": {
+    "submissionNo": "1399320",
+    "problemNo": "1004",
+    "title": "Bad Hair Day",
+    "status": "Accepted",
+    "score": "100",
+    "time": "163 ms",
+    "memory": "888 KB",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submitTime": "1789811550",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399320.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1004.html",
+    "listPage": 4
+  },
+  "source": {
+    "captureVersion": 1,
+    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    },
+    "endpointResponseSha256": "3bb62cc9d997a6df5e3e170ebd52d790065d86007c63d3ccaaf12605019bb077"
+  },
+  "files": {
+    "problemHtml": "1004_题目原文.html",
+    "submissionHtml": "1004_提交_1399320_详情.html",
+    "completeCode": "1004_提交_1399320_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "1004_提交_1399320_cpp17_可提交代码.cpp"
+  },
+  "code": {
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 346,
+    "sha256": "aa7a3319c1b9c50a1a314063468a2ebc52e4dec722cb6c61605450e1d3f56446",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1004_提交_1399320_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "1004_提交_1399320_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+    }
+  }
+}
