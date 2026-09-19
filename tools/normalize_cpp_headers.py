@@ -114,6 +114,7 @@ def main() -> int:
 
     output_root = args.output if args.output.is_absolute() else ROOT / args.output
     candidates: list[Path] = []
+    matched_replacements = 0
     for path in sorted(RAW_ROOT.rglob("*")):
         if not path.is_file() or path.suffix.lower() not in CPP_SUFFIXES:
             continue
@@ -121,8 +122,10 @@ def main() -> int:
             text = path.read_text(encoding="utf-8")
         except UnicodeDecodeError:
             continue
-        if BITS_INCLUDE.search(text):
+        match_count = len(BITS_INCLUDE.findall(text))
+        if match_count:
             candidates.append(path)
+            matched_replacements += match_count
 
     report_files: list[dict[str, Any]] = []
     failures: list[dict[str, str]] = []
@@ -152,7 +155,7 @@ def main() -> int:
     result = {
         "filesMatched": len(candidates),
         "filesWritten": len(report_files),
-        "replacementCount": sum(item["replacements"] for item in report_files),
+        "replacementCount": sum(item["replacements"] for item in report_files) if not args.check else matched_replacements,
         "failures": failures,
         "rawArchiveChangedByThisTool": False,
     }
