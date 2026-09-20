@@ -332,28 +332,51 @@ def run_once(args: argparse.Namespace) -> int:
         online_environment: dict[str, str] | None = None
         online_ran = False
         release_numbers: set[int] = set()
-        try:
-            capture_environment = prepare_online_environment() if not args.dry_run else environment
-        except RuntimeError as exc:
-            log(f"增量抓取跳过：{exc}")
-            return 2
         if args.dry_run:
-            if run_command(
+            offline_checks = [
                 [sys.executable, str(ROOT / "tools" / "build_initial.py"), "--check"],
-                environment,
-                600,
-            ):
-                log("dry-run 离线检查失败")
-                return 3
+                [sys.executable, str(ROOT / "tools" / "audit_online_availability.py"), "--check"],
+                [sys.executable, str(ROOT / "tools" / "build_site_catalog.py"), "--check"],
+                [sys.executable, str(ROOT / "tools" / "audit_consistency.py")],
+            ]
+            for command in offline_checks:
+                if run_command(command, environment, 600):
+                    log("dry-run 离线检查失败")
+                    return 3
             remember_generated_changes()
             log("dry-run 完成：未访问 YOJ，未执行在线复验或发布")
             return 0
+        # Refresh the public, unauthenticated evidence first.  This keeps the
+        # visibility axis current even when no new problem is discovered, and
+        # ensures the account is never needed merely to compare problem IDs.
+        if run_command(
+            [sys.executable, str(ROOT / "tools" / "audit_online_availability.py")],
+            environment,
+            600,
+        ):
+            log("公开题目列表快照未正常完成，本轮不继续抓取、构建或发布")
+            return 3
+
+        capture_environment = environment
+        public_only = False
+        try:
+            capture_environment = prepare_online_environment()
+        except RuntimeError as exc:
+            # A public-list discovery must still be useful without an account:
+            # capture the new statements and let later stages mark them as
+            # TOPIC_CAPTURED/NO_LOCAL_AC instead of dropping the update.
+            public_only = True
+            log(f"未取得 YOJ 登录态，改用公开题面增量抓取：{exc}")
         capture_command = [
             sys.executable,
             str(ROOT / "tools" / "yoj_capture.py"),
             "--request-interval",
             str(args.request_interval),
+            "--public-snapshot",
+            str(ROOT / "data" / "yoj-public-problems.json"),
         ]
+        if public_only:
+            capture_command.append("--public-only")
         if run_command(capture_command, capture_environment, 3600):
             log("增量抓取未正常完成，本轮不继续构建、复验或发布")
             return 3
@@ -376,6 +399,11 @@ def run_once(args: argparse.Namespace) -> int:
         selected = problem_selector(new_problem_numbers)
         log(f"本轮只处理新题号：{new_problem_numbers}")
         steps: list[tuple[list[str], dict[str, str], int]] = [
+            (
+                [sys.executable, str(ROOT / "tools" / "audit_online_availability.py")],
+                environment,
+                600,
+            ),
             (
                 [sys.executable, str(ROOT / "tools" / "build_initial.py"), "--preserve-frozen", *selected],
                 environment,

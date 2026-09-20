@@ -8,6 +8,11 @@ import json
 from pathlib import Path
 from typing import Any
 
+try:
+    from audit_online_availability import validate_snapshot
+except ImportError:  # pragma: no cover - supports package-style imports
+    from tools.audit_online_availability import validate_snapshot
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -48,9 +53,19 @@ def main() -> int:
     failures: list[str] = []
     problems = index(load("data/problems.json").get("records") or [], "problems", failures)
     ready = index(load("data/public-ready.json").get("records") or [], "public-ready", failures)
-    quick = index(load("data/quick-submit.json").get("entries") or [], "quick-submit", failures)
-    docs_quick = index(load("docs/data/quick-submit.json").get("entries") or [], "docs quick-submit", failures)
+    quick_payload = load("data/quick-submit.json")
+    docs_quick_payload = load("docs/data/quick-submit.json")
+    if quick_payload.get("schemaVersion") != 2:
+        failures.append("quick-submit schemaVersion must be 2 when archivedEntries is present")
+    quick = index(quick_payload.get("entries") or [], "quick-submit", failures)
+    docs_quick = index(docs_quick_payload.get("entries") or [], "docs quick-submit", failures)
+    archived_quick = index(quick_payload.get("archivedEntries") or [], "archived quick-submit", failures)
+    docs_archived_quick = index(
+        docs_quick_payload.get("archivedEntries") or [], "docs archived quick-submit", failures
+    )
     catalog = index(load("docs/data/catalog.json").get("entries") or [], "catalog", failures)
+    online_payload = load("data/yoj-public-problems.json")
+    online = index(validate_snapshot(online_payload), "YOJ public-index snapshot", failures)
 
     if set(catalog) != set(problems):
         failures.append("catalog problem-number set differs from data/problems.json")
@@ -58,6 +73,8 @@ def main() -> int:
         failures.append("quick-submit problem-number set differs from data/public-ready.json")
     if set(docs_quick) != set(quick):
         failures.append("docs quick-submit problem-number set differs from data/quick-submit.json")
+    if set(docs_archived_quick) != set(archived_quick):
+        failures.append("docs archived quick-submit problem-number set differs from data/quick-submit.json")
     if (ROOT / "data/quick-submit.json").read_bytes() != (ROOT / "docs/data/quick-submit.json").read_bytes():
         failures.append("the two quick-submit manifests are not byte-identical")
 
@@ -112,12 +129,63 @@ def main() -> int:
         if number in catalog and bool(catalog[number].get("verified")) != is_ready:
             failures.append(f"{number}: catalog verified flag differs from release status")
 
+    for number, archived in archived_quick.items():
+        if number in ready:
+            failures.append(f"{number}: archived quick-submit overlaps PUBLIC_READY entry")
+        if number not in problems or number not in online:
+            failures.append(f"{number}: archived quick-submit is not a current local YOJ-public problem")
+            continue
+        if str(archived.get("source") or "") != "ACCEPTED_ARCHIVE":
+            failures.append(f"{number}: archived quick-submit source is not ACCEPTED_ARCHIVE")
+        code_path = str(archived.get("codePath") or "")
+        check_file(number, "archived direct code", code_path, str(archived.get("codeSha256") or ""), failures)
+        if str(archived.get("onlineStatus") or "") != "Accepted (历史归档)":
+            failures.append(f"{number}: archived quick-submit status is not historical Accepted")
+        catalog_row = catalog.get(number)
+        if not catalog_row or catalog_row.get("quickSubmitMode") != "archived":
+            failures.append(f"{number}: catalog missing archived quick-submit projection")
+        elif str(catalog_row.get("codeUrl") or "") != str(archived.get("codeUrl") or ""):
+            failures.append(f"{number}: catalog archived codeUrl differs from quick-submit")
+
+    for number, catalog_row in catalog.items():
+        expected_online = number in online
+        if bool(catalog_row.get("onlineAvailable")) != expected_online:
+            failures.append(f"{number}: catalog onlineAvailable differs from YOJ public-index snapshot")
+        expected_status = "YOJ_PUBLIC" if expected_online else "NOT_IN_CURRENT_PUBLIC_INDEX"
+        if str(catalog_row.get("onlineStatus") or "") != expected_status:
+            failures.append(f"{number}: catalog onlineStatus differs from YOJ public-index snapshot")
+
+    source = load("docs/data/catalog.json").get("source") or {}
+    expected_online_ids = set(online)
+    if int(source.get("onlinePublicProblems") or -1) != len(expected_online_ids):
+        failures.append("catalog source onlinePublicProblems differs from the snapshot")
+    if str(source.get("onlineSnapshotCapturedAt") or "") != str(online_payload.get("capturedAt") or ""):
+        failures.append("catalog source onlineSnapshotCapturedAt differs from the snapshot")
+    if str(source.get("onlineSnapshotSha256") or "") != str(online_payload.get("problemListSha256") or ""):
+        failures.append("catalog source onlineSnapshotSha256 differs from the snapshot")
+    if int(source.get("archivedQuickSubmitEntries") or -1) != len(archived_quick):
+        failures.append("catalog source archivedQuickSubmitEntries differs from the manifest")
+    if int(source.get("archivedCodeEntries") or -1) != sum(bool(row.get("archiveCodeAvailable")) for row in catalog.values()):
+        failures.append("catalog source archivedCodeEntries differs from the catalog")
+
+    online_missing_from_repository = sorted(set(online) - set(problems))
+    if online_missing_from_repository:
+        failures.append(
+            "YOJ public-index problems are missing from local capture: "
+            + ", ".join(str(number) for number in online_missing_from_repository)
+        )
+
     result = {
         "problemRecords": len(problems),
         "publicReady": len(ready),
         "quickSubmit": len(quick),
+        "archivedQuickSubmit": len(archived_quick),
         "catalogRecords": len(catalog),
         "catalogVerified": sum(bool(row.get("verified")) for row in catalog.values()),
+        "onlinePublicProblems": len(online),
+        "onlinePublicInRepository": len(set(online) & set(problems)),
+        "onlinePublicMissingRepository": len(online_missing_from_repository),
+        "repositoryProblemsNotInCurrentPublicIndex": len(set(problems) - set(online)),
         "failures": failures,
     }
     print(json.dumps(result, ensure_ascii=False, indent=2))

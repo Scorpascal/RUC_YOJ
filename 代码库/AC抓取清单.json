@@ -1,7 +1,7 @@
 {
   "version": 1,
   "purpose": "YOJ accepted source archive; raw capture materialization only",
-  "capturedAt": "2026-09-20T15:05:59Z",
+  "capturedAt": "2026-09-20T18:43:59Z",
   "account": {
     "username": "已脱敏"
   },
@@ -12,8 +12,8 @@
   "totals": {
     "submissionRecords": 1028,
     "acceptedSubmissionRecords": 644,
-    "uniqueProblems": 489,
-    "materializedProblemDirectories": 489,
+    "uniqueProblems": 494,
+    "materializedProblemDirectories": 494,
     "materializedCodeFiles": 489
   },
   "problems": [
@@ -2628,6 +2628,19 @@
       "codeSha256": "45f25d82d6d1dfe3a944e2649d05c1a2bbc392d0402d9934d1651e765089153d"
     },
     {
+      "problemNo": "714",
+      "title": "# 714 . 427a94ddc93f9554",
+      "folder": "0714_#_714_._427a94ddc93f9554",
+      "submissionNo": "",
+      "language": "",
+      "status": "TOPIC_CAPTURED",
+      "files": {
+        "problem": "0714_#_714_._427a94ddc93f9554/0714_题目原文.html",
+        "metadata": "0714_#_714_._427a94ddc93f9554/0714_元数据.json"
+      },
+      "codeSha256": ""
+    },
+    {
       "problemNo": "766",
       "title": "#4_degree",
       "folder": "0766_#4_degree",
@@ -5088,6 +5101,19 @@
       "codeSha256": "fba28207379a4fc25bae3f17cd26e4ca3201a7ce50018058b7d3ef23875880e7"
     },
     {
+      "problemNo": "1137",
+      "title": "# 1137 . test_oj",
+      "folder": "1137_#_1137_._test_oj",
+      "submissionNo": "",
+      "language": "",
+      "status": "TOPIC_CAPTURED",
+      "files": {
+        "problem": "1137_#_1137_._test_oj/1137_题目原文.html",
+        "metadata": "1137_#_1137_._test_oj/1137_元数据.json"
+      },
+      "codeSha256": ""
+    },
+    {
       "problemNo": "1138",
       "title": "Rank",
       "folder": "1138_Rank",
@@ -5746,6 +5772,19 @@
         "metadata": "1247_[RUC_ICPC_newbie_contest]_除得尽吗/1247_元数据.json"
       },
       "codeSha256": "e53adcd6affb4924cd2aba250a2435a04dee9e70590c4a6647fd0a37f680b49f"
+    },
+    {
+      "problemNo": "1248",
+      "title": "# 1248 . [RUC ICPC newbie contest] 连起来",
+      "folder": "1248_#_1248_._[RUC_ICPC_newbie_contest]_连起来",
+      "submissionNo": "",
+      "language": "",
+      "status": "TOPIC_CAPTURED",
+      "files": {
+        "problem": "1248_#_1248_._[RUC_ICPC_newbie_contest]_连起来/1248_题目原文.html",
+        "metadata": "1248_#_1248_._[RUC_ICPC_newbie_contest]_连起来/1248_元数据.json"
+      },
+      "codeSha256": ""
     },
     {
       "problemNo": "1250",
@@ -7158,6 +7197,19 @@
       "codeSha256": "a31ceb8d546206f256355dde68f3c1e317bd97d360148294f3c9fb2546dcdf0a"
     },
     {
+      "problemNo": "1650",
+      "title": "# 1650 . 高级Python 2026 春-7：校园食堂营养分析",
+      "folder": "1650_#_1650_._高级Python_2026_春-7：校园食堂营养分析",
+      "submissionNo": "",
+      "language": "",
+      "status": "TOPIC_CAPTURED",
+      "files": {
+        "problem": "1650_#_1650_._高级Python_2026_春-7：校园食堂营养分析/1650_题目原文.html",
+        "metadata": "1650_#_1650_._高级Python_2026_春-7：校园食堂营养分析/1650_元数据.json"
+      },
+      "codeSha256": ""
+    },
+    {
       "problemNo": "1656",
       "title": "你好",
       "folder": "1656_你好",
@@ -7261,6 +7313,19 @@
         "metadata": "1683_造题计划(上)(CSP_202509-4)/1683_元数据.json"
       },
       "codeSha256": "5c26bc9b20c6ecb1c914d6519c75a9dfcfd19948720b860090f4d8480486e8f0"
+    },
+    {
+      "problemNo": "1684",
+      "title": "# 1684 . 造题计划（上）（CSP 202509-4）",
+      "folder": "1684_#_1684_._造题计划（上）（CSP_202509-4）",
+      "submissionNo": "",
+      "language": "",
+      "status": "TOPIC_CAPTURED",
+      "files": {
+        "problem": "1684_#_1684_._造题计划（上）（CSP_202509-4）/1684_题目原文.html",
+        "metadata": "1684_#_1684_._造题计划（上）（CSP_202509-4）/1684_元数据.json"
+      },
+      "codeSha256": ""
     },
     {
       "problemNo": "1685",

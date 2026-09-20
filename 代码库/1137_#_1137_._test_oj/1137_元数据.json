@@ -1,0 +1,31 @@
+{
+  "problem": {
+    "submissionNo": "",
+    "problemNo": "1137",
+    "title": "# 1137 . test_oj",
+    "status": "TOPIC_CAPTURED",
+    "score": "",
+    "language": "",
+    "submitter": "未抓取源码",
+    "submissionUrl": "",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1137.html"
+  },
+  "source": {
+    "captureVersion": 3,
+    "capturedAt": "2026-09-20T18:43:59Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "discovery": "public_problem_index",
+    "note": "公开题目列表首次发现；本轮未找到本人 Accepted 源码，未生成或伪造代码文件。"
+  },
+  "files": {
+    "problemHtml": "1137_题目原文.html",
+    "metadata": "1137_元数据.json"
+  },
+  "code": {
+    "status": "NO_LOCAL_AC",
+    "language": "",
+    "extension": "",
+    "bytesUtf8": 0,
+    "sha256": ""
+  }
+}

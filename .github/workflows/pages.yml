@@ -8,9 +8,11 @@ on:
       - "data/problems.json"
       - "data/quick-submit.json"
       - "data/public-ready.json"
+      - "data/yoj-public-problems.json"
       - "tools/build_site_catalog.py"
       - "tools/build_initial.py"
       - "tools/audit_consistency.py"
+      - "tools/audit_online_availability.py"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 

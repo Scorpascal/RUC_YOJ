@@ -19,9 +19,16 @@ from pathlib import Path
 from urllib.parse import quote
 
 
+try:
+    from audit_online_availability import validate_snapshot
+except ImportError:  # pragma: no cover - supports package-style imports
+    from tools.audit_online_availability import validate_snapshot
+
+
 ROOT = Path(__file__).resolve().parents[1]
 PROBLEMS_PATH = ROOT / "data" / "problems.json"
 QUICK_SUBMIT_PATH = ROOT / "data" / "quick-submit.json"
+ONLINE_PUBLIC_PATH = ROOT / "data" / "yoj-public-problems.json"
 QUICK_SUBMIT_PAGES_PATH = ROOT / "docs" / "data" / "quick-submit.json"
 OUTPUT_PATH = ROOT / "docs" / "data" / "catalog.json"
 GITHUB_BLOB_BASE = "https://github.com/Scorpascal/RUC_YOJ/blob/main/"
@@ -29,6 +36,16 @@ GITHUB_BLOB_BASE = "https://github.com/Scorpascal/RUC_YOJ/blob/main/"
 
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_online_public() -> tuple[dict[int, dict], dict]:
+    """Load the separately captured YOJ public-index evidence."""
+
+    if not ONLINE_PUBLIC_PATH.is_file():
+        raise ValueError(f"missing YOJ public-index snapshot: {ONLINE_PUBLIC_PATH}")
+    payload = load_json(ONLINE_PUBLIC_PATH)
+    rows = validate_snapshot(payload)
+    return {int(row["problemNo"]): row for row in rows}, payload
 
 
 def has_solution_notes(folder: str, problem_no: int) -> bool:
@@ -78,7 +95,11 @@ def github_blob(path: str | None) -> str | None:
 def build_payload() -> dict:
     problems = load_json(PROBLEMS_PATH)
     quick = load_json(QUICK_SUBMIT_PATH)
+    online_public, online_snapshot = load_online_public()
     quick_by_no = {int(item["problemNo"]): item for item in quick.get("entries", [])}
+    archived_quick_by_no = {
+        int(item["problemNo"]): item for item in quick.get("archivedEntries", [])
+    }
 
     entries: list[dict] = []
     tag_counts: Counter[str] = Counter()
@@ -94,6 +115,20 @@ def build_payload() -> dict:
         for tag in tags:
             tag_counts[tag] += 1
         verified = public.get("status") == "PUBLIC_READY" and quick_entry.get("onlineStatus") == "Accepted"
+        online_available = problem_no in online_public
+        archive = record.get("archive") or {}
+        archive_code_path = str(archive.get("directlySubmittableCode") or "")
+        archive_code_file = ROOT / archive_code_path if archive_code_path else None
+        archive_accepted = str((archive.get("acceptedRun") or {}).get("status") or "") == "Accepted"
+        archive_code_available = bool(
+            online_available
+            and not verified
+            and archive_accepted
+            and archive_code_file is not None
+            and archive_code_file.is_file()
+        )
+        archived_quick_entry = archived_quick_by_no.get(problem_no)
+        code_entry = quick_entry if verified else archived_quick_entry
         has_notes = has_solution_notes(folder, problem_no)
         entries.append(
             {
@@ -105,24 +140,52 @@ def build_payload() -> dict:
                 "timeLimit": limits.get("time") or "—",
                 "memoryLimit": limits.get("memory") or "—",
                 "verified": verified,
+                "onlineAvailable": online_available,
+                "onlineStatus": "YOJ_PUBLIC" if online_available else "NOT_IN_CURRENT_PUBLIC_INDEX",
                 "solutionStatus": "solution" if has_notes else "statement",
                 "problemUrl": quick_entry.get("problemUrl") or record.get("problemUrl"),
                 "statementUrl": github_blob(statement_path),
-                "codeUrl": quick_entry.get("codeUrl"),
-                "quickSubmitUrl": f"./yoj-quick-submit.html?pno={problem_no}" if verified else None,
-                "submissionNo": quick_entry.get("onlineSubmissionNo"),
+                "codeUrl": (
+                    code_entry.get("codeUrl")
+                    if code_entry
+                    else github_blob(archive_code_path) if archive_code_available else None
+                ),
+                "codeSource": "PUBLIC_READY" if verified else "ACCEPTED_ARCHIVE" if archive_code_available else None,
+                "archiveCodeAvailable": archive_code_available,
+                "quickSubmitMode": "verified" if verified else "archived" if archived_quick_entry else None,
+                "quickSubmitUrl": (
+                    f"./yoj-quick-submit.html?pno={problem_no}"
+                    if verified
+                    else f"./yoj-quick-submit.html?pno={problem_no}&mode=archive"
+                    if archived_quick_entry
+                    else None
+                ),
+                "quickSubmitWarning": archived_quick_entry.get("warning") if archived_quick_entry else None,
+                "submissionNo": (
+                    quick_entry.get("onlineSubmissionNo")
+                    if verified
+                    else archived_quick_entry.get("onlineSubmissionNo") if archived_quick_entry else None
+                ),
             }
         )
 
     entries.sort(key=lambda item: item["problemNo"])
     return {
         "schemaVersion": 1,
-        "generatedAt": quick.get("generatedAt"),
+        "generatedAt": online_snapshot.get("capturedAt") or quick.get("generatedAt"),
         "source": {
             "problemRecords": len(entries),
             "verifiedSubmissions": sum(1 for item in entries if item["verified"]),
+            "onlinePublicProblems": len(online_public),
+            "onlinePublicInRepository": sum(1 for item in entries if item["onlineAvailable"]),
+            "onlinePublicMissingRepository": len(set(online_public) - {item["problemNo"] for item in entries}),
+            "repositoryProblemsNotInCurrentPublicIndex": sum(1 for item in entries if not item["onlineAvailable"]),
+            "archivedCodeEntries": sum(1 for item in entries if item["archiveCodeAvailable"]),
+            "archivedQuickSubmitEntries": sum(1 for item in entries if item["quickSubmitMode"] == "archived"),
+            "onlineSnapshotCapturedAt": online_snapshot.get("capturedAt"),
+            "onlineSnapshotSha256": online_snapshot.get("problemListSha256"),
             "tagging": "title-heuristic-v1",
-            "note": "知识点标签为根据题名生成的初步导航标签，需逐题人工校准。",
+            "note": "YOJ 可见性来自独立公开列表快照；它不替代仓库自己的 Accepted/PUBLIC_READY 证据。知识点标签为根据题名生成的初步导航标签，需逐题人工校准。",
         },
         "tagCounts": dict(sorted(tag_counts.items(), key=lambda pair: (-pair[1], pair[0]))),
         "entries": entries,

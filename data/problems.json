@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "purpose": "offline build; only explicit PUBLIC_READY records are public releases",
   "generatedFrom": "代码库/AC抓取清单.json",
-  "capturedAt": "2026-09-20T15:05:59Z",
-  "generatedRecords": 489,
+  "capturedAt": "2026-09-20T18:43:59Z",
+  "generatedRecords": 494,
   "records": [
     {
       "problemNo": "1",
@@ -421,9 +421,9 @@
             "label": "题面图片",
             "filename": "img_01_16901584001332.png",
             "relativePath": "assets/img_01_16901584001332.png",
-            "status": "CACHED",
-            "bytes": 7161,
-            "sha256": "097334a428e2e6994d9e7a2c309bdf8a73ea853d1c174047a45c43198392afd8",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -431,13 +431,13 @@
             "label": "题面图片",
             "filename": "img_02_54721584001332.png",
             "relativePath": "assets/img_02_54721584001332.png",
-            "status": "CACHED",
-            "bytes": 6026,
-            "sha256": "c38fdb11d6d53ffb61be7a456357166506ce627029aeba3d23b315e79f242cbd",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 2,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -740,9 +740,9 @@
             "label": "题面图片",
             "filename": "img_01_5ddb774155bcd.png",
             "relativePath": "assets/img_01_5ddb774155bcd.png",
-            "status": "CACHED",
-            "bytes": 1964,
-            "sha256": "b3210ed784c3b10ce52dbe2d6e50531fe9ebed237f5f91fe812aa76302637ed3",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -750,13 +750,13 @@
             "label": "题面图片",
             "filename": "img_02_5ddb7bc37498b.png",
             "relativePath": "assets/img_02_5ddb7bc37498b.png",
-            "status": "CACHED",
-            "bytes": 1477,
-            "sha256": "c81f44a16f157a5302011a6f503165c6e3c7412204d394501d761253ac3cf6af",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 2,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -1056,7 +1056,8 @@
         "warnings": [
           "未从题面页面识别内存限制",
           "未从题面页面识别时间限制",
-          "未找到 p_content 或 font-content，题面需要人工补抓"
+          "未找到 p_content 或 font-content，题面需要人工补抓",
+          "题面主体为空，题面需要人工复核"
         ]
       }
     },
@@ -1180,13 +1181,13 @@
             "label": "题面图片",
             "filename": "img_01_27761634798073.JPG",
             "relativePath": "assets/img_01_27761634798073.JPG",
-            "status": "CACHED",
-            "bytes": 10835,
-            "sha256": "fa2105d4c1692322ba14b84f402f8baaa38c4f1a4984f70987b1116529919f8b",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -1252,13 +1253,13 @@
             "label": "题面图片",
             "filename": "img_01_5e9300e728701.PNG",
             "relativePath": "assets/img_01_5e9300e728701.PNG",
-            "status": "CACHED",
-            "bytes": 11634,
-            "sha256": "b0c9df3678147030dc136a052b417eca8729f9cb88162576f2ba00e66cd309ca",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -1324,9 +1325,9 @@
             "label": "下载代码文件",
             "filename": "01_119.cpp",
             "relativePath": "assets/01_119.cpp",
-            "status": "CACHED",
-            "bytes": 211,
-            "sha256": "fa0476eb51ee442f48158fcbefd8dfa4122788bd8af032a009061e7e4178f7ea",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -1632,13 +1633,13 @@
             "label": "题面图片",
             "filename": "img_01_69131634798225.JPG",
             "relativePath": "assets/img_01_69131634798225.JPG",
-            "status": "CACHED",
-            "bytes": 20172,
-            "sha256": "44552bf1fc03a8144eda2b900ac451ebbe631379a6a97100e6da5c1bdfa5ca1d",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -1704,17 +1705,15 @@
             "label": "题面图片",
             "filename": "img_01_1385434214",
             "relativePath": "assets/img_01_1385434214",
-            "status": "DOWNLOAD_FAILED",
+            "status": "DETECTED_NOT_DOWNLOADED",
             "bytes": 0,
             "sha256": "",
-            "error": "DOWNLOAD_FAILED"
+            "error": ""
           }
         ],
         "imageLocalCount": 0,
         "assets": [],
-        "warnings": [
-          "题面图片下载失败: http://202.112.113.190:8080/phpDownload/1385434214 (DOWNLOAD_FAILED)"
-        ]
+        "warnings": []
       }
     },
     {
@@ -1778,13 +1777,13 @@
             "label": "题面图片",
             "filename": "img_01_32311634798362.JPG",
             "relativePath": "assets/img_01_32311634798362.JPG",
-            "status": "CACHED",
-            "bytes": 14218,
-            "sha256": "bba2c019dd66a7515b283dac5d06260201a93d705e380f0c9e44b74ac7a0b4fa",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -2086,13 +2085,13 @@
             "label": "题面图片",
             "filename": "img_01_5ee22967a27c4.PNG",
             "relativePath": "assets/img_01_5ee22967a27c4.PNG",
-            "status": "CACHED",
-            "bytes": 7725,
-            "sha256": "2c4bb57b3e1783bde44ecf789ae4fc7b12ab61fa81de532dc6fff71708f9fef6",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -2158,9 +2157,9 @@
             "label": "下载代码文件",
             "filename": "01_132.cpp",
             "relativePath": "assets/01_132.cpp",
-            "status": "CACHED",
-            "bytes": 418,
-            "sha256": "dc6ca5f0ff5c15669d847672c585c4dcd16a1535dad18463985c69383980fc00",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -2525,13 +2524,13 @@
             "label": "题面图片",
             "filename": "img_01_5e9ea7d9226eb.jpg",
             "relativePath": "assets/img_01_5e9ea7d9226eb.jpg",
-            "status": "CACHED",
-            "bytes": 7756,
-            "sha256": "c2b86f5606da3d7a48123e6f667558c8bda951999e9f38b5ac8603ada98cfb01",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -2597,13 +2596,13 @@
             "label": "题面图片",
             "filename": "img_01_5dde6d48af047.JPG",
             "relativePath": "assets/img_01_5dde6d48af047.JPG",
-            "status": "CACHED",
-            "bytes": 20321,
-            "sha256": "58c4c5d09dcd90685f0940fbfa0c4b9e5ab13988a51851058fe84d353c98fcf9",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -2728,9 +2727,9 @@
             "label": "下载代码文件",
             "filename": "01_144.cpp",
             "relativePath": "assets/01_144.cpp",
-            "status": "CACHED",
-            "bytes": 532,
-            "sha256": "5793b4bfe603948efab58595056ea38f3f864ba613ef74fea70da539f44a6f6e",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -2918,13 +2917,13 @@
             "label": "题面图片",
             "filename": "img_01_5ddf30b1871db.JPG",
             "relativePath": "assets/img_01_5ddf30b1871db.JPG",
-            "status": "CACHED",
-            "bytes": 10139,
-            "sha256": "7c0a975d3e072e2bf60b981374bb799c2e45ff0627bdf2517d375098bb96f805",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -3226,13 +3225,13 @@
             "label": "题面图片",
             "filename": "img_01_5ddf5264bb087.png",
             "relativePath": "assets/img_01_5ddf5264bb087.png",
-            "status": "CACHED",
-            "bytes": 72848,
-            "sha256": "6b007dc27b22373c38b0b5fae113b6c7d2bf6f559a6d582530dc168e3643d001",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -3298,13 +3297,13 @@
             "label": "题面图片",
             "filename": "img_01_5ddf52d186362.png",
             "relativePath": "assets/img_01_5ddf52d186362.png",
-            "status": "CACHED",
-            "bytes": 114308,
-            "sha256": "dd6ef9be75cdd81d03953494880bf329be479a8386029a98c4da5847528e945c",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -3665,9 +3664,9 @@
             "label": "下载代码文件",
             "filename": "01_168.cpp",
             "relativePath": "assets/01_168.cpp",
-            "status": "CACHED",
-            "bytes": 146,
-            "sha256": "903cf9fa9a6679cca0bfc7564df288b1cd8fee66e09293a504abfa48cb928eec",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -4033,9 +4032,9 @@
             "label": "题面图片",
             "filename": "img_01_5de9a0914dc16.png",
             "relativePath": "assets/img_01_5de9a0914dc16.png",
-            "status": "CACHED",
-            "bytes": 163374,
-            "sha256": "e4ee09d58fb8e2951d13bc0cbae57e9de8f191a5afbda1cc13b8b98611b77d0d",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -4043,17 +4042,15 @@
             "label": "题面图片",
             "filename": "img_02_20131214083228_47867.png",
             "relativePath": "assets/img_02_20131214083228_47867.png",
-            "status": "DOWNLOAD_FAILED",
+            "status": "DETECTED_NOT_DOWNLOADED",
             "bytes": 0,
             "sha256": "",
-            "error": "DOWNLOAD_FAILED"
+            "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
-        "warnings": [
-          "题面图片下载失败: http://yoj.ruc.edu.cn/kindeditor/attached/image/20131214/20131214083228_47867.png (DOWNLOAD_FAILED)"
-        ]
+        "warnings": []
       }
     },
     {
@@ -4294,13 +4291,13 @@
             "label": "题面图片",
             "filename": "img_01_5de87ad437f1f.gif",
             "relativePath": "assets/img_01_5de87ad437f1f.gif",
-            "status": "CACHED",
-            "bytes": 2681,
-            "sha256": "e448d4e42cb408e70df472eb7b826d9dfcc25587e1a1d0796ca512a456c73eb6",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -5134,28 +5131,25 @@
             "label": "题面图片",
             "filename": "img_01_20181217091610_35230.png",
             "relativePath": "assets/img_01_20181217091610_35230.png",
-            "status": "DOWNLOAD_FAILED",
+            "status": "DETECTED_NOT_DOWNLOADED",
             "bytes": 0,
             "sha256": "",
-            "error": "DOWNLOAD_FAILED"
+            "error": ""
           },
           {
             "url": "http://yoj.ruc.edu.cn/kindeditor/attached/image/20181217/20181217091610_75739.png",
             "label": "题面图片",
             "filename": "img_02_20181217091610_75739.png",
             "relativePath": "assets/img_02_20181217091610_75739.png",
-            "status": "DOWNLOAD_FAILED",
+            "status": "DETECTED_NOT_DOWNLOADED",
             "bytes": 0,
             "sha256": "",
-            "error": "DOWNLOAD_FAILED"
+            "error": ""
           }
         ],
         "imageLocalCount": 0,
         "assets": [],
-        "warnings": [
-          "题面图片下载失败: http://yoj.ruc.edu.cn/kindeditor/attached/image/20181217/20181217091610_35230.png (DOWNLOAD_FAILED)",
-          "题面图片下载失败: http://yoj.ruc.edu.cn/kindeditor/attached/image/20181217/20181217091610_75739.png (DOWNLOAD_FAILED)"
-        ]
+        "warnings": []
       }
     },
     {
@@ -5809,9 +5803,9 @@
             "label": "下载代码文件",
             "filename": "01_261.cpp",
             "relativePath": "assets/01_261.cpp",
-            "status": "CACHED",
-            "bytes": 169,
-            "sha256": "10393c0671a77c2ddb23ba83ac0dcc8fab7622e48cf63597cf1d87f8600b1459",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -5879,7 +5873,8 @@
         "warnings": [
           "未从题面页面识别内存限制",
           "未从题面页面识别时间限制",
-          "未找到 p_content 或 font-content，题面需要人工补抓"
+          "未找到 p_content 或 font-content，题面需要人工补抓",
+          "题面主体为空，题面需要人工复核"
         ]
       }
     },
@@ -6001,7 +5996,8 @@
         "warnings": [
           "未从题面页面识别内存限制",
           "未从题面页面识别时间限制",
-          "未找到 p_content 或 font-content，题面需要人工补抓"
+          "未找到 p_content 或 font-content，题面需要人工补抓",
+          "题面主体为空，题面需要人工复核"
         ]
       }
     },
@@ -6243,9 +6239,9 @@
             "label": "下载代码文件",
             "filename": "01_284.cpp",
             "relativePath": "assets/01_284.cpp",
-            "status": "CACHED",
-            "bytes": 535,
-            "sha256": "a4dacabca3bcfd983505075d6dece5300e5051bd95ab76b3b6b2b96fb6d047e5",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -6315,17 +6311,15 @@
             "label": "下载代码文件",
             "filename": "01_285.cpp",
             "relativePath": "assets/01_285.cpp",
-            "status": "DOWNLOAD_FAILED",
+            "status": "DETECTED_NOT_DOWNLOADED",
             "bytes": 0,
             "sha256": "",
             "sourceSha256": "",
             "transform": "",
-            "error": "DOWNLOAD_FAILED"
+            "error": ""
           }
         ],
-        "warnings": [
-          "附件下载失败: http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/285.html (DOWNLOAD_FAILED)"
-        ]
+        "warnings": []
       }
     },
     {
@@ -6389,17 +6383,15 @@
             "label": "下载代码文件",
             "filename": "01_286.cpp",
             "relativePath": "assets/01_286.cpp",
-            "status": "DOWNLOAD_FAILED",
+            "status": "DETECTED_NOT_DOWNLOADED",
             "bytes": 0,
             "sha256": "",
             "sourceSha256": "",
             "transform": "",
-            "error": "DOWNLOAD_FAILED"
+            "error": ""
           }
         ],
-        "warnings": [
-          "附件下载失败: http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/286.html (DOWNLOAD_FAILED)"
-        ]
+        "warnings": []
       }
     },
     {
@@ -6758,13 +6750,13 @@
             "label": "题面图片",
             "filename": "img_01_5e0456719a193.JPG",
             "relativePath": "assets/img_01_5e0456719a193.JPG",
-            "status": "CACHED",
-            "bytes": 10490,
-            "sha256": "8b942db2f3ff9735aafed57440c50e73191fb5c341801ac597913c00ee95cfba",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -6949,9 +6941,9 @@
             "label": "题面图片",
             "filename": "img_01_5e04587cd574f.JPG",
             "relativePath": "assets/img_01_5e04587cd574f.JPG",
-            "status": "CACHED",
-            "bytes": 99228,
-            "sha256": "611e58c9fd4755e6974ed1cb21cd704029ae811e034bf696b0393f0905f6f775",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -6959,13 +6951,13 @@
             "label": "题面图片",
             "filename": "img_02_5e045c09b74cb.JPG",
             "relativePath": "assets/img_02_5e045c09b74cb.JPG",
-            "status": "CACHED",
-            "bytes": 55142,
-            "sha256": "6fe65803d2b4b9722143ef6bc1c202d4ab10d89b564e266fa13f6ca809ab0a7f",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 2,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -7562,13 +7554,13 @@
             "label": "题面图片",
             "filename": "img_01_5e0476a04af92.JPG",
             "relativePath": "assets/img_01_5e0476a04af92.JPG",
-            "status": "CACHED",
-            "bytes": 12602,
-            "sha256": "ff714248e0c131008a10de6b8ee55d3b6c0ed28feadf9c104da677a0b1999749",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -7693,13 +7685,13 @@
             "label": "题面图片",
             "filename": "img_01_5e0477beb29c5.JPG",
             "relativePath": "assets/img_01_5e0477beb29c5.JPG",
-            "status": "CACHED",
-            "bytes": 10617,
-            "sha256": "bdc4bf4a942cc9b944347fa68c22b87a64367ff7a42855c66883743ce9357d55",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -7942,9 +7934,9 @@
             "label": "下载代码文件",
             "filename": "01_391.cpp",
             "relativePath": "assets/01_391.cpp",
-            "status": "CACHED",
-            "bytes": 686,
-            "sha256": "f8b1d607443a3cee6860f851d221ab09a6a875d5bc240d6a691eb1e9bb7f59ef",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -8132,9 +8124,9 @@
             "label": "下载代码文件",
             "filename": "01_421.cpp",
             "relativePath": "assets/01_421.cpp",
-            "status": "CACHED",
-            "bytes": 582,
-            "sha256": "79638b80bfb9ebcbafed07831db99385fea5650ae700b89e5534d1908b81964d",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -8261,7 +8253,8 @@
         "warnings": [
           "未从题面页面识别内存限制",
           "未从题面页面识别时间限制",
-          "未找到 p_content 或 font-content，题面需要人工补抓"
+          "未找到 p_content 或 font-content，题面需要人工补抓",
+          "题面主体为空，题面需要人工复核"
         ]
       }
     },
@@ -8975,13 +8968,13 @@
             "label": "题面图片",
             "filename": "img_01_58981603791904.png",
             "relativePath": "assets/img_01_58981603791904.png",
-            "status": "CACHED",
-            "bytes": 76744,
-            "sha256": "dcdb79d0a84653836338563251aa1101eac366d1a5bc120c233e5d445a4eb20b",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -9281,7 +9274,8 @@
         "warnings": [
           "未从题面页面识别内存限制",
           "未从题面页面识别时间限制",
-          "未找到 p_content 或 font-content，题面需要人工补抓"
+          "未找到 p_content 或 font-content，题面需要人工补抓",
+          "题面主体为空，题面需要人工复核"
         ]
       }
     },
@@ -9344,7 +9338,8 @@
         "warnings": [
           "未从题面页面识别内存限制",
           "未从题面页面识别时间限制",
-          "未找到 p_content 或 font-content，题面需要人工补抓"
+          "未找到 p_content 或 font-content，题面需要人工补抓",
+          "题面主体为空，题面需要人工复核"
         ]
       }
     },
@@ -9527,9 +9522,9 @@
             "label": "下载代码文件",
             "filename": "01_626.cpp",
             "relativePath": "assets/01_626.cpp",
-            "status": "CACHED",
-            "bytes": 1148,
-            "sha256": "c8bc9b3d43191d3beeec6c3bb8adcfd702b72c32787e36cc5339dd582e033699",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -9599,9 +9594,9 @@
             "label": "下载代码文件",
             "filename": "01_627.cpp",
             "relativePath": "assets/01_627.cpp",
-            "status": "CACHED",
-            "bytes": 2490,
-            "sha256": "2f4467e1015020662321d89e8e763676f5a025da97742d40a62d038e96f2806c",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -9671,9 +9666,9 @@
             "label": "下载代码文件",
             "filename": "01_628.cpp",
             "relativePath": "assets/01_628.cpp",
-            "status": "CACHED",
-            "bytes": 622,
-            "sha256": "74e8fbd9c500876f8f3ddcb15272dd1880d4686880e752ff4bf8f347c0ff52e1",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -9743,9 +9738,9 @@
             "label": "下载代码文件",
             "filename": "01_629.cpp",
             "relativePath": "assets/01_629.cpp",
-            "status": "CACHED",
-            "bytes": 622,
-            "sha256": "74e8fbd9c500876f8f3ddcb15272dd1880d4686880e752ff4bf8f347c0ff52e1",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -9815,9 +9810,9 @@
             "label": "下载代码文件",
             "filename": "01_630.cpp",
             "relativePath": "assets/01_630.cpp",
-            "status": "CACHED",
-            "bytes": 735,
-            "sha256": "05002dbd9369740f9f9790375917660e3609abe571524a4b7ecb3d0a97869bbc",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -9887,13 +9882,13 @@
             "label": "题面图片",
             "filename": "img_01_35801634713938.png",
             "relativePath": "assets/img_01_35801634713938.png",
-            "status": "CACHED",
-            "bytes": 441114,
-            "sha256": "a8dcbd24f29bad1d6ff59b54c0d883d60c803156ee0280ecc5864654fecdf6bd",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -9959,13 +9954,13 @@
             "label": "题面图片",
             "filename": "img_01_16311635670805.png",
             "relativePath": "assets/img_01_16311635670805.png",
-            "status": "CACHED",
-            "bytes": 109024,
-            "sha256": "15176ca79e3164fd9c4bff1cd418cf802b836ade781f5127691b3418e88c6e3a",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -10504,9 +10499,9 @@
             "label": "题面图片",
             "filename": "img_01_63665ce110041.jpg",
             "relativePath": "assets/img_01_63665ce110041.jpg",
-            "status": "CACHED",
-            "bytes": 37453,
-            "sha256": "c567672cf92bdb89bf1fe2094190a1747cad1fe863792fcb57bd6af337966034",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -10514,13 +10509,13 @@
             "label": "题面图片",
             "filename": "img_02_63665ce633e54.png",
             "relativePath": "assets/img_02_63665ce633e54.png",
-            "status": "CACHED",
-            "bytes": 41034,
-            "sha256": "8eae848baaa91b46fac178cad0151adbc3bb9c4eaf32f4ca269383c3d27a29e4",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 2,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -10588,9 +10583,9 @@
             "label": "题面图片",
             "filename": "img_01_98971637753929.png",
             "relativePath": "assets/img_01_98971637753929.png",
-            "status": "CACHED",
-            "bytes": 7727,
-            "sha256": "db4b91210226b1a9f9a29aad95da0a9255fe5b5ba6bc87f17c1d0a001cc5448a",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -10598,9 +10593,9 @@
             "label": "题面图片",
             "filename": "img_02_96671637753929.jpg",
             "relativePath": "assets/img_02_96671637753929.jpg",
-            "status": "CACHED",
-            "bytes": 31705,
-            "sha256": "50d26954ca9cf47fb27ffb3f5e6b8bdb8b33f0298975f3e0d3b215a3242e774f",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -10608,13 +10603,13 @@
             "label": "题面图片",
             "filename": "img_03_51391637753929.png",
             "relativePath": "assets/img_03_51391637753929.png",
-            "status": "CACHED",
-            "bytes": 10733,
-            "sha256": "16fdb3555019327c43019c390d9616bbb8e9100193b5c0272a419fb9b9f64a89",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 3,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -10678,7 +10673,8 @@
         "warnings": [
           "未从题面页面识别内存限制",
           "未从题面页面识别时间限制",
-          "未找到 p_content 或 font-content，题面需要人工补抓"
+          "未找到 p_content 或 font-content，题面需要人工补抓",
+          "题面主体为空，题面需要人工复核"
         ]
       }
     },
@@ -10743,13 +10739,13 @@
             "label": "题面图片",
             "filename": "img_01_16372870528177.png",
             "relativePath": "assets/img_01_16372870528177.png",
-            "status": "CACHED",
-            "bytes": 10337,
-            "sha256": "977046f026fc7c637681df1f6d8f1ea83043651fc00ee4e0ec6e98d8cad06e2c",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -10933,15 +10929,72 @@
             "label": "下载代码文件",
             "filename": "01_685.cpp",
             "relativePath": "assets/01_685.cpp",
-            "status": "CACHED",
-            "bytes": 3353,
-            "sha256": "b5d1b67cbac0899469a58226c2f832acafbe4cf47ab0d9300d31cf611801eecb",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
           }
         ],
         "warnings": []
+      }
+    },
+    {
+      "problemNo": "714",
+      "title": "# 714 . 427a94ddc93f9554",
+      "folder": "0714_#_714_._427a94ddc93f9554",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/714.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "256MiB"
+      },
+      "language": "",
+      "archive": {
+        "status": "TOPIC_CAPTURED",
+        "submissionNo": "",
+        "capturedAt": "2026-09-20T18:43:59Z",
+        "sourceSha256": "",
+        "recordedSha256": "",
+        "sourceHashMatchesMetadata": false,
+        "metadata": "代码库/0714_#_714_._427a94ddc93f9554/0714_元数据.json",
+        "completeCode": null,
+        "directlySubmittableCode": null,
+        "acceptedRun": {
+          "source": "public_problem_index",
+          "status": "NO_LOCAL_AC",
+          "score": "",
+          "language": "",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "unknown"
+        }
+      },
+      "public": {
+        "status": "TOPIC_CAPTURED",
+        "publish": false,
+        "statement": "题解/0714_#_714_._427a94ddc93f9554/0714_题目.md",
+        "cleanCode": null,
+        "directlySubmittableCode": null,
+        "onlineVerification": "NO_LOCAL_AC",
+        "verifiedAt": "",
+        "verifiedSubmissionNo": "",
+        "codeSha256": ""
+      },
+      "statement": {
+        "status": "NEEDS_REVIEW",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": [
+          "题面主体为空，题面需要人工复核"
+        ]
       }
     },
     {
@@ -11005,13 +11058,13 @@
             "label": "题面图片",
             "filename": "img_01_16414586499553.png",
             "relativePath": "assets/img_01_16414586499553.png",
-            "status": "CACHED",
-            "bytes": 51221,
-            "sha256": "c69fb04fc8c5ae1a8893f5e4033f67fff2fa559ca213c6baa3f6fcbac934620b",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -11077,13 +11130,13 @@
             "label": "题面图片",
             "filename": "img_01_16414586883409.png",
             "relativePath": "assets/img_01_16414586883409.png",
-            "status": "CACHED",
-            "bytes": 51148,
-            "sha256": "af814a266595c1591f5b7ffc299c9333d229784826ca7482a687982f5f188f36",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -12152,13 +12205,13 @@
             "label": "题面图片",
             "filename": "img_01_96311665386461.png",
             "relativePath": "assets/img_01_96311665386461.png",
-            "status": "CACHED",
-            "bytes": 57728,
-            "sha256": "ec19a951ac319810e688b05f01c16d4a7631fb09ec501f000eeb0dea657a9f02",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -12224,13 +12277,13 @@
             "label": "题面图片",
             "filename": "img_01_636098781733a.jpg",
             "relativePath": "assets/img_01_636098781733a.jpg",
-            "status": "CACHED",
-            "bytes": 22997,
-            "sha256": "fdd086af3e8fa828244c3ab8492eb0763f4d396739fb7670bb38b7cb6701e081",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -12298,9 +12351,9 @@
             "label": "题面图片",
             "filename": "img_01_51691727178755.jpg",
             "relativePath": "assets/img_01_51691727178755.jpg",
-            "status": "CACHED",
-            "bytes": 47686,
-            "sha256": "1abba8051afbfac9399cb521dd3042e4d3345a915618181416745460edba2b88",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -12308,9 +12361,9 @@
             "label": "题面图片",
             "filename": "img_02_33151727178755.png",
             "relativePath": "assets/img_02_33151727178755.png",
-            "status": "CACHED",
-            "bytes": 81181,
-            "sha256": "83459aec3a88aec45615f4f7a5a1fae45adb5caea1fbf3b3e56131c309bf43af",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -12318,13 +12371,13 @@
             "label": "题面图片",
             "filename": "img_03_21751727178756.jpg",
             "relativePath": "assets/img_03_21751727178756.jpg",
-            "status": "CACHED",
-            "bytes": 18971,
-            "sha256": "9a34bcd9962251b61bb102cd98c7acfcc8fe371f64a9ee2883167ce845ec53e3",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 3,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -12390,13 +12443,13 @@
             "label": "题面图片",
             "filename": "img_01_63aeaed81af64.png",
             "relativePath": "assets/img_01_63aeaed81af64.png",
-            "status": "CACHED",
-            "bytes": 7303,
-            "sha256": "0d7865ba6bebdd6c36494032b6e731d827163f37415fbcb555b8b0b4ee03e45e",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -12460,7 +12513,8 @@
         "warnings": [
           "未从题面页面识别内存限制",
           "未从题面页面识别时间限制",
-          "未找到 p_content 或 font-content，题面需要人工补抓"
+          "未找到 p_content 或 font-content，题面需要人工补抓",
+          "题面主体为空，题面需要人工复核"
         ]
       }
     },
@@ -12523,7 +12577,8 @@
         "warnings": [
           "未从题面页面识别内存限制",
           "未从题面页面识别时间限制",
-          "未找到 p_content 或 font-content，题面需要人工补抓"
+          "未找到 p_content 或 font-content，题面需要人工补抓",
+          "题面主体为空，题面需要人工复核"
         ]
       }
     },
@@ -12586,7 +12641,8 @@
         "warnings": [
           "未从题面页面识别内存限制",
           "未从题面页面识别时间限制",
-          "未找到 p_content 或 font-content，题面需要人工补抓"
+          "未找到 p_content 或 font-content，题面需要人工补抓",
+          "题面主体为空，题面需要人工复核"
         ]
       }
     },
@@ -14839,13 +14895,13 @@
             "label": "题面图片",
             "filename": "img_01_84071692867054.jpg",
             "relativePath": "assets/img_01_84071692867054.jpg",
-            "status": "CACHED",
-            "bytes": 56645,
-            "sha256": "9ae8a618f5e3755cbdcb0853b28c3d9f60b4fcefcbd19ca262c309987c49791b",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -16858,9 +16914,9 @@
             "label": "下载代码文件",
             "filename": "01_999.cpp",
             "relativePath": "assets/01_999.cpp",
-            "status": "CACHED",
-            "bytes": 8635,
-            "sha256": "4868de1e26371148cbc3c30d47ae1ca6762ad5032a7460ef0b5f7f5aa1173847",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -18643,13 +18699,13 @@
             "label": "题面图片",
             "filename": "img_01_65b713b867b95.png",
             "relativePath": "assets/img_01_65b713b867b95.png",
-            "status": "CACHED",
-            "bytes": 18811,
-            "sha256": "28d46de6ad099baf760aa47c87bdf7db3bf8ab3b35e8f3eeeff11ae705b38567",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -18833,13 +18889,13 @@
             "label": "题面图片",
             "filename": "img_01_65b7347c045a6.jpg",
             "relativePath": "assets/img_01_65b7347c045a6.jpg",
-            "status": "CACHED",
-            "bytes": 12679,
-            "sha256": "4f28a40da0f0d95c6da23a7ee1b93f1d784e4d9f2839e2790430b0888b92e2dc",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -19141,13 +19197,13 @@
             "label": "题面图片",
             "filename": "img_01_65b9bdcfa3bad.jpg",
             "relativePath": "assets/img_01_65b9bdcfa3bad.jpg",
-            "status": "CACHED",
-            "bytes": 37118,
-            "sha256": "716d9e918d87e92db2a6316e86d34252e65afb856a6b2efd567bd8fef013dfd5",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -19390,13 +19446,13 @@
             "label": "题面图片",
             "filename": "img_01_65bb10ee90a3a.png",
             "relativePath": "assets/img_01_65bb10ee90a3a.png",
-            "status": "CACHED",
-            "bytes": 188290,
-            "sha256": "3a1c15a287beef614fbd60e2aa4fb961a3a3d2777ac775ac16f1d7c4e3ee2e35",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -20821,6 +20877,61 @@
       }
     },
     {
+      "problemNo": "1137",
+      "title": "# 1137 . test_oj",
+      "folder": "1137_#_1137_._test_oj",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1137.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "256MiB"
+      },
+      "language": "",
+      "archive": {
+        "status": "TOPIC_CAPTURED",
+        "submissionNo": "",
+        "capturedAt": "2026-09-20T18:43:59Z",
+        "sourceSha256": "",
+        "recordedSha256": "",
+        "sourceHashMatchesMetadata": false,
+        "metadata": "代码库/1137_#_1137_._test_oj/1137_元数据.json",
+        "completeCode": null,
+        "directlySubmittableCode": null,
+        "acceptedRun": {
+          "source": "public_problem_index",
+          "status": "NO_LOCAL_AC",
+          "score": "",
+          "language": "",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "unknown"
+        }
+      },
+      "public": {
+        "status": "TOPIC_CAPTURED",
+        "publish": false,
+        "statement": "题解/1137_#_1137_._test_oj/1137_题目.md",
+        "cleanCode": null,
+        "directlySubmittableCode": null,
+        "onlineVerification": "NO_LOCAL_AC",
+        "verifiedAt": "",
+        "verifiedSubmissionNo": "",
+        "codeSha256": ""
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
       "problemNo": "1138",
       "title": "# 1138 . Rank",
       "folder": "1138_Rank",
@@ -21117,13 +21228,13 @@
             "label": "题面图片",
             "filename": "img_01_667a7f7cef59d.png",
             "relativePath": "assets/img_01_667a7f7cef59d.png",
-            "status": "CACHED",
-            "bytes": 204935,
-            "sha256": "7fd4e5bcedbd5d8f0ce7415c380dc0ae182d06ed300e9af3a2abf7350fe40108",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -21425,13 +21536,13 @@
             "label": "题面图片",
             "filename": "img_01_667e93998d990.png",
             "relativePath": "assets/img_01_667e93998d990.png",
-            "status": "CACHED",
-            "bytes": 44249,
-            "sha256": "ac13695fff65ff32f2f4bdf382dde61a6bb652915514f639ef8d467804b5f328",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -21497,13 +21608,13 @@
             "label": "题面图片",
             "filename": "img_01_667e93998d990.png",
             "relativePath": "assets/img_01_667e93998d990.png",
-            "status": "CACHED",
-            "bytes": 44249,
-            "sha256": "ac13695fff65ff32f2f4bdf382dde61a6bb652915514f639ef8d467804b5f328",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -21864,13 +21975,13 @@
             "label": "题面图片",
             "filename": "img_01_66ab7b0ea5ac3.png",
             "relativePath": "assets/img_01_66ab7b0ea5ac3.png",
-            "status": "CACHED",
-            "bytes": 160693,
-            "sha256": "161c64e7b2bf051e45ca53778b172bf22b1bdb70a53d06a953a020389ba53da6",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -21938,9 +22049,9 @@
             "label": "题面图片",
             "filename": "img_01_66ab804c33f44.png",
             "relativePath": "assets/img_01_66ab804c33f44.png",
-            "status": "CACHED",
-            "bytes": 255997,
-            "sha256": "c7a9050572ecf2550cb493ca62b6a2db6b71f70f1d3797b414659b753a110ce8",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -21948,9 +22059,9 @@
             "label": "题面图片",
             "filename": "img_02_66ab806c359ce.png",
             "relativePath": "assets/img_02_66ab806c359ce.png",
-            "status": "CACHED",
-            "bytes": 85409,
-            "sha256": "9c3a7a6c82f19c9cc83aaa2acb22ab59b1ddaf478397e747a7cfbefbfa63d6d7",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -21958,13 +22069,13 @@
             "label": "题面图片",
             "filename": "img_03_66ab808a22def.png",
             "relativePath": "assets/img_03_66ab808a22def.png",
-            "status": "CACHED",
-            "bytes": 161251,
-            "sha256": "7c15ad0077a0d37997b8b8c27c1bf5b882a2c6ac7551acd1f40f8f9fba9736a6",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 3,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -22031,9 +22142,9 @@
             "label": "题面图片",
             "filename": "img_01_66ab870a9cf84.png",
             "relativePath": "assets/img_01_66ab870a9cf84.png",
-            "status": "CACHED",
-            "bytes": 195896,
-            "sha256": "69ea752c892811abf91ab377fa7f92ddd9e84a30c792b2292d2f6a8ff369d194",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -22041,13 +22152,13 @@
             "label": "题面图片",
             "filename": "img_02_66ab87266a24c.png",
             "relativePath": "assets/img_02_66ab87266a24c.png",
-            "status": "CACHED",
-            "bytes": 66991,
-            "sha256": "d58edb2a2c6a6c1ae9f0936137aa0971ec54d2f91c9b652097d01202d39c858e",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 2,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -22114,9 +22225,9 @@
             "label": "题面图片",
             "filename": "img_01_66ab8de9e84c5.png",
             "relativePath": "assets/img_01_66ab8de9e84c5.png",
-            "status": "CACHED",
-            "bytes": 254965,
-            "sha256": "95c26d349a0ba26a555c9a6face511a5bc9d57f0a0bfea5d7e0be0b5df9d5c04",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -22124,13 +22235,13 @@
             "label": "题面图片",
             "filename": "img_02_66ab8e0d4828d.png",
             "relativePath": "assets/img_02_66ab8e0d4828d.png",
-            "status": "CACHED",
-            "bytes": 85170,
-            "sha256": "4a238117c31846160d9a78e2505fc9abdd9e23ad1c0955d736ffbe4f770ce5ae",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 2,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -22492,9 +22603,9 @@
             "label": "题面图片",
             "filename": "img_01_8301730368703.png",
             "relativePath": "assets/img_01_8301730368703.png",
-            "status": "CACHED",
-            "bytes": 85541,
-            "sha256": "cc621b0bf205301dbecf8dc31efb1ce30f1f6aa9f8c159c41baeff155164a74f",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -22502,13 +22613,13 @@
             "label": "题面图片",
             "filename": "img_02_59831730368703.png",
             "relativePath": "assets/img_02_59831730368703.png",
-            "status": "CACHED",
-            "bytes": 40456,
-            "sha256": "9f302f0012cf96db3b7be28e5c5331db30b7c31a3587b125cc8febb0bd3eb917",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 2,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -22577,9 +22688,9 @@
             "label": "题面图片",
             "filename": "img_01_90001730369620.png",
             "relativePath": "assets/img_01_90001730369620.png",
-            "status": "CACHED",
-            "bytes": 261463,
-            "sha256": "d2237b2dd160701adcea70de7277f6748480412453e64ab0bbcd56da72372c61",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -22587,9 +22698,9 @@
             "label": "题面图片",
             "filename": "img_02_96551730369620.png",
             "relativePath": "assets/img_02_96551730369620.png",
-            "status": "CACHED",
-            "bytes": 126418,
-            "sha256": "927a77e020a4b5022417cbb0a4bf7a5fa22ebafcead40b31881d10732dfbd137",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -22597,9 +22708,9 @@
             "label": "题面图片",
             "filename": "img_03_49471730369620.png",
             "relativePath": "assets/img_03_49471730369620.png",
-            "status": "CACHED",
-            "bytes": 163865,
-            "sha256": "6d3c34ad4efda2d23d973f06a27340e12da4b31424e1bd685844ad73a2038466",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -22607,13 +22718,13 @@
             "label": "题面图片",
             "filename": "img_04_18411730369620.png",
             "relativePath": "assets/img_04_18411730369620.png",
-            "status": "CACHED",
-            "bytes": 159562,
-            "sha256": "34cc0e86aa5803b2640fe4a2216600cd20afbd928db940bd7eec5bfbc74f30f1",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 4,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -22681,9 +22792,9 @@
             "label": "题面图片",
             "filename": "img_01_93421730370556.png",
             "relativePath": "assets/img_01_93421730370556.png",
-            "status": "CACHED",
-            "bytes": 168158,
-            "sha256": "da31b10a72bc0b1e0e747678fd670192e3994088a89c59eea90beb5f21cc57c1",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -22691,9 +22802,9 @@
             "label": "题面图片",
             "filename": "img_02_53821730370556.png",
             "relativePath": "assets/img_02_53821730370556.png",
-            "status": "CACHED",
-            "bytes": 96565,
-            "sha256": "8157dc65a6ac3db7cd266857175e6a3fe1501d54ae0412313a360f1c91045d6e",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -22701,13 +22812,13 @@
             "label": "题面图片",
             "filename": "img_03_47051730370557.png",
             "relativePath": "assets/img_03_47051730370557.png",
-            "status": "CACHED",
-            "bytes": 54535,
-            "sha256": "ed0ce7811a1833b59eed2f55dbfcddffde27b5cf64a2625a3155cbb77ed9958b",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 3,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -22774,9 +22885,9 @@
             "label": "题面图片",
             "filename": "img_01_97811730370739.png",
             "relativePath": "assets/img_01_97811730370739.png",
-            "status": "CACHED",
-            "bytes": 131203,
-            "sha256": "ab0076b5932df5ec499691c11aa515be455ce29d17f4b7d52ec5534df1a34739",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -22784,13 +22895,13 @@
             "label": "题面图片",
             "filename": "img_02_36901730370739.png",
             "relativePath": "assets/img_02_36901730370739.png",
-            "status": "CACHED",
-            "bytes": 175784,
-            "sha256": "63243fe13f98080604487b92e1a209e29f28c8ed7a53e7c46bf96e55f451fb82",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 2,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -22857,9 +22968,9 @@
             "label": "题面图片",
             "filename": "img_01_16761730371218.png",
             "relativePath": "assets/img_01_16761730371218.png",
-            "status": "CACHED",
-            "bytes": 171646,
-            "sha256": "adc5e6e5ccd6e9e44b041dffa2118161e9cccc0a773042678641f6be9b887df3",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -22867,13 +22978,13 @@
             "label": "题面图片",
             "filename": "img_02_52361730371218.png",
             "relativePath": "assets/img_02_52361730371218.png",
-            "status": "CACHED",
-            "bytes": 23732,
-            "sha256": "43a0c14916cf6f443ecf91f6e736d593975dd3053ef8e6a0e67632bd1d548e56",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 2,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -22940,9 +23051,9 @@
             "label": "题面图片",
             "filename": "img_01_7321730371386.png",
             "relativePath": "assets/img_01_7321730371386.png",
-            "status": "CACHED",
-            "bytes": 81389,
-            "sha256": "b450c2b64b974fc62e1cde2a255a36b2ab90308a40e103e292cafee0219db9a7",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -22950,13 +23061,13 @@
             "label": "题面图片",
             "filename": "img_02_69561730371386.png",
             "relativePath": "assets/img_02_69561730371386.png",
-            "status": "CACHED",
-            "bytes": 29093,
-            "sha256": "fd7dc40abe8cb5fc70e49f2e5e5d162f9e206bb1214aee1274645d30aa9b81e8",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 2,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -23024,9 +23135,9 @@
             "label": "题面图片",
             "filename": "img_01_48521730372789.png",
             "relativePath": "assets/img_01_48521730372789.png",
-            "status": "CACHED",
-            "bytes": 353830,
-            "sha256": "a0bf7a73b1b490df7a747277cc38e67ec3f49abcfdcee0d39102dd9a6d62f8af",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -23034,9 +23145,9 @@
             "label": "题面图片",
             "filename": "img_02_29651730372789.png",
             "relativePath": "assets/img_02_29651730372789.png",
-            "status": "CACHED",
-            "bytes": 218852,
-            "sha256": "3357f92c03004a1b74488edc9df2501db5be007e6729faccb426e1e1268066ae",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -23044,13 +23155,13 @@
             "label": "题面图片",
             "filename": "img_03_48321730372789.png",
             "relativePath": "assets/img_03_48321730372789.png",
-            "status": "CACHED",
-            "bytes": 193177,
-            "sha256": "84cf5d83bdd1800196d069d0eeedfad74d91a4e9d4d47263745d54faeabc2a34",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 3,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -23117,9 +23228,9 @@
             "label": "题面图片",
             "filename": "img_01_27161730372925.png",
             "relativePath": "assets/img_01_27161730372925.png",
-            "status": "CACHED",
-            "bytes": 95314,
-            "sha256": "11b43ba53d4bd1a17094095f2dedec26f01b257bf18f5ff59818957f5d6a36c2",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -23127,13 +23238,13 @@
             "label": "题面图片",
             "filename": "img_02_45281730372925.png",
             "relativePath": "assets/img_02_45281730372925.png",
-            "status": "CACHED",
-            "bytes": 60039,
-            "sha256": "319ea3b00bb639dcb964815d3c4eb656c473ad262ede3da3fdd5b5b3145e4678",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 2,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -23200,9 +23311,9 @@
             "label": "题面图片",
             "filename": "img_01_53781730373058.png",
             "relativePath": "assets/img_01_53781730373058.png",
-            "status": "CACHED",
-            "bytes": 115713,
-            "sha256": "207526b9d21c64af4ebf8ded674abaf77cf01923099e27a9b086685205659162",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -23210,13 +23321,13 @@
             "label": "题面图片",
             "filename": "img_02_14571730373058.png",
             "relativePath": "assets/img_02_14571730373058.png",
-            "status": "CACHED",
-            "bytes": 27459,
-            "sha256": "fbc85942f3b8941c5befdf3873bf5b2f9470c49db1bf98b37d263508c59d0c15",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 2,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -23408,9 +23519,9 @@
             "label": "题面图片",
             "filename": "img_01_44091731409253.png",
             "relativePath": "assets/img_01_44091731409253.png",
-            "status": "CACHED",
-            "bytes": 7522,
-            "sha256": "f9ff1e5f6207eb48b21fe176bee0ac5c96f640613e817eba0daf72f88631346d",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -23418,9 +23529,9 @@
             "label": "题面图片",
             "filename": "img_02_8501731409253.png",
             "relativePath": "assets/img_02_8501731409253.png",
-            "status": "CACHED",
-            "bytes": 7657,
-            "sha256": "9d1529e51946380c462f4e7687cd18746e37d507cf2c0421aacf70a7d3aa4147",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -23428,9 +23539,9 @@
             "label": "题面图片",
             "filename": "img_03_45641731409253.png",
             "relativePath": "assets/img_03_45641731409253.png",
-            "status": "CACHED",
-            "bytes": 7022,
-            "sha256": "88c9b0c076ac69d9362aaf3a8a3b14805a279f73875744430cf3f2d5c9330c8e",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -23438,9 +23549,9 @@
             "label": "题面图片",
             "filename": "img_04_29601731409253.png",
             "relativePath": "assets/img_04_29601731409253.png",
-            "status": "CACHED",
-            "bytes": 7662,
-            "sha256": "6db154a410ea17cbe4f689c35db1a22442a2804c2d918b0dcad0f7ce5a002660",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -23448,9 +23559,9 @@
             "label": "题面图片",
             "filename": "img_05_17111731409253.png",
             "relativePath": "assets/img_05_17111731409253.png",
-            "status": "CACHED",
-            "bytes": 6689,
-            "sha256": "1eb0ee482ec5b3f566d66a11ac428f489280d7d5d268fd3e097cb99c45c9a057",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -23458,9 +23569,9 @@
             "label": "题面图片",
             "filename": "img_06_47331731409253.png",
             "relativePath": "assets/img_06_47331731409253.png",
-            "status": "CACHED",
-            "bytes": 5753,
-            "sha256": "ba7272008041f10e9bbc70a69cd160983557612d007385b0d204e0750138a25f",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -23468,9 +23579,9 @@
             "label": "题面图片",
             "filename": "img_07_91641731409253.png",
             "relativePath": "assets/img_07_91641731409253.png",
-            "status": "CACHED",
-            "bytes": 5913,
-            "sha256": "15f2decfca7208af323ae938472af0795228f05593017cf9c6e83eac567ab07d",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -23478,9 +23589,9 @@
             "label": "题面图片",
             "filename": "img_08_94071731409253.png",
             "relativePath": "assets/img_08_94071731409253.png",
-            "status": "CACHED",
-            "bytes": 9986,
-            "sha256": "6300c8049abba214af54c72bb96f53721214806a267eba4a120aae8b620a4f40",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -23488,13 +23599,13 @@
             "label": "题面图片",
             "filename": "img_09_8551731409253.png",
             "relativePath": "assets/img_09_8551731409253.png",
-            "status": "CACHED",
-            "bytes": 9853,
-            "sha256": "deca41a4c1f9b02c8841bdc3af0889ccd144254f72944ea78913feda0b571225",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 9,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -23913,6 +24024,61 @@
       }
     },
     {
+      "problemNo": "1248",
+      "title": "# 1248 . [RUC ICPC newbie contest] 连起来",
+      "folder": "1248_#_1248_._[RUC_ICPC_newbie_contest]_连起来",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1248.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "256MiB"
+      },
+      "language": "",
+      "archive": {
+        "status": "TOPIC_CAPTURED",
+        "submissionNo": "",
+        "capturedAt": "2026-09-20T18:43:59Z",
+        "sourceSha256": "",
+        "recordedSha256": "",
+        "sourceHashMatchesMetadata": false,
+        "metadata": "代码库/1248_#_1248_._[RUC_ICPC_newbie_contest]_连起来/1248_元数据.json",
+        "completeCode": null,
+        "directlySubmittableCode": null,
+        "acceptedRun": {
+          "source": "public_problem_index",
+          "status": "NO_LOCAL_AC",
+          "score": "",
+          "language": "",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "unknown"
+        }
+      },
+      "public": {
+        "status": "TOPIC_CAPTURED",
+        "publish": false,
+        "statement": "题解/1248_#_1248_._[RUC_ICPC_newbie_contest]_连起来/1248_题目.md",
+        "cleanCode": null,
+        "directlySubmittableCode": null,
+        "onlineVerification": "NO_LOCAL_AC",
+        "verifiedAt": "",
+        "verifiedSubmissionNo": "",
+        "codeSha256": ""
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
       "problemNo": "1250",
       "title": "# 1250 . [RUC ICPC newbie contest] mex",
       "folder": "1250_[RUC_ICPC_newbie_contest]_mex",
@@ -24094,9 +24260,9 @@
             "label": "题面图片",
             "filename": "img_01_17358139648480.png",
             "relativePath": "assets/img_01_17358139648480.png",
-            "status": "CACHED",
-            "bytes": 5140,
-            "sha256": "e3514cb863a372a61e60e86219604433c9ac016bb46d40e4d95ef48780feb97a",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -24104,9 +24270,9 @@
             "label": "题面图片",
             "filename": "img_02_17358139644953.png",
             "relativePath": "assets/img_02_17358139644953.png",
-            "status": "CACHED",
-            "bytes": 4922,
-            "sha256": "57e3ba2ea22c3fde68ad57dfa50452b37354981f92a9805f52f51d707d0aa6bc",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -24114,9 +24280,9 @@
             "label": "题面图片",
             "filename": "img_03_17358139644292.png",
             "relativePath": "assets/img_03_17358139644292.png",
-            "status": "CACHED",
-            "bytes": 4559,
-            "sha256": "91a900d4144f0f893bcd3f41d704b4833659dd3b5da9d5b5610dbb025b4bfa44",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -24124,22 +24290,22 @@
             "label": "题面图片",
             "filename": "img_04_17358139645814.png",
             "relativePath": "assets/img_04_17358139645814.png",
-            "status": "CACHED",
-            "bytes": 4348,
-            "sha256": "ed1db1caf7a027917177ef7c198878066f500352a0076709ac2d7ce75ab09f86",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 4,
+        "imageLocalCount": 0,
         "assets": [
           {
             "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/1286.html",
             "label": "下载代码文件",
             "filename": "01_1286.cpp",
             "relativePath": "assets/01_1286.cpp",
-            "status": "CACHED",
-            "bytes": 2539,
-            "sha256": "0a6648a3deb3d3f498f4a0a5f933d8ca96bf59e452a4713cb1b4b2a853ccfc71",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -24209,13 +24375,13 @@
             "label": "题面图片",
             "filename": "img_01_17358139647522.png",
             "relativePath": "assets/img_01_17358139647522.png",
-            "status": "CACHED",
-            "bytes": 25413,
-            "sha256": "2d7a4e96a447f2b75562179ae57a734d31cbfd65d41054f914759013808e1c5c",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -24289,9 +24455,9 @@
             "label": "题面图片",
             "filename": "img_01_1735813965202.png",
             "relativePath": "assets/img_01_1735813965202.png",
-            "status": "CACHED",
-            "bytes": 28401,
-            "sha256": "586b377a59561a2d7b3d585f69977f205a8bdddf6e15a40424aa03d053c60476",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -24299,9 +24465,9 @@
             "label": "题面图片",
             "filename": "img_02_17358139649742.png",
             "relativePath": "assets/img_02_17358139649742.png",
-            "status": "CACHED",
-            "bytes": 7055,
-            "sha256": "bf52699184d17d564dd1e2abc29312aadc8e1dcfd0291e265fada291f20b59f5",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -24309,9 +24475,9 @@
             "label": "题面图片",
             "filename": "img_03_17358139647418.png",
             "relativePath": "assets/img_03_17358139647418.png",
-            "status": "CACHED",
-            "bytes": 5027,
-            "sha256": "b0829bb64aa8e1b703853532c353e3214667455460c298f54e993715e4e9e2d2",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -24319,9 +24485,9 @@
             "label": "题面图片",
             "filename": "img_04_17358139643325.png",
             "relativePath": "assets/img_04_17358139643325.png",
-            "status": "CACHED",
-            "bytes": 4968,
-            "sha256": "d1e28566701d01201d509629bd73b5deca9f24fe6f7094110ec351bda11b0bf7",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -24329,9 +24495,9 @@
             "label": "题面图片",
             "filename": "img_05_17358139642267.png",
             "relativePath": "assets/img_05_17358139642267.png",
-            "status": "CACHED",
-            "bytes": 5637,
-            "sha256": "85a448f13e6bd81d7fd6020e6f5e58a130c41a08faf429d6eaa2e992e9f00ddb",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -24339,9 +24505,9 @@
             "label": "题面图片",
             "filename": "img_06_17358139649554.png",
             "relativePath": "assets/img_06_17358139649554.png",
-            "status": "CACHED",
-            "bytes": 8925,
-            "sha256": "dd6c12ee0297c6656f28740bf7442075228023b44f31b74d58451be0eb8ada29",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -24349,9 +24515,9 @@
             "label": "题面图片",
             "filename": "img_07_17358139647332.png",
             "relativePath": "assets/img_07_17358139647332.png",
-            "status": "CACHED",
-            "bytes": 8781,
-            "sha256": "17cdf2ee06ef86b8ac7c120a8a22965ec24c76b603a09c27b35f3791d956f1bd",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -24359,9 +24525,9 @@
             "label": "题面图片",
             "filename": "img_08_17358139656999.png",
             "relativePath": "assets/img_08_17358139656999.png",
-            "status": "CACHED",
-            "bytes": 16271,
-            "sha256": "e01864124a6c37b72da924c770e816b5931115e55c45a4fcc937279760f6361f",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -24369,13 +24535,13 @@
             "label": "题面图片",
             "filename": "img_09_17358139655658.png",
             "relativePath": "assets/img_09_17358139655658.png",
-            "status": "CACHED",
-            "bytes": 28732,
-            "sha256": "d5f0634037d357969e14641f191ed7e43f7f99caf46f465a902df7ee1b21fcfd",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 9,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -24441,9 +24607,9 @@
             "label": "下载代码文件",
             "filename": "01_1362.cpp",
             "relativePath": "assets/01_1362.cpp",
-            "status": "CACHED",
-            "bytes": 3025,
-            "sha256": "5260ce5ec7b437e856c2e58d5214a5018caba95fba6249ed1a00557a27918cc7",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -24513,9 +24679,9 @@
             "label": "下载代码文件",
             "filename": "01_1363.cpp",
             "relativePath": "assets/01_1363.cpp",
-            "status": "CACHED",
-            "bytes": 5788,
-            "sha256": "8e3bb25365a1942b8710fc1d81d0870467eee68a1e5e75da67f9696bcb2d3824",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -24585,9 +24751,9 @@
             "label": "下载代码文件",
             "filename": "01_1370.cpp",
             "relativePath": "assets/01_1370.cpp",
-            "status": "CACHED",
-            "bytes": 1714,
-            "sha256": "47764c20a78af8dfdebfeda0e254cf7f0df18c2f212bb178056819b153e94646",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -24657,9 +24823,9 @@
             "label": "下载代码文件",
             "filename": "01_1371.cpp",
             "relativePath": "assets/01_1371.cpp",
-            "status": "CACHED",
-            "bytes": 1612,
-            "sha256": "ffc1e7d8f10ebca19487cb9727f7b816212262888c5da2a098ebd5780e70e947",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -24729,9 +24895,9 @@
             "label": "下载代码文件",
             "filename": "01_1378.cpp",
             "relativePath": "assets/01_1378.cpp",
-            "status": "CACHED",
-            "bytes": 2227,
-            "sha256": "b66390e8574647ea4c6cc622c496d79fedc037b60a0edd63a87902c6ae988b6d",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -24801,9 +24967,9 @@
             "label": "下载代码文件",
             "filename": "01_1379.cpp",
             "relativePath": "assets/01_1379.cpp",
-            "status": "CACHED",
-            "bytes": 3934,
-            "sha256": "12f3447cf813ebe5a6bc9489cb8853f4bc719f6b95fca98be5e2800f110fae49",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -24932,9 +25098,9 @@
             "label": "下载代码文件",
             "filename": "01_1408.cpp",
             "relativePath": "assets/01_1408.cpp",
-            "status": "CACHED",
-            "bytes": 3264,
-            "sha256": "d80163d48813261b95759176a72792260b934f0f3f8d7edda98a53cf958c0423",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -25004,9 +25170,9 @@
             "label": "下载代码文件",
             "filename": "01_1409.cpp",
             "relativePath": "assets/01_1409.cpp",
-            "status": "CACHED",
-            "bytes": 5140,
-            "sha256": "03a36e3fa4ae4ed988a6d376fb07e49f162a9451eef4f1f1485ed4ea35bb1172",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -25076,9 +25242,9 @@
             "label": "下载代码文件",
             "filename": "01_1410.cpp",
             "relativePath": "assets/01_1410.cpp",
-            "status": "CACHED",
-            "bytes": 3459,
-            "sha256": "a75621a09dcf5291dd85285364fe969cd337b6654cce2c4b5cefc596958cc67b",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -25148,9 +25314,9 @@
             "label": "下载代码文件",
             "filename": "01_1411.cpp",
             "relativePath": "assets/01_1411.cpp",
-            "status": "CACHED",
-            "bytes": 6529,
-            "sha256": "ca53e3768fb2fa4e963151fc076779fc648174bf014c62cf99675a44afb3d3cc",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -25222,9 +25388,9 @@
             "label": "题面图片",
             "filename": "img_01_68ab1f8280da8.png",
             "relativePath": "assets/img_01_68ab1f8280da8.png",
-            "status": "CACHED",
-            "bytes": 496217,
-            "sha256": "d4385244265c1232c70ea848784196fcd47e30b47dc4af3a4f6d4f85e42d458a",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -25232,9 +25398,9 @@
             "label": "题面图片",
             "filename": "img_02_68ab1d936aa60.png",
             "relativePath": "assets/img_02_68ab1d936aa60.png",
-            "status": "CACHED",
-            "bytes": 301283,
-            "sha256": "e882acc45d412ded3fd6004b217eff2cd285764de583fd0822cc71c5a999a9ab",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -25242,13 +25408,13 @@
             "label": "题面图片",
             "filename": "img_03_68abd9b720575.png",
             "relativePath": "assets/img_03_68abd9b720575.png",
-            "status": "CACHED",
-            "bytes": 85012,
-            "sha256": "0a01ce8a05f120e7045ab1492f5d7bed5aa85dcd3c0c938f46cf1e5f0386d71d",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 3,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -25316,9 +25482,9 @@
             "label": "题面图片",
             "filename": "img_01_68ab21f8614f2.png",
             "relativePath": "assets/img_01_68ab21f8614f2.png",
-            "status": "CACHED",
-            "bytes": 351293,
-            "sha256": "88d714835a0312a8d45d17461052c60ee38455a8d28f6e056e55812d47b9e7c4",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -25326,9 +25492,9 @@
             "label": "题面图片",
             "filename": "img_02_68ab2211c787e.png",
             "relativePath": "assets/img_02_68ab2211c787e.png",
-            "status": "CACHED",
-            "bytes": 190619,
-            "sha256": "4e1038bb8070b9cc5e1a0396fd202d7de8982fbce223d32c7221af7ab0982429",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -25336,13 +25502,13 @@
             "label": "题面图片",
             "filename": "img_03_68ab2235f33ae.png",
             "relativePath": "assets/img_03_68ab2235f33ae.png",
-            "status": "CACHED",
-            "bytes": 31590,
-            "sha256": "ab9bfce3b2056270d36057b9dd3985f734af49b2ed689ab129541e67a587ac01",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 3,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -25413,9 +25579,9 @@
             "label": "题面图片",
             "filename": "img_01_68ab23ff824a4.png",
             "relativePath": "assets/img_01_68ab23ff824a4.png",
-            "status": "CACHED",
-            "bytes": 461045,
-            "sha256": "1e416c6744e2e4f0abeaadb1c65e6ae4c4d53028fccb7c176e373b6da24e30a8",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -25423,9 +25589,9 @@
             "label": "题面图片",
             "filename": "img_02_68ab240579a10.png",
             "relativePath": "assets/img_02_68ab240579a10.png",
-            "status": "CACHED",
-            "bytes": 585901,
-            "sha256": "9b12a5becc190279fc50c85336dfbf4052afefc374e52f0381380b01b0a657dc",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -25433,9 +25599,9 @@
             "label": "题面图片",
             "filename": "img_03_68ab240ad1440.png",
             "relativePath": "assets/img_03_68ab240ad1440.png",
-            "status": "CACHED",
-            "bytes": 337594,
-            "sha256": "b8c7779264a06809d1d9a3e29b0a601d9b0d12b90597e71eca90fbb17b84ccdf",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -25443,9 +25609,9 @@
             "label": "题面图片",
             "filename": "img_04_68ab24129a622.png",
             "relativePath": "assets/img_04_68ab24129a622.png",
-            "status": "CACHED",
-            "bytes": 156212,
-            "sha256": "f910e20d65f3a491787ca048bf3a3cd7be18e32280de62dbfa4912d67b1df47e",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -25453,9 +25619,9 @@
             "label": "题面图片",
             "filename": "img_05_68ab2419f189f.png",
             "relativePath": "assets/img_05_68ab2419f189f.png",
-            "status": "CACHED",
-            "bytes": 232245,
-            "sha256": "77d8d3e37751d6d98d4ff4d47589b3ec7598a9773749b330bed82f93088a409a",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -25463,13 +25629,13 @@
             "label": "题面图片",
             "filename": "img_06_68ab242242d35.png",
             "relativePath": "assets/img_06_68ab242242d35.png",
-            "status": "CACHED",
-            "bytes": 591037,
-            "sha256": "e41ef82ecd865dec12ef3e1e7684045eee4e61da5c72f3084e128e9b4a6d4f1f",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 6,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -25537,9 +25703,9 @@
             "label": "题面图片",
             "filename": "img_01_68ab2505a5428.png",
             "relativePath": "assets/img_01_68ab2505a5428.png",
-            "status": "CACHED",
-            "bytes": 380977,
-            "sha256": "715e56087f16440c21ea59c6d9a73d7439d318a10fdd6b30da9392ecad5fe575",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -25547,9 +25713,9 @@
             "label": "题面图片",
             "filename": "img_02_68ab250b60b1b.png",
             "relativePath": "assets/img_02_68ab250b60b1b.png",
-            "status": "CACHED",
-            "bytes": 292179,
-            "sha256": "692dd9c1039b26929aa4694eab0c1856390db7b6f68879be6458bf2319ea179f",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -25557,13 +25723,13 @@
             "label": "题面图片",
             "filename": "img_03_68ab25133fed1.png",
             "relativePath": "assets/img_03_68ab25133fed1.png",
-            "status": "CACHED",
-            "bytes": 170343,
-            "sha256": "ebcde83d16e9ecdd326aea37bb9a53ec61b85d32ccb7b5ea674ebe40b2d9d048",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 3,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -25630,9 +25796,9 @@
             "label": "题面图片",
             "filename": "img_01_68ab26620332f.png",
             "relativePath": "assets/img_01_68ab26620332f.png",
-            "status": "CACHED",
-            "bytes": 539171,
-            "sha256": "67e951b1cf75980547aa74718a0352b5b2b684e9337f8271a4dd83cc357e0170",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -25640,13 +25806,13 @@
             "label": "题面图片",
             "filename": "img_02_68abdab477b4b.png",
             "relativePath": "assets/img_02_68abdab477b4b.png",
-            "status": "CACHED",
-            "bytes": 167062,
-            "sha256": "0abf6f902192b200a3f177b5272cb81212cd01e21599f6ffbad9fca2118693b7",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 2,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -25773,9 +25939,9 @@
             "label": "题面图片",
             "filename": "img_01_68ea0b66318cf.png",
             "relativePath": "assets/img_01_68ea0b66318cf.png",
-            "status": "CACHED",
-            "bytes": 169269,
-            "sha256": "7fcd4de2cd0a125f442d38f4226e034d59a8cccd300540e550ba96d89e385c20",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -25783,9 +25949,9 @@
             "label": "题面图片",
             "filename": "img_02_68ea0b70434dd.png",
             "relativePath": "assets/img_02_68ea0b70434dd.png",
-            "status": "CACHED",
-            "bytes": 3814,
-            "sha256": "c4fa2d348c3246a7449775b569aad366377183a72aa71badd54eff4daea1fb8c",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -25793,13 +25959,13 @@
             "label": "题面图片",
             "filename": "img_03_68ea0b6acab00.png",
             "relativePath": "assets/img_03_68ea0b6acab00.png",
-            "status": "CACHED",
-            "bytes": 120176,
-            "sha256": "eb4cbb95d877ecaf4906b3181ec430fa462c41f25c8b8ee7a128e19332b6d251",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 3,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -25924,13 +26090,13 @@
             "label": "题面图片",
             "filename": "img_01_68ac4144d0cfc.png",
             "relativePath": "assets/img_01_68ac4144d0cfc.png",
-            "status": "CACHED",
-            "bytes": 74582,
-            "sha256": "dac859ef1b5e80454f865d9572b75eb6faa9ad8d576224e7227acc6a41868193",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -25997,9 +26163,9 @@
             "label": "题面图片",
             "filename": "img_01_68ac41cf2f119.png",
             "relativePath": "assets/img_01_68ac41cf2f119.png",
-            "status": "CACHED",
-            "bytes": 137428,
-            "sha256": "f0cfde33421ad7a0a81635d758116376bb9e579ec5e4b63c2727f6e5ff54ab84",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -26007,13 +26173,13 @@
             "label": "题面图片",
             "filename": "img_02_68ac421356514.png",
             "relativePath": "assets/img_02_68ac421356514.png",
-            "status": "CACHED",
-            "bytes": 159113,
-            "sha256": "54ad863f774a295d88f3efe565d091e5d528a016d479f2992b476684f79bde5b",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 2,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -26079,13 +26245,13 @@
             "label": "题面图片",
             "filename": "img_01_68ac42d0f0c16.png",
             "relativePath": "assets/img_01_68ac42d0f0c16.png",
-            "status": "CACHED",
-            "bytes": 118414,
-            "sha256": "500f5428af3f6bcfe5baef8dbc36f21153430b062e19776bfbeab1da12c33c5f",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -26151,13 +26317,13 @@
             "label": "题面图片",
             "filename": "img_01_68ac4351740f5.png",
             "relativePath": "assets/img_01_68ac4351740f5.png",
-            "status": "CACHED",
-            "bytes": 143626,
-            "sha256": "cd23698f307428b36d0406fc8e3bbd3aeb907e325de84c62ef03b2f5bcb12301",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -26225,9 +26391,9 @@
             "label": "题面图片",
             "filename": "img_01_68ac43acc7389.png",
             "relativePath": "assets/img_01_68ac43acc7389.png",
-            "status": "CACHED",
-            "bytes": 178491,
-            "sha256": "5351e981f648222ef38c409c92b55a6bad530a8b48402b5c14164f2bfed7d333",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -26235,9 +26401,9 @@
             "label": "题面图片",
             "filename": "img_02_68ac43c52e302.png",
             "relativePath": "assets/img_02_68ac43c52e302.png",
-            "status": "CACHED",
-            "bytes": 83554,
-            "sha256": "29655be9329b4969d884a97bf0890cfd00f7fe263083dc158e68369e4f8a2e4d",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -26245,13 +26411,13 @@
             "label": "题面图片",
             "filename": "img_03_68ac4467d87f3.png",
             "relativePath": "assets/img_03_68ac4467d87f3.png",
-            "status": "CACHED",
-            "bytes": 58835,
-            "sha256": "20664f6495564106b1d8b7ee6c83dc7810f5f0f017b247b72c3907d35b3d3046",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 3,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -26317,13 +26483,13 @@
             "label": "题面图片",
             "filename": "img_01_68ac44d364fc9.png",
             "relativePath": "assets/img_01_68ac44d364fc9.png",
-            "status": "CACHED",
-            "bytes": 157333,
-            "sha256": "f0b6c55a7acb1a506a80d4e7d6001bdee4001268383536fae19e244ced5c0c1c",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -26390,9 +26556,9 @@
             "label": "题面图片",
             "filename": "img_01_68abf14ad6e03.png",
             "relativePath": "assets/img_01_68abf14ad6e03.png",
-            "status": "CACHED",
-            "bytes": 240237,
-            "sha256": "eaa4740ec07199c5950e7be3de316614be931f15c8bccb2bb226f3610a4f8d07",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -26400,13 +26566,13 @@
             "label": "题面图片",
             "filename": "img_02_68ac7bc920e77.png",
             "relativePath": "assets/img_02_68ac7bc920e77.png",
-            "status": "CACHED",
-            "bytes": 93273,
-            "sha256": "effb1f4b7351c5974dcc355d4b626858b44c5a9740fd669fae36e96026171b20",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 2,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -26472,13 +26638,13 @@
             "label": "题面图片",
             "filename": "img_01_68ac7d94b8dc9.png",
             "relativePath": "assets/img_01_68ac7d94b8dc9.png",
-            "status": "CACHED",
-            "bytes": 409313,
-            "sha256": "c0a2b4b518b783ac651f991bb590bf6d47ca9323ddea68b35116950013337433",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -26544,13 +26710,13 @@
             "label": "题面图片",
             "filename": "img_01_68ac7f673a087.png",
             "relativePath": "assets/img_01_68ac7f673a087.png",
-            "status": "CACHED",
-            "bytes": 298620,
-            "sha256": "00e1b8b000dbdcaa73ef94ec1af2d4a0642b445595e4b996adfeadff2dcc2134",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -26616,13 +26782,13 @@
             "label": "题面图片",
             "filename": "img_01_68ac8359c8b34.png",
             "relativePath": "assets/img_01_68ac8359c8b34.png",
-            "status": "CACHED",
-            "bytes": 221931,
-            "sha256": "d0fe186a2f134724b7c2faaa61caf837cd116fde3cdce67aa7de312f44976273",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -26689,9 +26855,9 @@
             "label": "题面图片",
             "filename": "img_01_68ac8d0db5a96.png",
             "relativePath": "assets/img_01_68ac8d0db5a96.png",
-            "status": "CACHED",
-            "bytes": 354188,
-            "sha256": "2c040591bc4fc3308bd574f9984677c713707ac008e4fd1df93900ecc45d3cd5",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -26699,13 +26865,13 @@
             "label": "题面图片",
             "filename": "img_02_68ac8e94c3067.png",
             "relativePath": "assets/img_02_68ac8e94c3067.png",
-            "status": "CACHED",
-            "bytes": 90405,
-            "sha256": "f058b72dba9860179cee8242ec735d40cbf7d87d1ea08adf6c00735f02fac4fc",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 2,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -27833,13 +27999,13 @@
             "label": "题面图片",
             "filename": "img_01_68d4143c5985a.jpg",
             "relativePath": "assets/img_01_68d4143c5985a.jpg",
-            "status": "CACHED",
-            "bytes": 126807,
-            "sha256": "8ecd8d7dcd16ec2bdf92aa4df3a438ad895059142c81c358e59532be584fc97b",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -27905,13 +28071,13 @@
             "label": "题面图片",
             "filename": "img_01_68d7518a529ac.png",
             "relativePath": "assets/img_01_68d7518a529ac.png",
-            "status": "CACHED",
-            "bytes": 11575,
-            "sha256": "d0b10922e2f29e415e9f1a506ac285511a50889b0806afe2c0b04d619f342d8d",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -28333,9 +28499,9 @@
             "label": "下载代码文件",
             "filename": "01_1560.cpp",
             "relativePath": "assets/01_1560.cpp",
-            "status": "CACHED",
-            "bytes": 552,
-            "sha256": "648ed8afe0716b675423bc647eb3ea6fda916913f1f4097edfa50f10c57a247e",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -28405,9 +28571,9 @@
             "label": "下载代码文件",
             "filename": "01_1561.cpp",
             "relativePath": "assets/01_1561.cpp",
-            "status": "CACHED",
-            "bytes": 291,
-            "sha256": "b2edc12b29f580803dd8dc00145f695da375bb550de59de1274fab0032df4353",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -28536,9 +28702,9 @@
             "label": "下载代码文件",
             "filename": "01_1563.cpp",
             "relativePath": "assets/01_1563.cpp",
-            "status": "CACHED",
-            "bytes": 254,
-            "sha256": "d9379d783dee08f8c1b61a40d1766f25ce8f849fe31afacdf37fec17da5b29f0",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -28667,22 +28833,22 @@
             "label": "题面图片",
             "filename": "img_01_6911e0f994ecc.png",
             "relativePath": "assets/img_01_6911e0f994ecc.png",
-            "status": "CACHED",
-            "bytes": 35013,
-            "sha256": "062fed11e441c1b1f6395a6c7eb0b15ff6255d3d9ea37b8fc3f2f28a76569f49",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [
           {
             "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/1576.html",
             "label": "下载代码文件",
             "filename": "01_1576.cpp",
             "relativePath": "assets/01_1576.cpp",
-            "status": "CACHED",
-            "bytes": 160,
-            "sha256": "7586ac3f0fb4f54559b5712f74559173385a5f27d74d44c306835912296a0c10",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -28988,13 +29154,13 @@
             "label": "题面图片",
             "filename": "img_01_6921b5cac1b6c.png",
             "relativePath": "assets/img_01_6921b5cac1b6c.png",
-            "status": "CACHED",
-            "bytes": 34945,
-            "sha256": "e45c4d4f165ac3cb95b2671a35d883124807e44fb1d15cf58bd62b0a16accb72",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -29060,13 +29226,13 @@
             "label": "题面图片",
             "filename": "img_01_6921ce3f62a70.png",
             "relativePath": "assets/img_01_6921ce3f62a70.png",
-            "status": "CACHED",
-            "bytes": 172638,
-            "sha256": "994bb9173b75259639053ea750303fb0a8371cc2ba0d7f87830a9f261d3e5028",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -29132,13 +29298,13 @@
             "label": "题面图片",
             "filename": "img_01_6921b74393b83.png",
             "relativePath": "assets/img_01_6921b74393b83.png",
-            "status": "CACHED",
-            "bytes": 74788,
-            "sha256": "57a17d7cb5fd4a092a982cc5ebd6f1edd0488823dd68177b480bc43e7be1b7f3",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -29205,9 +29371,9 @@
             "label": "题面图片",
             "filename": "img_01_6921b8ba49bab.png",
             "relativePath": "assets/img_01_6921b8ba49bab.png",
-            "status": "CACHED",
-            "bytes": 198547,
-            "sha256": "b5dec4de579c8507c8fa6942af265da033452435746638d0edbd498e31f37fa8",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -29215,13 +29381,13 @@
             "label": "题面图片",
             "filename": "img_02_6921b8c412eca.png",
             "relativePath": "assets/img_02_6921b8c412eca.png",
-            "status": "CACHED",
-            "bytes": 61470,
-            "sha256": "739f35af183412617fbd94769347bfbdc242043187f684bf60e0977b91d14410",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 2,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -29346,13 +29512,13 @@
             "label": "题面图片",
             "filename": "img_01_6921bf831d525.png",
             "relativePath": "assets/img_01_6921bf831d525.png",
-            "status": "CACHED",
-            "bytes": 106149,
-            "sha256": "c0bb16202183f6f2b9bab3a9b20737e8e4021b00a27d217aca3317c5d345ba91",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -29480,9 +29646,9 @@
             "label": "题面图片",
             "filename": "img_01_6921c59c482aa.png",
             "relativePath": "assets/img_01_6921c59c482aa.png",
-            "status": "CACHED",
-            "bytes": 212300,
-            "sha256": "2b3169cf19955a0cd9d06880faffb2f20cd346d52f7f972006cc5a9825101635",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -29490,9 +29656,9 @@
             "label": "题面图片",
             "filename": "img_02_6921c5a6b595b.png",
             "relativePath": "assets/img_02_6921c5a6b595b.png",
-            "status": "CACHED",
-            "bytes": 10924,
-            "sha256": "aad61d8e6e3d259f8731015239fc254ea7ba7fde0efe182fbf1416cd8a4fcaf3",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -29500,9 +29666,9 @@
             "label": "题面图片",
             "filename": "img_03_6921c5aad1063.png",
             "relativePath": "assets/img_03_6921c5aad1063.png",
-            "status": "CACHED",
-            "bytes": 6796,
-            "sha256": "fbd89278b493b776dcba5bce705a67a895fb4a309be3e558586554c96a7f9d25",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -29510,13 +29676,13 @@
             "label": "题面图片",
             "filename": "img_04_6921c5a1ad4a3.png",
             "relativePath": "assets/img_04_6921c5a1ad4a3.png",
-            "status": "CACHED",
-            "bytes": 114866,
-            "sha256": "4ecdec9b9a433498381d8a09e7e499ed56597dda89225fddab9be8652a8fb92a",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 4,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -29583,9 +29749,9 @@
             "label": "题面图片",
             "filename": "img_01_6921cc82dd487.png",
             "relativePath": "assets/img_01_6921cc82dd487.png",
-            "status": "CACHED",
-            "bytes": 197865,
-            "sha256": "bbdf43e42adaed914f7c4aff02d9da5f9dc32f011a39298752c00a048523bb37",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -29593,13 +29759,13 @@
             "label": "题面图片",
             "filename": "img_02_6921cc8880298.png",
             "relativePath": "assets/img_02_6921cc8880298.png",
-            "status": "CACHED",
-            "bytes": 49589,
-            "sha256": "f2a5a8dd7ff9c1ae57da0874ab086cb7c4b1fcb4b6e23c20802ca2d31a60bfa6",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 2,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -29783,13 +29949,13 @@
             "label": "题面图片",
             "filename": "img_01_6921d2ae9de4a.png",
             "relativePath": "assets/img_01_6921d2ae9de4a.png",
-            "status": "CACHED",
-            "bytes": 91217,
-            "sha256": "415b26f6ce7898efd999dd93590307998d71d92398d1e70908b1dcc6718463bd",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -30446,6 +30612,61 @@
       }
     },
     {
+      "problemNo": "1650",
+      "title": "# 1650 . 高级Python 2026 春-7：校园食堂营养分析",
+      "folder": "1650_#_1650_._高级Python_2026_春-7：校园食堂营养分析",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1650.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "256MiB"
+      },
+      "language": "",
+      "archive": {
+        "status": "TOPIC_CAPTURED",
+        "submissionNo": "",
+        "capturedAt": "2026-09-20T18:43:59Z",
+        "sourceSha256": "",
+        "recordedSha256": "",
+        "sourceHashMatchesMetadata": false,
+        "metadata": "代码库/1650_#_1650_._高级Python_2026_春-7：校园食堂营养分析/1650_元数据.json",
+        "completeCode": null,
+        "directlySubmittableCode": null,
+        "acceptedRun": {
+          "source": "public_problem_index",
+          "status": "NO_LOCAL_AC",
+          "score": "",
+          "language": "",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "unknown"
+        }
+      },
+      "public": {
+        "status": "TOPIC_CAPTURED",
+        "publish": false,
+        "statement": "题解/1650_#_1650_._高级Python_2026_春-7：校园食堂营养分析/1650_题目.md",
+        "cleanCode": null,
+        "directlySubmittableCode": null,
+        "onlineVerification": "NO_LOCAL_AC",
+        "verifiedAt": "",
+        "verifiedSubmissionNo": "",
+        "codeSha256": ""
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
       "problemNo": "1656",
       "title": "# 1656 . 你好",
       "folder": "1656_你好",
@@ -30846,6 +31067,61 @@
         "verifiedAt": "2026-09-20T02:03:02Z",
         "verifiedSubmissionNo": "1400168",
         "codeSha256": "b44a8f05d6108f77266fe876ae0e3ace43435a158bcfa1c64e67ed07f7dc66e3"
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
+      "problemNo": "1684",
+      "title": "# 1684 . 造题计划（上）（CSP 202509-4）",
+      "folder": "1684_#_1684_._造题计划（上）（CSP_202509-4）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1684.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "512MiB"
+      },
+      "language": "",
+      "archive": {
+        "status": "TOPIC_CAPTURED",
+        "submissionNo": "",
+        "capturedAt": "2026-09-20T18:43:59Z",
+        "sourceSha256": "",
+        "recordedSha256": "",
+        "sourceHashMatchesMetadata": false,
+        "metadata": "代码库/1684_#_1684_._造题计划（上）（CSP_202509-4）/1684_元数据.json",
+        "completeCode": null,
+        "directlySubmittableCode": null,
+        "acceptedRun": {
+          "source": "public_problem_index",
+          "status": "NO_LOCAL_AC",
+          "score": "",
+          "language": "",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "unknown"
+        }
+      },
+      "public": {
+        "status": "TOPIC_CAPTURED",
+        "publish": false,
+        "statement": "题解/1684_#_1684_._造题计划（上）（CSP_202509-4）/1684_题目.md",
+        "cleanCode": null,
+        "directlySubmittableCode": null,
+        "onlineVerification": "NO_LOCAL_AC",
+        "verifiedAt": "",
+        "verifiedSubmissionNo": "",
+        "codeSha256": ""
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",

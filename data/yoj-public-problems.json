@@ -1,0 +1,2199 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-09-20T18:54:06Z",
+  "source": "http://yoj.ruc.edu.cn/index.php/index/problem/index.html",
+  "publicCount": 438,
+  "problemListSha256": "26081189664c04c854c6bc56441554237caea82dc448da8f8f4409b1ba54aad2",
+  "records": [
+    {
+      "problemNo": 1,
+      "title": "输出Hello world",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1.html"
+    },
+    {
+      "problemNo": 2,
+      "title": "输出Hello world加强版",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/2.html"
+    },
+    {
+      "problemNo": 3,
+      "title": "比较两个整数的大小",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/3.html"
+    },
+    {
+      "problemNo": 4,
+      "title": "读入字符串并输出",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/4.html"
+    },
+    {
+      "problemNo": 5,
+      "title": "切换字符大小写",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/5.html"
+    },
+    {
+      "problemNo": 6,
+      "title": "浮点数求和",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/6.html"
+    },
+    {
+      "problemNo": 7,
+      "title": "求三角形面积",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/7.html"
+    },
+    {
+      "problemNo": 8,
+      "title": "计算学分绩点",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/8.html"
+    },
+    {
+      "problemNo": 9,
+      "title": "按要求读入数据并输出",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/9.html"
+    },
+    {
+      "problemNo": 10,
+      "title": "温度转换",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/10.html"
+    },
+    {
+      "problemNo": 87,
+      "title": "图像处理",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/87.html"
+    },
+    {
+      "problemNo": 88,
+      "title": "纠结的矩阵",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/88.html"
+    },
+    {
+      "problemNo": 89,
+      "title": "奖金发放",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/89.html"
+    },
+    {
+      "problemNo": 90,
+      "title": "刷题高手",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/90.html"
+    },
+    {
+      "problemNo": 91,
+      "title": "相似乐曲",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/91.html"
+    },
+    {
+      "problemNo": 111,
+      "title": "Coconuts",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/111.html"
+    },
+    {
+      "problemNo": 113,
+      "title": "n皇后",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/113.html"
+    },
+    {
+      "problemNo": 117,
+      "title": "摘桃子",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/117.html"
+    },
+    {
+      "problemNo": 118,
+      "title": "Fibonacci数列(提高版)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/118.html"
+    },
+    {
+      "problemNo": 119,
+      "title": "递归倒置字符数组",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/119.html"
+    },
+    {
+      "problemNo": 120,
+      "title": "递归算法实现选择排序",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/120.html"
+    },
+    {
+      "problemNo": 121,
+      "title": "整数乘积",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/121.html"
+    },
+    {
+      "problemNo": 122,
+      "title": "迷宫",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/122.html"
+    },
+    {
+      "problemNo": 123,
+      "title": "汉诺塔",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/123.html"
+    },
+    {
+      "problemNo": 124,
+      "title": "滑雪",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/124.html"
+    },
+    {
+      "problemNo": 125,
+      "title": "行列式计算",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/125.html"
+    },
+    {
+      "problemNo": 126,
+      "title": "travel",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/126.html"
+    },
+    {
+      "problemNo": 127,
+      "title": "超级细菌",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/127.html"
+    },
+    {
+      "problemNo": 128,
+      "title": "分数线划定",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/128.html"
+    },
+    {
+      "problemNo": 129,
+      "title": "外星数字",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/129.html"
+    },
+    {
+      "problemNo": 130,
+      "title": "小波变换",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/130.html"
+    },
+    {
+      "problemNo": 131,
+      "title": "火柴棒等式",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/131.html"
+    },
+    {
+      "problemNo": 132,
+      "title": "指针练习",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/132.html"
+    },
+    {
+      "problemNo": 133,
+      "title": "分式变小数",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/133.html"
+    },
+    {
+      "problemNo": 134,
+      "title": "猜数字",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/134.html"
+    },
+    {
+      "problemNo": 135,
+      "title": "身份证排序",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/135.html"
+    },
+    {
+      "problemNo": 139,
+      "title": "统计时间",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/139.html"
+    },
+    {
+      "problemNo": 140,
+      "title": "数据挖掘",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/140.html"
+    },
+    {
+      "problemNo": 141,
+      "title": "矩阵搜索",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/141.html"
+    },
+    {
+      "problemNo": 142,
+      "title": "数据表排序",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/142.html"
+    },
+    {
+      "problemNo": 143,
+      "title": "数列合并",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/143.html"
+    },
+    {
+      "problemNo": 144,
+      "title": "子串替换",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/144.html"
+    },
+    {
+      "problemNo": 147,
+      "title": "教室排课",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/147.html"
+    },
+    {
+      "problemNo": 148,
+      "title": "傻大木买军火",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/148.html"
+    },
+    {
+      "problemNo": 149,
+      "title": "矩阵乘法",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/149.html"
+    },
+    {
+      "problemNo": 150,
+      "title": "成绩排序",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/150.html"
+    },
+    {
+      "problemNo": 151,
+      "title": "营业额统计",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/151.html"
+    },
+    {
+      "problemNo": 152,
+      "title": "确定进制",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/152.html"
+    },
+    {
+      "problemNo": 153,
+      "title": "排列序号",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/153.html"
+    },
+    {
+      "problemNo": 154,
+      "title": "分段函数",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/154.html"
+    },
+    {
+      "problemNo": 155,
+      "title": "同构数",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/155.html"
+    },
+    {
+      "problemNo": 159,
+      "title": "字符串编辑",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/159.html"
+    },
+    {
+      "problemNo": 160,
+      "title": "字符串移位包含",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/160.html"
+    },
+    {
+      "problemNo": 161,
+      "title": "数据加密",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/161.html"
+    },
+    {
+      "problemNo": 162,
+      "title": "ISBN号码",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/162.html"
+    },
+    {
+      "problemNo": 163,
+      "title": "最大岛屿",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/163.html"
+    },
+    {
+      "problemNo": 168,
+      "title": "输出hello world 函数版",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/168.html"
+    },
+    {
+      "problemNo": 170,
+      "title": "羽毛球比赛",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/170.html"
+    },
+    {
+      "problemNo": 171,
+      "title": "简单计算器",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/171.html"
+    },
+    {
+      "problemNo": 172,
+      "title": "数列区间求和",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/172.html"
+    },
+    {
+      "problemNo": 173,
+      "title": "马路上的树",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/173.html"
+    },
+    {
+      "problemNo": 175,
+      "title": "画长方形",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/175.html"
+    },
+    {
+      "problemNo": 176,
+      "title": "红色警戒",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/176.html"
+    },
+    {
+      "problemNo": 177,
+      "title": "膜拜大神",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/177.html"
+    },
+    {
+      "problemNo": 178,
+      "title": "判断素数",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/178.html"
+    },
+    {
+      "problemNo": 179,
+      "title": "打印图形",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/179.html"
+    },
+    {
+      "problemNo": 180,
+      "title": "计算cosx的近似值",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/180.html"
+    },
+    {
+      "problemNo": 181,
+      "title": "奇怪的数列",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/181.html"
+    },
+    {
+      "problemNo": 182,
+      "title": "鹿死谁手",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/182.html"
+    },
+    {
+      "problemNo": 183,
+      "title": "一元三次方程求解",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/183.html"
+    },
+    {
+      "problemNo": 184,
+      "title": "百钱买百鸡",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/184.html"
+    },
+    {
+      "problemNo": 185,
+      "title": "迭代法求平方根",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/185.html"
+    },
+    {
+      "problemNo": 186,
+      "title": "数字反转",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/186.html"
+    },
+    {
+      "problemNo": 187,
+      "title": "最小公倍数",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/187.html"
+    },
+    {
+      "problemNo": 188,
+      "title": "平行四边形Parallelogram",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/188.html"
+    },
+    {
+      "problemNo": 190,
+      "title": "统计字母数",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/190.html"
+    },
+    {
+      "problemNo": 191,
+      "title": "学分计算",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/191.html"
+    },
+    {
+      "problemNo": 192,
+      "title": "哥德巴赫猜想",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/192.html"
+    },
+    {
+      "problemNo": 193,
+      "title": "谁是组长",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/193.html"
+    },
+    {
+      "problemNo": 199,
+      "title": "网络日志统计",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/199.html"
+    },
+    {
+      "problemNo": 216,
+      "title": "2.循环链表",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/216.html"
+    },
+    {
+      "problemNo": 237,
+      "title": "石子移动",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/237.html"
+    },
+    {
+      "problemNo": 238,
+      "title": "区间选择",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/238.html"
+    },
+    {
+      "problemNo": 239,
+      "title": "乘积最大",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/239.html"
+    },
+    {
+      "problemNo": 245,
+      "title": "傻大木买军火",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/245.html"
+    },
+    {
+      "problemNo": 247,
+      "title": "匹配Wild号码",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/247.html"
+    },
+    {
+      "problemNo": 255,
+      "title": "矩阵转置",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/255.html"
+    },
+    {
+      "problemNo": 256,
+      "title": "计算约数",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/256.html"
+    },
+    {
+      "problemNo": 257,
+      "title": "级数求和",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/257.html"
+    },
+    {
+      "problemNo": 258,
+      "title": "温度统计",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/258.html"
+    },
+    {
+      "problemNo": 260,
+      "title": "二分查找",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/260.html"
+    },
+    {
+      "problemNo": 261,
+      "title": "编写函数计算x的y次幂",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/261.html"
+    },
+    {
+      "problemNo": 269,
+      "title": "阿克曼函数",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/269.html"
+    },
+    {
+      "problemNo": 276,
+      "title": "计算日期——按周",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/276.html"
+    },
+    {
+      "problemNo": 278,
+      "title": "4.爬楼梯",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/278.html"
+    },
+    {
+      "problemNo": 284,
+      "title": "黄页建立",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/284.html"
+    },
+    {
+      "problemNo": 285,
+      "title": "链表操作（加入节点）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/285.html"
+    },
+    {
+      "problemNo": 286,
+      "title": "链表操作（删除节点）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/286.html"
+    },
+    {
+      "problemNo": 287,
+      "title": "拆分数字",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/287.html"
+    },
+    {
+      "problemNo": 288,
+      "title": "字符串之差",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/288.html"
+    },
+    {
+      "problemNo": 289,
+      "title": "数学游戏",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/289.html"
+    },
+    {
+      "problemNo": 290,
+      "title": "购物车共同性",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/290.html"
+    },
+    {
+      "problemNo": 291,
+      "title": "大整数加减",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/291.html"
+    },
+    {
+      "problemNo": 292,
+      "title": "分段函数",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/292.html"
+    },
+    {
+      "problemNo": 293,
+      "title": "外侧元素求和",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/293.html"
+    },
+    {
+      "problemNo": 294,
+      "title": "共享单车停放",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/294.html"
+    },
+    {
+      "problemNo": 295,
+      "title": "深度神经网络",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/295.html"
+    },
+    {
+      "problemNo": 296,
+      "title": "班会时间",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/296.html"
+    },
+    {
+      "problemNo": 297,
+      "title": "星期几",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/297.html"
+    },
+    {
+      "problemNo": 298,
+      "title": "被整除的数",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/298.html"
+    },
+    {
+      "problemNo": 299,
+      "title": "质因数分解",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/299.html"
+    },
+    {
+      "problemNo": 300,
+      "title": "火车票",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/300.html"
+    },
+    {
+      "problemNo": 301,
+      "title": "成绩统计",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/301.html"
+    },
+    {
+      "problemNo": 303,
+      "title": "双11购物",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/303.html"
+    },
+    {
+      "problemNo": 304,
+      "title": "整数计数",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/304.html"
+    },
+    {
+      "problemNo": 306,
+      "title": "寻找众数",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/306.html"
+    },
+    {
+      "problemNo": 307,
+      "title": "生辰八字",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/307.html"
+    },
+    {
+      "problemNo": 308,
+      "title": "猪场分配",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/308.html"
+    },
+    {
+      "problemNo": 309,
+      "title": "分段函数2",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/309.html"
+    },
+    {
+      "problemNo": 310,
+      "title": "同构数",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/310.html"
+    },
+    {
+      "problemNo": 352,
+      "title": "打印矩阵",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/352.html"
+    },
+    {
+      "problemNo": 391,
+      "title": "存款额度（版本2）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/391.html"
+    },
+    {
+      "problemNo": 409,
+      "title": "最长的A单词",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/409.html"
+    },
+    {
+      "problemNo": 413,
+      "title": "输出字符的ascii码",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/413.html"
+    },
+    {
+      "problemNo": 421,
+      "title": "C++复数运算符重载（+与<<）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/421.html"
+    },
+    {
+      "problemNo": 436,
+      "title": "八数码问题",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/436.html"
+    },
+    {
+      "problemNo": 441,
+      "title": "按要求输出",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/441.html"
+    },
+    {
+      "problemNo": 442,
+      "title": "三个数比较大小",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/442.html"
+    },
+    {
+      "problemNo": 443,
+      "title": "计算10!",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/443.html"
+    },
+    {
+      "problemNo": 445,
+      "title": "奇数之和",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/445.html"
+    },
+    {
+      "problemNo": 446,
+      "title": "整数求和",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/446.html"
+    },
+    {
+      "problemNo": 447,
+      "title": "求几何平均数",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/447.html"
+    },
+    {
+      "problemNo": 448,
+      "title": "按要求读入并输出数据",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/448.html"
+    },
+    {
+      "problemNo": 449,
+      "title": "按要求输出一个整数",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/449.html"
+    },
+    {
+      "problemNo": 452,
+      "title": "读入字母并输出",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/452.html"
+    },
+    {
+      "problemNo": 453,
+      "title": "数组排序",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/453.html"
+    },
+    {
+      "problemNo": 456,
+      "title": "最大数中的最小",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/456.html"
+    },
+    {
+      "problemNo": 460,
+      "title": "分割序列",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/460.html"
+    },
+    {
+      "problemNo": 476,
+      "title": "统计数字",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/476.html"
+    },
+    {
+      "problemNo": 483,
+      "title": "数列合并（简单版）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/483.html"
+    },
+    {
+      "problemNo": 513,
+      "title": "加法表达式（进阶版）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/513.html"
+    },
+    {
+      "problemNo": 604,
+      "title": "约瑟夫问题",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/604.html"
+    },
+    {
+      "problemNo": 636,
+      "title": "博饼游戏",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/636.html"
+    },
+    {
+      "problemNo": 637,
+      "title": "小图博饼",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/637.html"
+    },
+    {
+      "problemNo": 638,
+      "title": "神兽同笼",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/638.html"
+    },
+    {
+      "problemNo": 642,
+      "title": "双11",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/642.html"
+    },
+    {
+      "problemNo": 643,
+      "title": "猜数字",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/643.html"
+    },
+    {
+      "problemNo": 644,
+      "title": "赛马",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/644.html"
+    },
+    {
+      "problemNo": 647,
+      "title": "操场方阵",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/647.html"
+    },
+    {
+      "problemNo": 648,
+      "title": "彩票抽奖",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/648.html"
+    },
+    {
+      "problemNo": 652,
+      "title": "SUM整数序列和",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/652.html"
+    },
+    {
+      "problemNo": 653,
+      "title": "子序列最大连续和",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/653.html"
+    },
+    {
+      "problemNo": 661,
+      "title": "移动火柴",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/661.html"
+    },
+    {
+      "problemNo": 680,
+      "title": "棍子的长度",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/680.html"
+    },
+    {
+      "problemNo": 684,
+      "title": "求模运算",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/684.html"
+    },
+    {
+      "problemNo": 685,
+      "title": "实现标准输入输出",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/685.html"
+    },
+    {
+      "problemNo": 714,
+      "title": "427a94ddc93f9554",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/714.html"
+    },
+    {
+      "problemNo": 784,
+      "title": "Karatsuba Multiplication",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/784.html"
+    },
+    {
+      "problemNo": 785,
+      "title": "平面最近点对",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/785.html"
+    },
+    {
+      "problemNo": 786,
+      "title": "矩阵乘法",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/786.html"
+    },
+    {
+      "problemNo": 787,
+      "title": "快速排序练习",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/787.html"
+    },
+    {
+      "problemNo": 788,
+      "title": "基数排序练习",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/788.html"
+    },
+    {
+      "problemNo": 790,
+      "title": "二维查找树",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/790.html"
+    },
+    {
+      "problemNo": 791,
+      "title": "平面最近点查询",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/791.html"
+    },
+    {
+      "problemNo": 802,
+      "title": "Weighted Interval Scheduling",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/802.html"
+    },
+    {
+      "problemNo": 803,
+      "title": "Longest Common Subsequence",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/803.html"
+    },
+    {
+      "problemNo": 804,
+      "title": "Chain Matrix Multiplication",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/804.html"
+    },
+    {
+      "problemNo": 805,
+      "title": "Floyd-Warshall算法",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/805.html"
+    },
+    {
+      "problemNo": 806,
+      "title": "MST",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/806.html"
+    },
+    {
+      "problemNo": 812,
+      "title": "Risk",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/812.html"
+    },
+    {
+      "problemNo": 813,
+      "title": "Huffman",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/813.html"
+    },
+    {
+      "problemNo": 814,
+      "title": "History",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/814.html"
+    },
+    {
+      "problemNo": 815,
+      "title": "Virus",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/815.html"
+    },
+    {
+      "problemNo": 816,
+      "title": "Split String",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/816.html"
+    },
+    {
+      "problemNo": 828,
+      "title": "calculate",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/828.html"
+    },
+    {
+      "problemNo": 909,
+      "title": "k小值",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/909.html"
+    },
+    {
+      "problemNo": 910,
+      "title": "最大权值子序列",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/910.html"
+    },
+    {
+      "problemNo": 911,
+      "title": "二的幂次方",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/911.html"
+    },
+    {
+      "problemNo": 912,
+      "title": "方阵",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/912.html"
+    },
+    {
+      "problemNo": 913,
+      "title": "共存问题",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/913.html"
+    },
+    {
+      "problemNo": 915,
+      "title": "舞会",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/915.html"
+    },
+    {
+      "problemNo": 916,
+      "title": "割点",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/916.html"
+    },
+    {
+      "problemNo": 917,
+      "title": "信息传递",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/917.html"
+    },
+    {
+      "problemNo": 919,
+      "title": "投票",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/919.html"
+    },
+    {
+      "problemNo": 920,
+      "title": "逃生",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/920.html"
+    },
+    {
+      "problemNo": 921,
+      "title": "抢劫",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/921.html"
+    },
+    {
+      "problemNo": 922,
+      "title": "材料运输",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/922.html"
+    },
+    {
+      "problemNo": 924,
+      "title": "材料加工",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/924.html"
+    },
+    {
+      "problemNo": 927,
+      "title": "数列划分",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/927.html"
+    },
+    {
+      "problemNo": 928,
+      "title": "线段",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/928.html"
+    },
+    {
+      "problemNo": 929,
+      "title": "材料加工II",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/929.html"
+    },
+    {
+      "problemNo": 930,
+      "title": "合并石子",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/930.html"
+    },
+    {
+      "problemNo": 939,
+      "title": "加分二叉树",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/939.html"
+    },
+    {
+      "problemNo": 940,
+      "title": "战争游戏",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/940.html"
+    },
+    {
+      "problemNo": 941,
+      "title": "挖井",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/941.html"
+    },
+    {
+      "problemNo": 944,
+      "title": "向量区间删除",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/944.html"
+    },
+    {
+      "problemNo": 945,
+      "title": "无序向量去重",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/945.html"
+    },
+    {
+      "problemNo": 946,
+      "title": "向量遍历",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/946.html"
+    },
+    {
+      "problemNo": 947,
+      "title": "向量去重(加强版)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/947.html"
+    },
+    {
+      "problemNo": 948,
+      "title": "二分查找",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/948.html"
+    },
+    {
+      "problemNo": 949,
+      "title": "冒泡排序(跳跃版)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/949.html"
+    },
+    {
+      "problemNo": 951,
+      "title": "列表的基本操作",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/951.html"
+    },
+    {
+      "problemNo": 952,
+      "title": "无序列表的查找与去重",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/952.html"
+    },
+    {
+      "problemNo": 953,
+      "title": "有序列表的查找与去重",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/953.html"
+    },
+    {
+      "problemNo": 954,
+      "title": "列表的插入排序",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/954.html"
+    },
+    {
+      "problemNo": 955,
+      "title": "列表的选择排序",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/955.html"
+    },
+    {
+      "problemNo": 956,
+      "title": "列表的逆序对个数",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/956.html"
+    },
+    {
+      "problemNo": 957,
+      "title": "位图的基本操作",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/957.html"
+    },
+    {
+      "problemNo": 958,
+      "title": "列表游标的基本操作",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/958.html"
+    },
+    {
+      "problemNo": 959,
+      "title": "归并排序",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/959.html"
+    },
+    {
+      "problemNo": 960,
+      "title": "Steap",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/960.html"
+    },
+    {
+      "problemNo": 961,
+      "title": "queap",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/961.html"
+    },
+    {
+      "problemNo": 962,
+      "title": "直方图内最大矩形",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/962.html"
+    },
+    {
+      "problemNo": 963,
+      "title": "进制转换",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/963.html"
+    },
+    {
+      "problemNo": 964,
+      "title": "栈混洗的甄别",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/964.html"
+    },
+    {
+      "problemNo": 965,
+      "title": "表达式括号匹配",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/965.html"
+    },
+    {
+      "problemNo": 966,
+      "title": "中缀表达式求值",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/966.html"
+    },
+    {
+      "problemNo": 967,
+      "title": "逆波兰表达式的转换和求值",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/967.html"
+    },
+    {
+      "problemNo": 968,
+      "title": "愤怒的牛",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/968.html"
+    },
+    {
+      "problemNo": 969,
+      "title": "[COCI2011-2012#5] EKO / 砍树",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/969.html"
+    },
+    {
+      "problemNo": 970,
+      "title": "二叉树(1)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/970.html"
+    },
+    {
+      "problemNo": 971,
+      "title": "二叉树(2) 递归版",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/971.html"
+    },
+    {
+      "problemNo": 972,
+      "title": "二叉树(2) 非递归版",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/972.html"
+    },
+    {
+      "problemNo": 973,
+      "title": "二叉树(3)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/973.html"
+    },
+    {
+      "problemNo": 974,
+      "title": "二叉树(4)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/974.html"
+    },
+    {
+      "problemNo": 975,
+      "title": "霍夫曼树的构建(加强版)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/975.html"
+    },
+    {
+      "problemNo": 976,
+      "title": "图的BFS算法",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/976.html"
+    },
+    {
+      "problemNo": 977,
+      "title": "图的DFS算法",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/977.html"
+    },
+    {
+      "problemNo": 979,
+      "title": "零入度拓扑排序",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/979.html"
+    },
+    {
+      "problemNo": 980,
+      "title": "零出度拓扑排序",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/980.html"
+    },
+    {
+      "problemNo": 981,
+      "title": "关节点（割点）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/981.html"
+    },
+    {
+      "problemNo": 982,
+      "title": "单源最短路径",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/982.html"
+    },
+    {
+      "problemNo": 983,
+      "title": "最小生成树（1）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/983.html"
+    },
+    {
+      "problemNo": 985,
+      "title": "最小生成树（2）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/985.html"
+    },
+    {
+      "problemNo": 986,
+      "title": "2-D range tree query",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/986.html"
+    },
+    {
+      "problemNo": 987,
+      "title": "1-D range tree query",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/987.html"
+    },
+    {
+      "problemNo": 988,
+      "title": "K-D tree query",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/988.html"
+    },
+    {
+      "problemNo": 989,
+      "title": "BST的基本操作",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/989.html"
+    },
+    {
+      "problemNo": 990,
+      "title": "AVL树的基本操作",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/990.html"
+    },
+    {
+      "problemNo": 991,
+      "title": "AVL树的基本操作（3+4重构）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/991.html"
+    },
+    {
+      "problemNo": 992,
+      "title": "红黑树的基本操作",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/992.html"
+    },
+    {
+      "problemNo": 993,
+      "title": "AVL树的维护",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/993.html"
+    },
+    {
+      "problemNo": 994,
+      "title": "B-树的维护",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/994.html"
+    },
+    {
+      "problemNo": 995,
+      "title": "Maximum Subarray Sum",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/995.html"
+    },
+    {
+      "problemNo": 997,
+      "title": "Monge Array",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/997.html"
+    },
+    {
+      "problemNo": 998,
+      "title": "两数之和",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/998.html"
+    },
+    {
+      "problemNo": 999,
+      "title": "字符串编辑",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/999.html"
+    },
+    {
+      "problemNo": 1000,
+      "title": "左式堆的合并",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1000.html"
+    },
+    {
+      "problemNo": 1001,
+      "title": "二叉堆的维护",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1001.html"
+    },
+    {
+      "problemNo": 1002,
+      "title": "堆排序",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1002.html"
+    },
+    {
+      "problemNo": 1003,
+      "title": "Anagrams by Stack",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1003.html"
+    },
+    {
+      "problemNo": 1004,
+      "title": "Bad Hair Day",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1004.html"
+    },
+    {
+      "problemNo": 1005,
+      "title": "食物链",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1005.html"
+    },
+    {
+      "problemNo": 1006,
+      "title": "最大栈(Steap)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1006.html"
+    },
+    {
+      "problemNo": 1007,
+      "title": "Shortest Subarray with Sum at Least K",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1007.html"
+    },
+    {
+      "problemNo": 1008,
+      "title": "最大间隙",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1008.html"
+    },
+    {
+      "problemNo": 1009,
+      "title": "普通平衡树",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1009.html"
+    },
+    {
+      "problemNo": 1010,
+      "title": "Post-Order Traversal from Pre-Order and In-Order",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1010.html"
+    },
+    {
+      "problemNo": 1011,
+      "title": "Euler Tour Tree",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1011.html"
+    },
+    {
+      "problemNo": 1012,
+      "title": "二叉树中的最大路径和",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1012.html"
+    },
+    {
+      "problemNo": 1013,
+      "title": "Binary Indexed Tree",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1013.html"
+    },
+    {
+      "problemNo": 1014,
+      "title": "Erdös Number",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1014.html"
+    },
+    {
+      "problemNo": 1015,
+      "title": "二部图判断",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1015.html"
+    },
+    {
+      "problemNo": 1016,
+      "title": "Floyd最短路",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1016.html"
+    },
+    {
+      "problemNo": 1017,
+      "title": "Least Common Multiple Path",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1017.html"
+    },
+    {
+      "problemNo": 1018,
+      "title": "Number of Shortest Paths in a Graph",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1018.html"
+    },
+    {
+      "problemNo": 1026,
+      "title": "线段树的构建与查询",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1026.html"
+    },
+    {
+      "problemNo": 1053,
+      "title": "希尔排序",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1053.html"
+    },
+    {
+      "problemNo": 1054,
+      "title": "Quick Select",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1054.html"
+    },
+    {
+      "problemNo": 1084,
+      "title": "最大流",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1084.html"
+    },
+    {
+      "problemNo": 1085,
+      "title": "无源汇有上下界可行流",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1085.html"
+    },
+    {
+      "problemNo": 1086,
+      "title": "有源汇有上下界最大流",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1086.html"
+    },
+    {
+      "problemNo": 1087,
+      "title": "有源汇有上下界最小流",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1087.html"
+    },
+    {
+      "problemNo": 1089,
+      "title": "接竹竿",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1089.html"
+    },
+    {
+      "problemNo": 1090,
+      "title": "GX7的序列",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1090.html"
+    },
+    {
+      "problemNo": 1094,
+      "title": "旅游",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1094.html"
+    },
+    {
+      "problemNo": 1095,
+      "title": "小七的矩阵",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1095.html"
+    },
+    {
+      "problemNo": 1096,
+      "title": "DNA动了",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1096.html"
+    },
+    {
+      "problemNo": 1097,
+      "title": "扫雷",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1097.html"
+    },
+    {
+      "problemNo": 1098,
+      "title": "定价",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1098.html"
+    },
+    {
+      "problemNo": 1099,
+      "title": "合并卡牌",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1099.html"
+    },
+    {
+      "problemNo": 1100,
+      "title": "热爱学习",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1100.html"
+    },
+    {
+      "problemNo": 1101,
+      "title": "探险",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1101.html"
+    },
+    {
+      "problemNo": 1103,
+      "title": "骑士精神",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1103.html"
+    },
+    {
+      "problemNo": 1104,
+      "title": "数字划分",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1104.html"
+    },
+    {
+      "problemNo": 1105,
+      "title": "王者荣耀",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1105.html"
+    },
+    {
+      "problemNo": 1106,
+      "title": "取石子",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1106.html"
+    },
+    {
+      "problemNo": 1107,
+      "title": "玩具谜题",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1107.html"
+    },
+    {
+      "problemNo": 1108,
+      "title": "寻宝",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1108.html"
+    },
+    {
+      "problemNo": 1109,
+      "title": "Karatsuba大数乘法",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1109.html"
+    },
+    {
+      "problemNo": 1110,
+      "title": "普通平衡树",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1110.html"
+    },
+    {
+      "problemNo": 1111,
+      "title": "活动安排",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1111.html"
+    },
+    {
+      "problemNo": 1112,
+      "title": "快乐向前冲",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1112.html"
+    },
+    {
+      "problemNo": 1113,
+      "title": "数列分段",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1113.html"
+    },
+    {
+      "problemNo": 1114,
+      "title": "图书管理",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1114.html"
+    },
+    {
+      "problemNo": 1115,
+      "title": "门票",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1115.html"
+    },
+    {
+      "problemNo": 1116,
+      "title": "新的开始",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1116.html"
+    },
+    {
+      "problemNo": 1117,
+      "title": "最小路径覆盖",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1117.html"
+    },
+    {
+      "problemNo": 1118,
+      "title": "运输问题",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1118.html"
+    },
+    {
+      "problemNo": 1119,
+      "title": "最小费用流",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1119.html"
+    },
+    {
+      "problemNo": 1120,
+      "title": "不要62",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1120.html"
+    },
+    {
+      "problemNo": 1121,
+      "title": "旅游规划",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1121.html"
+    },
+    {
+      "problemNo": 1122,
+      "title": "叶子的染色",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1122.html"
+    },
+    {
+      "problemNo": 1123,
+      "title": "括号配对",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1123.html"
+    },
+    {
+      "problemNo": 1124,
+      "title": "牧场的安排",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1124.html"
+    },
+    {
+      "problemNo": 1125,
+      "title": "朋友",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1125.html"
+    },
+    {
+      "problemNo": 1126,
+      "title": "最大团",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1126.html"
+    },
+    {
+      "problemNo": 1127,
+      "title": "社交网络",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1127.html"
+    },
+    {
+      "problemNo": 1128,
+      "title": "管理公司",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1128.html"
+    },
+    {
+      "problemNo": 1133,
+      "title": "球心",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1133.html"
+    },
+    {
+      "problemNo": 1134,
+      "title": "圆",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1134.html"
+    },
+    {
+      "problemNo": 1135,
+      "title": "圆覆盖",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1135.html"
+    },
+    {
+      "problemNo": 1137,
+      "title": "test_oj",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1137.html"
+    },
+    {
+      "problemNo": 1138,
+      "title": "Rank",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1138.html"
+    },
+    {
+      "problemNo": 1146,
+      "title": "删点",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1146.html"
+    },
+    {
+      "problemNo": 1147,
+      "title": "切糕",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1147.html"
+    },
+    {
+      "problemNo": 1148,
+      "title": "抽卡模拟器",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1148.html"
+    },
+    {
+      "problemNo": 1149,
+      "title": "小盒学数学",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1149.html"
+    },
+    {
+      "problemNo": 1152,
+      "title": "对对碰",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1152.html"
+    },
+    {
+      "problemNo": 1156,
+      "title": "最大的连续子序列",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1156.html"
+    },
+    {
+      "problemNo": 1157,
+      "title": "小镇的居民",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1157.html"
+    },
+    {
+      "problemNo": 1158,
+      "title": "另类最短路",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1158.html"
+    },
+    {
+      "problemNo": 1159,
+      "title": "过河卒",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1159.html"
+    },
+    {
+      "problemNo": 1160,
+      "title": "吃马卒",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1160.html"
+    },
+    {
+      "problemNo": 1161,
+      "title": "善良学长的福利题3",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1161.html"
+    },
+    {
+      "problemNo": 1162,
+      "title": "善良学长的较难题",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1162.html"
+    },
+    {
+      "problemNo": 1164,
+      "title": "善良学长的福利题1",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1164.html"
+    },
+    {
+      "problemNo": 1165,
+      "title": "善良学长的福利题2",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1165.html"
+    },
+    {
+      "problemNo": 1166,
+      "title": "词频统计（CSP 202403-1）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1166.html"
+    },
+    {
+      "problemNo": 1167,
+      "title": "相似度计算（CSP 202403-2）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1167.html"
+    },
+    {
+      "problemNo": 1168,
+      "title": "化学方程式配平（CSP 202403-3）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1168.html"
+    },
+    {
+      "problemNo": 1169,
+      "title": "十滴水（CSP 202403-4）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1169.html"
+    },
+    {
+      "problemNo": 1170,
+      "title": "文件夹合并（CSP 202403-5）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1170.html"
+    },
+    {
+      "problemNo": 1190,
+      "title": "找素数",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1190.html"
+    },
+    {
+      "problemNo": 1191,
+      "title": "去除重复数字",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1191.html"
+    },
+    {
+      "problemNo": 1194,
+      "title": "循环队列",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1194.html"
+    },
+    {
+      "problemNo": 1195,
+      "title": "数数题",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1195.html"
+    },
+    {
+      "problemNo": 1198,
+      "title": "仓库规划（CSP 202312-1）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1198.html"
+    },
+    {
+      "problemNo": 1199,
+      "title": "因子化简（CSP 202312-2）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1199.html"
+    },
+    {
+      "problemNo": 1200,
+      "title": "树上搜索（CSP 202312-3）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1200.html"
+    },
+    {
+      "problemNo": 1201,
+      "title": "宝藏（CSP 202312-4）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1201.html"
+    },
+    {
+      "problemNo": 1202,
+      "title": "彩色路径（CSP 202312-5）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1202.html"
+    },
+    {
+      "problemNo": 1203,
+      "title": "重复局面（CSP 202305-1）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1203.html"
+    },
+    {
+      "problemNo": 1204,
+      "title": "矩阵运算（CSP 202305-2）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1204.html"
+    },
+    {
+      "problemNo": 1205,
+      "title": "解压缩（CSP 202305-3）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1205.html"
+    },
+    {
+      "problemNo": 1207,
+      "title": "电力网络（CSP 202305-4）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1207.html"
+    },
+    {
+      "problemNo": 1208,
+      "title": "闪耀巡航（CSP 202305-5）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1208.html"
+    },
+    {
+      "problemNo": 1218,
+      "title": "最短路2.0",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1218.html"
+    },
+    {
+      "problemNo": 1239,
+      "title": "[RUC ICPC newbie contest] Jed VS Zip",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1239.html"
+    },
+    {
+      "problemNo": 1240,
+      "title": "[RUC ICPC newbie contest] 树上的排列",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1240.html"
+    },
+    {
+      "problemNo": 1241,
+      "title": "[RUC ICPC newbie contest] 爱丽丝和鲍勃",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1241.html"
+    },
+    {
+      "problemNo": 1245,
+      "title": "[RUC ICPC newbie contest]斐波那契数",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1245.html"
+    },
+    {
+      "problemNo": 1246,
+      "title": "[RUC ICPC newbie contest] 数组",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1246.html"
+    },
+    {
+      "problemNo": 1247,
+      "title": "[RUC ICPC newbie contest] 除得尽吗",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1247.html"
+    },
+    {
+      "problemNo": 1248,
+      "title": "[RUC ICPC newbie contest] 连起来",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1248.html"
+    },
+    {
+      "problemNo": 1250,
+      "title": "[RUC ICPC newbie contest] mex",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1250.html"
+    },
+    {
+      "problemNo": 1378,
+      "title": "银行转账管理",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1378.html"
+    },
+    {
+      "problemNo": 1379,
+      "title": "图书借阅",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1379.html"
+    },
+    {
+      "problemNo": 1380,
+      "title": "宝石切割",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1380.html"
+    },
+    {
+      "problemNo": 1408,
+      "title": "员工管理系统",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1408.html"
+    },
+    {
+      "problemNo": 1409,
+      "title": "图形渲染",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1409.html"
+    },
+    {
+      "problemNo": 1410,
+      "title": "数据计算",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1410.html"
+    },
+    {
+      "problemNo": 1411,
+      "title": "数据计算2",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1411.html"
+    },
+    {
+      "problemNo": 1412,
+      "title": "正态分布（CSP 202506-1）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1412.html"
+    },
+    {
+      "problemNo": 1413,
+      "title": "机器人复健指南（CSP 202506-2）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1413.html"
+    },
+    {
+      "problemNo": 1414,
+      "title": "消息解码（CSP 202506-3）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1414.html"
+    },
+    {
+      "problemNo": 1415,
+      "title": "月票发行（CSP 202506-4）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1415.html"
+    },
+    {
+      "problemNo": 1416,
+      "title": "博物馆（CSP 202506-5）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1416.html"
+    },
+    {
+      "problemNo": 1417,
+      "title": "密码（CSP 202409-1）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1417.html"
+    },
+    {
+      "problemNo": 1418,
+      "title": "字符串变换（CSP 202409-2）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1418.html"
+    },
+    {
+      "problemNo": 1420,
+      "title": "补丁应用（CSP 202409-3）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1420.html"
+    },
+    {
+      "problemNo": 1424,
+      "title": "通讯延迟（CSP 202409-4）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1424.html"
+    },
+    {
+      "problemNo": 1425,
+      "title": "木板切割（CSP 202409-5）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1425.html"
+    },
+    {
+      "problemNo": 1426,
+      "title": "数值积分（CSP 202503-1）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1426.html"
+    },
+    {
+      "problemNo": 1427,
+      "title": "机器人饲养指南（CSP 202503-2）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1427.html"
+    },
+    {
+      "problemNo": 1428,
+      "title": "模板展开（CSP 202503-3）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1428.html"
+    },
+    {
+      "problemNo": 1429,
+      "title": "集体锻炼（CSP 202503-4）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1429.html"
+    },
+    {
+      "problemNo": 1431,
+      "title": "移动 (CSP 202412-1)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1431.html"
+    },
+    {
+      "problemNo": 1432,
+      "title": "梦境巡查 (CSP 202412-2)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1432.html"
+    },
+    {
+      "problemNo": 1434,
+      "title": "缓存模拟 (CSP 202412-3)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1434.html"
+    },
+    {
+      "problemNo": 1435,
+      "title": "跳房子 (CSP 202412-4)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1435.html"
+    },
+    {
+      "problemNo": 1531,
+      "title": "梦魇(CSP 202412-5)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1531.html"
+    },
+    {
+      "problemNo": 1532,
+      "title": "最小程序",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1532.html"
+    },
+    {
+      "problemNo": 1533,
+      "title": "输出Hello World v2",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1533.html"
+    },
+    {
+      "problemNo": 1534,
+      "title": "整数加1",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1534.html"
+    },
+    {
+      "problemNo": 1535,
+      "title": "整数加减",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1535.html"
+    },
+    {
+      "problemNo": 1536,
+      "title": "K失配的最长公共子序列",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1536.html"
+    },
+    {
+      "problemNo": 1537,
+      "title": "小明的背包",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1537.html"
+    },
+    {
+      "problemNo": 1538,
+      "title": "地图探索",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1538.html"
+    },
+    {
+      "problemNo": 1539,
+      "title": "2进制转10进制",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1539.html"
+    },
+    {
+      "problemNo": 1540,
+      "title": "10进制转k进制",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1540.html"
+    },
+    {
+      "problemNo": 1541,
+      "title": "整数除法",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1541.html"
+    },
+    {
+      "problemNo": 1542,
+      "title": "整型常量",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1542.html"
+    },
+    {
+      "problemNo": 1543,
+      "title": "转义字符",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1543.html"
+    },
+    {
+      "problemNo": 1544,
+      "title": "转义字符2",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1544.html"
+    },
+    {
+      "problemNo": 1545,
+      "title": "数位分离",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1545.html"
+    },
+    {
+      "problemNo": 1546,
+      "title": "k进制转10进制",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1546.html"
+    },
+    {
+      "problemNo": 1547,
+      "title": "读入表达式进行计算",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1547.html"
+    },
+    {
+      "problemNo": 1548,
+      "title": "按格式输入输出数据",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1548.html"
+    },
+    {
+      "problemNo": 1549,
+      "title": "几个人说真话",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1549.html"
+    },
+    {
+      "problemNo": 1550,
+      "title": "计算数学表达式",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1550.html"
+    },
+    {
+      "problemNo": 1551,
+      "title": "宝藏密码",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1551.html"
+    },
+    {
+      "problemNo": 1552,
+      "title": "新二分查找",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1552.html"
+    },
+    {
+      "problemNo": 1554,
+      "title": "新斐波那契查找",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1554.html"
+    },
+    {
+      "problemNo": 1555,
+      "title": "谁做了好事",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1555.html"
+    },
+    {
+      "problemNo": 1556,
+      "title": "小鱼记忆王",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1556.html"
+    },
+    {
+      "problemNo": 1557,
+      "title": "字符串循环右移",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1557.html"
+    },
+    {
+      "problemNo": 1558,
+      "title": "素数筛",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1558.html"
+    },
+    {
+      "problemNo": 1560,
+      "title": "排排坐",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1560.html"
+    },
+    {
+      "problemNo": 1561,
+      "title": "两点间距离函数",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1561.html"
+    },
+    {
+      "problemNo": 1562,
+      "title": "校园寻宝大比拼",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1562.html"
+    },
+    {
+      "problemNo": 1563,
+      "title": "点结构体",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1563.html"
+    },
+    {
+      "problemNo": 1564,
+      "title": "宿舍魔力对决",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1564.html"
+    },
+    {
+      "problemNo": 1576,
+      "title": "斐波那契数列",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1576.html"
+    },
+    {
+      "problemNo": 1629,
+      "title": "序列旋转匹配",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1629.html"
+    },
+    {
+      "problemNo": 1630,
+      "title": "无线传输",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1630.html"
+    },
+    {
+      "problemNo": 1631,
+      "title": "KMP",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1631.html"
+    },
+    {
+      "problemNo": 1644,
+      "title": "高级Python 2026 春1-期中前测试：进制转换大师",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1644.html"
+    },
+    {
+      "problemNo": 1645,
+      "title": "高级Python 2026 春-2：社交媒体话题提取",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1645.html"
+    },
+    {
+      "problemNo": 1646,
+      "title": "高级Python 2026 春-3：成绩汇总排名",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1646.html"
+    },
+    {
+      "problemNo": 1647,
+      "title": "高级Python 2026 春-4：科研数据分析函数实现",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1647.html"
+    },
+    {
+      "problemNo": 1648,
+      "title": "高级Python 2026 春-5：快递运费阶梯计算",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1648.html"
+    },
+    {
+      "problemNo": 1649,
+      "title": "高级Python 2026 春-6: 校园共享单车管理系统 (OOP 考察)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1649.html"
+    },
+    {
+      "problemNo": 1650,
+      "title": "高级Python 2026 春-7：校园食堂营养分析",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1650.html"
+    },
+    {
+      "problemNo": 1656,
+      "title": "你好",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1656.html"
+    },
+    {
+      "problemNo": 1657,
+      "title": "翻一番",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1657.html"
+    },
+    {
+      "problemNo": 1664,
+      "title": "高级Python 2026 春-8: 零食选购规划",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1664.html"
+    },
+    {
+      "problemNo": 1680,
+      "title": "蒙特卡洛（CSP 202509-1）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1680.html"
+    },
+    {
+      "problemNo": 1681,
+      "title": "水印检查（CSP 202509-2）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1681.html"
+    },
+    {
+      "problemNo": 1682,
+      "title": "HTTP 头信息（CSP 202509-3）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1682.html"
+    },
+    {
+      "problemNo": 1683,
+      "title": "造题计划（上）（CSP 202509-4）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1683.html"
+    },
+    {
+      "problemNo": 1684,
+      "title": "造题计划（上）（CSP 202509-4）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1684.html"
+    },
+    {
+      "problemNo": 1685,
+      "title": "造题计划（下）（CSP 202509-5）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1685.html"
+    },
+    {
+      "problemNo": 1686,
+      "title": "银行家舍入（CSP 202605-1）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1686.html"
+    },
+    {
+      "problemNo": 1687,
+      "title": "机器人宿管指南（CSP 202605-2）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1687.html"
+    },
+    {
+      "problemNo": 1688,
+      "title": "死锁优化（CSP 202605-3）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1688.html"
+    },
+    {
+      "problemNo": 1689,
+      "title": "石子游戏（CSP 202605-4）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1689.html"
+    },
+    {
+      "problemNo": 1690,
+      "title": "绝世好串（CSP 202605-5）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1690.html"
+    }
+  ]
+}

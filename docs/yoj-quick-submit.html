@@ -43,7 +43,7 @@
     <p class="muted">YOJ Quick Submit · 登录后由你确认提交</p>
     <h1 id="title">正在读取题目…</h1>
     <div class="meta" id="meta"></div>
-    <div class="notice">
+    <div class="notice" id="notice">
       该页面不保存账号、密码或 Cookie。请先在 YOJ 登录；“提交到 YOJ”只在你明确点击按钮后发送当前题号、当前语言和下方代码。页面使用的是仓库中已记录为 Accepted 的原始可提交归档。
     </div>
     <div class="actions">
@@ -65,8 +65,9 @@
   "use strict";
   const qs = new URLSearchParams(location.search);
   const problemNo = Number(qs.get("pno"));
+  const archiveMode = qs.get("mode") === "archive";
   const $ = (id) => document.getElementById(id);
-  const title = $("title"), meta = $("meta"), source = $("source").firstElementChild;
+  const title = $("title"), meta = $("meta"), source = $("source").firstElementChild, notice = $("notice");
   const status = $("status"), copy = $("copy"), submit = $("submit"), open = $("open"), bookmarklet = $("bookmarklet");
   let entry = null, code = "";
 
@@ -162,10 +163,15 @@
   async function load() {
     if (!Number.isInteger(problemNo) || problemNo <= 0) { title.textContent = "缺少有效题号"; setStatus("请从 README 的快捷提交链接进入。", true); return; }
     const manifest = await (await fetch("data/quick-submit.json", { cache: "no-store" })).json();
-    entry = manifest.entries.find((item) => Number(item.problemNo) === problemNo);
+    const verifiedEntries = Array.isArray(manifest.entries) ? manifest.entries : [];
+    const archivedEntries = Array.isArray(manifest.archivedEntries) ? manifest.archivedEntries : [];
+    entry = (archiveMode ? archivedEntries : verifiedEntries).find((item) => Number(item.problemNo) === problemNo);
+    if (!entry && !archiveMode) entry = archivedEntries.find((item) => Number(item.problemNo) === problemNo);
     if (!entry) { title.textContent = `题目 ${problemNo} 暂无快捷提交`; setStatus("该题尚未有可公开的一键提交记录，或属于特殊提交形态。", true); return; }
     title.textContent = `${entry.problemNo}. ${displayTitle(entry.title)}`;
-    meta.append(pill("YOJ 语言", entry.language), pill("在线状态", entry.onlineStatus), pill("题号", String(entry.problemNo)));
+    meta.append(pill("YOJ 语言", entry.language), pill("代码来源", entry.source === "ACCEPTED_ARCHIVE" ? "历史 Accepted 归档" : "PUBLIC_READY"), pill("在线状态", entry.onlineStatus), pill("题号", String(entry.problemNo)));
+    if (entry.source === "ACCEPTED_ARCHIVE") submit.textContent = "复制并尝试提交到 YOJ";
+    if (entry.warning) notice.textContent = `${entry.warning} 页面不保存账号、密码或 Cookie；提交结果以 YOJ 页面显示为准。`;
     open.href = entry.problemUrl;
     const response = await fetch(entry.codeUrl, { cache: "no-store" });
     if (!response.ok) throw new Error(`源码加载失败（HTTP ${response.status}）`);
@@ -173,7 +179,7 @@
     source.textContent = code;
     copy.disabled = false; submit.disabled = false;
     makeBookmarklet();
-    setStatus(`已加载；提交时会固定使用语言 ${entry.language}，请先确认 YOJ 登录态。`);
+    setStatus(`已加载；提交时会固定使用语言 ${entry.language}，请先确认 YOJ 登录态。${entry.source === "ACCEPTED_ARCHIVE" ? "这是历史 Accepted 归档，请先人工核对。" : ""}`);
   }
   copy.addEventListener("click", copyText);
   bookmarklet.addEventListener("click", (event) => {
@@ -181,7 +187,8 @@
     setStatus("请先把书签拖到收藏栏，再在 YOJ 题目页点击它；不要直接在本页点击。", true);
   });
   submit.addEventListener("click", () => {
-    if (window.confirm(`确认向 YOJ 题号 ${entry?.problemNo} 提交当前代码？语言：${entry?.language}`)) submitToYOJ();
+    const prefix = entry?.source === "ACCEPTED_ARCHIVE" ? "这是未完成本轮 PUBLIC_READY 复核的历史 Accepted 代码。" : "";
+    if (window.confirm(`${prefix}\n确认向 YOJ 题号 ${entry?.problemNo} 提交当前代码？语言：${entry?.language}`)) submitToYOJ();
   });
   load().catch((error) => { title.textContent = "快捷提交页面加载失败"; setStatus(error.message, true); });
 })();

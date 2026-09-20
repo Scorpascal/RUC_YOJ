@@ -35,18 +35,27 @@ try:
 except ImportError:  # pragma: no cover - supports importing this file as a package module
     from tools.normalize_cpp_headers import BITS_INCLUDE, header_bundle_for_path
 
+try:
+    from audit_online_availability import validate_snapshot
+    from release_gate import candidate_paths, local_gate_reasons
+except ImportError:  # pragma: no cover - supports importing this file as a package module
+    from tools.audit_online_availability import validate_snapshot
+    from tools.release_gate import candidate_paths, local_gate_reasons
+
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW_ROOT = ROOT / "代码库"
 PUBLIC_ROOT = ROOT / "题解"
 DATA_ROOT = ROOT / "data"
 MANIFEST_PATH = RAW_ROOT / "AC抓取清单.json"
+ONLINE_PUBLIC_PATH = DATA_ROOT / "yoj-public-problems.json"
 ONLINE_REPORT_PATH = ROOT / "staging" / "online-verification.json"
 PUBLIC_READY_PATH = DATA_ROOT / "public-ready.json"
 SITE_BASE = "http://yoj.ruc.edu.cn/"
 QUICK_SUBMIT_PAGE = "https://scorpascal.github.io/RUC_YOJ/yoj-quick-submit.html"
 QUICK_SUBMIT_MANIFEST_URL = "data/quick-submit.json"
 RAW_GITHUB_BASE = "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/"
+ARCHIVED_QUICK_ENTRY_SOURCE = "ACCEPTED_ARCHIVE"
 SCHEMA_VERSION = 1
 MAX_ASSET_BYTES = 64 * 1024 * 1024
 CODE_ASSET_SUFFIXES = {".cc", ".cpp", ".cxx"}
@@ -92,6 +101,73 @@ def load_public_ready() -> dict[str, dict[str, Any]]:
         str(item.get("problemNo")): item
         for item in (payload.get("records") or [])
         if item.get("problemNo") is not None and item.get("status") == "PUBLIC_READY"
+    }
+
+
+def load_online_public_numbers() -> set[int]:
+    """Load the current public YOJ IDs used for archive-preview links."""
+
+    if not ONLINE_PUBLIC_PATH.is_file():
+        return set()
+    try:
+        payload = json_load(ONLINE_PUBLIC_PATH)
+        return {int(row["problemNo"]) for row in validate_snapshot(payload)}
+    except (OSError, TypeError, ValueError, KeyError, json.JSONDecodeError):
+        return set()
+
+
+def make_archived_quick_entry(record: dict[str, Any], online_public_numbers: set[int]) -> dict[str, Any] | None:
+    """Expose a cautious manual-submit path for a current public historical AC.
+
+    This is deliberately separate from the PUBLIC_READY ``entries`` list.  It
+    makes an already captured Accepted source usable for review when the
+    problem is public again, without upgrading its release state or claiming
+    that the current form/online round-trip has been revalidated.
+    """
+
+    problem_no = int(record["problemNo"])
+    if problem_no not in online_public_numbers:
+        return None
+    if str((record.get("public") or {}).get("status") or "") == "PUBLIC_READY":
+        return None
+    archive = record.get("archive") or {}
+    accepted = archive.get("acceptedRun") or {}
+    if str(accepted.get("status") or "") != "Accepted":
+        return None
+    code_path = str(archive.get("directlySubmittableCode") or "")
+    local_path = ROOT / code_path if code_path else None
+    if local_path is None or not local_path.is_file():
+        return None
+
+    complete_candidate, direct_candidate = candidate_paths(record)
+    gate_reasons = local_gate_reasons(problem_no, complete_candidate, direct_candidate)
+    allowed_statement_warnings = {"SAMPLE_SAMPLE_INCONSISTENT"}
+    if any(reason not in allowed_statement_warnings for reason in gate_reasons):
+        return None
+
+    warnings = [
+        "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+    ]
+    if gate_reasons:
+        warnings.append("原题样例自身与题面格式不一致，未据此改写代码；提交前请先核对题面和输入输出。")
+    online_verification = str((record.get("public") or {}).get("onlineVerification") or "")
+    if "SUBMIT_FORM_NOT_FOUND" in online_verification:
+        warnings.append("本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。")
+
+    return {
+        "problemNo": problem_no,
+        "title": str(record.get("title") or ""),
+        "language": str(record.get("language") or "").strip(),
+        "problemUrl": f"{SITE_BASE}index.php/index/problem/detail/pno/{problem_no}.html",
+        "submitEndpoint": f"{SITE_BASE}index.php/index/index/prob_submit.html",
+        "codePath": code_path,
+        "codeUrl": RAW_GITHUB_BASE + quote(code_path, safe="/-_.~"),
+        "codeSha256": source_file_hash(local_path),
+        "onlineStatus": "Accepted (历史归档)",
+        "onlineSubmissionNo": str(archive.get("submissionNo") or accepted.get("submissionNo") or ""),
+        "source": ARCHIVED_QUICK_ENTRY_SOURCE,
+        "requiresReview": True,
+        "warning": " ".join(warnings),
     }
 
 
@@ -902,6 +978,7 @@ def build_statement(
                 if href and converter.is_download_candidate(external_source, label):
                     converter.materialize_asset(external_source, label)
             if not body:
+                converter.warnings.append("题面主体为空，题面需要人工复核")
                 status = "NEEDS_REVIEW"
         except (OSError, ValueError, html.ParserError) as exc:
             converter.warnings.append(f"题面快照解析失败: {exc.__class__.__name__}")
@@ -1060,6 +1137,14 @@ def build_statement(
 
 def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
     captured_at = str(manifest.get("capturedAt") or "未记录")
+    online_snapshot: dict[str, Any] = {}
+    if ONLINE_PUBLIC_PATH.is_file():
+        try:
+            online_snapshot = json_load(ONLINE_PUBLIC_PATH)
+        except (OSError, TypeError, ValueError, json.JSONDecodeError):
+            online_snapshot = {}
+    online_public_count = online_snapshot.get("publicCount") or "未记录"
+    online_captured_at = str(online_snapshot.get("capturedAt") or "未记录")
     public_status_counts = Counter(
         str((record.get("public") or {}).get("status") or "UNKNOWN")
         for record in records
@@ -1201,6 +1286,19 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         and bool(record["public"].get("directlySubmittableCode"))
         for record in records
     )
+    online_public_numbers = load_online_public_numbers()
+    archived_quick_by_no = {
+        int(record["problemNo"]): make_archived_quick_entry(record, online_public_numbers)
+        for record in records
+    }
+    archived_quick_by_no = {number: entry for number, entry in archived_quick_by_no.items() if entry}
+    current_public_code_count = sum(
+        int(record["problemNo"]) in online_public_numbers
+        and str(((record.get("archive") or {}).get("acceptedRun") or {}).get("status") or "") == "Accepted"
+        and bool((record.get("archive") or {}).get("directlySubmittableCode"))
+        and (ROOT / str((record.get("archive") or {}).get("directlySubmittableCode") or "")).is_file()
+        for record in records
+    )
     lines = [
         "# RUC YOJ 题解归档",
         "",
@@ -1215,17 +1313,19 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         *dashboard_lines,
         "> 这是按 Method 指引生成的离线初步构建。当前把原始题面快照转换成 Markdown：公式尽量保留为 LaTeX，题面图片优先本地化到对应题目目录；原始 HTML 不进入公开索引。",
         "> `代码库/` 保留题号和文件格式；只有标记为 `PUBLIC_READY` 的题目才表示对应清洗代码已通过本地门禁、YOJ Accepted 和源码回收核验，其余记录仍是待复核归档。",
+        "> YOJ 当前公开可见性由 `data/yoj-public-problems.json` 独立记录；`YOJ 当前公开` 不等于 Accepted，`题面已归档` 也不等于题目已经从 YOJ 下线。",
         "",
         "## 当前状态",
         "",
         f"- 原始归档时间：`{captured_at}`",
         f"- 已生成题面：`{len(records)}` 道",
+        f"- YOJ 公开列表快照：`{online_public_count}` 道，最近核验时间 `{online_captured_at}`；该可见性证据不替代 Accepted 或 `PUBLIC_READY`",
         f"- 状态统计：发布阶段 `{dict(sorted(public_status_counts.items()))}`；在线复验 `{dict(sorted(online_status_counts.items()))}`（详细表见上方）",
         f"- 原始代码同步：完整代码 `{sum(bool(record['archive'].get('completeCode')) for record in records)}/{len(records)}`，可提交代码 `{sum(bool(record['archive'].get('directlySubmittableCode')) for record in records)}/{len(records)}`；原始归档不等于公开发布版本",
         f"- 公开清洗版本：`{public_ready_count}/{len(records)}` 道通过本地门禁、YOJ Accepted 与源码回收核验",
         f"- 在线复验：已提交 `{online_attempted}/{len(records)}`，其中 `Accepted` `{online_accepted}`、明确非通过 `{online_nonaccepted}`；另有表单/模板跳过 `{len(online_skips)}` 道",
         f"- 在线源码回收：`Accepted` 中已回收并比对 `{online_visible}/{online_accepted}`；编号、状态、跳过原因和源码回收证据保存在被忽略的 `staging/online-verification.json`",
-        f"- YOJ 快捷提交入口：`{quick_submit_count}` 道题提供同语言代码加载、复制和用户点击触发的提交表单；未通过/特殊提交形态不生成快捷入口",
+        f"- YOJ 快捷提交入口：严格 `PUBLIC_READY` `{quick_submit_count}` 道；另有当前公开历史 Accepted 归档 `{len(archived_quick_by_no)}` 道提供带警告的人工尝试入口；当前公开且仓库有代码 `{current_public_code_count}` 道，不改变发布状态",
         "- 题面中的时间/内存是题目页限制；每条归档记录的 `archive.acceptedRun` 单独保存某次 AC 的实测耗时/内存，二者不混用",
         "- 自动调度：每天北京时间 22:30–23:30 尝试运行；仅在本机用户已登录且钥匙串可用时执行，当天未登录/未解锁则跳过，不在次日补跑；未完成请求保留断点，在下一天窗口继续；YOJ 登录密码只从本机钥匙串注入，不进入 GitHub",
         "- GitHub Pages：部署 workflow 已进入仓库；首次使用需在仓库 Settings → Pages 将 Source 设为 GitHub Actions，启用后快捷链接才会提供可执行页面",
@@ -1266,8 +1366,11 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
             status = f"{status}; ONLINE_{online_status.upper().replace(' ', '_')}"
         elif skip_reason:
             status = f"{status}; ONLINE_SKIPPED_{skip_reason.upper().replace(' ', '_')}"
-        if online_status == "Accepted" and direct:
+        archived_quick = archived_quick_by_no.get(int(record["problemNo"]))
+        if base_status == "PUBLIC_READY" and online_status == "Accepted" and direct:
             quick_link = f"[复制并提交]({QUICK_SUBMIT_PAGE}?pno={record['problemNo']})"
+        elif archived_quick:
+            quick_link = f"[尝试快捷提交（历史 AC）]({QUICK_SUBMIT_PAGE}?pno={record['problemNo']}&mode=archive)"
         else:
             quick_link = "—"
         lines.append(
@@ -1338,14 +1441,21 @@ def make_quick_submit_manifest(records: list[dict[str, Any]], manifest: dict[str
 
     The page fetches source text from raw.githubusercontent.com at click time;
     this manifest therefore contains paths and hashes, not credentials or
-    server-side session data.  Only a record explicitly promoted to
-    ``PUBLIC_READY`` gets a submit entry.
+    server-side session data.  ``entries`` remains the strict PUBLIC_READY
+    list.  ``archivedEntries`` is a separate, warning-bearing fallback for a
+    currently public problem whose historical Accepted source is still in the
+    repository but has not completed the current release gate.
     """
 
     ready_rows = load_public_ready()
+    online_public_numbers = load_online_public_numbers()
     entries: list[dict[str, Any]] = []
+    archived_entries: list[dict[str, Any]] = []
     for record in sorted(records, key=get_problem_no):
         if record.get("public", {}).get("status") != "PUBLIC_READY":
+            archived = make_archived_quick_entry(record, online_public_numbers)
+            if archived:
+                archived_entries.append(archived)
             continue
         ready = ready_rows.get(str(record.get("problemNo")))
         if not ready:
@@ -1378,13 +1488,14 @@ def make_quick_submit_manifest(records: list[dict[str, Any]], manifest: dict[str
             }
         )
     return {
-        "schemaVersion": 1,
+        "schemaVersion": 2,
         "generatedAt": str(manifest.get("capturedAt") or ""),
         "repository": "Scorpascal/RUC_YOJ",
         "page": "yoj-quick-submit.html",
         "yojBase": SITE_BASE.rstrip("/"),
         "requiresUserLogin": True,
         "entries": entries,
+        "archivedEntries": archived_entries,
     }
 
 
@@ -1451,7 +1562,10 @@ def build() -> int:
                         bind_public_ready(record, ready_entry)
                 records.append(record)
                 statement_texts.append((previous_statement_path, statement))
-                if not record["archive"]["sourceHashMatchesMetadata"]:
+                if (
+                    record["archive"].get("status") != "TOPIC_CAPTURED"
+                    and not record["archive"]["sourceHashMatchesMetadata"]
+                ):
                     hash_mismatches += 1
                 continue
         folder = str(entry.get("folder") or "").strip()
@@ -1490,7 +1604,10 @@ def build() -> int:
         records.append(record)
         statement_rel = Path(record["public"]["statement"])
         statement_texts.append((ROOT / statement_rel, statement))
-        if not record["archive"]["sourceHashMatchesMetadata"]:
+        if (
+            record["archive"].get("status") != "TOPIC_CAPTURED"
+            and not record["archive"]["sourceHashMatchesMetadata"]
+        ):
             hash_mismatches += 1
 
     if args.check:

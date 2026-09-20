@@ -23,6 +23,7 @@ from urllib.parse import urljoin, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from audit_online_availability import validate_snapshot  # noqa: E402
 from online_verify import YoJClient, clean_text, parse_submission_rows  # noqa: E402
 
 
@@ -179,6 +180,14 @@ def all_public_problem_numbers(
     return numbers, fetched_pages
 
 
+def load_public_snapshot(path: Path) -> tuple[set[int], int]:
+    """Load a previously captured public-index snapshot without new requests."""
+
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    rows = validate_snapshot(payload)
+    return {int(row["problemNo"]) for row in rows}, 0
+
+
 def extract_title(page: str, fallback: str) -> str:
     for pattern in (
         r"<h1[^>]*>(.*?)</h1>",
@@ -223,6 +232,15 @@ def existing_context() -> tuple[dict[str, Any], dict[int, dict[str, Any]], set[i
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
     entries = {int(row["problemNo"]): row for row in manifest.get("problems", [])}
     return manifest, entries, local_problem_numbers(entries)
+
+
+def submission_number(value: Any) -> int:
+    """Treat topic-only records without a submission as zero."""
+
+    try:
+        return int(str(value or "0"))
+    except (TypeError, ValueError):
+        return 0
 
 
 class RateLimiter:
@@ -491,17 +509,31 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="按 YOJ 公开新题号增量读取题面和本人 Accepted 源码")
     parser.add_argument("--request-interval", type=float, default=1.0, help="只读请求最小间隔秒数，默认 1")
     parser.add_argument("--max-pages", type=int, default=100, help="公开题目/提交列表最多扫描页数，默认 100")
+    parser.add_argument(
+        "--public-only",
+        action="store_true",
+        help="不登录、不扫描提交，只为公开新题号抓取题面并写入 TOPIC_CAPTURED",
+    )
+    parser.add_argument(
+        "--public-snapshot",
+        type=Path,
+        help="使用已保存的公开列表快照计算差集，避免再次请求 YOJ 公开列表",
+    )
     args = parser.parse_args()
     if args.request_interval < 0 or args.max_pages < 1:
         raise SystemExit("请求间隔必须非负，页数必须为正数")
 
     manifest, existing, known_problem_numbers = existing_context()
     client = YoJClient()
-    client.login()
+    if not args.public_only:
+        client.login()
     limiter = RateLimiter(args.request_interval)
     now = utc_now()
-    high_water = max((int(row.get("submissionNo", 0)) for row in existing.values()), default=0)
-    public_numbers, public_pages = all_public_problem_numbers(client, limiter, args.max_pages)
+    high_water = max((submission_number(row.get("submissionNo")) for row in existing.values()), default=0)
+    if args.public_snapshot:
+        public_numbers, public_pages = load_public_snapshot(args.public_snapshot)
+    else:
+        public_numbers, public_pages = all_public_problem_numbers(client, limiter, args.max_pages)
     new_problem_numbers = sorted(public_numbers - known_problem_numbers)
     if not new_problem_numbers:
         result = {
@@ -522,6 +554,54 @@ def main() -> int:
             "changedFiles": 0,
             "manifestUpdated": False,
             "downstream": "SKIP_ALL",
+        }
+        save_capture_result(result)
+        print(json.dumps(result, ensure_ascii=False))
+        return 0
+
+    if args.public_only:
+        changed_files = 0
+        changed_problems = 0
+        for pno in new_problem_numbers:
+            problem_path = f"/index.php/index/problem/detail/pno/{pno}.html"
+            problem_html = fetch(client, limiter, problem_path)
+            title = extract_title(problem_html, "")
+            folder_name = f"{pno:04d}_{safe_title(title)}"
+            candidate = build_topic_entry(pno, title, folder_name, problem_html, now)
+            changed_files += materialize_topic(candidate)
+            candidate.pop("_materialized", None)
+            manifest_entry = {key: value for key, value in candidate.items() if not key.startswith("_")}
+            manifest.setdefault("problems", []).append(manifest_entry)
+            existing[pno] = manifest_entry
+            changed_problems += 1
+
+        manifest["problems"] = sorted(manifest.get("problems", []), key=lambda item: int(item["problemNo"]))
+        manifest["capturedAt"] = now
+        totals = manifest.setdefault("totals", {})
+        totals["uniqueProblems"] = len(manifest["problems"])
+        totals["materializedProblemDirectories"] = len(manifest["problems"])
+        totals["materializedCodeFiles"] = sum(
+            bool((item.get("files") or {}).get("completeCode")) for item in manifest["problems"]
+        )
+        atomic_write(MANIFEST_PATH, (json.dumps(manifest, ensure_ascii=False, indent=2) + "\n").encode("utf-8"))
+        result = {
+            "schemaVersion": 2,
+            "status": "NEW_PROBLEMS_FOUND",
+            "scope": "public_problem_numbers_only",
+            "capturedAt": now,
+            "publicProblemListPages": public_pages,
+            "publicProblemNumbersSeen": len(public_numbers),
+            "highWaterSubmissionNo": high_water,
+            "acceptedProblemsSeen": None,
+            "submissionScan": "SKIPPED_PUBLIC_ONLY",
+            "knownProblemNumbers": len(known_problem_numbers),
+            "newProblemNumbers": new_problem_numbers,
+            "newTopicNumbers": new_problem_numbers,
+            "newAcNumbers": [],
+            "changedProblems": changed_problems,
+            "changedFiles": changed_files,
+            "manifestUpdated": bool(changed_files or changed_problems),
+            "downstream": "TOPIC_CAPTURED_ONLY",
         }
         save_capture_result(result)
         print(json.dumps(result, ensure_ascii=False))
