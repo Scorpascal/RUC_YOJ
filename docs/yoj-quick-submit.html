@@ -74,6 +74,9 @@
     status.textContent = message;
     status.style.color = isError ? "#c0392b" : "";
   }
+  function displayTitle(value) {
+    return String(value || "未命名题目").replace(/^#?\s*\d+\s*[.．、]\s*/, "").trim() || "未命名题目";
+  }
   function pill(label, value) {
     const item = document.createElement("span");
     item.className = "pill";
@@ -161,7 +164,7 @@
     const manifest = await (await fetch("data/quick-submit.json", { cache: "no-store" })).json();
     entry = manifest.entries.find((item) => Number(item.problemNo) === problemNo);
     if (!entry) { title.textContent = `题目 ${problemNo} 暂无快捷提交`; setStatus("该题尚未有可公开的一键提交记录，或属于特殊提交形态。", true); return; }
-    title.textContent = `${entry.problemNo}. ${entry.title}`;
+    title.textContent = `${entry.problemNo}. ${displayTitle(entry.title)}`;
     meta.append(pill("YOJ 语言", entry.language), pill("在线状态", entry.onlineStatus), pill("题号", String(entry.problemNo)));
     open.href = entry.problemUrl;
     const response = await fetch(entry.codeUrl, { cache: "no-store" });

@@ -29,15 +29,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Configure Pages
-        uses: actions/configure-pages@v5
-      - name: Verify committed Pages catalog
+        uses: actions/configure-pages@v6
+      - name: Generate Pages data
+        run: python3 tools/build_site_catalog.py
+      - name: Verify generated Pages data
         run: python3 tools/build_site_catalog.py --check
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: docs
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

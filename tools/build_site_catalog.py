@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Build the small, public-safe catalog consumed by the GitHub Pages homepage.
+"""Build the small, public-safe Pages data consumed by the homepage.
 
 The full problem records stay in ``data/problems.json``.  Pages only needs a
 minimal index: title, links, verification state, limits, and an intentionally
-conservative first-pass knowledge-point classification derived from titles.
+conservative first-pass knowledge-point classification derived from titles.  The
+same command also refreshes the Pages-local quick-submit manifest from its
+repository source so the two generated copies cannot drift.
 """
 
 from __future__ import annotations
@@ -127,6 +129,16 @@ def build_payload() -> dict:
     }
 
 
+def sync_pages_data(rendered_catalog: str) -> None:
+    """Write all generated Pages data from repository-owned source files."""
+
+    quick_text = QUICK_SUBMIT_PATH.read_text(encoding="utf-8")
+    QUICK_SUBMIT_PAGES_PATH.parent.mkdir(parents=True, exist_ok=True)
+    QUICK_SUBMIT_PAGES_PATH.write_text(quick_text, encoding="utf-8")
+    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT_PATH.write_text(rendered_catalog, encoding="utf-8")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="生成或校验 GitHub Pages 题库目录")
     parser.add_argument(
@@ -180,9 +192,11 @@ def main() -> int:
         )
         return 0
 
-    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT_PATH.write_text(rendered, encoding="utf-8")
-    print(f"built {len(payload['entries'])} entries -> {OUTPUT_PATH}")
+    sync_pages_data(rendered)
+    print(
+        f"built {len(payload['entries'])} entries -> {OUTPUT_PATH}; "
+        f"synced -> {QUICK_SUBMIT_PAGES_PATH}"
+    )
     return 0
 
 

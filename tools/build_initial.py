@@ -17,6 +17,7 @@ import argparse
 import hashlib
 import json
 import re
+import subprocess
 import sys
 from collections import Counter
 from pathlib import Path
@@ -119,6 +120,31 @@ def write_text(path: Path, content: str) -> None:
 
 def write_json(path: Path, value: Any) -> None:
     write_text(path, json.dumps(value, ensure_ascii=False, indent=2) + "\n")
+
+
+def rebuild_site_catalog() -> str | None:
+    """Rebuild the committed Pages snapshot after its source indexes change.
+
+    ``catalog.json`` is generated from the files written by this script.  Keep
+    the generation in this successful write path so a manual ``build_initial``
+    run cannot leave the repository with a stale Pages catalog that only fails
+    later in GitHub Actions.
+    """
+
+    try:
+        result = subprocess.run(
+            [sys.executable, str(ROOT / "tools" / "build_site_catalog.py")],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    except OSError as exc:
+        return f"Pages catalog generation could not start: {exc}"
+    if result.returncode == 0:
+        return None
+    detail = (result.stderr or result.stdout).strip()
+    return f"Pages catalog generation failed (exit {result.returncode}): {detail}"
 
 
 def local_name(node: Any) -> str:
@@ -1481,6 +1507,16 @@ def build() -> int:
             "records": records,
         },
     )
+    quick_submit_manifest = make_quick_submit_manifest(records, manifest)
+    write_json(DATA_ROOT / "quick-submit.json", quick_submit_manifest)
+    # GitHub Pages publishes only docs/.  Keep a copy in data/ for repository
+    # consumers and a Pages-local copy for same-origin deployments.
+    write_json(ROOT / "docs" / QUICK_SUBMIT_MANIFEST_URL, quick_submit_manifest)
+    write_text(ROOT / "README.md", make_readme(records, manifest))
+    catalog_failure = rebuild_site_catalog()
+    if catalog_failure:
+        failures.append(catalog_failure)
+
     write_json(
         DATA_ROOT / "build-report.json",
         {
@@ -1504,15 +1540,10 @@ def build() -> int:
                 "题面来自 p_content，不公开原始 HTML。",
                 "公式转换为尽量可读的 LaTeX；含 warnings 的题目必须人工复核。",
                 "题面图片和附件在发现后下载到对应题目目录的 assets/；失败项保留原始链接并记录 warning。",
+                "data/problems.json、README、quick-submit 和 Pages catalog 在同一成功构建路径中生成。",
             ],
         },
     )
-    quick_submit_manifest = make_quick_submit_manifest(records, manifest)
-    write_json(DATA_ROOT / "quick-submit.json", quick_submit_manifest)
-    # GitHub Pages publishes only docs/.  Keep a copy in data/ for repository
-    # consumers and a Pages-local copy for same-origin deployments.
-    write_json(ROOT / "docs" / QUICK_SUBMIT_MANIFEST_URL, quick_submit_manifest)
-    write_text(ROOT / "README.md", make_readme(records, manifest))
 
     print(
         json.dumps(
