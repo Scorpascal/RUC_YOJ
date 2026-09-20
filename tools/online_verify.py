@@ -13,6 +13,7 @@ import html
 import json
 import os
 import re
+import argparse
 import subprocess
 import sys
 import time
@@ -24,10 +25,8 @@ from urllib.request import HTTPCookieProcessor, Request, build_opener
 from http.cookiejar import CookieJar
 
 
-ROOT = Path(os.environ["YOJ_ROOT"]).resolve()
+ROOT = Path(os.environ.get("YOJ_ROOT", Path(__file__).resolve().parents[1])).resolve()
 BASE = "http://yoj.ruc.edu.cn"
-LOGIN_USER = os.environ["YOJ_LOGIN_USER"]
-LOGIN_PASS = os.environ["YOJ_LOGIN_PASS"]
 REPORT_PATH = ROOT / "staging" / "online-verification.json"
 SUBMIT_INTERVAL = 15.0
 POLL_INTERVAL = 3.0
@@ -49,6 +48,8 @@ def clean_text(value: str) -> str:
 class YoJClient:
     def __init__(self) -> None:
         self.opener = build_opener(HTTPCookieProcessor(CookieJar()))
+        self.login_user = os.environ.get("YOJ_LOGIN_USER", "")
+        self.login_pass = os.environ.get("YOJ_LOGIN_PASS", "")
 
     def request(self, path: str, data: dict[str, str] | None = None, referer: str = "") -> str:
         url = urljoin(BASE + "/", path)
@@ -67,9 +68,11 @@ class YoJClient:
             return response.read().decode("utf-8", errors="replace")
 
     def login(self) -> None:
+        if not self.login_user or not self.login_pass:
+            raise RuntimeError("YOJ_LOGIN_USER/YOJ_LOGIN_PASS 未设置；凭据只应由外部密钥存储注入")
         raw = self.request(
             "/index.php/index/login/login2.html",
-            {"username": LOGIN_USER, "passwd": LOGIN_PASS},
+            {"username": self.login_user, "passwd": self.login_pass},
             "/index.php/index/index/signin.html",
         ).lstrip("\ufeff")
         result = json.loads(raw)
@@ -105,14 +108,18 @@ def save_report(records: dict[int, dict[str, Any]], skips: dict[int, dict[str, A
 
 def read_candidates() -> dict[int, tuple[Path, str]]:
     candidates: dict[int, tuple[Path, str]] = {}
-    for path in sorted((ROOT / "staging" / "cleaned-code").glob("????_*/*_可提交代码.*"), key=lambda item: item.as_posix()):
-        info = candidate_info(path)
-        if info is None:
-            continue
-        problem_no, language = info
-        if problem_no in candidates:
-            raise RuntimeError(f"同一题发现多个可提交候选: {problem_no}")
-        candidates[problem_no] = (path, language)
+    # Prefer the most reviewed candidate directory.  A lower-priority
+    # directory is used only when the problem has no higher-priority result.
+    for directory_name in ("cleaned-code", "repaired-code", "cpp17-portable", "cpp17-compatible"):
+        directory = ROOT / "staging" / directory_name
+        for path in sorted(directory.glob("????_*/*_可提交代码.*"), key=lambda item: item.as_posix()):
+            info = candidate_info(path)
+            if info is None:
+                continue
+            problem_no, language = info
+            if problem_no in candidates:
+                continue
+            candidates[problem_no] = (path, language)
     return candidates
 
 
@@ -226,12 +233,20 @@ def make_record(problem: dict[str, Any], path: Path, language: str, row: dict[st
     }
 
 
-def record_skip(skips: dict[int, dict[str, Any]], problem: dict[str, Any], path: Path, language: str, reason: str) -> None:
+def record_skip(
+    skips: dict[int, dict[str, Any]],
+    problem: dict[str, Any],
+    path: Path,
+    language: str,
+    reason: str,
+    candidate_sha256: str,
+) -> None:
     skips[int(problem["problemNo"])] = {
         "problemNo": int(problem["problemNo"]),
         "title": str(problem.get("title") or path.parent.name.split("_", 1)[-1]),
         "language": language,
         "candidatePath": path.relative_to(ROOT).as_posix(),
+        "candidateSha256": candidate_sha256,
         "reason": reason,
         "recordedAt": utc_now(),
     }
@@ -251,6 +266,27 @@ def rebuild_public_index() -> None:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description="可恢复、限速的 YOJ 在线复验执行器")
+    parser.add_argument(
+        "--max-submissions",
+        type=int,
+        default=int(os.environ.get("YOJ_MAX_SUBMISSIONS", "20")),
+        help="本轮最多发出的新提交数，默认 20",
+    )
+    parser.add_argument(
+        "--submit-interval",
+        type=float,
+        default=float(os.environ.get("YOJ_SUBMIT_INTERVAL", str(SUBMIT_INTERVAL))),
+        help="相邻提交的最小间隔秒数，默认 15",
+    )
+    parser.add_argument(
+        "--reverify-accepted",
+        action="store_true",
+        help="即使候选哈希未变化也重新验证；定时任务默认不启用",
+    )
+    args = parser.parse_args()
+    if args.max_submissions < 0 or args.submit_interval < 0:
+        raise SystemExit("--max-submissions 和 --submit-interval 不能为负数")
     problems, records, skips = load_context()
     candidates = read_candidates()
     client = YoJClient()
@@ -261,13 +297,27 @@ def main() -> int:
     actual_submissions = 0
 
     for problem_no in sorted(candidates):
-        if problem_no in records or problem_no in skips:
-            continue
+        if actual_submissions >= args.max_submissions:
+            print(f"达到本轮提交预算 {args.max_submissions}，保存检查点后停止。", flush=True)
+            break
         path, language = candidates[problem_no]
+        candidate_sha256 = hashlib.sha256(path.read_bytes()).hexdigest()
+        previous = records.get(problem_no)
+        if previous and previous.get("candidateSha256") == candidate_sha256:
+            if not (args.reverify_accepted and previous.get("status") == "Accepted"):
+                continue
+        previous_skip = skips.get(problem_no)
+        if previous_skip and previous_skip.get("candidateSha256") == candidate_sha256:
+            continue
+        # A changed candidate is a new submission intent.  Remove only the
+        # old per-problem pointer; the immutable YOJ submission evidence stays
+        # in the previous Git/staging snapshot if an operator needs it.
+        records.pop(problem_no, None)
+        skips.pop(problem_no, None)
         problem = problems.get(problem_no, {"problemNo": problem_no, "title": path.parent.name.split("_", 1)[-1]})
 
         if problem_no in FILL_IN_PROBLEMS:
-            record_skip(skips, problem, path, language, "FILL_IN_FRAGMENT_TEMPLATE_UNAVAILABLE")
+            record_skip(skips, problem, path, language, "FILL_IN_FRAGMENT_TEMPLATE_UNAVAILABLE", candidate_sha256)
             save_report(records, skips)
             print(f"[{problem_no}] 跳过：固定模板不可得的填空片段。", flush=True)
             continue
@@ -277,12 +327,12 @@ def main() -> int:
             action, pid = parse_form(page, problem_no, language)
         except Exception as exc:  # noqa: BLE001 - persist the exact gate failure
             reason = str(exc)
-            record_skip(skips, problem, path, language, reason)
+            record_skip(skips, problem, path, language, reason, candidate_sha256)
             save_report(records, skips)
             print(f"[{problem_no}] 跳过：{reason}", flush=True)
             continue
 
-        wait_for = SUBMIT_INTERVAL - (time.monotonic() - last_submit_at)
+        wait_for = args.submit_interval - (time.monotonic() - last_submit_at)
         if wait_for > 0:
             print(f"[{problem_no}] 等待提交间隔 {wait_for:.1f}s", flush=True)
             time.sleep(wait_for)
@@ -335,4 +385,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

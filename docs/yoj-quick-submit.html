@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>YOJ 快捷提交 · RUC_YOJ</title>
+  <style>
+    :root { color-scheme: light dark; --bg:#f4f7fb; --card:#fff; --ink:#172033; --muted:#62708a; --line:#dfe6f0; --accent:#315efb; --accent-2:#2147c6; --warn:#fff4d7; --warn-ink:#775500; }
+    @media (prefers-color-scheme: dark) { :root { --bg:#101522; --card:#182033; --ink:#eef3ff; --muted:#a6b2c9; --line:#303c55; --warn:#3b3019; --warn-ink:#ffe08a; } }
+    * { box-sizing:border-box; }
+    body { margin:0; background:linear-gradient(135deg,var(--bg),#eaf0ff); color:var(--ink); font:16px/1.6 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC",sans-serif; }
+    main { width:min(980px,calc(100% - 32px)); margin:32px auto 60px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:18px; box-shadow:0 16px 50px #172b4d18; padding:24px; }
+    h1 { margin:0 0 8px; font-size:clamp(24px,4vw,38px); letter-spacing:-.03em; }
+    h2 { margin:28px 0 10px; font-size:20px; }
+    p { margin:8px 0; }
+    .muted { color:var(--muted); }
+    .meta { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0; }
+    .pill { display:inline-flex; align-items:center; gap:6px; border:1px solid var(--line); border-radius:999px; padding:4px 11px; color:var(--muted); font-size:14px; }
+    .pill strong { color:var(--ink); }
+    .notice { background:var(--warn); color:var(--warn-ink); border-radius:12px; padding:12px 14px; margin:16px 0; }
+    .actions { display:flex; flex-wrap:wrap; gap:10px; margin:18px 0; }
+    button, .button { appearance:none; border:0; border-radius:10px; padding:10px 15px; background:var(--accent); color:#fff; font:inherit; font-weight:650; cursor:pointer; text-decoration:none; }
+    button:hover, .button:hover { background:var(--accent-2); }
+    button.secondary, .button.secondary { background:transparent; border:1px solid var(--line); color:var(--ink); }
+    button:disabled { opacity:.5; cursor:not-allowed; }
+    pre { margin:0; max-height:65vh; overflow:auto; padding:18px; border-radius:12px; background:#111827; color:#e5edf8; font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace; white-space:pre; tab-size:4; }
+    code { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+    .status { min-height:1.6em; color:var(--muted); }
+    .small { font-size:13px; }
+    footer { margin-top:18px; color:var(--muted); font-size:13px; }
+    .hidden { display:none; }
+  </style>
+</head>
+<body>
+<main>
+  <section class="card">
+    <p class="muted">RUC_YOJ · YOJ Quick Submit</p>
+    <h1 id="title">正在读取题目…</h1>
+    <div class="meta" id="meta"></div>
+    <div class="notice">
+      该页面不保存账号、密码或 Cookie。请先在 YOJ 登录；“提交到 YOJ”只在你明确点击按钮后发送当前题号、当前语言和下方代码。页面使用的是仓库中已记录为 Accepted 的原始可提交归档。
+    </div>
+    <div class="actions">
+      <button id="copy" type="button" disabled>复制代码</button>
+      <button id="submit" type="button" disabled>复制并提交到 YOJ</button>
+      <a id="open" class="button secondary" target="_blank" rel="noopener" href="#">打开 YOJ 题目页</a>
+    </div>
+    <p id="status" class="status" role="status">正在加载公开代码…</p>
+    <h2>提交代码</h2>
+    <pre id="source"><code></code></pre>
+    <h2>登录后的页内填充（回退方案）</h2>
+    <p class="muted small">如果浏览器拦截了 HTTPS 页面到 YOJ HTTP 地址的跨站提交，请先打开题目页，再把下面的书签拖到书签栏；在 YOJ 题目页点击该书签，它会选择同一语言并填入代码，随后由你在 YOJ 页面点击提交。</p>
+    <p><a id="bookmarklet" class="button secondary" href="#">YOJ 页内填充书签</a></p>
+    <footer>代码来源与哈希由仓库构建脚本生成；提交结果以 YOJ 页面显示为准。</footer>
+  </section>
+</main>
+<script>
+(() => {
+  "use strict";
+  const qs = new URLSearchParams(location.search);
+  const problemNo = Number(qs.get("pno"));
+  const $ = (id) => document.getElementById(id);
+  const title = $("title"), meta = $("meta"), source = $("source").firstElementChild;
+  const status = $("status"), copy = $("copy"), submit = $("submit"), open = $("open"), bookmarklet = $("bookmarklet");
+  let entry = null, code = "";
+
+  function setStatus(message, isError = false) {
+    status.textContent = message;
+    status.style.color = isError ? "#c0392b" : "";
+  }
+  function pill(label, value) {
+    const item = document.createElement("span");
+    item.className = "pill";
+    item.innerHTML = `${label} <strong></strong>`;
+    item.lastElementChild.textContent = value;
+    return item;
+  }
+  async function copyText() {
+    try {
+      await navigator.clipboard.writeText(code);
+    } catch (_) {
+      const textarea = document.createElement("textarea");
+      textarea.value = code; textarea.style.position = "fixed"; textarea.style.opacity = "0";
+      document.body.appendChild(textarea); textarea.select(); document.execCommand("copy"); textarea.remove();
+    }
+    setStatus(`已复制 ${code.length} 个字符；语言为 ${entry.language}。`);
+  }
+  function addHidden(form, name, value) {
+    const input = document.createElement("input");
+    input.type = "hidden"; input.name = name; input.value = value; form.appendChild(input);
+  }
+  function submitToYOJ() {
+    if (!entry || !code) return;
+    const form = document.createElement("form");
+    form.method = "post"; form.action = entry.submitEndpoint; form.target = "_blank"; form.acceptCharset = "UTF-8";
+    addHidden(form, "pid", String(entry.problemNo));
+    addHidden(form, "language", entry.language);
+    addHidden(form, "code", code);
+    document.body.appendChild(form);
+    setStatus(`已按 ${entry.language} 发送题号 ${entry.problemNo} 的提交窗口；请在 YOJ 页面确认登录态和结果。`);
+    form.submit();
+    window.setTimeout(() => form.remove(), 3000);
+  }
+  function makeBookmarklet() {
+    const language = JSON.stringify(entry.language);
+    const codeUrl = JSON.stringify(entry.codeUrl);
+    const script = `(async()=>{const lang=${language},url=${codeUrl};try{const code=await (await fetch(url)).text();const item=[...document.querySelectorAll('[data-value]')].find(x=>x.getAttribute('data-value')===lang);if(item)item.click();if(window.monaco?.editor?.getModels?.().length)window.monaco.editor.getModels()[0].setValue(code);else{const e=document.querySelector('textarea[name="code"],textarea#editor,textarea');if(!e)throw new Error('找不到编辑框');e.value=code;e.dispatchEvent(new Event('input',{bubbles:true}));}alert('已填入语言 '+lang+'；请检查后在 YOJ 页面点击提交。')}catch(e){alert('YOJ 填充失败：'+e.message)}})();void 0`;
+    // Keep the already percent-encoded raw URL intact.  Encoding the whole
+    // javascript: payload again would turn %E4... into %25E4... and make the
+    // bookmarklet request the wrong GitHub path.
+    bookmarklet.href = "javascript:" + script;
+  }
+  async function load() {
+    if (!Number.isInteger(problemNo) || problemNo <= 0) { title.textContent = "缺少有效题号"; setStatus("请从 README 的快捷提交链接进入。", true); return; }
+    const manifest = await (await fetch("data/quick-submit.json", { cache: "no-store" })).json();
+    entry = manifest.entries.find((item) => Number(item.problemNo) === problemNo);
+    if (!entry) { title.textContent = `题目 ${problemNo} 暂无快捷提交`; setStatus("该题尚未有可公开的一键提交记录，或属于特殊提交形态。", true); return; }
+    title.textContent = `${entry.problemNo}. ${entry.title}`;
+    meta.append(pill("YOJ 语言", entry.language), pill("在线状态", entry.onlineStatus), pill("题号", String(entry.problemNo)));
+    open.href = entry.problemUrl;
+    const response = await fetch(entry.codeUrl, { cache: "no-store" });
+    if (!response.ok) throw new Error(`源码加载失败（HTTP ${response.status}）`);
+    code = await response.text();
+    source.textContent = code;
+    copy.disabled = false; submit.disabled = false;
+    makeBookmarklet();
+    setStatus(`已加载；提交时会固定使用语言 ${entry.language}，请先确认 YOJ 登录态。`);
+  }
+  copy.addEventListener("click", copyText);
+  submit.addEventListener("click", () => {
+    if (window.confirm(`确认向 YOJ 题号 ${entry?.problemNo} 提交当前代码？语言：${entry?.language}`)) submitToYOJ();
+  });
+  load().catch((error) => { title.textContent = "快捷提交页面加载失败"; setStatus(error.message, true); });
+})();
+</script>
+</body>
+</html>

@@ -42,6 +42,9 @@ DATA_ROOT = ROOT / "data"
 MANIFEST_PATH = RAW_ROOT / "AC抓取清单.json"
 ONLINE_REPORT_PATH = ROOT / "staging" / "online-verification.json"
 SITE_BASE = "http://yoj.ruc.edu.cn/"
+QUICK_SUBMIT_PAGE = "https://scorpascal.github.io/RUC_YOJ/yoj-quick-submit.html"
+QUICK_SUBMIT_MANIFEST_URL = "data/quick-submit.json"
+RAW_GITHUB_BASE = "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/"
 SCHEMA_VERSION = 1
 MAX_ASSET_BYTES = 64 * 1024 * 1024
 CODE_ASSET_SUFFIXES = {".cc", ".cpp", ".cxx"}
@@ -933,11 +936,16 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         row.get("status") == "Accepted" and (row.get("roundTrip") or {}).get("status") == "VISIBLE"
         for row in online_rows.values()
     )
+    quick_submit_count = sum(
+        online_rows.get(str(record["problemNo"]), {}).get("status") == "Accepted"
+        and bool(record["archive"].get("directlySubmittableCode"))
+        for record in records
+    )
     lines = [
         "# RUC YOJ 题解归档",
         "",
         "> 这是按 Method 指引生成的离线初步构建。当前把原始题面快照转换成 Markdown：公式尽量保留为 LaTeX，题面图片优先本地化到对应题目目录；原始 HTML 不进入公开索引。",
-        "> `代码库/` 是抓取原始归档，代码仍处于待脱敏、待 C++17/Python 3.14 规范化、待提交形态核验和待在线复验状态，不能把本页的“原始代码”链接理解为最终公开题解。",
+        "> `代码库/` 是抓取原始归档，代码仍处于待脱敏、待 C++17/Python 3.14 规范化和待提交形态核验状态；在线复验结果按题目索引单独显示，不能把本页的“原始代码”链接理解为最终公开题解。",
         "",
         "## 当前状态",
         "",
@@ -947,14 +955,15 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         f"- 原始代码同步：完整代码 `{sum(bool(record['archive'].get('completeCode')) for record in records)}/{len(records)}`，可提交代码 `{sum(bool(record['archive'].get('directlySubmittableCode')) for record in records)}/{len(records)}`；两者均为原始归档，尚不代表已清洗或已完成提交形态核验",
         f"- 在线复验：已提交 `{online_attempted}/{len(records)}`，其中 `Accepted` `{online_accepted}`、明确非通过 `{online_nonaccepted}`；另有表单/模板跳过 `{len(online_skips)}` 道",
         f"- 在线源码回收：`Accepted` 中已回收并比对 `{online_visible}/{online_accepted}`；编号、状态、跳过原因和源码回收证据保存在被忽略的 `staging/online-verification.json`",
+        f"- YOJ 快捷提交入口：`{quick_submit_count}` 道题提供同语言代码加载、复制和用户点击触发的提交表单；未通过/特殊提交形态不生成快捷入口",
         "- 题面中的时间/内存是题目页限制；每条归档记录的 `archive.acceptedRun` 单独保存某次 AC 的实测耗时/内存，二者不混用",
-        "- 自动调度和 GitHub 更新：尚未部署；在线复验属于后台验证，不改变原始归档",
+        "- 自动调度：仓库提供可恢复执行器和 macOS launchd 模板；YOJ 登录密码只从本机钥匙串注入，不进入 GitHub",
         "- 维护窗口：按 Method 约定，`23:55–00:10` 暂停网络操作；题面更新需要重新抓取并复核图片、公式和题面差异",
         "",
         "## 题目索引",
         "",
-        "| 题号 | 题目 | 题面（LaTeX/图片） | 原始完整代码（同步状态） | 原始可提交代码（同步状态） | 语言 | 状态 |",
-        "| ---: | --- | --- | --- | --- | --- | --- |",
+        "| 题号 | 题目 | 题面（LaTeX/图片） | 原始完整代码（同步状态） | 原始可提交代码（同步状态） | 语言 | 快捷提交 | 状态 |",
+        "| ---: | --- | --- | --- | --- | --- | --- | --- |",
     ]
     for record in records:
         statement = markdown_path(record["public"]["statement"])
@@ -976,8 +985,12 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
             status = f"{status}; ONLINE_{online_status.upper().replace(' ', '_')}"
         elif skip_reason:
             status = f"{status}; ONLINE_SKIPPED_{skip_reason.upper().replace(' ', '_')}"
+        if online_status == "Accepted" and direct:
+            quick_link = f"[复制并提交]({QUICK_SUBMIT_PAGE}?pno={record['problemNo']})"
+        else:
+            quick_link = "—"
         lines.append(
-            f"| {record['problemNo']} | {title} | [查看题面]({statement}) | {complete_link} | {direct_link} | `{record['language']}` | `{status}` |"
+            f"| {record['problemNo']} | {title} | [查看题面]({statement}) | {complete_link} | {direct_link} | `{record['language']}` | {quick_link} | `{status}` |"
         )
     lines.extend(
         [
@@ -988,6 +1001,10 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
             "2. 依据题目实际提交框核验 C++17、Python 3.14 及特殊提交形态；完整代码与可直接粘贴的分块代码分别保留。",
             "3. 在非维护窗口使用独立测试环境提交验证；只有在线显示 Accepted 且题面/源码/哈希审计通过，才把状态提升为 `PUBLIC_READY`。",
             "4. 由构建脚本重新生成 README 和 `data/problems.json`，再进行敏感信息扫描、差异审查和 GitHub PR。",
+            "",
+            "## YOJ 快捷提交说明",
+            "",
+            "README 的“复制并提交”链接打开 GitHub Pages 辅助页：页面显示题号和站点语言，读取同一条公开代码后提供复制按钮，并在用户明确点击后以 `pid`、`language`、`code` 提交到 YOJ。页面不保存账号、密码或 Cookie。YOJ 仅支持 HTTP 时，浏览器可能拦截跨站表单；此时页面会保留复制代码、打开题目页和书签脚本回退，不会伪造提交成功。",
             "",
             "后台操作方案见被 `.gitignore` 排除的 `method/`，原始抓取材料见 `代码库/`。",
             "",
@@ -1024,6 +1041,66 @@ def apply_online_status(records: list[dict[str, Any]]) -> None:
         elif problem_key in online_skips:
             reason = str(online_skips[problem_key].get("reason") or "UNKNOWN").upper().replace(" ", "_")
             record["public"]["onlineVerification"] = f"ONLINE_SKIPPED_{reason}"
+
+
+def make_quick_submit_manifest(records: list[dict[str, Any]], manifest: dict[str, Any]) -> dict[str, Any]:
+    """Generate the public, code-free routing manifest for the helper page.
+
+    The page fetches source text from raw.githubusercontent.com at click time;
+    this manifest therefore contains paths and hashes, not credentials or
+    server-side session data.  Only a record with an observed Accepted result
+    gets a submit entry.
+    """
+
+    online_data: dict[str, Any] = {}
+    if ONLINE_REPORT_PATH.is_file():
+        try:
+            online_data = json_load(ONLINE_REPORT_PATH)
+        except (OSError, ValueError, TypeError):
+            online_data = {}
+    online_rows = {
+        str(row.get("problemNo")): row
+        for row in (online_data.get("records") or [])
+        if row.get("problemNo") is not None
+    }
+    entries: list[dict[str, Any]] = []
+    for record in sorted(records, key=get_problem_no):
+        online = online_rows.get(str(record.get("problemNo"))) or {}
+        if str(online.get("status") or "") != "Accepted":
+            continue
+        code_path = str(
+            record.get("public", {}).get("directlySubmittableCode")
+            or record.get("archive", {}).get("directlySubmittableCode")
+            or ""
+        )
+        local_path = ROOT / code_path if code_path else None
+        if local_path is None or not local_path.is_file():
+            continue
+        language = str(online.get("language") or record.get("language") or "").strip()
+        entries.append(
+            {
+                "problemNo": int(record["problemNo"]),
+                "title": str(record.get("title") or ""),
+                "language": language,
+                "problemUrl": f"{SITE_BASE}index.php/index/problem/detail/pno/{record['problemNo']}.html",
+                "submitEndpoint": f"{SITE_BASE}index.php/index/index/prob_submit.html",
+                "codePath": code_path,
+                "codeUrl": RAW_GITHUB_BASE + quote(code_path, safe="/-_.~"),
+                "codeSha256": source_file_hash(local_path),
+                "onlineStatus": "Accepted",
+                "onlineSubmissionNo": str(online.get("submissionNo") or ""),
+                "warning": "当前链接使用仓库中的原始可提交归档；公开清洗版本替换后需重新在线复验。",
+            }
+        )
+    return {
+        "schemaVersion": 1,
+        "generatedAt": str(manifest.get("capturedAt") or ""),
+        "repository": "Scorpascal/RUC_YOJ",
+        "page": "yoj-quick-submit.html",
+        "yojBase": SITE_BASE.rstrip("/"),
+        "requiresUserLogin": True,
+        "entries": entries,
+    }
 
 
 def build() -> int:
@@ -1122,6 +1199,11 @@ def build() -> int:
             ],
         },
     )
+    quick_submit_manifest = make_quick_submit_manifest(records, manifest)
+    write_json(DATA_ROOT / "quick-submit.json", quick_submit_manifest)
+    # GitHub Pages publishes only docs/.  Keep a copy in data/ for repository
+    # consumers and a Pages-local copy for same-origin deployments.
+    write_json(ROOT / "docs" / QUICK_SUBMIT_MANIFEST_URL, quick_submit_manifest)
     write_text(ROOT / "README.md", make_readme(records, manifest))
 
     print(
