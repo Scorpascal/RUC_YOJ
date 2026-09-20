@@ -40,6 +40,7 @@ RAW_ROOT = ROOT / "代码库"
 PUBLIC_ROOT = ROOT / "题解"
 DATA_ROOT = ROOT / "data"
 MANIFEST_PATH = RAW_ROOT / "AC抓取清单.json"
+ONLINE_REPORT_PATH = ROOT / "staging" / "online-verification.json"
 SITE_BASE = "http://yoj.ruc.edu.cn/"
 SCHEMA_VERSION = 1
 MAX_ASSET_BYTES = 64 * 1024 * 1024
@@ -903,6 +904,19 @@ def build_statement(
 def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
     captured_at = str(manifest.get("capturedAt") or "未记录")
     status_counts = Counter(record["public"]["status"] for record in records)
+    online_rows: dict[str, dict[str, Any]] = {}
+    if ONLINE_REPORT_PATH.is_file():
+        try:
+            online_data = json_load(ONLINE_REPORT_PATH)
+            online_rows = {
+                str(row.get("problemNo")): row
+                for row in (online_data.get("records") or [])
+                if row.get("problemNo") is not None
+            }
+        except (OSError, ValueError, TypeError):
+            online_rows = {}
+    online_accepted = sum(row.get("status") == "Accepted" for row in online_rows.values())
+    online_attempted = len(online_rows)
     lines = [
         "# RUC YOJ 题解归档",
         "",
@@ -915,6 +929,7 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         f"- 已生成题面：`{len(records)}` 道",
         f"- 状态统计：`{dict(sorted(status_counts.items()))}`",
         f"- 原始代码同步：完整代码 `{sum(bool(record['archive'].get('completeCode')) for record in records)}/{len(records)}`，可提交代码 `{sum(bool(record['archive'].get('directlySubmittableCode')) for record in records)}/{len(records)}`；两者均为原始归档，尚不代表已清洗或已完成提交形态核验",
+        f"- 在线复验：已记录 `{online_attempted}/{len(records)}`，其中 `Accepted` `{online_accepted}`；在线编号、状态和源码回收证据保存在被忽略的 `staging/online-verification.json`",
         "- 题面中的时间/内存是题目页限制；每条归档记录的 `archive.acceptedRun` 单独保存某次 AC 的实测耗时/内存，二者不混用",
         "- 自动同步、提交测试、AC 复抓和 GitHub 更新：本轮未执行",
         "- 维护窗口：按 Method 约定，`23:55–00:10` 暂停网络操作；题面更新需要重新抓取并复核图片、公式和题面差异",
@@ -928,11 +943,18 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         statement = markdown_path(record["public"]["statement"])
         complete = record["archive"].get("completeCode")
         direct = record["archive"].get("directlySubmittableCode")
-        complete_link = f"[已同步（待清洗）]({markdown_path(complete)})" if complete else "未同步"
-        direct_link = f"[已同步（提交形态待核验）]({markdown_path(direct)})" if direct else "未同步"
+        online = online_rows.get(str(record["problemNo"])) or {}
+        online_status = str(online.get("status") or "")
+        online_no = str(online.get("submissionNo") or "")
+        online_suffix = f"；在线 `Accepted` #{online_no}" if online_status == "Accepted" and online_no else ""
+        complete_link = f"[已同步（待清洗{online_suffix}）]({markdown_path(complete)})" if complete else "未同步"
+        direct_link = f"[已同步（提交形态待核验{online_suffix}）]({markdown_path(direct)})" if direct else "未同步"
         title = record["title"].replace("|", r"\|").replace("\n", " ")
+        status = str(record["public"]["status"])
+        if online_status:
+            status = f"{status}; ONLINE_{online_status.upper().replace(' ', '_')}"
         lines.append(
-            f"| {record['problemNo']} | {title} | [查看题面]({statement}) | {complete_link} | {direct_link} | `{record['language']}` | `{record['public']['status']}` |"
+            f"| {record['problemNo']} | {title} | [查看题面]({statement}) | {complete_link} | {direct_link} | `{record['language']}` | `{status}` |"
         )
     lines.extend(
         [
