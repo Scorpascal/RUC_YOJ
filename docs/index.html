@@ -61,6 +61,21 @@
     .hero-topics { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 16px; }
     .topic-button { border: 1px solid rgba(188, 214, 247, .44); border-radius: 999px; padding: 5px 14px; color: #d7e5fb; background: transparent; font-size: 13px; }
     .topic-button:hover, .topic-button:focus-visible, .topic-button.active { color: #fff; border-color: #75adff; background: rgba(57, 135, 246, .28); outline: none; }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 11px; margin: 24px 0 2px; }
+    .star-cta { display: inline-flex; min-height: 54px; align-items: center; gap: 10px; border: 1px solid rgba(255, 255, 255, .20); border-radius: 14px; padding: 8px 13px 8px 9px; color: #fff; background: linear-gradient(135deg, rgba(255, 255, 255, .16), rgba(255, 255, 255, .08)); box-shadow: 0 10px 28px rgba(0, 0, 0, .16); text-decoration: none; transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease; }
+    .star-cta:hover, .star-cta:focus-visible { border-color: rgba(255, 209, 102, .78); background: linear-gradient(135deg, rgba(255, 209, 102, .24), rgba(255, 255, 255, .12)); box-shadow: 0 14px 32px rgba(0, 0, 0, .23); outline: none; transform: translateY(-2px); }
+    .star-cta.star-cta-visited { border-color: rgba(124, 228, 179, .70); background: linear-gradient(135deg, rgba(31, 169, 113, .26), rgba(255, 255, 255, .10)); }
+    .star-cta.star-cta-visited .star-copy span { color: #bff3d9; }
+    .star-icon { display: grid; width: 36px; height: 36px; flex: 0 0 36px; place-items: center; border-radius: 10px; color: #5d3e00; background: #ffd166; font-size: 21px; line-height: 1; box-shadow: inset 0 -2px 0 rgba(93, 62, 0, .12); }
+    .star-copy { display: grid; gap: 1px; min-width: 0; }
+    .star-copy strong { font-size: 14px; line-height: 1.2; }
+    .star-copy span { color: #c7d9f3; font-size: 12px; line-height: 1.3; white-space: nowrap; }
+    .star-arrow { margin-left: 2px; color: #ffd166; font-size: 21px; line-height: 1; }
+    .site-stats { display: inline-flex; min-height: 54px; align-items: center; gap: 9px; border: 1px solid rgba(188, 214, 247, .24); border-radius: 14px; padding: 8px 11px; color: #c7d9f3; background: rgba(6, 24, 54, .28); }
+    .site-stats-label { font-size: 12px; white-space: nowrap; }
+    .site-stats a { display: inline-flex; align-items: center; min-height: 24px; border-radius: 5px; }
+    .site-stats a:focus-visible { outline: 3px solid rgba(151, 197, 255, .62); outline-offset: 2px; }
+    .site-stats img { display: block; height: 24px; min-width: 88px; }
     .hero-art { position: absolute; top: 0; right: -12px; width: min(520px, 45vw); height: 100%; opacity: .72; pointer-events: none; }
     .hero-art path { fill: none; stroke: #5e9cff; stroke-width: 1.4; }
     .hero-art circle { fill: #73adff; stroke: #17396c; stroke-width: 2; }
@@ -175,6 +190,8 @@
       h1 { font-size: clamp(39px, 12vw, 60px); }
       .hero-metrics { gap: 12px 18px; }
       .hero-metric + .hero-metric { padding-left: 18px; }
+      .hero-actions { align-items: stretch; }
+      .star-cta { flex: 1 1 100%; }
       .hero-search button { padding: 0 14px; }
       .hero-note { right: 0; bottom: 22px; font-size: 13px; }
       .path-section { display: block; padding-bottom: 32px; }
@@ -191,6 +208,8 @@
       .detail-actions { grid-template-columns: 1fr; }
     }
     @media (max-width: 430px) {
+      .hero-actions { display: grid; grid-template-columns: 1fr; }
+      .site-stats { justify-content: space-between; }
       .hero-search { display: grid; grid-template-columns: 38px 1fr; }
       .hero-search .search-icon { width: 38px; }
       .hero-search button { grid-column: 1 / -1; min-height: 39px; margin-top: 5px; }
@@ -216,6 +235,7 @@
         <h1>RUC YOJ<br>Solutions</h1>
         <p class="hero-lead">把题面、验证结果和代码入口放在同一条学习路径里。先找到题，再理解它，最后回到 YOJ 亲自提交。</p>
         <div class="hero-metrics" aria-label="题库统计"><div class="hero-metric"><strong id="hero-total">488</strong><span>道题目</span></div><div class="hero-metric"><strong id="hero-verified">436</strong><span>道已验证提交</span></div><div class="hero-metric"><strong id="hero-solutions">—</strong><span>篇详细题解</span></div></div>
+        <div class="hero-actions" aria-label="项目支持与访问统计"><a id="star-cta" class="star-cta" href="https://github.com/Scorpascal/RUC_YOJ" target="_blank" rel="noopener noreferrer" aria-label="打开 GitHub 仓库并给 RUC YOJ 点 Star"><span class="star-icon" aria-hidden="true">★</span><span class="star-copy"><strong>喜欢这个题库？</strong><span>去 GitHub 点个 Star 支持一下</span></span><span class="star-arrow" aria-hidden="true">↗</span></a><div class="site-stats" title="累计页面访问量，由 Visitor Badge 提供"><span class="site-stats-label">累计访问</span><a href="https://laobi.icu/" target="_blank" rel="noopener noreferrer" aria-label="查看 Visitor Badge 统计服务"><img src="https://visitor-badge.laobi.icu/badge?page_id=Scorpascal.RUC_YOJ&amp;left_text=%E8%AE%BF%E9%97%AE%E9%87%8F&amp;left_color=%23102b55&amp;right_color=%23ef5b5b" alt="RUC YOJ 页面访问量"></a></div></div>
         <form class="hero-search" id="hero-search-form" role="search"><span class="search-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg></span><input id="hero-search" type="search" placeholder="搜索题号、题目名称或知识点" aria-label="搜索题号、题目名称或知识点"><button type="submit">搜索</button></form>
         <div id="hero-topics" class="hero-topics" aria-label="热门知识点"></div>
       </div>
@@ -235,7 +255,7 @@
       </div>
     </section>
 
-    <section id="about" class="about-section" aria-labelledby="about-title"><div><h2 id="about-title">一个面向学生的开放学习题库</h2><p>本站把 RUC YOJ 的题面归档、可公开核对的在线状态、代码链接和快捷提交入口组织在一起。快捷提交仍然使用 YOJ 作为判题后端；页面不会保存账号、密码或 Cookie。</p></div><div class="about-aside"><strong>真实状态，分开表达</strong><span>“在线 AC”代表仓库记录里有 Accepted 提交；“题面已归档”不等于已经写完详细题解。</span></div></section>
+    <section id="about" class="about-section" aria-labelledby="about-title"><div><h2 id="about-title">一个面向学生的开放学习题库</h2><p>本站把 RUC YOJ 的题面归档、可公开核对的在线状态、代码链接和快捷提交入口组织在一起。快捷提交仍然使用 YOJ 作为判题后端；页面不会保存账号、密码或 Cookie。首屏的累计访问徽章由第三方 Visitor Badge 提供，仅用于展示页面访问量。</p></div><div class="about-aside"><strong>真实状态，分开表达</strong><span>“在线 AC”代表仓库记录里有 Accepted 提交；“题面已归档”不等于已经写完详细题解。</span></div></section>
   </main>
 
   <footer><div class="wrap footer-inner"><span>RUC YOJ Solutions · 公开题面索引与学习入口</span><span><a href="https://github.com/Scorpascal/RUC_YOJ">GitHub 仓库</a> · <a href="./yoj-quick-submit.html?pno=992">快捷提交</a></span></div></footer>
@@ -265,7 +285,7 @@
       function selectEntry(problemNo) { state.selected = problemNo; const url = new URL(location.href); url.searchParams.set("pno", String(problemNo)); history.replaceState(null, "", url); renderList(); renderDetail(); }
       function syncCatalog() { state.query = $("catalog-search").value; state.tag = $("tag-filter").value; state.status = $("status-filter").value; state.language = $("language-filter").value; state.page = 1; renderList(); }
       async function init() { const response = await fetch("data/catalog.json", { cache: "no-store" }); if (!response.ok) throw new Error(`题库目录加载失败（HTTP ${response.status}）`); const catalog = await response.json(); state.entries = Array.isArray(catalog.entries) ? catalog.entries : []; const verified = state.entries.filter((entry) => entry.verified).length; const solutions = state.entries.filter((entry) => entry.solutionStatus === "solution").length; $("hero-total").textContent = state.entries.length; $("hero-verified").textContent = verified; $("hero-solutions").textContent = solutions; $("catalog-count").textContent = `(${state.entries.length})`; $("updated-at").textContent = formatDate(catalog.generatedAt); renderFilters(); renderHeroTopics(); renderPaths(); const requested = Number(new URLSearchParams(location.search).get("pno")); const defaultEntry = state.entries.find((entry) => entry.problemNo === (Number.isInteger(requested) && requested > 0 ? requested : 992)) || state.entries[0]; state.selected = defaultEntry?.problemNo || null; renderList(); renderDetail(); }
-      $("hero-search-form").addEventListener("submit", (event) => { event.preventDefault(); $("catalog-search").value = $("hero-search").value; syncCatalog(); $("catalog").scrollIntoView({ behavior: "smooth", block: "start" }); }); $("catalog-search").addEventListener("input", syncCatalog); $("tag-filter").addEventListener("change", syncCatalog); $("status-filter").addEventListener("change", syncCatalog); $("language-filter").addEventListener("change", syncCatalog);
+      $("hero-search-form").addEventListener("submit", (event) => { event.preventDefault(); $("catalog-search").value = $("hero-search").value; syncCatalog(); $("catalog").scrollIntoView({ behavior: "smooth", block: "start" }); }); $("catalog-search").addEventListener("input", syncCatalog); $("tag-filter").addEventListener("change", syncCatalog); $("status-filter").addEventListener("change", syncCatalog); $("language-filter").addEventListener("change", syncCatalog); $("star-cta").addEventListener("click", () => { $("star-cta").classList.add("star-cta-visited"); $("star-cta").setAttribute("aria-label", "GitHub 仓库已打开，请在仓库页点击 Star"); $("star-cta").querySelector(".star-copy span").textContent = "仓库已打开，再点一次 Star 即可支持"; });
       init().catch((error) => { $("result-count").textContent = error.message; $("empty").hidden = false; $("empty").textContent = "目录暂时无法加载，请稍后刷新，或直接浏览 GitHub 仓库。"; $("detail-panel").replaceChildren(make("div", "empty", "目录暂时无法加载。")); });
     })();
   </script>
