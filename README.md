@@ -1,5 +1,13 @@
 # RUC YOJ 题解归档
 
+## 🌐 主网页入口
+
+**[打开 RUC YOJ Solutions →](https://scorpascal.github.io/RUC_YOJ/)**
+
+搜索题号、题名和知识点，查看题面、在线状态、代码与快捷提交入口。
+
+[进入 YOJ 快捷提交工具](https://scorpascal.github.io/RUC_YOJ/yoj-quick-submit.html)
+
 > 这是按 Method 指引生成的离线初步构建。当前把原始题面快照转换成 Markdown：公式尽量保留为 LaTeX，题面图片优先本地化到对应题目目录；原始 HTML 不进入公开索引。
 > `代码库/` 保留题号和文件格式；只有标记为 `PUBLIC_READY` 的题目才表示对应清洗代码已通过本地门禁、YOJ Accepted 和源码回收核验，其余记录仍是待复核归档。
 
