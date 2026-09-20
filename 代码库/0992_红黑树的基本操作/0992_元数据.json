@@ -41,8 +41,12 @@
   "code": {
     "language": "cpp17",
     "extension": ".cpp",
-    "bytesUtf8": 14048,
-    "sha256": "3aa2ea125710b745a72dea961ed5a666a036773ed281d491d52428e0118b48d7",
+    "bytesUtf8": 13486,
+    "rawArchiveBytesUtf8": 14048,
+    "rawArchiveSha256": "3aa2ea125710b745a72dea961ed5a666a036773ed281d491d52428e0118b48d7",
+    "sha256": "c15797ba36e77b55c258316fcedeb8756df16abb0b1e867bd17554f6c4939501",
+    "directlySubmittableSha256": "c15797ba36e77b55c258316fcedeb8756df16abb0b1e867bd17554f6c4939501",
+    "status": "CLEANED_ONLINE_VERIFIED",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
       "completeCodeFile": "0992_提交_1400680_cpp17_完整代码.cpp",

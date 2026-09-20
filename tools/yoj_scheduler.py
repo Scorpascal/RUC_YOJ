@@ -389,6 +389,7 @@ def run_once(args: argparse.Namespace) -> int:
             ([sys.executable, str(ROOT / "tools" / "compile_candidates.py"), *selected], environment, 1800),
             ([sys.executable, str(ROOT / "tools" / "run_samples.py"), *selected], environment, 1800),
             ([sys.executable, str(ROOT / "tools" / "audit_forms.py"), *selected], environment, 1800),
+            ([sys.executable, str(ROOT / "tools" / "audit_consistency.py")], environment, 600),
         ]
         for command, step_env, timeout in steps:
             if run_command(command, step_env, timeout):
@@ -424,6 +425,10 @@ def run_once(args: argparse.Namespace) -> int:
                 remember_generated_changes()
                 return 3
             release_numbers = public_ready_delta(before_ready)
+            # A newly discovered topic must be publishable even when it has no
+            # local AC yet; otherwise the catalog would link to files that were
+            # deliberately left out of the commit.
+            release_numbers.update(new_problem_numbers)
             if run_command(
                 [sys.executable, str(ROOT / "tools" / "build_initial.py"), "--preserve-frozen", *selected],
                 environment,
@@ -435,6 +440,9 @@ def run_once(args: argparse.Namespace) -> int:
                 remember_generated_changes()
                 return 3
             if run_command([sys.executable, str(ROOT / "tools" / "build_site_catalog.py"), "--check"], environment, 600):
+                remember_generated_changes()
+                return 3
+            if run_command([sys.executable, str(ROOT / "tools" / "audit_consistency.py")], environment, 600):
                 remember_generated_changes()
                 return 3
             result = publish(
@@ -461,6 +469,12 @@ def run_once(args: argparse.Namespace) -> int:
                 return 3
         if not args.dry_run:
             if run_command([sys.executable, str(ROOT / "tools" / "build_site_catalog.py")], environment, 600):
+                remember_generated_changes()
+                return 3
+            if run_command([sys.executable, str(ROOT / "tools" / "build_site_catalog.py"), "--check"], environment, 600):
+                remember_generated_changes()
+                return 3
+            if run_command([sys.executable, str(ROOT / "tools" / "audit_consistency.py")], environment, 600):
                 remember_generated_changes()
                 return 3
         remember_generated_changes()

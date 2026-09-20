@@ -71,6 +71,20 @@ def statement_hash(record: dict[str, Any]) -> str:
     return sha256_file(statement) if statement.is_file() else ""
 
 
+def previous_release_intact(previous: dict[str, Any], current_statement_hash: str) -> bool:
+    """Return whether an existing release still matches its own frozen files."""
+
+    complete = ROOT / str(previous.get("completeCode") or "")
+    direct = ROOT / str(previous.get("directlySubmittableCode") or "")
+    return bool(
+        complete.is_file()
+        and direct.is_file()
+        and sha256_file(complete) == str(previous.get("completeCodeSha256") or "")
+        and sha256_file(direct) == str(previous.get("directlySubmittableCodeSha256") or "")
+        and current_statement_hash == str(previous.get("statementSha256") or "")
+    )
+
+
 def ready_record(record: dict[str, Any], online: dict[str, Any], previous: dict[str, Any] | None) -> tuple[dict[str, Any] | None, list[str]]:
     problem_no = int(record["problemNo"])
     complete, direct = candidate_paths(record)
@@ -79,18 +93,12 @@ def ready_record(record: dict[str, Any], online: dict[str, Any], previous: dict[
     direct_sha = sha256_file(direct) if direct.is_file() else ""
     current_statement_hash = statement_hash(record)
 
-    # A previously published, byte-identical version remains public even if a
-    # historical evidence record predates the canonical round-trip field.  Any
-    # changed candidate must pass the complete current gate above.
-    if not ready and previous:
-        if (
-            previous.get("completeCodeSha256") == complete_sha
-            and previous.get("directlySubmittableCodeSha256") == direct_sha
-            and previous.get("statementSha256") == current_statement_hash
-            and complete.is_file()
-            and direct.is_file()
-        ):
-            return previous, []
+    # PUBLIC_READY is immutable by the unattended pipeline.  A later AC or a
+    # candidate at a newer archive path does not replace an intact frozen row;
+    # replacing it requires a separately reviewed migration of the manifest.
+    if previous and previous_release_intact(previous, current_statement_hash):
+        return previous, []
+    if previous and not ready:
         return None, reasons
     if not ready:
         return None, reasons
@@ -181,11 +189,29 @@ def update_metadata(record: dict[str, Any], ready: dict[str, Any], batch_id: str
 def apply_release(records: list[dict[str, Any]], ready_by_no: dict[str, dict[str, Any]], batch_id: str) -> int:
     changed = 0
     backup_root = BACKUP_ROOT / batch_id
+    previous_by_no = load_previous()
     for record in records:
-        ready = ready_by_no.get(str(record["problemNo"]))
+        key = str(record["problemNo"])
+        ready = ready_by_no.get(key)
         if not ready:
             continue
+        # An unchanged previous manifest row is already materialized.  Do not
+        # refresh archive metadata or paths merely because staging still holds
+        # a matching candidate or a later AC record.
+        if ready == previous_by_no.get(key):
+            continue
         complete_candidate, direct_candidate = candidate_paths(record)
+        # ``ready`` may be an intact previous release retained because the
+        # current staging candidate has not completed a new online gate.  In
+        # that case the candidate must not overwrite the frozen public bytes.
+        candidate_matches_release = bool(
+            complete_candidate.is_file()
+            and direct_candidate.is_file()
+            and sha256_file(complete_candidate) == str(ready.get("completeCodeSha256") or "")
+            and sha256_file(direct_candidate) == str(ready.get("directlySubmittableCodeSha256") or "")
+        )
+        if not candidate_matches_release:
+            continue
         archive = record.get("archive") or {}
         complete_target = ROOT / str(archive.get("completeCode") or "")
         direct_target = ROOT / str(archive.get("directlySubmittableCode") or "")

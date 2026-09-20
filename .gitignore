@@ -17,3 +17,7 @@ staging/
 sessions/
 *.sqlite
 *.sqlite3
+
+# 登录态原始 HTML 只保留在本机；公开仓库发布 Markdown、元数据和代码。
+代码库/**/*_题目原文.html
+代码库/**/*_详情.html

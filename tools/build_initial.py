@@ -96,13 +96,12 @@ def load_public_ready() -> dict[str, dict[str, Any]]:
 
 
 def public_ready_matches(record: dict[str, Any], statement: str, public_ready: dict[str, Any]) -> bool:
-    """Ensure a release record still describes the files being rebuilt."""
+    """Ensure the canonical release manifest still describes public bytes."""
 
     if public_ready.get("status") != "PUBLIC_READY":
         return False
-    archive = record.get("archive") or {}
-    complete = ROOT / str(archive.get("completeCode") or "")
-    direct = ROOT / str(archive.get("directlySubmittableCode") or "")
+    complete = ROOT / str(public_ready.get("completeCode") or "")
+    direct = ROOT / str(public_ready.get("directlySubmittableCode") or "")
     if not complete.is_file() or not direct.is_file():
         return False
     if source_file_hash(complete) != str(public_ready.get("completeCodeSha256") or ""):
@@ -111,6 +110,25 @@ def public_ready_matches(record: dict[str, Any], statement: str, public_ready: d
         return False
     statement_sha = hashlib.sha256(statement.encode("utf-8")).hexdigest()
     return statement_sha == str(public_ready.get("statementSha256") or "")
+
+
+def bind_public_ready(record: dict[str, Any], public_ready: dict[str, Any]) -> None:
+    """Project verified public fields without changing the raw archive record."""
+
+    public = record["public"]
+    public.update(
+        {
+            "status": "PUBLIC_READY",
+            "publish": True,
+            "cleanCode": str(public_ready["completeCode"]),
+            "directlySubmittableCode": str(public_ready["directlySubmittableCode"]),
+            "onlineVerification": "ONLINE_ACCEPTED",
+            "verifiedAt": str(public_ready.get("verifiedAt") or ""),
+            "verifiedSubmissionNo": str(public_ready.get("submissionNo") or ""),
+            "codeSha256": str(public_ready.get("directlySubmittableCodeSha256") or ""),
+        }
+    )
+    record["language"] = str(public_ready.get("language") or record.get("language") or "")
 
 
 def write_text(path: Path, content: str) -> None:
@@ -453,7 +471,7 @@ class StatementConverter:
                     item["transform"] = transform
             except (OSError, ValueError, TimeoutError) as exc:
                 item["status"] = "DOWNLOAD_FAILED"
-                item["error"] = f"{exc.__class__.__name__}: {exc}"
+                item["error"] = stable_download_error(exc)
                 self.warnings.append(f"附件下载失败: {source} ({item['error']})")
         self.assets.append(item)
         self._asset_by_url[source] = item
@@ -499,7 +517,7 @@ class StatementConverter:
                     item["sha256"] = hashlib.sha256(content).hexdigest()
             except (OSError, ValueError, TimeoutError) as exc:
                 item["status"] = "DOWNLOAD_FAILED"
-                item["error"] = f"{exc.__class__.__name__}: {exc}"
+                item["error"] = stable_download_error(exc)
                 self.warnings.append(f"题面图片下载失败: {source} ({item['error']})")
         self.image_assets.append(item)
         self._image_by_url[source] = item
@@ -739,6 +757,13 @@ def source_file_hash(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def stable_download_error(exc: BaseException) -> str:
+    """Return a reproducible public warning without host/network details."""
+
+    del exc
+    return "DOWNLOAD_FAILED"
 
 
 def normalize_code_asset(filename: str, content: bytes) -> tuple[bytes, str]:
@@ -1225,6 +1250,11 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
             online_suffix = f"；在线跳过 `{skip_reason}`"
         base_status = str(record["public"]["status"])
         if base_status == "PUBLIC_READY":
+            complete = record["public"].get("cleanCode")
+            direct = record["public"].get("directlySubmittableCode")
+            online_status = "Accepted"
+            online_no = str(record["public"].get("verifiedSubmissionNo") or "")
+            online_suffix = f"；在线 `Accepted` #{online_no}" if online_no else ""
             complete_link = f"[已发布（清洗并核验{online_suffix}）]({markdown_path(complete)})" if complete else "未同步"
             direct_link = f"[已发布（可提交形态已核验{online_suffix}）]({markdown_path(direct)})" if direct else "未同步"
         else:
@@ -1257,7 +1287,7 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
             "",
             "README 的“复制并提交”链接打开 GitHub Pages 辅助页：页面显示题号和站点语言，读取同一条公开代码后提供复制按钮，并在用户明确点击后以 `pid`、`language`、`code` 提交到 YOJ。页面不保存账号、密码或 Cookie。YOJ 仅支持 HTTP 时，浏览器可能拦截跨站表单；此时页面会保留复制代码、打开题目页和书签脚本回退，不会伪造提交成功。",
             "",
-            "后台操作方案见被 `.gitignore` 排除的 `method/`，原始抓取材料见 `代码库/`。",
+            "后台操作方案见被 `.gitignore` 排除的 `method/`；公开归档见 `代码库/`，含登录态的题目原文/提交详情 HTML 仅保留在本机。",
             "",
         ]
     )
@@ -1285,6 +1315,9 @@ def apply_online_status(records: list[dict[str, Any]]) -> None:
     }
     for record in records:
         problem_key = str(record.get("problemNo"))
+        if (record.get("public") or {}).get("status") == "PUBLIC_READY":
+            # Canonical release facts come from data/public-ready.json.
+            continue
         if not (record.get("archive") or {}).get("completeCode"):
             # A topic-only record has no candidate that could have produced
             # online evidence.  Ignore stale staging rows rather than
@@ -1309,27 +1342,24 @@ def make_quick_submit_manifest(records: list[dict[str, Any]], manifest: dict[str
     ``PUBLIC_READY`` gets a submit entry.
     """
 
-    online_data: dict[str, Any] = {}
-    if ONLINE_REPORT_PATH.is_file():
-        try:
-            online_data = json_load(ONLINE_REPORT_PATH)
-        except (OSError, ValueError, TypeError):
-            online_data = {}
-    online_rows = {
-        str(row.get("problemNo")): row
-        for row in (online_data.get("records") or [])
-        if row.get("problemNo") is not None
-    }
+    ready_rows = load_public_ready()
     entries: list[dict[str, Any]] = []
     for record in sorted(records, key=get_problem_no):
-        online = online_rows.get(str(record.get("problemNo"))) or {}
         if record.get("public", {}).get("status") != "PUBLIC_READY":
             continue
+        ready = ready_rows.get(str(record.get("problemNo")))
+        if not ready:
+            raise ValueError(f"PUBLIC_READY #{record.get('problemNo')} missing from canonical manifest")
         code_path = str(record.get("public", {}).get("directlySubmittableCode") or "")
         local_path = ROOT / code_path if code_path else None
         if local_path is None or not local_path.is_file():
-            continue
-        language = str(online.get("language") or record.get("language") or "").strip()
+            raise ValueError(f"PUBLIC_READY #{record.get('problemNo')} code file is missing")
+        expected_path = str(ready.get("directlySubmittableCode") or "")
+        expected_sha = str(ready.get("directlySubmittableCodeSha256") or "")
+        actual_sha = source_file_hash(local_path)
+        if code_path != expected_path or actual_sha != expected_sha:
+            raise ValueError(f"PUBLIC_READY #{record.get('problemNo')} public code drift")
+        language = str(ready.get("language") or record.get("language") or "").strip()
         entries.append(
             {
                 "problemNo": int(record["problemNo"]),
@@ -1339,9 +1369,9 @@ def make_quick_submit_manifest(records: list[dict[str, Any]], manifest: dict[str
                 "submitEndpoint": f"{SITE_BASE}index.php/index/index/prob_submit.html",
                 "codePath": code_path,
                 "codeUrl": RAW_GITHUB_BASE + quote(code_path, safe="/-_.~"),
-                "codeSha256": source_file_hash(local_path),
+                "codeSha256": expected_sha,
                 "onlineStatus": "Accepted",
-                "onlineSubmissionNo": str(online.get("submissionNo") or ""),
+                "onlineSubmissionNo": str(ready.get("submissionNo") or ""),
                 "warning": (
                     "当前链接使用已清洗且在线核验的公开代码。"
                 ),
@@ -1411,6 +1441,14 @@ def build() -> int:
             if previous_record and previous_statement_path and previous_statement_path.is_file():
                 record = previous_record
                 statement = previous_statement_path.read_text(encoding="utf-8")
+                ready_entry = public_ready_by_no.get(problem_no)
+                if ready_entry:
+                    if not public_ready_matches(record, statement, ready_entry):
+                        failures.append(
+                            f"{record.get('folder')}: PUBLIC_READY_BYTES_DRIFT: frozen code or statement no longer matches data/public-ready.json"
+                        )
+                    else:
+                        bind_public_ready(record, ready_entry)
                 records.append(record)
                 statement_texts.append((previous_statement_path, statement))
                 if not record["archive"]["sourceHashMatchesMetadata"]:
@@ -1430,39 +1468,22 @@ def build() -> int:
                 metadata,
                 raw_dir,
                 download_assets=not args.check and not args.no_download_assets,
-                public_ready=ready_entry,
+                public_ready=None,
             )
-            if ready_entry and not public_ready_matches(record, statement, ready_entry):
-                previous_record = previous_records_by_no.get(str(entry.get("problemNo")))
-                previous_statement_path = (
-                    ROOT / str((previous_record.get("public") or {}).get("statement") or "")
-                    if previous_record
-                    else None
+            if ready_entry:
+                statement_path = ROOT / str((record.get("public") or {}).get("statement") or "")
+                frozen_statement = (
+                    statement_path.read_text(encoding="utf-8") if statement_path.is_file() else ""
                 )
-                previous_is_frozen = bool(
-                    previous_record
-                    and str((previous_record.get("public") or {}).get("status") or "") == "PUBLIC_READY"
-                )
-                if args.preserve_frozen and previous_is_frozen and previous_statement_path and previous_statement_path.is_file():
-                    # A frozen public record is evidence, not a disposable
-                    # generated intermediate.  Keep it byte-identical while
-                    # allowing the new converter to refresh RAW_CAPTURED
-                    # records in the same build.
-                    record = previous_record
-                    statement = previous_statement_path.read_text(encoding="utf-8")
-                else:
-                    record, statement = build_statement(
-                        entry,
-                        metadata,
-                        raw_dir,
-                        download_assets=not args.check and not args.no_download_assets,
-                        # Keep the online verification evidence authoritative
-                        # when the regenerated statement needs a refreshed
-                        # hash (for example after a deterministic sample
-                        # repair).  Do not silently downgrade it to
-                        # RAW_CAPTURED merely because the snapshot changed.
-                        public_ready=ready_entry,
+                if not public_ready_matches(record, frozen_statement, ready_entry):
+                    failures.append(
+                        f"{folder}: PUBLIC_READY_BYTES_DRIFT: frozen code or statement no longer matches data/public-ready.json"
                     )
+                else:
+                    # Raw recaptures may update archive metadata, but cannot
+                    # silently replace frozen public links or statement bytes.
+                    bind_public_ready(record, ready_entry)
+                    statement = frozen_statement
         except (OSError, KeyError, TypeError, ValueError, json.JSONDecodeError) as exc:
             failures.append(f"{folder}: {exc.__class__.__name__}: {exc}")
             continue
@@ -1491,6 +1512,21 @@ def build() -> int:
         }
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0 if not failures else 1
+
+    if failures:
+        print(
+            json.dumps(
+                {
+                    "manifestProblems": len(entries),
+                    "recordsBuilt": len(records),
+                    "failures": failures,
+                    "hashMismatches": hash_mismatches,
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
+        return 1
 
     for path, content in statement_texts:
         write_text(path, content)

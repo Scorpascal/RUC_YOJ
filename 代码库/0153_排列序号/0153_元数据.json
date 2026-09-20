@@ -41,8 +41,12 @@
   "code": {
     "language": "c",
     "extension": ".c",
-    "bytesUtf8": 752,
-    "sha256": "f4e387c0186d012f1e79705a5ecef8f44e3ea35ae5690c2bff96c1ff53056db7",
+    "bytesUtf8": 724,
+    "rawArchiveBytesUtf8": 752,
+    "rawArchiveSha256": "f4e387c0186d012f1e79705a5ecef8f44e3ea35ae5690c2bff96c1ff53056db7",
+    "sha256": "73e702a6cd3a0eddcbbfc5a5d64b71dfcacbb874f41c283d6b7f6c492fac7d72",
+    "directlySubmittableSha256": "73e702a6cd3a0eddcbbfc5a5d64b71dfcacbb874f41c283d6b7f6c492fac7d72",
+    "status": "CLEANED_ONLINE_VERIFIED",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
       "completeCodeFile": "0153_提交_1400265_c_完整代码.c",
