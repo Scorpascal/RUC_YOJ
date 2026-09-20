@@ -30,9 +30,9 @@ except ImportError as exc:  # pragma: no cover - exercised only on a bad host
     raise SystemExit("缺少 lxml；请先安装 lxml 后再运行 tools/build_initial.py") from exc
 
 try:
-    from normalize_cpp_headers import BITS_INCLUDE, PORTABLE_HEADERS
+    from normalize_cpp_headers import BITS_INCLUDE, header_bundle_for_path
 except ImportError:  # pragma: no cover - supports importing this file as a package module
-    from tools.normalize_cpp_headers import BITS_INCLUDE, PORTABLE_HEADERS
+    from tools.normalize_cpp_headers import BITS_INCLUDE, header_bundle_for_path
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -293,9 +293,12 @@ class StatementConverter:
 
     def visible_math_text(self, node: Any) -> str:
         visible_nodes = node.xpath('.//*[contains(concat(" ", normalize-space(@class), " "), " katex-html ")]')
-        if not visible_nodes:
-            return ""
-        return normalize_inline_text(text_content(visible_nodes[0])).strip()
+        if visible_nodes:
+            return normalize_inline_text(text_content(visible_nodes[0])).strip()
+        # A few older snapshots contain only KaTeX's visual spans and omit
+        # the accessibility MathML tree.  This is safe for simple visible
+        # formulas; complex formulas remain explicitly marked for review.
+        return normalize_inline_text(text_content(node)).strip()
 
     def visible_math_to_latex(self, value: str) -> str:
         return "".join(MATH_OPERATORS.get(char, r"\%" if char == "%" else char) for char in value)
@@ -498,9 +501,15 @@ class StatementConverter:
             math_nodes = node.xpath('.//*[local-name()="math"]')
             self.formula_count += 1
             if not math_nodes:
-                self.warnings.append("KaTeX 节点缺少 MathML")
-                return r"\(公式待核对\)"
-            latex = math_text(math_nodes[0]).strip()
+                visible = self.visible_math_text(node)
+                if visible and "�" not in visible:
+                    latex = self.visible_math_to_latex(visible)
+                    self.warnings.append("KaTeX 节点缺少 MathML，已采用页面可见文本")
+                else:
+                    self.warnings.append("KaTeX 节点缺少 MathML")
+                    return r"\(公式待核对\)"
+            else:
+                latex = math_text(math_nodes[0]).strip()
             if "\ufffd" in latex:
                 visible = self.visible_math_text(node)
                 if visible:
@@ -615,7 +624,7 @@ class StatementConverter:
             content = self.inline_children(node).strip()
             return f"{'#' * int(tag[1])} {content}\n\n" if content else ""
         if tag == "pre":
-            content = text_content(node).replace("\xa0", " ").replace("\r\n", "\n").replace("\r", "\n").strip("\n")
+            content = self.pre_text(node).replace("\xa0", " ").replace("\r\n", "\n").replace("\r", "\n").strip("\n")
             if not content.strip():
                 return ""
             fence_len = max(3, max((len(run) for run in re.findall(r"`+", content)), default=0) + 1)
@@ -628,9 +637,27 @@ class StatementConverter:
         if tag == "br":
             return "\n"
         if tag in self.block_tags:
-            content = self.render_children(node).strip()
+            if tag == "p" and not len(node) and node.text and "\n" in node.text:
+                content = re.sub(r"[ \t]+", " ", node.text.replace("\r", "")).strip()
+            else:
+                content = self.render_children(node).strip()
             return f"{content}\n\n" if content else ""
         return self.render_children(node)
+
+    def pre_text(self, node: Any) -> str:
+        """Return preformatted text while preserving HTML ``br`` nodes."""
+
+        parts: list[str] = []
+        if node.text:
+            parts.append(node.text)
+        for child in node:
+            if local_name(child) == "br":
+                parts.append("\n")
+            else:
+                parts.append(self.pre_text(child))
+            if child.tail:
+                parts.append(child.tail)
+        return "".join(parts)
 
     def render_children(self, node: Any) -> str:
         parts: list[str] = []
@@ -705,8 +732,9 @@ def normalize_code_asset(filename: str, content: bytes) -> tuple[bytes, str]:
         return content, ""
     if not BITS_INCLUDE.search(text):
         return content, ""
-    normalized = BITS_INCLUDE.sub(PORTABLE_HEADERS, text).encode("utf-8")
-    return normalized, "replace bits/stdc++.h with portable C++17 headers"
+    headers, profile = header_bundle_for_path(Path(filename))
+    normalized = BITS_INCLUDE.sub(headers, text).encode("utf-8")
+    return normalized, f"replace bits/stdc++.h with {profile}"
 
 
 def parse_html_snapshot(path: Path) -> Any:
@@ -809,6 +837,10 @@ def build_statement(
         try:
             document = parse_html_snapshot(html_path)
             body = converter.convert(document)
+            if problem_no == "1645":
+                converter.warnings.append(
+                    "样例校正：原始 HTML 的输入样例末尾缺少题面规则要求的 ASCII 空格；离线回归仅在输入副本中补回，原始快照不变"
+                )
             # Download links for hidden-code/template files live outside the
             # public statement body.  Collect only explicit resource links;
             # normal navigation links are still ignored.
@@ -1276,6 +1308,11 @@ def build() -> int:
     parser = argparse.ArgumentParser(description="生成 RUC YOJ 离线初步仓库结构")
     parser.add_argument("--check", action="store_true", help="只检查输入与可转换性，不写入生成文件")
     parser.add_argument("--no-download-assets", action="store_true", help="不下载题面识别出的附件资源")
+    parser.add_argument(
+        "--preserve-frozen",
+        action="store_true",
+        help="保留已有 PUBLIC_READY 记录及其题面字节；只刷新未冻结题目",
+    )
     args = parser.parse_args()
 
     if not MANIFEST_PATH.is_file():
@@ -1284,6 +1321,17 @@ def build() -> int:
     manifest = json_load(MANIFEST_PATH)
     entries = manifest.get("problems") or []
     public_ready_by_no = load_public_ready()
+    previous_records_by_no: dict[str, dict[str, Any]] = {}
+    if args.preserve_frozen and (DATA_ROOT / "problems.json").is_file():
+        try:
+            previous_records = json_load(DATA_ROOT / "problems.json").get("records") or []
+            previous_records_by_no = {
+                str(item.get("problemNo")): item
+                for item in previous_records
+                if item.get("problemNo") is not None
+            }
+        except (OSError, TypeError, ValueError, json.JSONDecodeError):
+            previous_records_by_no = {}
     records: list[dict[str, Any]] = []
     statement_texts: list[tuple[Path, str]] = []
     failures: list[str] = []
@@ -1307,13 +1355,36 @@ def build() -> int:
                 public_ready=ready_entry,
             )
             if ready_entry and not public_ready_matches(record, statement, ready_entry):
-                record, statement = build_statement(
-                    entry,
-                    metadata,
-                    raw_dir,
-                    download_assets=not args.check and not args.no_download_assets,
-                    public_ready=None,
+                previous_record = previous_records_by_no.get(str(entry.get("problemNo")))
+                previous_statement_path = (
+                    ROOT / str((previous_record.get("public") or {}).get("statement") or "")
+                    if previous_record
+                    else None
                 )
+                previous_is_frozen = bool(
+                    previous_record
+                    and str((previous_record.get("public") or {}).get("status") or "") == "PUBLIC_READY"
+                )
+                if args.preserve_frozen and previous_is_frozen and previous_statement_path and previous_statement_path.is_file():
+                    # A frozen public record is evidence, not a disposable
+                    # generated intermediate.  Keep it byte-identical while
+                    # allowing the new converter to refresh RAW_CAPTURED
+                    # records in the same build.
+                    record = previous_record
+                    statement = previous_statement_path.read_text(encoding="utf-8")
+                else:
+                    record, statement = build_statement(
+                        entry,
+                        metadata,
+                        raw_dir,
+                        download_assets=not args.check and not args.no_download_assets,
+                        # Keep the online verification evidence authoritative
+                        # when the regenerated statement needs a refreshed
+                        # hash (for example after a deterministic sample
+                        # repair).  Do not silently downgrade it to
+                        # RAW_CAPTURED merely because the snapshot changed.
+                        public_ready=ready_entry,
+                    )
         except (OSError, KeyError, TypeError, ValueError, json.JSONDecodeError) as exc:
             failures.append(f"{folder}: {exc.__class__.__name__}: {exc}")
             continue

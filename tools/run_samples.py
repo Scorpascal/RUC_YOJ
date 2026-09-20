@@ -34,6 +34,22 @@ WORK_ROOT = ROOT / "staging" / "sample-tests"
 KNOWN_FILL_IN_FRAGMENTS = {"285", "286"}
 MAX_OUTPUT_CHARS = 1_000_000
 
+# These are statement-side defects visible in the captured samples.  They
+# must not be “fixed” by changing an otherwise independently captured
+# solution: the correct action is to keep the sample out of the pass/fail
+# regression count and retain the reason in the report.
+SAMPLE_QUALITY_ISSUES = {
+    "87": "输入样例声明 n=5，但输出样例包含 6 行，和题面输出格式矛盾",
+    "284": "输入样例声明 N=5 却只给出 4 条记录，输出还出现输入中不存在的 alice 331",
+}
+# 1645 的规则与样例含义没有歧义：原始 HTML 只丢失了样例末尾那个
+# 不可见的 ASCII 空格。离线回归在输入副本中补回该空格，并在报告中
+# 留下说明；原始 HTML 和公开题面仍然原样保留。
+SAMPLE_CORRECTIONS = {
+    "1645": "原始 HTML 样例末尾缺少规则要求的 ASCII 空格，离线回归已在输入副本末尾补回",
+}
+FLOAT_TOKEN_RE = re.compile(r"[.eE]")
+
 
 def statement_path(record: dict[str, Any]) -> Path:
     return ROOT / str(record["public"]["statement"])
@@ -140,7 +156,47 @@ def extract_sample_pair(path: Path) -> tuple[str, str, str]:
     sample_output = extract_section(lines, "输出样例", ("输入样例",))
     if not sample_input or not sample_output:
         return "", "", "sample_pair_not_found"
-    return sample_input + "\n", sample_output + "\n", ""
+    # HTML often turns ordinary spaces into NBSP/thin-space characters.
+    # C/C++ scanf and many older judges do not treat those bytes as separators.
+    def normalize_sample_space(value: str) -> str:
+        return value.replace("\u00a0", " ").replace("\u202f", " ")
+
+    return normalize_sample_space(sample_input) + "\n", normalize_sample_space(sample_output) + "\n", ""
+
+
+def compact_html_formatting_blank_lines(value: str) -> tuple[str, bool]:
+    """Remove blank lines introduced by one HTML paragraph per sample row."""
+
+    lines = value.splitlines()
+    if not lines or not any(not line.strip() for line in lines):
+        return value, False
+    compacted = "\n".join(line for line in lines if line.strip())
+    return compacted + "\n", True
+
+
+def outputs_match(actual: str, expected: str) -> tuple[bool, str]:
+    actual_tokens = normalize_output(actual)
+    expected_tokens = normalize_output(expected)
+    if actual_tokens == expected_tokens:
+        return True, "EXACT"
+    if len(actual_tokens) != len(expected_tokens):
+        return False, ""
+    # Approximate-value problems commonly print a valid value that differs
+    # from the page's rounded sample.  Apply a small numeric tolerance only
+    # when at least one token visibly contains a decimal/exponent; integers
+    # and ordinary text remain exact comparisons.
+    if not any(FLOAT_TOKEN_RE.search(token) for token in expected_tokens + actual_tokens):
+        return False, ""
+    for actual_token, expected_token in zip(actual_tokens, expected_tokens):
+        try:
+            actual_value = float(actual_token)
+            expected_value = float(expected_token)
+        except ValueError:
+            return False, ""
+        tolerance = max(1e-3, 1e-6 * max(abs(actual_value), abs(expected_value), 1.0))
+        if abs(actual_value - expected_value) > tolerance:
+            return False, ""
+    return True, "NUMERIC_TOLERANCE"
 
 
 def candidate_path(raw_path: Path) -> Path:
@@ -163,6 +219,8 @@ def compile_command(record: dict[str, Any], source: Path, executable: Path) -> l
 
 def run_process(command: list[str], input_data: str, timeout: int) -> tuple[str, str, int | None, str]:
     try:
+        process_env = os.environ.copy()
+        process_env["PATH"] = os.environ.get("PATH", "")
         result = subprocess.run(
             command,
             cwd=WORK_ROOT,
@@ -171,7 +229,7 @@ def run_process(command: list[str], input_data: str, timeout: int) -> tuple[str,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             timeout=timeout,
-            env={"PATH": os.environ.get("PATH", "")},
+            env=process_env,
         )
     except subprocess.TimeoutExpired as exc:
         return str(exc.stdout or "")[:MAX_OUTPUT_CHARS], str(exc.stderr or "")[:MAX_OUTPUT_CHARS], None, "TIMEOUT"
@@ -188,6 +246,16 @@ def test_record(record: dict[str, Any], run: bool) -> dict[str, Any]:
     problem_no = str(record["problemNo"])
     statement = statement_path(record)
     sample_input, expected, extraction_error = extract_sample_pair(statement)
+    sample_correction = ""
+    if (
+        not extraction_error
+        and problem_no in SAMPLE_CORRECTIONS
+        and sample_input.rstrip("\n").endswith("#Coding")
+    ):
+        sample_input = sample_input.rstrip("\n") + " \n"
+        sample_correction = SAMPLE_CORRECTIONS[problem_no]
+    sample_input, compacted_input = compact_html_formatting_blank_lines(sample_input)
+    expected, compacted_output = compact_html_formatting_blank_lines(expected)
     result: dict[str, Any] = {
         "problemNo": problem_no,
         "title": str(record["title"]),
@@ -199,9 +267,17 @@ def test_record(record: dict[str, Any], run: bool) -> dict[str, Any]:
         "compileDiagnostic": "",
         "runtimeDiagnostic": "",
     }
+    if compacted_input or compacted_output:
+        result["sampleFormatting"] = "removed_blank_lines_from_converted_html_paragraphs"
+    if sample_correction:
+        result["sampleCorrection"] = sample_correction
     if extraction_error:
         result["category"] = "NO_SAMPLE"
         result["runtimeDiagnostic"] = extraction_error
+        return result
+    if problem_no in SAMPLE_QUALITY_ISSUES:
+        result["category"] = "SAMPLE_INCONSISTENT"
+        result["runtimeDiagnostic"] = SAMPLE_QUALITY_ISSUES[problem_no]
         return result
     if problem_no in KNOWN_FILL_IN_FRAGMENTS:
         result["category"] = "FILL_IN_FRAGMENT"
@@ -242,11 +318,14 @@ def test_record(record: dict[str, Any], run: bool) -> dict[str, Any]:
         result["category"] = process_error
     elif returncode != 0:
         result["category"] = "RUNTIME_ERROR"
-    elif normalize_output(stdout) == normalize_output(expected):
-        result["category"] = "PASS"
     else:
-        result["category"] = "WRONG_OUTPUT"
-        result["actualOutput"] = stdout
+        matched, comparison = outputs_match(stdout, expected)
+        result["comparison"] = comparison
+        if matched:
+            result["category"] = "PASS"
+        else:
+            result["category"] = "WRONG_OUTPUT"
+            result["actualOutput"] = stdout
     return result
 
 
@@ -272,8 +351,10 @@ def main() -> int:
         "counts": dict(sorted(counts.items())),
         "results": results,
         "notes": [
-            "样例按题面 Markdown 的输入样例/输出样例段落抽取，并按空白分词比较。",
+            "样例按题面 Markdown 的输入样例/输出样例段落抽取，并按空白分词比较；转换器从 HTML 生成的段落空行会被视为排版空白。",
+            "含小数或科学计数法的样例允许 1e-3 绝对误差；这只改变离线样例分类，不代表在线 Accepted。",
             "无法可靠配对样例、填空片段和特殊题型不会被自动补全。",
+            "SAMPLE_INCONSISTENT 表示捕获到的样例自身违反题面格式，不能据此修改代码；只有有明确题面规则支持的 1645 尾随空格会在输入副本中校正并留痕。",
             "样例通过不代表边界正确、分块回环通过、在线 Accepted 或 PUBLIC_READY。",
         ],
     }

@@ -79,7 +79,8 @@ def main() -> int:
             raw_bytes = raw_path.read_bytes()
             raw_text = raw_bytes.decode("utf-8")
             required = str(repair["must_contain"])
-            if required not in raw_text:
+            already_fixed = raw_text == candidate_text
+            if required not in raw_text and not already_fixed:
                 raise SystemExit(
                     f"repair precondition failed for {problem_no} {key}: "
                     f"expected source fragment not found in {raw_path}"
@@ -100,6 +101,7 @@ def main() -> int:
                     "candidateSha256": sha256(candidate_bytes),
                     "sourceBytes": len(raw_bytes),
                     "candidateBytes": len(candidate_bytes),
+                    "precondition": "ALREADY_REPAIRED_IN_ARCHIVE" if already_fixed else "ORIGINAL_FRAGMENT_FOUND",
                 }
             )
 

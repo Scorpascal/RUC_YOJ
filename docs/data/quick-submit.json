@@ -20,6 +20,84 @@
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     },
     {
+      "problemNo": 2,
+      "title": "输出Hello world加强版",
+      "language": "cpp",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/2.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/0002_输出Hello_world加强版/0002_提交_1161529_cpp_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0002_%E8%BE%93%E5%87%BAHello_world%E5%8A%A0%E5%BC%BA%E7%89%88/0002_%E6%8F%90%E4%BA%A4_1161529_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "889caa63603f33c2dce43991e0ab4ec1ddf1419566ceb2b42f6a4efad115d5f6",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1401887",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
+      "problemNo": 3,
+      "title": "比较两个整数的大小",
+      "language": "cpp",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/3.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/0003_比较两个整数的大小/0003_提交_1161530_cpp_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0003_%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AA%E6%95%B4%E6%95%B0%E7%9A%84%E5%A4%A7%E5%B0%8F/0003_%E6%8F%90%E4%BA%A4_1161530_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "3af2ab271b0b7bf633b1bc33b8fc6fbc711c36376758f56efeefce37c38cef60",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1401888",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
+      "problemNo": 4,
+      "title": "读入字符串并输出",
+      "language": "c-noilinux",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/4.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/0004_读入字符串并输出/0004_提交_1254886_c-noilinux_可提交代码.c",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0004_%E8%AF%BB%E5%85%A5%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B9%B6%E8%BE%93%E5%87%BA/0004_%E6%8F%90%E4%BA%A4_1254886_c-noilinux_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.c",
+      "codeSha256": "a761329cc9bb2942e7959529aa9dcbf824e29b82f08777fc823979e8935e0a7f",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1401833",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
+      "problemNo": 5,
+      "title": "切换字符大小写",
+      "language": "cpp",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/5.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/0005_切换字符大小写/0005_提交_1161532_cpp_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0005_%E5%88%87%E6%8D%A2%E5%AD%97%E7%AC%A6%E5%A4%A7%E5%B0%8F%E5%86%99/0005_%E6%8F%90%E4%BA%A4_1161532_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "25a28012a3b42089d2f8ee55ed1647d29d6bd2f97f91d3337bfc539266c7b9ef",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1401890",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
+      "problemNo": 6,
+      "title": "浮点数求和",
+      "language": "cpp",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/6.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/0006_浮点数求和/0006_提交_1161533_cpp_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0006_%E6%B5%AE%E7%82%B9%E6%95%B0%E6%B1%82%E5%92%8C/0006_%E6%8F%90%E4%BA%A4_1161533_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "7dcc7a04d5baaf49475f2822bcaf7c04d40ab306e11cca51f5b8dab8aa726918",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1401891",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
+      "problemNo": 7,
+      "title": "求三角形面积",
+      "language": "cpp",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/7.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/0007_求三角形面积/0007_提交_1161537_cpp_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0007_%E6%B1%82%E4%B8%89%E8%A7%92%E5%BD%A2%E9%9D%A2%E7%A7%AF/0007_%E6%8F%90%E4%BA%A4_1161537_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "74c1943fd5e6a55ed53816746e97306409c03ef434dce6a950c02fb599a51c59",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1401892",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
       "problemNo": 8,
       "title": "计算学分绩点",
       "language": "c",
@@ -722,6 +800,19 @@
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     },
     {
+      "problemNo": 180,
+      "title": "计算cosx的近似值",
+      "language": "c",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/180.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/0180_计算cosx的近似值/0180_提交_1177209_c_可提交代码.c",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0180_%E8%AE%A1%E7%AE%97cosx%E7%9A%84%E8%BF%91%E4%BC%BC%E5%80%BC/0180_%E6%8F%90%E4%BA%A4_1177209_c_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.c",
+      "codeSha256": "1b04ce396940fae88177db745ef116f35918e27ebe10ea4a65120cb460016cd5",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1399713",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
       "problemNo": 181,
       "title": "奇怪的数列",
       "language": "c",
@@ -956,6 +1047,19 @@
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     },
     {
+      "problemNo": 247,
+      "title": "匹配Wild号码",
+      "language": "c",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/247.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/0247_匹配Wild号码/0247_提交_1280408_c_可提交代码.c",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0247_%E5%8C%B9%E9%85%8DWild%E5%8F%B7%E7%A0%81/0247_%E6%8F%90%E4%BA%A4_1280408_c_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.c",
+      "codeSha256": "a3af8843e4779e0c8b7f0e2c35ceee0220fa1d0b5a6e6db25fdf26cd8c4387fe",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1399732",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
       "problemNo": 255,
       "title": "矩阵转置",
       "language": "cpp",
@@ -1083,6 +1187,19 @@
       "codeSha256": "9e6be58feef0d0223439433291d3639ed4e18fee4a433b8470b57f98680926f1",
       "onlineStatus": "Accepted",
       "onlineSubmissionNo": "1399742",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
+      "problemNo": 288,
+      "title": "字符串之差",
+      "language": "cpp17-clang",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/288.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/0288_字符串之差/0288_提交_1189374_cpp17-clang_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0288_%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%8B%E5%B7%AE/0288_%E6%8F%90%E4%BA%A4_1189374_cpp17-clang_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "544e403e18c0dab3843c063e2df1e2bbe334b1e7857499f9fb2b4d94ef577289",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1399743",
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     },
     {
@@ -1489,6 +1606,19 @@
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     },
     {
+      "problemNo": 448,
+      "title": "按要求读入并输出数据",
+      "language": "c-noilinux",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/448.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/0448_按要求读入并输出数据/0448_提交_1153155_c-noilinux_可提交代码.c",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0448_%E6%8C%89%E8%A6%81%E6%B1%82%E8%AF%BB%E5%85%A5%E5%B9%B6%E8%BE%93%E5%87%BA%E6%95%B0%E6%8D%AE/0448_%E6%8F%90%E4%BA%A4_1153155_c-noilinux_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.c",
+      "codeSha256": "a9032fdbb2131eb5826c96a8ee4b3d02c7980a3b7f5e364c30411093cb544605",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1399777",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
       "problemNo": 449,
       "title": "按要求输出一个整数",
       "language": "c",
@@ -1853,6 +1983,19 @@
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     },
     {
+      "problemNo": 784,
+      "title": "Karatsuba Multiplication",
+      "language": "cpp",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/784.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/0784_Karatsuba_Multiplication/0784_提交_1171955_cpp_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0784_Karatsuba_Multiplication/0784_%E6%8F%90%E4%BA%A4_1171955_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "bec3bcd80ca33ea4e0368c53c58fa984810463a8c568f288deccf5a94b042b5f",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1399811",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
       "problemNo": 785,
       "title": "平面最近点对",
       "language": "c",
@@ -1902,6 +2045,19 @@
       "codeSha256": "995928e6f2b7c4c207a6559ca4f408c77e6295fd4b3ddd9895e647c0b7c3a799",
       "onlineStatus": "Accepted",
       "onlineSubmissionNo": "1399816",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
+      "problemNo": 790,
+      "title": "二维查找树",
+      "language": "cpp17",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/790.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/0790_二维查找树/0790_提交_1167875_cpp_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0790_%E4%BA%8C%E7%BB%B4%E6%9F%A5%E6%89%BE%E6%A0%91/0790_%E6%8F%90%E4%BA%A4_1167875_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "037d36f83a27f1c9ae095cf3fbf9e3cede85d1692e0ebdec04641d23deea70d0",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1401879",
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     },
     {
@@ -2282,6 +2438,19 @@
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     },
     {
+      "problemNo": 928,
+      "title": "线段",
+      "language": "c",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/928.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/0928_线段/0928_提交_1282254_c_可提交代码.c",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0928_%E7%BA%BF%E6%AE%B5/0928_%E6%8F%90%E4%BA%A4_1282254_c_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.c",
+      "codeSha256": "9b2b94c4063af878b4be3b39427c61010af6c7d99b1ef7bb90ad581552fb0233",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1399856",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
       "problemNo": 929,
       "title": "材料加工II",
       "language": "cpp17-clang",
@@ -2292,6 +2461,58 @@
       "codeSha256": "3e8731b3fe4773e978e93cf7b8f4e9622437e2286330db1fff9515ef123a2dd7",
       "onlineStatus": "Accepted",
       "onlineSubmissionNo": "1399859",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
+      "problemNo": 930,
+      "title": "合并石子",
+      "language": "c",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/930.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/0930_合并石子/0930_提交_1282273_c_可提交代码.c",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0930_%E5%90%88%E5%B9%B6%E7%9F%B3%E5%AD%90/0930_%E6%8F%90%E4%BA%A4_1282273_c_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.c",
+      "codeSha256": "84f4b504eb5ff34e08472f189ff89f0800acd124564238151cab815c1549bc7a",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1399860",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
+      "problemNo": 939,
+      "title": "加分二叉树",
+      "language": "c",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/939.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/0939_加分二叉树/0939_提交_1282277_c_可提交代码.c",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0939_%E5%8A%A0%E5%88%86%E4%BA%8C%E5%8F%89%E6%A0%91/0939_%E6%8F%90%E4%BA%A4_1282277_c_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.c",
+      "codeSha256": "66dc8fcedca6f4d4504cb78fb288bd9b41565ff72680ab575d65b51619bafb4b",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1399862",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
+      "problemNo": 940,
+      "title": "战争游戏",
+      "language": "c",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/940.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/0940_战争游戏/0940_提交_1282280_c_可提交代码.c",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0940_%E6%88%98%E4%BA%89%E6%B8%B8%E6%88%8F/0940_%E6%8F%90%E4%BA%A4_1282280_c_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.c",
+      "codeSha256": "84e9983e702e0c2dbaba0c5f9834bb9842e53aa15e26ac0c7c9c9f54ea5b5362",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1399863",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
+      "problemNo": 941,
+      "title": "挖井",
+      "language": "c",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/941.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/0941_挖井/0941_提交_1282283_c_可提交代码.c",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0941_%E6%8C%96%E4%BA%95/0941_%E6%8F%90%E4%BA%A4_1282283_c_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.c",
+      "codeSha256": "0e0c5d2d2f0d3e7543ccb469b55c6f1126045143e316dc89534f8da8d6d0b6fe",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1399864",
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     },
     {
@@ -3868,6 +4089,19 @@
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     },
     {
+      "problemNo": 1152,
+      "title": "对对碰",
+      "language": "cpp17",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1152.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/1152_对对碰/1152_提交_1340415_cpp17_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1152_%E5%AF%B9%E5%AF%B9%E7%A2%B0/1152_%E6%8F%90%E4%BA%A4_1340415_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "a89ec0e455f930d7a85a626c84505aacd45f740aca36cd07f75a1165a5fce865",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1401835",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
       "problemNo": 1156,
       "title": "最大的连续子序列",
       "language": "cpp17",
@@ -4141,6 +4375,19 @@
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     },
     {
+      "problemNo": 1201,
+      "title": "宝藏（CSP 202312-4）",
+      "language": "cpp17",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1201.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/1201_宝藏(CSP_202312-4)/1201_提交_1224082_cpp17-clang_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1201_%E5%AE%9D%E8%97%8F%28CSP_202312-4%29/1201_%E6%8F%90%E4%BA%A4_1224082_cpp17-clang_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "14b8e34dfc7822b5515a078c6eedbe7e6ec6ddb86e6892398ed048d8899b712d",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1401902",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
       "problemNo": 1202,
       "title": "彩色路径（CSP 202312-5）",
       "language": "c",
@@ -4401,6 +4648,19 @@
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     },
     {
+      "problemNo": 1380,
+      "title": "宝石切割",
+      "language": "cpp17",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1380.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/1380_宝石切割/1380_提交_1340609_cpp17_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1380_%E5%AE%9D%E7%9F%B3%E5%88%87%E5%89%B2/1380_%E6%8F%90%E4%BA%A4_1340609_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "bd8fa9f4c7a2b7286a96b183e7abdf45d423974d747ed5103a058c78136d0b73",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1401839",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
       "problemNo": 1412,
       "title": "正态分布（CSP 202506-1）",
       "language": "c",
@@ -4632,6 +4892,19 @@
       "codeSha256": "2074a0c1101cfcec989f1b02ec2b23801e924199e191d81e544923adb38552fa",
       "onlineStatus": "Accepted",
       "onlineSubmissionNo": "1400085",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
+      "problemNo": 1531,
+      "title": "梦魇(CSP 202412-5)",
+      "language": "cpp17",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1531.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/1531_梦魇(CSP_202412-5)/1531_提交_1213749_cpp17_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1531_%E6%A2%A6%E9%AD%87%28CSP_202412-5%29/1531_%E6%8F%90%E4%BA%A4_1213749_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "b9801f20843ab87a92bd98cc7ea1d40795db5bf3ec5c0561dc5af744bf6bbaae",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1401841",
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     },
     {
@@ -5051,6 +5324,32 @@
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     },
     {
+      "problemNo": 1591,
+      "title": "matrix",
+      "language": "cpp17",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1591.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/1591_matrix/1591_提交_1281805_cpp_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1591_matrix/1591_%E6%8F%90%E4%BA%A4_1281805_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "e3dfc3593f4c0955b8536b2fd607c1f6f58dec3964ef3ed7b2ed5af2fdb1045d",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1401880",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
+      "problemNo": 1592,
+      "title": "秦始皇",
+      "language": "cpp17",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1592.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/1592_秦始皇/1592_提交_1308666_cpp_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1592_%E7%A7%A6%E5%A7%8B%E7%9A%87/1592_%E6%8F%90%E4%BA%A4_1308666_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "25de7c01316bdf6c6638e6911e45e06430912c7b81cb8d98b8feac4db68ce38d",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1401881",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
       "problemNo": 1594,
       "title": "不同的最小公倍数",
       "language": "cpp",
@@ -5090,6 +5389,19 @@
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     },
     {
+      "problemNo": 1597,
+      "title": "军训方阵",
+      "language": "cpp17",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1597.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/1597_军训方阵/1597_提交_1281800_cpp_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1597_%E5%86%9B%E8%AE%AD%E6%96%B9%E9%98%B5/1597_%E6%8F%90%E4%BA%A4_1281800_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "2d99494326b70b1f733c1b98c9885a6bdfcf81ae203e32672a48cbd20a5259ce",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1401882",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
       "problemNo": 1598,
       "title": "智能照明系统",
       "language": "c",
@@ -5100,6 +5412,32 @@
       "codeSha256": "849f1a5980f5d1a7bd2b94346c619d799af69023f7f977e75409c9663f1ddf94",
       "onlineStatus": "Accepted",
       "onlineSubmissionNo": "1400139",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
+      "problemNo": 1599,
+      "title": "回家",
+      "language": "cpp17",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1599.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/1599_回家/1599_提交_1308657_cpp_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1599_%E5%9B%9E%E5%AE%B6/1599_%E6%8F%90%E4%BA%A4_1308657_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "ac8a938c6dcc0066e53b5df2287eb36a8ffa550ddc1146c39b472941f5cfd7f0",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1401883",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
+      "problemNo": 1600,
+      "title": "理牌",
+      "language": "cpp17",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1600.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/1600_理牌/1600_提交_1281789_cpp_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1600_%E7%90%86%E7%89%8C/1600_%E6%8F%90%E4%BA%A4_1281789_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "ecfc0081fc003f033023a898201a076739473d10c65d05837453f040a513c754",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1401884",
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     },
     {
@@ -5217,6 +5555,19 @@
       "codeSha256": "7eb8648ca7c7b73917f01552968f6c5649e635ffd3068bf39ef0c599ae4a4e21",
       "onlineStatus": "Accepted",
       "onlineSubmissionNo": "1400154",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
+      "problemNo": 1645,
+      "title": "高级Python 2026 春-2：社交媒体话题提取",
+      "language": "cpp",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1645.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/1645_高级Python_2026_春-2_社交媒体话题提取/1645_提交_1388103_cpp_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1645_%E9%AB%98%E7%BA%A7Python_2026_%E6%98%A5-2_%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E8%AF%9D%E9%A2%98%E6%8F%90%E5%8F%96/1645_%E6%8F%90%E4%BA%A4_1388103_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "5df54cc53eea47d3afb913d917a13ec4681932515af63a5e3be6421f453d6f78",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1400155",
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     },
     {

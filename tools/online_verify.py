@@ -304,11 +304,32 @@ def main() -> int:
         action="store_true",
         help="即使候选哈希未变化也重新验证；定时任务默认不启用",
     )
+    parser.add_argument(
+        "--retry-abnormal",
+        action="store_true",
+        help="重试同一候选的非 Accepted 提交和已跳过题目；仅用于明确的调试批次",
+    )
+    parser.add_argument(
+        "--problem",
+        dest="problem_nos",
+        action="append",
+        type=int,
+        help="只处理指定题号，可重复传入；用于隔离在线调试批次",
+    )
+    parser.add_argument(
+        "--cpp17-problem",
+        dest="cpp17_problems",
+        action="append",
+        type=int,
+        help="对指定题目使用题面实际提供的 cpp17 语言值提交",
+    )
     args = parser.parse_args()
     if args.max_submissions < 0 or args.submit_interval < 0:
         raise SystemExit("--max-submissions 和 --submit-interval 不能为负数")
     problems, records, skips = load_context()
     candidates = read_candidates()
+    selected_problems = set(args.problem_nos or [])
+    cpp17_problems = set(args.cpp17_problems or [])
     client = YoJClient()
     client.login()
     print(f"登录成功；候选题目 {len(candidates)} 道，已有提交证据 {len(records)} 道，已跳过 {len(skips)} 道。", flush=True)
@@ -317,18 +338,25 @@ def main() -> int:
     actual_submissions = 0
 
     for problem_no in sorted(candidates):
+        if selected_problems and problem_no not in selected_problems:
+            continue
         if actual_submissions >= args.max_submissions:
             print(f"达到本轮提交预算 {args.max_submissions}，保存检查点后停止。", flush=True)
             break
         path, language = candidates[problem_no]
+        submit_language = "cpp17" if problem_no in cpp17_problems else language
         candidate_sha256 = hashlib.sha256(path.read_bytes()).hexdigest()
         previous = records.get(problem_no)
         if previous and previous.get("candidateSha256") == candidate_sha256:
-            if not (args.reverify_accepted and previous.get("status") == "Accepted"):
+            if previous.get("status") == "Accepted":
+                if not args.reverify_accepted:
+                    continue
+            elif not args.retry_abnormal:
                 continue
         previous_skip = skips.get(problem_no)
         if previous_skip and previous_skip.get("candidateSha256") == candidate_sha256:
-            continue
+            if not args.retry_abnormal:
+                continue
         # A changed candidate is a new submission intent.  Remove only the
         # old per-problem pointer; the immutable YOJ submission evidence stays
         # in the previous Git/staging snapshot if an operator needs it.
@@ -337,7 +365,7 @@ def main() -> int:
         problem = problems.get(problem_no, {"problemNo": problem_no, "title": path.parent.name.split("_", 1)[-1]})
 
         if problem_no in FILL_IN_PROBLEMS:
-            record_skip(skips, problem, path, language, "FILL_IN_FRAGMENT_TEMPLATE_UNAVAILABLE", candidate_sha256)
+            record_skip(skips, problem, path, submit_language, "FILL_IN_FRAGMENT_TEMPLATE_UNAVAILABLE", candidate_sha256)
             save_report(records, skips)
             print(f"[{problem_no}] 跳过：固定模板不可得的填空片段。", flush=True)
             continue
@@ -348,17 +376,17 @@ def main() -> int:
             gate_reasons.append("CANDIDATE_SELECTION_STALE")
         if gate_reasons:
             reason = "LOCAL_GATE_" + "+".join(sorted(set(gate_reasons)))
-            record_skip(skips, problem, path, language, reason, candidate_sha256)
+            record_skip(skips, problem, path, submit_language, reason, candidate_sha256)
             save_report(records, skips)
             print(f"[{problem_no}] 跳过：{reason}", flush=True)
             continue
 
         try:
             page = client.request(f"/index.php/index/problem/detail/pno/{problem_no}.html")
-            action, pid = parse_form(page, problem_no, language)
+            action, pid = parse_form(page, problem_no, submit_language)
         except Exception as exc:  # noqa: BLE001 - persist the exact gate failure
             reason = str(exc)
-            record_skip(skips, problem, path, language, reason, candidate_sha256)
+            record_skip(skips, problem, path, submit_language, reason, candidate_sha256)
             save_report(records, skips)
             print(f"[{problem_no}] 跳过：{reason}", flush=True)
             continue
@@ -373,7 +401,7 @@ def main() -> int:
             baseline_max = max((int(row["submissionNo"]) for row in baseline_rows), default=0)
             client.request(
                 action,
-                {"language": language, "code": path.read_text(encoding="utf-8"), "pid": str(pid)},
+                {"language": submit_language, "code": path.read_text(encoding="utf-8"), "pid": str(pid)},
                 f"/index.php/index/problem/detail/pno/{problem_no}.html",
             )
             last_submit_at = time.monotonic()
@@ -390,7 +418,7 @@ def main() -> int:
                 raise RuntimeError("SUBMISSION_STATUS_UNKNOWN")
             if row["status"].lower() in PENDING_STATUSES:
                 raise RuntimeError(f"SUBMISSION_STATUS_UNKNOWN:{row['submissionNo']}:{row['status']}")
-            records[problem_no] = make_record(problem, path, language, row, client)
+            records[problem_no] = make_record(problem, path, submit_language, row, client)
             skips.pop(problem_no, None)
             save_report(records, skips)
             actual_submissions += 1

@@ -28,6 +28,11 @@ inline Mat I(){ return Mat(1,0,0,1); }
 
 struct Op{ int t; Mat m; };
 struct Elem{ bool isL; Mat m; };
+struct Event{
+    int type=0;
+    int i=0, t=0, l=0, r=0;
+    Mat m;
+};
 
 struct Block{
     int L=1,R=0;
@@ -54,7 +59,35 @@ int main(){
         }
     }
 
-    int B = 380;
+    // Read the event stream before choosing the block size.  Rebuilding a
+    // block is the dominant cost of a type-1 update, while a type-2 query
+    // pays for the number of complete blocks it crosses.  A fixed block
+    // size is needlessly slow on update-heavy or query-heavy test points.
+    vector<Event> events(m);
+    int updateCount = 0, queryCount = 0;
+    for(int qi=0; qi<m; ++qi){
+        Event &event = events[qi];
+        cin >> event.type;
+        if(event.type==1){
+            ++updateCount;
+            cin >> event.i >> event.t;
+            if(event.t==1 || event.t==2){
+                uint32_t a,b,c,d; cin >> a >> b >> c >> d;
+                event.m = Mat(a,b,c,d);
+            }else{
+                event.t = 3;
+            }
+        }else{
+            ++queryCount;
+            event.type = 2;
+            cin >> event.l >> event.r;
+        }
+    }
+
+    double numerator = (double)n * (double)max(1, queryCount);
+    double denominator = (double)max(1, updateCount + 2 * queryCount);
+    int B = (int)sqrt(numerator / denominator);
+    B = max(1, min(n, min(512, B)));
     int nb = (n + B - 1)/B;
     vector<Block> blk(nb);
 
@@ -88,6 +121,9 @@ int main(){
     for(int k=0;k<nb;k++){
         blk[k].L = k*B + 1;
         blk[k].R = min(n, (k+1)*B);
+        blk[k].res.reserve(B);
+        blk[k].prePL.reserve(B + 1);
+        blk[k].prePR.reserve(B + 1);
         rebuild_block(k);
     }
 
@@ -142,6 +178,8 @@ int main(){
         Chunk ch;
         ch.isBlock=false;
         ch.len = (int)res.size();
+        ch.prePL.reserve(ch.len + 1);
+        ch.prePR.reserve(ch.len + 1);
         ch.prePL.assign(1, I());
         ch.prePR.assign(1, I());
         Mat PL=I(), PR=I();
@@ -154,7 +192,7 @@ int main(){
         return {need, ch};
     };
 
-    auto append_chunk = [&](const Chunk& ch,
+    auto append_chunk = [&](Chunk ch,
                             vector<Chunk>& chunks,
                             vector<Mat>& prefPL_rev,
                             vector<Mat>& prefPR){
@@ -165,54 +203,59 @@ int main(){
         Mat addPR = chunkPR(ch);
         prefPL_rev.push_back(mul(addPL, PL_before));
         prefPR.push_back(mul(PR_before, addPR));
-        chunks.push_back(ch);
+        chunks.push_back(std::move(ch));
     };
 
+    vector<Chunk> chunks;
+    vector<Mat> prefPL_rev;
+    vector<Mat> prefPR;
+    chunks.reserve(nb + 2);
+    prefPL_rev.reserve(nb + 3);
+    prefPR.reserve(nb + 3);
+
     auto query_range = [&](int l,int r){
-        vector<Chunk> chunks;
-        vector<Mat> prefPL_rev(1, I());
-        vector<Mat> prefPR(1, I());
+        chunks.clear();
+        prefPL_rev.clear();
+        prefPR.clear();
+        prefPL_rev.push_back(I());
+        prefPR.push_back(I());
 
         int bl = (l-1)/B, br = (r-1)/B;
         if(bl==br){
             auto tmp = build_partial_chunk(l, r);
             int needP = tmp.first; Chunk ch = std::move(tmp.second);
             shrink_stack(needP, chunks, prefPL_rev, prefPR);
-            append_chunk(ch, chunks, prefPL_rev, prefPR);
+            append_chunk(std::move(ch), chunks, prefPL_rev, prefPR);
         }else{
             auto tmpL = build_partial_chunk(l, blk[bl].R);
             shrink_stack(tmpL.first, chunks, prefPL_rev, prefPR);
-            append_chunk(tmpL.second, chunks, prefPL_rev, prefPR);
+            append_chunk(std::move(tmpL.second), chunks, prefPL_rev, prefPR);
             for(int b=bl+1;b<=br-1;b++){
                 shrink_stack(blk[b].need, chunks, prefPL_rev, prefPR);
                 if(!blk[b].res.empty()){
                     Chunk ch; ch.isBlock=true; ch.bid=b; ch.len=(int)blk[b].res.size();
-                    append_chunk(ch, chunks, prefPL_rev, prefPR);
+                    append_chunk(std::move(ch), chunks, prefPL_rev, prefPR);
                 }
             }
             auto tmpR = build_partial_chunk(blk[br].L, r);
             shrink_stack(tmpR.first, chunks, prefPL_rev, prefPR);
-            append_chunk(tmpR.second, chunks, prefPL_rev, prefPR);
+            append_chunk(std::move(tmpR.second), chunks, prefPL_rev, prefPR);
         }
         Mat C = mul(prefPL_rev.back(), prefPR.back());
         cout<<C.a11<<' '<<C.a12<<' '<<C.a21<<' '<<C.a22<<"\n";
     };
 
-    for(int qi=0; qi<m; ++qi){
-        int tp; cin>>tp;
-        if(tp==1){
-            int i, t; cin>>i>>t;
-            if(t==1 || t==2){
-                uint32_t a,b,c,d; cin>>a>>b>>c>>d;
-                ops[i] = {t, Mat(a,b,c,d)};
+    for(const Event &event : events){
+        if(event.type==1){
+            if(event.t==1 || event.t==2){
+                ops[event.i] = {event.t, event.m};
             }else{
-                ops[i] = {3, Mat()};
+                ops[event.i] = {3, Mat()};
             }
-            int bid = (i-1)/B;
+            int bid = (event.i-1)/B;
             rebuild_block(bid);
         }else{
-            int l,r; cin>>l>>r;
-            query_range(l,r);
+            query_range(event.l, event.r);
         }
     }
     return 0;

@@ -51,13 +51,23 @@
     "language": "cpp17-clang",
     "extension": ".cpp",
     "bytesUtf8": 556,
-    "sha256": "717bfd7dfebb697bb896c4e172e81808d2c0c122d94e36e7913992b7394da812",
+    "sha256": "544e403e18c0dab3843c063e2df1e2bbe334b1e7857499f9fb2b4d94ef577289",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
       "completeCodeFile": "0288_提交_1189374_cpp17-clang_完整代码.cpp",
       "directlySubmittableFile": "0288_提交_1189374_cpp17-clang_可提交代码.cpp",
       "blocks": [],
       "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    }
+    },
+    "rawArchiveSha256": "717bfd7dfebb697bb896c4e172e81808d2c0c122d94e36e7913992b7394da812",
+    "directlySubmittableSha256": "544e403e18c0dab3843c063e2df1e2bbe334b1e7857499f9fb2b4d94ef577289",
+    "status": "CLEANED_ONLINE_VERIFIED"
+  },
+  "publication": {
+    "status": "PUBLIC_READY",
+    "batchId": "20260920T135856Z",
+    "candidateSha256": "544e403e18c0dab3843c063e2df1e2bbe334b1e7857499f9fb2b4d94ef577289",
+    "submissionNo": 1399743,
+    "verifiedAt": "2026-09-20T00:32:43Z"
   }
 }

@@ -76,11 +76,11 @@
       },
       "language": "cpp",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1161529",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "0f0e8d391703794cd248ac31070d0a31c5a7a51ce007aa31595ab0cd777828de",
-        "recordedSha256": "0f0e8d391703794cd248ac31070d0a31c5a7a51ce007aa31595ab0cd777828de",
+        "sourceSha256": "889caa63603f33c2dce43991e0ab4ec1ddf1419566ceb2b42f6a4efad115d5f6",
+        "recordedSha256": "889caa63603f33c2dce43991e0ab4ec1ddf1419566ceb2b42f6a4efad115d5f6",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/0002_输出Hello_world加强版/0002_元数据.json",
         "completeCode": "代码库/0002_输出Hello_world加强版/0002_提交_1161529_cpp_完整代码.cpp",
@@ -102,15 +102,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/0002_输出Hello_world加强版/0002_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/0002_输出Hello_world加强版/0002_提交_1161529_cpp_完整代码.cpp",
+        "directlySubmittableCode": "代码库/0002_输出Hello_world加强版/0002_提交_1161529_cpp_可提交代码.cpp",
         "onlineVerification": "ONLINE_ACCEPTED",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-20T13:31:13Z",
+        "verifiedSubmissionNo": "1401887",
+        "codeSha256": "889caa63603f33c2dce43991e0ab4ec1ddf1419566ceb2b42f6a4efad115d5f6"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -135,11 +135,11 @@
       },
       "language": "cpp",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1161530",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "aca3ea677af34e1852046b093e048f4baa9d04e95cffd1dcca6a6b3868dee850",
-        "recordedSha256": "aca3ea677af34e1852046b093e048f4baa9d04e95cffd1dcca6a6b3868dee850",
+        "sourceSha256": "3af2ab271b0b7bf633b1bc33b8fc6fbc711c36376758f56efeefce37c38cef60",
+        "recordedSha256": "3af2ab271b0b7bf633b1bc33b8fc6fbc711c36376758f56efeefce37c38cef60",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/0003_比较两个整数的大小/0003_元数据.json",
         "completeCode": "代码库/0003_比较两个整数的大小/0003_提交_1161530_cpp_完整代码.cpp",
@@ -161,15 +161,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/0003_比较两个整数的大小/0003_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/0003_比较两个整数的大小/0003_提交_1161530_cpp_完整代码.cpp",
+        "directlySubmittableCode": "代码库/0003_比较两个整数的大小/0003_提交_1161530_cpp_可提交代码.cpp",
         "onlineVerification": "ONLINE_ACCEPTED",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-20T13:31:29Z",
+        "verifiedSubmissionNo": "1401888",
+        "codeSha256": "3af2ab271b0b7bf633b1bc33b8fc6fbc711c36376758f56efeefce37c38cef60"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -194,11 +194,11 @@
       },
       "language": "c-noilinux",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1254886",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "5bd11eb7fa8bccb429d5c72b093b37c1d2c14416381390c07274b6895dd4cbda",
-        "recordedSha256": "5bd11eb7fa8bccb429d5c72b093b37c1d2c14416381390c07274b6895dd4cbda",
+        "sourceSha256": "a761329cc9bb2942e7959529aa9dcbf824e29b82f08777fc823979e8935e0a7f",
+        "recordedSha256": "a761329cc9bb2942e7959529aa9dcbf824e29b82f08777fc823979e8935e0a7f",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/0004_读入字符串并输出/0004_元数据.json",
         "completeCode": "代码库/0004_读入字符串并输出/0004_提交_1254886_c-noilinux_完整代码.c",
@@ -220,15 +220,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/0004_读入字符串并输出/0004_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/0004_读入字符串并输出/0004_提交_1254886_c-noilinux_完整代码.c",
+        "directlySubmittableCode": "代码库/0004_读入字符串并输出/0004_提交_1254886_c-noilinux_可提交代码.c",
         "onlineVerification": "ONLINE_ACCEPTED",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-20T13:04:09Z",
+        "verifiedSubmissionNo": "1401833",
+        "codeSha256": "a761329cc9bb2942e7959529aa9dcbf824e29b82f08777fc823979e8935e0a7f"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -253,11 +253,11 @@
       },
       "language": "cpp",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1161532",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "ba78a07adffcf302a02fb2b14a5544b974151338dcaabbfbf2630a308f0337bb",
-        "recordedSha256": "ba78a07adffcf302a02fb2b14a5544b974151338dcaabbfbf2630a308f0337bb",
+        "sourceSha256": "25a28012a3b42089d2f8ee55ed1647d29d6bd2f97f91d3337bfc539266c7b9ef",
+        "recordedSha256": "25a28012a3b42089d2f8ee55ed1647d29d6bd2f97f91d3337bfc539266c7b9ef",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/0005_切换字符大小写/0005_元数据.json",
         "completeCode": "代码库/0005_切换字符大小写/0005_提交_1161532_cpp_完整代码.cpp",
@@ -279,15 +279,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/0005_切换字符大小写/0005_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/0005_切换字符大小写/0005_提交_1161532_cpp_完整代码.cpp",
+        "directlySubmittableCode": "代码库/0005_切换字符大小写/0005_提交_1161532_cpp_可提交代码.cpp",
         "onlineVerification": "ONLINE_ACCEPTED",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-20T13:31:44Z",
+        "verifiedSubmissionNo": "1401890",
+        "codeSha256": "25a28012a3b42089d2f8ee55ed1647d29d6bd2f97f91d3337bfc539266c7b9ef"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -312,11 +312,11 @@
       },
       "language": "cpp",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1161533",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "fbd137b843a877801fc903ec47d367fab6d04f826f1d03e0d798edb6acabe19d",
-        "recordedSha256": "fbd137b843a877801fc903ec47d367fab6d04f826f1d03e0d798edb6acabe19d",
+        "sourceSha256": "7dcc7a04d5baaf49475f2822bcaf7c04d40ab306e11cca51f5b8dab8aa726918",
+        "recordedSha256": "7dcc7a04d5baaf49475f2822bcaf7c04d40ab306e11cca51f5b8dab8aa726918",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/0006_浮点数求和/0006_元数据.json",
         "completeCode": "代码库/0006_浮点数求和/0006_提交_1161533_cpp_完整代码.cpp",
@@ -338,15 +338,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/0006_浮点数求和/0006_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/0006_浮点数求和/0006_提交_1161533_cpp_完整代码.cpp",
+        "directlySubmittableCode": "代码库/0006_浮点数求和/0006_提交_1161533_cpp_可提交代码.cpp",
         "onlineVerification": "ONLINE_ACCEPTED",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-20T13:32:00Z",
+        "verifiedSubmissionNo": "1401891",
+        "codeSha256": "7dcc7a04d5baaf49475f2822bcaf7c04d40ab306e11cca51f5b8dab8aa726918"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -371,11 +371,11 @@
       },
       "language": "cpp",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1161537",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "974d473b208cc7ccc24703d6ee4007b47e1d1ae67dab0c9b0f1a719081b63662",
-        "recordedSha256": "974d473b208cc7ccc24703d6ee4007b47e1d1ae67dab0c9b0f1a719081b63662",
+        "sourceSha256": "74c1943fd5e6a55ed53816746e97306409c03ef434dce6a950c02fb599a51c59",
+        "recordedSha256": "74c1943fd5e6a55ed53816746e97306409c03ef434dce6a950c02fb599a51c59",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/0007_求三角形面积/0007_元数据.json",
         "completeCode": "代码库/0007_求三角形面积/0007_提交_1161537_cpp_完整代码.cpp",
@@ -397,15 +397,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/0007_求三角形面积/0007_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/0007_求三角形面积/0007_提交_1161537_cpp_完整代码.cpp",
+        "directlySubmittableCode": "代码库/0007_求三角形面积/0007_提交_1161537_cpp_可提交代码.cpp",
         "onlineVerification": "ONLINE_ACCEPTED",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-20T13:32:15Z",
+        "verifiedSubmissionNo": "1401892",
+        "codeSha256": "74c1943fd5e6a55ed53816746e97306409c03ef434dce6a950c02fb599a51c59"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -421,9 +421,9 @@
             "label": "题面图片",
             "filename": "img_01_16901584001332.png",
             "relativePath": "assets/img_01_16901584001332.png",
-            "status": "CACHED",
-            "bytes": 7161,
-            "sha256": "097334a428e2e6994d9e7a2c309bdf8a73ea853d1c174047a45c43198392afd8",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -431,13 +431,13 @@
             "label": "题面图片",
             "filename": "img_02_54721584001332.png",
             "relativePath": "assets/img_02_54721584001332.png",
-            "status": "CACHED",
-            "bytes": 6026,
-            "sha256": "c38fdb11d6d53ffb61be7a456357166506ce627029aeba3d23b315e79f242cbd",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 2,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -662,7 +662,7 @@
         "statement": "题解/0087_图像处理/0087_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_ACCEPTED",
+        "onlineVerification": "ONLINE_SKIPPED_LOCAL_GATE_SAMPLE_SAMPLE_INCONSISTENT",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -1324,9 +1324,9 @@
             "label": "下载代码文件",
             "filename": "01_119.cpp",
             "relativePath": "assets/01_119.cpp",
-            "status": "CACHED",
-            "bytes": 211,
-            "sha256": "fa0476eb51ee442f48158fcbefd8dfa4122788bd8af032a009061e7e4178f7ea",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -1704,17 +1704,15 @@
             "label": "题面图片",
             "filename": "img_01_1385434214",
             "relativePath": "assets/img_01_1385434214",
-            "status": "DOWNLOAD_FAILED",
+            "status": "DETECTED_NOT_DOWNLOADED",
             "bytes": 0,
             "sha256": "",
-            "error": "URLError: <urlopen error [Errno 1] Operation not permitted>"
+            "error": ""
           }
         ],
         "imageLocalCount": 0,
         "assets": [],
-        "warnings": [
-          "题面图片下载失败: http://202.112.113.190:8080/phpDownload/1385434214 (URLError: <urlopen error [Errno 1] Operation not permitted>)"
-        ]
+        "warnings": []
       }
     },
     {
@@ -2158,9 +2156,9 @@
             "label": "下载代码文件",
             "filename": "01_132.cpp",
             "relativePath": "assets/01_132.cpp",
-            "status": "CACHED",
-            "bytes": 418,
-            "sha256": "dc6ca5f0ff5c15669d847672c585c4dcd16a1535dad18463985c69383980fc00",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -2728,9 +2726,9 @@
             "label": "下载代码文件",
             "filename": "01_144.cpp",
             "relativePath": "assets/01_144.cpp",
-            "status": "CACHED",
-            "bytes": 532,
-            "sha256": "5793b4bfe603948efab58595056ea38f3f864ba613ef74fea70da539f44a6f6e",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -3665,9 +3663,9 @@
             "label": "下载代码文件",
             "filename": "01_168.cpp",
             "relativePath": "assets/01_168.cpp",
-            "status": "CACHED",
-            "bytes": 146,
-            "sha256": "903cf9fa9a6679cca0bfc7564df288b1cd8fee66e09293a504abfa48cb928eec",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -4033,9 +4031,9 @@
             "label": "题面图片",
             "filename": "img_01_5de9a0914dc16.png",
             "relativePath": "assets/img_01_5de9a0914dc16.png",
-            "status": "CACHED",
-            "bytes": 163374,
-            "sha256": "e4ee09d58fb8e2951d13bc0cbae57e9de8f191a5afbda1cc13b8b98611b77d0d",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -4043,17 +4041,15 @@
             "label": "题面图片",
             "filename": "img_02_20131214083228_47867.png",
             "relativePath": "assets/img_02_20131214083228_47867.png",
-            "status": "DOWNLOAD_FAILED",
+            "status": "DETECTED_NOT_DOWNLOADED",
             "bytes": 0,
             "sha256": "",
-            "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+            "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
-        "warnings": [
-          "题面图片下载失败: http://yoj.ruc.edu.cn/kindeditor/attached/image/20131214/20131214083228_47867.png (URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>)"
-        ]
+        "warnings": []
       }
     },
     {
@@ -4245,11 +4241,11 @@
       },
       "language": "c",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1177209",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "9d9953793b636795cd34599226fd3eb82abc88fd14c2898e47885eecc48d0892",
-        "recordedSha256": "9d9953793b636795cd34599226fd3eb82abc88fd14c2898e47885eecc48d0892",
+        "sourceSha256": "1b04ce396940fae88177db745ef116f35918e27ebe10ea4a65120cb460016cd5",
+        "recordedSha256": "1b04ce396940fae88177db745ef116f35918e27ebe10ea4a65120cb460016cd5",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/0180_计算cosx的近似值/0180_元数据.json",
         "completeCode": "代码库/0180_计算cosx的近似值/0180_提交_1177209_c_完整代码.c",
@@ -4271,15 +4267,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/0180_计算cosx的近似值/0180_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/0180_计算cosx的近似值/0180_提交_1177209_c_完整代码.c",
+        "directlySubmittableCode": "代码库/0180_计算cosx的近似值/0180_提交_1177209_c_可提交代码.c",
         "onlineVerification": "ONLINE_ACCEPTED",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-20T00:24:56Z",
+        "verifiedSubmissionNo": "1399713",
+        "codeSha256": "1b04ce396940fae88177db745ef116f35918e27ebe10ea4a65120cb460016cd5"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -4294,13 +4290,13 @@
             "label": "题面图片",
             "filename": "img_01_5de87ad437f1f.gif",
             "relativePath": "assets/img_01_5de87ad437f1f.gif",
-            "status": "CACHED",
-            "bytes": 2681,
-            "sha256": "e448d4e42cb408e70df472eb7b826d9dfcc25587e1a1d0796ca512a456c73eb6",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -5134,28 +5130,25 @@
             "label": "题面图片",
             "filename": "img_01_20181217091610_35230.png",
             "relativePath": "assets/img_01_20181217091610_35230.png",
-            "status": "DOWNLOAD_FAILED",
+            "status": "DETECTED_NOT_DOWNLOADED",
             "bytes": 0,
             "sha256": "",
-            "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+            "error": ""
           },
           {
             "url": "http://yoj.ruc.edu.cn/kindeditor/attached/image/20181217/20181217091610_75739.png",
             "label": "题面图片",
             "filename": "img_02_20181217091610_75739.png",
             "relativePath": "assets/img_02_20181217091610_75739.png",
-            "status": "DOWNLOAD_FAILED",
+            "status": "DETECTED_NOT_DOWNLOADED",
             "bytes": 0,
             "sha256": "",
-            "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+            "error": ""
           }
         ],
         "imageLocalCount": 0,
         "assets": [],
-        "warnings": [
-          "题面图片下载失败: http://yoj.ruc.edu.cn/kindeditor/attached/image/20181217/20181217091610_35230.png (URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>)",
-          "题面图片下载失败: http://yoj.ruc.edu.cn/kindeditor/attached/image/20181217/20181217091610_75739.png (URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>)"
-        ]
+        "warnings": []
       }
     },
     {
@@ -5406,11 +5399,11 @@
       },
       "language": "c",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1280408",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "6ca8bc2df93812a7f224eafa928cedd8984e26dabe8a46c8b3b0e992ead4ac18",
-        "recordedSha256": "6ca8bc2df93812a7f224eafa928cedd8984e26dabe8a46c8b3b0e992ead4ac18",
+        "sourceSha256": "a3af8843e4779e0c8b7f0e2c35ceee0220fa1d0b5a6e6db25fdf26cd8c4387fe",
+        "recordedSha256": "a3af8843e4779e0c8b7f0e2c35ceee0220fa1d0b5a6e6db25fdf26cd8c4387fe",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/0247_匹配Wild号码/0247_元数据.json",
         "completeCode": "代码库/0247_匹配Wild号码/0247_提交_1280408_c_完整代码.c",
@@ -5432,15 +5425,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/0247_匹配Wild号码/0247_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/0247_匹配Wild号码/0247_提交_1280408_c_完整代码.c",
+        "directlySubmittableCode": "代码库/0247_匹配Wild号码/0247_提交_1280408_c_可提交代码.c",
         "onlineVerification": "ONLINE_ACCEPTED",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-20T00:29:52Z",
+        "verifiedSubmissionNo": "1399732",
+        "codeSha256": "a3af8843e4779e0c8b7f0e2c35ceee0220fa1d0b5a6e6db25fdf26cd8c4387fe"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -5809,9 +5802,9 @@
             "label": "下载代码文件",
             "filename": "01_261.cpp",
             "relativePath": "assets/01_261.cpp",
-            "status": "CACHED",
-            "bytes": 169,
-            "sha256": "10393c0671a77c2ddb23ba83ac0dcc8fab7622e48cf63597cf1d87f8600b1459",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -6225,7 +6218,7 @@
         "statement": "题解/0284_黄页建立/0284_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_SKIPPED_LOCAL_GATE_SAMPLE_SAMPLE_INCONSISTENT",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -6243,9 +6236,9 @@
             "label": "下载代码文件",
             "filename": "01_284.cpp",
             "relativePath": "assets/01_284.cpp",
-            "status": "CACHED",
-            "bytes": 535,
-            "sha256": "a4dacabca3bcfd983505075d6dece5300e5051bd95ab76b3b6b2b96fb6d047e5",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -6315,17 +6308,15 @@
             "label": "下载代码文件",
             "filename": "01_285.cpp",
             "relativePath": "assets/01_285.cpp",
-            "status": "DOWNLOAD_FAILED",
+            "status": "DETECTED_NOT_DOWNLOADED",
             "bytes": 0,
             "sha256": "",
             "sourceSha256": "",
             "transform": "",
-            "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+            "error": ""
           }
         ],
-        "warnings": [
-          "附件下载失败: http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/285.html (URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>)"
-        ]
+        "warnings": []
       }
     },
     {
@@ -6389,17 +6380,15 @@
             "label": "下载代码文件",
             "filename": "01_286.cpp",
             "relativePath": "assets/01_286.cpp",
-            "status": "DOWNLOAD_FAILED",
+            "status": "DETECTED_NOT_DOWNLOADED",
             "bytes": 0,
             "sha256": "",
             "sourceSha256": "",
             "transform": "",
-            "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+            "error": ""
           }
         ],
-        "warnings": [
-          "附件下载失败: http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/286.html (URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>)"
-        ]
+        "warnings": []
       }
     },
     {
@@ -6473,11 +6462,11 @@
       },
       "language": "cpp17-clang",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1189374",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "717bfd7dfebb697bb896c4e172e81808d2c0c122d94e36e7913992b7394da812",
-        "recordedSha256": "717bfd7dfebb697bb896c4e172e81808d2c0c122d94e36e7913992b7394da812",
+        "sourceSha256": "544e403e18c0dab3843c063e2df1e2bbe334b1e7857499f9fb2b4d94ef577289",
+        "recordedSha256": "544e403e18c0dab3843c063e2df1e2bbe334b1e7857499f9fb2b4d94ef577289",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/0288_字符串之差/0288_元数据.json",
         "completeCode": "代码库/0288_字符串之差/0288_提交_1189374_cpp17-clang_完整代码.cpp",
@@ -6499,15 +6488,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/0288_字符串之差/0288_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/0288_字符串之差/0288_提交_1189374_cpp17-clang_完整代码.cpp",
+        "directlySubmittableCode": "代码库/0288_字符串之差/0288_提交_1189374_cpp17-clang_可提交代码.cpp",
         "onlineVerification": "ONLINE_ACCEPTED",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-20T00:32:43Z",
+        "verifiedSubmissionNo": "1399743",
+        "codeSha256": "544e403e18c0dab3843c063e2df1e2bbe334b1e7857499f9fb2b4d94ef577289"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -7942,9 +7931,9 @@
             "label": "下载代码文件",
             "filename": "01_391.cpp",
             "relativePath": "assets/01_391.cpp",
-            "status": "CACHED",
-            "bytes": 686,
-            "sha256": "f8b1d607443a3cee6860f851d221ab09a6a875d5bc240d6a691eb1e9bb7f59ef",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -8132,9 +8121,9 @@
             "label": "下载代码文件",
             "filename": "01_421.cpp",
             "relativePath": "assets/01_421.cpp",
-            "status": "CACHED",
-            "bytes": 582,
-            "sha256": "79638b80bfb9ebcbafed07831db99385fea5650ae700b89e5534d1908b81964d",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -8631,11 +8620,11 @@
       },
       "language": "c-noilinux",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1153155",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "45cb5ba9f9022d62ce0250649c009089ca6239fcd8dfbc42ae2cb9b7dcefdea5",
-        "recordedSha256": "45cb5ba9f9022d62ce0250649c009089ca6239fcd8dfbc42ae2cb9b7dcefdea5",
+        "sourceSha256": "a9032fdbb2131eb5826c96a8ee4b3d02c7980a3b7f5e364c30411093cb544605",
+        "recordedSha256": "a9032fdbb2131eb5826c96a8ee4b3d02c7980a3b7f5e364c30411093cb544605",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/0448_按要求读入并输出数据/0448_元数据.json",
         "completeCode": "代码库/0448_按要求读入并输出数据/0448_提交_1153155_c-noilinux_完整代码.c",
@@ -8657,15 +8646,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/0448_按要求读入并输出数据/0448_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/0448_按要求读入并输出数据/0448_提交_1153155_c-noilinux_完整代码.c",
+        "directlySubmittableCode": "代码库/0448_按要求读入并输出数据/0448_提交_1153155_c-noilinux_可提交代码.c",
         "onlineVerification": "ONLINE_ACCEPTED",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-20T00:41:01Z",
+        "verifiedSubmissionNo": "1399777",
+        "codeSha256": "a9032fdbb2131eb5826c96a8ee4b3d02c7980a3b7f5e364c30411093cb544605"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -9527,9 +9516,9 @@
             "label": "下载代码文件",
             "filename": "01_626.cpp",
             "relativePath": "assets/01_626.cpp",
-            "status": "CACHED",
-            "bytes": 1148,
-            "sha256": "c8bc9b3d43191d3beeec6c3bb8adcfd702b72c32787e36cc5339dd582e033699",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -9599,9 +9588,9 @@
             "label": "下载代码文件",
             "filename": "01_627.cpp",
             "relativePath": "assets/01_627.cpp",
-            "status": "CACHED",
-            "bytes": 2490,
-            "sha256": "2f4467e1015020662321d89e8e763676f5a025da97742d40a62d038e96f2806c",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -9671,9 +9660,9 @@
             "label": "下载代码文件",
             "filename": "01_628.cpp",
             "relativePath": "assets/01_628.cpp",
-            "status": "CACHED",
-            "bytes": 622,
-            "sha256": "74e8fbd9c500876f8f3ddcb15272dd1880d4686880e752ff4bf8f347c0ff52e1",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -9743,9 +9732,9 @@
             "label": "下载代码文件",
             "filename": "01_629.cpp",
             "relativePath": "assets/01_629.cpp",
-            "status": "CACHED",
-            "bytes": 622,
-            "sha256": "74e8fbd9c500876f8f3ddcb15272dd1880d4686880e752ff4bf8f347c0ff52e1",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -9815,9 +9804,9 @@
             "label": "下载代码文件",
             "filename": "01_630.cpp",
             "relativePath": "assets/01_630.cpp",
-            "status": "CACHED",
-            "bytes": 735,
-            "sha256": "05002dbd9369740f9f9790375917660e3609abe571524a4b7ecb3d0a97869bbc",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -10933,9 +10922,9 @@
             "label": "下载代码文件",
             "filename": "01_685.cpp",
             "relativePath": "assets/01_685.cpp",
-            "status": "CACHED",
-            "bytes": 3353,
-            "sha256": "b5d1b67cbac0899469a58226c2f832acafbe4cf47ab0d9300d31cf611801eecb",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -11100,11 +11089,11 @@
       },
       "language": "cpp",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1171955",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "6e6dfa482681f02f67b37c95e026851b4acb168da7a16787c65c695f0ed4a7da",
-        "recordedSha256": "6e6dfa482681f02f67b37c95e026851b4acb168da7a16787c65c695f0ed4a7da",
+        "sourceSha256": "bec3bcd80ca33ea4e0368c53c58fa984810463a8c568f288deccf5a94b042b5f",
+        "recordedSha256": "bec3bcd80ca33ea4e0368c53c58fa984810463a8c568f288deccf5a94b042b5f",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/0784_Karatsuba_Multiplication/0784_元数据.json",
         "completeCode": "代码库/0784_Karatsuba_Multiplication/0784_提交_1171955_cpp_完整代码.cpp",
@@ -11126,15 +11115,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/0784_Karatsuba_Multiplication/0784_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/0784_Karatsuba_Multiplication/0784_提交_1171955_cpp_完整代码.cpp",
+        "directlySubmittableCode": "代码库/0784_Karatsuba_Multiplication/0784_提交_1171955_cpp_可提交代码.cpp",
         "onlineVerification": "ONLINE_ACCEPTED",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-20T00:48:33Z",
+        "verifiedSubmissionNo": "1399811",
+        "codeSha256": "bec3bcd80ca33ea4e0368c53c58fa984810463a8c568f288deccf5a94b042b5f"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -11395,11 +11384,11 @@
       },
       "language": "cpp",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1167875",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "165e3a25e3816b1d64c82d1278e9a3e41afd5785f16013820e6be15e5f0e5a98",
-        "recordedSha256": "165e3a25e3816b1d64c82d1278e9a3e41afd5785f16013820e6be15e5f0e5a98",
+        "sourceSha256": "037d36f83a27f1c9ae095cf3fbf9e3cede85d1692e0ebdec04641d23deea70d0",
+        "recordedSha256": "037d36f83a27f1c9ae095cf3fbf9e3cede85d1692e0ebdec04641d23deea70d0",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/0790_二维查找树/0790_元数据.json",
         "completeCode": "代码库/0790_二维查找树/0790_提交_1167875_cpp_完整代码.cpp",
@@ -11421,15 +11410,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/0790_二维查找树/0790_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_COMPILE_ERROR",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "cleanCode": "代码库/0790_二维查找树/0790_提交_1167875_cpp_完整代码.cpp",
+        "directlySubmittableCode": "代码库/0790_二维查找树/0790_提交_1167875_cpp_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "verifiedAt": "2026-09-20T13:28:18Z",
+        "verifiedSubmissionNo": "1401879",
+        "codeSha256": "037d36f83a27f1c9ae095cf3fbf9e3cede85d1692e0ebdec04641d23deea70d0"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13121,7 +13110,8 @@
         "imageLocalCount": 0,
         "assets": [],
         "warnings": [
-          "KaTeX 的 MathML 和可见文本均含替换字符，公式需要人工复核"
+          "部分 MathML 含替换字符，已采用页面可见 KaTeX 文本",
+          "题面快照含 U+FFFD 替换字符，已改为显式待核对标记"
         ]
       }
     },
@@ -13432,11 +13422,11 @@
       },
       "language": "c",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1282254",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "a7b661acd86715cf860efc9f3a8fcd398294764b3cea01cff8889daa942ce4b3",
-        "recordedSha256": "a7b661acd86715cf860efc9f3a8fcd398294764b3cea01cff8889daa942ce4b3",
+        "sourceSha256": "9b2b94c4063af878b4be3b39427c61010af6c7d99b1ef7bb90ad581552fb0233",
+        "recordedSha256": "9b2b94c4063af878b4be3b39427c61010af6c7d99b1ef7bb90ad581552fb0233",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/0928_线段/0928_元数据.json",
         "completeCode": "代码库/0928_线段/0928_提交_1282254_c_完整代码.c",
@@ -13458,15 +13448,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/0928_线段/0928_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/0928_线段/0928_提交_1282254_c_完整代码.c",
+        "directlySubmittableCode": "代码库/0928_线段/0928_提交_1282254_c_可提交代码.c",
         "onlineVerification": "ONLINE_ACCEPTED",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-20T00:57:40Z",
+        "verifiedSubmissionNo": "1399856",
+        "codeSha256": "9b2b94c4063af878b4be3b39427c61010af6c7d99b1ef7bb90ad581552fb0233"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13550,11 +13540,11 @@
       },
       "language": "c",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1282273",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "ce36eb456993173161e84c2e927af86cd723a57ac7f948ba41fadeedb308fffb",
-        "recordedSha256": "ce36eb456993173161e84c2e927af86cd723a57ac7f948ba41fadeedb308fffb",
+        "sourceSha256": "84f4b504eb5ff34e08472f189ff89f0800acd124564238151cab815c1549bc7a",
+        "recordedSha256": "84f4b504eb5ff34e08472f189ff89f0800acd124564238151cab815c1549bc7a",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/0930_合并石子/0930_元数据.json",
         "completeCode": "代码库/0930_合并石子/0930_提交_1282273_c_完整代码.c",
@@ -13576,15 +13566,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/0930_合并石子/0930_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/0930_合并石子/0930_提交_1282273_c_完整代码.c",
+        "directlySubmittableCode": "代码库/0930_合并石子/0930_提交_1282273_c_可提交代码.c",
         "onlineVerification": "ONLINE_ACCEPTED",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-20T00:58:11Z",
+        "verifiedSubmissionNo": "1399860",
+        "codeSha256": "84f4b504eb5ff34e08472f189ff89f0800acd124564238151cab815c1549bc7a"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13609,11 +13599,11 @@
       },
       "language": "c",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1282277",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "9a4f6a933e5d958de1300a1c575ac2d978dac7c075fa96b43d9e8e3c973be502",
-        "recordedSha256": "9a4f6a933e5d958de1300a1c575ac2d978dac7c075fa96b43d9e8e3c973be502",
+        "sourceSha256": "66dc8fcedca6f4d4504cb78fb288bd9b41565ff72680ab575d65b51619bafb4b",
+        "recordedSha256": "66dc8fcedca6f4d4504cb78fb288bd9b41565ff72680ab575d65b51619bafb4b",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/0939_加分二叉树/0939_元数据.json",
         "completeCode": "代码库/0939_加分二叉树/0939_提交_1282277_c_完整代码.c",
@@ -13635,15 +13625,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/0939_加分二叉树/0939_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/0939_加分二叉树/0939_提交_1282277_c_完整代码.c",
+        "directlySubmittableCode": "代码库/0939_加分二叉树/0939_提交_1282277_c_可提交代码.c",
         "onlineVerification": "ONLINE_ACCEPTED",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-20T00:58:27Z",
+        "verifiedSubmissionNo": "1399862",
+        "codeSha256": "66dc8fcedca6f4d4504cb78fb288bd9b41565ff72680ab575d65b51619bafb4b"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13668,11 +13658,11 @@
       },
       "language": "c",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1282280",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "4132c97b7e798e46ddd604b6baa8401bcc9c61accff338a16ed1b243bbc66ea6",
-        "recordedSha256": "4132c97b7e798e46ddd604b6baa8401bcc9c61accff338a16ed1b243bbc66ea6",
+        "sourceSha256": "84e9983e702e0c2dbaba0c5f9834bb9842e53aa15e26ac0c7c9c9f54ea5b5362",
+        "recordedSha256": "84e9983e702e0c2dbaba0c5f9834bb9842e53aa15e26ac0c7c9c9f54ea5b5362",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/0940_战争游戏/0940_元数据.json",
         "completeCode": "代码库/0940_战争游戏/0940_提交_1282280_c_完整代码.c",
@@ -13694,15 +13684,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/0940_战争游戏/0940_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/0940_战争游戏/0940_提交_1282280_c_完整代码.c",
+        "directlySubmittableCode": "代码库/0940_战争游戏/0940_提交_1282280_c_可提交代码.c",
         "onlineVerification": "ONLINE_ACCEPTED",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-20T00:58:42Z",
+        "verifiedSubmissionNo": "1399863",
+        "codeSha256": "84e9983e702e0c2dbaba0c5f9834bb9842e53aa15e26ac0c7c9c9f54ea5b5362"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13727,11 +13717,11 @@
       },
       "language": "c",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1282283",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "3169a007ca1fff76b61408c2c8637704d093772aab8eb822b1933ebeb317b67c",
-        "recordedSha256": "3169a007ca1fff76b61408c2c8637704d093772aab8eb822b1933ebeb317b67c",
+        "sourceSha256": "0e0c5d2d2f0d3e7543ccb469b55c6f1126045143e316dc89534f8da8d6d0b6fe",
+        "recordedSha256": "0e0c5d2d2f0d3e7543ccb469b55c6f1126045143e316dc89534f8da8d6d0b6fe",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/0941_挖井/0941_元数据.json",
         "completeCode": "代码库/0941_挖井/0941_提交_1282283_c_完整代码.c",
@@ -13753,15 +13743,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/0941_挖井/0941_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/0941_挖井/0941_提交_1282283_c_完整代码.c",
+        "directlySubmittableCode": "代码库/0941_挖井/0941_提交_1282283_c_可提交代码.c",
         "onlineVerification": "ONLINE_ACCEPTED",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-20T00:58:58Z",
+        "verifiedSubmissionNo": "1399864",
+        "codeSha256": "0e0c5d2d2f0d3e7543ccb469b55c6f1126045143e316dc89534f8da8d6d0b6fe"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -16857,9 +16847,9 @@
             "label": "下载代码文件",
             "filename": "01_999.cpp",
             "relativePath": "assets/01_999.cpp",
-            "status": "CACHED",
-            "bytes": 8635,
-            "sha256": "4868de1e26371148cbc3c30d47ae1ca6762ad5032a7460ef0b5f7f5aa1173847",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -21077,11 +21067,11 @@
       },
       "language": "cpp17",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1340415",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "189f30ddf4e72897de6075887312c9193b86d6b46915d4d848b256fa36f591c9",
-        "recordedSha256": "189f30ddf4e72897de6075887312c9193b86d6b46915d4d848b256fa36f591c9",
+        "sourceSha256": "a89ec0e455f930d7a85a626c84505aacd45f740aca36cd07f75a1165a5fce865",
+        "recordedSha256": "a89ec0e455f930d7a85a626c84505aacd45f740aca36cd07f75a1165a5fce865",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/1152_对对碰/1152_元数据.json",
         "completeCode": "代码库/1152_对对碰/1152_提交_1340415_cpp17_完整代码.cpp",
@@ -21103,15 +21093,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1152_对对碰/1152_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SYSTEM_ERROR",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "cleanCode": "代码库/1152_对对碰/1152_提交_1340415_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1152_对对碰/1152_提交_1340415_cpp17_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "verifiedAt": "2026-09-20T13:04:43Z",
+        "verifiedSubmissionNo": "1401835",
+        "codeSha256": "a89ec0e455f930d7a85a626c84505aacd45f740aca36cd07f75a1165a5fce865"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -22567,11 +22557,11 @@
       },
       "language": "cpp17-clang",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1224082",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "2f82433fa5cc4acb39a5adac80caa707e1eb4de41221bd0ed2b20ca32a0528b0",
-        "recordedSha256": "2f82433fa5cc4acb39a5adac80caa707e1eb4de41221bd0ed2b20ca32a0528b0",
+        "sourceSha256": "14b8e34dfc7822b5515a078c6eedbe7e6ec6ddb86e6892398ed048d8899b712d",
+        "recordedSha256": "14b8e34dfc7822b5515a078c6eedbe7e6ec6ddb86e6892398ed048d8899b712d",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/1201_宝藏(CSP_202312-4)/1201_元数据.json",
         "completeCode": "代码库/1201_宝藏(CSP_202312-4)/1201_提交_1224082_cpp17-clang_完整代码.cpp",
@@ -22593,15 +22583,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1201_宝藏(CSP_202312-4)/1201_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_TIME_LIMIT_EXCEEDED",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "cleanCode": "代码库/1201_宝藏(CSP_202312-4)/1201_提交_1224082_cpp17-clang_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1201_宝藏(CSP_202312-4)/1201_提交_1224082_cpp17-clang_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "verifiedAt": "2026-09-20T13:52:20Z",
+        "verifiedSubmissionNo": "1401902",
+        "codeSha256": "14b8e34dfc7822b5515a078c6eedbe7e6ec6ddb86e6892398ed048d8899b712d"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -22618,9 +22608,9 @@
             "label": "题面图片",
             "filename": "img_01_93421730370556.png",
             "relativePath": "assets/img_01_93421730370556.png",
-            "status": "CACHED",
-            "bytes": 168158,
-            "sha256": "da31b10a72bc0b1e0e747678fd670192e3994088a89c59eea90beb5f21cc57c1",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -22628,9 +22618,9 @@
             "label": "题面图片",
             "filename": "img_02_53821730370556.png",
             "relativePath": "assets/img_02_53821730370556.png",
-            "status": "CACHED",
-            "bytes": 96565,
-            "sha256": "8157dc65a6ac3db7cd266857175e6a3fe1501d54ae0412313a360f1c91045d6e",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -22638,13 +22628,13 @@
             "label": "题面图片",
             "filename": "img_03_47051730370557.png",
             "relativePath": "assets/img_03_47051730370557.png",
-            "status": "CACHED",
-            "bytes": 54535,
-            "sha256": "ed0ce7811a1833b59eed2f55dbfcddffde27b5cf64a2625a3155cbb77ed9958b",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 3,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -24031,9 +24021,9 @@
             "label": "题面图片",
             "filename": "img_01_17358139648480.png",
             "relativePath": "assets/img_01_17358139648480.png",
-            "status": "CACHED",
-            "bytes": 5140,
-            "sha256": "e3514cb863a372a61e60e86219604433c9ac016bb46d40e4d95ef48780feb97a",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -24041,9 +24031,9 @@
             "label": "题面图片",
             "filename": "img_02_17358139644953.png",
             "relativePath": "assets/img_02_17358139644953.png",
-            "status": "CACHED",
-            "bytes": 4922,
-            "sha256": "57e3ba2ea22c3fde68ad57dfa50452b37354981f92a9805f52f51d707d0aa6bc",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -24051,9 +24041,9 @@
             "label": "题面图片",
             "filename": "img_03_17358139644292.png",
             "relativePath": "assets/img_03_17358139644292.png",
-            "status": "CACHED",
-            "bytes": 4559,
-            "sha256": "91a900d4144f0f893bcd3f41d704b4833659dd3b5da9d5b5610dbb025b4bfa44",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -24061,22 +24051,22 @@
             "label": "题面图片",
             "filename": "img_04_17358139645814.png",
             "relativePath": "assets/img_04_17358139645814.png",
-            "status": "CACHED",
-            "bytes": 4348,
-            "sha256": "ed1db1caf7a027917177ef7c198878066f500352a0076709ac2d7ce75ab09f86",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 4,
+        "imageLocalCount": 0,
         "assets": [
           {
             "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/1286.html",
             "label": "下载代码文件",
             "filename": "01_1286.cpp",
             "relativePath": "assets/01_1286.cpp",
-            "status": "CACHED",
-            "bytes": 2539,
-            "sha256": "0a6648a3deb3d3f498f4a0a5f933d8ca96bf59e452a4713cb1b4b2a853ccfc71",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -24378,9 +24368,9 @@
             "label": "下载代码文件",
             "filename": "01_1362.cpp",
             "relativePath": "assets/01_1362.cpp",
-            "status": "CACHED",
-            "bytes": 3025,
-            "sha256": "5260ce5ec7b437e856c2e58d5214a5018caba95fba6249ed1a00557a27918cc7",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -24450,9 +24440,9 @@
             "label": "下载代码文件",
             "filename": "01_1363.cpp",
             "relativePath": "assets/01_1363.cpp",
-            "status": "CACHED",
-            "bytes": 5788,
-            "sha256": "8e3bb25365a1942b8710fc1d81d0870467eee68a1e5e75da67f9696bcb2d3824",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -24522,9 +24512,9 @@
             "label": "下载代码文件",
             "filename": "01_1370.cpp",
             "relativePath": "assets/01_1370.cpp",
-            "status": "CACHED",
-            "bytes": 1714,
-            "sha256": "47764c20a78af8dfdebfeda0e254cf7f0df18c2f212bb178056819b153e94646",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -24594,9 +24584,9 @@
             "label": "下载代码文件",
             "filename": "01_1371.cpp",
             "relativePath": "assets/01_1371.cpp",
-            "status": "CACHED",
-            "bytes": 1612,
-            "sha256": "ffc1e7d8f10ebca19487cb9727f7b816212262888c5da2a098ebd5780e70e947",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -24666,9 +24656,9 @@
             "label": "下载代码文件",
             "filename": "01_1378.cpp",
             "relativePath": "assets/01_1378.cpp",
-            "status": "CACHED",
-            "bytes": 2227,
-            "sha256": "b66390e8574647ea4c6cc622c496d79fedc037b60a0edd63a87902c6ae988b6d",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -24738,9 +24728,9 @@
             "label": "下载代码文件",
             "filename": "01_1379.cpp",
             "relativePath": "assets/01_1379.cpp",
-            "status": "CACHED",
-            "bytes": 3934,
-            "sha256": "12f3447cf813ebe5a6bc9489cb8853f4bc719f6b95fca98be5e2800f110fae49",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -24761,11 +24751,11 @@
       },
       "language": "cpp17",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1340609",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "e77b598feb1baf028596156ecd9e967972766e78638fcdd2ee0a0ff47d25c367",
-        "recordedSha256": "e77b598feb1baf028596156ecd9e967972766e78638fcdd2ee0a0ff47d25c367",
+        "sourceSha256": "bd8fa9f4c7a2b7286a96b183e7abdf45d423974d747ed5103a058c78136d0b73",
+        "recordedSha256": "bd8fa9f4c7a2b7286a96b183e7abdf45d423974d747ed5103a058c78136d0b73",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/1380_宝石切割/1380_元数据.json",
         "completeCode": "代码库/1380_宝石切割/1380_提交_1340609_cpp17_完整代码.cpp",
@@ -24787,15 +24777,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1380_宝石切割/1380_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_FILE_ERROR",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "cleanCode": "代码库/1380_宝石切割/1380_提交_1340609_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1380_宝石切割/1380_提交_1340609_cpp17_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "verifiedAt": "2026-09-20T13:05:15Z",
+        "verifiedSubmissionNo": "1401839",
+        "codeSha256": "bd8fa9f4c7a2b7286a96b183e7abdf45d423974d747ed5103a058c78136d0b73"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -24869,9 +24859,9 @@
             "label": "下载代码文件",
             "filename": "01_1408.cpp",
             "relativePath": "assets/01_1408.cpp",
-            "status": "CACHED",
-            "bytes": 3264,
-            "sha256": "d80163d48813261b95759176a72792260b934f0f3f8d7edda98a53cf958c0423",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -24941,9 +24931,9 @@
             "label": "下载代码文件",
             "filename": "01_1409.cpp",
             "relativePath": "assets/01_1409.cpp",
-            "status": "CACHED",
-            "bytes": 5140,
-            "sha256": "03a36e3fa4ae4ed988a6d376fb07e49f162a9451eef4f1f1485ed4ea35bb1172",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -25013,9 +25003,9 @@
             "label": "下载代码文件",
             "filename": "01_1410.cpp",
             "relativePath": "assets/01_1410.cpp",
-            "status": "CACHED",
-            "bytes": 3459,
-            "sha256": "a75621a09dcf5291dd85285364fe969cd337b6654cce2c4b5cefc596958cc67b",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -25085,9 +25075,9 @@
             "label": "下载代码文件",
             "filename": "01_1411.cpp",
             "relativePath": "assets/01_1411.cpp",
-            "status": "CACHED",
-            "bytes": 6529,
-            "sha256": "ca53e3768fb2fa4e963151fc076779fc648174bf014c62cf99675a44afb3d3cc",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -26576,11 +26566,11 @@
       },
       "language": "cpp17",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1213749",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "ec0cd7b280bf259e4e60a12c3474e8c232adefce9416e6b219fd446fff831304",
-        "recordedSha256": "ec0cd7b280bf259e4e60a12c3474e8c232adefce9416e6b219fd446fff831304",
+        "sourceSha256": "b9801f20843ab87a92bd98cc7ea1d40795db5bf3ec5c0561dc5af744bf6bbaae",
+        "recordedSha256": "b9801f20843ab87a92bd98cc7ea1d40795db5bf3ec5c0561dc5af744bf6bbaae",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/1531_梦魇(CSP_202412-5)/1531_元数据.json",
         "completeCode": "代码库/1531_梦魇(CSP_202412-5)/1531_提交_1213749_cpp17_完整代码.cpp",
@@ -26602,15 +26592,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1531_梦魇(CSP_202412-5)/1531_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_TIME_LIMIT_EXCEEDED",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "cleanCode": "代码库/1531_梦魇(CSP_202412-5)/1531_提交_1213749_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1531_梦魇(CSP_202412-5)/1531_提交_1213749_cpp17_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "verifiedAt": "2026-09-20T13:05:37Z",
+        "verifiedSubmissionNo": "1401841",
+        "codeSha256": "b9801f20843ab87a92bd98cc7ea1d40795db5bf3ec5c0561dc5af744bf6bbaae"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -26626,9 +26616,9 @@
             "label": "题面图片",
             "filename": "img_01_68ac8d0db5a96.png",
             "relativePath": "assets/img_01_68ac8d0db5a96.png",
-            "status": "CACHED",
-            "bytes": 354188,
-            "sha256": "2c040591bc4fc3308bd574f9984677c713707ac008e4fd1df93900ecc45d3cd5",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -26636,13 +26626,13 @@
             "label": "题面图片",
             "filename": "img_02_68ac8e94c3067.png",
             "relativePath": "assets/img_02_68ac8e94c3067.png",
-            "status": "CACHED",
-            "bytes": 90405,
-            "sha256": "f058b72dba9860179cee8242ec735d40cbf7d87d1ea08adf6c00735f02fac4fc",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 2,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -28087,7 +28077,7 @@
         "imageLocalCount": 0,
         "assets": [],
         "warnings": [
-          "KaTeX 节点缺少 MathML"
+          "KaTeX 节点缺少 MathML，已采用页面可见文本"
         ]
       }
     },
@@ -28270,9 +28260,9 @@
             "label": "下载代码文件",
             "filename": "01_1560.cpp",
             "relativePath": "assets/01_1560.cpp",
-            "status": "CACHED",
-            "bytes": 552,
-            "sha256": "648ed8afe0716b675423bc647eb3ea6fda916913f1f4097edfa50f10c57a247e",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -28342,9 +28332,9 @@
             "label": "下载代码文件",
             "filename": "01_1561.cpp",
             "relativePath": "assets/01_1561.cpp",
-            "status": "CACHED",
-            "bytes": 291,
-            "sha256": "b2edc12b29f580803dd8dc00145f695da375bb550de59de1274fab0032df4353",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -28473,9 +28463,9 @@
             "label": "下载代码文件",
             "filename": "01_1563.cpp",
             "relativePath": "assets/01_1563.cpp",
-            "status": "CACHED",
-            "bytes": 254,
-            "sha256": "d9379d783dee08f8c1b61a40d1766f25ce8f849fe31afacdf37fec17da5b29f0",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -28604,22 +28594,22 @@
             "label": "题面图片",
             "filename": "img_01_6911e0f994ecc.png",
             "relativePath": "assets/img_01_6911e0f994ecc.png",
-            "status": "CACHED",
-            "bytes": 35013,
-            "sha256": "062fed11e441c1b1f6395a6c7eb0b15ff6255d3d9ea37b8fc3f2f28a76569f49",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [
           {
             "url": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/1576.html",
             "label": "下载代码文件",
             "filename": "01_1576.cpp",
             "relativePath": "assets/01_1576.cpp",
-            "status": "CACHED",
-            "bytes": 160,
-            "sha256": "7586ac3f0fb4f54559b5712f74559173385a5f27d74d44c306835912296a0c10",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "sourceSha256": "",
             "transform": "",
             "error": ""
@@ -28876,11 +28866,11 @@
       },
       "language": "cpp",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1281805",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "93ea933587798aa3ebd26adacfc7605a20dcec520782f71e63808db0fa96685a",
-        "recordedSha256": "93ea933587798aa3ebd26adacfc7605a20dcec520782f71e63808db0fa96685a",
+        "sourceSha256": "e3dfc3593f4c0955b8536b2fd607c1f6f58dec3964ef3ed7b2ed5af2fdb1045d",
+        "recordedSha256": "e3dfc3593f4c0955b8536b2fd607c1f6f58dec3964ef3ed7b2ed5af2fdb1045d",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/1591_matrix/1591_元数据.json",
         "completeCode": "代码库/1591_matrix/1591_提交_1281805_cpp_完整代码.cpp",
@@ -28902,15 +28892,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1591_matrix/1591_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_COMPILE_ERROR",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "cleanCode": "代码库/1591_matrix/1591_提交_1281805_cpp_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1591_matrix/1591_提交_1281805_cpp_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "verifiedAt": "2026-09-20T13:28:34Z",
+        "verifiedSubmissionNo": "1401880",
+        "codeSha256": "e3dfc3593f4c0955b8536b2fd607c1f6f58dec3964ef3ed7b2ed5af2fdb1045d"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -28925,13 +28915,13 @@
             "label": "题面图片",
             "filename": "img_01_6921b5cac1b6c.png",
             "relativePath": "assets/img_01_6921b5cac1b6c.png",
-            "status": "CACHED",
-            "bytes": 34945,
-            "sha256": "e45c4d4f165ac3cb95b2671a35d883124807e44fb1d15cf58bd62b0a16accb72",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -28948,11 +28938,11 @@
       },
       "language": "cpp",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1308666",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "b430791d6c3006e6fc7a976f9865e17e9c8547209ae37932b1fe43a4230bdce8",
-        "recordedSha256": "b430791d6c3006e6fc7a976f9865e17e9c8547209ae37932b1fe43a4230bdce8",
+        "sourceSha256": "25de7c01316bdf6c6638e6911e45e06430912c7b81cb8d98b8feac4db68ce38d",
+        "recordedSha256": "25de7c01316bdf6c6638e6911e45e06430912c7b81cb8d98b8feac4db68ce38d",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/1592_秦始皇/1592_元数据.json",
         "completeCode": "代码库/1592_秦始皇/1592_提交_1308666_cpp_完整代码.cpp",
@@ -28974,15 +28964,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1592_秦始皇/1592_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_COMPILE_ERROR",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "cleanCode": "代码库/1592_秦始皇/1592_提交_1308666_cpp_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1592_秦始皇/1592_提交_1308666_cpp_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "verifiedAt": "2026-09-20T13:28:49Z",
+        "verifiedSubmissionNo": "1401881",
+        "codeSha256": "25de7c01316bdf6c6638e6911e45e06430912c7b81cb8d98b8feac4db68ce38d"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -28997,13 +28987,13 @@
             "label": "题面图片",
             "filename": "img_01_6921ce3f62a70.png",
             "relativePath": "assets/img_01_6921ce3f62a70.png",
-            "status": "CACHED",
-            "bytes": 172638,
-            "sha256": "994bb9173b75259639053ea750303fb0a8371cc2ba0d7f87830a9f261d3e5028",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -29234,11 +29224,11 @@
       },
       "language": "cpp",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1281800",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "932284da26a3ff3df9648b0d8aaaf382d727357e2f013e64ac9de756b2d70757",
-        "recordedSha256": "932284da26a3ff3df9648b0d8aaaf382d727357e2f013e64ac9de756b2d70757",
+        "sourceSha256": "2d99494326b70b1f733c1b98c9885a6bdfcf81ae203e32672a48cbd20a5259ce",
+        "recordedSha256": "2d99494326b70b1f733c1b98c9885a6bdfcf81ae203e32672a48cbd20a5259ce",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/1597_军训方阵/1597_元数据.json",
         "completeCode": "代码库/1597_军训方阵/1597_提交_1281800_cpp_完整代码.cpp",
@@ -29260,15 +29250,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1597_军训方阵/1597_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_COMPILE_ERROR",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "cleanCode": "代码库/1597_军训方阵/1597_提交_1281800_cpp_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1597_军训方阵/1597_提交_1281800_cpp_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "verifiedAt": "2026-09-20T13:29:05Z",
+        "verifiedSubmissionNo": "1401882",
+        "codeSha256": "2d99494326b70b1f733c1b98c9885a6bdfcf81ae203e32672a48cbd20a5259ce"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -29283,13 +29273,13 @@
             "label": "题面图片",
             "filename": "img_01_6921bf831d525.png",
             "relativePath": "assets/img_01_6921bf831d525.png",
-            "status": "CACHED",
-            "bytes": 106149,
-            "sha256": "c0bb16202183f6f2b9bab3a9b20737e8e4021b00a27d217aca3317c5d345ba91",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 1,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -29365,11 +29355,11 @@
       },
       "language": "cpp",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1308657",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "7da5f156fcc334b1e88ae517f6e606d28a56f92d85eca555ad7166b5fd9fa0ae",
-        "recordedSha256": "7da5f156fcc334b1e88ae517f6e606d28a56f92d85eca555ad7166b5fd9fa0ae",
+        "sourceSha256": "ac8a938c6dcc0066e53b5df2287eb36a8ffa550ddc1146c39b472941f5cfd7f0",
+        "recordedSha256": "ac8a938c6dcc0066e53b5df2287eb36a8ffa550ddc1146c39b472941f5cfd7f0",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/1599_回家/1599_元数据.json",
         "completeCode": "代码库/1599_回家/1599_提交_1308657_cpp_完整代码.cpp",
@@ -29391,15 +29381,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1599_回家/1599_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_COMPILE_ERROR",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "cleanCode": "代码库/1599_回家/1599_提交_1308657_cpp_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1599_回家/1599_提交_1308657_cpp_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "verifiedAt": "2026-09-20T13:29:27Z",
+        "verifiedSubmissionNo": "1401883",
+        "codeSha256": "ac8a938c6dcc0066e53b5df2287eb36a8ffa550ddc1146c39b472941f5cfd7f0"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -29417,9 +29407,9 @@
             "label": "题面图片",
             "filename": "img_01_6921c59c482aa.png",
             "relativePath": "assets/img_01_6921c59c482aa.png",
-            "status": "CACHED",
-            "bytes": 212300,
-            "sha256": "2b3169cf19955a0cd9d06880faffb2f20cd346d52f7f972006cc5a9825101635",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -29427,9 +29417,9 @@
             "label": "题面图片",
             "filename": "img_02_6921c5a6b595b.png",
             "relativePath": "assets/img_02_6921c5a6b595b.png",
-            "status": "CACHED",
-            "bytes": 10924,
-            "sha256": "aad61d8e6e3d259f8731015239fc254ea7ba7fde0efe182fbf1416cd8a4fcaf3",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -29437,9 +29427,9 @@
             "label": "题面图片",
             "filename": "img_03_6921c5aad1063.png",
             "relativePath": "assets/img_03_6921c5aad1063.png",
-            "status": "CACHED",
-            "bytes": 6796,
-            "sha256": "fbd89278b493b776dcba5bce705a67a895fb4a309be3e558586554c96a7f9d25",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -29447,13 +29437,13 @@
             "label": "题面图片",
             "filename": "img_04_6921c5a1ad4a3.png",
             "relativePath": "assets/img_04_6921c5a1ad4a3.png",
-            "status": "CACHED",
-            "bytes": 114866,
-            "sha256": "4ecdec9b9a433498381d8a09e7e499ed56597dda89225fddab9be8652a8fb92a",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 4,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -29470,11 +29460,11 @@
       },
       "language": "cpp",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1281789",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "1ad8164eea04262179f6ae20c1c48658c91e8ee1810485efcd1ea46ceb689097",
-        "recordedSha256": "1ad8164eea04262179f6ae20c1c48658c91e8ee1810485efcd1ea46ceb689097",
+        "sourceSha256": "ecfc0081fc003f033023a898201a076739473d10c65d05837453f040a513c754",
+        "recordedSha256": "ecfc0081fc003f033023a898201a076739473d10c65d05837453f040a513c754",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/1600_理牌/1600_元数据.json",
         "completeCode": "代码库/1600_理牌/1600_提交_1281789_cpp_完整代码.cpp",
@@ -29496,15 +29486,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1600_理牌/1600_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_COMPILE_ERROR",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "cleanCode": "代码库/1600_理牌/1600_提交_1281789_cpp_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1600_理牌/1600_提交_1281789_cpp_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "verifiedAt": "2026-09-20T13:29:36Z",
+        "verifiedSubmissionNo": "1401884",
+        "codeSha256": "ecfc0081fc003f033023a898201a076739473d10c65d05837453f040a513c754"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -29520,9 +29510,9 @@
             "label": "题面图片",
             "filename": "img_01_6921cc82dd487.png",
             "relativePath": "assets/img_01_6921cc82dd487.png",
-            "status": "CACHED",
-            "bytes": 197865,
-            "sha256": "bbdf43e42adaed914f7c4aff02d9da5f9dc32f011a39298752c00a048523bb37",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           },
           {
@@ -29530,13 +29520,13 @@
             "label": "题面图片",
             "filename": "img_02_6921cc8880298.png",
             "relativePath": "assets/img_02_6921cc8880298.png",
-            "status": "CACHED",
-            "bytes": 49589,
-            "sha256": "f2a5a8dd7ff9c1ae57da0874ab086cb7c4b1fcb4b6e23c20802ca2d31a60bfa6",
+            "status": "DETECTED_NOT_DOWNLOADED",
+            "bytes": 0,
+            "sha256": "",
             "error": ""
           }
         ],
-        "imageLocalCount": 2,
+        "imageLocalCount": 0,
         "assets": [],
         "warnings": []
       }
@@ -30097,11 +30087,11 @@
       },
       "language": "cpp",
       "archive": {
-        "status": "RAW_CAPTURED",
+        "status": "PUBLIC_READY",
         "submissionNo": "1388103",
         "capturedAt": "2026-09-19T15:50:21.728Z",
-        "sourceSha256": "a61fe0d8ae716d9ba7efd581646b7f7e737fb2504ac3e1f4d63ff06bcfe38ea0",
-        "recordedSha256": "a61fe0d8ae716d9ba7efd581646b7f7e737fb2504ac3e1f4d63ff06bcfe38ea0",
+        "sourceSha256": "5df54cc53eea47d3afb913d917a13ec4681932515af63a5e3be6421f453d6f78",
+        "recordedSha256": "5df54cc53eea47d3afb913d917a13ec4681932515af63a5e3be6421f453d6f78",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/1645_高级Python_2026_春-2_社交媒体话题提取/1645_元数据.json",
         "completeCode": "代码库/1645_高级Python_2026_春-2_社交媒体话题提取/1645_提交_1388103_cpp_完整代码.cpp",
@@ -30123,15 +30113,15 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1645_高级Python_2026_春-2_社交媒体话题提取/1645_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/1645_高级Python_2026_春-2_社交媒体话题提取/1645_提交_1388103_cpp_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1645_高级Python_2026_春-2_社交媒体话题提取/1645_提交_1388103_cpp_可提交代码.cpp",
         "onlineVerification": "ONLINE_ACCEPTED",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-20T02:00:08Z",
+        "verifiedSubmissionNo": "1400155",
+        "codeSha256": "5df54cc53eea47d3afb913d917a13ec4681932515af63a5e3be6421f453d6f78"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -30141,7 +30131,9 @@
         "imageAssets": [],
         "imageLocalCount": 0,
         "assets": [],
-        "warnings": []
+        "warnings": [
+          "样例校正：原始 HTML 的输入样例末尾缺少题面规则要求的 ASCII 空格；离线回归仅在输入副本中补回，原始快照不变"
+        ]
       }
     },
     {
