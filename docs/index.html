@@ -26,7 +26,7 @@
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { margin: 0; color: var(--ink); background: var(--page); font: 15px/1.6 var(--sans); }
+    body { margin: 0; color: var(--ink); background: var(--page); font: 15px/1.6 var(--sans); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
     a { color: inherit; }
     button, input, select { font: inherit; }
     button, a { -webkit-tap-highlight-color: transparent; }
@@ -44,13 +44,14 @@
     .nav .nav-submit:hover, .nav .nav-submit:focus-visible { color: #fff; background: #d94b50; }
 
     .hero { position: relative; overflow: hidden; color: #fff; background: linear-gradient(120deg, var(--navy-deep), var(--navy)); }
-    .hero-inner { position: relative; min-height: 390px; padding: 58px 0 56px; }
-    .hero-copy { position: relative; z-index: 2; width: min(760px, 100%); }
+    .hero * { text-shadow: none; }
+    .hero-inner { position: relative; min-height: 470px; padding: 58px 0 56px; }
+    .hero-copy { position: relative; z-index: 2; width: min(760px, calc(100% - 430px)); }
     h1 { max-width: 720px; margin: 0; font-size: clamp(42px, 6vw, 74px); line-height: .98; letter-spacing: -.065em; }
     .hero-lead { max-width: 610px; margin: 22px 0 0; color: #d7e5fb; font-size: clamp(16px, 2vw, 19px); }
     .hero-metrics { display: flex; flex-wrap: wrap; gap: 22px; margin: 26px 0 25px; }
     .hero-metric { display: flex; align-items: baseline; gap: 8px; }
-    .hero-metric strong { font: 800 25px/1 var(--mono); letter-spacing: -.07em; }
+    .hero-metric strong { font: 800 25px/1 var(--mono); font-variant-numeric: tabular-nums; letter-spacing: -.04em; }
     .hero-metric span { color: #b8cbe8; font-size: 14px; }
     .hero-metric + .hero-metric { padding-left: 22px; border-left: 1px solid rgba(206, 225, 252, .30); }
     .hero-search { display: flex; align-items: stretch; width: min(720px, 100%); padding: 5px; border-radius: 11px; background: #fff; box-shadow: 0 12px 32px rgba(0, 0, 0, .18); }
@@ -71,17 +72,36 @@
     .star-copy strong { font-size: 14px; line-height: 1.2; }
     .star-copy span { color: #c7d9f3; font-size: 12px; line-height: 1.3; white-space: nowrap; }
     .star-arrow { margin-left: 2px; color: #ffd166; font-size: 21px; line-height: 1; }
-    .site-stats { display: inline-flex; min-height: 54px; align-items: center; gap: 9px; border: 1px solid rgba(188, 214, 247, .24); border-radius: 14px; padding: 8px 11px; color: #c7d9f3; background: rgba(6, 24, 54, .28); }
-    .site-stats-label { font-size: 12px; white-space: nowrap; }
-    .site-stats a { display: inline-flex; align-items: center; min-height: 24px; border-radius: 5px; }
-    .site-stats a:focus-visible { outline: 3px solid rgba(151, 197, 255, .62); outline-offset: 2px; }
-    .site-stats img { display: block; height: 24px; min-width: 88px; }
-    .hero-art { position: absolute; top: 0; right: -12px; width: min(520px, 45vw); height: 100%; opacity: .72; pointer-events: none; }
-    .hero-art path { fill: none; stroke: #5e9cff; stroke-width: 1.4; }
-    .hero-art circle { fill: #73adff; stroke: #17396c; stroke-width: 2; }
-    .hero-art .fade { stroke: rgba(94, 156, 255, .24); }
-    .hero-note { position: absolute; right: 5%; bottom: 68px; max-width: 160px; color: #d3e3fd; font-size: 15px; line-height: 1.5; }
-    .hero-note::before { display: block; width: 36px; height: 2px; margin-bottom: 12px; background: #6aa5ff; content: ""; }
+    .hero-analytics { position: absolute; z-index: 3; top: 50%; right: 0; width: min(390px, 33vw); min-width: 310px; transform: translateY(-50%); border: 1px solid rgba(188, 214, 247, .25); border-radius: 22px; padding: 19px; background: linear-gradient(145deg, rgba(27, 59, 105, .88), rgba(7, 29, 64, .78)); box-shadow: 0 22px 55px rgba(0, 0, 0, .22); backdrop-filter: blur(15px); }
+    .analytics-meta, .analytics-title-row, .analytics-chart-head, .analytics-axis { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .analytics-meta { color: #9fbae0; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+    .analytics-kicker { color: #7fb1ff; font-weight: 800; }
+    .analytics-title-row { margin-top: 7px; }
+    .analytics-title-row h2 { margin: 0; color: #fff; font-size: 24px; line-height: 1.2; letter-spacing: -.045em; }
+    .analytics-zone { color: #c5d9f4; font-size: 11px; }
+    .analytics-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 16px; }
+    .analytics-stat { min-width: 0; border: 1px solid rgba(188, 214, 247, .18); border-radius: 13px; padding: 12px 13px 11px; background: rgba(5, 23, 51, .26); }
+    .analytics-stat-accent { border-color: rgba(255, 209, 102, .35); background: linear-gradient(145deg, rgba(255, 209, 102, .13), rgba(5, 23, 51, .26)); }
+    .analytics-stat span, .analytics-stat small { display: block; color: #b5cbe9; font-size: 11px; }
+    .analytics-stat strong { display: block; margin: 5px 0 2px; color: #fff; font: 800 31px/1 var(--mono); font-variant-numeric: tabular-nums; letter-spacing: -.045em; }
+    .analytics-stat-accent strong { color: #ffd166; }
+    .analytics-stat small { color: #88a5cc; font-size: 10px; }
+    .analytics-chart-card { margin-top: 11px; border: 1px solid rgba(188, 214, 247, .15); border-radius: 14px; padding: 12px 12px 10px; background: rgba(3, 17, 39, .27); }
+    .analytics-chart-head { color: #bfd3ee; font-size: 11px; }
+    .analytics-chart-head div { display: flex; align-items: baseline; gap: 8px; }
+    .analytics-chart-head strong { color: #fff; font-size: 12px; }
+    #analytics-chart-summary { color: #86a8d5; white-space: nowrap; }
+    .traffic-chart { display: block; width: 100%; height: auto; margin-top: 9px; overflow: visible; }
+    .traffic-grid { fill: none; stroke: rgba(171, 201, 239, .14); stroke-width: 1; stroke-dasharray: 3 5; }
+    .traffic-area { fill: url(#traffic-fill); opacity: .85; }
+    .traffic-line { fill: none; stroke: #74adff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .traffic-point { fill: #ffd166; stroke: #15345f; stroke-width: 2; }
+    .analytics-axis { margin: -1px 2px 0; color: #7998c2; font: 10px/1 var(--mono); font-variant-numeric: tabular-nums; }
+    .analytics-axis span { min-width: 0; }
+    .traffic-empty { margin: 38px 0 40px; color: #88a5cc; font-size: 11px; text-align: center; }
+    .analytics-footnote { display: flex; align-items: center; gap: 6px; margin: 11px 1px 0; color: #8ca8ce; font-size: 10px; line-height: 1.4; }
+    .traffic-status-dot { width: 6px; height: 6px; flex: 0 0 6px; border-radius: 50%; background: #58d89f; box-shadow: 0 0 0 3px rgba(88, 216, 159, .13); }
+    .analytics-probe { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 
     .main { padding: 42px 0 72px; }
     .path-section { display: grid; grid-template-columns: minmax(210px, .85fr) minmax(0, 2.15fr); gap: 32px; align-items: start; padding: 0 0 42px; }
@@ -123,6 +143,10 @@
     .status::before { width: 8px; height: 8px; border-radius: 50%; background: #7b8ba1; content: ""; }
     .status.verified { color: var(--green); }
     .status.verified::before { background: #2dc37f; }
+    .status.historical { color: #8b6f2e; }
+    .status.historical::before { background: #d2a83c; }
+    .status.available { color: #3b6ea8; }
+    .status.available::before { background: #4d8ed8; }
     .row-action { color: var(--blue); font-size: 12px; font-weight: 750; white-space: nowrap; }
     .pagination { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 66px; padding: 11px 15px; border-top: 1px solid var(--line); }
     .page-button { min-width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 7px; color: #415570; background: var(--surface); font-size: 13px; }
@@ -142,6 +166,10 @@
     .detail-status .tag:nth-child(2n) { color: #e7edf8; background: rgba(255, 255, 255, .13); }
     .detail-status .status { margin-left: auto; color: #7ce4b3; }
     .detail-status .status::before { background: #39d487; }
+    .detail-status .status.historical { color: #f1d27a; }
+    .detail-status .status.historical::before { background: #d2a83c; }
+    .detail-status .status.available { color: #a9d0ff; }
+    .detail-status .status.available::before { background: #6ea8e8; }
     .detail-content { padding: 18px 21px 22px; }
     .detail-tabs { display: flex; gap: 22px; margin: -18px -21px 19px; padding: 0 21px; border-bottom: 1px solid var(--line); }
     .detail-tab { padding: 12px 0 10px; border: 0; border-bottom: 2px solid var(--blue); color: var(--blue); background: transparent; font-size: 13px; font-weight: 750; }
@@ -174,7 +202,9 @@
     .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
 
     @media (max-width: 980px) {
-      .hero-art { right: -180px; width: 520px; opacity: .38; }
+      .hero-inner { min-height: 0; }
+      .hero-copy { width: 100%; }
+      .hero-analytics { position: relative; top: auto; right: auto; width: min(100%, 640px); min-width: 0; margin: 38px 0 0 auto; transform: none; }
       .catalog-body { grid-template-columns: 1fr; }
       .problem-browser { border-right: 0; }
       .detail-panel { border-top: 1px solid var(--line); }
@@ -186,14 +216,14 @@
       .header-inner { min-height: 58px; }
       .nav a:not(.nav-submit) { display: none; }
       .nav .nav-submit { padding: 7px 10px; font-size: 12px; }
-      .hero-inner { min-height: 430px; padding: 42px 0 46px; }
+      .hero-inner { min-height: 0; padding: 42px 0 46px; }
       h1 { font-size: clamp(39px, 12vw, 60px); }
       .hero-metrics { gap: 12px 18px; }
       .hero-metric + .hero-metric { padding-left: 18px; }
       .hero-actions { align-items: stretch; }
       .star-cta { flex: 1 1 100%; }
       .hero-search button { padding: 0 14px; }
-      .hero-note { right: 0; bottom: 22px; font-size: 13px; }
+      .hero-analytics { margin-top: 30px; padding: 15px; border-radius: 18px; }
       .path-section { display: block; padding-bottom: 32px; }
       .path-list { grid-template-columns: repeat(2, 1fr); margin-top: 18px; }
       .catalog-head { display: block; }
@@ -209,7 +239,6 @@
     }
     @media (max-width: 430px) {
       .hero-actions { display: grid; grid-template-columns: 1fr; }
-      .site-stats { justify-content: space-between; }
       .hero-search { display: grid; grid-template-columns: 38px 1fr; }
       .hero-search .search-icon { width: 38px; }
       .hero-search button { grid-column: 1 / -1; min-height: 39px; margin-top: 5px; }
@@ -234,13 +263,28 @@
       <div class="hero-copy">
         <h1>RUC YOJ<br>Solutions</h1>
         <p class="hero-lead">把题面、验证结果和代码入口放在同一条学习路径里。先找到题，再理解它，最后回到 YOJ 亲自提交。</p>
-        <div class="hero-metrics" aria-label="题库统计"><div class="hero-metric"><strong id="hero-total">488</strong><span>道题目</span></div><div class="hero-metric"><strong id="hero-verified">436</strong><span>道已验证提交</span></div><div class="hero-metric"><strong id="hero-solutions">—</strong><span>篇详细题解</span></div></div>
-        <div class="hero-actions" aria-label="项目支持与访问统计"><a id="star-cta" class="star-cta" href="https://github.com/Scorpascal/RUC_YOJ" target="_blank" rel="noopener noreferrer" aria-label="打开 GitHub 仓库并给 RUC YOJ 点 Star"><span class="star-icon" aria-hidden="true">★</span><span class="star-copy"><strong>喜欢这个题库？</strong><span>去 GitHub 点个 Star 支持一下</span></span><span class="star-arrow" aria-hidden="true">↗</span></a><div class="site-stats" title="累计页面访问量，由 Visitor Badge 提供"><span class="site-stats-label">累计访问</span><a href="https://laobi.icu/" target="_blank" rel="noopener noreferrer" aria-label="查看 Visitor Badge 统计服务"><img src="https://visitor-badge.laobi.icu/badge?page_id=Scorpascal.RUC_YOJ&amp;left_text=%E8%AE%BF%E9%97%AE%E9%87%8F&amp;left_color=%23102b55&amp;right_color=%23ef5b5b" alt="RUC YOJ 页面访问量"></a></div></div>
+        <div class="hero-metrics" aria-label="题库统计"><div class="hero-metric"><strong id="hero-total">489</strong><span>道题目</span></div><div class="hero-metric"><strong id="hero-verified">445</strong><span>道有 Accepted 记录</span></div><div class="hero-metric"><strong id="hero-solutions">—</strong><span>篇详细题解</span></div></div>
+        <div class="hero-actions" aria-label="项目支持"><a id="star-cta" class="star-cta" href="https://github.com/Scorpascal/RUC_YOJ" target="_blank" rel="noopener noreferrer" aria-label="打开 GitHub 仓库并给 RUC YOJ 点 Star"><span class="star-icon" aria-hidden="true">★</span><span class="star-copy"><strong>喜欢这个题库？</strong><span>去 GitHub 点个 Star 支持一下</span></span><span class="star-arrow" aria-hidden="true">↗</span></a></div>
         <form class="hero-search" id="hero-search-form" role="search"><span class="search-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg></span><input id="hero-search" type="search" placeholder="搜索题号、题目名称或知识点" aria-label="搜索题号、题目名称或知识点"><button type="submit">搜索</button></form>
         <div id="hero-topics" class="hero-topics" aria-label="热门知识点"></div>
       </div>
-      <svg class="hero-art" viewBox="0 0 560 390" aria-hidden="true"><path d="M325 36 240 100 165 174 112 244M325 36l82 64 73 74 45 70M240 100l-2 90-30 62M407 100l1 91 31 61M165 174l-4 83M458 174l5 84M112 244l-1 72M210 252l2 64M438 252l-2 64M525 248l2 70"></path><path class="fade" d="M325 36v286M240 100v220M407 100v220M165 174v144M458 174v144M112 244v74M210 252v66M438 252v66M525 248v70"></path><circle cx="325" cy="36" r="6"></circle><circle cx="240" cy="100" r="6"></circle><circle cx="407" cy="100" r="6"></circle><circle cx="165" cy="174" r="6"></circle><circle cx="458" cy="174" r="6"></circle><circle cx="112" cy="244" r="6"></circle><circle cx="210" cy="252" r="6"></circle><circle cx="438" cy="252" r="6"></circle><circle cx="525" cy="248" r="6"></circle></svg>
-      <div class="hero-note">在题目中学习<br>在实践中成长</div>
+      <aside class="hero-analytics" aria-labelledby="analytics-title">
+        <div class="analytics-meta"><span class="analytics-kicker">LIVE TRAFFIC</span><span id="analytics-updated">待同步</span></div>
+        <div class="analytics-title-row"><h2 id="analytics-title">访问概览</h2><span class="analytics-zone">北京时间</span></div>
+        <div class="analytics-stat-grid">
+          <div class="analytics-stat"><span>今日访问</span><strong id="analytics-today">—</strong><small>当天页面加载</small></div>
+          <div class="analytics-stat analytics-stat-accent"><span>累计访问</span><strong id="analytics-total">—</strong><small>页面总加载</small></div>
+        </div>
+        <div class="analytics-chart-card">
+          <div class="analytics-chart-head"><div><span>访问趋势</span><strong>近 7 天</strong></div><span id="analytics-chart-summary">等待数据</span></div>
+          <svg id="traffic-chart" class="traffic-chart" viewBox="0 0 460 150" role="img" aria-label="近 7 天访问趋势图"><defs><linearGradient id="traffic-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#74adff" stop-opacity=".32"></stop><stop offset="1" stop-color="#74adff" stop-opacity="0"></stop></linearGradient></defs><path class="traffic-grid" d="M18 26H442M18 72H442M18 118H442"></path><path id="traffic-area" class="traffic-area"></path><path id="traffic-line" class="traffic-line"></path><g id="traffic-points"></g></svg>
+          <div id="traffic-axis" class="analytics-axis" aria-hidden="true"></div>
+          <div id="traffic-empty" class="traffic-empty" hidden>近 7 日数据将在统计服务同步后显示</div>
+        </div>
+        <p class="analytics-footnote"><span class="traffic-status-dot" aria-hidden="true"></span><span id="analytics-source-note">统计按页面加载计数，非去重访客人数</span></p>
+        <img id="traffic-total-probe" class="analytics-probe" alt="" aria-hidden="true">
+        <img id="traffic-today-probe" class="analytics-probe" alt="" aria-hidden="true">
+      </aside>
     </div>
   </section>
 
@@ -250,12 +294,12 @@
     <section id="catalog" class="catalog-section" aria-labelledby="catalog-title">
       <div class="catalog-head"><div><h2 id="catalog-title">全部题目 <span id="catalog-count">(—)</span></h2><p>搜索题号、题名、知识点；选择一行查看题面、验证状态和代码入口。</p></div><div class="catalog-meta"><span id="result-count">正在读取题库…</span><br>最后同步 <span id="updated-at">—</span></div></div>
       <div class="catalog-panel">
-        <div class="catalog-toolbar"><label class="field search-field"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg><input id="catalog-search" type="search" placeholder="搜索题号、题目名称或知识点" aria-label="搜索题目"></label><label class="field"><span class="sr-only">知识点</span><select id="tag-filter" aria-label="按知识点筛选"><option value="">全部知识点</option></select></label><label class="field"><span class="sr-only">状态</span><select id="status-filter" aria-label="按状态筛选"><option value="">全部状态</option><option value="verified">在线 AC</option><option value="statement">题面已归档</option></select></label><label class="field"><span class="sr-only">语言</span><select id="language-filter" aria-label="按语言筛选"><option value="">全部语言</option></select></label></div>
+        <div class="catalog-toolbar"><label class="field search-field"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg><input id="catalog-search" type="search" placeholder="搜索题号、题目名称或知识点" aria-label="搜索题目"></label><label class="field"><span class="sr-only">知识点</span><select id="tag-filter" aria-label="按知识点筛选"><option value="">全部知识点</option></select></label><label class="field"><span class="sr-only">状态</span><select id="status-filter" aria-label="按状态筛选"><option value="">全部状态</option><option value="verified">有 Accepted 记录</option><option value="online">YOJ 当前公开</option><option value="statement">仅历史归档</option></select></label><label class="field"><span class="sr-only">语言</span><select id="language-filter" aria-label="按语言筛选"><option value="">全部语言</option></select></label></div>
         <div class="catalog-body"><div class="problem-browser"><div class="problem-table-head" aria-hidden="true"><span>题号</span><span>题目名称</span><span>知识点</span><span>状态</span><span>操作</span></div><div id="problem-list" aria-live="polite"></div><div id="empty" class="empty" hidden>没有匹配的题目。试试清空筛选条件，或搜索 992。</div><div id="pagination" class="pagination" aria-label="题目分页"></div></div><aside id="detail-panel" class="detail-panel" aria-labelledby="detail-title"></aside></div>
       </div>
     </section>
 
-    <section id="about" class="about-section" aria-labelledby="about-title"><div><h2 id="about-title">一个面向学生的开放学习题库</h2><p>本站把 RUC YOJ 的题面归档、可公开核对的在线状态、代码链接和快捷提交入口组织在一起。快捷提交仍然使用 YOJ 作为判题后端；页面不会保存账号、密码或 Cookie。首屏的累计访问徽章由第三方 Visitor Badge 提供，仅用于展示页面访问量。</p></div><div class="about-aside"><strong>真实状态，分开表达</strong><span>“在线 AC”代表仓库记录里有 Accepted 提交；“题面已归档”不等于已经写完详细题解。</span></div></section>
+    <section id="about" class="about-section" aria-labelledby="about-title"><div><h2 id="about-title">一个面向学生的开放学习题库</h2><p>本站把 RUC YOJ 的题面归档、可公开核对的在线状态、代码链接和快捷提交入口组织在一起。快捷提交仍然使用 YOJ 作为判题后端；页面不会保存账号、密码或 Cookie。首屏统计使用第三方 Visitor Badge 的页面加载计数，按日同步近 7 天数据，不等同于去重访客人数。</p></div><div class="about-aside"><strong>真实状态，分开表达</strong><span>“在线 AC”同时表示仓库有 Accepted 记录且题目仍在当前公开列表；“历史 AC”表示仓库保留过 Accepted 证据但当前公开索引未发现；“YOJ 当前公开”表示题目仍可见但仓库尚无可公开快捷提交的 Accepted 证据；“仅历史归档”只表示保留了历史题面。</span></div></section>
   </main>
 
   <footer><div class="wrap footer-inner"><span>RUC YOJ Solutions · 公开题面索引与学习入口</span><span><a href="https://github.com/Scorpascal/RUC_YOJ">GitHub 仓库</a> · <a href="./yoj-quick-submit.html?pno=992">快捷提交</a></span></div></footer>
@@ -269,11 +313,22 @@
       function safeText(value, fallback = "—") { return value === null || value === undefined || value === "" ? fallback : String(value); }
       function make(tag, className, text) { const element = document.createElement(tag); if (className) element.className = className; if (text !== undefined) element.textContent = text; return element; }
       function tagElement(label) { return make("span", "tag", label); }
-      function statusElement(entry) { return make("span", `status ${entry.verified ? "verified" : ""}`, entry.verified ? "在线 AC" : "题面已归档"); }
+      function statusLabel(entry) { return entry.verified ? (entry.onlineAvailable ? "在线 AC" : "历史 AC") : (entry.onlineAvailable ? "YOJ 当前公开" : "题面已归档"); }
+      function statusClass(entry) { return entry.verified ? (entry.onlineAvailable ? "verified" : "historical") : (entry.onlineAvailable ? "available" : ""); }
+      function statusElement(entry) { return make("span", `status ${statusClass(entry)}`, statusLabel(entry)); }
       function displayNo(number) { return String(number).padStart(4, "0"); }
       function displayTitle(value) { return String(value || "未命名题目").replace(/^#?\s*\d+\s*[.．、]\s*/, "").trim() || "未命名题目"; }
       function formatDate(value) { if (!value) return "—"; const date = new Date(value); return Number.isNaN(date.getTime()) ? value.slice(0, 10) : date.toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" }); }
-      function filteredEntries() { const query = state.query.trim().toLowerCase(); return state.entries.filter((entry) => { const haystack = [entry.problemNo, entry.title, ...(entry.tags || []), entry.language].join(" ").toLowerCase(); return (!query || haystack.includes(query)) && (!state.tag || entry.tags.includes(state.tag)) && (!state.status || (state.status === "verified" ? entry.verified : !entry.verified)) && (!state.language || entry.language === state.language); }); }
+      const TRAFFIC_PAGE_ID = "Scorpascal.RUC_YOJ";
+      const TRAFFIC_BADGE_URL = "https://visitor-badge.laobi.icu/badge";
+      const TRAFFIC_TIMEZONE = "Asia/Shanghai";
+      const trafficNumber = new Intl.NumberFormat("zh-CN");
+      function formatTraffic(value) { const number = Number(value); return Number.isFinite(number) ? trafficNumber.format(number) : "—"; }
+      function trafficDate(offset = 0) { const parts = new Intl.DateTimeFormat("en-US", { timeZone: TRAFFIC_TIMEZONE, year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(new Date()); const part = (type) => parts.find((item) => item.type === type)?.value; const current = new Date(Date.UTC(Number(part("year")), Number(part("month")) - 1, Number(part("day")) - offset)); return current.toISOString().slice(0, 10); }
+      function renderTraffic(payload = {}) { const series = Array.isArray(payload.series) ? payload.series.slice(-7) : []; const latest = series[series.length - 1]; $("analytics-today").textContent = formatTraffic(payload.todayVisits ?? latest?.visits); $("analytics-total").textContent = formatTraffic(payload.totalVisits); $("analytics-updated").textContent = payload.updatedAt ? `同步 ${formatDate(payload.updatedAt)}` : "待同步"; $("analytics-source-note").textContent = payload.source?.provider ? `来源 ${payload.source.provider} · 按页面加载计数，非去重访客人数` : "统计数据尚未同步"; const values = series.map((item) => Number(item.visits)); const chartReady = series.length >= 2 && values.every((value) => Number.isFinite(value)); $("traffic-chart").hidden = !chartReady; $("traffic-empty").hidden = chartReady; const axis = $("traffic-axis"); axis.replaceChildren(); series.forEach((item) => axis.append(make("span", "", item.label || String(item.date || "").slice(5)))); const pointsGroup = $("traffic-points"); pointsGroup.replaceChildren(); if (!chartReady) { $("traffic-line").setAttribute("d", ""); $("traffic-area").setAttribute("d", ""); $("analytics-chart-summary").textContent = "等待数据"; return; } const left = 18; const right = 442; const top = 20; const bottom = 118; const peak = Math.max(0, ...values); const max = Math.max(1, peak); const step = (right - left) / (values.length - 1); const points = values.map((value, index) => ({ x: left + step * index, y: bottom - (value / max) * (bottom - top) })); const linePath = points.map((point, index) => `${index === 0 ? "M" : "L"} ${point.x.toFixed(2)} ${point.y.toFixed(2)}`).join(" "); $("traffic-line").setAttribute("d", linePath); $("traffic-area").setAttribute("d", `M ${left} ${bottom} ${points.map((point) => `L ${point.x.toFixed(2)} ${point.y.toFixed(2)}`).join(" ")} L ${right} ${bottom} Z`); points.forEach((point) => { const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle"); circle.setAttribute("class", "traffic-point"); circle.setAttribute("cx", point.x.toFixed(2)); circle.setAttribute("cy", point.y.toFixed(2)); circle.setAttribute("r", "4"); pointsGroup.append(circle); }); $("analytics-chart-summary").textContent = `最高 ${formatTraffic(peak)} 次`; $("traffic-chart").setAttribute("aria-label", `近 7 天访问趋势，最高 ${formatTraffic(peak)} 次`); }
+      async function loadTraffic() { try { const response = await fetch("data/traffic.json", { cache: "no-store" }); if (!response.ok) throw new Error(`访问统计加载失败（HTTP ${response.status}）`); renderTraffic(await response.json()); } catch (error) { renderTraffic(); } }
+      function activateTrafficProbes() { if (!location.hostname || /^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return; const total = new URLSearchParams({ page_id: TRAFFIC_PAGE_ID }); const today = new URLSearchParams({ page_id: `${TRAFFIC_PAGE_ID}.day.${trafficDate()}` }); $("traffic-total-probe").src = `${TRAFFIC_BADGE_URL}?${total.toString()}`; $("traffic-today-probe").src = `${TRAFFIC_BADGE_URL}?${today.toString()}`; }
+      function filteredEntries() { const query = state.query.trim().toLowerCase(); return state.entries.filter((entry) => { const haystack = [entry.problemNo, entry.title, ...(entry.tags || []), entry.language].join(" ").toLowerCase(); const matchesStatus = !state.status || (state.status === "verified" ? entry.verified : state.status === "online" ? entry.onlineAvailable : !entry.onlineAvailable && !entry.verified); return (!query || haystack.includes(query)) && (!state.tag || entry.tags.includes(state.tag)) && matchesStatus && (!state.language || entry.language === state.language); }); }
       function applyTag(tag) { state.tag = tag; state.page = 1; $("tag-filter").value = tag; syncCatalog(); $("catalog").scrollIntoView({ behavior: "smooth", block: "start" }); }
       function renderHeroTopics() { const list = $("hero-topics"); list.replaceChildren(); tags.slice(0, 5).forEach((tag) => { const button = make("button", "topic-button", tag); button.type = "button"; button.addEventListener("click", () => applyTag(tag)); list.append(button); }); }
       function renderPaths() { const list = $("path-list"); list.replaceChildren(); tags.slice(0, 6).forEach((tag) => { const count = state.entries.filter((entry) => entry.tags.includes(tag)).length; const link = make("a", "path-link"); link.href = "#catalog"; link.dataset.tag = tag; link.append(make("strong", "", tag), make("span", "", tag === "基础语法" ? "从输入输出与基本控制流开始" : "按题名初步归类"), make("em", "", `${count} 道题  →`)); link.addEventListener("click", (event) => { event.preventDefault(); applyTag(tag); }); list.append(link); }); }
@@ -281,12 +336,12 @@
       function renderList() { const list = $("problem-list"); const empty = $("empty"); const all = filteredEntries(); const totalPages = Math.max(1, Math.ceil(all.length / state.perPage)); state.page = Math.min(state.page, totalPages); const shown = all.slice((state.page - 1) * state.perPage, state.page * state.perPage); list.replaceChildren(); shown.forEach((entry) => { const row = make("button", `problem-row ${state.selected === entry.problemNo ? "selected" : ""}`); row.type = "button"; const title = displayTitle(entry.title); row.setAttribute("aria-label", `查看题目 ${entry.problemNo} ${title}`); row.append(make("span", "problem-number", displayNo(entry.problemNo)), make("span", "problem-title", title)); const tagList = make("span", "tag-list"); (entry.tags || []).forEach((tag) => tagList.append(tagElement(tag))); row.append(tagList, statusElement(entry), make("span", "row-action", "查看题目")); row.addEventListener("click", () => selectEntry(entry.problemNo)); list.append(row); }); empty.hidden = shown.length !== 0; $("result-count").textContent = `显示 ${shown.length} / ${all.length} 道题`; renderPagination(totalPages); }
       function renderPagination(totalPages) { const pagination = $("pagination"); pagination.replaceChildren(); const previous = make("button", "page-button", "上一页"); previous.type = "button"; previous.disabled = state.page === 1; previous.addEventListener("click", () => { state.page -= 1; renderList(); }); pagination.append(previous); const pages = new Set([1, totalPages, state.page, state.page - 1, state.page + 1]); const visible = [...pages].filter((page) => page > 0 && page <= totalPages).sort((a, b) => a - b); let last = 0; visible.forEach((page) => { if (page - last > 1) pagination.append(make("span", "page-ellipsis", "…")); const button = make("button", `page-button ${page === state.page ? "active" : ""}`, String(page)); button.type = "button"; button.setAttribute("aria-label", `第 ${page} 页`); button.addEventListener("click", () => { state.page = page; renderList(); }); pagination.append(button); last = page; }); const next = make("button", "page-button", "下一页"); next.type = "button"; next.disabled = state.page === totalPages; next.addEventListener("click", () => { state.page += 1; renderList(); }); pagination.append(next); }
       function linkButton(label, href, primary = false) { const link = make("a", `button ${primary ? "primary" : ""}`, label); if (href) { link.href = href; link.target = href.startsWith("http") ? "_blank" : "_self"; link.rel = href.startsWith("http") ? "noopener" : ""; } else { link.classList.add("disabled"); link.setAttribute("aria-disabled", "true"); } return link; }
-      function renderDetail() { const panel = $("detail-panel"); panel.replaceChildren(); const entry = state.entries.find((item) => item.problemNo === state.selected) || state.entries[0]; if (!entry) { panel.append(make("div", "empty", "题目详情暂时无法加载。")); return; } const head = make("div", "detail-head"); const headCopy = make("div"); headCopy.append(make("div", "detail-no", `YOJ ${displayNo(entry.problemNo)}`), make("h3", "", displayTitle(entry.title))); const close = make("button", "detail-close", "×"); close.type = "button"; close.setAttribute("aria-label", "关闭题目详情"); close.addEventListener("click", () => { state.selected = null; renderList(); renderDetail(); }); const detailStatus = make("div", "detail-status"); (entry.tags || []).forEach((tag) => detailStatus.append(tagElement(tag))); detailStatus.append(make("span", "tag", entry.solutionStatus === "solution" ? "题解已补充" : "题面已归档"), statusElement(entry)); headCopy.append(detailStatus); head.append(headCopy, close); panel.append(head); const content = make("div", "detail-content"); const tabs = make("div", "detail-tabs"); tabs.append(make("button", "detail-tab", "题目与状态")); content.append(tabs); content.append(make("p", "detail-kicker", "题目说明")); const description = entry.solutionStatus === "solution" ? "仓库中已经有独立题解内容，可先阅读思路，再通过代码入口回到 YOJ 验证。" : "当前公开目录已经归档题面，并记录了代码与在线状态；详细算法讲解还在逐题补充中。"; content.append(make("p", "detail-copy", description)); const grid = make("dl", "detail-grid"); [["语言", entry.language], ["时间限制", entry.timeLimit], ["内存限制", entry.memoryLimit], ["提交状态", entry.verified ? "Accepted" : "暂无快捷提交"]].forEach(([label, value]) => { const dt = make("dt", "", label); const dd = make("dd", "", safeText(value)); grid.append(dt, dd); }); content.append(grid); const actions = make("div", "detail-actions"); actions.append(linkButton("查看题面", entry.statementUrl || entry.problemUrl), linkButton("查看 YOJ 题目", entry.problemUrl), linkButton("查看代码", entry.codeUrl), linkButton("快捷提交", entry.quickSubmitUrl, true)); content.append(actions); const note = make("p", "detail-note"); note.append(make("strong", "状态说明："), document.createTextNode(entry.verified ? "仓库记录包含 Accepted 提交；提交结果仍以 YOJ 页面为准。" : "该题暂未生成公开快捷提交入口，不代表题面或代码归档不存在。")); content.append(note); panel.append(content); }
+      function renderDetail() { const panel = $("detail-panel"); panel.replaceChildren(); const entry = state.entries.find((item) => item.problemNo === state.selected) || state.entries[0]; if (!entry) { panel.append(make("div", "empty", "题目详情暂时无法加载。")); return; } const head = make("div", "detail-head"); const headCopy = make("div"); headCopy.append(make("div", "detail-no", `YOJ ${displayNo(entry.problemNo)}`), make("h3", "", displayTitle(entry.title))); const close = make("button", "detail-close", "×"); close.type = "button"; close.setAttribute("aria-label", "关闭题目详情"); close.addEventListener("click", () => { state.selected = null; renderList(); renderDetail(); }); const detailStatus = make("div", "detail-status"); (entry.tags || []).forEach((tag) => detailStatus.append(tagElement(tag))); detailStatus.append(make("span", "tag", entry.solutionStatus === "solution" ? "题解已补充" : statusLabel(entry)), statusElement(entry)); headCopy.append(detailStatus); head.append(headCopy, close); panel.append(head); const content = make("div", "detail-content"); const tabs = make("div", "detail-tabs"); tabs.append(make("button", "detail-tab", "题目与状态")); content.append(tabs); content.append(make("p", "detail-kicker", "题目说明")); const description = entry.solutionStatus === "solution" ? "仓库中已经有独立题解内容，可先阅读思路，再通过代码入口回到 YOJ 验证。" : entry.verified && entry.onlineAvailable ? "题目当前仍在 YOJ 公开题库，仓库同时保留了 Accepted 记录；可通过代码入口继续复核。" : entry.verified ? "仓库保留了历史 Accepted 记录，但当前 YOJ 公开索引未发现该题；如需再次提交，应先确认题目可见性。" : entry.onlineAvailable ? "题目当前仍在 YOJ 公开题库；仓库已归档题面，但尚未形成可公开快捷提交的 Accepted 证据。" : "当前 YOJ 公开索引未发现该题；仓库仍保留历史题面归档，不能据此推断题面或代码一定失效。"; content.append(make("p", "detail-copy", description)); const grid = make("dl", "detail-grid"); [["语言", entry.language], ["时间限制", entry.timeLimit], ["内存限制", entry.memoryLimit], ["YOJ 可见性", entry.onlineAvailable ? "当前公开" : "当前公开索引未发现"], ["提交证据", entry.verified ? "Accepted" : "暂无快捷提交"]].forEach(([label, value]) => { const dt = make("dt", "", label); const dd = make("dd", "", safeText(value)); grid.append(dt, dd); }); content.append(grid); const actions = make("div", "detail-actions"); actions.append(linkButton("查看题面", entry.statementUrl || entry.problemUrl), linkButton("查看 YOJ 题目", entry.problemUrl), linkButton("查看代码", entry.codeUrl), linkButton("快捷提交", entry.quickSubmitUrl, true)); content.append(actions); const note = make("p", "detail-note"); note.append(make("strong", "状态说明："), document.createTextNode(entry.verified && entry.onlineAvailable ? "仓库记录包含 Accepted 提交，且题目出现在本次 YOJ 公开列表；最终结果仍以 YOJ 页面为准。" : entry.verified ? "仓库保留 Accepted 记录，但当前公开列表未发现该题；这条记录需要后续可见性复核。" : entry.onlineAvailable ? "题目仍在 YOJ 公开列表，但尚未生成公开快捷提交入口。" : "当前公开列表未发现该题；仓库历史题面仍可供查阅。")); content.append(note); panel.append(content); }
       function selectEntry(problemNo) { state.selected = problemNo; const url = new URL(location.href); url.searchParams.set("pno", String(problemNo)); history.replaceState(null, "", url); renderList(); renderDetail(); }
       function syncCatalog() { state.query = $("catalog-search").value; state.tag = $("tag-filter").value; state.status = $("status-filter").value; state.language = $("language-filter").value; state.page = 1; renderList(); }
       async function init() { const response = await fetch("data/catalog.json", { cache: "no-store" }); if (!response.ok) throw new Error(`题库目录加载失败（HTTP ${response.status}）`); const catalog = await response.json(); state.entries = Array.isArray(catalog.entries) ? catalog.entries : []; const verified = state.entries.filter((entry) => entry.verified).length; const solutions = state.entries.filter((entry) => entry.solutionStatus === "solution").length; $("hero-total").textContent = state.entries.length; $("hero-verified").textContent = verified; $("hero-solutions").textContent = solutions; $("catalog-count").textContent = `(${state.entries.length})`; $("updated-at").textContent = formatDate(catalog.generatedAt); renderFilters(); renderHeroTopics(); renderPaths(); const requested = Number(new URLSearchParams(location.search).get("pno")); const defaultEntry = state.entries.find((entry) => entry.problemNo === (Number.isInteger(requested) && requested > 0 ? requested : 992)) || state.entries[0]; state.selected = defaultEntry?.problemNo || null; renderList(); renderDetail(); }
       $("hero-search-form").addEventListener("submit", (event) => { event.preventDefault(); $("catalog-search").value = $("hero-search").value; syncCatalog(); $("catalog").scrollIntoView({ behavior: "smooth", block: "start" }); }); $("catalog-search").addEventListener("input", syncCatalog); $("tag-filter").addEventListener("change", syncCatalog); $("status-filter").addEventListener("change", syncCatalog); $("language-filter").addEventListener("change", syncCatalog); $("star-cta").addEventListener("click", () => { $("star-cta").classList.add("star-cta-visited"); $("star-cta").setAttribute("aria-label", "GitHub 仓库已打开，请在仓库页点击 Star"); $("star-cta").querySelector(".star-copy span").textContent = "仓库已打开，再点一次 Star 即可支持"; });
-      init().catch((error) => { $("result-count").textContent = error.message; $("empty").hidden = false; $("empty").textContent = "目录暂时无法加载，请稍后刷新，或直接浏览 GitHub 仓库。"; $("detail-panel").replaceChildren(make("div", "empty", "目录暂时无法加载。")); });
+      activateTrafficProbes(); loadTraffic(); init().catch((error) => { $("result-count").textContent = error.message; $("empty").hidden = false; $("empty").textContent = "目录暂时无法加载，请稍后刷新，或直接浏览 GitHub 仓库。"; $("detail-panel").replaceChildren(make("div", "empty", "目录暂时无法加载。")); });
     })();
   </script>
 </body>

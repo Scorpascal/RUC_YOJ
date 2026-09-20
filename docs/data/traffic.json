@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "provider": "visitor-badge",
+    "pageId": "Scorpascal.RUC_YOJ",
+    "timezone": "Asia/Shanghai",
+    "countSemantics": "page_loads"
+  },
+  "updatedAt": "2026-09-20T18:54:03Z",
+  "today": "2026-09-21",
+  "todayVisits": 0,
+  "totalVisits": 6,
+  "series": [
+    {
+      "date": "2026-09-15",
+      "label": "9/15",
+      "visits": 0
+    },
+    {
+      "date": "2026-09-16",
+      "label": "9/16",
+      "visits": 0
+    },
+    {
+      "date": "2026-09-17",
+      "label": "9/17",
+      "visits": 0
+    },
+    {
+      "date": "2026-09-18",
+      "label": "9/18",
+      "visits": 0
+    },
+    {
+      "date": "2026-09-19",
+      "label": "9/19",
+      "visits": 0
+    },
+    {
+      "date": "2026-09-20",
+      "label": "9/20",
+      "visits": 0
+    },
+    {
+      "date": "2026-09-21",
+      "label": "9/21",
+      "visits": 0
+    }
+  ]
+}
