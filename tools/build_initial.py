@@ -41,6 +41,7 @@ PUBLIC_ROOT = ROOT / "题解"
 DATA_ROOT = ROOT / "data"
 MANIFEST_PATH = RAW_ROOT / "AC抓取清单.json"
 ONLINE_REPORT_PATH = ROOT / "staging" / "online-verification.json"
+PUBLIC_READY_PATH = DATA_ROOT / "public-ready.json"
 SITE_BASE = "http://yoj.ruc.edu.cn/"
 QUICK_SUBMIT_PAGE = "https://scorpascal.github.io/RUC_YOJ/yoj-quick-submit.html"
 QUICK_SUBMIT_MANIFEST_URL = "data/quick-submit.json"
@@ -75,6 +76,40 @@ ASSET_EXTENSIONS = {
 
 def json_load(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_public_ready() -> dict[str, dict[str, Any]]:
+    """Load only the explicit publication manifest, if one exists."""
+
+    if not PUBLIC_READY_PATH.is_file():
+        return {}
+    try:
+        payload = json_load(PUBLIC_READY_PATH)
+    except (OSError, TypeError, ValueError, json.JSONDecodeError):
+        return {}
+    return {
+        str(item.get("problemNo")): item
+        for item in (payload.get("records") or [])
+        if item.get("problemNo") is not None and item.get("status") == "PUBLIC_READY"
+    }
+
+
+def public_ready_matches(record: dict[str, Any], statement: str, public_ready: dict[str, Any]) -> bool:
+    """Ensure a release record still describes the files being rebuilt."""
+
+    if public_ready.get("status") != "PUBLIC_READY":
+        return False
+    archive = record.get("archive") or {}
+    complete = ROOT / str(archive.get("completeCode") or "")
+    direct = ROOT / str(archive.get("directlySubmittableCode") or "")
+    if not complete.is_file() or not direct.is_file():
+        return False
+    if source_file_hash(complete) != str(public_ready.get("completeCodeSha256") or ""):
+        return False
+    if source_file_hash(direct) != str(public_ready.get("directlySubmittableCodeSha256") or ""):
+        return False
+    statement_sha = hashlib.sha256(statement.encode("utf-8")).hexdigest()
+    return statement_sha == str(public_ready.get("statementSha256") or "")
 
 
 def write_text(path: Path, content: str) -> None:
@@ -740,7 +775,11 @@ def get_problem_no(entry: dict[str, Any]) -> int:
 
 
 def build_statement(
-    entry: dict[str, Any], metadata: dict[str, Any], raw_dir: Path, download_assets: bool = False
+    entry: dict[str, Any],
+    metadata: dict[str, Any],
+    raw_dir: Path,
+    download_assets: bool = False,
+    public_ready: dict[str, Any] | None = None,
 ) -> tuple[dict[str, Any], str]:
     problem = metadata.get("problem", {})
     source = metadata.get("source", {})
@@ -808,12 +847,21 @@ def build_statement(
     if not direct_path.is_file():
         converter.warnings.append(f"可提交代码不存在: {direct_code}")
 
+    is_ready = str((public_ready or {}).get("status") or "") == "PUBLIC_READY"
+    public_status = "PUBLIC_READY" if is_ready else "RAW_CAPTURED"
+    online_status = "ONLINE_ACCEPTED" if is_ready else "NOT_RUN"
+    phase_text = (
+        "> 当前版本已完成清洗、本地门禁、YOJ Accepted 复验和源码回收，可作为公开版本。"
+        if is_ready
+        else "> 当前仓库阶段：`RAW_CAPTURED`。代码尚未完成脱敏清理、版本规范化、提交形态核验和在线复验。"
+    )
+
     statement_rel = Path("题解") / folder / f"{problem_no_padded}_题目.md"
     statement_text = [
         f"# {problem_no_padded}. {title}",
         "",
         "> 当前文件由 YOJ 原始题面快照的题面主体离线转换生成。公式尽量转换为 LaTeX，图片优先本地化为 Markdown 图片链接；下载失败时保留原始链接并记录 warning。",
-        "> 当前仓库阶段：`RAW_CAPTURED`。代码尚未完成脱敏清理、版本规范化、提交形态核验和在线复验。",
+        phase_text,
         "",
         "## 题目信息",
         "",
@@ -842,9 +890,9 @@ def build_statement(
             "## 归档状态",
             "",
             f"- 题面转换：`{status}`",
-            "- 代码状态：`RAW_CAPTURED`（不可视为已清洗的公开题解）",
-            "- 在线 AC 复验：`NOT_RUN`",
-            "- 直接提交分块：`UNKNOWN_UNTIL_FORM_MAP`",
+            f"- 代码状态：`{public_status}`" + ("（清洗候选已通过发布门禁）" if is_ready else "（不可视为已清洗的公开题解）"),
+            f"- 在线 AC 复验：`{online_status}`",
+            "- 直接提交分块：`VERIFIED`" if is_ready else "- 直接提交分块：`UNKNOWN_UNTIL_FORM_MAP`",
         ]
     )
     if converter.warnings:
@@ -864,12 +912,15 @@ def build_statement(
         },
         "language": archived_language,
         "archive": {
-            "status": "RAW_CAPTURED",
+            "status": public_status,
             "submissionNo": str(problem.get("submissionNo") or entry.get("submissionNo") or ""),
             "capturedAt": str(source.get("capturedAt") or ""),
             "sourceSha256": observed_hash,
             "recordedSha256": recorded_hash,
             "sourceHashMatchesMetadata": hash_match,
+            "metadata": relative_path(raw_dir / f"{problem_no_padded}_元数据.json")
+            if (raw_dir / f"{problem_no_padded}_元数据.json").is_file()
+            else None,
             "completeCode": relative_path(complete_path) if complete_path.is_file() else None,
             "directlySubmittableCode": relative_path(direct_path) if direct_path.is_file() else None,
             "acceptedRun": {
@@ -883,12 +934,15 @@ def build_statement(
             "blockHandling": code_meta.get("blockHandling") or {"status": "unknown"},
         },
         "public": {
-            "status": "RAW_CAPTURED",
-            "publish": False,
+            "status": public_status,
+            "publish": is_ready,
             "statement": relative_path(ROOT / statement_rel),
-            "cleanCode": None,
-            "directlySubmittableCode": None,
-            "onlineVerification": "NOT_RUN",
+            "cleanCode": relative_path(complete_path) if is_ready and complete_path.is_file() else None,
+            "directlySubmittableCode": relative_path(direct_path) if is_ready and direct_path.is_file() else None,
+            "onlineVerification": online_status,
+            "verifiedAt": str((public_ready or {}).get("verifiedAt") or "") if is_ready else "",
+            "verifiedSubmissionNo": str((public_ready or {}).get("submissionNo") or "") if is_ready else "",
+            "codeSha256": str((public_ready or {}).get("completeCodeSha256") or observed_hash) if is_ready else "",
         },
         "statement": {
             "status": status,
@@ -936,23 +990,25 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         row.get("status") == "Accepted" and (row.get("roundTrip") or {}).get("status") == "VISIBLE"
         for row in online_rows.values()
     )
+    public_ready_count = sum(record["public"]["status"] == "PUBLIC_READY" for record in records)
     quick_submit_count = sum(
-        online_rows.get(str(record["problemNo"]), {}).get("status") == "Accepted"
-        and bool(record["archive"].get("directlySubmittableCode"))
+        record["public"].get("status") == "PUBLIC_READY"
+        and bool(record["public"].get("directlySubmittableCode"))
         for record in records
     )
     lines = [
         "# RUC YOJ 题解归档",
         "",
         "> 这是按 Method 指引生成的离线初步构建。当前把原始题面快照转换成 Markdown：公式尽量保留为 LaTeX，题面图片优先本地化到对应题目目录；原始 HTML 不进入公开索引。",
-        "> `代码库/` 是抓取原始归档，代码仍处于待脱敏、待 C++17/Python 3.14 规范化和待提交形态核验状态；在线复验结果按题目索引单独显示，不能把本页的“原始代码”链接理解为最终公开题解。",
+        "> `代码库/` 保留题号和文件格式；只有标记为 `PUBLIC_READY` 的题目才表示对应清洗代码已通过本地门禁、YOJ Accepted 和源码回收核验，其余记录仍是待复核归档。",
         "",
         "## 当前状态",
         "",
         f"- 原始归档时间：`{captured_at}`",
         f"- 已生成题面：`{len(records)}` 道",
         f"- 状态统计：`{dict(sorted(status_counts.items()))}`",
-        f"- 原始代码同步：完整代码 `{sum(bool(record['archive'].get('completeCode')) for record in records)}/{len(records)}`，可提交代码 `{sum(bool(record['archive'].get('directlySubmittableCode')) for record in records)}/{len(records)}`；两者均为原始归档，尚不代表已清洗或已完成提交形态核验",
+        f"- 原始代码同步：完整代码 `{sum(bool(record['archive'].get('completeCode')) for record in records)}/{len(records)}`，可提交代码 `{sum(bool(record['archive'].get('directlySubmittableCode')) for record in records)}/{len(records)}`；原始归档不等于公开发布版本",
+        f"- 公开清洗版本：`{public_ready_count}/{len(records)}` 道通过本地门禁、YOJ Accepted 与源码回收核验",
         f"- 在线复验：已提交 `{online_attempted}/{len(records)}`，其中 `Accepted` `{online_accepted}`、明确非通过 `{online_nonaccepted}`；另有表单/模板跳过 `{len(online_skips)}` 道",
         f"- 在线源码回收：`Accepted` 中已回收并比对 `{online_visible}/{online_accepted}`；编号、状态、跳过原因和源码回收证据保存在被忽略的 `staging/online-verification.json`",
         f"- YOJ 快捷提交入口：`{quick_submit_count}` 道题提供同语言代码加载、复制和用户点击触发的提交表单；未通过/特殊提交形态不生成快捷入口",
@@ -978,10 +1034,15 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         online_suffix = f"；在线 `{online_status}` #{online_no}" if online_status and online_no else ""
         if not online_suffix and skip_reason:
             online_suffix = f"；在线跳过 `{skip_reason}`"
-        complete_link = f"[已同步（待清洗{online_suffix}）]({markdown_path(complete)})" if complete else "未同步"
-        direct_link = f"[已同步（提交形态待核验{online_suffix}）]({markdown_path(direct)})" if direct else "未同步"
+        base_status = str(record["public"]["status"])
+        if base_status == "PUBLIC_READY":
+            complete_link = f"[已发布（清洗并核验{online_suffix}）]({markdown_path(complete)})" if complete else "未同步"
+            direct_link = f"[已发布（可提交形态已核验{online_suffix}）]({markdown_path(direct)})" if direct else "未同步"
+        else:
+            complete_link = f"[已同步（待清洗{online_suffix}）]({markdown_path(complete)})" if complete else "未同步"
+            direct_link = f"[已同步（提交形态待核验{online_suffix}）]({markdown_path(direct)})" if direct else "未同步"
         title = record["title"].replace("|", r"\|").replace("\n", " ")
-        status = str(record["public"]["status"])
+        status = base_status
         if online_status:
             status = f"{status}; ONLINE_{online_status.upper().replace(' ', '_')}"
         elif skip_reason:
@@ -1049,8 +1110,8 @@ def make_quick_submit_manifest(records: list[dict[str, Any]], manifest: dict[str
 
     The page fetches source text from raw.githubusercontent.com at click time;
     this manifest therefore contains paths and hashes, not credentials or
-    server-side session data.  Only a record with an observed Accepted result
-    gets a submit entry.
+    server-side session data.  Only a record explicitly promoted to
+    ``PUBLIC_READY`` gets a submit entry.
     """
 
     online_data: dict[str, Any] = {}
@@ -1067,13 +1128,9 @@ def make_quick_submit_manifest(records: list[dict[str, Any]], manifest: dict[str
     entries: list[dict[str, Any]] = []
     for record in sorted(records, key=get_problem_no):
         online = online_rows.get(str(record.get("problemNo"))) or {}
-        if str(online.get("status") or "") != "Accepted":
+        if record.get("public", {}).get("status") != "PUBLIC_READY":
             continue
-        code_path = str(
-            record.get("public", {}).get("directlySubmittableCode")
-            or record.get("archive", {}).get("directlySubmittableCode")
-            or ""
-        )
+        code_path = str(record.get("public", {}).get("directlySubmittableCode") or "")
         local_path = ROOT / code_path if code_path else None
         if local_path is None or not local_path.is_file():
             continue
@@ -1090,7 +1147,9 @@ def make_quick_submit_manifest(records: list[dict[str, Any]], manifest: dict[str
                 "codeSha256": source_file_hash(local_path),
                 "onlineStatus": "Accepted",
                 "onlineSubmissionNo": str(online.get("submissionNo") or ""),
-                "warning": "当前链接使用仓库中的原始可提交归档；公开清洗版本替换后需重新在线复验。",
+                "warning": (
+                    "当前链接使用已清洗且在线核验的公开代码。"
+                ),
             }
         )
     return {
@@ -1115,6 +1174,7 @@ def build() -> int:
         return 2
     manifest = json_load(MANIFEST_PATH)
     entries = manifest.get("problems") or []
+    public_ready_by_no = load_public_ready()
     records: list[dict[str, Any]] = []
     statement_texts: list[tuple[Path, str]] = []
     failures: list[str] = []
@@ -1129,7 +1189,22 @@ def build() -> int:
         metadata_path = RAW_ROOT / metadata_ref if metadata_ref else raw_dir / f"{folder.split('_', 1)[0]}_元数据.json"
         try:
             metadata = json_load(metadata_path)
-            record, statement = build_statement(entry, metadata, raw_dir, download_assets=not args.check and not args.no_download_assets)
+            ready_entry = public_ready_by_no.get(str(entry.get("problemNo")))
+            record, statement = build_statement(
+                entry,
+                metadata,
+                raw_dir,
+                download_assets=not args.check and not args.no_download_assets,
+                public_ready=ready_entry,
+            )
+            if ready_entry and not public_ready_matches(record, statement, ready_entry):
+                record, statement = build_statement(
+                    entry,
+                    metadata,
+                    raw_dir,
+                    download_assets=not args.check and not args.no_download_assets,
+                    public_ready=None,
+                )
         except (OSError, KeyError, TypeError, ValueError, json.JSONDecodeError) as exc:
             failures.append(f"{folder}: {exc.__class__.__name__}: {exc}")
             continue
@@ -1167,7 +1242,7 @@ def build() -> int:
         DATA_ROOT / "problems.json",
         {
             "schemaVersion": SCHEMA_VERSION,
-            "purpose": "offline initial build; not yet public-ready",
+            "purpose": "offline build; only explicit PUBLIC_READY records are public releases",
             "generatedFrom": relative_path(MANIFEST_PATH),
             "capturedAt": manifest.get("capturedAt"),
             "generatedRecords": len(records),
@@ -1192,7 +1267,7 @@ def build() -> int:
             ),
             "warningRecordCount": sum(bool(r["statement"]["warnings"]) for r in records),
             "warningCount": sum(len(r["statement"]["warnings"]) for r in records),
-            "publicReady": 0,
+            "publicReady": sum(record["public"]["status"] == "PUBLIC_READY" for record in records),
             "notes": [
                 "题面来自 p_content，不公开原始 HTML。",
                 "公式转换为尽量可读的 LaTeX；含 warnings 的题目必须人工复核。",
@@ -1224,7 +1299,7 @@ def build() -> int:
                 ),
                 "warningRecordCount": sum(bool(r["statement"]["warnings"]) for r in records),
                 "warningCount": sum(len(r["statement"]["warnings"]) for r in records),
-                "publicReady": 0,
+                "publicReady": sum(record["public"]["status"] == "PUBLIC_READY" for record in records),
             },
             ensure_ascii=False,
             indent=2,

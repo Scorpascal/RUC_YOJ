@@ -51,13 +51,23 @@
     "language": "cpp17",
     "extension": ".cpp",
     "bytesUtf8": 1162,
-    "sha256": "ea25f61eb8223951ac6d15568b487e2f3baa8a445f694f5aa8140139c0b1f26b",
+    "sha256": "99e5609252184fb0fbc9321240daa335c2c40f69aaecf76b28d5cf5693a6bf2a",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
       "completeCodeFile": "0967_提交_1399343_cpp17_完整代码.cpp",
       "directlySubmittableFile": "0967_提交_1399343_cpp17_可提交代码.cpp",
       "blocks": [],
       "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    }
+    },
+    "rawArchiveSha256": "ea25f61eb8223951ac6d15568b487e2f3baa8a445f694f5aa8140139c0b1f26b",
+    "directlySubmittableSha256": "99e5609252184fb0fbc9321240daa335c2c40f69aaecf76b28d5cf5693a6bf2a",
+    "status": "CLEANED_ONLINE_VERIFIED"
+  },
+  "publication": {
+    "status": "PUBLIC_READY",
+    "batchId": "20260920T082821Z",
+    "candidateSha256": "99e5609252184fb0fbc9321240daa335c2c40f69aaecf76b28d5cf5693a6bf2a",
+    "submissionNo": 1399892,
+    "verifiedAt": "2026-09-20T01:05:01Z"
   }
 }

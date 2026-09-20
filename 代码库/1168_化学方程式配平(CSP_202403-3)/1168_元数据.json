@@ -51,13 +51,23 @@
     "language": "c",
     "extension": ".c",
     "bytesUtf8": 2986,
-    "sha256": "57d796a2cbe38198eebafc1f6f2394e43923026a9fbbd52c62580e61a598b53d",
+    "sha256": "0c0e709ae0e7af8d48af0d5d31dbe539bbc1f23647daf7abce569dbcb04f60fa",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
       "completeCodeFile": "1168_提交_1225012_c_完整代码.c",
       "directlySubmittableFile": "1168_提交_1225012_c_可提交代码.c",
       "blocks": [],
       "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    }
+    },
+    "rawArchiveSha256": "57d796a2cbe38198eebafc1f6f2394e43923026a9fbbd52c62580e61a598b53d",
+    "directlySubmittableSha256": "0c0e709ae0e7af8d48af0d5d31dbe539bbc1f23647daf7abce569dbcb04f60fa",
+    "status": "CLEANED_ONLINE_VERIFIED"
+  },
+  "publication": {
+    "status": "PUBLIC_READY",
+    "batchId": "20260920T082821Z",
+    "candidateSha256": "0c0e709ae0e7af8d48af0d5d31dbe539bbc1f23647daf7abce569dbcb04f60fa",
+    "submissionNo": 1400027,
+    "verifiedAt": "2026-09-20T01:33:49Z"
   }
 }

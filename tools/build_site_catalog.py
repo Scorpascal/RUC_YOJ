@@ -88,7 +88,7 @@ def main() -> None:
         tags = infer_tags(title)
         for tag in tags:
             tag_counts[tag] += 1
-        verified = quick_entry.get("onlineStatus") == "Accepted"
+        verified = public.get("status") == "PUBLIC_READY" and quick_entry.get("onlineStatus") == "Accepted"
         has_notes = has_solution_notes(folder, problem_no)
         entries.append(
             {

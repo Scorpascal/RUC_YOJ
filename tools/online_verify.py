@@ -24,6 +24,11 @@ from urllib.parse import urlencode, urljoin
 from urllib.request import HTTPCookieProcessor, Request, build_opener
 from http.cookiejar import CookieJar
 
+try:
+    from release_gate import candidate_paths, local_gate_reasons
+except ImportError:  # pragma: no cover - supports ``import tools.online_verify``
+    from tools.release_gate import candidate_paths, local_gate_reasons
+
 
 ROOT = Path(os.environ.get("YOJ_ROOT", Path(__file__).resolve().parents[1])).resolve()
 BASE = "http://yoj.ruc.edu.cn"
@@ -190,18 +195,32 @@ def recover_source(client: YoJClient, submission_no: int, candidate_bytes: bytes
             raise ValueError("源码接口没有返回 code")
         source_bytes = source.encode("utf-8")
         exact = source_bytes == candidate_bytes
+        canonical_source = source_bytes.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+        canonical_candidate = candidate_bytes.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+        canonical_source = b"\n".join(line.rstrip() for line in canonical_source.split(b"\n")).rstrip(b"\n")
+        canonical_candidate = b"\n".join(line.rstrip() for line in canonical_candidate.split(b"\n")).rstrip(b"\n")
+        canonical = canonical_source == canonical_candidate
         return {
             "status": "VISIBLE",
             "sourceVisibleInSubmissionDetail": True,
             "exactByteMatch": exact,
+            "canonicalByteMatch": canonical,
             "sourceSha256": hashlib.sha256(source_bytes).hexdigest(),
-            "matchNote": "终端 getcode 接口回收源码并完成候选字节比对。" if exact else "终端 getcode 接口回收源码，但与本地候选字节不完全一致。",
+            "canonicalSourceSha256": hashlib.sha256(canonical_source).hexdigest(),
+            "matchNote": (
+                "终端 getcode 接口回收源码并完成候选字节比对。"
+                if exact
+                else "终端回收源码与候选仅存在换行或行尾空白差异。"
+                if canonical
+                else "终端 getcode 接口回收源码，但与本地候选内容不一致。"
+            ),
         }
     except Exception as exc:  # noqa: BLE001 - evidence is retained as a review state
         return {
             "status": "PENDING_DETAIL",
             "sourceVisibleInSubmissionDetail": False,
             "exactByteMatch": False,
+            "canonicalByteMatch": False,
             "matchNote": f"提交已完成，但 getcode 回收失败: {exc}",
         }
 
@@ -213,6 +232,7 @@ def make_record(problem: dict[str, Any], path: Path, language: str, row: dict[st
         "status": "NOT_APPLICABLE",
         "sourceVisibleInSubmissionDetail": False,
         "exactByteMatch": False,
+        "canonicalByteMatch": False,
         "matchNote": "提交结果不是 Accepted，暂不回收源码。",
     }
     return {
@@ -320,6 +340,17 @@ def main() -> int:
             record_skip(skips, problem, path, language, "FILL_IN_FRAGMENT_TEMPLATE_UNAVAILABLE", candidate_sha256)
             save_report(records, skips)
             print(f"[{problem_no}] 跳过：固定模板不可得的填空片段。", flush=True)
+            continue
+
+        complete_candidate, direct_candidate = candidate_paths(problem)
+        gate_reasons = local_gate_reasons(problem_no, complete_candidate, direct_candidate)
+        if direct_candidate.resolve() != path.resolve():
+            gate_reasons.append("CANDIDATE_SELECTION_STALE")
+        if gate_reasons:
+            reason = "LOCAL_GATE_" + "+".join(sorted(set(gate_reasons)))
+            record_skip(skips, problem, path, language, reason, candidate_sha256)
+            save_report(records, skips)
+            print(f"[{problem_no}] 跳过：{reason}", flush=True)
             continue
 
         try:

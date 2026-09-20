@@ -1,81 +1,179 @@
-#include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
+#include <cctype>
+#include <cstdint>
+#include <iostream>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
-// 需要 g++ 的 pbds 扩展
-using namespace std;
-using namespace __gnu_pbds;
+struct Entry {
+    long long score;
+    long long timestamp;
+    std::string name;
+};
+
+bool before(const Entry& left, const Entry& right) {
+    if (left.score != right.score) return left.score > right.score;
+    return left.timestamp < right.timestamp;
+}
 
 struct Node {
-    long long score;   // 分数越大越靠前
-    long long t;       // 上传时间戳，越小越靠前（同分时先上传优先）
-    string name;       // 角色名（用于输出）
+    Entry entry;
+    std::uint32_t priority;
+    int left = 0;
+    int right = 0;
+    int size = 1;
 };
 
-struct Cmp {
-    bool operator()(const Node& a, const Node& b) const {
-        if (a.score != b.score) return a.score > b.score; // 分数降序
-        return a.t < b.t;                                 // 时间升序
+std::vector<Node> nodes(1);
+std::uint32_t random_state = 0x243f6a88u;
+
+std::uint32_t next_priority() {
+    random_state ^= random_state << 13;
+    random_state ^= random_state >> 17;
+    random_state ^= random_state << 5;
+    return random_state;
+}
+
+int size_of(int root) {
+    return root == 0 ? 0 : nodes[root].size;
+}
+
+void pull(int root) {
+    if (root != 0) {
+        nodes[root].size = 1 + size_of(nodes[root].left) + size_of(nodes[root].right);
     }
-};
+}
 
-// order statistics tree: 支持 order_of_key / find_by_order
-using OST = tree<Node, null_type, Cmp, rb_tree_tag, tree_order_statistics_node_update>;
+void split(int root, const Entry& key, int& left, int& right) {
+    if (root == 0) {
+        left = right = 0;
+        return;
+    }
+    if (before(nodes[root].entry, key)) {
+        left = root;
+        split(nodes[root].right, key, nodes[root].right, right);
+        pull(left);
+    } else {
+        right = root;
+        split(nodes[root].left, key, left, nodes[root].left);
+        pull(right);
+    }
+}
+
+int merge_trees(int left, int right) {
+    if (left == 0) return right;
+    if (right == 0) return left;
+    if (nodes[left].priority > nodes[right].priority) {
+        nodes[left].right = merge_trees(nodes[left].right, right);
+        pull(left);
+        return left;
+    }
+    nodes[right].left = merge_trees(left, nodes[right].left);
+    pull(right);
+    return right;
+}
+
+int insert_node(int root, int inserted) {
+    if (root == 0) return inserted;
+    if (nodes[inserted].priority > nodes[root].priority) {
+        split(root, nodes[inserted].entry, nodes[inserted].left, nodes[inserted].right);
+        pull(inserted);
+        return inserted;
+    }
+    if (before(nodes[inserted].entry, nodes[root].entry)) {
+        nodes[root].left = insert_node(nodes[root].left, inserted);
+    } else {
+        nodes[root].right = insert_node(nodes[root].right, inserted);
+    }
+    pull(root);
+    return root;
+}
+
+bool equal_entry(const Entry& left, const Entry& right) {
+    return !before(left, right) && !before(right, left);
+}
+
+int erase_node(int root, const Entry& key) {
+    if (root == 0) return 0;
+    if (equal_entry(nodes[root].entry, key)) {
+        return merge_trees(nodes[root].left, nodes[root].right);
+    }
+    if (before(key, nodes[root].entry)) {
+        nodes[root].left = erase_node(nodes[root].left, key);
+    } else {
+        nodes[root].right = erase_node(nodes[root].right, key);
+    }
+    pull(root);
+    return root;
+}
+
+int order_of_key(int root, const Entry& key) {
+    if (root == 0) return 0;
+    if (before(nodes[root].entry, key)) {
+        return size_of(nodes[root].left) + 1 + order_of_key(nodes[root].right, key);
+    }
+    return order_of_key(nodes[root].left, key);
+}
+
+int kth(int root, int rank) {
+    while (root != 0) {
+        int left_size = size_of(nodes[root].left);
+        if (rank == left_size + 1) return root;
+        if (rank <= left_size) {
+            root = nodes[root].left;
+        } else {
+            rank -= left_size + 1;
+            root = nodes[root].right;
+        }
+    }
+    return 0;
+}
+
+int make_node(const Entry& entry) {
+    nodes.push_back(Node{entry, next_priority()});
+    return static_cast<int>(nodes.size()) - 1;
+}
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
 
-    int n;
-    cin >> n;
+    int request_count;
+    if (!(std::cin >> request_count)) return 0;
+    nodes.reserve(static_cast<std::size_t>(request_count) + 1);
 
-    OST tr;
-    unordered_map<string, Node> cur; // name -> 当前节点（用于删除/查排名）
-    cur.reserve((size_t)n * 2);
+    int root = 0;
+    long long timestamp = 0;
+    std::unordered_map<std::string, Entry> current;
+    current.reserve(static_cast<std::size_t>(request_count) * 2 + 1);
 
-    long long timer = 0;
-
-    for (int i = 0; i < n; i++) {
-        char op;
-        cin >> op;
-
-        if (op == '+') {
-            string name;
+    for (int i = 0; i < request_count; ++i) {
+        char operation;
+        std::cin >> operation;
+        if (operation == '+') {
+            std::string name;
             long long score;
-            cin >> name >> score;
-
-            auto it = cur.find(name);
-            if (it != cur.end()) {
-                tr.erase(it->second); // 删除旧记录
-            }
-
-            Node nd{score, timer++, name};
-            tr.insert(nd);
-            cur[name] = nd;
-        } else if (op == '?') {
-            string x;
-            cin >> x;
-
-            // ?Name 或 ?Index：用首字符是否为数字区分
-            if (!x.empty() && isdigit((unsigned char)x[0])) {
-                int idx = stoi(x); // 1-based
-                auto it = tr.find_by_order(idx - 1);
-
-                bool first = true;
-                for (int k = 0; k < 10 && it != tr.end(); k++, ++it) {
-                    if (!first) cout << ' ';
-                    first = false;
-                    cout << it->name;
+            std::cin >> name >> score;
+            auto old = current.find(name);
+            if (old != current.end()) root = erase_node(root, old->second);
+            Entry entry{score, timestamp++, name};
+            root = insert_node(root, make_node(entry));
+            current[name] = entry;
+        } else if (operation == '?') {
+            std::string query;
+            std::cin >> query;
+            if (!query.empty() && std::isdigit(static_cast<unsigned char>(query[0]))) {
+                int start = std::stoi(query);
+                for (int offset = 0; offset < 10 && start + offset <= size_of(root); ++offset) {
+                    if (offset != 0) std::cout << ' ';
+                    std::cout << nodes[kth(root, start + offset)].entry.name;
                 }
-                cout << "\n";
+                std::cout << '\n';
             } else {
-                const string& name = x;
-                const Node& nd = cur[name]; // 题目保证已上传
-                int rank = (int)tr.order_of_key(nd) + 1; // 1-based
-                cout << rank << "\n";
+                const Entry& entry = current.find(query)->second;
+                std::cout << order_of_key(root, entry) + 1 << '\n';
             }
         }
     }
-
     return 0;
 }

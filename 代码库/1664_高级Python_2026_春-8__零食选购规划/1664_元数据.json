@@ -51,13 +51,23 @@
     "language": "python3",
     "extension": ".py",
     "bytesUtf8": 484,
-    "sha256": "351183ec5eb2037c39f7bd53ba5359243f9f7744e7223900f9dd231ba6a47ea5",
+    "sha256": "e6dc466e2673fe1919ae7bc81e4f5595b3cd3a096dcfda63971f2900228351b2",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
       "completeCodeFile": "1664_提交_1388111_python3_完整代码.py",
       "directlySubmittableFile": "1664_提交_1388111_python3_可提交代码.py",
       "blocks": [],
       "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    }
+    },
+    "rawArchiveSha256": "351183ec5eb2037c39f7bd53ba5359243f9f7744e7223900f9dd231ba6a47ea5",
+    "directlySubmittableSha256": "e6dc466e2673fe1919ae7bc81e4f5595b3cd3a096dcfda63971f2900228351b2",
+    "status": "CLEANED_ONLINE_VERIFIED"
+  },
+  "publication": {
+    "status": "PUBLIC_READY",
+    "batchId": "20260920T082821Z",
+    "candidateSha256": "e6dc466e2673fe1919ae7bc81e4f5595b3cd3a096dcfda63971f2900228351b2",
+    "submissionNo": 1400164,
+    "verifiedAt": "2026-09-20T02:01:57Z"
   }
 }

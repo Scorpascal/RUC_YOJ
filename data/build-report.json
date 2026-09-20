@@ -11,7 +11,7 @@
   "resourceDownloadFailures": 6,
   "warningRecordCount": 19,
   "warningCount": 40,
-  "publicReady": 0,
+  "publicReady": 418,
   "notes": [
     "题面来自 p_content，不公开原始 HTML。",
     "公式转换为尽量可读的 LaTeX；含 warnings 的题目必须人工复核。",

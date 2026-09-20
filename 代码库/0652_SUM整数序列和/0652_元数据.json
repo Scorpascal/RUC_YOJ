@@ -51,13 +51,23 @@
     "language": "cpp11-noilinux",
     "extension": ".cpp",
     "bytesUtf8": 182,
-    "sha256": "410655aa70b170fc5221d87cce350897b1e3fa99f95557e45dfc92c7f028ce0f",
+    "sha256": "c6b164b20bf84db6015bf71cc7364e83c9e2ec1e0ce4190609908021ae0ca6a7",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
       "completeCodeFile": "0652_提交_1171784_cpp11-noilinux_完整代码.cpp",
       "directlySubmittableFile": "0652_提交_1171784_cpp11-noilinux_可提交代码.cpp",
       "blocks": [],
       "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    }
+    },
+    "rawArchiveSha256": "410655aa70b170fc5221d87cce350897b1e3fa99f95557e45dfc92c7f028ce0f",
+    "directlySubmittableSha256": "c6b164b20bf84db6015bf71cc7364e83c9e2ec1e0ce4190609908021ae0ca6a7",
+    "status": "CLEANED_ONLINE_VERIFIED"
+  },
+  "publication": {
+    "status": "PUBLIC_READY",
+    "batchId": "20260920T082821Z",
+    "candidateSha256": "c6b164b20bf84db6015bf71cc7364e83c9e2ec1e0ce4190609908021ae0ca6a7",
+    "submissionNo": 1399800,
+    "verifiedAt": "2026-09-20T00:46:12Z"
   }
 }

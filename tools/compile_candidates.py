@@ -108,6 +108,7 @@ def main() -> int:
                 "title": str(record["title"]),
                 "language": language,
                 "source": source.relative_to(ROOT).as_posix(),
+                "candidateSha256": hashlib.sha256(source.read_bytes()).hexdigest(),
                 "scope": "complete_source_compile_link",
             }
             if problem_no in KNOWN_FILL_IN_FRAGMENTS:
@@ -165,6 +166,7 @@ def main() -> int:
         "platform": platform.platform(),
         "records": len(results),
         "counts": dict(sorted(counts.items())),
+        "results": results,
         "failures": [item for item in results if item["category"] != "PASS"],
         "notes": [
             "C/C++ 使用 Clang C++17/C17 实际编译并链接；Python 只做 compile() 语法门禁。",

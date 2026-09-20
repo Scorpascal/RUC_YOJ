@@ -9,6 +9,7 @@ ignored ``staging/`` directory unless ``--check`` is supplied.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import platform
 import subprocess
@@ -67,6 +68,14 @@ def run_compiler(command: list[str], timeout: int = 30) -> tuple[int, str]:
     return result.returncode, result.stderr
 
 
+def source_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
 def candidate_for(raw_path: Path) -> Path:
     relative = raw_path.relative_to(RAW_ROOT)
     for root in (REPAIRED_ROOT, PORTABLE_ROOT, CLEANED_ROOT, CANDIDATE_ROOT):
@@ -85,6 +94,7 @@ def validate_record(record: dict[str, Any]) -> dict[str, Any]:
         "title": str(record["title"]),
         "language": language,
         "source": source.relative_to(ROOT).as_posix(),
+        "candidateSha256": source_sha256(source),
         "scope": "complete_source_syntax_only",
     }
     if result["problemNo"] in KNOWN_FILL_IN_FRAGMENTS:
@@ -167,6 +177,7 @@ def main() -> int:
         "platform": platform.platform(),
         "records": len(results),
         "counts": dict(sorted(counts.items())),
+        "results": results,
         "failures": [item for item in results if item["category"] != "PASS"],
         "notes": [
             "完整代码通过语法检查不代表样例、边界、分块回环或 YOJ 在线 AC。",

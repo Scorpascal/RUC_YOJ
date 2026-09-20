@@ -192,6 +192,7 @@ def test_record(record: dict[str, Any], run: bool) -> dict[str, Any]:
         "problemNo": problem_no,
         "title": str(record["title"]),
         "source": "",
+        "candidateSha256": "",
         "sampleInputBytes": len(sample_input.encode("utf-8")),
         "expectedOutputBytes": len(expected.encode("utf-8")),
         "category": "NOT_RUN",
@@ -209,6 +210,7 @@ def test_record(record: dict[str, Any], run: bool) -> dict[str, Any]:
     raw_source = ROOT / str(record["archive"]["completeCode"])
     source = candidate_path(raw_source)
     result["source"] = source.relative_to(ROOT).as_posix()
+    result["candidateSha256"] = hashlib.sha256(source.read_bytes()).hexdigest()
     language = str(record.get("language") or "")
     if language.startswith("python"):
         command = [sys.executable, str(source)]

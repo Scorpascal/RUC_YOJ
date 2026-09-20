@@ -14,7 +14,10 @@ from __future__ import annotations
 
 import argparse
 import fcntl
+import hashlib
+import json
 import os
+import re
 import subprocess
 import sys
 from datetime import datetime, time as day_time
@@ -26,9 +29,12 @@ ROOT = Path(os.environ.get("YOJ_ROOT", Path(__file__).resolve().parents[1])).res
 STATE_DIR = ROOT / ".yoj-sync"
 LOCK_PATH = STATE_DIR / "scheduler.lock"
 LOG_PATH = STATE_DIR / "scheduler.log"
+EXPECTED_CHANGES_PATH = STATE_DIR / "expected-generated-changes.json"
+PUBLIC_READY_PATH = ROOT / "data" / "public-ready.json"
 KEYCHAIN_SERVICE = "RUC_YOJ/yoj-sync"
 TZ = ZoneInfo("Asia/Shanghai")
-ALLOWED_PUBLISH_PREFIXES = ("README.md", "data/", "docs/", "题解/", "代码库/")
+PUBLIC_PUBLISH_PREFIXES = ("README.md", "data/", "docs/")
+PROBLEM_PATH_RE = re.compile(r"^(?:代码库|题解)/(\d{4})(?:_|/)")
 
 
 def now_local() -> datetime:
@@ -121,31 +127,150 @@ def changed_paths() -> list[str]:
     return paths
 
 
-def path_is_allowed(path: str) -> bool:
-    return any(path == prefix or path.startswith(prefix) for prefix in ALLOWED_PUBLISH_PREFIXES)
+def file_sha256(path: Path) -> str | None:
+    if not path.is_file():
+        return None
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
-def publish(push: bool) -> int:
+def load_expected_changes() -> dict[str, str | None]:
+    if not EXPECTED_CHANGES_PATH.is_file():
+        return {}
+    try:
+        payload = json.loads(EXPECTED_CHANGES_PATH.read_text(encoding="utf-8"))
+    except (OSError, TypeError, ValueError, json.JSONDecodeError):
+        return {}
+    return {
+        str(item.get("path")): item.get("sha256")
+        for item in (payload.get("paths") or [])
+        if item.get("path")
+    }
+
+
+def remember_generated_changes() -> None:
+    """Remember scheduler-created dirty files without treating them as trusted forever."""
+
     paths = changed_paths()
-    unexpected = [path for path in paths if not path_is_allowed(path)]
-    if unexpected:
-        log(f"发布暂停：工作树含非发布白名单变化 {unexpected[:12]}")
-        return 4
+    payload = {
+        "schemaVersion": 1,
+        "purpose": "hashes of scheduler-created pending changes; not a publication manifest",
+        "paths": [{"path": path, "sha256": file_sha256(ROOT / path)} for path in paths],
+    }
+    STATE_DIR.mkdir(parents=True, exist_ok=True)
+    EXPECTED_CHANGES_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def validate_worktree_before_run() -> bool:
+    """Allow only unchanged pending output from an earlier scheduler run."""
+
+    paths = changed_paths()
+    if not paths:
+        return True
+    expected = load_expected_changes()
+    unexpected = [path for path in paths if path not in expected or expected[path] != file_sha256(ROOT / path)]
+    missing = [path for path in expected if path not in paths]
+    if unexpected or missing:
+        log(
+            "调度暂停：工作树存在未获本地执行器确认的变化 "
+            f"{(unexpected + missing)[:12]}；请先人工审阅并处理"
+        )
+        return False
+    log(f"恢复上轮待处理输出：{len(paths)} 个文件，哈希与检查点一致")
+    return True
+
+
+def public_ready_snapshot() -> dict[int, str]:
+    if not PUBLIC_READY_PATH.is_file():
+        return {}
+    try:
+        payload = json.loads(PUBLIC_READY_PATH.read_text(encoding="utf-8"))
+    except (OSError, TypeError, ValueError, json.JSONDecodeError):
+        return {}
+    return {
+        int(item["problemNo"]): json.dumps(item, ensure_ascii=False, sort_keys=True)
+        for item in (payload.get("records") or [])
+        if item.get("status") == "PUBLIC_READY" and str(item.get("problemNo", "")).isdigit()
+    }
+
+
+def public_ready_problem_numbers() -> set[int]:
+    return set(public_ready_snapshot())
+
+
+def path_problem_number(path: str) -> int | None:
+    match = PROBLEM_PATH_RE.match(path)
+    return int(match.group(1)) if match else None
+
+
+def path_is_publishable(path: str, release_numbers: set[int]) -> bool:
+    if any(path == prefix or path.startswith(prefix) for prefix in PUBLIC_PUBLISH_PREFIXES):
+        return True
+    problem_no = path_problem_number(path)
+    return problem_no is not None and problem_no in release_numbers
+
+
+def scan_for_secrets(paths: list[str], secret_values: tuple[str, ...]) -> str | None:
+    needles = [value.encode("utf-8") for value in secret_values if value and len(value) >= 4]
+    if not needles:
+        return None
+    for path in paths:
+        candidate = ROOT / path
+        if not candidate.is_file():
+            continue
+        data = candidate.read_bytes()
+        if any(needle in data for needle in needles):
+            return path
+    return None
+
+
+def public_ready_delta(before: dict[int, str]) -> set[int]:
+    after = public_ready_snapshot()
+    return {problem_no for problem_no, value in after.items() if before.get(problem_no) != value}
+
+
+def publish(push: bool, release_numbers: set[int], secret_values: tuple[str, ...] = ()) -> int:
+    paths = changed_paths()
+    secret_path = scan_for_secrets(paths, secret_values)
+    if secret_path:
+        log(f"发布暂停：文件 {secret_path} 命中运行时凭据；未暂存、未提交、未推送")
+        return 7
     if not paths:
         log("发布跳过：工作树无变化")
         return 0
-    check = subprocess.run(["git", "diff", "--check"], cwd=ROOT, capture_output=True, text=True, check=False)
+    check_paths = [
+        path
+        for path in paths
+        if any(path == prefix or path.startswith(prefix) for prefix in PUBLIC_PUBLISH_PREFIXES)
+    ]
+    check_command = ["git", "diff", "--check", "--", *check_paths] if check_paths else ["git", "diff", "--check"]
+    check = subprocess.run(check_command, cwd=ROOT, capture_output=True, text=True, check=False)
     if check.returncode:
         log(f"发布暂停：git diff --check 失败：{check.stdout[-1000:]}{check.stderr[-1000:]}")
         return check.returncode
-    subprocess.run(["git", "add", "--", *ALLOWED_PUBLISH_PREFIXES], cwd=ROOT, check=True)
+    stage_paths = [path for path in paths if path_is_publishable(path, release_numbers)]
+    deferred = [path for path in paths if path not in stage_paths]
+    if deferred:
+        log(f"发布保留本地待处理变化（未暂存）：{deferred[:12]}")
+    if not stage_paths:
+        log("发布跳过：没有本轮 PUBLIC_READY 对应或公开索引白名单变化")
+        return 0
+    subprocess.run(["git", "add", "--", *stage_paths], cwd=ROOT, check=True)
     staged = subprocess.run(
         ["git", "diff", "--cached", "--name-only"], cwd=ROOT, capture_output=True, text=True, check=True
     ).stdout.splitlines()
-    if any(not path_is_allowed(path) for path in staged):
+    if any(not path_is_publishable(path, release_numbers) for path in staged):
         log("发布暂停：暂存区出现白名单之外的路径")
-        subprocess.run(["git", "reset", "--", *ALLOWED_PUBLISH_PREFIXES], cwd=ROOT, check=False)
+        subprocess.run(["git", "reset", "--", *staged], cwd=ROOT, check=False)
         return 5
+    staged_secret_path = scan_for_secrets(staged, secret_values)
+    if staged_secret_path:
+        log(f"发布暂停：暂存文件 {staged_secret_path} 命中运行时凭据；已取消暂存")
+        subprocess.run(["git", "reset", "--", *staged], cwd=ROOT, check=False)
+        return 7
     if not staged:
         log("发布跳过：没有可提交的白名单变化")
         return 0
@@ -183,7 +308,13 @@ def run_once(args: argparse.Namespace) -> int:
             log("已有调度实例运行，本轮退出")
             return 0
 
+        if not validate_worktree_before_run():
+            return 4
+
         environment = child_environment()
+        online_environment: dict[str, str] | None = None
+        online_ran = False
+        release_numbers: set[int] = set()
         try:
             capture_environment = prepare_online_environment() if not args.dry_run else environment
         except RuntimeError as exc:
@@ -220,12 +351,46 @@ def run_once(args: argparse.Namespace) -> int:
                     command = [sys.executable, str(ROOT / "tools" / "online_verify.py"), "--max-submissions", str(args.max_submissions)]
                     if run_command(command, online_environment, 7200):
                         log("在线复验未正常完成；保留 staging 检查点，不发布")
+                        remember_generated_changes()
                         return 3
-                    if run_command([sys.executable, str(ROOT / "tools" / "build_initial.py")], environment, 1800):
-                        return 3
+                    online_ran = True
 
         if args.publish:
-            return publish(args.push)
+            before_ready = public_ready_snapshot()
+            if run_command([sys.executable, str(ROOT / "tools" / "publish_ready.py"), "--apply"], environment, 1800):
+                log("公开发布闸门未正常完成；不生成 Git 提交")
+                remember_generated_changes()
+                return 3
+            release_numbers = public_ready_delta(before_ready)
+            if run_command([sys.executable, str(ROOT / "tools" / "build_initial.py")], environment, 1800):
+                remember_generated_changes()
+                return 3
+            if run_command([sys.executable, str(ROOT / "tools" / "build_site_catalog.py")], environment, 600):
+                remember_generated_changes()
+                return 3
+            result = publish(
+                args.push,
+                release_numbers,
+                tuple(
+                    value
+                    for value in (
+                        (online_environment or {}).get("YOJ_LOGIN_USER"),
+                        (online_environment or {}).get("YOJ_LOGIN_PASS"),
+                    )
+                    if value
+                ),
+            )
+            remember_generated_changes()
+            return result
+        if online_ran:
+            if run_command([sys.executable, str(ROOT / "tools" / "build_initial.py")], environment, 1800):
+                remember_generated_changes()
+                return 3
+        if not args.dry_run:
+            if run_command([sys.executable, str(ROOT / "tools" / "build_site_catalog.py")], environment, 600):
+                remember_generated_changes()
+                return 3
+        remember_generated_changes()
         log("本轮完成：未执行 Git 发布")
         return 0
 
