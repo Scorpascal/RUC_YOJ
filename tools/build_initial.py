@@ -1013,7 +1013,7 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         f"- 在线源码回收：`Accepted` 中已回收并比对 `{online_visible}/{online_accepted}`；编号、状态、跳过原因和源码回收证据保存在被忽略的 `staging/online-verification.json`",
         f"- YOJ 快捷提交入口：`{quick_submit_count}` 道题提供同语言代码加载、复制和用户点击触发的提交表单；未通过/特殊提交形态不生成快捷入口",
         "- 题面中的时间/内存是题目页限制；每条归档记录的 `archive.acceptedRun` 单独保存某次 AC 的实测耗时/内存，二者不混用",
-        "- 自动调度：仓库提供可恢复执行器和 macOS launchd 模板；YOJ 登录密码只从本机钥匙串注入，不进入 GitHub",
+        "- 自动调度：每天北京时间 22:30–23:30 尝试运行；仅在本机用户已登录且钥匙串可用时执行，当天未登录/未解锁则跳过，不在次日补跑；未完成请求保留断点，在下一天窗口继续；YOJ 登录密码只从本机钥匙串注入，不进入 GitHub",
         "- GitHub Pages：部署 workflow 已进入仓库；首次使用需在仓库 Settings → Pages 将 Source 设为 GitHub Actions，启用后快捷链接才会提供可执行页面",
         "- 维护窗口：按 Method 约定，`23:55–00:10` 暂停网络操作；题面更新需要重新抓取并复核图片、公式和题面差异",
         "",
