@@ -8,6 +8,37 @@
 
 [进入 YOJ 快捷提交工具](https://scorpascal.github.io/RUC_YOJ/yoj-quick-submit.html)
 
+## 📊 题目状态总览（自动生成）
+
+> 统计来源为 `data/problems.json`；“发布阶段”和“在线复验”是两个不同维度，不能直接相加。每次构建 README 时会自动刷新。
+
+| 维度 | 状态 | 题数 | 占全部题目 | 处理提示 |
+| --- | --- | ---: | ---: | --- |
+| 发布阶段 | `PUBLIC_READY` | `418` | 85.66% | 清洗、本地门禁、在线 Accepted 与源码回收均完成 |
+| 发布阶段 | `RAW_CAPTURED` | `70` | 14.34% | 已归档，待清洗、复核或发布 |
+| 在线复验 | `ONLINE_ACCEPTED` | `436` | 89.34% | 在线提交为 Accepted；若仍是 RAW_CAPTURED，还需完成清洗发布 |
+| 在线复验 | `ONLINE_COMPILE_ERROR` | `6` | 1.23% | 在线编译失败，需检查代码或题目语言配置 |
+| 在线复验 | `ONLINE_FILE_ERROR` | `1` | 0.20% | 在线文件处理异常，需人工复核 |
+| 在线复验 | `ONLINE_SKIPPED_FILL_IN_FRAGMENT_TEMPLATE_UNAVAILABLE` | `2` | 0.41% | 填空/片段模板未具备，需人工处理 |
+| 在线复验 | `ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND` | `40` | 8.20% | 未找到提交表单，需人工确认提交形态 |
+| 在线复验 | `ONLINE_SYSTEM_ERROR` | `1` | 0.20% | 判题系统异常，需在可用时段复核 |
+| 在线复验 | `ONLINE_TIME_LIMIT_EXCEEDED` | `2` | 0.41% | 在线运行超时，需检查算法或时间限制 |
+
+> 当前重点：待清洗/发布 `70` 道；在线复验非 Accepted 或跳过 `52` 道；其中在线已 Accepted 但仍待清洗发布 `18` 道。
+
+<details>
+<summary>待处理题号（点击展开）</summary>
+
+- `RAW_CAPTURED`（70 道）：`2, 3, 4, 5, 6, 7, 87, 112, 119, 132, 144, 168, 180, 247, 261, 263, 268, 284, 285, 286, 288, 391, 421, 437, 448, 505, 506, 626, 627, 628, 629, 630, 668, 685, 784, 790, 878, 898, 899, 928, 930, 939, 940, 941, 999, 1152, 1201, 1286, 1362, 1363, 1370, 1371, 1378, 1379, 1380, 1408, 1409, 1410, 1411, 1531, 1560, 1561, 1563, 1576, 1591, 1592, 1597, 1599, 1600, 1645`
+- `ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND`（40 道）：`112, 119, 132, 144, 168, 261, 263, 268, 284, 391, 421, 437, 505, 506, 626, 627, 628, 629, 630, 668, 685, 878, 898, 899, 999, 1286, 1362, 1363, 1370, 1371, 1378, 1379, 1408, 1409, 1410, 1411, 1560, 1561, 1563, 1576`
+- `ONLINE_SKIPPED_FILL_IN_FRAGMENT_TEMPLATE_UNAVAILABLE`（2 道）：`285, 286`
+- `ONLINE_COMPILE_ERROR`（6 道）：`790, 1591, 1592, 1597, 1599, 1600`
+- `ONLINE_SYSTEM_ERROR`（1 道）：`1152`
+- `ONLINE_TIME_LIMIT_EXCEEDED`（2 道）：`1201, 1531`
+- `ONLINE_FILE_ERROR`（1 道）：`1380`
+
+</details>
+
 > 这是按 Method 指引生成的离线初步构建。当前把原始题面快照转换成 Markdown：公式尽量保留为 LaTeX，题面图片优先本地化到对应题目目录；原始 HTML 不进入公开索引。
 > `代码库/` 保留题号和文件格式；只有标记为 `PUBLIC_READY` 的题目才表示对应清洗代码已通过本地门禁、YOJ Accepted 和源码回收核验，其余记录仍是待复核归档。
 
@@ -15,7 +46,7 @@
 
 - 原始归档时间：`2026-09-19T15:50:21.728Z`
 - 已生成题面：`488` 道
-- 状态统计：`{'PUBLIC_READY': 418, 'RAW_CAPTURED': 70}`
+- 状态统计：发布阶段 `{'PUBLIC_READY': 418, 'RAW_CAPTURED': 70}`；在线复验 `{'ONLINE_ACCEPTED': 436, 'ONLINE_COMPILE_ERROR': 6, 'ONLINE_FILE_ERROR': 1, 'ONLINE_SKIPPED_FILL_IN_FRAGMENT_TEMPLATE_UNAVAILABLE': 2, 'ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND': 40, 'ONLINE_SYSTEM_ERROR': 1, 'ONLINE_TIME_LIMIT_EXCEEDED': 2}`（详细表见上方）
 - 原始代码同步：完整代码 `488/488`，可提交代码 `488/488`；原始归档不等于公开发布版本
 - 公开清洗版本：`418/488` 道通过本地门禁、YOJ Accepted 与源码回收核验
 - 在线复验：已提交 `446/488`，其中 `Accepted` `436`、明确非通过 `10`；另有表单/模板跳过 `42` 道

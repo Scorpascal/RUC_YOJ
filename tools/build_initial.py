@@ -960,7 +960,107 @@ def build_statement(
 
 def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
     captured_at = str(manifest.get("capturedAt") or "未记录")
-    status_counts = Counter(record["public"]["status"] for record in records)
+    public_status_counts = Counter(
+        str((record.get("public") or {}).get("status") or "UNKNOWN")
+        for record in records
+    )
+    online_status_counts = Counter(
+        str((record.get("public") or {}).get("onlineVerification") or "NOT_RECORDED")
+        for record in records
+    )
+    total_records = len(records)
+
+    def percentage(count: int) -> str:
+        return f"{count / total_records:.2%}" if total_records else "0.00%"
+
+    public_status_order = ["PUBLIC_READY", "RAW_CAPTURED"]
+    public_status_order.extend(
+        sorted(status for status in public_status_counts if status not in public_status_order)
+    )
+    online_status_order = ["ONLINE_ACCEPTED"]
+    online_status_order.extend(
+        sorted(status for status in online_status_counts if status not in online_status_order)
+    )
+    status_descriptions = {
+        "PUBLIC_READY": "清洗、本地门禁、在线 Accepted 与源码回收均完成",
+        "RAW_CAPTURED": "已归档，待清洗、复核或发布",
+        "ONLINE_ACCEPTED": "在线提交为 Accepted；若仍是 RAW_CAPTURED，还需完成清洗发布",
+        "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND": "未找到提交表单，需人工确认提交形态",
+        "ONLINE_SKIPPED_FILL_IN_FRAGMENT_TEMPLATE_UNAVAILABLE": "填空/片段模板未具备，需人工处理",
+        "ONLINE_COMPILE_ERROR": "在线编译失败，需检查代码或题目语言配置",
+        "ONLINE_TIME_LIMIT_EXCEEDED": "在线运行超时，需检查算法或时间限制",
+        "ONLINE_SYSTEM_ERROR": "判题系统异常，需在可用时段复核",
+        "ONLINE_FILE_ERROR": "在线文件处理异常，需人工复核",
+        "NOT_RECORDED": "尚无在线复验记录",
+    }
+    public_pending_ids: dict[str, list[str]] = {}
+    online_pending_ids: dict[str, list[str]] = {}
+    for record in sorted(records, key=get_problem_no):
+        problem_no = str(record.get("problemNo") or "")
+        public_status = str((record.get("public") or {}).get("status") or "UNKNOWN")
+        online_status = str((record.get("public") or {}).get("onlineVerification") or "NOT_RECORDED")
+        if public_status != "PUBLIC_READY":
+            public_pending_ids.setdefault(public_status, []).append(problem_no)
+        if online_status != "ONLINE_ACCEPTED":
+            online_pending_ids.setdefault(online_status, []).append(problem_no)
+
+    dashboard_lines = [
+        "## 📊 题目状态总览（自动生成）",
+        "",
+        "> 统计来源为 `data/problems.json`；“发布阶段”和“在线复验”是两个不同维度，不能直接相加。每次构建 README 时会自动刷新。",
+        "",
+        "| 维度 | 状态 | 题数 | 占全部题目 | 处理提示 |",
+        "| --- | --- | ---: | ---: | --- |",
+    ]
+    for status in public_status_order:
+        if status not in public_status_counts:
+            continue
+        count = public_status_counts[status]
+        dashboard_lines.append(
+            f"| 发布阶段 | `{status}` | `{count}` | {percentage(count)} | {status_descriptions.get(status, '待人工检查')} |"
+        )
+    for status in online_status_order:
+        if status not in online_status_counts:
+            continue
+        count = online_status_counts[status]
+        dashboard_lines.append(
+            f"| 在线复验 | `{status}` | `{count}` | {percentage(count)} | {status_descriptions.get(status, '待人工检查')} |"
+        )
+
+    raw_pending_count = total_records - public_status_counts.get("PUBLIC_READY", 0)
+    online_pending_count = total_records - online_status_counts.get("ONLINE_ACCEPTED", 0)
+    raw_online_accepted_count = sum(
+        1
+        for record in records
+        if (record.get("public") or {}).get("status") == "RAW_CAPTURED"
+        and (record.get("public") or {}).get("onlineVerification") == "ONLINE_ACCEPTED"
+    )
+    dashboard_lines.extend(
+        [
+            "",
+            f"> 当前重点：待清洗/发布 `{raw_pending_count}` 道；在线复验非 Accepted 或跳过 `{online_pending_count}` 道；其中在线已 Accepted 但仍待清洗发布 `{raw_online_accepted_count}` 道。",
+        ]
+    )
+    pending_groups = [("RAW_CAPTURED", public_pending_ids.get("RAW_CAPTURED", []))]
+    pending_groups.extend(
+        (status, ids)
+        for status, ids in online_pending_ids.items()
+        if status != "RAW_CAPTURED"
+    )
+    pending_groups = [(status, ids) for status, ids in pending_groups if ids]
+    if pending_groups:
+        dashboard_lines.extend(
+            [
+                "",
+                "<details>",
+                "<summary>待处理题号（点击展开）</summary>",
+                "",
+            ]
+        )
+        for status, ids in pending_groups:
+            dashboard_lines.append(f"- `{status}`（{len(ids)} 道）：`{', '.join(ids)}`")
+        dashboard_lines.extend(["", "</details>"])
+    dashboard_lines.append("")
     online_rows: dict[str, dict[str, Any]] = {}
     if ONLINE_REPORT_PATH.is_file():
         try:
@@ -1007,6 +1107,7 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         "",
         "[进入 YOJ 快捷提交工具](https://scorpascal.github.io/RUC_YOJ/yoj-quick-submit.html)",
         "",
+        *dashboard_lines,
         "> 这是按 Method 指引生成的离线初步构建。当前把原始题面快照转换成 Markdown：公式尽量保留为 LaTeX，题面图片优先本地化到对应题目目录；原始 HTML 不进入公开索引。",
         "> `代码库/` 保留题号和文件格式；只有标记为 `PUBLIC_READY` 的题目才表示对应清洗代码已通过本地门禁、YOJ Accepted 和源码回收核验，其余记录仍是待复核归档。",
         "",
@@ -1014,7 +1115,7 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         "",
         f"- 原始归档时间：`{captured_at}`",
         f"- 已生成题面：`{len(records)}` 道",
-        f"- 状态统计：`{dict(sorted(status_counts.items()))}`",
+        f"- 状态统计：发布阶段 `{dict(sorted(public_status_counts.items()))}`；在线复验 `{dict(sorted(online_status_counts.items()))}`（详细表见上方）",
         f"- 原始代码同步：完整代码 `{sum(bool(record['archive'].get('completeCode')) for record in records)}/{len(records)}`，可提交代码 `{sum(bool(record['archive'].get('directlySubmittableCode')) for record in records)}/{len(records)}`；原始归档不等于公开发布版本",
         f"- 公开清洗版本：`{public_ready_count}/{len(records)}` 道通过本地门禁、YOJ Accepted 与源码回收核验",
         f"- 在线复验：已提交 `{online_attempted}/{len(records)}`，其中 `Accepted` `{online_accepted}`、明确非通过 `{online_nonaccepted}`；另有表单/模板跳过 `{len(online_skips)}` 道",
