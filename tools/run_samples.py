@@ -244,6 +244,18 @@ def normalize_output(value: str) -> list[str]:
 
 def test_record(record: dict[str, Any], run: bool) -> dict[str, Any]:
     problem_no = str(record["problemNo"])
+    if not (record.get("archive") or {}).get("completeCode"):
+        return {
+            "problemNo": problem_no,
+            "title": str(record["title"]),
+            "source": None,
+            "candidateSha256": "",
+            "sampleInputBytes": 0,
+            "expectedOutputBytes": 0,
+            "category": "TOPIC_ONLY",
+            "compileDiagnostic": "",
+            "runtimeDiagnostic": "题面已归档，但尚无本人 Accepted 源码；跳过样例编译与运行。",
+        }
     statement = statement_path(record)
     sample_input, expected, extraction_error = extract_sample_pair(statement)
     sample_correction = ""
@@ -333,10 +345,15 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="运行题面样例的离线回归测试")
     parser.add_argument("--check", action="store_true", help="只抽取样例，不编译或运行")
     parser.add_argument("--limit", type=int, default=0, help="仅运行前 N 条记录，0 表示全部")
+    parser.add_argument("--problem", dest="problem_nos", action="append", type=int, help="只处理指定题号")
     args = parser.parse_args()
 
     records = json.loads(DATA_PATH.read_text(encoding="utf-8"))["records"]
-    selected = records if args.limit <= 0 else records[: args.limit]
+    problem_filter = set(args.problem_nos or [])
+    selected_records = [
+        record for record in records if not problem_filter or int(record["problemNo"]) in problem_filter
+    ]
+    selected = selected_records if args.limit <= 0 else selected_records[: args.limit]
     if not args.check:
         WORK_ROOT.mkdir(parents=True, exist_ok=True)
     results = [test_record(record, run=not args.check) for record in selected]

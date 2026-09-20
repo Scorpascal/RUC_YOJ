@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1141459",
+    "submissionNo": "1399669",
     "problemNo": "118",
-    "title": "Fibonacci数列(提高版)",
+    "title": "# 118 . Fibonacci数列(提高版)",
     "status": "Accepted",
     "score": "100",
-    "time": "60 ms",
-    "memory": "484 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1757679371",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1141459.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/118.html",
-    "listPage": 34,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399669.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/118.html"
   },
   "submission": {
-    "submissionNo": "1141459",
+    "submissionNo": "1399669",
     "problemNo": "118",
-    "title": "Fibonacci数列(提高版)",
+    "title": "# 118 . Fibonacci数列(提高版)",
     "status": "Accepted",
     "score": "100",
-    "time": "60 ms",
-    "memory": "484 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1757679371",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1141459.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/118.html",
-    "listPage": 34
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399669.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/118.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "13c048ab1828add813e5a0832b84b545f58cbe43e2899cefa9118c3ff04dfd12"
+    }
   },
   "files": {
-    "problemHtml": "0118_题目原文.html",
-    "submissionHtml": "0118_提交_1141459_详情.html",
-    "completeCode": "0118_提交_1141459_c_完整代码.c",
-    "directlySubmittableCode": "0118_提交_1141459_c_可提交代码.c"
+    "problem": "0118_题目原文.html",
+    "submission": "0118_提交_1399669_详情.html",
+    "completeCode": "0118_提交_1399669_c_完整代码.c",
+    "directlySubmittableCode": "0118_提交_1399669_c_可提交代码.c",
+    "metadata": "0118_元数据.json"
   },
   "code": {
     "language": "c",
     "extension": ".c",
-    "bytesUtf8": 1031,
+    "bytesUtf8": 987,
     "sha256": "8755a1587187a4e3212d589d611ea2781ef41034f7bd4c6a57e8e7cdf4c4550f",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "0118_提交_1141459_c_完整代码.c",
-      "directlySubmittableFile": "0118_提交_1141459_c_可提交代码.c",
+      "completeCodeFile": "0118_提交_1399669_c_完整代码.c",
+      "directlySubmittableFile": "0118_提交_1399669_c_可提交代码.c",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "68fca45c7123c3c3c9b6c97c70ae7ac74b816601d65ef26992ee8a951c352d58",
-    "directlySubmittableSha256": "8755a1587187a4e3212d589d611ea2781ef41034f7bd4c6a57e8e7cdf4c4550f",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "8755a1587187a4e3212d589d611ea2781ef41034f7bd4c6a57e8e7cdf4c4550f",
-    "submissionNo": 1399669,
-    "verifiedAt": "2026-09-20T00:13:31Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

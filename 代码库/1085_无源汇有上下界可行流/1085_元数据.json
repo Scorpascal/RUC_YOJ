@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1295260",
+    "submissionNo": "1399957",
     "problemNo": "1085",
-    "title": "无源汇有上下界可行流",
+    "title": "# 1085 . 无源汇有上下界可行流",
     "status": "Accepted",
     "score": "100",
-    "time": "64 ms",
-    "memory": "740 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1764940428",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1295260.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1085.html",
-    "listPage": 13,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399957.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1085.html"
   },
   "submission": {
-    "submissionNo": "1295260",
+    "submissionNo": "1399957",
     "problemNo": "1085",
-    "title": "无源汇有上下界可行流",
+    "title": "# 1085 . 无源汇有上下界可行流",
     "status": "Accepted",
     "score": "100",
-    "time": "64 ms",
-    "memory": "740 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1764940428",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1295260.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1085.html",
-    "listPage": 13
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399957.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1085.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "5d5c6ab5ae21e9c12934b16007e2ffe7519aea26c2ddcd7e58c32954496b94ac"
+    }
   },
   "files": {
-    "problemHtml": "1085_题目原文.html",
-    "submissionHtml": "1085_提交_1295260_详情.html",
-    "completeCode": "1085_提交_1295260_c_完整代码.c",
-    "directlySubmittableCode": "1085_提交_1295260_c_可提交代码.c"
+    "problem": "1085_题目原文.html",
+    "submission": "1085_提交_1399957_详情.html",
+    "completeCode": "1085_提交_1399957_c_完整代码.c",
+    "directlySubmittableCode": "1085_提交_1399957_c_可提交代码.c",
+    "metadata": "1085_元数据.json"
   },
   "code": {
     "language": "c",
     "extension": ".c",
-    "bytesUtf8": 3365,
+    "bytesUtf8": 3235,
     "sha256": "f77b3983b14bcbf6124b3f7ec5593fffc72e9c78a5fbf2e5e7e74a4525b397da",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "1085_提交_1295260_c_完整代码.c",
-      "directlySubmittableFile": "1085_提交_1295260_c_可提交代码.c",
+      "completeCodeFile": "1085_提交_1399957_c_完整代码.c",
+      "directlySubmittableFile": "1085_提交_1399957_c_可提交代码.c",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "25cc4ab43136786119b1a3dc6b7c78343cf5500c084c30a6ac87d11eb6bd30ad",
-    "directlySubmittableSha256": "f77b3983b14bcbf6124b3f7ec5593fffc72e9c78a5fbf2e5e7e74a4525b397da",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "f77b3983b14bcbf6124b3f7ec5593fffc72e9c78a5fbf2e5e7e74a4525b397da",
-    "submissionNo": 1399957,
-    "verifiedAt": "2026-09-20T01:18:45Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

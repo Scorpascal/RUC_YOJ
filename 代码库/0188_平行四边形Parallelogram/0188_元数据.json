@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1189247",
+    "submissionNo": "1399721",
     "problemNo": "188",
-    "title": "平行四边形Parallelogram",
+    "title": "# 188 . 平行四边形Parallelogram",
     "status": "Accepted",
     "score": "100",
-    "time": "148 ms",
-    "memory": "632 KB",
     "language": "cpp",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1760518792",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1189247.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/188.html",
-    "listPage": 26,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399721.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/188.html"
   },
   "submission": {
-    "submissionNo": "1189247",
+    "submissionNo": "1399721",
     "problemNo": "188",
-    "title": "平行四边形Parallelogram",
+    "title": "# 188 . 平行四边形Parallelogram",
     "status": "Accepted",
     "score": "100",
-    "time": "148 ms",
-    "memory": "632 KB",
     "language": "cpp",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1760518792",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1189247.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/188.html",
-    "listPage": 26
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399721.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/188.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "a1a49b2b8dc84a8a1b09d752e7a2d59a9ff4fb89daef9b57b76a2694567c8462"
+    }
   },
   "files": {
-    "problemHtml": "0188_题目原文.html",
-    "submissionHtml": "0188_提交_1189247_详情.html",
-    "completeCode": "0188_提交_1189247_cpp_完整代码.cpp",
-    "directlySubmittableCode": "0188_提交_1189247_cpp_可提交代码.cpp"
+    "problem": "0188_题目原文.html",
+    "submission": "0188_提交_1399721_详情.html",
+    "completeCode": "0188_提交_1399721_cpp_完整代码.cpp",
+    "directlySubmittableCode": "0188_提交_1399721_cpp_可提交代码.cpp",
+    "metadata": "0188_元数据.json"
   },
   "code": {
     "language": "cpp",
     "extension": ".cpp",
-    "bytesUtf8": 451,
+    "bytesUtf8": 432,
     "sha256": "8b5e1befa57fc14cd3cb859e37357cd97fa3dd21295998cc7a4099794f618efd",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "0188_提交_1189247_cpp_完整代码.cpp",
-      "directlySubmittableFile": "0188_提交_1189247_cpp_可提交代码.cpp",
+      "completeCodeFile": "0188_提交_1399721_cpp_完整代码.cpp",
+      "directlySubmittableFile": "0188_提交_1399721_cpp_可提交代码.cpp",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "7e65eef5f1e1d2646e7df24f61ea936093675935f144fa5279cadea7595a58ad",
-    "directlySubmittableSha256": "8b5e1befa57fc14cd3cb859e37357cd97fa3dd21295998cc7a4099794f618efd",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "8b5e1befa57fc14cd3cb859e37357cd97fa3dd21295998cc7a4099794f618efd",
-    "submissionNo": 1399721,
-    "verifiedAt": "2026-09-20T00:27:01Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

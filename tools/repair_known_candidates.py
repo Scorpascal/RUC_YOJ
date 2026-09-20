@@ -61,16 +61,22 @@ REPAIRS: dict[str, dict[str, Any]] = {
 def main() -> int:
     parser = argparse.ArgumentParser(description="生成已确认问题的 C++17 候选修正版")
     parser.add_argument("--check", action="store_true", help="只检查修复前提，不写候选报告")
+    parser.add_argument("--problem", dest="problem_nos", action="append", type=int, help="只处理指定题号")
     args = parser.parse_args()
 
     records = json.loads(DATA_PATH.read_text(encoding="utf-8"))["records"]
+    selected = set(args.problem_nos or [])
     file_records: list[dict[str, Any]] = []
     repaired_problems: set[str] = set()
 
     for record in records:
         problem_no = str(record["problemNo"])
+        if selected and int(problem_no) not in selected:
+            continue
         repair = REPAIRS.get(problem_no)
         if repair is None:
+            continue
+        if not (record.get("archive") or {}).get("completeCode"):
             continue
         repaired_problems.add(problem_no)
         candidate_text = str(repair["solution"]())

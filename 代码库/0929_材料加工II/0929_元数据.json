@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1291365",
+    "submissionNo": "1399859",
     "problemNo": "929",
-    "title": "材料加工II",
+    "title": "# 929 . 材料加工II",
     "status": "Accepted",
     "score": "100",
-    "time": "2964 ms",
-    "memory": "19744 KB",
     "language": "cpp17-clang",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1764772626",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1291365.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/929.html",
-    "listPage": 13,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399859.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/929.html"
   },
   "submission": {
-    "submissionNo": "1291365",
+    "submissionNo": "1399859",
     "problemNo": "929",
-    "title": "材料加工II",
+    "title": "# 929 . 材料加工II",
     "status": "Accepted",
     "score": "100",
-    "time": "2964 ms",
-    "memory": "19744 KB",
     "language": "cpp17-clang",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1764772626",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1291365.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/929.html",
-    "listPage": 13
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399859.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/929.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "ef1420be77031b10c5138054473ceb878e0413c498219977c81921ece0348ffc"
+    }
   },
   "files": {
-    "problemHtml": "0929_题目原文.html",
-    "submissionHtml": "0929_提交_1291365_详情.html",
-    "completeCode": "0929_提交_1291365_cpp17-clang_完整代码.cpp",
-    "directlySubmittableCode": "0929_提交_1291365_cpp17-clang_可提交代码.cpp"
+    "problem": "0929_题目原文.html",
+    "submission": "0929_提交_1399859_详情.html",
+    "completeCode": "0929_提交_1399859_cpp17-clang_完整代码.cpp",
+    "directlySubmittableCode": "0929_提交_1399859_cpp17-clang_可提交代码.cpp",
+    "metadata": "0929_元数据.json"
   },
   "code": {
     "language": "cpp17-clang",
     "extension": ".cpp",
-    "bytesUtf8": 2455,
+    "bytesUtf8": 2381,
     "sha256": "3e8731b3fe4773e978e93cf7b8f4e9622437e2286330db1fff9515ef123a2dd7",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "0929_提交_1291365_cpp17-clang_完整代码.cpp",
-      "directlySubmittableFile": "0929_提交_1291365_cpp17-clang_可提交代码.cpp",
+      "completeCodeFile": "0929_提交_1399859_cpp17-clang_完整代码.cpp",
+      "directlySubmittableFile": "0929_提交_1399859_cpp17-clang_可提交代码.cpp",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "28a472454f651680eb000ec48848448907290cb867d56962ec5b74d67a768123",
-    "directlySubmittableSha256": "3e8731b3fe4773e978e93cf7b8f4e9622437e2286330db1fff9515ef123a2dd7",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "3e8731b3fe4773e978e93cf7b8f4e9622437e2286330db1fff9515ef123a2dd7",
-    "submissionNo": 1399859,
-    "verifiedAt": "2026-09-20T00:57:59Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

@@ -1,0 +1,52 @@
+#include <algorithm>
+#include <array>
+#include <bitset>
+#include <cassert>
+#include <cctype>
+#include <cerrno>
+#include <chrono>
+#include <climits>
+#include <cmath>
+#include <complex>
+#include <cstddef>
+#include <cstdint>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <deque>
+#include <exception>
+#include <fstream>
+#include <functional>
+#include <iomanip>
+#include <ios>
+#include <iosfwd>
+#include <iostream>
+#include <iterator>
+#include <limits>
+#include <list>
+#include <map>
+#include <memory>
+#include <numeric>
+#include <optional>
+#include <queue>
+#include <random>
+#include <regex>
+#include <set>
+#include <sstream>
+#include <stack>
+#include <stdexcept>
+#include <string>
+#include <string_view>
+#include <tuple>
+#include <type_traits>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <valarray>
+#include <variant>
+#include <vector>
+using namespace std;
+using ll=long long;
+struct P{ll x,y;}; struct E{ll x,y;int id,sgn;};
+struct BIT{int n;vector<int> t;BIT(int n):n(n),t(n+1){}void add(int i){for(;i<=n;i+=i&-i)t[i]++;}int sum(int i){int r=0;for(;i;i-=i&-i)r+=t[i];return r;}};
+int main(){ios::sync_with_stdio(false);cin.tie(nullptr);int n;if(!(cin>>n))return 0;vector<P> p(n);vector<ll> ys;for(auto &z:p){cin>>z.x>>z.y;ys.push_back(z.y);}int m;cin>>m;vector<E> ev;ev.reserve(4*m);for(int i=0;i<m;i++){ll x0,x1,y0,y1;cin>>x0>>x1>>y0>>y1;ev.push_back({x1,y1,i,1});ev.push_back({x0-1,y1,i,-1});ev.push_back({x1,y0-1,i,-1});ev.push_back({x0-1,y0-1,i,1});}sort(ys.begin(),ys.end());ys.erase(unique(ys.begin(),ys.end()),ys.end());sort(p.begin(),p.end(),[](const P&a,const P&b){return a.x<b.x;});sort(ev.begin(),ev.end(),[](const E&a,const E&b){return a.x<b.x;});BIT bit((int)ys.size());vector<int> ans(m);int j=0;for(auto &e:ev){while(j<n&&p[j].x<=e.x){int k=lower_bound(ys.begin(),ys.end(),p[j].y)-ys.begin()+1;bit.add(k);j++;}int k=upper_bound(ys.begin(),ys.end(),e.y)-ys.begin();ans[e.id]+=e.sgn*bit.sum(k);}string out;for(int v:ans){out+=to_string(v);out.push_back(10);}cout<<out;}

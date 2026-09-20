@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1153147",
+    "submissionNo": "1399776",
     "problemNo": "447",
-    "title": "求几何平均数",
+    "title": "# 447 . 求几何平均数",
     "status": "Accepted",
     "score": "100",
-    "time": "72 ms",
-    "memory": "504 KB",
     "language": "cpp",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1758456863",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1153147.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/447.html",
-    "listPage": 32,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399776.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/447.html"
   },
   "submission": {
-    "submissionNo": "1153147",
+    "submissionNo": "1399776",
     "problemNo": "447",
-    "title": "求几何平均数",
+    "title": "# 447 . 求几何平均数",
     "status": "Accepted",
     "score": "100",
-    "time": "72 ms",
-    "memory": "504 KB",
     "language": "cpp",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1758456863",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1153147.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/447.html",
-    "listPage": 32
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399776.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/447.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "e4275db79da123effa25468133b7a0e9786a5e83495cef22d00b982b467febab"
+    }
   },
   "files": {
-    "problemHtml": "0447_题目原文.html",
-    "submissionHtml": "0447_提交_1153147_详情.html",
-    "completeCode": "0447_提交_1153147_cpp_完整代码.cpp",
-    "directlySubmittableCode": "0447_提交_1153147_cpp_可提交代码.cpp"
+    "problem": "0447_题目原文.html",
+    "submission": "0447_提交_1399776_详情.html",
+    "completeCode": "0447_提交_1399776_cpp_完整代码.cpp",
+    "directlySubmittableCode": "0447_提交_1399776_cpp_可提交代码.cpp",
+    "metadata": "0447_元数据.json"
   },
   "code": {
     "language": "cpp",
     "extension": ".cpp",
-    "bytesUtf8": 147,
+    "bytesUtf8": 140,
     "sha256": "714f2183205de721db6a14e5871ed0d93ed5215303e6fbd246642556a1abc22b",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "0447_提交_1153147_cpp_完整代码.cpp",
-      "directlySubmittableFile": "0447_提交_1153147_cpp_可提交代码.cpp",
+      "completeCodeFile": "0447_提交_1399776_cpp_完整代码.cpp",
+      "directlySubmittableFile": "0447_提交_1399776_cpp_可提交代码.cpp",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "aa9644640fa73a7b0ea5a2060a1d0846bcef7ca1c03980bea7b9c4ecb4554ecf",
-    "directlySubmittableSha256": "714f2183205de721db6a14e5871ed0d93ed5215303e6fbd246642556a1abc22b",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "714f2183205de721db6a14e5871ed0d93ed5215303e6fbd246642556a1abc22b",
-    "submissionNo": 1399776,
-    "verifiedAt": "2026-09-20T00:40:45Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

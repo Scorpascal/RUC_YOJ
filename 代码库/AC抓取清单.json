@@ -1,7 +1,7 @@
 {
   "version": 1,
   "purpose": "YOJ accepted source archive; raw capture materialization only",
-  "capturedAt": "2026-09-19T15:50:21.728Z",
+  "capturedAt": "2026-09-20T15:05:59Z",
   "account": {
     "username": "已脱敏"
   },
@@ -12,9 +12,9 @@
   "totals": {
     "submissionRecords": 1028,
     "acceptedSubmissionRecords": 644,
-    "uniqueProblems": 488,
-    "materializedProblemDirectories": 488,
-    "materializedCodeFiles": 488
+    "uniqueProblems": 489,
+    "materializedProblemDirectories": 489,
+    "materializedCodeFiles": 489
   },
   "problems": [
     {
@@ -5056,6 +5056,21 @@
         "metadata": "1133_球心/1133_元数据.json"
       },
       "codeSha256": "19eb76d7022fc3be04520e1d0af9ef0e6c62f3317c8f42d241e35bd2992b0523"
+    },
+    {
+      "problemNo": "1134",
+      "title": "# 1134 . 圆",
+      "folder": "1134_#_1134_._圆",
+      "submissionNo": "1399627",
+      "language": "cpp17",
+      "files": {
+        "problem": "1134_#_1134_._圆/1134_题目原文.html",
+        "submission": "1134_#_1134_._圆/1134_提交_1399627_详情.html",
+        "completeCode": "1134_#_1134_._圆/1134_提交_1399627_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "1134_#_1134_._圆/1134_提交_1399627_cpp17_可提交代码.cpp",
+        "metadata": "1134_#_1134_._圆/1134_元数据.json"
+      },
+      "codeSha256": "42decc1f66d5f75205e05c4dbeb4c91087e0b425f32f268a25354e34bf3f79a9"
     },
     {
       "problemNo": "1135",

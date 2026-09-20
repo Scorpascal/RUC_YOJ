@@ -86,7 +86,21 @@ def candidate_for(raw_path: Path) -> Path:
 
 
 def validate_record(record: dict[str, Any]) -> dict[str, Any]:
-    raw_path = ROOT / str(record["archive"]["completeCode"])
+    archive = record.get("archive") or {}
+    if not archive.get("completeCode"):
+        return {
+            "problemNo": str(record["problemNo"]),
+            "title": str(record["title"]),
+            "language": str(record.get("language") or ""),
+            "source": None,
+            "candidateSha256": "",
+            "scope": "topic_capture_without_local_accepted_source",
+            "category": "TOPIC_ONLY",
+            "returncode": None,
+            "command": None,
+            "diagnostic": "题面已归档，但尚无本人 Accepted 源码；跳过代码语法门禁。",
+        }
+    raw_path = ROOT / str(archive["completeCode"])
     language = str(record.get("language") or "")
     source = candidate_for(raw_path)
     result: dict[str, Any] = {
@@ -165,10 +179,16 @@ def validate_record(record: dict[str, Any]) -> dict[str, Any]:
 def main() -> int:
     parser = argparse.ArgumentParser(description="对归档完整代码运行本地语法门禁")
     parser.add_argument("--check", action="store_true", help="只运行并打印检查，不写报告")
+    parser.add_argument("--problem", dest="problem_nos", action="append", type=int, help="只处理指定题号")
     args = parser.parse_args()
 
     records = json.loads(DATA_PATH.read_text(encoding="utf-8"))["records"]
-    results = [validate_record(record) for record in records]
+    selected = set(args.problem_nos or [])
+    results = [
+        validate_record(record)
+        for record in records
+        if not selected or int(record["problemNo"]) in selected
+    ]
     counts = Counter(item["category"] for item in results)
     report = {
         "schemaVersion": 1,
@@ -178,7 +198,7 @@ def main() -> int:
         "records": len(results),
         "counts": dict(sorted(counts.items())),
         "results": results,
-        "failures": [item for item in results if item["category"] != "PASS"],
+        "failures": [item for item in results if item["category"] not in {"PASS", "TOPIC_ONLY", "FILL_IN_FRAGMENT"}],
         "notes": [
             "完整代码通过语法检查不代表样例、边界、分块回环或 YOJ 在线 AC。",
             "填空片段若没有固定模板，按片段失败或未独立编译处理，不自动补 main。",

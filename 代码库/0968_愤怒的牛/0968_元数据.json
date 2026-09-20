@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1399345",
+    "submissionNo": "1399893",
     "problemNo": "968",
-    "title": "愤怒的牛",
+    "title": "# 968 . 愤怒的牛",
     "status": "Accepted",
     "score": "100",
-    "time": "136 ms",
-    "memory": "1268 KB",
     "language": "cpp17",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1789812657",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399345.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/968.html",
-    "listPage": 3,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399893.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/968.html"
   },
   "submission": {
-    "submissionNo": "1399345",
+    "submissionNo": "1399893",
     "problemNo": "968",
-    "title": "愤怒的牛",
+    "title": "# 968 . 愤怒的牛",
     "status": "Accepted",
     "score": "100",
-    "time": "136 ms",
-    "memory": "1268 KB",
     "language": "cpp17",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1789812657",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399345.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/968.html",
-    "listPage": 3
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399893.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/968.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "d049b9ca9b31371fca07ea0cb05855271060589aeb2393d453adc906d09ba89c"
+    }
   },
   "files": {
-    "problemHtml": "0968_题目原文.html",
-    "submissionHtml": "0968_提交_1399345_详情.html",
-    "completeCode": "0968_提交_1399345_cpp17_完整代码.cpp",
-    "directlySubmittableCode": "0968_提交_1399345_cpp17_可提交代码.cpp"
+    "problem": "0968_题目原文.html",
+    "submission": "0968_提交_1399893_详情.html",
+    "completeCode": "0968_提交_1399893_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "0968_提交_1399893_cpp17_可提交代码.cpp",
+    "metadata": "0968_元数据.json"
   },
   "code": {
     "language": "cpp17",
     "extension": ".cpp",
-    "bytesUtf8": 462,
+    "bytesUtf8": 1321,
     "sha256": "d189ef534754a22083dc7c23134e9ce8cfed00f20f879461e5a2c78226900b25",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "0968_提交_1399345_cpp17_完整代码.cpp",
-      "directlySubmittableFile": "0968_提交_1399345_cpp17_可提交代码.cpp",
+      "completeCodeFile": "0968_提交_1399893_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "0968_提交_1399893_cpp17_可提交代码.cpp",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "dc447bfd5f5050b14559cff9b98be4bfc06957a23257c64c52cfe3dbf32deb9a",
-    "directlySubmittableSha256": "d189ef534754a22083dc7c23134e9ce8cfed00f20f879461e5a2c78226900b25",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "d189ef534754a22083dc7c23134e9ce8cfed00f20f879461e5a2c78226900b25",
-    "submissionNo": 1399893,
-    "verifiedAt": "2026-09-20T01:05:16Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

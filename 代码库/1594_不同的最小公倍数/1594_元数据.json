@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1281787",
+    "submissionNo": "1400133",
     "problemNo": "1594",
-    "title": "不同的最小公倍数",
+    "title": "# 1594 . 不同的最小公倍数",
     "status": "Accepted",
     "score": "100",
-    "time": "2976 ms",
-    "memory": "18540 KB",
     "language": "cpp",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1764402897",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1281787.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1594.html",
-    "listPage": 15,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1400133.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1594.html"
   },
   "submission": {
-    "submissionNo": "1281787",
+    "submissionNo": "1400133",
     "problemNo": "1594",
-    "title": "不同的最小公倍数",
+    "title": "# 1594 . 不同的最小公倍数",
     "status": "Accepted",
     "score": "100",
-    "time": "2976 ms",
-    "memory": "18540 KB",
     "language": "cpp",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1764402897",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1281787.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1594.html",
-    "listPage": 15
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1400133.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1594.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "e6c7465d3b866e06cbffe9f6b529f843b2233f97dcf8d4ba29f4189288231d31"
+    }
   },
   "files": {
-    "problemHtml": "1594_题目原文.html",
-    "submissionHtml": "1594_提交_1281787_详情.html",
-    "completeCode": "1594_提交_1281787_cpp_完整代码.cpp",
-    "directlySubmittableCode": "1594_提交_1281787_cpp_可提交代码.cpp"
+    "problem": "1594_题目原文.html",
+    "submission": "1594_提交_1400133_详情.html",
+    "completeCode": "1594_提交_1400133_cpp_完整代码.cpp",
+    "directlySubmittableCode": "1594_提交_1400133_cpp_可提交代码.cpp",
+    "metadata": "1594_元数据.json"
   },
   "code": {
     "language": "cpp",
     "extension": ".cpp",
-    "bytesUtf8": 1105,
+    "bytesUtf8": 1064,
     "sha256": "196f902ef5d34186287601fef2855af7bee9457dde17decee75839aee9b953be",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "1594_提交_1281787_cpp_完整代码.cpp",
-      "directlySubmittableFile": "1594_提交_1281787_cpp_可提交代码.cpp",
+      "completeCodeFile": "1594_提交_1400133_cpp_完整代码.cpp",
+      "directlySubmittableFile": "1594_提交_1400133_cpp_可提交代码.cpp",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "7fe94e77698fd3eb4e3d735b83fb94bad6ffcb8b0994d3d733550ef883724eb2",
-    "directlySubmittableSha256": "196f902ef5d34186287601fef2855af7bee9457dde17decee75839aee9b953be",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "196f902ef5d34186287601fef2855af7bee9457dde17decee75839aee9b953be",
-    "submissionNo": 1400133,
-    "verifiedAt": "2026-09-20T01:55:58Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

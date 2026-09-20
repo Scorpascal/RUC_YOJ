@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1399342",
+    "submissionNo": "1399891",
     "problemNo": "966",
-    "title": "中缀表达式求值",
+    "title": "# 966 . 中缀表达式求值",
     "status": "Accepted",
     "score": "100",
-    "time": "78 ms",
-    "memory": "520 KB",
     "language": "cpp17",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1789812604",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399342.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/966.html",
-    "listPage": 3,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399891.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/966.html"
   },
   "submission": {
-    "submissionNo": "1399342",
+    "submissionNo": "1399891",
     "problemNo": "966",
-    "title": "中缀表达式求值",
+    "title": "# 966 . 中缀表达式求值",
     "status": "Accepted",
     "score": "100",
-    "time": "78 ms",
-    "memory": "520 KB",
     "language": "cpp17",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1789812604",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399342.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/966.html",
-    "listPage": 3
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399891.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/966.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "b641a994eeb747e8932215891a089852f318e1df1c20988e63c583ee9e625a8f"
+    }
   },
   "files": {
-    "problemHtml": "0966_题目原文.html",
-    "submissionHtml": "0966_提交_1399342_详情.html",
-    "completeCode": "0966_提交_1399342_cpp17_完整代码.cpp",
-    "directlySubmittableCode": "0966_提交_1399342_cpp17_可提交代码.cpp"
+    "problem": "0966_题目原文.html",
+    "submission": "0966_提交_1399891_详情.html",
+    "completeCode": "0966_提交_1399891_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "0966_提交_1399891_cpp17_可提交代码.cpp",
+    "metadata": "0966_元数据.json"
   },
   "code": {
     "language": "cpp17",
     "extension": ".cpp",
-    "bytesUtf8": 468,
+    "bytesUtf8": 1327,
     "sha256": "8a5284ebbe574929a0737464b22f599fe24ef057ce7688cf5cc1faca788fd44a",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "0966_提交_1399342_cpp17_完整代码.cpp",
-      "directlySubmittableFile": "0966_提交_1399342_cpp17_可提交代码.cpp",
+      "completeCodeFile": "0966_提交_1399891_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "0966_提交_1399891_cpp17_可提交代码.cpp",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "9f5b4dda8e0c1dd793c514b4308c859ad067e97a80b326bd6ecc4a3e4e14939c",
-    "directlySubmittableSha256": "8a5284ebbe574929a0737464b22f599fe24ef057ce7688cf5cc1faca788fd44a",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "8a5284ebbe574929a0737464b22f599fe24ef057ce7688cf5cc1faca788fd44a",
-    "submissionNo": 1399891,
-    "verifiedAt": "2026-09-20T01:04:45Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

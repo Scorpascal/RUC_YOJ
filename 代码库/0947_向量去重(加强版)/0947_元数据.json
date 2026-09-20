@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1396482",
+    "submissionNo": "1399869",
     "problemNo": "947",
-    "title": "向量去重(加强版)",
+    "title": "# 947 . 向量去重(加强版)",
     "status": "Accepted",
     "score": "100",
-    "time": "297 ms",
-    "memory": "1544 KB",
     "language": "cpp17",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1789634672",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1396482.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/947.html",
-    "listPage": 5,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399869.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/947.html"
   },
   "submission": {
-    "submissionNo": "1396482",
+    "submissionNo": "1399869",
     "problemNo": "947",
-    "title": "向量去重(加强版)",
+    "title": "# 947 . 向量去重(加强版)",
     "status": "Accepted",
     "score": "100",
-    "time": "297 ms",
-    "memory": "1544 KB",
     "language": "cpp17",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1789634672",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1396482.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/947.html",
-    "listPage": 5
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399869.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/947.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "50040b46e9346dba27d3fa49457dfd4c53ab7d06ea6a145a1264229f9d27b365"
+    }
   },
   "files": {
-    "problemHtml": "0947_题目原文.html",
-    "submissionHtml": "0947_提交_1396482_详情.html",
-    "completeCode": "0947_提交_1396482_cpp17_完整代码.cpp",
-    "directlySubmittableCode": "0947_提交_1396482_cpp17_可提交代码.cpp"
+    "problem": "0947_题目原文.html",
+    "submission": "0947_提交_1399869_详情.html",
+    "completeCode": "0947_提交_1399869_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "0947_提交_1399869_cpp17_可提交代码.cpp",
+    "metadata": "0947_元数据.json"
   },
   "code": {
     "language": "cpp17",
     "extension": ".cpp",
-    "bytesUtf8": 2252,
+    "bytesUtf8": 2136,
     "sha256": "3a97af1d1d260872e09a2961d952b9dfb9a439260dd9c2f3a9a336eae38e6b37",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "0947_提交_1396482_cpp17_完整代码.cpp",
-      "directlySubmittableFile": "0947_提交_1396482_cpp17_可提交代码.cpp",
+      "completeCodeFile": "0947_提交_1399869_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "0947_提交_1399869_cpp17_可提交代码.cpp",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "cc99802bcc348e665bef46217c444bc5c54a537c1af8c71b06abbfe050029d54",
-    "directlySubmittableSha256": "3a97af1d1d260872e09a2961d952b9dfb9a439260dd9c2f3a9a336eae38e6b37",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "3a97af1d1d260872e09a2961d952b9dfb9a439260dd9c2f3a9a336eae38e6b37",
-    "submissionNo": 1399869,
-    "verifiedAt": "2026-09-20T01:00:00Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

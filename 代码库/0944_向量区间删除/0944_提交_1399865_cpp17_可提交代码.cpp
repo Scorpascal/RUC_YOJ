@@ -1,0 +1,69 @@
+#include <algorithm>
+#include <array>
+#include <bitset>
+#include <cassert>
+#include <cctype>
+#include <cerrno>
+#include <chrono>
+#include <climits>
+#include <cmath>
+#include <complex>
+#include <cstddef>
+#include <cstdint>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <deque>
+#include <exception>
+#include <fstream>
+#include <functional>
+#include <iomanip>
+#include <ios>
+#include <iosfwd>
+#include <iostream>
+#include <iterator>
+#include <limits>
+#include <list>
+#include <map>
+#include <memory>
+#include <numeric>
+#include <optional>
+#include <queue>
+#include <random>
+#include <regex>
+#include <set>
+#include <sstream>
+#include <stack>
+#include <stdexcept>
+#include <string>
+#include <string_view>
+#include <tuple>
+#include <type_traits>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <valarray>
+#include <variant>
+#include <vector>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, k;
+    if (!(cin >> n >> k)) return 0;
+    vector<int> a(n);
+    for (int &x : a) cin >> x;
+    while (k--) {
+        int lo, hi;
+        cin >> lo >> hi;
+        a.erase(a.begin() + lo, a.begin() + hi);
+    }
+    for (size_t i = 0; i < a.size(); ++i) {
+        if (i) cout << ' ';
+        cout << a[i];
+    }
+    cout << endl;
+    return 0;
+}

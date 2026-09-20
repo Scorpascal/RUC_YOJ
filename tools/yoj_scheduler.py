@@ -30,6 +30,7 @@ STATE_DIR = ROOT / ".yoj-sync"
 LOCK_PATH = STATE_DIR / "scheduler.lock"
 LOG_PATH = STATE_DIR / "scheduler.log"
 EXPECTED_CHANGES_PATH = STATE_DIR / "expected-generated-changes.json"
+CAPTURE_RESULT_PATH = STATE_DIR / "capture-result.json"
 PUBLIC_READY_PATH = ROOT / "data" / "public-ready.json"
 KEYCHAIN_SERVICE = "RUC_YOJ/yoj-sync"
 TZ = ZoneInfo("Asia/Shanghai")
@@ -162,6 +163,22 @@ def remember_generated_changes() -> None:
     }
     STATE_DIR.mkdir(parents=True, exist_ok=True)
     EXPECTED_CHANGES_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def load_capture_result() -> dict[str, object] | None:
+    """Read the current capture hand-off; fail closed if it is unavailable."""
+
+    if not CAPTURE_RESULT_PATH.is_file():
+        return None
+    try:
+        payload = json.loads(CAPTURE_RESULT_PATH.read_text(encoding="utf-8"))
+    except (OSError, TypeError, ValueError, json.JSONDecodeError):
+        return None
+    return payload if isinstance(payload, dict) else None
+
+
+def problem_selector(problem_numbers: list[int]) -> list[str]:
+    return [argument for problem_no in problem_numbers for argument in ("--problem", str(problem_no))]
 
 
 def validate_worktree_before_run() -> bool:
@@ -320,20 +337,59 @@ def run_once(args: argparse.Namespace) -> int:
         except RuntimeError as exc:
             log(f"增量抓取跳过：{exc}")
             return 2
-        steps: list[tuple[list[str], dict[str, str], int]] = [
-            ([sys.executable, str(ROOT / "tools" / "yoj_capture.py"), "--request-interval", str(args.request_interval)], capture_environment, 3600),
-            ([sys.executable, str(ROOT / "tools" / "build_initial.py")], environment, 1800),
-            ([sys.executable, str(ROOT / "tools" / "normalize_cpp_headers.py")], environment, 1800),
-            ([sys.executable, str(ROOT / "tools" / "port_cpp17_candidates.py")], environment, 1800),
-            ([sys.executable, str(ROOT / "tools" / "repair_known_candidates.py")], environment, 1800),
-            ([sys.executable, str(ROOT / "tools" / "sanitize_candidates.py")], environment, 1800),
-            ([sys.executable, str(ROOT / "tools" / "validate_candidates.py")], environment, 1800),
-            ([sys.executable, str(ROOT / "tools" / "compile_candidates.py")], environment, 1800),
-            ([sys.executable, str(ROOT / "tools" / "run_samples.py")], environment, 1800),
-            ([sys.executable, str(ROOT / "tools" / "audit_forms.py")], environment, 1800),
-        ]
         if args.dry_run:
-            steps = [([sys.executable, str(ROOT / "tools" / "build_initial.py"), "--check"], environment, 600)]
+            if run_command(
+                [sys.executable, str(ROOT / "tools" / "build_initial.py"), "--check"],
+                environment,
+                600,
+            ):
+                log("dry-run 离线检查失败")
+                return 3
+            remember_generated_changes()
+            log("dry-run 完成：未访问 YOJ，未执行在线复验或发布")
+            return 0
+        capture_command = [
+            sys.executable,
+            str(ROOT / "tools" / "yoj_capture.py"),
+            "--request-interval",
+            str(args.request_interval),
+        ]
+        if run_command(capture_command, capture_environment, 3600):
+            log("增量抓取未正常完成，本轮不继续构建、复验或发布")
+            return 3
+        capture_result = load_capture_result()
+        if not capture_result or capture_result.get("scope") != "public_problem_numbers_only":
+            log("调度暂停：抓取结果缺失或版本不受信，未继续后续阶段")
+            remember_generated_changes()
+            return 3
+        try:
+            new_problem_numbers = sorted({int(value) for value in (capture_result.get("newProblemNumbers") or [])})
+        except (TypeError, ValueError):
+            log("调度暂停：抓取结果中的新题号无法解析")
+            remember_generated_changes()
+            return 3
+        if not new_problem_numbers:
+            log("本轮未发现本地从未出现过的新题号；跳过整库构建、复验和发布")
+            remember_generated_changes()
+            return 0
+
+        selected = problem_selector(new_problem_numbers)
+        log(f"本轮只处理新题号：{new_problem_numbers}")
+        steps: list[tuple[list[str], dict[str, str], int]] = [
+            (
+                [sys.executable, str(ROOT / "tools" / "build_initial.py"), "--preserve-frozen", *selected],
+                environment,
+                1800,
+            ),
+            ([sys.executable, str(ROOT / "tools" / "normalize_cpp_headers.py"), *selected], environment, 1800),
+            ([sys.executable, str(ROOT / "tools" / "port_cpp17_candidates.py"), *selected], environment, 1800),
+            ([sys.executable, str(ROOT / "tools" / "repair_known_candidates.py"), *selected], environment, 1800),
+            ([sys.executable, str(ROOT / "tools" / "sanitize_candidates.py"), *selected], environment, 1800),
+            ([sys.executable, str(ROOT / "tools" / "validate_candidates.py"), *selected], environment, 1800),
+            ([sys.executable, str(ROOT / "tools" / "compile_candidates.py"), *selected], environment, 1800),
+            ([sys.executable, str(ROOT / "tools" / "run_samples.py"), *selected], environment, 1800),
+            ([sys.executable, str(ROOT / "tools" / "audit_forms.py"), *selected], environment, 1800),
+        ]
         for command, step_env, timeout in steps:
             if run_command(command, step_env, timeout):
                 log("离线门禁失败，本轮不继续在线提交或发布")
@@ -348,7 +404,13 @@ def run_once(args: argparse.Namespace) -> int:
                 except RuntimeError as exc:
                     log(f"在线提交跳过：{exc}")
                 else:
-                    command = [sys.executable, str(ROOT / "tools" / "online_verify.py"), "--max-submissions", str(args.max_submissions)]
+                    command = [
+                        sys.executable,
+                        str(ROOT / "tools" / "online_verify.py"),
+                        "--max-submissions",
+                        str(args.max_submissions),
+                        *selected,
+                    ]
                     if run_command(command, online_environment, 7200):
                         log("在线复验未正常完成；保留 staging 检查点，不发布")
                         remember_generated_changes()
@@ -362,7 +424,11 @@ def run_once(args: argparse.Namespace) -> int:
                 remember_generated_changes()
                 return 3
             release_numbers = public_ready_delta(before_ready)
-            if run_command([sys.executable, str(ROOT / "tools" / "build_initial.py")], environment, 1800):
+            if run_command(
+                [sys.executable, str(ROOT / "tools" / "build_initial.py"), "--preserve-frozen", *selected],
+                environment,
+                1800,
+            ):
                 remember_generated_changes()
                 return 3
             if run_command([sys.executable, str(ROOT / "tools" / "build_site_catalog.py")], environment, 600):
@@ -386,7 +452,11 @@ def run_once(args: argparse.Namespace) -> int:
             remember_generated_changes()
             return result
         if online_ran:
-            if run_command([sys.executable, str(ROOT / "tools" / "build_initial.py")], environment, 1800):
+            if run_command(
+                [sys.executable, str(ROOT / "tools" / "build_initial.py"), "--preserve-frozen", *selected],
+                environment,
+                1800,
+            ):
                 remember_generated_changes()
                 return 3
         if not args.dry_run:

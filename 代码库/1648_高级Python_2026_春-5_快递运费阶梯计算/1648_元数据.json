@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1388107",
+    "submissionNo": "1400160",
     "problemNo": "1648",
-    "title": "高级Python 2026 春-5：快递运费阶梯计算",
+    "title": "# 1648 . 高级Python 2026 春-5：快递运费阶梯计算",
     "status": "Accepted",
     "score": "100",
-    "time": "330 ms",
-    "memory": "3176 KB",
     "language": "python3",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1783891492",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1388107.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1648.html",
-    "listPage": 5,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1400160.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1648.html"
   },
   "submission": {
-    "submissionNo": "1388107",
+    "submissionNo": "1400160",
     "problemNo": "1648",
-    "title": "高级Python 2026 春-5：快递运费阶梯计算",
+    "title": "# 1648 . 高级Python 2026 春-5：快递运费阶梯计算",
     "status": "Accepted",
     "score": "100",
-    "time": "330 ms",
-    "memory": "3176 KB",
     "language": "python3",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1783891492",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1388107.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1648.html",
-    "listPage": 5
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1400160.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1648.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "01905522338a543963ab4c6f7117bd09bfe9d35e66f30206b48525fb94ad8e86"
+    }
   },
   "files": {
-    "problemHtml": "1648_题目原文.html",
-    "submissionHtml": "1648_提交_1388107_详情.html",
-    "completeCode": "1648_提交_1388107_python3_完整代码.py",
-    "directlySubmittableCode": "1648_提交_1388107_python3_可提交代码.py"
+    "problem": "1648_题目原文.html",
+    "submission": "1648_提交_1400160_详情.html",
+    "completeCode": "1648_提交_1400160_python3_完整代码.py",
+    "directlySubmittableCode": "1648_提交_1400160_python3_可提交代码.py",
+    "metadata": "1648_元数据.json"
   },
   "code": {
     "language": "python3",
     "extension": ".py",
-    "bytesUtf8": 1070,
+    "bytesUtf8": 1018,
     "sha256": "c12f8e2dd9db837db35ae6a7e1c1122a9214b607cf121db515d9652f06010e00",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "1648_提交_1388107_python3_完整代码.py",
-      "directlySubmittableFile": "1648_提交_1388107_python3_可提交代码.py",
+      "completeCodeFile": "1648_提交_1400160_python3_完整代码.py",
+      "directlySubmittableFile": "1648_提交_1400160_python3_可提交代码.py",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "848c9658af4bdd3550ee1ea59edf60e8a3496808af7ee502aa9c60d9db10b680",
-    "directlySubmittableSha256": "c12f8e2dd9db837db35ae6a7e1c1122a9214b607cf121db515d9652f06010e00",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "c12f8e2dd9db837db35ae6a7e1c1122a9214b607cf121db515d9652f06010e00",
-    "submissionNo": 1400160,
-    "verifiedAt": "2026-09-20T02:00:54Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

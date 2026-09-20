@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1258668",
+    "submissionNo": "1400124",
     "problemNo": "1586",
-    "title": "可翻转等式",
+    "title": "# 1586 . 可翻转等式",
     "status": "Accepted",
     "score": "100",
-    "time": "73 ms",
-    "memory": "520 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1763296182",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1258668.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1586.html",
-    "listPage": 18,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1400124.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1586.html"
   },
   "submission": {
-    "submissionNo": "1258668",
+    "submissionNo": "1400124",
     "problemNo": "1586",
-    "title": "可翻转等式",
+    "title": "# 1586 . 可翻转等式",
     "status": "Accepted",
     "score": "100",
-    "time": "73 ms",
-    "memory": "520 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1763296182",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1258668.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1586.html",
-    "listPage": 18
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1400124.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1586.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "2bf05c85b273d8aba4aeebf67ed51656776a25a6e900421fa2b5d2f667d991a2"
+    }
   },
   "files": {
-    "problemHtml": "1586_题目原文.html",
-    "submissionHtml": "1586_提交_1258668_详情.html",
-    "completeCode": "1586_提交_1258668_c_完整代码.c",
-    "directlySubmittableCode": "1586_提交_1258668_c_可提交代码.c"
+    "problem": "1586_题目原文.html",
+    "submission": "1586_提交_1400124_详情.html",
+    "completeCode": "1586_提交_1400124_c_完整代码.c",
+    "directlySubmittableCode": "1586_提交_1400124_c_可提交代码.c",
+    "metadata": "1586_元数据.json"
   },
   "code": {
     "language": "c",
     "extension": ".c",
-    "bytesUtf8": 526,
+    "bytesUtf8": 502,
     "sha256": "83881e7897106e3aa0fd8376552884d5c715b3e202c408c087498ffee39525e9",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "1586_提交_1258668_c_完整代码.c",
-      "directlySubmittableFile": "1586_提交_1258668_c_可提交代码.c",
+      "completeCodeFile": "1586_提交_1400124_c_完整代码.c",
+      "directlySubmittableFile": "1586_提交_1400124_c_可提交代码.c",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "dfa21182dcdae13e962d5e74627cec25d0e278664c8da8521447f5e6ee0f098d",
-    "directlySubmittableSha256": "83881e7897106e3aa0fd8376552884d5c715b3e202c408c087498ffee39525e9",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "83881e7897106e3aa0fd8376552884d5c715b3e202c408c087498ffee39525e9",
-    "submissionNo": 1400124,
-    "verifiedAt": "2026-09-20T01:54:25Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

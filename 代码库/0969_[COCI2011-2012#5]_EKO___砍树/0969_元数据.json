@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1399346",
+    "submissionNo": "1399894",
     "problemNo": "969",
-    "title": "[COCI2011-2012#5] EKO / 砍树",
+    "title": "# 969 . [COCI2011-2012#5] EKO / 砍树",
     "status": "Accepted",
     "score": "100",
-    "time": "1269 ms",
-    "memory": "7416 KB",
     "language": "cpp17",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1789812672",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399346.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/969.html",
-    "listPage": 3,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399894.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/969.html"
   },
   "submission": {
-    "submissionNo": "1399346",
+    "submissionNo": "1399894",
     "problemNo": "969",
-    "title": "[COCI2011-2012#5] EKO / 砍树",
+    "title": "# 969 . [COCI2011-2012#5] EKO / 砍树",
     "status": "Accepted",
     "score": "100",
-    "time": "1269 ms",
-    "memory": "7416 KB",
     "language": "cpp17",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1789812672",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399346.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/969.html",
-    "listPage": 3
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399894.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/969.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "c1de40646ea8c6059dadf7bfd0b032e27ec988a51c8a67aebdd5a89d00eb49cb"
+    }
   },
   "files": {
-    "problemHtml": "0969_题目原文.html",
-    "submissionHtml": "0969_提交_1399346_详情.html",
-    "completeCode": "0969_提交_1399346_cpp17_完整代码.cpp",
-    "directlySubmittableCode": "0969_提交_1399346_cpp17_可提交代码.cpp"
+    "problem": "0969_题目原文.html",
+    "submission": "0969_提交_1399894_详情.html",
+    "completeCode": "0969_提交_1399894_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "0969_提交_1399894_cpp17_可提交代码.cpp",
+    "metadata": "0969_元数据.json"
   },
   "code": {
     "language": "cpp17",
     "extension": ".cpp",
-    "bytesUtf8": 403,
+    "bytesUtf8": 1262,
     "sha256": "3ad420ae1b2f4e42a07734d75ecb86d1bdd4b5bafa0748bcfca5c0611f7f694e",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "0969_提交_1399346_cpp17_完整代码.cpp",
-      "directlySubmittableFile": "0969_提交_1399346_cpp17_可提交代码.cpp",
+      "completeCodeFile": "0969_提交_1399894_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "0969_提交_1399894_cpp17_可提交代码.cpp",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "27b51cb8179d136a4f64f14e8ed7f47d35171cb44bab8281fbfb3a461f47c08c",
-    "directlySubmittableSha256": "3ad420ae1b2f4e42a07734d75ecb86d1bdd4b5bafa0748bcfca5c0611f7f694e",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "3ad420ae1b2f4e42a07734d75ecb86d1bdd4b5bafa0748bcfca5c0611f7f694e",
-    "submissionNo": 1399894,
-    "verifiedAt": "2026-09-20T01:05:32Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

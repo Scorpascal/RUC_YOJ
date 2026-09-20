@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1150662",
+    "submissionNo": "1399767",
     "problemNo": "409",
-    "title": "最长的A单词",
+    "title": "# 409 . 最长的A单词",
     "status": "Accepted",
     "score": "100",
-    "time": "69 ms",
-    "memory": "504 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1758196228",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1150662.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/409.html",
-    "listPage": 33,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399767.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/409.html"
   },
   "submission": {
-    "submissionNo": "1150662",
+    "submissionNo": "1399767",
     "problemNo": "409",
-    "title": "最长的A单词",
+    "title": "# 409 . 最长的A单词",
     "status": "Accepted",
     "score": "100",
-    "time": "69 ms",
-    "memory": "504 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1758196228",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1150662.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/409.html",
-    "listPage": 33
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399767.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/409.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "87e1d3e8835881ecf166af9e05b75d82d5d1a2cd369932569f1c755d95defe25"
+    }
   },
   "files": {
-    "problemHtml": "0409_题目原文.html",
-    "submissionHtml": "0409_提交_1150662_详情.html",
-    "completeCode": "0409_提交_1150662_c_完整代码.c",
-    "directlySubmittableCode": "0409_提交_1150662_c_可提交代码.c"
+    "problem": "0409_题目原文.html",
+    "submission": "0409_提交_1399767_详情.html",
+    "completeCode": "0409_提交_1399767_c_完整代码.c",
+    "directlySubmittableCode": "0409_提交_1399767_c_可提交代码.c",
+    "metadata": "0409_元数据.json"
   },
   "code": {
     "language": "c",
     "extension": ".c",
-    "bytesUtf8": 969,
+    "bytesUtf8": 926,
     "sha256": "6cf039edbca022d3dd7f332bfcd1681675cc870084809127655480e0d4c60bfe",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "0409_提交_1150662_c_完整代码.c",
-      "directlySubmittableFile": "0409_提交_1150662_c_可提交代码.c",
+      "completeCodeFile": "0409_提交_1399767_c_完整代码.c",
+      "directlySubmittableFile": "0409_提交_1399767_c_可提交代码.c",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "cc09c8872b2735b162346bb69efd1e2ded3bb2fd8bc431196c86b786e5fd81d9",
-    "directlySubmittableSha256": "6cf039edbca022d3dd7f332bfcd1681675cc870084809127655480e0d4c60bfe",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "6cf039edbca022d3dd7f332bfcd1681675cc870084809127655480e0d4c60bfe",
-    "submissionNo": 1399767,
-    "verifiedAt": "2026-09-20T00:38:41Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

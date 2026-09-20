@@ -92,15 +92,36 @@ def validate_python(source: Path) -> tuple[str, str]:
 def main() -> int:
     parser = argparse.ArgumentParser(description="对完整代码候选执行本地编译/链接门禁")
     parser.add_argument("--check", action="store_true", help="运行检查但不写报告")
+    parser.add_argument("--problem", dest="problem_nos", action="append", type=int, help="只处理指定题号")
     args = parser.parse_args()
 
     records = json.loads(DATA_PATH.read_text(encoding="utf-8"))["records"]
+    selected = set(args.problem_nos or [])
     results: list[dict[str, Any]] = []
     with tempfile.TemporaryDirectory(prefix="yoj-compile-") as temporary:
         binary_root = Path(temporary)
         for record in records:
             problem_no = str(record["problemNo"])
-            raw_source = ROOT / str(record["archive"]["completeCode"])
+            if selected and int(problem_no) not in selected:
+                continue
+            archive = record.get("archive") or {}
+            if not archive.get("completeCode"):
+                results.append(
+                    {
+                        "problemNo": problem_no,
+                        "title": str(record["title"]),
+                        "language": str(record.get("language") or ""),
+                        "source": None,
+                        "candidateSha256": "",
+                        "scope": "topic_capture_without_local_accepted_source",
+                        "category": "TOPIC_ONLY",
+                        "returncode": None,
+                        "command": None,
+                        "diagnostic": "题面已归档，但尚无本人 Accepted 源码；跳过编译/链接门禁。",
+                    }
+                )
+                continue
+            raw_source = ROOT / str(archive["completeCode"])
             source = candidate_path(raw_source)
             language = str(record.get("language") or "")
             item: dict[str, Any] = {
@@ -167,7 +188,7 @@ def main() -> int:
         "records": len(results),
         "counts": dict(sorted(counts.items())),
         "results": results,
-        "failures": [item for item in results if item["category"] != "PASS"],
+        "failures": [item for item in results if item["category"] not in {"PASS", "TOPIC_ONLY", "FILL_IN_FRAGMENT"}],
         "notes": [
             "C/C++ 使用 Clang C++17/C17 实际编译并链接；Python 只做 compile() 语法门禁。",
             "填空片段、样例、边界、分块回环和 YOJ 在线 Accepted 仍需分别处理。",

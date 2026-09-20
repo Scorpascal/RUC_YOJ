@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1340369",
+    "submissionNo": "1399995",
     "problemNo": "1119",
-    "title": "最小费用流",
+    "title": "# 1119 . 最小费用流",
     "status": "Accepted",
     "score": "100",
-    "time": "930 ms",
-    "memory": "760 KB",
     "language": "cpp17",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1766735396",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1340369.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1119.html",
-    "listPage": 9,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399995.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1119.html"
   },
   "submission": {
-    "submissionNo": "1340369",
+    "submissionNo": "1399995",
     "problemNo": "1119",
-    "title": "最小费用流",
+    "title": "# 1119 . 最小费用流",
     "status": "Accepted",
     "score": "100",
-    "time": "930 ms",
-    "memory": "760 KB",
     "language": "cpp17",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1766735396",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1340369.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1119.html",
-    "listPage": 9
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399995.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1119.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "f8e7ff56ce0a2271bb022893c9c9fac0450a6a1838651ba02590ab1b308f0877"
+    }
   },
   "files": {
-    "problemHtml": "1119_题目原文.html",
-    "submissionHtml": "1119_提交_1340369_详情.html",
-    "completeCode": "1119_提交_1340369_cpp17_完整代码.cpp",
-    "directlySubmittableCode": "1119_提交_1340369_cpp17_可提交代码.cpp"
+    "problem": "1119_题目原文.html",
+    "submission": "1119_提交_1399995_详情.html",
+    "completeCode": "1119_提交_1399995_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "1119_提交_1399995_cpp17_可提交代码.cpp",
+    "metadata": "1119_元数据.json"
   },
   "code": {
     "language": "cpp17",
     "extension": ".cpp",
-    "bytesUtf8": 3224,
+    "bytesUtf8": 3977,
     "sha256": "92126d02a3ab471d2a2c0252ba2a282e34aa44be5a199d9c6eee27da1a9ee2ce",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "1119_提交_1340369_cpp17_完整代码.cpp",
-      "directlySubmittableFile": "1119_提交_1340369_cpp17_可提交代码.cpp",
+      "completeCodeFile": "1119_提交_1399995_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "1119_提交_1399995_cpp17_可提交代码.cpp",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "2747329a36e364e8eb84cded3fe2bd16e9bbb75a11ff820f4fe79ddbea775164",
-    "directlySubmittableSha256": "92126d02a3ab471d2a2c0252ba2a282e34aa44be5a199d9c6eee27da1a9ee2ce",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "92126d02a3ab471d2a2c0252ba2a282e34aa44be5a199d9c6eee27da1a9ee2ce",
-    "submissionNo": 1399995,
-    "verifiedAt": "2026-09-20T01:26:21Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1399356",
+    "submissionNo": "1399903",
     "problemNo": "979",
-    "title": "零入度拓扑排序",
+    "title": "# 979 . 零入度拓扑排序",
     "status": "Accepted",
     "score": "100",
-    "time": "124 ms",
-    "memory": "760 KB",
     "language": "cpp17",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1789813196",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399356.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/979.html",
-    "listPage": 3,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399903.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/979.html"
   },
   "submission": {
-    "submissionNo": "1399356",
+    "submissionNo": "1399903",
     "problemNo": "979",
-    "title": "零入度拓扑排序",
+    "title": "# 979 . 零入度拓扑排序",
     "status": "Accepted",
     "score": "100",
-    "time": "124 ms",
-    "memory": "760 KB",
     "language": "cpp17",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1789813196",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399356.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/979.html",
-    "listPage": 3
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399903.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/979.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "d7f8a9ace29492513e09a49a1d2349a1c90882ea1e65bd932679fdb7405c97d8"
+    }
   },
   "files": {
-    "problemHtml": "0979_题目原文.html",
-    "submissionHtml": "0979_提交_1399356_详情.html",
-    "completeCode": "0979_提交_1399356_cpp17_完整代码.cpp",
-    "directlySubmittableCode": "0979_提交_1399356_cpp17_可提交代码.cpp"
+    "problem": "0979_题目原文.html",
+    "submission": "0979_提交_1399903_详情.html",
+    "completeCode": "0979_提交_1399903_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "0979_提交_1399903_cpp17_可提交代码.cpp",
+    "metadata": "0979_元数据.json"
   },
   "code": {
     "language": "cpp17",
     "extension": ".cpp",
-    "bytesUtf8": 450,
+    "bytesUtf8": 1309,
     "sha256": "d665c7d8413c3a4b472d7574f876ab5c53a078ed06fe49c794009714c6f8341a",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "0979_提交_1399356_cpp17_完整代码.cpp",
-      "directlySubmittableFile": "0979_提交_1399356_cpp17_可提交代码.cpp",
+      "completeCodeFile": "0979_提交_1399903_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "0979_提交_1399903_cpp17_可提交代码.cpp",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "4d4e61f49b7bff2956b3c8c94dcbc11bad8abad3361cddc1340df31a2a492eb8",
-    "directlySubmittableSha256": "d665c7d8413c3a4b472d7574f876ab5c53a078ed06fe49c794009714c6f8341a",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "d665c7d8413c3a4b472d7574f876ab5c53a078ed06fe49c794009714c6f8341a",
-    "submissionNo": 1399903,
-    "verifiedAt": "2026-09-20T01:07:52Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1399428",
+    "submissionNo": "1399919",
     "problemNo": "990",
-    "title": "AVL树的基本操作",
+    "title": "# 990 . AVL树的基本操作",
     "status": "Accepted",
     "score": "100",
-    "time": "82 ms",
-    "memory": "504 KB",
     "language": "cpp17",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1789817869",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399428.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/990.html",
-    "listPage": 1,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399919.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/990.html"
   },
   "submission": {
-    "submissionNo": "1399428",
+    "submissionNo": "1399919",
     "problemNo": "990",
-    "title": "AVL树的基本操作",
+    "title": "# 990 . AVL树的基本操作",
     "status": "Accepted",
     "score": "100",
-    "time": "82 ms",
-    "memory": "504 KB",
     "language": "cpp17",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1789817869",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399428.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/990.html",
-    "listPage": 1
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399919.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/990.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "d8c41df35de25ccfa7fc00016ee0f0b763eb36d611f7f18168a6c28ae0437392"
+    }
   },
   "files": {
-    "problemHtml": "0990_题目原文.html",
-    "submissionHtml": "0990_提交_1399428_详情.html",
-    "completeCode": "0990_提交_1399428_cpp17_完整代码.cpp",
-    "directlySubmittableCode": "0990_提交_1399428_cpp17_可提交代码.cpp"
+    "problem": "0990_题目原文.html",
+    "submission": "0990_提交_1399919_详情.html",
+    "completeCode": "0990_提交_1399919_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "0990_提交_1399919_cpp17_可提交代码.cpp",
+    "metadata": "0990_元数据.json"
   },
   "code": {
     "language": "cpp17",
     "extension": ".cpp",
-    "bytesUtf8": 1386,
+    "bytesUtf8": 2240,
     "sha256": "75e42c5f31aff5b35282fa5df3f236d7cc0654b27a85bf66b9959873fd140f18",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "0990_提交_1399428_cpp17_完整代码.cpp",
-      "directlySubmittableFile": "0990_提交_1399428_cpp17_可提交代码.cpp",
+      "completeCodeFile": "0990_提交_1399919_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "0990_提交_1399919_cpp17_可提交代码.cpp",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "01c6db3ccb52b84935ea69292cb7c73e4241d7fbd8f15696c72e9403267aceba",
-    "directlySubmittableSha256": "75e42c5f31aff5b35282fa5df3f236d7cc0654b27a85bf66b9959873fd140f18",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "75e42c5f31aff5b35282fa5df3f236d7cc0654b27a85bf66b9959873fd140f18",
-    "submissionNo": 1399919,
-    "verifiedAt": "2026-09-20T01:10:28Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1163244",
+    "submissionNo": "1399788",
     "problemNo": "513",
-    "title": "加法表达式（进阶版）",
+    "title": "# 513 . 加法表达式（进阶版）",
     "status": "Accepted",
     "score": "100",
-    "time": "71 ms",
-    "memory": "632 KB",
     "language": "cpp",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1759046845",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1163244.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/513.html",
-    "listPage": 31,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399788.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/513.html"
   },
   "submission": {
-    "submissionNo": "1163244",
+    "submissionNo": "1399788",
     "problemNo": "513",
-    "title": "加法表达式（进阶版）",
+    "title": "# 513 . 加法表达式（进阶版）",
     "status": "Accepted",
     "score": "100",
-    "time": "71 ms",
-    "memory": "632 KB",
     "language": "cpp",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1759046845",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1163244.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/513.html",
-    "listPage": 31
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399788.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/513.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "99e06889bd1eed72e38653cb85eeee299ef5d53b790b941cdd934e5b1aedd4bd"
+    }
   },
   "files": {
-    "problemHtml": "0513_题目原文.html",
-    "submissionHtml": "0513_提交_1163244_详情.html",
-    "completeCode": "0513_提交_1163244_cpp_完整代码.cpp",
-    "directlySubmittableCode": "0513_提交_1163244_cpp_可提交代码.cpp"
+    "problem": "0513_题目原文.html",
+    "submission": "0513_提交_1399788_详情.html",
+    "completeCode": "0513_提交_1399788_cpp_完整代码.cpp",
+    "directlySubmittableCode": "0513_提交_1399788_cpp_可提交代码.cpp",
+    "metadata": "0513_元数据.json"
   },
   "code": {
     "language": "cpp",
     "extension": ".cpp",
-    "bytesUtf8": 526,
+    "bytesUtf8": 504,
     "sha256": "ed9079aa79be36ead990835f6f2a88c0aae8f37a12328e0bc6a9184efea22175",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "0513_提交_1163244_cpp_完整代码.cpp",
-      "directlySubmittableFile": "0513_提交_1163244_cpp_可提交代码.cpp",
+      "completeCodeFile": "0513_提交_1399788_cpp_完整代码.cpp",
+      "directlySubmittableFile": "0513_提交_1399788_cpp_可提交代码.cpp",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "1d1f197988e6d44f30a6b1f5c6479ddc6292fef7f91524d8bd89f5a1bdd11ee9",
-    "directlySubmittableSha256": "ed9079aa79be36ead990835f6f2a88c0aae8f37a12328e0bc6a9184efea22175",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "ed9079aa79be36ead990835f6f2a88c0aae8f37a12328e0bc6a9184efea22175",
-    "submissionNo": 1399788,
-    "verifiedAt": "2026-09-20T00:43:36Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

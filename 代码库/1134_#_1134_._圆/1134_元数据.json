@@ -1,0 +1,54 @@
+{
+  "problem": {
+    "submissionNo": "1399627",
+    "problemNo": "1134",
+    "title": "# 1134 . 圆",
+    "status": "Accepted",
+    "score": "100",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399627.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1134.html"
+  },
+  "submission": {
+    "submissionNo": "1399627",
+    "problemNo": "1134",
+    "title": "# 1134 . 圆",
+    "status": "Accepted",
+    "score": "100",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399627.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1134.html"
+  },
+  "source": {
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    }
+  },
+  "files": {
+    "problem": "1134_题目原文.html",
+    "submission": "1134_提交_1399627_详情.html",
+    "completeCode": "1134_提交_1399627_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "1134_提交_1399627_cpp17_可提交代码.cpp",
+    "metadata": "1134_元数据.json"
+  },
+  "code": {
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 6628,
+    "sha256": "42decc1f66d5f75205e05c4dbeb4c91087e0b425f32f268a25354e34bf3f79a9",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1134_提交_1399627_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "1134_提交_1399627_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
+  }
+}

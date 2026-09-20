@@ -389,15 +389,21 @@ SOLUTIONS = {"1009": balanced_tree_solution, "1138": ranking_solution}
 def main() -> int:
     parser = argparse.ArgumentParser(description="生成不依赖 GNU PBDS 的 C++17 候选")
     parser.add_argument("--check", action="store_true", help="只检查已有输出，不重写候选")
+    parser.add_argument("--problem", dest="problem_nos", action="append", type=int, help="只处理指定题号")
     args = parser.parse_args()
 
     records = json.loads(DATA_PATH.read_text(encoding="utf-8"))["records"]
+    selected = set(args.problem_nos or [])
     generated: list[dict[str, Any]] = []
     missing: list[str] = []
     for record in records:
         problem_no = str(record["problemNo"])
+        if selected and int(problem_no) not in selected:
+            continue
         factory = SOLUTIONS.get(problem_no)
         if factory is None:
+            continue
+        if not (record.get("archive") or {}).get("completeCode"):
             continue
         source = factory()
         for key in ("completeCode", "directlySubmittableCode"):

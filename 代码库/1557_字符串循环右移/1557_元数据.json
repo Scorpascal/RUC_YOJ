@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1196094",
+    "submissionNo": "1400119",
     "problemNo": "1557",
-    "title": "字符串循环右移",
+    "title": "# 1557 . 字符串循环右移",
     "status": "Accepted",
     "score": "100",
-    "time": "73 ms",
-    "memory": "632 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1760690157",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1196094.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1557.html",
-    "listPage": 25,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1400119.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1557.html"
   },
   "submission": {
-    "submissionNo": "1196094",
+    "submissionNo": "1400119",
     "problemNo": "1557",
-    "title": "字符串循环右移",
+    "title": "# 1557 . 字符串循环右移",
     "status": "Accepted",
     "score": "100",
-    "time": "73 ms",
-    "memory": "632 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1760690157",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1196094.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1557.html",
-    "listPage": 25
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1400119.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1557.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "62898e9f7c92579e045749a0c52659a795b2dc12cf0b375c86ee8ec3248f9cd9"
+    }
   },
   "files": {
-    "problemHtml": "1557_题目原文.html",
-    "submissionHtml": "1557_提交_1196094_详情.html",
-    "completeCode": "1557_提交_1196094_c_完整代码.c",
-    "directlySubmittableCode": "1557_提交_1196094_c_可提交代码.c"
+    "problem": "1557_题目原文.html",
+    "submission": "1557_提交_1400119_详情.html",
+    "completeCode": "1557_提交_1400119_c_完整代码.c",
+    "directlySubmittableCode": "1557_提交_1400119_c_可提交代码.c",
+    "metadata": "1557_元数据.json"
   },
   "code": {
     "language": "c",
     "extension": ".c",
-    "bytesUtf8": 400,
+    "bytesUtf8": 379,
     "sha256": "6882e1d08caa4973d403407d598920e8ae6d0643ab9168798425eaa243c438fb",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "1557_提交_1196094_c_完整代码.c",
-      "directlySubmittableFile": "1557_提交_1196094_c_可提交代码.c",
+      "completeCodeFile": "1557_提交_1400119_c_完整代码.c",
+      "directlySubmittableFile": "1557_提交_1400119_c_可提交代码.c",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "277e9941196bd1a5d168f64bf78ef5b88fd817f3564fc5a0baa1efff9ad58bba",
-    "directlySubmittableSha256": "6882e1d08caa4973d403407d598920e8ae6d0643ab9168798425eaa243c438fb",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "6882e1d08caa4973d403407d598920e8ae6d0643ab9168798425eaa243c438fb",
-    "submissionNo": 1400119,
-    "verifiedAt": "2026-09-20T01:53:22Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

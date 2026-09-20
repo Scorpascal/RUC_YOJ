@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1161532",
+    "submissionNo": "1401890",
     "problemNo": "5",
-    "title": "切换字符大小写",
+    "title": "# 5 . 切换字符大小写",
     "status": "Accepted",
     "score": "100",
-    "time": "71 ms",
-    "memory": "508 KB",
     "language": "cpp",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1758886010",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1161532.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/5.html",
-    "listPage": 32,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1401890.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/5.html"
   },
   "submission": {
-    "submissionNo": "1161532",
+    "submissionNo": "1401890",
     "problemNo": "5",
-    "title": "切换字符大小写",
+    "title": "# 5 . 切换字符大小写",
     "status": "Accepted",
     "score": "100",
-    "time": "71 ms",
-    "memory": "508 KB",
     "language": "cpp",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1758886010",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1161532.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/5.html",
-    "listPage": 32
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1401890.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/5.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "a7e003ec7ce22b9c0c1b0ad9b8fa19f846ce8d4f6453a9845e6e324503a588de"
+    }
   },
   "files": {
-    "problemHtml": "0005_题目原文.html",
-    "submissionHtml": "0005_提交_1161532_详情.html",
-    "completeCode": "0005_提交_1161532_cpp_完整代码.cpp",
-    "directlySubmittableCode": "0005_提交_1161532_cpp_可提交代码.cpp"
+    "problem": "0005_题目原文.html",
+    "submission": "0005_提交_1401890_详情.html",
+    "completeCode": "0005_提交_1401890_cpp_完整代码.cpp",
+    "directlySubmittableCode": "0005_提交_1401890_cpp_可提交代码.cpp",
+    "metadata": "0005_元数据.json"
   },
   "code": {
     "language": "cpp",
     "extension": ".cpp",
-    "bytesUtf8": 315,
+    "bytesUtf8": 301,
     "sha256": "25a28012a3b42089d2f8ee55ed1647d29d6bd2f97f91d3337bfc539266c7b9ef",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "0005_提交_1161532_cpp_完整代码.cpp",
-      "directlySubmittableFile": "0005_提交_1161532_cpp_可提交代码.cpp",
+      "completeCodeFile": "0005_提交_1401890_cpp_完整代码.cpp",
+      "directlySubmittableFile": "0005_提交_1401890_cpp_可提交代码.cpp",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "ba78a07adffcf302a02fb2b14a5544b974151338dcaabbfbf2630a308f0337bb",
-    "directlySubmittableSha256": "25a28012a3b42089d2f8ee55ed1647d29d6bd2f97f91d3337bfc539266c7b9ef",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T135856Z",
-    "candidateSha256": "25a28012a3b42089d2f8ee55ed1647d29d6bd2f97f91d3337bfc539266c7b9ef",
-    "submissionNo": 1401890,
-    "verifiedAt": "2026-09-20T13:31:44Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

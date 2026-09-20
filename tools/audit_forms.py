@@ -63,14 +63,33 @@ def signature_for(form: Any, document: Any) -> dict[str, Any]:
 def main() -> int:
     parser = argparse.ArgumentParser(description="离线审计 YOJ 提交表单契约")
     parser.add_argument("--check", action="store_true", help="只运行并打印检查，不写报告")
+    parser.add_argument("--problem", dest="problem_nos", action="append", type=int, help="只处理指定题号")
     args = parser.parse_args()
 
     records = json.loads(DATA_PATH.read_text(encoding="utf-8"))["records"]
+    selected = set(args.problem_nos or [])
     rows = []
     signatures = Counter()
     mismatches = []
     for record in records:
-        raw_path = ROOT / str(record["archive"]["completeCode"])
+        if selected and int(record["problemNo"]) not in selected:
+            continue
+        archive = record.get("archive") or {}
+        if not archive.get("completeCode"):
+            rows.append(
+                {
+                    "problemNo": record["problemNo"],
+                    "title": record["title"],
+                    "detail": None,
+                    "signatureHash": None,
+                    "signature": None,
+                    "archivedLanguage": str(record.get("language") or ""),
+                    "archivedLanguageAvailable": False,
+                    "classification": "TOPIC_ONLY_NO_LOCAL_AC",
+                }
+            )
+            continue
+        raw_path = ROOT / str(archive["completeCode"])
         detail_path = RAW_ROOT / raw_path.relative_to(RAW_ROOT).parent / (
             raw_path.name.split("_完整代码", 1)[0].replace("_提交_", "_提交_") + "_详情.html"
         )
@@ -78,7 +97,11 @@ def main() -> int:
         folder = RAW_ROOT / str(record["folder"])
         metadata_files = list(folder.glob("*_元数据.json"))
         metadata = json.loads(metadata_files[0].read_text(encoding="utf-8")) if metadata_files else {}
-        detail_name = str((metadata.get("files") or {}).get("submissionHtml") or "")
+        detail_name = str(
+            (metadata.get("files") or {}).get("submissionHtml")
+            or (metadata.get("files") or {}).get("submission")
+            or ""
+        )
         detail_path = folder / detail_name if detail_name else detail_path
         document = parse_snapshot(detail_path)
         forms = document.xpath('//form[@id="submit_code"]')

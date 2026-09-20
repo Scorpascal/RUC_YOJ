@@ -875,18 +875,35 @@ def build_statement(
     recorded_hash = str(code_meta.get("sha256") or entry.get("codeSha256") or "")
     hash_match = bool(observed_hash and recorded_hash and observed_hash == recorded_hash)
     if not complete_path.is_file():
-        converter.warnings.append(f"完整代码不存在: {complete_code}")
+        if complete_code:
+            converter.warnings.append(f"完整代码不存在: {complete_code}")
     if not direct_path.is_file():
-        converter.warnings.append(f"可提交代码不存在: {direct_code}")
+        if direct_code:
+            converter.warnings.append(f"可提交代码不存在: {direct_code}")
 
-    is_ready = str((public_ready or {}).get("status") or "") == "PUBLIC_READY"
-    public_status = "PUBLIC_READY" if is_ready else "RAW_CAPTURED"
-    online_status = "ONLINE_ACCEPTED" if is_ready else "NOT_RUN"
-    phase_text = (
-        "> 当前版本已完成清洗、本地门禁、YOJ Accepted 复验和源码回收，可作为公开版本。"
-        if is_ready
-        else "> 当前仓库阶段：`RAW_CAPTURED`。代码尚未完成脱敏清理、版本规范化、提交形态核验和在线复验。"
+    is_ready = (
+        str((public_ready or {}).get("status") or "") == "PUBLIC_READY"
+        and complete_path.is_file()
+        and direct_path.is_file()
     )
+    topic_only = (
+        not complete_path.is_file()
+        and not direct_path.is_file()
+        and str(code_meta.get("status") or entry.get("status") or problem.get("status") or "")
+        in {"TOPIC_CAPTURED", "NO_LOCAL_AC"}
+    )
+    if is_ready:
+        public_status = "PUBLIC_READY"
+        online_status = "ONLINE_ACCEPTED"
+        phase_text = "> 当前版本已完成清洗、本地门禁、YOJ Accepted 复验和源码回收，可作为公开版本。"
+    elif topic_only:
+        public_status = "TOPIC_CAPTURED"
+        online_status = "NO_LOCAL_AC"
+        phase_text = "> 当前仓库阶段：`TOPIC_CAPTURED`。题面已从 YOJ 公开题目列表归档，但尚无本人 Accepted 源码；未生成伪造代码，也未执行代码复验。"
+    else:
+        public_status = "RAW_CAPTURED"
+        online_status = "NOT_RUN"
+        phase_text = "> 当前仓库阶段：`RAW_CAPTURED`。代码尚未完成脱敏清理、版本规范化、提交形态核验和在线复验。"
 
     statement_rel = Path("题解") / folder / f"{problem_no_padded}_题目.md"
     statement_text = [
@@ -942,7 +959,7 @@ def build_statement(
             "time": time_limit,
             "memory": memory_limit,
         },
-        "language": archived_language,
+        "language": "" if topic_only else archived_language,
         "archive": {
             "status": public_status,
             "submissionNo": str(problem.get("submissionNo") or entry.get("submissionNo") or ""),
@@ -956,10 +973,10 @@ def build_statement(
             "completeCode": relative_path(complete_path) if complete_path.is_file() else None,
             "directlySubmittableCode": relative_path(direct_path) if direct_path.is_file() else None,
             "acceptedRun": {
-                "source": "submission_detail",
-                "status": str(submission.get("status") or problem.get("status") or "").strip(),
+                "source": "public_problem_index" if topic_only else "submission_detail",
+                "status": "NO_LOCAL_AC" if topic_only else str(submission.get("status") or problem.get("status") or "").strip(),
                 "score": str(submission.get("score") or problem.get("score") or "").strip(),
-                "language": safe_language(submission.get("language"), problem.get("language") or code_meta.get("language") or entry.get("language")),
+                "language": "" if topic_only else safe_language(submission.get("language"), problem.get("language") or code_meta.get("language") or entry.get("language")),
                 "time": accepted_time,
                 "memory": accepted_memory,
             },
@@ -1005,7 +1022,7 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
     def percentage(count: int) -> str:
         return f"{count / total_records:.2%}" if total_records else "0.00%"
 
-    public_status_order = ["PUBLIC_READY", "RAW_CAPTURED"]
+    public_status_order = ["PUBLIC_READY", "TOPIC_CAPTURED", "RAW_CAPTURED"]
     public_status_order.extend(
         sorted(status for status in public_status_counts if status not in public_status_order)
     )
@@ -1015,6 +1032,7 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
     )
     status_descriptions = {
         "PUBLIC_READY": "清洗、本地门禁、在线 Accepted 与源码回收均完成",
+        "TOPIC_CAPTURED": "已从 YOJ 公开题目列表归档题面，但尚无本人 Accepted 源码；不生成伪代码",
         "RAW_CAPTURED": "已归档，待清洗、复核或发布",
         "ONLINE_ACCEPTED": "在线提交为 Accepted；若仍是 RAW_CAPTURED，还需完成清洗发布",
         "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND": "未找到提交表单，需人工确认提交形态",
@@ -1023,6 +1041,7 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         "ONLINE_TIME_LIMIT_EXCEEDED": "在线运行超时，需检查算法或时间限制",
         "ONLINE_SYSTEM_ERROR": "判题系统异常，需在可用时段复核",
         "ONLINE_FILE_ERROR": "在线文件处理异常，需人工复核",
+        "NO_LOCAL_AC": "题面已归档，但尚无本人 Accepted 源码；不执行代码复验",
         "NOT_RECORDED": "尚无在线复验记录",
     }
     public_pending_ids: dict[str, list[str]] = {}
@@ -1073,7 +1092,10 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
             f"> 当前重点：待清洗/发布 `{raw_pending_count}` 道；在线复验非 Accepted 或跳过 `{online_pending_count}` 道；其中在线已 Accepted 但仍待清洗发布 `{raw_online_accepted_count}` 道。",
         ]
     )
-    pending_groups = [("RAW_CAPTURED", public_pending_ids.get("RAW_CAPTURED", []))]
+    pending_groups = [
+        ("TOPIC_CAPTURED", public_pending_ids.get("TOPIC_CAPTURED", [])),
+        ("RAW_CAPTURED", public_pending_ids.get("RAW_CAPTURED", [])),
+    ]
     pending_groups.extend(
         (status, ids)
         for status, ids in online_pending_ids.items()
@@ -1237,6 +1259,12 @@ def apply_online_status(records: list[dict[str, Any]]) -> None:
     }
     for record in records:
         problem_key = str(record.get("problemNo"))
+        if not (record.get("archive") or {}).get("completeCode"):
+            # A topic-only record has no candidate that could have produced
+            # online evidence.  Ignore stale staging rows rather than
+            # allowing them to manufacture an Accepted-looking status.
+            record["public"]["onlineVerification"] = "NO_LOCAL_AC"
+            continue
         row = online_rows.get(problem_key)
         if row:
             status = str(row.get("status") or "UNKNOWN").upper().replace(" ", "_")
@@ -1313,6 +1341,13 @@ def build() -> int:
         action="store_true",
         help="保留已有 PUBLIC_READY 记录及其题面字节；只刷新未冻结题目",
     )
+    parser.add_argument(
+        "--problem",
+        dest="problem_nos",
+        action="append",
+        type=int,
+        help="只物化指定题号；其他题目沿用已有 data/problems.json 与题解文件",
+    )
     args = parser.parse_args()
 
     if not MANIFEST_PATH.is_file():
@@ -1322,7 +1357,8 @@ def build() -> int:
     entries = manifest.get("problems") or []
     public_ready_by_no = load_public_ready()
     previous_records_by_no: dict[str, dict[str, Any]] = {}
-    if args.preserve_frozen and (DATA_ROOT / "problems.json").is_file():
+    selected_problem_numbers = set(args.problem_nos or [])
+    if (args.preserve_frozen or selected_problem_numbers) and (DATA_ROOT / "problems.json").is_file():
         try:
             previous_records = json_load(DATA_ROOT / "problems.json").get("records") or []
             previous_records_by_no = {
@@ -1338,6 +1374,22 @@ def build() -> int:
     hash_mismatches = 0
 
     for entry in sorted(entries, key=get_problem_no):
+        problem_no = str(entry.get("problemNo") or "")
+        if selected_problem_numbers and int(problem_no) not in selected_problem_numbers:
+            previous_record = previous_records_by_no.get(problem_no)
+            previous_statement_path = (
+                ROOT / str((previous_record.get("public") or {}).get("statement") or "")
+                if previous_record
+                else None
+            )
+            if previous_record and previous_statement_path and previous_statement_path.is_file():
+                record = previous_record
+                statement = previous_statement_path.read_text(encoding="utf-8")
+                records.append(record)
+                statement_texts.append((previous_statement_path, statement))
+                if not record["archive"]["sourceHashMatchesMetadata"]:
+                    hash_mismatches += 1
+                continue
         folder = str(entry.get("folder") or "").strip()
         raw_dir = RAW_ROOT / folder
         metadata_ref = str((entry.get("files") or {}).get("metadata") or "").strip()

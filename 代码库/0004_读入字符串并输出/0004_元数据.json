@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1254886",
+    "submissionNo": "1401833",
     "problemNo": "4",
-    "title": "读入字符串并输出",
+    "title": "# 4 . 读入字符串并输出",
     "status": "Accepted",
     "score": "100",
-    "time": "56 ms",
-    "memory": "508 KB",
     "language": "c-noilinux",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1762999422",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1254886.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/4.html",
-    "listPage": 18,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1401833.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/4.html"
   },
   "submission": {
-    "submissionNo": "1254886",
+    "submissionNo": "1401833",
     "problemNo": "4",
-    "title": "读入字符串并输出",
+    "title": "# 4 . 读入字符串并输出",
     "status": "Accepted",
     "score": "100",
-    "time": "56 ms",
-    "memory": "508 KB",
     "language": "c-noilinux",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1762999422",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1254886.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/4.html",
-    "listPage": 18
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1401833.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/4.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "c1176ec84c8eed4fb99a9b685d6a2e0b379a662e10e338f8c314040eefc1e14f"
+    }
   },
   "files": {
-    "problemHtml": "0004_题目原文.html",
-    "submissionHtml": "0004_提交_1254886_详情.html",
-    "completeCode": "0004_提交_1254886_c-noilinux_完整代码.c",
-    "directlySubmittableCode": "0004_提交_1254886_c-noilinux_可提交代码.c"
+    "problem": "0004_题目原文.html",
+    "submission": "0004_提交_1401833_详情.html",
+    "completeCode": "0004_提交_1401833_c-noilinux_完整代码.c",
+    "directlySubmittableCode": "0004_提交_1401833_c-noilinux_可提交代码.c",
+    "metadata": "0004_元数据.json"
   },
   "code": {
     "language": "c-noilinux",
     "extension": ".c",
-    "bytesUtf8": 142,
+    "bytesUtf8": 136,
     "sha256": "a761329cc9bb2942e7959529aa9dcbf824e29b82f08777fc823979e8935e0a7f",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "0004_提交_1254886_c-noilinux_完整代码.c",
-      "directlySubmittableFile": "0004_提交_1254886_c-noilinux_可提交代码.c",
+      "completeCodeFile": "0004_提交_1401833_c-noilinux_完整代码.c",
+      "directlySubmittableFile": "0004_提交_1401833_c-noilinux_可提交代码.c",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "5bd11eb7fa8bccb429d5c72b093b37c1d2c14416381390c07274b6895dd4cbda",
-    "directlySubmittableSha256": "a761329cc9bb2942e7959529aa9dcbf824e29b82f08777fc823979e8935e0a7f",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T135856Z",
-    "candidateSha256": "a761329cc9bb2942e7959529aa9dcbf824e29b82f08777fc823979e8935e0a7f",
-    "submissionNo": 1401833,
-    "verifiedAt": "2026-09-20T13:04:09Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

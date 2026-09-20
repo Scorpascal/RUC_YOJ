@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1212167",
+    "submissionNo": "1399747",
     "problemNo": "291",
-    "title": "大整数加减",
+    "title": "# 291 . 大整数加减",
     "status": "Accepted",
     "score": "100",
-    "time": "77 ms",
-    "memory": "512 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1761388997",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1212167.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/291.html",
-    "listPage": 23,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399747.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/291.html"
   },
   "submission": {
-    "submissionNo": "1212167",
+    "submissionNo": "1399747",
     "problemNo": "291",
-    "title": "大整数加减",
+    "title": "# 291 . 大整数加减",
     "status": "Accepted",
     "score": "100",
-    "time": "77 ms",
-    "memory": "512 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1761388997",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1212167.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/291.html",
-    "listPage": 23
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399747.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/291.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "1054ae09fd0f26e3bf27574d5bef2e7ec85ca6a0fe2ad576a6e90a143d73f492"
+    }
   },
   "files": {
-    "problemHtml": "0291_题目原文.html",
-    "submissionHtml": "0291_提交_1212167_详情.html",
-    "completeCode": "0291_提交_1212167_c_完整代码.c",
-    "directlySubmittableCode": "0291_提交_1212167_c_可提交代码.c"
+    "problem": "0291_题目原文.html",
+    "submission": "0291_提交_1399747_详情.html",
+    "completeCode": "0291_提交_1399747_c_完整代码.c",
+    "directlySubmittableCode": "0291_提交_1399747_c_可提交代码.c",
+    "metadata": "0291_元数据.json"
   },
   "code": {
     "language": "c",
     "extension": ".c",
-    "bytesUtf8": 2836,
+    "bytesUtf8": 2733,
     "sha256": "9187a08161c9c4aeb42abea902f991e0f4a5836037993eef6d13d06b5e9d63be",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "0291_提交_1212167_c_完整代码.c",
-      "directlySubmittableFile": "0291_提交_1212167_c_可提交代码.c",
+      "completeCodeFile": "0291_提交_1399747_c_完整代码.c",
+      "directlySubmittableFile": "0291_提交_1399747_c_可提交代码.c",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "719936d6d4457fc065e745404b5fe0b134391029a4c765281742e363e6333b6f",
-    "directlySubmittableSha256": "9187a08161c9c4aeb42abea902f991e0f4a5836037993eef6d13d06b5e9d63be",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "9187a08161c9c4aeb42abea902f991e0f4a5836037993eef6d13d06b5e9d63be",
-    "submissionNo": 1399747,
-    "verifiedAt": "2026-09-20T00:33:30Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

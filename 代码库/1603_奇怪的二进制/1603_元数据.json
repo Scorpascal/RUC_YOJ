@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1281862",
+    "submissionNo": "1400145",
     "problemNo": "1603",
-    "title": "奇怪的二进制",
+    "title": "# 1603 . 奇怪的二进制",
     "status": "Accepted",
     "score": "100",
-    "time": "496 ms",
-    "memory": "540 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1764404558",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1281862.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1603.html",
-    "listPage": 15,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1400145.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1603.html"
   },
   "submission": {
-    "submissionNo": "1281862",
+    "submissionNo": "1400145",
     "problemNo": "1603",
-    "title": "奇怪的二进制",
+    "title": "# 1603 . 奇怪的二进制",
     "status": "Accepted",
     "score": "100",
-    "time": "496 ms",
-    "memory": "540 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1764404558",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1281862.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1603.html",
-    "listPage": 15
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1400145.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1603.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "13e385b0c2100542b2d1652067000460a6c6209ae6cfbeebfaf1e3c7b9a8d121"
+    }
   },
   "files": {
-    "problemHtml": "1603_题目原文.html",
-    "submissionHtml": "1603_提交_1281862_详情.html",
-    "completeCode": "1603_提交_1281862_c_完整代码.c",
-    "directlySubmittableCode": "1603_提交_1281862_c_可提交代码.c"
+    "problem": "1603_题目原文.html",
+    "submission": "1603_提交_1400145_详情.html",
+    "completeCode": "1603_提交_1400145_c_完整代码.c",
+    "directlySubmittableCode": "1603_提交_1400145_c_可提交代码.c",
+    "metadata": "1603_元数据.json"
   },
   "code": {
     "language": "c",
     "extension": ".c",
-    "bytesUtf8": 2359,
+    "bytesUtf8": 2293,
     "sha256": "7b588a0552e4b6d310ff5d54372948fb7b1c9c999326ec074f9e5b48044e3096",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "1603_提交_1281862_c_完整代码.c",
-      "directlySubmittableFile": "1603_提交_1281862_c_可提交代码.c",
+      "completeCodeFile": "1603_提交_1400145_c_完整代码.c",
+      "directlySubmittableFile": "1603_提交_1400145_c_可提交代码.c",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "fa4996b1996b92484991712d7eda09cd9f3c4a1eb749b72ac3ea774a440348ce",
-    "directlySubmittableSha256": "7b588a0552e4b6d310ff5d54372948fb7b1c9c999326ec074f9e5b48044e3096",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "7b588a0552e4b6d310ff5d54372948fb7b1c9c999326ec074f9e5b48044e3096",
-    "submissionNo": 1400145,
-    "verifiedAt": "2026-09-20T01:58:19Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

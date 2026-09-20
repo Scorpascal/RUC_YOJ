@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1150703",
+    "submissionNo": "1399780",
     "problemNo": "452",
-    "title": "读入字母并输出",
+    "title": "# 452 . 读入字母并输出",
     "status": "Accepted",
     "score": "100",
-    "time": "65 ms",
-    "memory": "504 KB",
     "language": "cpp",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1758196579",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1150703.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/452.html",
-    "listPage": 33,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399780.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/452.html"
   },
   "submission": {
-    "submissionNo": "1150703",
+    "submissionNo": "1399780",
     "problemNo": "452",
-    "title": "读入字母并输出",
+    "title": "# 452 . 读入字母并输出",
     "status": "Accepted",
     "score": "100",
-    "time": "65 ms",
-    "memory": "504 KB",
     "language": "cpp",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1758196579",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1150703.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/452.html",
-    "listPage": 33
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399780.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/452.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "881ab9f776c3835c2d3557ceacc95722da301765c49f79015c91f844894ae116"
+    }
   },
   "files": {
-    "problemHtml": "0452_题目原文.html",
-    "submissionHtml": "0452_提交_1150703_详情.html",
-    "completeCode": "0452_提交_1150703_cpp_完整代码.cpp",
-    "directlySubmittableCode": "0452_提交_1150703_cpp_可提交代码.cpp"
+    "problem": "0452_题目原文.html",
+    "submission": "0452_提交_1399780_详情.html",
+    "completeCode": "0452_提交_1399780_cpp_完整代码.cpp",
+    "directlySubmittableCode": "0452_提交_1399780_cpp_可提交代码.cpp",
+    "metadata": "0452_元数据.json"
   },
   "code": {
     "language": "cpp",
     "extension": ".cpp",
-    "bytesUtf8": 297,
+    "bytesUtf8": 282,
     "sha256": "ccfc036ff533a67fb34979fc6b8ccfcb439a17dcc274b1659d4e7fc0dedc9fdc",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "0452_提交_1150703_cpp_完整代码.cpp",
-      "directlySubmittableFile": "0452_提交_1150703_cpp_可提交代码.cpp",
+      "completeCodeFile": "0452_提交_1399780_cpp_完整代码.cpp",
+      "directlySubmittableFile": "0452_提交_1399780_cpp_可提交代码.cpp",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "aaebdfe4c6b057fc71ff5e681e3aec14c04501a01d5da4cd0e3d6af5406236e4",
-    "directlySubmittableSha256": "ccfc036ff533a67fb34979fc6b8ccfcb439a17dcc274b1659d4e7fc0dedc9fdc",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "ccfc036ff533a67fb34979fc6b8ccfcb439a17dcc274b1659d4e7fc0dedc9fdc",
-    "submissionNo": 1399780,
-    "verifiedAt": "2026-09-20T00:41:32Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

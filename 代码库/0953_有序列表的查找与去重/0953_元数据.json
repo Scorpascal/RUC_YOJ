@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1396820",
+    "submissionNo": "1399875",
     "problemNo": "953",
-    "title": "有序列表的查找与去重",
+    "title": "# 953 . 有序列表的查找与去重",
     "status": "Accepted",
     "score": "100",
-    "time": "77 ms",
-    "memory": "504 KB",
     "language": "cpp17",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1789636694",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1396820.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/953.html",
-    "listPage": 4,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399875.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/953.html"
   },
   "submission": {
-    "submissionNo": "1396820",
+    "submissionNo": "1399875",
     "problemNo": "953",
-    "title": "有序列表的查找与去重",
+    "title": "# 953 . 有序列表的查找与去重",
     "status": "Accepted",
     "score": "100",
-    "time": "77 ms",
-    "memory": "504 KB",
     "language": "cpp17",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1789636694",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1396820.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/953.html",
-    "listPage": 4
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399875.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/953.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "a2a656532159accb6b71798da87b27e0a715de01ca25eba330e82cd8875109a9"
+    }
   },
   "files": {
-    "problemHtml": "0953_题目原文.html",
-    "submissionHtml": "0953_提交_1396820_详情.html",
-    "completeCode": "0953_提交_1396820_cpp17_完整代码.cpp",
-    "directlySubmittableCode": "0953_提交_1396820_cpp17_可提交代码.cpp"
+    "problem": "0953_题目原文.html",
+    "submission": "0953_提交_1399875_详情.html",
+    "completeCode": "0953_提交_1399875_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "0953_提交_1399875_cpp17_可提交代码.cpp",
+    "metadata": "0953_元数据.json"
   },
   "code": {
     "language": "cpp17",
     "extension": ".cpp",
-    "bytesUtf8": 352,
+    "bytesUtf8": 1212,
     "sha256": "8422c2d6c68bdc373221367e9a2438d9f3448f33e236b373c56b655135666e89",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "0953_提交_1396820_cpp17_完整代码.cpp",
-      "directlySubmittableFile": "0953_提交_1396820_cpp17_可提交代码.cpp",
+      "completeCodeFile": "0953_提交_1399875_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "0953_提交_1399875_cpp17_可提交代码.cpp",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "142fef34c307d7c698fc20b53b4162ceecf38e604ca349832fab1eb72b239396",
-    "directlySubmittableSha256": "8422c2d6c68bdc373221367e9a2438d9f3448f33e236b373c56b655135666e89",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "8422c2d6c68bdc373221367e9a2438d9f3448f33e236b373c56b655135666e89",
-    "submissionNo": 1399875,
-    "verifiedAt": "2026-09-20T01:01:22Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

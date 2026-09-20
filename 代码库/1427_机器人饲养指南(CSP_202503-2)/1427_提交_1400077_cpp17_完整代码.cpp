@@ -1,0 +1,74 @@
+#include <algorithm>
+#include <array>
+#include <bitset>
+#include <cassert>
+#include <cctype>
+#include <cerrno>
+#include <chrono>
+#include <climits>
+#include <cmath>
+#include <complex>
+#include <cstddef>
+#include <cstdint>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <deque>
+#include <exception>
+#include <fstream>
+#include <functional>
+#include <iomanip>
+#include <ios>
+#include <iosfwd>
+#include <iostream>
+#include <iterator>
+#include <limits>
+#include <list>
+#include <map>
+#include <memory>
+#include <numeric>
+#include <optional>
+#include <queue>
+#include <random>
+#include <regex>
+#include <set>
+#include <sstream>
+#include <stack>
+#include <stdexcept>
+#include <string>
+#include <string_view>
+#include <tuple>
+#include <type_traits>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <valarray>
+#include <variant>
+#include <vector>
+using namespace std;
+
+// 完全背包：容量 n（苹果总数），物品“每天喂 i 个苹果”，价值 A[i]，可无限次使用
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m;
+    cin >> n >> m;
+    vector<long long> A(m + 1, 0);
+    for (int i = 1; i <= m; i++) cin >> A[i];
+
+    const long long NEG = -(1LL << 60);
+    vector<long long> dp(n + 1, NEG);
+    dp[0] = 0;
+
+    for (int x = 1; x <= n; x++) {
+        for (int i = 1; i <= m && i <= x; i++) {
+            if (dp[x - i] != NEG) {
+                dp[x] = max(dp[x], dp[x - i] + A[i]);
+            }
+        }
+    }
+
+    cout << dp[n] << "\n";
+    return 0;
+}

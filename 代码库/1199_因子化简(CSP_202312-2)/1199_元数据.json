@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1224629",
+    "submissionNo": "1400035",
     "problemNo": "1199",
-    "title": "因子化简（CSP 202312-2）",
+    "title": "# 1199 . 因子化简（CSP 202312-2）",
     "status": "Accepted",
     "score": "100",
-    "time": "93 ms",
-    "memory": "632 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1761792395",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1224629.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1199.html",
-    "listPage": 21,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1400035.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1199.html"
   },
   "submission": {
-    "submissionNo": "1224629",
+    "submissionNo": "1400035",
     "problemNo": "1199",
-    "title": "因子化简（CSP 202312-2）",
+    "title": "# 1199 . 因子化简（CSP 202312-2）",
     "status": "Accepted",
     "score": "100",
-    "time": "93 ms",
-    "memory": "632 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1761792395",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1224629.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1199.html",
-    "listPage": 21
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1400035.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1199.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "c38fe886f99efc0cc4e6126fa4c815596c2ef261eedc1174a8f1dcdb3d7561d4"
+    }
   },
   "files": {
-    "problemHtml": "1199_题目原文.html",
-    "submissionHtml": "1199_提交_1224629_详情.html",
-    "completeCode": "1199_提交_1224629_c_完整代码.c",
-    "directlySubmittableCode": "1199_提交_1224629_c_可提交代码.c"
+    "problem": "1199_题目原文.html",
+    "submission": "1199_提交_1400035_详情.html",
+    "completeCode": "1199_提交_1400035_c_完整代码.c",
+    "directlySubmittableCode": "1199_提交_1400035_c_可提交代码.c",
+    "metadata": "1199_元数据.json"
   },
   "code": {
     "language": "c",
     "extension": ".c",
-    "bytesUtf8": 1462,
+    "bytesUtf8": 1408,
     "sha256": "0c61ad15c696d2593d1e1f925ebfd9c5111640f642894c4395ec460f20c66f4e",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "1199_提交_1224629_c_完整代码.c",
-      "directlySubmittableFile": "1199_提交_1224629_c_可提交代码.c",
+      "completeCodeFile": "1199_提交_1400035_c_完整代码.c",
+      "directlySubmittableFile": "1199_提交_1400035_c_可提交代码.c",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "6f62e1bfc8548c64295caf801f739e63ca3bf39badc2be5729fc4e9e8432943e",
-    "directlySubmittableSha256": "0c61ad15c696d2593d1e1f925ebfd9c5111640f642894c4395ec460f20c66f4e",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "0c61ad15c696d2593d1e1f925ebfd9c5111640f642894c4395ec460f20c66f4e",
-    "submissionNo": 1400035,
-    "verifiedAt": "2026-09-20T01:35:54Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

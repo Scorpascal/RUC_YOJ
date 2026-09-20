@@ -151,15 +151,27 @@ def source_path_for(raw_path: Path) -> Path:
 def main() -> int:
     parser = argparse.ArgumentParser(description="生成只清理个性化注释的代码候选")
     parser.add_argument("--check", action="store_true", help="只统计命中，不写候选")
+    parser.add_argument("--problem", dest="problem_nos", action="append", type=int, help="只处理指定题号")
     args = parser.parse_args()
 
     records = json.loads(DATA_PATH.read_text(encoding="utf-8"))["records"]
+    selected = set(args.problem_nos or [])
     seen: set[str] = set()
     files: list[dict[str, Any]] = []
+    skipped_no_code: list[str] = []
     for record in records:
+        if selected and int(record["problemNo"]) not in selected:
+            continue
         archive = record["archive"]
+        if not archive.get("completeCode") and not archive.get("directlySubmittableCode"):
+            skipped_no_code.append(str(record["problemNo"]))
+            continue
         for key in ("completeCode", "directlySubmittableCode"):
+            if not archive.get(key):
+                continue
             raw_path = ROOT / str(archive[key])
+            if not raw_path.is_file():
+                continue
             raw_key = raw_path.relative_to(ROOT).as_posix()
             if raw_key in seen:
                 continue
@@ -202,6 +214,7 @@ def main() -> int:
         "changedComments": sum(item["changedComments"] for item in files),
         "remainingConfiguredMarkerFiles": sum(bool(item["remainingConfiguredMarkers"]) for item in files),
         "filesWithRemainingConfiguredMarkers": [item for item in files if item["remainingConfiguredMarkers"]],
+        "skippedNoLocalAccepted": skipped_no_code,
         "notes": [
             "只处理注释；字符串、标识符、题目要求的输出和固定模板保持不变。",
             "变量名和输出字符串需要单独的语义复核，不能用全局替换自动改写。",
@@ -219,6 +232,7 @@ def main() -> int:
                 "changedFiles": report["changedFiles"],
                 "changedComments": report["changedComments"],
                 "remainingConfiguredMarkerFiles": report["remainingConfiguredMarkerFiles"],
+                "skippedNoLocalAccepted": report["skippedNoLocalAccepted"],
             },
             ensure_ascii=False,
             indent=2,

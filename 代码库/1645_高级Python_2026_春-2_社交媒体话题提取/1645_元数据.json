@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1388103",
+    "submissionNo": "1400155",
     "problemNo": "1645",
-    "title": "高级Python 2026 春-2：社交媒体话题提取",
+    "title": "# 1645 . 高级Python 2026 春-2：社交媒体话题提取",
     "status": "Accepted",
     "score": "100",
-    "time": "47 ms",
-    "memory": "632 KB",
     "language": "cpp",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1783890908",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1388103.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1645.html",
-    "listPage": 5,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1400155.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1645.html"
   },
   "submission": {
-    "submissionNo": "1388103",
+    "submissionNo": "1400155",
     "problemNo": "1645",
-    "title": "高级Python 2026 春-2：社交媒体话题提取",
+    "title": "# 1645 . 高级Python 2026 春-2：社交媒体话题提取",
     "status": "Accepted",
     "score": "100",
-    "time": "47 ms",
-    "memory": "632 KB",
     "language": "cpp",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1783890908",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1388103.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1645.html",
-    "listPage": 5
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1400155.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1645.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "6ad8aed93886c7b0025e42b1a2fcbbe969f3e3cb997d7250b539ea13f45d15b1"
+    }
   },
   "files": {
-    "problemHtml": "1645_题目原文.html",
-    "submissionHtml": "1645_提交_1388103_详情.html",
-    "completeCode": "1645_提交_1388103_cpp_完整代码.cpp",
-    "directlySubmittableCode": "1645_提交_1388103_cpp_可提交代码.cpp"
+    "problem": "1645_题目原文.html",
+    "submission": "1645_提交_1400155_详情.html",
+    "completeCode": "1645_提交_1400155_cpp_完整代码.cpp",
+    "directlySubmittableCode": "1645_提交_1400155_cpp_可提交代码.cpp",
+    "metadata": "1645_元数据.json"
   },
   "code": {
     "language": "cpp",
     "extension": ".cpp",
-    "bytesUtf8": 2521,
+    "bytesUtf8": 2441,
     "sha256": "5df54cc53eea47d3afb913d917a13ec4681932515af63a5e3be6421f453d6f78",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "1645_提交_1388103_cpp_完整代码.cpp",
-      "directlySubmittableFile": "1645_提交_1388103_cpp_可提交代码.cpp",
+      "completeCodeFile": "1645_提交_1400155_cpp_完整代码.cpp",
+      "directlySubmittableFile": "1645_提交_1400155_cpp_可提交代码.cpp",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "a61fe0d8ae716d9ba7efd581646b7f7e737fb2504ac3e1f4d63ff06bcfe38ea0",
-    "directlySubmittableSha256": "5df54cc53eea47d3afb913d917a13ec4681932515af63a5e3be6421f453d6f78",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T135856Z",
-    "candidateSha256": "5df54cc53eea47d3afb913d917a13ec4681932515af63a5e3be6421f453d6f78",
-    "submissionNo": 1400155,
-    "verifiedAt": "2026-09-20T02:00:08Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

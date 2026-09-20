@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1267544",
+    "submissionNo": "1399668",
     "problemNo": "117",
-    "title": "摘桃子",
+    "title": "# 117 . 摘桃子",
     "status": "Accepted",
     "score": "100",
-    "time": "65 ms",
-    "memory": "632 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1763711132",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1267544.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/117.html",
-    "listPage": 18,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399668.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/117.html"
   },
   "submission": {
-    "submissionNo": "1267544",
+    "submissionNo": "1399668",
     "problemNo": "117",
-    "title": "摘桃子",
+    "title": "# 117 . 摘桃子",
     "status": "Accepted",
     "score": "100",
-    "time": "65 ms",
-    "memory": "632 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1763711132",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1267544.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/117.html",
-    "listPage": 18
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399668.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/117.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "e00a17fe0811c059bf0b9252e4f16c2010e324905c7c010f9273038a9ff381e3"
+    }
   },
   "files": {
-    "problemHtml": "0117_题目原文.html",
-    "submissionHtml": "0117_提交_1267544_详情.html",
-    "completeCode": "0117_提交_1267544_c_完整代码.c",
-    "directlySubmittableCode": "0117_提交_1267544_c_可提交代码.c"
+    "problem": "0117_题目原文.html",
+    "submission": "0117_提交_1399668_详情.html",
+    "completeCode": "0117_提交_1399668_c_完整代码.c",
+    "directlySubmittableCode": "0117_提交_1399668_c_可提交代码.c",
+    "metadata": "0117_元数据.json"
   },
   "code": {
     "language": "c",
     "extension": ".c",
-    "bytesUtf8": 383,
+    "bytesUtf8": 367,
     "sha256": "d36bbec4c0d46ff47cdce060f60a8a4db02646ac8a9100bb3fad040271b0c88e",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "0117_提交_1267544_c_完整代码.c",
-      "directlySubmittableFile": "0117_提交_1267544_c_可提交代码.c",
+      "completeCodeFile": "0117_提交_1399668_c_完整代码.c",
+      "directlySubmittableFile": "0117_提交_1399668_c_可提交代码.c",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "97ca368a3dfd4d5a340b1b1a816326e24a9187f2cabe073a8b61943d4a1cd816",
-    "directlySubmittableSha256": "d36bbec4c0d46ff47cdce060f60a8a4db02646ac8a9100bb3fad040271b0c88e",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "d36bbec4c0d46ff47cdce060f60a8a4db02646ac8a9100bb3fad040271b0c88e",
-    "submissionNo": 1399668,
-    "verifiedAt": "2026-09-20T00:13:16Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

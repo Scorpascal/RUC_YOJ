@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1268658",
+    "submissionNo": "1399970",
     "problemNo": "1099",
-    "title": "合并卡牌",
+    "title": "# 1099 . 合并卡牌",
     "status": "Accepted",
     "score": "100",
-    "time": "315 ms",
-    "memory": "512 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1763814252",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1268658.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1099.html",
-    "listPage": 17,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399970.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1099.html"
   },
   "submission": {
-    "submissionNo": "1268658",
+    "submissionNo": "1399970",
     "problemNo": "1099",
-    "title": "合并卡牌",
+    "title": "# 1099 . 合并卡牌",
     "status": "Accepted",
     "score": "100",
-    "time": "315 ms",
-    "memory": "512 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1763814252",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1268658.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1099.html",
-    "listPage": 17
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399970.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1099.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "85bfecbdcdf8c7fcf37a9e275bf35c3902c94843ba072b171bbabd248ee463e4"
+    }
   },
   "files": {
-    "problemHtml": "1099_题目原文.html",
-    "submissionHtml": "1099_提交_1268658_详情.html",
-    "completeCode": "1099_提交_1268658_c_完整代码.c",
-    "directlySubmittableCode": "1099_提交_1268658_c_可提交代码.c"
+    "problem": "1099_题目原文.html",
+    "submission": "1099_提交_1399970_详情.html",
+    "completeCode": "1099_提交_1399970_c_完整代码.c",
+    "directlySubmittableCode": "1099_提交_1399970_c_可提交代码.c",
+    "metadata": "1099_元数据.json"
   },
   "code": {
     "language": "c",
     "extension": ".c",
-    "bytesUtf8": 347,
+    "bytesUtf8": 333,
     "sha256": "9b9c085bc95b5a0e60a925fa8e43325a54ce08e660e05b5776d5081e7aef49fd",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "1099_提交_1268658_c_完整代码.c",
-      "directlySubmittableFile": "1099_提交_1268658_c_可提交代码.c",
+      "completeCodeFile": "1099_提交_1399970_c_完整代码.c",
+      "directlySubmittableFile": "1099_提交_1399970_c_可提交代码.c",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "de941157636d301b9b4df2bec69ca639957ea08885c57d743f5e7b7e1184dd00",
-    "directlySubmittableSha256": "9b9c085bc95b5a0e60a925fa8e43325a54ce08e660e05b5776d5081e7aef49fd",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "9b9c085bc95b5a0e60a925fa8e43325a54ce08e660e05b5776d5081e7aef49fd",
-    "submissionNo": 1399970,
-    "verifiedAt": "2026-09-20T01:21:21Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

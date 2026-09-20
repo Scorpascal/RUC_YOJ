@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1229141",
+    "submissionNo": "1400085",
     "problemNo": "1435",
-    "title": "跳房子 (CSP 202412-4)",
+    "title": "# 1435 . 跳房子 (CSP 202412-4)",
     "status": "Accepted",
     "score": "100",
-    "time": "327 ms",
-    "memory": "2428 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1761932916",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1229141.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1435.html",
-    "listPage": 20,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1400085.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1435.html"
   },
   "submission": {
-    "submissionNo": "1229141",
+    "submissionNo": "1400085",
     "problemNo": "1435",
-    "title": "跳房子 (CSP 202412-4)",
+    "title": "# 1435 . 跳房子 (CSP 202412-4)",
     "status": "Accepted",
     "score": "100",
-    "time": "327 ms",
-    "memory": "2428 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1761932916",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1229141.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1435.html",
-    "listPage": 20
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1400085.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1435.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "e996cd9ee2b1454d9149fa6993202e6feffc7fc5040bbc49fdf3502c5e4240df"
+    }
   },
   "files": {
-    "problemHtml": "1435_题目原文.html",
-    "submissionHtml": "1435_提交_1229141_详情.html",
-    "completeCode": "1435_提交_1229141_c_完整代码.c",
-    "directlySubmittableCode": "1435_提交_1229141_c_可提交代码.c"
+    "problem": "1435_题目原文.html",
+    "submission": "1435_提交_1400085_详情.html",
+    "completeCode": "1435_提交_1400085_c_完整代码.c",
+    "directlySubmittableCode": "1435_提交_1400085_c_可提交代码.c",
+    "metadata": "1435_元数据.json"
   },
   "code": {
     "language": "c",
     "extension": ".c",
-    "bytesUtf8": 1947,
+    "bytesUtf8": 1877,
     "sha256": "2074a0c1101cfcec989f1b02ec2b23801e924199e191d81e544923adb38552fa",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "1435_提交_1229141_c_完整代码.c",
-      "directlySubmittableFile": "1435_提交_1229141_c_可提交代码.c",
+      "completeCodeFile": "1435_提交_1400085_c_完整代码.c",
+      "directlySubmittableFile": "1435_提交_1400085_c_可提交代码.c",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "624a440ebd4733fe3df3f3b1deae88df3a61878fa870c20459d44e58bfec4dda",
-    "directlySubmittableSha256": "2074a0c1101cfcec989f1b02ec2b23801e924199e191d81e544923adb38552fa",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "2074a0c1101cfcec989f1b02ec2b23801e924199e191d81e544923adb38552fa",
-    "submissionNo": 1400085,
-    "verifiedAt": "2026-09-20T01:46:35Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

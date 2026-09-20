@@ -1,73 +1,54 @@
 {
   "problem": {
-    "submissionNo": "1280405",
+    "submissionNo": "1399731",
     "problemNo": "245",
-    "title": "傻大木买军火",
+    "title": "# 245 . 傻大木买军火",
     "status": "Accepted",
     "score": "100",
-    "time": "76 ms",
-    "memory": "508 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1764296996",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1280405.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/245.html",
-    "listPage": 16,
-    "error": ""
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399731.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/245.html"
   },
   "submission": {
-    "submissionNo": "1280405",
+    "submissionNo": "1399731",
     "problemNo": "245",
-    "title": "傻大木买军火",
+    "title": "# 245 . 傻大木买军火",
     "status": "Accepted",
     "score": "100",
-    "time": "76 ms",
-    "memory": "508 KB",
     "language": "c",
     "submitter": "本人(已脱敏)",
-    "submitTime": "1764296996",
-    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1280405.html",
-    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/245.html",
-    "listPage": 16
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1399731.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/245.html"
   },
   "source": {
-    "captureVersion": 1,
-    "capturedAt": "2026-09-19T15:50:21.728Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-20T15:05:59Z",
     "site": "http://yoj.ruc.edu.cn",
     "codeEndpoint": "/index.php/index/submissions/getcode.html",
     "endpointResponse": {
       "status": 1,
       "tkhide": 0
-    },
-    "endpointResponseSha256": "15b1f30d16e8c4115b839c5ac0a82448a2473cc4639b4ae98df353c25c475851"
+    }
   },
   "files": {
-    "problemHtml": "0245_题目原文.html",
-    "submissionHtml": "0245_提交_1280405_详情.html",
-    "completeCode": "0245_提交_1280405_c_完整代码.c",
-    "directlySubmittableCode": "0245_提交_1280405_c_可提交代码.c"
+    "problem": "0245_题目原文.html",
+    "submission": "0245_提交_1399731_详情.html",
+    "completeCode": "0245_提交_1399731_c_完整代码.c",
+    "directlySubmittableCode": "0245_提交_1399731_c_可提交代码.c",
+    "metadata": "0245_元数据.json"
   },
   "code": {
     "language": "c",
     "extension": ".c",
-    "bytesUtf8": 1328,
+    "bytesUtf8": 1290,
     "sha256": "23ce62e45a96cb544879e9390063aed7db9f739d89d122ed7cf388df1eaed3d5",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
-      "completeCodeFile": "0245_提交_1280405_c_完整代码.c",
-      "directlySubmittableFile": "0245_提交_1280405_c_可提交代码.c",
+      "completeCodeFile": "0245_提交_1399731_c_完整代码.c",
+      "directlySubmittableFile": "0245_提交_1399731_c_可提交代码.c",
       "blocks": [],
-      "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    },
-    "rawArchiveSha256": "791e03599db6afcfbdfc218c3a6452c1b22da0fc3d7cc33006af440804f213f2",
-    "directlySubmittableSha256": "23ce62e45a96cb544879e9390063aed7db9f739d89d122ed7cf388df1eaed3d5",
-    "status": "CLEANED_ONLINE_VERIFIED"
-  },
-  "publication": {
-    "status": "PUBLIC_READY",
-    "batchId": "20260920T082821Z",
-    "candidateSha256": "23ce62e45a96cb544879e9390063aed7db9f739d89d122ed7cf388df1eaed3d5",
-    "submissionNo": 1399731,
-    "verifiedAt": "2026-09-20T00:29:36Z"
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }
