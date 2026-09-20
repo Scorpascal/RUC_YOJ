@@ -368,6 +368,9 @@ def run_once(args: argparse.Namespace) -> int:
             if run_command([sys.executable, str(ROOT / "tools" / "build_site_catalog.py")], environment, 600):
                 remember_generated_changes()
                 return 3
+            if run_command([sys.executable, str(ROOT / "tools" / "build_site_catalog.py"), "--check"], environment, 600):
+                remember_generated_changes()
+                return 3
             result = publish(
                 args.push,
                 release_numbers,

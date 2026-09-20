@@ -3,7 +3,7 @@
   "generatedAt": "2026-09-19T15:50:21.728Z",
   "source": {
     "problemRecords": 488,
-    "verifiedSubmissions": 418,
+    "verifiedSubmissions": 445,
     "tagging": "title-heuristic-v1",
     "note": "知识点标签为根据题名生成的初步导航标签，需逐题人工校准。"
   },
@@ -45,13 +45,13 @@
       "language": "cpp",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/2.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/0002_%E8%BE%93%E5%87%BAHello_world%E5%8A%A0%E5%BC%BA%E7%89%88/0002_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0002_%E8%BE%93%E5%87%BAHello_world%E5%8A%A0%E5%BC%BA%E7%89%88/0002_%E6%8F%90%E4%BA%A4_1161529_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=2",
+      "submissionNo": "1401887"
     },
     {
       "problemNo": 3,
@@ -63,13 +63,13 @@
       "language": "cpp",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/3.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/0003_%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AA%E6%95%B4%E6%95%B0%E7%9A%84%E5%A4%A7%E5%B0%8F/0003_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0003_%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AA%E6%95%B4%E6%95%B0%E7%9A%84%E5%A4%A7%E5%B0%8F/0003_%E6%8F%90%E4%BA%A4_1161530_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=3",
+      "submissionNo": "1401888"
     },
     {
       "problemNo": 4,
@@ -81,13 +81,13 @@
       "language": "c-noilinux",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/4.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/0004_%E8%AF%BB%E5%85%A5%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B9%B6%E8%BE%93%E5%87%BA/0004_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0004_%E8%AF%BB%E5%85%A5%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B9%B6%E8%BE%93%E5%87%BA/0004_%E6%8F%90%E4%BA%A4_1254886_c-noilinux_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.c",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=4",
+      "submissionNo": "1401833"
     },
     {
       "problemNo": 5,
@@ -99,13 +99,13 @@
       "language": "cpp",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/5.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/0005_%E5%88%87%E6%8D%A2%E5%AD%97%E7%AC%A6%E5%A4%A7%E5%B0%8F%E5%86%99/0005_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0005_%E5%88%87%E6%8D%A2%E5%AD%97%E7%AC%A6%E5%A4%A7%E5%B0%8F%E5%86%99/0005_%E6%8F%90%E4%BA%A4_1161532_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=5",
+      "submissionNo": "1401890"
     },
     {
       "problemNo": 6,
@@ -117,13 +117,13 @@
       "language": "cpp",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/6.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/0006_%E6%B5%AE%E7%82%B9%E6%95%B0%E6%B1%82%E5%92%8C/0006_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0006_%E6%B5%AE%E7%82%B9%E6%95%B0%E6%B1%82%E5%92%8C/0006_%E6%8F%90%E4%BA%A4_1161533_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=6",
+      "submissionNo": "1401891"
     },
     {
       "problemNo": 7,
@@ -135,13 +135,13 @@
       "language": "cpp",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/7.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/0007_%E6%B1%82%E4%B8%89%E8%A7%92%E5%BD%A2%E9%9D%A2%E7%A7%AF/0007_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0007_%E6%B1%82%E4%B8%89%E8%A7%92%E5%BD%A2%E9%9D%A2%E7%A7%AF/0007_%E6%8F%90%E4%BA%A4_1161537_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=7",
+      "submissionNo": "1401892"
     },
     {
       "problemNo": 8,
@@ -1237,13 +1237,13 @@
       "language": "c",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/180.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/0180_%E8%AE%A1%E7%AE%97cosx%E7%9A%84%E8%BF%91%E4%BC%BC%E5%80%BC/0180_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0180_%E8%AE%A1%E7%AE%97cosx%E7%9A%84%E8%BF%91%E4%BC%BC%E5%80%BC/0180_%E6%8F%90%E4%BA%A4_1177209_c_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.c",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=180",
+      "submissionNo": "1399713"
     },
     {
       "problemNo": 181,
@@ -1580,13 +1580,13 @@
       "language": "c",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/247.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/0247_%E5%8C%B9%E9%85%8DWild%E5%8F%B7%E7%A0%81/0247_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0247_%E5%8C%B9%E9%85%8DWild%E5%8F%B7%E7%A0%81/0247_%E6%8F%90%E4%BA%A4_1280408_c_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.c",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=247",
+      "submissionNo": "1399732"
     },
     {
       "problemNo": 255,
@@ -1886,13 +1886,13 @@
       "language": "cpp17-clang",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/288.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/0288_%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%8B%E5%B7%AE/0288_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0288_%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%8B%E5%B7%AE/0288_%E6%8F%90%E4%BA%A4_1189374_cpp17-clang_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=288",
+      "submissionNo": "1399743"
     },
     {
       "problemNo": 289,
@@ -2517,13 +2517,13 @@
       "language": "c-noilinux",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/448.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/0448_%E6%8C%89%E8%A6%81%E6%B1%82%E8%AF%BB%E5%85%A5%E5%B9%B6%E8%BE%93%E5%87%BA%E6%95%B0%E6%8D%AE/0448_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0448_%E6%8C%89%E8%A6%81%E6%B1%82%E8%AF%BB%E5%85%A5%E5%B9%B6%E8%BE%93%E5%87%BA%E6%95%B0%E6%8D%AE/0448_%E6%8F%90%E4%BA%A4_1153155_c-noilinux_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.c",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=448",
+      "submissionNo": "1399777"
     },
     {
       "problemNo": 449,
@@ -3206,13 +3206,13 @@
       "language": "cpp",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/784.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/0784_Karatsuba_Multiplication/0784_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0784_Karatsuba_Multiplication/0784_%E6%8F%90%E4%BA%A4_1171955_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=784",
+      "submissionNo": "1399811"
     },
     {
       "problemNo": 785,
@@ -3295,16 +3295,16 @@
         "数据结构",
         "搜索与排序"
       ],
-      "language": "cpp",
+      "language": "cpp17",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/790.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/0790_%E4%BA%8C%E7%BB%B4%E6%9F%A5%E6%89%BE%E6%A0%91/0790_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0790_%E4%BA%8C%E7%BB%B4%E6%9F%A5%E6%89%BE%E6%A0%91/0790_%E6%8F%90%E4%BA%A4_1167875_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=790",
+      "submissionNo": "1401879"
     },
     {
       "problemNo": 791,
@@ -3892,13 +3892,13 @@
       "language": "c",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/928.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/0928_%E7%BA%BF%E6%AE%B5/0928_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0928_%E7%BA%BF%E6%AE%B5/0928_%E6%8F%90%E4%BA%A4_1282254_c_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.c",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=928",
+      "submissionNo": "1399856"
     },
     {
       "problemNo": 929,
@@ -3928,13 +3928,13 @@
       "language": "c",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/930.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/0930_%E5%90%88%E5%B9%B6%E7%9F%B3%E5%AD%90/0930_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0930_%E5%90%88%E5%B9%B6%E7%9F%B3%E5%AD%90/0930_%E6%8F%90%E4%BA%A4_1282273_c_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.c",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=930",
+      "submissionNo": "1399860"
     },
     {
       "problemNo": 939,
@@ -3946,13 +3946,13 @@
       "language": "c",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/939.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/0939_%E5%8A%A0%E5%88%86%E4%BA%8C%E5%8F%89%E6%A0%91/0939_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0939_%E5%8A%A0%E5%88%86%E4%BA%8C%E5%8F%89%E6%A0%91/0939_%E6%8F%90%E4%BA%A4_1282277_c_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.c",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=939",
+      "submissionNo": "1399862"
     },
     {
       "problemNo": 940,
@@ -3964,13 +3964,13 @@
       "language": "c",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/940.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/0940_%E6%88%98%E4%BA%89%E6%B8%B8%E6%88%8F/0940_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0940_%E6%88%98%E4%BA%89%E6%B8%B8%E6%88%8F/0940_%E6%8F%90%E4%BA%A4_1282280_c_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.c",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=940",
+      "submissionNo": "1399863"
     },
     {
       "problemNo": 941,
@@ -3982,13 +3982,13 @@
       "language": "c",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/941.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/0941_%E6%8C%96%E4%BA%95/0941_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0941_%E6%8C%96%E4%BA%95/0941_%E6%8F%90%E4%BA%A4_1282283_c_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.c",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=941",
+      "submissionNo": "1399864"
     },
     {
       "problemNo": 944,
@@ -6203,13 +6203,13 @@
       "language": "cpp17",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1152.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/1152_%E5%AF%B9%E5%AF%B9%E7%A2%B0/1152_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1152_%E5%AF%B9%E5%AF%B9%E7%A2%B0/1152_%E6%8F%90%E4%BA%A4_1340415_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=1152",
+      "submissionNo": "1401835"
     },
     {
       "problemNo": 1156,
@@ -6597,16 +6597,16 @@
       "tags": [
         "基础语法"
       ],
-      "language": "cpp17-clang",
+      "language": "cpp17",
       "timeLimit": "2000 ms",
       "memoryLimit": "512MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1201.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/1201_%E5%AE%9D%E8%97%8F%28CSP_202312-4%29/1201_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1201_%E5%AE%9D%E8%97%8F%28CSP_202312-4%29/1201_%E6%8F%90%E4%BA%A4_1224082_cpp17-clang_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=1201",
+      "submissionNo": "1401902"
     },
     {
       "problemNo": 1202,
@@ -7104,13 +7104,13 @@
       "language": "cpp17",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1380.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/1380_%E5%AE%9D%E7%9F%B3%E5%88%87%E5%89%B2/1380_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1380_%E5%AE%9D%E7%9F%B3%E5%88%87%E5%89%B2/1380_%E6%8F%90%E4%BA%A4_1340609_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=1380",
+      "submissionNo": "1401839"
     },
     {
       "problemNo": 1408,
@@ -7518,13 +7518,13 @@
       "language": "cpp17",
       "timeLimit": "5000 ms",
       "memoryLimit": "512MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1531.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/1531_%E6%A2%A6%E9%AD%87%28CSP_202412-5%29/1531_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1531_%E6%A2%A6%E9%AD%87%28CSP_202412-5%29/1531_%E6%8F%90%E4%BA%A4_1213749_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=1531",
+      "submissionNo": "1401841"
     },
     {
       "problemNo": 1532,
@@ -8181,16 +8181,16 @@
       "tags": [
         "基础语法"
       ],
-      "language": "cpp",
+      "language": "cpp17",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1591.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/1591_matrix/1591_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1591_matrix/1591_%E6%8F%90%E4%BA%A4_1281805_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=1591",
+      "submissionNo": "1401880"
     },
     {
       "problemNo": 1592,
@@ -8199,16 +8199,16 @@
       "tags": [
         "基础语法"
       ],
-      "language": "cpp",
+      "language": "cpp17",
       "timeLimit": "5000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1592.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/1592_%E7%A7%A6%E5%A7%8B%E7%9A%87/1592_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1592_%E7%A7%A6%E5%A7%8B%E7%9A%87/1592_%E6%8F%90%E4%BA%A4_1308666_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=1592",
+      "submissionNo": "1401881"
     },
     {
       "problemNo": 1594,
@@ -8271,16 +8271,16 @@
       "tags": [
         "基础语法"
       ],
-      "language": "cpp",
+      "language": "cpp17",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1597.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/1597_%E5%86%9B%E8%AE%AD%E6%96%B9%E9%98%B5/1597_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1597_%E5%86%9B%E8%AE%AD%E6%96%B9%E9%98%B5/1597_%E6%8F%90%E4%BA%A4_1281800_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=1597",
+      "submissionNo": "1401882"
     },
     {
       "problemNo": 1598,
@@ -8307,16 +8307,16 @@
       "tags": [
         "基础语法"
       ],
-      "language": "cpp",
+      "language": "cpp17",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1599.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/1599_%E5%9B%9E%E5%AE%B6/1599_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1599_%E5%9B%9E%E5%AE%B6/1599_%E6%8F%90%E4%BA%A4_1308657_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=1599",
+      "submissionNo": "1401883"
     },
     {
       "problemNo": 1600,
@@ -8325,16 +8325,16 @@
       "tags": [
         "基础语法"
       ],
-      "language": "cpp",
+      "language": "cpp17",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1600.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/1600_%E7%90%86%E7%89%8C/1600_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1600_%E7%90%86%E7%89%8C/1600_%E6%8F%90%E4%BA%A4_1281789_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=1600",
+      "submissionNo": "1401884"
     },
     {
       "problemNo": 1601,
@@ -8509,13 +8509,13 @@
       "language": "cpp",
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
-      "verified": false,
+      "verified": true,
       "solutionStatus": "statement",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1645.html",
       "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/1645_%E9%AB%98%E7%BA%A7Python_2026_%E6%98%A5-2_%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E8%AF%9D%E9%A2%98%E6%8F%90%E5%8F%96/1645_%E9%A2%98%E7%9B%AE.md",
-      "codeUrl": null,
-      "quickSubmitUrl": null,
-      "submissionNo": null
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1645_%E9%AB%98%E7%BA%A7Python_2026_%E6%98%A5-2_%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E8%AF%9D%E9%A2%98%E6%8F%90%E5%8F%96/1645_%E6%8F%90%E4%BA%A4_1388103_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=1645",
+      "submissionNo": "1400155"
     },
     {
       "problemNo": 1646,

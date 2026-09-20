@@ -32,8 +32,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Configure Pages
         uses: actions/configure-pages@v5
-      - name: Build Pages catalog
-        run: python3 tools/build_site_catalog.py
+      - name: Verify committed Pages catalog
+        run: python3 tools/build_site_catalog.py --check
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

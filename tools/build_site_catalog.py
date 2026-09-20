@@ -8,8 +8,10 @@ conservative first-pass knowledge-point classification derived from titles.
 
 from __future__ import annotations
 
+import argparse
 import json
 import re
+import sys
 from collections import Counter
 from pathlib import Path
 from urllib.parse import quote
@@ -18,6 +20,7 @@ from urllib.parse import quote
 ROOT = Path(__file__).resolve().parents[1]
 PROBLEMS_PATH = ROOT / "data" / "problems.json"
 QUICK_SUBMIT_PATH = ROOT / "data" / "quick-submit.json"
+QUICK_SUBMIT_PAGES_PATH = ROOT / "docs" / "data" / "quick-submit.json"
 OUTPUT_PATH = ROOT / "docs" / "data" / "catalog.json"
 GITHUB_BLOB_BASE = "https://github.com/Scorpascal/RUC_YOJ/blob/main/"
 
@@ -70,7 +73,7 @@ def github_blob(path: str | None) -> str | None:
     return GITHUB_BLOB_BASE + quote(path.replace("\\", "/"), safe="/")
 
 
-def main() -> None:
+def build_payload() -> dict:
     problems = load_json(PROBLEMS_PATH)
     quick = load_json(QUICK_SUBMIT_PATH)
     quick_by_no = {int(item["problemNo"]): item for item in quick.get("entries", [])}
@@ -110,7 +113,7 @@ def main() -> None:
         )
 
     entries.sort(key=lambda item: item["problemNo"])
-    payload = {
+    return {
         "schemaVersion": 1,
         "generatedAt": quick.get("generatedAt"),
         "source": {
@@ -122,10 +125,66 @@ def main() -> None:
         "tagCounts": dict(sorted(tag_counts.items(), key=lambda pair: (-pair[1], pair[0]))),
         "entries": entries,
     }
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="生成或校验 GitHub Pages 题库目录")
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="只校验已提交的 docs/data/catalog.json 是否与当前数据一致，不写文件",
+    )
+    args = parser.parse_args()
+
+    payload = build_payload()
+    rendered = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+    if args.check:
+        expected_quick = QUICK_SUBMIT_PATH.read_text(encoding="utf-8") if QUICK_SUBMIT_PATH.is_file() else None
+        actual_quick = (
+            QUICK_SUBMIT_PAGES_PATH.read_text(encoding="utf-8")
+            if QUICK_SUBMIT_PAGES_PATH.is_file()
+            else None
+        )
+        if expected_quick is None or actual_quick != expected_quick:
+            print(
+                "quick-submit drift: run `python3 tools/build_initial.py` and commit "
+                "data/quick-submit.json and docs/data/quick-submit.json together",
+                file=sys.stderr,
+            )
+            return 1
+        if not OUTPUT_PATH.is_file():
+            print(f"catalog missing: {OUTPUT_PATH}", file=sys.stderr)
+            return 1
+        current = OUTPUT_PATH.read_text(encoding="utf-8")
+        if current != rendered:
+            try:
+                current_payload = json.loads(current)
+                current_source = current_payload.get("source") or {}
+                current_count = len(current_payload.get("entries") or [])
+                current_verified = current_source.get("verifiedSubmissions")
+            except (TypeError, ValueError, json.JSONDecodeError):
+                current_count = "invalid"
+                current_verified = "invalid"
+            expected_source = payload["source"]
+            print(
+                "catalog drift: run `python3 tools/build_site_catalog.py` and commit "
+                f"the result; expected entries={len(payload['entries'])}, "
+                f"verified={expected_source['verifiedSubmissions']}, "
+                f"actual entries={current_count}, verified={current_verified}",
+                file=sys.stderr,
+            )
+            return 1
+        print(
+            f"catalog ok: {len(payload['entries'])} entries, "
+            f"{payload['source']['verifiedSubmissions']} verified -> {OUTPUT_PATH}"
+        )
+        return 0
+
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"built {len(entries)} entries -> {OUTPUT_PATH}")
+    OUTPUT_PATH.write_text(rendered, encoding="utf-8")
+    print(f"built {len(payload['entries'])} entries -> {OUTPUT_PATH}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
