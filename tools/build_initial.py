@@ -915,8 +915,24 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
             }
         except (OSError, ValueError, TypeError):
             online_rows = {}
+    online_skips: dict[str, dict[str, Any]] = {}
+    if ONLINE_REPORT_PATH.is_file():
+        try:
+            online_data = json_load(ONLINE_REPORT_PATH)
+            online_skips = {
+                str(row.get("problemNo")): row
+                for row in (online_data.get("skipped") or [])
+                if row.get("problemNo") is not None
+            }
+        except (OSError, ValueError, TypeError):
+            online_skips = {}
     online_accepted = sum(row.get("status") == "Accepted" for row in online_rows.values())
     online_attempted = len(online_rows)
+    online_nonaccepted = sum(row.get("status") != "Accepted" for row in online_rows.values())
+    online_visible = sum(
+        row.get("status") == "Accepted" and (row.get("roundTrip") or {}).get("status") == "VISIBLE"
+        for row in online_rows.values()
+    )
     lines = [
         "# RUC YOJ 题解归档",
         "",
@@ -929,9 +945,10 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         f"- 已生成题面：`{len(records)}` 道",
         f"- 状态统计：`{dict(sorted(status_counts.items()))}`",
         f"- 原始代码同步：完整代码 `{sum(bool(record['archive'].get('completeCode')) for record in records)}/{len(records)}`，可提交代码 `{sum(bool(record['archive'].get('directlySubmittableCode')) for record in records)}/{len(records)}`；两者均为原始归档，尚不代表已清洗或已完成提交形态核验",
-        f"- 在线复验：已记录 `{online_attempted}/{len(records)}`，其中 `Accepted` `{online_accepted}`；在线编号、状态和源码回收证据保存在被忽略的 `staging/online-verification.json`",
+        f"- 在线复验：已提交 `{online_attempted}/{len(records)}`，其中 `Accepted` `{online_accepted}`、明确非通过 `{online_nonaccepted}`；另有表单/模板跳过 `{len(online_skips)}` 道",
+        f"- 在线源码回收：`Accepted` 中已回收并比对 `{online_visible}/{online_accepted}`；编号、状态、跳过原因和源码回收证据保存在被忽略的 `staging/online-verification.json`",
         "- 题面中的时间/内存是题目页限制；每条归档记录的 `archive.acceptedRun` 单独保存某次 AC 的实测耗时/内存，二者不混用",
-        "- 自动同步、提交测试、AC 复抓和 GitHub 更新：本轮未执行",
+        "- 自动调度和 GitHub 更新：尚未部署；在线复验属于后台验证，不改变原始归档",
         "- 维护窗口：按 Method 约定，`23:55–00:10` 暂停网络操作；题面更新需要重新抓取并复核图片、公式和题面差异",
         "",
         "## 题目索引",
@@ -946,13 +963,19 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         online = online_rows.get(str(record["problemNo"])) or {}
         online_status = str(online.get("status") or "")
         online_no = str(online.get("submissionNo") or "")
-        online_suffix = f"；在线 `Accepted` #{online_no}" if online_status == "Accepted" and online_no else ""
+        skipped = online_skips.get(str(record["problemNo"])) or {}
+        skip_reason = str(skipped.get("reason") or "")
+        online_suffix = f"；在线 `{online_status}` #{online_no}" if online_status and online_no else ""
+        if not online_suffix and skip_reason:
+            online_suffix = f"；在线跳过 `{skip_reason}`"
         complete_link = f"[已同步（待清洗{online_suffix}）]({markdown_path(complete)})" if complete else "未同步"
         direct_link = f"[已同步（提交形态待核验{online_suffix}）]({markdown_path(direct)})" if direct else "未同步"
         title = record["title"].replace("|", r"\|").replace("\n", " ")
         status = str(record["public"]["status"])
         if online_status:
             status = f"{status}; ONLINE_{online_status.upper().replace(' ', '_')}"
+        elif skip_reason:
+            status = f"{status}; ONLINE_SKIPPED_{skip_reason.upper().replace(' ', '_')}"
         lines.append(
             f"| {record['problemNo']} | {title} | [查看题面]({statement}) | {complete_link} | {direct_link} | `{record['language']}` | `{status}` |"
         )
@@ -971,6 +994,36 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         ]
     )
     return "\n".join(lines)
+
+
+def apply_online_status(records: list[dict[str, Any]]) -> None:
+    """Project ignored online evidence into the generated public data index."""
+
+    if not ONLINE_REPORT_PATH.is_file():
+        return
+    try:
+        online_data = json_load(ONLINE_REPORT_PATH)
+    except (OSError, ValueError, TypeError):
+        return
+    online_rows = {
+        str(row.get("problemNo")): row
+        for row in (online_data.get("records") or [])
+        if row.get("problemNo") is not None
+    }
+    online_skips = {
+        str(row.get("problemNo")): row
+        for row in (online_data.get("skipped") or [])
+        if row.get("problemNo") is not None
+    }
+    for record in records:
+        problem_key = str(record.get("problemNo"))
+        row = online_rows.get(problem_key)
+        if row:
+            status = str(row.get("status") or "UNKNOWN").upper().replace(" ", "_")
+            record["public"]["onlineVerification"] = f"ONLINE_{status}"
+        elif problem_key in online_skips:
+            reason = str(online_skips[problem_key].get("reason") or "UNKNOWN").upper().replace(" ", "_")
+            record["public"]["onlineVerification"] = f"ONLINE_SKIPPED_{reason}"
 
 
 def build() -> int:
@@ -1030,6 +1083,7 @@ def build() -> int:
 
     for path, content in statement_texts:
         write_text(path, content)
+    apply_online_status(records)
     DATA_ROOT.mkdir(parents=True, exist_ok=True)
     write_json(
         DATA_ROOT / "problems.json",

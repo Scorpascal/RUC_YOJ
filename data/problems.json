@@ -47,7 +47,7 @@
         "statement": "题解/0001_输出Hello_world/0001_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -102,7 +102,7 @@
         "statement": "题解/0002_输出Hello_world加强版/0002_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -157,7 +157,7 @@
         "statement": "题解/0003_比较两个整数的大小/0003_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -212,7 +212,7 @@
         "statement": "题解/0004_读入字符串并输出/0004_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -267,7 +267,7 @@
         "statement": "题解/0005_切换字符大小写/0005_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -322,7 +322,7 @@
         "statement": "题解/0006_浮点数求和/0006_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -377,7 +377,7 @@
         "statement": "题解/0007_求三角形面积/0007_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -456,7 +456,7 @@
         "statement": "题解/0008_计算学分绩点/0008_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -511,7 +511,7 @@
         "statement": "题解/0009_按要求读入数据并输出/0009_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -566,7 +566,7 @@
         "statement": "题解/0010_温度转换/0010_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -621,7 +621,7 @@
         "statement": "题解/0087_图像处理/0087_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -676,7 +676,7 @@
         "statement": "题解/0088_纠结的矩阵/0088_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -755,7 +755,7 @@
         "statement": "题解/0089_奖金发放/0089_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -810,7 +810,7 @@
         "statement": "题解/0090_刷题高手/0090_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -865,7 +865,7 @@
         "statement": "题解/0091_相似乐曲/0091_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -920,7 +920,7 @@
         "statement": "题解/0111_Coconuts/0111_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -975,7 +975,7 @@
         "statement": "题解/0112_二分查找的递归实现/0112_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "NEEDS_REVIEW",
@@ -1034,7 +1034,7 @@
         "statement": "题解/0113_n皇后/0113_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -1089,7 +1089,7 @@
         "statement": "题解/0117_摘桃子/0117_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -1157,7 +1157,7 @@
         "statement": "题解/0118_Fibonacci数列(提高版)/0118_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -1225,7 +1225,7 @@
         "statement": "题解/0119_递归倒置字符数组/0119_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -1293,7 +1293,7 @@
         "statement": "题解/0120_递归算法实现选择排序/0120_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -1348,7 +1348,7 @@
         "statement": "题解/0121_整数乘积/0121_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -1403,7 +1403,7 @@
         "statement": "题解/0122_迷宫/0122_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -1458,7 +1458,7 @@
         "statement": "题解/0123_汉诺塔/0123_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -1513,7 +1513,7 @@
         "statement": "题解/0124_滑雪/0124_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -1581,7 +1581,7 @@
         "statement": "题解/0125_行列式计算/0125_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -1651,7 +1651,7 @@
         "statement": "题解/0126_travel/0126_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -1719,7 +1719,7 @@
         "statement": "题解/0127_超级细菌/0127_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -1774,7 +1774,7 @@
         "statement": "题解/0128_分数线划定/0128_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -1829,7 +1829,7 @@
         "statement": "题解/0129_外星数字/0129_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -1884,7 +1884,7 @@
         "statement": "题解/0130_小波变换/0130_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -1939,7 +1939,7 @@
         "statement": "题解/0131_火柴棒等式/0131_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -2007,7 +2007,7 @@
         "statement": "题解/0132_指针练习/0132_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -2075,7 +2075,7 @@
         "statement": "题解/0133_分式变小数/0133_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -2130,7 +2130,7 @@
         "statement": "题解/0134_猜数字/0134_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -2185,7 +2185,7 @@
         "statement": "题解/0135_身份证排序/0135_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -2240,7 +2240,7 @@
         "statement": "题解/0139_统计时间/0139_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -2295,7 +2295,7 @@
         "statement": "题解/0140_数据挖掘/0140_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -2350,7 +2350,7 @@
         "statement": "题解/0141_矩阵搜索/0141_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -2418,7 +2418,7 @@
         "statement": "题解/0142_数据表排序/0142_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -2486,7 +2486,7 @@
         "statement": "题解/0143_数列合并/0143_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -2541,7 +2541,7 @@
         "statement": "题解/0144_子串替换/0144_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -2609,7 +2609,7 @@
         "statement": "题解/0147_教室排课/0147_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -2664,7 +2664,7 @@
         "statement": "题解/0148_傻大木买军火/0148_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -2719,7 +2719,7 @@
         "statement": "题解/0149_矩阵乘法/0149_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -2787,7 +2787,7 @@
         "statement": "题解/0150_成绩排序/0150_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -2842,7 +2842,7 @@
         "statement": "题解/0151_营业额统计/0151_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -2897,7 +2897,7 @@
         "statement": "题解/0152_确定进制/0152_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -2952,7 +2952,7 @@
         "statement": "题解/0153_排列序号/0153_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -3007,7 +3007,7 @@
         "statement": "题解/0154_分段函数/0154_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -3075,7 +3075,7 @@
         "statement": "题解/0155_同构数/0155_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -3143,7 +3143,7 @@
         "statement": "题解/0159_字符串编辑/0159_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -3198,7 +3198,7 @@
         "statement": "题解/0160_字符串移位包含/0160_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -3253,7 +3253,7 @@
         "statement": "题解/0161_数据加密/0161_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -3308,7 +3308,7 @@
         "statement": "题解/0162_ISBN号码/0162_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -3363,7 +3363,7 @@
         "statement": "题解/0163_最大岛屿/0163_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -3418,7 +3418,7 @@
         "statement": "题解/0168_输出hello_world_函数版/0168_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -3486,7 +3486,7 @@
         "statement": "题解/0170_羽毛球比赛/0170_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -3541,7 +3541,7 @@
         "statement": "题解/0171_简单计算器/0171_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -3596,7 +3596,7 @@
         "statement": "题解/0172_数列区间求和/0172_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -3651,7 +3651,7 @@
         "statement": "题解/0173_马路上的树/0173_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -3706,7 +3706,7 @@
         "statement": "题解/0175_画长方形/0175_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -3761,7 +3761,7 @@
         "statement": "题解/0176_红色警戒/0176_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -3842,7 +3842,7 @@
         "statement": "题解/0177_膜拜大神/0177_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -3897,7 +3897,7 @@
         "statement": "题解/0178_判断素数/0178_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -3952,7 +3952,7 @@
         "statement": "题解/0179_打印图形/0179_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -4007,7 +4007,7 @@
         "statement": "题解/0180_计算cosx的近似值/0180_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -4075,7 +4075,7 @@
         "statement": "题解/0181_奇怪的数列/0181_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -4130,7 +4130,7 @@
         "statement": "题解/0182_鹿死谁手/0182_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -4185,7 +4185,7 @@
         "statement": "题解/0183_一元三次方程求解/0183_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -4240,7 +4240,7 @@
         "statement": "题解/0184_百钱买百鸡/0184_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -4295,7 +4295,7 @@
         "statement": "题解/0185_迭代法求平方根/0185_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -4350,7 +4350,7 @@
         "statement": "题解/0186_数字反转/0186_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -4405,7 +4405,7 @@
         "statement": "题解/0187_最小公倍数/0187_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -4460,7 +4460,7 @@
         "statement": "题解/0188_平行四边形Parallelogram/0188_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -4515,7 +4515,7 @@
         "statement": "题解/0190_统计字母数/0190_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -4570,7 +4570,7 @@
         "statement": "题解/0191_学分计算/0191_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -4625,7 +4625,7 @@
         "statement": "题解/0192_哥德巴赫猜想/0192_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -4680,7 +4680,7 @@
         "statement": "题解/0193_谁是组长/0193_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -4735,7 +4735,7 @@
         "statement": "题解/0199_网络日志统计/0199_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -4790,7 +4790,7 @@
         "statement": "题解/0216_2.循环链表/0216_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -4872,7 +4872,7 @@
         "statement": "题解/0237_石子移动/0237_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -4927,7 +4927,7 @@
         "statement": "题解/0238_区间选择/0238_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -4982,7 +4982,7 @@
         "statement": "题解/0239_乘积最大/0239_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -5037,7 +5037,7 @@
         "statement": "题解/0245_傻大木买军火/0245_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -5092,7 +5092,7 @@
         "statement": "题解/0247_匹配Wild号码/0247_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -5147,7 +5147,7 @@
         "statement": "题解/0255_矩阵转置/0255_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -5202,7 +5202,7 @@
         "statement": "题解/0256_计算约数/0256_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -5257,7 +5257,7 @@
         "statement": "题解/0257_级数求和/0257_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -5312,7 +5312,7 @@
         "statement": "题解/0258_温度统计/0258_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -5367,7 +5367,7 @@
         "statement": "题解/0260_二分查找/0260_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -5422,7 +5422,7 @@
         "statement": "题解/0261_编写函数计算x的y次幂/0261_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -5490,7 +5490,7 @@
         "statement": "题解/0263_24点(非整除版)/0263_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "NEEDS_REVIEW",
@@ -5549,7 +5549,7 @@
         "statement": "题解/0266_矩阵旋转/0266_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -5604,7 +5604,7 @@
         "statement": "题解/0268_穷游一族/0268_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "NEEDS_REVIEW",
@@ -5663,7 +5663,7 @@
         "statement": "题解/0269_阿克曼函数/0269_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -5718,7 +5718,7 @@
         "statement": "题解/0276_计算日期——按周/0276_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -5773,7 +5773,7 @@
         "statement": "题解/0278_4.爬楼梯/0278_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -5828,7 +5828,7 @@
         "statement": "题解/0284_黄页建立/0284_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -5896,7 +5896,7 @@
         "statement": "题解/0285_链表操作(加入节点)/0285_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_FILL_IN_FRAGMENT_TEMPLATE_UNAVAILABLE"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -5966,7 +5966,7 @@
         "statement": "题解/0286_链表操作(删除节点)/0286_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_FILL_IN_FRAGMENT_TEMPLATE_UNAVAILABLE"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -6036,7 +6036,7 @@
         "statement": "题解/0287_拆分数字/0287_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -6091,7 +6091,7 @@
         "statement": "题解/0288_字符串之差/0288_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -6146,7 +6146,7 @@
         "statement": "题解/0289_数学游戏/0289_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -6201,7 +6201,7 @@
         "statement": "题解/0290_购物车共同性/0290_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -6256,7 +6256,7 @@
         "statement": "题解/0291_大整数加减/0291_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -6311,7 +6311,7 @@
         "statement": "题解/0292_分段函数/0292_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -6379,7 +6379,7 @@
         "statement": "题解/0293_外侧元素求和/0293_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -6434,7 +6434,7 @@
         "statement": "题解/0294_共享单车停放/0294_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -6489,7 +6489,7 @@
         "statement": "题解/0295_深度神经网络/0295_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -6568,7 +6568,7 @@
         "statement": "题解/0296_班会时间/0296_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -6623,7 +6623,7 @@
         "statement": "题解/0297_星期几/0297_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -6678,7 +6678,7 @@
         "statement": "题解/0298_被整除的数/0298_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -6733,7 +6733,7 @@
         "statement": "题解/0299_质因数分解/0299_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -6788,7 +6788,7 @@
         "statement": "题解/0300_火车票/0300_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -6843,7 +6843,7 @@
         "statement": "题解/0301_成绩统计/0301_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -6898,7 +6898,7 @@
         "statement": "题解/0303_双11购物/0303_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -6953,7 +6953,7 @@
         "statement": "题解/0304_整数计数/0304_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -7008,7 +7008,7 @@
         "statement": "题解/0306_寻找众数/0306_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -7063,7 +7063,7 @@
         "statement": "题解/0307_生辰八字/0307_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -7131,7 +7131,7 @@
         "statement": "题解/0308_猪场分配/0308_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -7186,7 +7186,7 @@
         "statement": "题解/0309_分段函数2/0309_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -7254,7 +7254,7 @@
         "statement": "题解/0310_同构数/0310_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -7309,7 +7309,7 @@
         "statement": "题解/0317_C02数值解析/0317_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -7364,7 +7364,7 @@
         "statement": "题解/0352_打印矩阵/0352_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -7419,7 +7419,7 @@
         "statement": "题解/0391_存款额度(版本2)/0391_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -7487,7 +7487,7 @@
         "statement": "题解/0409_最长的A单词/0409_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -7542,7 +7542,7 @@
         "statement": "题解/0413_输出字符的ascii码/0413_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -7597,7 +7597,7 @@
         "statement": "题解/0421_C++复数运算符重载(+与__)/0421_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -7665,7 +7665,7 @@
         "statement": "题解/0436_八数码问题/0436_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -7720,7 +7720,7 @@
         "statement": "题解/0437_寻找一卡通/0437_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "NEEDS_REVIEW",
@@ -7779,7 +7779,7 @@
         "statement": "题解/0441_按要求输出/0441_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -7834,7 +7834,7 @@
         "statement": "题解/0442_三个数比较大小/0442_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -7889,7 +7889,7 @@
         "statement": "题解/0443_计算10!/0443_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -7944,7 +7944,7 @@
         "statement": "题解/0445_奇数之和/0445_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -7999,7 +7999,7 @@
         "statement": "题解/0446_整数求和/0446_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -8054,7 +8054,7 @@
         "statement": "题解/0447_求几何平均数/0447_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -8109,7 +8109,7 @@
         "statement": "题解/0448_按要求读入并输出数据/0448_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -8164,7 +8164,7 @@
         "statement": "题解/0449_按要求输出一个整数/0449_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -8219,7 +8219,7 @@
         "statement": "题解/0452_读入字母并输出/0452_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -8274,7 +8274,7 @@
         "statement": "题解/0453_数组排序/0453_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -8329,7 +8329,7 @@
         "statement": "题解/0456_最大数中的最小/0456_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -8384,7 +8384,7 @@
         "statement": "题解/0460_分割序列/0460_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -8452,7 +8452,7 @@
         "statement": "题解/0461_回文数等式/0461_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -8507,7 +8507,7 @@
         "statement": "题解/0476_统计数字/0476_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -8562,7 +8562,7 @@
         "statement": "题解/0483_数列合并(简单版)/0483_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -8617,7 +8617,7 @@
         "statement": "题解/0486_碱基串排序/0486_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -8672,7 +8672,7 @@
         "statement": "题解/0505_计算中位数/0505_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "NEEDS_REVIEW",
@@ -8731,7 +8731,7 @@
         "statement": "题解/0506_排值日表/0506_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "NEEDS_REVIEW",
@@ -8790,7 +8790,7 @@
         "statement": "题解/0513_加法表达式(进阶版)/0513_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -8845,7 +8845,7 @@
         "statement": "题解/0604_约瑟夫问题/0604_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -8900,7 +8900,7 @@
         "statement": "题解/0626_模板与迭代器/0626_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -8968,7 +8968,7 @@
         "statement": "题解/0627_模板与链式迭代器/0627_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -9036,7 +9036,7 @@
         "statement": "题解/0628_STL容器练习(1)/0628_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -9104,7 +9104,7 @@
         "statement": "题解/0629_STL容器练习(2)/0629_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -9172,7 +9172,7 @@
         "statement": "题解/0630_STL容器集合处理/0630_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -9240,7 +9240,7 @@
         "statement": "题解/0636_博饼游戏/0636_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -9308,7 +9308,7 @@
         "statement": "题解/0637_小图博饼/0637_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -9376,7 +9376,7 @@
         "statement": "题解/0638_神兽同笼/0638_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -9431,7 +9431,7 @@
         "statement": "题解/0642_双11/0642_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -9486,7 +9486,7 @@
         "statement": "题解/0643_猜数字/0643_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -9541,7 +9541,7 @@
         "statement": "题解/0644_赛马/0644_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -9596,7 +9596,7 @@
         "statement": "题解/0647_操场方阵/0647_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -9651,7 +9651,7 @@
         "statement": "题解/0648_彩票抽奖/0648_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -9706,7 +9706,7 @@
         "statement": "题解/0652_SUM整数序列和/0652_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -9761,7 +9761,7 @@
         "statement": "题解/0653_子序列最大连续和/0653_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -9816,7 +9816,7 @@
         "statement": "题解/0660_矩阵局部替换/0660_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -9895,7 +9895,7 @@
         "statement": "题解/0661_移动火柴/0661_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -9985,7 +9985,7 @@
         "statement": "题解/0668_变位词/0668_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "NEEDS_REVIEW",
@@ -10044,7 +10044,7 @@
         "statement": "题解/0669_矩形相交/0669_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -10112,7 +10112,7 @@
         "statement": "题解/0680_棍子的长度/0680_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -10167,7 +10167,7 @@
         "statement": "题解/0684_求模运算/0684_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -10222,7 +10222,7 @@
         "statement": "题解/0685_实现标准输入输出/0685_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -10290,7 +10290,7 @@
         "statement": "题解/0766_#4_degree/0766_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -10358,7 +10358,7 @@
         "statement": "题解/0767_#5_tube/0767_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -10426,7 +10426,7 @@
         "statement": "题解/0784_Karatsuba_Multiplication/0784_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -10481,7 +10481,7 @@
         "statement": "题解/0785_平面最近点对/0785_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -10536,7 +10536,7 @@
         "statement": "题解/0786_矩阵乘法/0786_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -10591,7 +10591,7 @@
         "statement": "题解/0787_快速排序练习/0787_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -10646,7 +10646,7 @@
         "statement": "题解/0788_基数排序练习/0788_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -10701,7 +10701,7 @@
         "statement": "题解/0790_二维查找树/0790_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_COMPILE_ERROR"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -10756,7 +10756,7 @@
         "statement": "题解/0791_平面最近点查询/0791_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -10811,7 +10811,7 @@
         "statement": "题解/0802_Weighted_Interval_Scheduling/0802_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -10866,7 +10866,7 @@
         "statement": "题解/0803_Longest_Common_Subsequence/0803_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -10921,7 +10921,7 @@
         "statement": "题解/0804_Chain_Matrix_Multiplication/0804_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -10976,7 +10976,7 @@
         "statement": "题解/0805_Floyd-Warshall算法/0805_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -11031,7 +11031,7 @@
         "statement": "题解/0806_MST/0806_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -11086,7 +11086,7 @@
         "statement": "题解/0812_Risk/0812_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -11141,7 +11141,7 @@
         "statement": "题解/0813_Huffman/0813_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -11196,7 +11196,7 @@
         "statement": "题解/0814_History/0814_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -11251,7 +11251,7 @@
         "statement": "题解/0815_Virus/0815_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -11306,7 +11306,7 @@
         "statement": "题解/0816_Split_String/0816_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -11361,7 +11361,7 @@
         "statement": "题解/0828_calculate/0828_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -11429,7 +11429,7 @@
         "statement": "题解/0829_最小结构体/0829_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -11497,7 +11497,7 @@
         "statement": "题解/0832_Turing_Machine/0832_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -11587,7 +11587,7 @@
         "statement": "题解/0877_字符串衰减/0877_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -11655,7 +11655,7 @@
         "statement": "题解/0878_矩形面积/0878_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "NEEDS_REVIEW",
@@ -11714,7 +11714,7 @@
         "statement": "题解/0898_消除星星/0898_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "NEEDS_REVIEW",
@@ -11773,7 +11773,7 @@
         "statement": "题解/0899_水杯游戏/0899_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "NEEDS_REVIEW",
@@ -11832,7 +11832,7 @@
         "statement": "题解/0909_k小值/0909_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -11887,7 +11887,7 @@
         "statement": "题解/0910_最大权值子序列/0910_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -11942,7 +11942,7 @@
         "statement": "题解/0911_二的幂次方/0911_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -11999,7 +11999,7 @@
         "statement": "题解/0912_方阵/0912_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -12054,7 +12054,7 @@
         "statement": "题解/0913_共存问题/0913_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -12109,7 +12109,7 @@
         "statement": "题解/0915_舞会/0915_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -12164,7 +12164,7 @@
         "statement": "题解/0916_割点/0916_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -12219,7 +12219,7 @@
         "statement": "题解/0917_信息传递/0917_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -12274,7 +12274,7 @@
         "statement": "题解/0919_投票/0919_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -12331,7 +12331,7 @@
         "statement": "题解/0920_逃生/0920_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -12386,7 +12386,7 @@
         "statement": "题解/0921_抢劫/0921_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -12441,7 +12441,7 @@
         "statement": "题解/0922_材料运输/0922_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -12496,7 +12496,7 @@
         "statement": "题解/0924_材料加工/0924_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -12551,7 +12551,7 @@
         "statement": "题解/0927_数列划分/0927_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -12606,7 +12606,7 @@
         "statement": "题解/0928_线段/0928_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -12661,7 +12661,7 @@
         "statement": "题解/0929_材料加工II/0929_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -12716,7 +12716,7 @@
         "statement": "题解/0930_合并石子/0930_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -12771,7 +12771,7 @@
         "statement": "题解/0939_加分二叉树/0939_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -12826,7 +12826,7 @@
         "statement": "题解/0940_战争游戏/0940_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -12881,7 +12881,7 @@
         "statement": "题解/0941_挖井/0941_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -12936,7 +12936,7 @@
         "statement": "题解/0944_向量区间删除/0944_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -12991,7 +12991,7 @@
         "statement": "题解/0945_无序向量去重/0945_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13046,7 +13046,7 @@
         "statement": "题解/0946_向量遍历/0946_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13101,7 +13101,7 @@
         "statement": "题解/0947_向量去重(加强版)/0947_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13156,7 +13156,7 @@
         "statement": "题解/0948_二分查找/0948_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13211,7 +13211,7 @@
         "statement": "题解/0949_冒泡排序(跳跃版)/0949_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13266,7 +13266,7 @@
         "statement": "题解/0951_列表的基本操作/0951_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13321,7 +13321,7 @@
         "statement": "题解/0952_无序列表的查找与去重/0952_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13376,7 +13376,7 @@
         "statement": "题解/0953_有序列表的查找与去重/0953_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13431,7 +13431,7 @@
         "statement": "题解/0954_列表的插入排序/0954_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13486,7 +13486,7 @@
         "statement": "题解/0955_列表的选择排序/0955_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13541,7 +13541,7 @@
         "statement": "题解/0956_列表的逆序对个数/0956_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13596,7 +13596,7 @@
         "statement": "题解/0957_位图的基本操作/0957_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13651,7 +13651,7 @@
         "statement": "题解/0958_列表游标的基本操作/0958_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13706,7 +13706,7 @@
         "statement": "题解/0959_归并排序/0959_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13761,7 +13761,7 @@
         "statement": "题解/0960_Steap/0960_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13816,7 +13816,7 @@
         "statement": "题解/0961_queap/0961_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13871,7 +13871,7 @@
         "statement": "题解/0962_直方图内最大矩形/0962_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13939,7 +13939,7 @@
         "statement": "题解/0963_进制转换/0963_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -13994,7 +13994,7 @@
         "statement": "题解/0964_栈混洗的甄别/0964_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -14049,7 +14049,7 @@
         "statement": "题解/0965_表达式括号匹配/0965_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -14104,7 +14104,7 @@
         "statement": "题解/0966_中缀表达式求值/0966_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -14159,7 +14159,7 @@
         "statement": "题解/0967_逆波兰表达式的转换和求值/0967_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -14214,7 +14214,7 @@
         "statement": "题解/0968_愤怒的牛/0968_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -14269,7 +14269,7 @@
         "statement": "题解/0969_[COCI2011-2012#5]_EKO___砍树/0969_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -14324,7 +14324,7 @@
         "statement": "题解/0970_二叉树(1)/0970_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -14379,7 +14379,7 @@
         "statement": "题解/0971_二叉树(2)_递归版/0971_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -14434,7 +14434,7 @@
         "statement": "题解/0972_二叉树(2)_非递归版/0972_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -14489,7 +14489,7 @@
         "statement": "题解/0973_二叉树(3)/0973_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -14544,7 +14544,7 @@
         "statement": "题解/0974_二叉树(4)/0974_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -14599,7 +14599,7 @@
         "statement": "题解/0975_霍夫曼树的构建(加强版)/0975_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -14654,7 +14654,7 @@
         "statement": "题解/0976_图的BFS算法/0976_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -14709,7 +14709,7 @@
         "statement": "题解/0977_图的DFS算法/0977_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -14764,7 +14764,7 @@
         "statement": "题解/0979_零入度拓扑排序/0979_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -14819,7 +14819,7 @@
         "statement": "题解/0980_零出度拓扑排序/0980_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -14874,7 +14874,7 @@
         "statement": "题解/0981_关节点(割点)/0981_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -14929,7 +14929,7 @@
         "statement": "题解/0982_单源最短路径/0982_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -14984,7 +14984,7 @@
         "statement": "题解/0983_最小生成树(1)/0983_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -15039,7 +15039,7 @@
         "statement": "题解/0985_最小生成树(2)/0985_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -15094,7 +15094,7 @@
         "statement": "题解/0986_2-D_range_tree_query/0986_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -15149,7 +15149,7 @@
         "statement": "题解/0987_1-D_range_tree_query/0987_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -15204,7 +15204,7 @@
         "statement": "题解/0988_K-D_tree_query/0988_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -15259,7 +15259,7 @@
         "statement": "题解/0989_BST的基本操作/0989_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -15314,7 +15314,7 @@
         "statement": "题解/0990_AVL树的基本操作/0990_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -15369,7 +15369,7 @@
         "statement": "题解/0991_AVL树的基本操作(3+4重构)/0991_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -15424,7 +15424,7 @@
         "statement": "题解/0992_红黑树的基本操作/0992_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -15479,7 +15479,7 @@
         "statement": "题解/0993_AVL树的维护/0993_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -15534,7 +15534,7 @@
         "statement": "题解/0994_B-树的维护/0994_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -15589,7 +15589,7 @@
         "statement": "题解/0995_Maximum_Subarray_Sum/0995_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -15644,7 +15644,7 @@
         "statement": "题解/0997_Monge_Array/0997_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -15699,7 +15699,7 @@
         "statement": "题解/0998_两数之和/0998_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -15754,7 +15754,7 @@
         "statement": "题解/0999_字符串编辑/0999_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -15822,7 +15822,7 @@
         "statement": "题解/1000_左式堆的合并/1000_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -15877,7 +15877,7 @@
         "statement": "题解/1001_二叉堆的维护/1001_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -15932,7 +15932,7 @@
         "statement": "题解/1002_堆排序/1002_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -15987,7 +15987,7 @@
         "statement": "题解/1003_Anagrams_by_Stack/1003_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -16042,7 +16042,7 @@
         "statement": "题解/1004_Bad_Hair_Day/1004_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -16097,7 +16097,7 @@
         "statement": "题解/1005_食物链/1005_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -16152,7 +16152,7 @@
         "statement": "题解/1006_最大栈(Steap)/1006_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -16207,7 +16207,7 @@
         "statement": "题解/1007_Shortest_Subarray_with_Sum_at_Least_K/1007_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -16262,7 +16262,7 @@
         "statement": "题解/1008_最大间隙/1008_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -16317,7 +16317,7 @@
         "statement": "题解/1009_普通平衡树/1009_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -16372,7 +16372,7 @@
         "statement": "题解/1010_Post-Order_Traversal_from_Pre-Order_and_In-Order/1010_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -16427,7 +16427,7 @@
         "statement": "题解/1011_Euler_Tour_Tree/1011_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -16482,7 +16482,7 @@
         "statement": "题解/1012_二叉树中的最大路径和/1012_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -16537,7 +16537,7 @@
         "statement": "题解/1013_Binary_Indexed_Tree/1013_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -16592,7 +16592,7 @@
         "statement": "题解/1014_Erdös_Number/1014_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -16647,7 +16647,7 @@
         "statement": "题解/1015_二部图判断/1015_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -16702,7 +16702,7 @@
         "statement": "题解/1016_Floyd最短路/1016_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -16757,7 +16757,7 @@
         "statement": "题解/1017_Least_Common_Multiple_Path/1017_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -16812,7 +16812,7 @@
         "statement": "题解/1018_Number_of_Shortest_Paths_in_a_Graph/1018_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -16867,7 +16867,7 @@
         "statement": "题解/1026_线段树的构建与查询/1026_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -16924,7 +16924,7 @@
         "statement": "题解/1053_希尔排序/1053_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -16979,7 +16979,7 @@
         "statement": "题解/1054_Quick_Select/1054_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -17034,7 +17034,7 @@
         "statement": "题解/1076_房号转换/1076_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -17089,7 +17089,7 @@
         "statement": "题解/1084_最大流/1084_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -17144,7 +17144,7 @@
         "statement": "题解/1085_无源汇有上下界可行流/1085_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -17199,7 +17199,7 @@
         "statement": "题解/1086_有源汇有上下界最大流/1086_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -17254,7 +17254,7 @@
         "statement": "题解/1087_有源汇有上下界最小流/1087_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -17309,7 +17309,7 @@
         "statement": "题解/1089_接竹竿/1089_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -17364,7 +17364,7 @@
         "statement": "题解/1090_GX7的序列/1090_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -17419,7 +17419,7 @@
         "statement": "题解/1094_旅游/1094_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -17487,7 +17487,7 @@
         "statement": "题解/1095_小七的矩阵/1095_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -17542,7 +17542,7 @@
         "statement": "题解/1096_DNA动了/1096_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -17597,7 +17597,7 @@
         "statement": "题解/1097_扫雷/1097_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -17665,7 +17665,7 @@
         "statement": "题解/1098_定价/1098_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -17720,7 +17720,7 @@
         "statement": "题解/1099_合并卡牌/1099_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -17775,7 +17775,7 @@
         "statement": "题解/1100_热爱学习/1100_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -17830,7 +17830,7 @@
         "statement": "题解/1101_探险/1101_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -17885,7 +17885,7 @@
         "statement": "题解/1103_骑士精神/1103_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -17953,7 +17953,7 @@
         "statement": "题解/1104_数字划分/1104_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -18008,7 +18008,7 @@
         "statement": "题解/1105_王者荣耀/1105_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -18063,7 +18063,7 @@
         "statement": "题解/1106_取石子/1106_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -18118,7 +18118,7 @@
         "statement": "题解/1107_玩具谜题/1107_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -18186,7 +18186,7 @@
         "statement": "题解/1108_寻宝/1108_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -18241,7 +18241,7 @@
         "statement": "题解/1109_Karatsuba大数乘法/1109_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -18296,7 +18296,7 @@
         "statement": "题解/1110_普通平衡树/1110_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -18351,7 +18351,7 @@
         "statement": "题解/1111_活动安排/1111_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -18406,7 +18406,7 @@
         "statement": "题解/1112_快乐向前冲/1112_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -18461,7 +18461,7 @@
         "statement": "题解/1113_数列分段/1113_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -18516,7 +18516,7 @@
         "statement": "题解/1114_图书管理/1114_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -18571,7 +18571,7 @@
         "statement": "题解/1115_门票/1115_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -18626,7 +18626,7 @@
         "statement": "题解/1116_新的开始/1116_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -18681,7 +18681,7 @@
         "statement": "题解/1117_最小路径覆盖/1117_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -18736,7 +18736,7 @@
         "statement": "题解/1118_运输问题/1118_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -18791,7 +18791,7 @@
         "statement": "题解/1119_最小费用流/1119_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -18846,7 +18846,7 @@
         "statement": "题解/1120_不要62/1120_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -18901,7 +18901,7 @@
         "statement": "题解/1121_旅游规划/1121_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -18956,7 +18956,7 @@
         "statement": "题解/1122_叶子的染色/1122_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -19011,7 +19011,7 @@
         "statement": "题解/1123_括号配对/1123_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -19066,7 +19066,7 @@
         "statement": "题解/1124_牧场的安排/1124_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -19121,7 +19121,7 @@
         "statement": "题解/1125_朋友/1125_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -19176,7 +19176,7 @@
         "statement": "题解/1126_最大团/1126_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -19231,7 +19231,7 @@
         "statement": "题解/1127_社交网络/1127_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -19286,7 +19286,7 @@
         "statement": "题解/1128_管理公司/1128_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -19341,7 +19341,7 @@
         "statement": "题解/1133_球心/1133_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -19396,7 +19396,7 @@
         "statement": "题解/1135_圆覆盖/1135_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -19451,7 +19451,7 @@
         "statement": "题解/1138_Rank/1138_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -19506,7 +19506,7 @@
         "statement": "题解/1146_删点/1146_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -19561,7 +19561,7 @@
         "statement": "题解/1147_切糕/1147_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -19616,7 +19616,7 @@
         "statement": "题解/1148_抽卡模拟器/1148_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -19671,7 +19671,7 @@
         "statement": "题解/1149_小盒学数学/1149_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -19739,7 +19739,7 @@
         "statement": "题解/1152_对对碰/1152_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SYSTEM_ERROR"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -19794,7 +19794,7 @@
         "statement": "题解/1156_最大的连续子序列/1156_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -19849,7 +19849,7 @@
         "statement": "题解/1157_小镇的居民/1157_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -19904,7 +19904,7 @@
         "statement": "题解/1158_另类最短路/1158_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -19959,7 +19959,7 @@
         "statement": "题解/1159_过河卒/1159_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -20027,7 +20027,7 @@
         "statement": "题解/1160_吃马卒/1160_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -20095,7 +20095,7 @@
         "statement": "题解/1161_善良学长的福利题3/1161_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -20150,7 +20150,7 @@
         "statement": "题解/1162_善良学长的较难题/1162_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -20205,7 +20205,7 @@
         "statement": "题解/1164_善良学长的福利题1/1164_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -20260,7 +20260,7 @@
         "statement": "题解/1165_善良学长的福利题2/1165_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -20315,7 +20315,7 @@
         "statement": "题解/1166_词频统计(CSP_202403-1)/1166_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -20370,7 +20370,7 @@
         "statement": "题解/1167_相似度计算(CSP_202403-2)/1167_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -20438,7 +20438,7 @@
         "statement": "题解/1168_化学方程式配平(CSP_202403-3)/1168_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -20528,7 +20528,7 @@
         "statement": "题解/1169_十滴水(CSP_202403-4)/1169_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -20607,7 +20607,7 @@
         "statement": "题解/1170_文件夹合并(CSP_202403-5)/1170_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -20686,7 +20686,7 @@
         "statement": "题解/1190_找素数/1190_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -20741,7 +20741,7 @@
         "statement": "题解/1191_去除重复数字/1191_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -20796,7 +20796,7 @@
         "statement": "题解/1194_循环队列/1194_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -20851,7 +20851,7 @@
         "statement": "题解/1195_数数题/1195_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -20906,7 +20906,7 @@
         "statement": "题解/1198_仓库规划(CSP_202312-1)/1198_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -20961,7 +20961,7 @@
         "statement": "题解/1199_因子化简(CSP_202312-2)/1199_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -21040,7 +21040,7 @@
         "statement": "题解/1200_树上搜索(CSP_202312-3)/1200_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -21141,7 +21141,7 @@
         "statement": "题解/1201_宝藏(CSP_202312-4)/1201_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_TIME_LIMIT_EXCEEDED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -21231,7 +21231,7 @@
         "statement": "题解/1202_彩色路径(CSP_202312-5)/1202_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -21310,7 +21310,7 @@
         "statement": "题解/1203_重复局面(CSP_202305-1)/1203_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -21389,7 +21389,7 @@
         "statement": "题解/1204_矩阵运算(CSP_202305-2)/1204_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -21468,7 +21468,7 @@
         "statement": "题解/1205_解压缩(CSP_202305-3)/1205_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -21558,7 +21558,7 @@
         "statement": "题解/1207_电力网络(CSP_202305-4)/1207_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -21637,7 +21637,7 @@
         "statement": "题解/1208_闪耀巡航(CSP_202305-5)/1208_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -21716,7 +21716,7 @@
         "statement": "题解/1213_木头人游戏/1213_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -21771,7 +21771,7 @@
         "statement": "题解/1214_成绩位次/1214_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -21826,7 +21826,7 @@
         "statement": "题解/1215_填字游戏Plus/1215_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -21982,7 +21982,7 @@
         "statement": "题解/1218_最短路2.0/1218_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -22037,7 +22037,7 @@
         "statement": "题解/1239_[RUC_ICPC_newbie_contest]_Jed_VS_Zip/1239_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -22092,7 +22092,7 @@
         "statement": "题解/1240_[RUC_ICPC_newbie_contest]_树上的排列/1240_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -22147,7 +22147,7 @@
         "statement": "题解/1241_[RUC_ICPC_newbie_contest]_爱丽丝和鲍勃/1241_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -22202,7 +22202,7 @@
         "statement": "题解/1245_[RUC_ICPC_newbie_contest]斐波那契数/1245_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -22257,7 +22257,7 @@
         "statement": "题解/1246_[RUC_ICPC_newbie_contest]_数组/1246_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -22312,7 +22312,7 @@
         "statement": "题解/1247_[RUC_ICPC_newbie_contest]_除得尽吗/1247_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -22367,7 +22367,7 @@
         "statement": "题解/1250_[RUC_ICPC_newbie_contest]_mex/1250_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -22422,7 +22422,7 @@
         "statement": "题解/1285_梦中的送分数字/1285_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -22477,7 +22477,7 @@
         "statement": "题解/1286_骇客博弈/1286_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -22591,7 +22591,7 @@
         "statement": "题解/1287_数独趣味格子/1287_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -22659,7 +22659,7 @@
         "statement": "题解/1288_六边形绿洲/1288_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -22815,7 +22815,7 @@
         "statement": "题解/1362_智能时钟设计(C++填空)/1362_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -22883,7 +22883,7 @@
         "statement": "题解/1363_智能家居设备管理系统(C++填空)/1363_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -22951,7 +22951,7 @@
         "statement": "题解/1370_复数运算/1370_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -23019,7 +23019,7 @@
         "statement": "题解/1371_实现多项式类/1371_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -23087,7 +23087,7 @@
         "statement": "题解/1378_银行转账管理/1378_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -23155,7 +23155,7 @@
         "statement": "题解/1379_图书借阅/1379_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -23223,7 +23223,7 @@
         "statement": "题解/1380_宝石切割/1380_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_FILE_ERROR"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -23278,7 +23278,7 @@
         "statement": "题解/1408_员工管理系统/1408_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -23346,7 +23346,7 @@
         "statement": "题解/1409_图形渲染/1409_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -23414,7 +23414,7 @@
         "statement": "题解/1410_数据计算/1410_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -23482,7 +23482,7 @@
         "statement": "题解/1411_数据计算2/1411_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -23550,7 +23550,7 @@
         "statement": "题解/1412_正态分布(CSP_202506-1)/1412_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -23640,7 +23640,7 @@
         "statement": "题解/1413_机器人复健指南(CSP_202506-2)/1413_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -23730,7 +23730,7 @@
         "statement": "题解/1414_消息解码(CSP_202506-3)/1414_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -23853,7 +23853,7 @@
         "statement": "题解/1415_月票发行(CSP_202506-4)/1415_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -23943,7 +23943,7 @@
         "statement": "题解/1416_博物馆(CSP_202506-5)/1416_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -24022,7 +24022,7 @@
         "statement": "题解/1417_密码(CSP_202409-1)/1417_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -24077,7 +24077,7 @@
         "statement": "题解/1418_字符串变换(CSP_202409-2)/1418_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -24167,7 +24167,7 @@
         "statement": "题解/1420_补丁应用(CSP_202409-3)/1420_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -24222,7 +24222,7 @@
         "statement": "题解/1424_通讯延迟(CSP_202409-4)/1424_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -24290,7 +24290,7 @@
         "statement": "题解/1425_木板切割(CSP_202409-5)/1425_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -24369,7 +24369,7 @@
         "statement": "题解/1426_数值积分(CSP_202503-1)/1426_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -24437,7 +24437,7 @@
         "statement": "题解/1427_机器人饲养指南(CSP_202503-2)/1427_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -24505,7 +24505,7 @@
         "statement": "题解/1428_模板展开(CSP_202503-3)/1428_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -24595,7 +24595,7 @@
         "statement": "题解/1429_集体锻炼(CSP_202503-4)/1429_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -24663,7 +24663,7 @@
         "statement": "题解/1431_移动_(CSP_202412-1)/1431_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -24742,7 +24742,7 @@
         "statement": "题解/1432_梦境巡查_(CSP_202412-2)/1432_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -24810,7 +24810,7 @@
         "statement": "题解/1434_缓存模拟_(CSP_202412-3)/1434_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -24878,7 +24878,7 @@
         "statement": "题解/1435_跳房子_(CSP_202412-4)/1435_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -24946,7 +24946,7 @@
         "statement": "题解/1531_梦魇(CSP_202412-5)/1531_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_TIME_LIMIT_EXCEEDED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -25025,7 +25025,7 @@
         "statement": "题解/1532_最小程序/1532_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -25080,7 +25080,7 @@
         "statement": "题解/1533_输出Hello_World_v2/1533_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -25135,7 +25135,7 @@
         "statement": "题解/1534_整数加1/1534_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -25190,7 +25190,7 @@
         "statement": "题解/1535_整数加减/1535_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -25245,7 +25245,7 @@
         "statement": "题解/1536_K失配的最长公共子序列/1536_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -25300,7 +25300,7 @@
         "statement": "题解/1537_小明的背包/1537_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -25355,7 +25355,7 @@
         "statement": "题解/1538_地图探索/1538_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -25410,7 +25410,7 @@
         "statement": "题解/1539_2进制转10进制/1539_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -25465,7 +25465,7 @@
         "statement": "题解/1540_10进制转k进制/1540_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -25520,7 +25520,7 @@
         "statement": "题解/1541_整数除法/1541_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -25575,7 +25575,7 @@
         "statement": "题解/1542_整型常量/1542_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -25630,7 +25630,7 @@
         "statement": "题解/1543_转义字符/1543_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -25685,7 +25685,7 @@
         "statement": "题解/1544_转义字符2/1544_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -25740,7 +25740,7 @@
         "statement": "题解/1545_数位分离/1545_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -25795,7 +25795,7 @@
         "statement": "题解/1546_k进制转10进制/1546_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -25850,7 +25850,7 @@
         "statement": "题解/1547_读入表达式进行计算/1547_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -25905,7 +25905,7 @@
         "statement": "题解/1548_按格式输入输出数据/1548_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -25960,7 +25960,7 @@
         "statement": "题解/1549_几个人说真话/1549_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -26015,7 +26015,7 @@
         "statement": "题解/1550_计算数学表达式/1550_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -26083,7 +26083,7 @@
         "statement": "题解/1551_宝藏密码/1551_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -26151,7 +26151,7 @@
         "statement": "题解/1552_新二分查找/1552_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -26206,7 +26206,7 @@
         "statement": "题解/1554_新斐波那契查找/1554_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -26261,7 +26261,7 @@
         "statement": "题解/1555_谁做了好事/1555_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -26316,7 +26316,7 @@
         "statement": "题解/1556_小鱼记忆王/1556_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -26373,7 +26373,7 @@
         "statement": "题解/1557_字符串循环右移/1557_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -26428,7 +26428,7 @@
         "statement": "题解/1558_素数筛/1558_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -26483,7 +26483,7 @@
         "statement": "题解/1560_排排坐/1560_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -26551,7 +26551,7 @@
         "statement": "题解/1561_两点间距离函数/1561_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -26619,7 +26619,7 @@
         "statement": "题解/1562_校园寻宝大比拼/1562_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -26674,7 +26674,7 @@
         "statement": "题解/1563_点结构体/1563_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -26742,7 +26742,7 @@
         "statement": "题解/1564_宿舍魔力对决/1564_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -26797,7 +26797,7 @@
         "statement": "题解/1576_斐波那契数列/1576_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -26878,7 +26878,7 @@
         "statement": "题解/1586_可翻转等式/1586_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -26933,7 +26933,7 @@
         "statement": "题解/1587_餐厅套餐/1587_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -26988,7 +26988,7 @@
         "statement": "题解/1588_擂台我最强/1588_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -27043,7 +27043,7 @@
         "statement": "题解/1589_贪吃的梅比乌斯/1589_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -27098,7 +27098,7 @@
         "statement": "题解/1591_matrix/1591_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_COMPILE_ERROR"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -27166,7 +27166,7 @@
         "statement": "题解/1592_秦始皇/1592_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_COMPILE_ERROR"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -27234,7 +27234,7 @@
         "statement": "题解/1594_不同的最小公倍数/1594_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -27302,7 +27302,7 @@
         "statement": "题解/1595_签到题(确信/1595_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -27381,7 +27381,7 @@
         "statement": "题解/1596_存活/1596_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -27436,7 +27436,7 @@
         "statement": "题解/1597_军训方阵/1597_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_COMPILE_ERROR"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -27504,7 +27504,7 @@
         "statement": "题解/1598_智能照明系统/1598_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -27559,7 +27559,7 @@
         "statement": "题解/1599_回家/1599_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_COMPILE_ERROR"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -27660,7 +27660,7 @@
         "statement": "题解/1600_理牌/1600_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_COMPILE_ERROR"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -27739,7 +27739,7 @@
         "statement": "题解/1601_矩阵取数游戏/1601_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -27794,7 +27794,7 @@
         "statement": "题解/1602_超级数字变换/1602_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -27849,7 +27849,7 @@
         "statement": "题解/1603_奇怪的二进制/1603_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -27917,7 +27917,7 @@
         "statement": "题解/1604_Pepple/1604_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -27972,7 +27972,7 @@
         "statement": "题解/1605_不平凡的数/1605_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -28027,7 +28027,7 @@
         "statement": "题解/1629_序列旋转匹配/1629_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -28082,7 +28082,7 @@
         "statement": "题解/1630_无线传输/1630_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -28137,7 +28137,7 @@
         "statement": "题解/1631_KMP/1631_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -28192,7 +28192,7 @@
         "statement": "题解/1644_高级Python_2026_春1-期中前测试_进制转换大师/1644_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -28247,7 +28247,7 @@
         "statement": "题解/1645_高级Python_2026_春-2_社交媒体话题提取/1645_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -28302,7 +28302,7 @@
         "statement": "题解/1646_高级Python_2026_春-3_成绩汇总排名/1646_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -28357,7 +28357,7 @@
         "statement": "题解/1647_高级Python_2026_春-4_科研数据分析函数实现/1647_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -28412,7 +28412,7 @@
         "statement": "题解/1648_高级Python_2026_春-5_快递运费阶梯计算/1648_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -28467,7 +28467,7 @@
         "statement": "题解/1649_高级Python_2026_春-6__校园共享单车管理系统_(OOP_考察)/1649_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -28522,7 +28522,7 @@
         "statement": "题解/1656_你好/1656_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -28577,7 +28577,7 @@
         "statement": "题解/1657_翻一番/1657_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -28632,7 +28632,7 @@
         "statement": "题解/1664_高级Python_2026_春-8__零食选购规划/1664_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -28687,7 +28687,7 @@
         "statement": "题解/1680_蒙特卡洛(CSP_202509-1)/1680_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -28742,7 +28742,7 @@
         "statement": "题解/1681_水印检查(CSP_202509-2)/1681_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -28797,7 +28797,7 @@
         "statement": "题解/1682_HTTP_头信息(CSP_202509-3)/1682_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -28852,7 +28852,7 @@
         "statement": "题解/1683_造题计划(上)(CSP_202509-4)/1683_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -28907,7 +28907,7 @@
         "statement": "题解/1685_造题计划(下)(CSP_202509-5)/1685_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -28962,7 +28962,7 @@
         "statement": "题解/1686_银行家舍入(CSP_202605-1)/1686_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -29017,7 +29017,7 @@
         "statement": "题解/1687_机器人宿管指南(CSP_202605-2)/1687_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -29072,7 +29072,7 @@
         "statement": "题解/1688_死锁优化(CSP_202605-3)/1688_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -29127,7 +29127,7 @@
         "statement": "题解/1689_石子游戏(CSP_202605-4)/1689_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -29182,7 +29182,7 @@
         "statement": "题解/1690_绝世好串(CSP_202605-5)/1690_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN"
+        "onlineVerification": "ONLINE_ACCEPTED"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
