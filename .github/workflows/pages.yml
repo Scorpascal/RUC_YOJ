@@ -1,4 +1,4 @@
-name: Deploy RUC YOJ learning site
+name: Deploy RUC YOJ learning site and quick-submit helper
 
 on:
   push:

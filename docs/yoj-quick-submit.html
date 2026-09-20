@@ -55,8 +55,8 @@
     <h2>提交代码</h2>
     <pre id="source"><code></code></pre>
     <h2>登录后的页内填充（回退方案）</h2>
-    <p class="muted small">如果浏览器拦截了 HTTPS 页面到 YOJ HTTP 地址的跨站提交，请先打开题目页，再把下面的书签拖到书签栏；在 YOJ 题目页点击该书签，它会选择同一语言并填入代码，随后由你在 YOJ 页面点击提交。</p>
-    <p><a id="bookmarklet" class="button secondary" href="#">YOJ 页内填充书签</a></p>
+    <p class="muted small"><strong>安装步骤：</strong>请把下面的按钮拖到浏览器收藏栏（不要直接点击）；然后打开 YOJ 题目页，在收藏栏点击它。它会选择同一语言并填入代码，随后由你在 YOJ 页面点击提交。</p>
+    <p><a id="bookmarklet" class="button secondary" draggable="true" href="#" title="拖到收藏栏后，在 YOJ 题目页点击">拖到收藏栏：YOJ 页内填充书签</a></p>
     <footer>代码来源与哈希由仓库构建脚本生成；提交结果以 YOJ 页面显示为准。</footer>
   </section>
 </main>
@@ -173,6 +173,10 @@
     setStatus(`已加载；提交时会固定使用语言 ${entry.language}，请先确认 YOJ 登录态。`);
   }
   copy.addEventListener("click", copyText);
+  bookmarklet.addEventListener("click", (event) => {
+    event.preventDefault();
+    setStatus("请先把书签拖到收藏栏，再在 YOJ 题目页点击它；不要直接在本页点击。", true);
+  });
   submit.addEventListener("click", () => {
     if (window.confirm(`确认向 YOJ 题号 ${entry?.problemNo} 提交当前代码？语言：${entry?.language}`)) submitToYOJ();
   });
