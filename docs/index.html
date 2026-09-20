@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="RUC YOJ Solutions：488 道题目的题面归档、知识点导航、在线验证状态与快捷提交入口。">
+  <meta name="theme-color" content="#102b55">
+  <title>RUC YOJ Solutions · 题库与学习路径</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --navy: #102b55;
+      --navy-deep: #0b2042;
+      --blue: #1877f2;
+      --blue-soft: #eaf3ff;
+      --coral: #ef5b5b;
+      --green: #1fa971;
+      --ink: #172a46;
+      --muted: #6b7b92;
+      --line: #dbe5f1;
+      --surface: #ffffff;
+      --page: #f8fbff;
+      --shadow: 0 18px 50px rgba(22, 53, 94, .10);
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      --sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--page); font: 15px/1.6 var(--sans); }
+    a { color: inherit; }
+    button, input, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { cursor: pointer; }
+    .wrap { width: min(1280px, calc(100% - 48px)); margin: 0 auto; }
+    .site-header { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid rgba(219, 229, 241, .92); background: rgba(255, 255, 255, .94); backdrop-filter: blur(16px); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; min-height: 64px; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--navy); font-weight: 850; letter-spacing: -.035em; text-decoration: none; }
+    .brand-mark { display: grid; width: 30px; height: 30px; place-items: center; border-radius: 9px; color: #fff; background: var(--navy); font: 800 12px/1 var(--mono); letter-spacing: -.1em; }
+    .brand-copy { font-size: 16px; }
+    .nav { display: flex; align-items: center; gap: 6px; }
+    .nav a { padding: 8px 12px; color: #3d4e68; font-size: 14px; font-weight: 650; text-decoration: none; border-radius: 8px; }
+    .nav a:hover, .nav a:focus-visible { color: var(--blue); background: var(--blue-soft); outline: none; }
+    .nav .nav-submit { color: #fff; background: var(--coral); }
+    .nav .nav-submit:hover, .nav .nav-submit:focus-visible { color: #fff; background: #d94b50; }
+
+    .hero { position: relative; overflow: hidden; color: #fff; background: linear-gradient(120deg, var(--navy-deep), var(--navy)); }
+    .hero-inner { position: relative; min-height: 390px; padding: 58px 0 56px; }
+    .hero-copy { position: relative; z-index: 2; width: min(760px, 100%); }
+    h1 { max-width: 720px; margin: 0; font-size: clamp(42px, 6vw, 74px); line-height: .98; letter-spacing: -.065em; }
+    .hero-lead { max-width: 610px; margin: 22px 0 0; color: #d7e5fb; font-size: clamp(16px, 2vw, 19px); }
+    .hero-metrics { display: flex; flex-wrap: wrap; gap: 22px; margin: 26px 0 25px; }
+    .hero-metric { display: flex; align-items: baseline; gap: 8px; }
+    .hero-metric strong { font: 800 25px/1 var(--mono); letter-spacing: -.07em; }
+    .hero-metric span { color: #b8cbe8; font-size: 14px; }
+    .hero-metric + .hero-metric { padding-left: 22px; border-left: 1px solid rgba(206, 225, 252, .30); }
+    .hero-search { display: flex; align-items: stretch; width: min(720px, 100%); padding: 5px; border-radius: 11px; background: #fff; box-shadow: 0 12px 32px rgba(0, 0, 0, .18); }
+    .hero-search .search-icon { display: grid; width: 44px; flex: 0 0 44px; place-items: center; color: #6f819c; }
+    .hero-search input { min-width: 0; flex: 1; border: 0; outline: 0; color: var(--ink); background: transparent; font-size: 16px; }
+    .hero-search button { border: 0; border-radius: 8px; padding: 0 21px; color: #fff; background: var(--blue); font-weight: 750; }
+    .hero-search button:hover, .hero-search button:focus-visible { background: #0e63d1; outline: 3px solid rgba(151, 197, 255, .55); outline-offset: 1px; }
+    .hero-topics { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 16px; }
+    .topic-button { border: 1px solid rgba(188, 214, 247, .44); border-radius: 999px; padding: 5px 14px; color: #d7e5fb; background: transparent; font-size: 13px; }
+    .topic-button:hover, .topic-button:focus-visible, .topic-button.active { color: #fff; border-color: #75adff; background: rgba(57, 135, 246, .28); outline: none; }
+    .hero-art { position: absolute; top: 0; right: -12px; width: min(520px, 45vw); height: 100%; opacity: .72; pointer-events: none; }
+    .hero-art path { fill: none; stroke: #5e9cff; stroke-width: 1.4; }
+    .hero-art circle { fill: #73adff; stroke: #17396c; stroke-width: 2; }
+    .hero-art .fade { stroke: rgba(94, 156, 255, .24); }
+    .hero-note { position: absolute; right: 5%; bottom: 68px; max-width: 160px; color: #d3e3fd; font-size: 15px; line-height: 1.5; }
+    .hero-note::before { display: block; width: 36px; height: 2px; margin-bottom: 12px; background: #6aa5ff; content: ""; }
+
+    .main { padding: 42px 0 72px; }
+    .path-section { display: grid; grid-template-columns: minmax(210px, .85fr) minmax(0, 2.15fr); gap: 32px; align-items: start; padding: 0 0 42px; }
+    .section-title { margin: 0; font-size: 25px; line-height: 1.2; letter-spacing: -.04em; }
+    .section-copy { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
+    .path-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .path-link { display: block; min-height: 112px; padding: 16px; border: 1px solid var(--line); border-radius: 12px; color: var(--ink); background: var(--surface); text-decoration: none; box-shadow: 0 8px 24px rgba(22, 53, 94, .04); transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+    .path-link:hover, .path-link:focus-visible { border-color: #8fbaf0; box-shadow: 0 12px 30px rgba(22, 53, 94, .10); transform: translateY(-2px); outline: none; }
+    .path-link strong { display: block; color: var(--navy); font-size: 16px; }
+    .path-link span { display: block; margin-top: 5px; color: var(--muted); font-size: 13px; }
+    .path-link em { display: block; margin-top: 12px; color: var(--blue); font: 700 12px var(--mono); font-style: normal; }
+
+    .catalog-section { scroll-margin-top: 84px; }
+    .catalog-head { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 16px; }
+    .catalog-head h2 { margin: 0; font-size: 32px; letter-spacing: -.05em; }
+    .catalog-head p { margin: 7px 0 0; color: var(--muted); }
+    .catalog-head .catalog-meta { color: var(--muted); font-size: 13px; text-align: right; }
+    .catalog-panel { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); box-shadow: var(--shadow); }
+    .catalog-toolbar { display: flex; flex-wrap: wrap; gap: 10px; padding: 15px; border-bottom: 1px solid var(--line); }
+    .field { position: relative; display: flex; align-items: center; min-width: 175px; flex: 1 1 210px; }
+    .field.search-field { flex-basis: 300px; }
+    .field svg { position: absolute; left: 12px; color: #7e8ea4; pointer-events: none; }
+    .field input, .field select { width: 100%; min-height: 40px; border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; color: var(--ink); background: #fbfdff; outline: 0; }
+    .field.search-field input { padding-left: 38px; }
+    .field input:focus, .field select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(24, 119, 242, .12); }
+    .catalog-body { display: grid; grid-template-columns: minmax(0, 1.52fr) minmax(320px, .78fr); }
+    .problem-browser { min-width: 0; border-right: 1px solid var(--line); }
+    .problem-table-head, .problem-row { display: grid; grid-template-columns: 72px minmax(170px, 1.5fr) minmax(118px, .78fr) 104px 104px; align-items: center; gap: 10px; padding: 0 20px; }
+    .problem-table-head { min-height: 42px; color: #718099; background: #fbfdff; font-size: 12px; font-weight: 750; letter-spacing: .04em; }
+    .problem-row { width: 100%; min-height: 57px; border: 0; border-top: 1px solid #e8eef6; color: var(--ink); background: var(--surface); text-align: left; transition: background .16s ease, box-shadow .16s ease; }
+    .problem-row:hover, .problem-row:focus-visible { background: #f7fbff; outline: none; }
+    .problem-row.selected { position: relative; background: #eaf3ff; box-shadow: inset 3px 0 0 var(--blue); }
+    .problem-number { color: #375d8e; font: 700 13px var(--mono); }
+    .problem-title { overflow: hidden; font-size: 14px; font-weight: 680; text-overflow: ellipsis; white-space: nowrap; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 5px; }
+    .tag { display: inline-flex; align-items: center; border-radius: 5px; padding: 2px 7px; color: #2f67a6; background: #e8f2ff; font-size: 11px; white-space: nowrap; }
+    .tag:nth-child(2n) { color: #7d5f11; background: #fff1bd; }
+    .status { display: inline-flex; align-items: center; gap: 7px; color: #687a91; font-size: 12px; white-space: nowrap; }
+    .status::before { width: 8px; height: 8px; border-radius: 50%; background: #7b8ba1; content: ""; }
+    .status.verified { color: var(--green); }
+    .status.verified::before { background: #2dc37f; }
+    .row-action { color: var(--blue); font-size: 12px; font-weight: 750; white-space: nowrap; }
+    .pagination { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 66px; padding: 11px 15px; border-top: 1px solid var(--line); }
+    .page-button { min-width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 7px; color: #415570; background: var(--surface); font-size: 13px; }
+    .page-button:hover:not(:disabled), .page-button:focus-visible { border-color: var(--blue); color: var(--blue); outline: none; }
+    .page-button.active { border-color: var(--blue); color: #fff; background: var(--blue); }
+    .page-button:disabled { color: #b2bfce; cursor: not-allowed; }
+    .page-ellipsis { color: var(--muted); }
+
+    .detail-panel { min-width: 0; background: #fff; }
+    .detail-head { display: flex; justify-content: space-between; gap: 14px; padding: 20px 21px 17px; color: #fff; background: linear-gradient(135deg, #172f53, #1d3a62); }
+    .detail-head h3 { margin: 0; font-size: 20px; line-height: 1.3; letter-spacing: -.035em; }
+    .detail-no { margin-bottom: 4px; color: #a8c2e7; font: 700 12px var(--mono); }
+    .detail-close { width: 30px; height: 30px; border: 0; border-radius: 6px; color: #d7e5fb; background: transparent; font-size: 23px; line-height: 1; }
+    .detail-close:hover, .detail-close:focus-visible { color: #fff; background: rgba(255, 255, 255, .13); outline: none; }
+    .detail-status { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 11px; }
+    .detail-status .tag { color: #dcecff; background: rgba(119, 183, 255, .28); }
+    .detail-status .tag:nth-child(2n) { color: #e7edf8; background: rgba(255, 255, 255, .13); }
+    .detail-status .status { margin-left: auto; color: #7ce4b3; }
+    .detail-status .status::before { background: #39d487; }
+    .detail-content { padding: 18px 21px 22px; }
+    .detail-tabs { display: flex; gap: 22px; margin: -18px -21px 19px; padding: 0 21px; border-bottom: 1px solid var(--line); }
+    .detail-tab { padding: 12px 0 10px; border: 0; border-bottom: 2px solid var(--blue); color: var(--blue); background: transparent; font-size: 13px; font-weight: 750; }
+    .detail-kicker { margin: 0 0 6px; color: var(--navy); font-weight: 780; }
+    .detail-copy { margin: 0 0 17px; color: #64758d; font-size: 13px; }
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px 15px; margin: 16px 0 20px; padding: 13px 0; border-top: 1px solid #e8eef6; border-bottom: 1px solid #e8eef6; }
+    .detail-grid dt { color: #8795a8; font-size: 12px; }
+    .detail-grid dd { margin: 2px 0 0; color: var(--ink); font: 700 12px var(--mono); }
+    .detail-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+    .button { display: inline-flex; min-height: 42px; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 8px; padding: 8px 13px; color: var(--ink); background: #fff; font-size: 13px; font-weight: 750; text-decoration: none; }
+    .button:hover, .button:focus-visible { border-color: var(--blue); color: var(--blue); outline: none; }
+    .button.primary { border-color: transparent; color: #fff; background: var(--coral); }
+    .button.primary:hover, .button.primary:focus-visible { border-color: transparent; color: #fff; background: #d94b50; }
+    .button.disabled { color: #a7b3c1; background: #f7f9fb; pointer-events: none; }
+    .detail-note { margin: 17px 0 0; padding: 11px 12px; border-radius: 8px; color: #657991; background: #f5f8fc; font-size: 12px; }
+    .detail-note strong { color: var(--ink); }
+    .empty { display: grid; min-height: 300px; place-items: center; padding: 30px; color: var(--muted); text-align: center; }
+    .empty[hidden] { display: none; }
+
+    .about-section { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr); gap: 24px; margin-top: 42px; padding-top: 30px; border-top: 1px solid var(--line); scroll-margin-top: 84px; }
+    .about-section h2 { margin: 0; font-size: 23px; letter-spacing: -.04em; }
+    .about-section p { max-width: 720px; margin: 10px 0 0; color: var(--muted); }
+    .about-aside { padding: 18px; border-radius: 12px; color: #d9e7fb; background: var(--navy); }
+    .about-aside strong { display: block; color: #fff; }
+    .about-aside span { display: block; margin-top: 5px; color: #b9ccea; font-size: 13px; }
+    footer { padding: 26px 0 44px; color: #8090a5; font-size: 12px; }
+    footer .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; }
+    footer a { color: #5576a5; text-decoration: none; }
+    footer a:hover { color: var(--blue); }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+
+    @media (max-width: 980px) {
+      .hero-art { right: -180px; width: 520px; opacity: .38; }
+      .catalog-body { grid-template-columns: 1fr; }
+      .problem-browser { border-right: 0; }
+      .detail-panel { border-top: 1px solid var(--line); }
+      .detail-content { max-width: 680px; }
+      .about-section { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      .wrap { width: min(100% - 28px, 620px); }
+      .header-inner { min-height: 58px; }
+      .nav a:not(.nav-submit) { display: none; }
+      .nav .nav-submit { padding: 7px 10px; font-size: 12px; }
+      .hero-inner { min-height: 430px; padding: 42px 0 46px; }
+      h1 { font-size: clamp(39px, 12vw, 60px); }
+      .hero-metrics { gap: 12px 18px; }
+      .hero-metric + .hero-metric { padding-left: 18px; }
+      .hero-search button { padding: 0 14px; }
+      .hero-note { right: 0; bottom: 22px; font-size: 13px; }
+      .path-section { display: block; padding-bottom: 32px; }
+      .path-list { grid-template-columns: repeat(2, 1fr); margin-top: 18px; }
+      .catalog-head { display: block; }
+      .catalog-head .catalog-meta { margin-top: 8px; text-align: left; }
+      .catalog-toolbar { padding: 12px; }
+      .problem-table-head { display: none; }
+      .problem-row { grid-template-columns: 58px minmax(0, 1fr) 78px; gap: 8px; padding: 11px 14px; }
+      .problem-row .tag-list { grid-column: 2; grid-row: 2; }
+      .problem-row .status { grid-column: 3; grid-row: 1 / span 2; justify-content: flex-end; white-space: normal; text-align: right; }
+      .problem-row .row-action { display: none; }
+      .pagination { overflow-x: auto; justify-content: flex-start; }
+      .detail-actions { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 430px) {
+      .hero-search { display: grid; grid-template-columns: 38px 1fr; }
+      .hero-search .search-icon { width: 38px; }
+      .hero-search button { grid-column: 1 / -1; min-height: 39px; margin-top: 5px; }
+      .hero-search input { min-height: 39px; }
+      .path-list { gap: 8px; }
+      .path-link { min-height: 100px; padding: 12px; }
+      .catalog-head h2 { font-size: 28px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="./" aria-label="返回 RUC YOJ Solutions 首页"><span class="brand-mark" aria-hidden="true">R/</span><span class="brand-copy">RUC YOJ Solutions</span></a>
+      <nav class="nav" aria-label="主导航"><a href="#catalog">题库</a><a href="#paths">学习路径</a><a href="#about">项目说明</a><a class="nav-submit" href="./yoj-quick-submit.html?pno=992">快捷提交</a></nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <h1>RUC YOJ<br>Solutions</h1>
+        <p class="hero-lead">把题面、验证结果和代码入口放在同一条学习路径里。先找到题，再理解它，最后回到 YOJ 亲自提交。</p>
+        <div class="hero-metrics" aria-label="题库统计"><div class="hero-metric"><strong id="hero-total">488</strong><span>道题目</span></div><div class="hero-metric"><strong id="hero-verified">436</strong><span>道已验证提交</span></div><div class="hero-metric"><strong id="hero-solutions">—</strong><span>篇详细题解</span></div></div>
+        <form class="hero-search" id="hero-search-form" role="search"><span class="search-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg></span><input id="hero-search" type="search" placeholder="搜索题号、题目名称或知识点" aria-label="搜索题号、题目名称或知识点"><button type="submit">搜索</button></form>
+        <div id="hero-topics" class="hero-topics" aria-label="热门知识点"></div>
+      </div>
+      <svg class="hero-art" viewBox="0 0 560 390" aria-hidden="true"><path d="M325 36 240 100 165 174 112 244M325 36l82 64 73 74 45 70M240 100l-2 90-30 62M407 100l1 91 31 61M165 174l-4 83M458 174l5 84M112 244l-1 72M210 252l2 64M438 252l-2 64M525 248l2 70"></path><path class="fade" d="M325 36v286M240 100v220M407 100v220M165 174v144M458 174v144M112 244v74M210 252v66M438 252v66M525 248v70"></path><circle cx="325" cy="36" r="6"></circle><circle cx="240" cy="100" r="6"></circle><circle cx="407" cy="100" r="6"></circle><circle cx="165" cy="174" r="6"></circle><circle cx="458" cy="174" r="6"></circle><circle cx="112" cy="244" r="6"></circle><circle cx="210" cy="252" r="6"></circle><circle cx="438" cy="252" r="6"></circle><circle cx="525" cy="248" r="6"></circle></svg>
+      <div class="hero-note">在题目中学习<br>在实践中成长</div>
+    </div>
+  </section>
+
+  <main class="main wrap">
+    <section id="paths" class="path-section" aria-labelledby="paths-title"><div><h2 id="paths-title" class="section-title">从知识点开始</h2><p class="section-copy">标签目前根据题名生成，是导航用的初步分类；后续会随详细题解逐题校准。</p></div><div id="path-list" class="path-list" aria-live="polite"></div></section>
+
+    <section id="catalog" class="catalog-section" aria-labelledby="catalog-title">
+      <div class="catalog-head"><div><h2 id="catalog-title">全部题目 <span id="catalog-count">(488)</span></h2><p>搜索题号、题名、知识点；选择一行查看题面、验证状态和代码入口。</p></div><div class="catalog-meta"><span id="result-count">正在读取题库…</span><br>最后同步 <span id="updated-at">—</span></div></div>
+      <div class="catalog-panel">
+        <div class="catalog-toolbar"><label class="field search-field"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg><input id="catalog-search" type="search" placeholder="搜索题号、题目名称或知识点" aria-label="搜索题目"></label><label class="field"><span class="sr-only">知识点</span><select id="tag-filter" aria-label="按知识点筛选"><option value="">全部知识点</option></select></label><label class="field"><span class="sr-only">状态</span><select id="status-filter" aria-label="按状态筛选"><option value="">全部状态</option><option value="verified">在线 AC</option><option value="statement">题面已归档</option></select></label><label class="field"><span class="sr-only">语言</span><select id="language-filter" aria-label="按语言筛选"><option value="">全部语言</option></select></label></div>
+        <div class="catalog-body"><div class="problem-browser"><div class="problem-table-head" aria-hidden="true"><span>题号</span><span>题目名称</span><span>知识点</span><span>状态</span><span>操作</span></div><div id="problem-list" aria-live="polite"></div><div id="empty" class="empty" hidden>没有匹配的题目。试试清空筛选条件，或搜索 992。</div><div id="pagination" class="pagination" aria-label="题目分页"></div></div><aside id="detail-panel" class="detail-panel" aria-labelledby="detail-title"></aside></div>
+      </div>
+    </section>
+
+    <section id="about" class="about-section" aria-labelledby="about-title"><div><h2 id="about-title">一个面向学生的开放学习题库</h2><p>本站把 RUC YOJ 的题面归档、可公开核对的在线状态、代码链接和快捷提交入口组织在一起。快捷提交仍然使用 YOJ 作为判题后端；页面不会保存账号、密码或 Cookie。</p></div><div class="about-aside"><strong>真实状态，分开表达</strong><span>“在线 AC”代表仓库记录里有 Accepted 提交；“题面已归档”不等于已经写完详细题解。</span></div></section>
+  </main>
+
+  <footer><div class="wrap footer-inner"><span>RUC YOJ Solutions · 公开题面索引与学习入口</span><span><a href="https://github.com/Scorpascal/RUC_YOJ">GitHub 仓库</a> · <a href="./yoj-quick-submit.html?pno=992">快捷提交</a></span></div></footer>
+
+  <script>
+    (() => {
+      "use strict";
+      const $ = (id) => document.getElementById(id);
+      const state = { entries: [], selected: null, query: "", tag: "", status: "", language: "", page: 1, perPage: 12 };
+      const tags = ["数据结构", "图论", "动态规划", "字符串", "搜索与排序", "数学", "基础语法"];
+      function safeText(value, fallback = "—") { return value === null || value === undefined || value === "" ? fallback : String(value); }
+      function make(tag, className, text) { const element = document.createElement(tag); if (className) element.className = className; if (text !== undefined) element.textContent = text; return element; }
+      function tagElement(label) { return make("span", "tag", label); }
+      function statusElement(entry) { return make("span", `status ${entry.verified ? "verified" : ""}`, entry.verified ? "在线 AC" : "题面已归档"); }
+      function displayNo(number) { return String(number).padStart(4, "0"); }
+      function formatDate(value) { if (!value) return "—"; const date = new Date(value); return Number.isNaN(date.getTime()) ? value.slice(0, 10) : date.toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" }); }
+      function filteredEntries() { const query = state.query.trim().toLowerCase(); return state.entries.filter((entry) => { const haystack = [entry.problemNo, entry.title, ...(entry.tags || []), entry.language].join(" ").toLowerCase(); return (!query || haystack.includes(query)) && (!state.tag || entry.tags.includes(state.tag)) && (!state.status || (state.status === "verified" ? entry.verified : !entry.verified)) && (!state.language || entry.language === state.language); }); }
+      function applyTag(tag) { state.tag = tag; state.page = 1; $("tag-filter").value = tag; syncCatalog(); $("catalog").scrollIntoView({ behavior: "smooth", block: "start" }); }
+      function renderHeroTopics() { const list = $("hero-topics"); list.replaceChildren(); tags.slice(0, 5).forEach((tag) => { const button = make("button", "topic-button", tag); button.type = "button"; button.addEventListener("click", () => applyTag(tag)); list.append(button); }); }
+      function renderPaths() { const list = $("path-list"); list.replaceChildren(); tags.slice(0, 6).forEach((tag) => { const count = state.entries.filter((entry) => entry.tags.includes(tag)).length; const link = make("a", "path-link"); link.href = "#catalog"; link.dataset.tag = tag; link.append(make("strong", "", tag), make("span", "", tag === "基础语法" ? "从输入输出与基本控制流开始" : "按题名初步归类"), make("em", "", `${count} 道题  →`)); link.addEventListener("click", (event) => { event.preventDefault(); applyTag(tag); }); list.append(link); }); }
+      function renderFilters() { const tagFilter = $("tag-filter"); tags.forEach((tag) => { const option = make("option", "", tag); option.value = tag; tagFilter.append(option); }); const languages = [...new Set(state.entries.map((entry) => entry.language).filter(Boolean))].sort(); const languageFilter = $("language-filter"); languages.forEach((language) => { const option = make("option", "", language); option.value = language; languageFilter.append(option); }); tagFilter.value = state.tag; languageFilter.value = state.language; }
+      function renderList() { const list = $("problem-list"); const empty = $("empty"); const all = filteredEntries(); const totalPages = Math.max(1, Math.ceil(all.length / state.perPage)); state.page = Math.min(state.page, totalPages); const shown = all.slice((state.page - 1) * state.perPage, state.page * state.perPage); list.replaceChildren(); shown.forEach((entry) => { const row = make("button", `problem-row ${state.selected === entry.problemNo ? "selected" : ""}`); row.type = "button"; row.setAttribute("aria-label", `查看题目 ${entry.problemNo} ${entry.title}`); row.append(make("span", "problem-number", displayNo(entry.problemNo)), make("span", "problem-title", entry.title)); const tagList = make("span", "tag-list"); (entry.tags || []).forEach((tag) => tagList.append(tagElement(tag))); row.append(tagList, statusElement(entry), make("span", "row-action", "查看题目")); row.addEventListener("click", () => selectEntry(entry.problemNo)); list.append(row); }); empty.hidden = shown.length !== 0; $("result-count").textContent = `显示 ${shown.length} / ${all.length} 道题`; renderPagination(totalPages); }
+      function renderPagination(totalPages) { const pagination = $("pagination"); pagination.replaceChildren(); const previous = make("button", "page-button", "上一页"); previous.type = "button"; previous.disabled = state.page === 1; previous.addEventListener("click", () => { state.page -= 1; renderList(); }); pagination.append(previous); const pages = new Set([1, totalPages, state.page, state.page - 1, state.page + 1]); const visible = [...pages].filter((page) => page > 0 && page <= totalPages).sort((a, b) => a - b); let last = 0; visible.forEach((page) => { if (page - last > 1) pagination.append(make("span", "page-ellipsis", "…")); const button = make("button", `page-button ${page === state.page ? "active" : ""}`, String(page)); button.type = "button"; button.setAttribute("aria-label", `第 ${page} 页`); button.addEventListener("click", () => { state.page = page; renderList(); }); pagination.append(button); last = page; }); const next = make("button", "page-button", "下一页"); next.type = "button"; next.disabled = state.page === totalPages; next.addEventListener("click", () => { state.page += 1; renderList(); }); pagination.append(next); }
+      function linkButton(label, href, primary = false) { const link = make("a", `button ${primary ? "primary" : ""}`, label); if (href) { link.href = href; link.target = href.startsWith("http") ? "_blank" : "_self"; link.rel = href.startsWith("http") ? "noopener" : ""; } else { link.classList.add("disabled"); link.setAttribute("aria-disabled", "true"); } return link; }
+      function renderDetail() { const panel = $("detail-panel"); panel.replaceChildren(); const entry = state.entries.find((item) => item.problemNo === state.selected) || state.entries[0]; if (!entry) { panel.append(make("div", "empty", "题目详情暂时无法加载。")); return; } const head = make("div", "detail-head"); const headCopy = make("div"); headCopy.append(make("div", "detail-no", `YOJ ${displayNo(entry.problemNo)}`), make("h3", "", entry.title)); const close = make("button", "detail-close", "×"); close.type = "button"; close.setAttribute("aria-label", "关闭题目详情"); close.addEventListener("click", () => { state.selected = null; renderList(); renderDetail(); }); const detailStatus = make("div", "detail-status"); (entry.tags || []).forEach((tag) => detailStatus.append(tagElement(tag))); detailStatus.append(make("span", "tag", entry.solutionStatus === "solution" ? "题解已补充" : "题面已归档"), statusElement(entry)); headCopy.append(detailStatus); head.append(headCopy, close); panel.append(head); const content = make("div", "detail-content"); const tabs = make("div", "detail-tabs"); tabs.append(make("button", "detail-tab", "题目与状态")); content.append(tabs); content.append(make("p", "detail-kicker", "题目说明")); const description = entry.solutionStatus === "solution" ? "仓库中已经有独立题解内容，可先阅读思路，再通过代码入口回到 YOJ 验证。" : "当前公开目录已经归档题面，并记录了代码与在线状态；详细算法讲解还在逐题补充中。"; content.append(make("p", "detail-copy", description)); const grid = make("dl", "detail-grid"); [["语言", entry.language], ["时间限制", entry.timeLimit], ["内存限制", entry.memoryLimit], ["提交状态", entry.verified ? "Accepted" : "暂无快捷提交"]].forEach(([label, value]) => { const dt = make("dt", "", label); const dd = make("dd", "", safeText(value)); grid.append(dt, dd); }); content.append(grid); const actions = make("div", "detail-actions"); actions.append(linkButton("查看题面", entry.statementUrl || entry.problemUrl), linkButton("查看 YOJ 题目", entry.problemUrl), linkButton("查看代码", entry.codeUrl), linkButton("快捷提交", entry.quickSubmitUrl, true)); content.append(actions); const note = make("p", "detail-note"); note.append(make("strong", "状态说明："), document.createTextNode(entry.verified ? "仓库记录包含 Accepted 提交；提交结果仍以 YOJ 页面为准。" : "该题暂未生成公开快捷提交入口，不代表题面或代码归档不存在。")); content.append(note); panel.append(content); }
+      function selectEntry(problemNo) { state.selected = problemNo; const url = new URL(location.href); url.searchParams.set("pno", String(problemNo)); history.replaceState(null, "", url); renderList(); renderDetail(); }
+      function syncCatalog() { state.query = $("catalog-search").value; state.tag = $("tag-filter").value; state.status = $("status-filter").value; state.language = $("language-filter").value; state.page = 1; renderList(); }
+      async function init() { const response = await fetch("data/catalog.json", { cache: "no-store" }); if (!response.ok) throw new Error(`题库目录加载失败（HTTP ${response.status}）`); const catalog = await response.json(); state.entries = Array.isArray(catalog.entries) ? catalog.entries : []; const verified = state.entries.filter((entry) => entry.verified).length; const solutions = state.entries.filter((entry) => entry.solutionStatus === "solution").length; $("hero-total").textContent = state.entries.length; $("hero-verified").textContent = verified; $("hero-solutions").textContent = solutions; $("catalog-count").textContent = `(${state.entries.length})`; $("updated-at").textContent = formatDate(catalog.generatedAt); renderFilters(); renderHeroTopics(); renderPaths(); const requested = Number(new URLSearchParams(location.search).get("pno")); const defaultEntry = state.entries.find((entry) => entry.problemNo === (Number.isInteger(requested) && requested > 0 ? requested : 992)) || state.entries[0]; state.selected = defaultEntry?.problemNo || null; renderList(); renderDetail(); }
+      $("hero-search-form").addEventListener("submit", (event) => { event.preventDefault(); $("catalog-search").value = $("hero-search").value; syncCatalog(); $("catalog").scrollIntoView({ behavior: "smooth", block: "start" }); }); $("catalog-search").addEventListener("input", syncCatalog); $("tag-filter").addEventListener("change", syncCatalog); $("status-filter").addEventListener("change", syncCatalog); $("language-filter").addEventListener("change", syncCatalog);
+      init().catch((error) => { $("result-count").textContent = error.message; $("empty").hidden = false; $("empty").textContent = "目录暂时无法加载，请稍后刷新，或直接浏览 GitHub 仓库。"; $("detail-panel").replaceChildren(make("div", "empty", "目录暂时无法加载。")); });
+    })();
+  </script>
+</body>
+</html>
