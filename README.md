@@ -2,7 +2,7 @@
 
 ## 🌐 主网页入口
 
-**[打开 RUC YOJ Solutions →](https://scorpascal.github.io/RUC_YOJ/)**
+<h2 align="center">🚀 <a href="https://scorpascal.github.io/RUC_YOJ/">打开 RUC YOJ Solutions →</a></h2>
 
 搜索题号、题名和知识点，查看题面、在线状态、代码与快捷提交入口。
 
