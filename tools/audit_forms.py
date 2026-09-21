@@ -71,6 +71,7 @@ def main() -> int:
     rows = []
     signatures = Counter()
     mismatches = []
+    missing_detail_snapshots = 0
     for record in records:
         if selected and int(record["problemNo"]) not in selected:
             continue
@@ -90,19 +91,46 @@ def main() -> int:
             )
             continue
         raw_path = ROOT / str(archive["completeCode"])
-        detail_path = RAW_ROOT / raw_path.relative_to(RAW_ROOT).parent / (
-            raw_path.name.split("_完整代码", 1)[0].replace("_提交_", "_提交_") + "_详情.html"
-        )
-        # The metadata is authoritative for the detail HTML filename.
         folder = RAW_ROOT / str(record["folder"])
-        metadata_files = list(folder.glob("*_元数据.json"))
+        submission_no = str(archive.get("submissionNo") or "")
+        fallback_paths = [
+            folder / f"{int(record['problemNo']):04d}_提交_{submission_no}_详情.html",
+            folder / (raw_path.name.split("_完整代码", 1)[0] + "_详情.html"),
+        ]
+        # The metadata is authoritative for the detail HTML filename.
+        metadata_files = sorted(folder.glob("*_元数据.json"))
         metadata = json.loads(metadata_files[0].read_text(encoding="utf-8")) if metadata_files else {}
         detail_name = str(
             (metadata.get("files") or {}).get("submissionHtml")
             or (metadata.get("files") or {}).get("submission")
             or ""
         )
-        detail_path = folder / detail_name if detail_name else detail_path
+        candidates = ([folder / detail_name] if detail_name else []) + fallback_paths
+        # Some older local captures kept the language in the detail filename;
+        # accept that historical form as a final local-only fallback.
+        if submission_no:
+            candidates.extend(sorted(folder.glob(f"{int(record['problemNo']):04d}_提交_{submission_no}_*_详情.html")))
+        detail_path = next((candidate for candidate in candidates if candidate.is_file()), candidates[0])
+        if not detail_path.is_file():
+            # Submission detail HTML is intentionally ignored by the public
+            # repository. A fresh checkout therefore cannot always provide
+            # this optional local observation. Record the gap and let
+            # online_verify perform its live form gate instead of crashing the
+            # whole daily sync.
+            missing_detail_snapshots += 1
+            rows.append(
+                {
+                    "problemNo": record["problemNo"],
+                    "title": record["title"],
+                    "detail": detail_path.relative_to(ROOT).as_posix(),
+                    "signatureHash": None,
+                    "signature": None,
+                    "archivedLanguage": str(record.get("language") or ""),
+                    "archivedLanguageAvailable": None,
+                    "classification": "DETAIL_SNAPSHOT_MISSING",
+                }
+            )
+            continue
         document = parse_snapshot(detail_path)
         forms = document.xpath('//form[@id="submit_code"]')
         form = forms[0] if forms else None
@@ -145,8 +173,9 @@ def main() -> int:
         "uniqueFormSignatures": len(signatures),
         "signatureCounts": dict(signatures),
         "mismatches": mismatches,
+        "missingDetailSnapshots": missing_detail_snapshots,
         "rows": rows,
-        "nextGate": "FORM_MAPPED requires one controlled dry-run and round-trip verification; the captured page defaults to cpp, so a real submission must explicitly set the selected language",
+        "nextGate": "FORM_MAPPED requires one controlled dry-run and round-trip verification; missing local detail snapshots are checked by online_verify against the live page",
     }
     if not args.check:
         REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -157,6 +186,7 @@ def main() -> int:
                 "records": len(rows),
                 "uniqueFormSignatures": len(signatures),
                 "mismatches": len(mismatches),
+                "missingDetailSnapshots": missing_detail_snapshots,
             },
             ensure_ascii=False,
             indent=2,

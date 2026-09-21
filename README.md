@@ -17,21 +17,21 @@
 | 发布阶段 | `PUBLIC_READY` | `445` | 90.08% | 清洗、本地门禁、在线 Accepted 与源码回收均完成 |
 | 发布阶段 | `TOPIC_CAPTURED` | `5` | 1.01% | 已从 YOJ 公开题目列表归档题面，但尚无本人 Accepted 源码；不生成伪代码 |
 | 发布阶段 | `RAW_CAPTURED` | `44` | 8.91% | 已归档，待清洗、复核或发布 |
-| 在线复验 | `ONLINE_ACCEPTED` | `449` | 90.89% | 在线提交为 Accepted；若仍是 RAW_CAPTURED，还需完成清洗发布 |
+| 在线复验 | `ONLINE_ACCEPTED` | `450` | 91.09% | 在线提交为 Accepted；若仍是 RAW_CAPTURED，还需完成清洗发布 |
 | 在线复验 | `NO_LOCAL_AC` | `5` | 1.01% | 题面已归档，但尚无本人 Accepted 源码；不执行代码复验 |
 | 在线复验 | `ONLINE_SKIPPED_FILL_IN_FRAGMENT_TEMPLATE_UNAVAILABLE` | `2` | 0.40% | 填空/片段模板未具备，需人工处理 |
 | 在线复验 | `ONLINE_SKIPPED_LOCAL_GATE_SAMPLE_SAMPLE_INCONSISTENT` | `1` | 0.20% | 待人工检查 |
 | 在线复验 | `ONLINE_SKIPPED_PARTIAL_CODE_FORM` | `1` | 0.20% | YOJ 当前为部分代码/填空提交形态，缺少完整固定模板 |
-| 在线复验 | `ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND` | `36` | 7.29% | 未找到提交表单，需人工确认提交形态 |
+| 在线复验 | `ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND` | `35` | 7.09% | 未找到提交表单，需人工确认提交形态 |
 
-> 当前重点：待清洗/发布 `49` 道；在线复验非 Accepted 或跳过 `45` 道；其中在线已 Accepted 但仍待清洗发布 `4` 道。
+> 当前重点：待清洗/发布 `49` 道；在线复验非 Accepted 或跳过 `44` 道；其中在线已 Accepted 但仍待清洗发布 `5` 道。
 
 <details>
 <summary>待处理题号（点击展开）</summary>
 
 - `TOPIC_CAPTURED`（5 道）：`714, 1137, 1248, 1650, 1684`
 - `RAW_CAPTURED`（44 道）：`87, 112, 119, 132, 144, 168, 261, 263, 268, 284, 285, 286, 391, 421, 437, 505, 506, 626, 627, 628, 629, 630, 668, 685, 878, 898, 899, 999, 1134, 1286, 1362, 1363, 1370, 1371, 1378, 1379, 1408, 1409, 1410, 1411, 1560, 1561, 1563, 1576`
-- `ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND`（36 道）：`112, 168, 261, 263, 268, 391, 421, 437, 505, 506, 626, 627, 628, 629, 630, 668, 685, 878, 898, 899, 999, 1286, 1362, 1363, 1370, 1371, 1378, 1379, 1408, 1409, 1410, 1411, 1560, 1561, 1563, 1576`
+- `ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND`（35 道）：`112, 261, 263, 268, 391, 421, 437, 505, 506, 626, 627, 628, 629, 630, 668, 685, 878, 898, 899, 999, 1286, 1362, 1363, 1370, 1371, 1378, 1379, 1408, 1409, 1410, 1411, 1560, 1561, 1563, 1576`
 - `ONLINE_SKIPPED_PARTIAL_CODE_FORM`（1 道）：`119`
 - `ONLINE_SKIPPED_LOCAL_GATE_SAMPLE_SAMPLE_INCONSISTENT`（1 道）：`284`
 - `ONLINE_SKIPPED_FILL_IN_FRAGMENT_TEMPLATE_UNAVAILABLE`（2 道）：`285, 286`
@@ -48,14 +48,14 @@
 - 原始归档时间：`2026-09-20T18:43:59Z`
 - 已生成题面：`494` 道
 - YOJ 公开列表快照：`438` 道，最近核验时间 `2026-09-20T18:54:06Z`；该可见性证据不替代 Accepted 或 `PUBLIC_READY`
-- 状态统计：发布阶段 `{'PUBLIC_READY': 445, 'RAW_CAPTURED': 44, 'TOPIC_CAPTURED': 5}`；在线复验 `{'NO_LOCAL_AC': 5, 'ONLINE_ACCEPTED': 449, 'ONLINE_SKIPPED_FILL_IN_FRAGMENT_TEMPLATE_UNAVAILABLE': 2, 'ONLINE_SKIPPED_LOCAL_GATE_SAMPLE_SAMPLE_INCONSISTENT': 1, 'ONLINE_SKIPPED_PARTIAL_CODE_FORM': 1, 'ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND': 36}`（详细表见上方）
+- 状态统计：发布阶段 `{'PUBLIC_READY': 445, 'RAW_CAPTURED': 44, 'TOPIC_CAPTURED': 5}`；在线复验 `{'NO_LOCAL_AC': 5, 'ONLINE_ACCEPTED': 450, 'ONLINE_SKIPPED_FILL_IN_FRAGMENT_TEMPLATE_UNAVAILABLE': 2, 'ONLINE_SKIPPED_LOCAL_GATE_SAMPLE_SAMPLE_INCONSISTENT': 1, 'ONLINE_SKIPPED_PARTIAL_CODE_FORM': 1, 'ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND': 35}`（详细表见上方）
 - 原始代码同步：完整代码 `489/494`，可提交代码 `489/494`；原始归档不等于公开发布版本
 - 公开清洗版本：`445/494` 道通过本地门禁、YOJ Accepted 与源码回收核验
-- 在线复验：已提交 `449/494`，其中 `Accepted` `449`、明确非通过 `0`；另有表单/模板跳过 `40` 道
-- 在线源码回收：`Accepted` 中已回收并比对 `445/449`；编号、状态、跳过原因和源码回收证据保存在被忽略的 `staging/online-verification.json`
-- YOJ 快捷提交入口：严格 `PUBLIC_READY` `445` 道；另有当前公开历史 Accepted 归档 `22` 道提供带警告的人工尝试入口；当前公开且仓库有代码 `433` 道，不改变发布状态
+- 在线复验：已提交 `450/494`，其中 `Accepted` `450`、明确非通过 `0`；另有表单/模板跳过 `39` 道
+- 在线源码回收：`Accepted` 中已回收并比对 `445/450`；编号、状态、跳过原因和源码回收证据保存在被忽略的 `staging/online-verification.json`
+- YOJ 快捷提交入口：严格 `PUBLIC_READY` `445` 道；另有当前公开历史 Accepted 归档 `21` 道提供带警告的人工尝试入口；当前公开且仓库有代码 `433` 道，不改变发布状态
 - 题面中的时间/内存是题目页限制；每条归档记录的 `archive.acceptedRun` 单独保存某次 AC 的实测耗时/内存，二者不混用
-- 自动调度：每天北京时间 22:30–23:30 尝试运行；仅在本机用户已登录且钥匙串可用时执行，当天未登录/未解锁则跳过，不在次日补跑；未完成请求保留断点，在下一天窗口继续；YOJ 登录密码只从本机钥匙串注入，不进入 GitHub
+- 自动调度：每天北京时间 22:30–23:30 尝试运行；公开题号发现不依赖账号，若本机登录态或钥匙串不可用，新题仍可只抓题面并记录为 `TOPIC_CAPTURED`，需要账号的源码抓取/在线复验则暂停；未完成请求保留断点，在下一天窗口继续；YOJ 登录密码只从本机钥匙串注入，不进入 GitHub
 - 同题号漂移审计：低频运行 `python3 tools/yoj_scheduler.py --drift-audit`；只比较规范化题面正文（含样例）、标题和题面限制，结果进入被忽略的 `staging/problem-drift.json`，不覆盖已冻结的 `PUBLIC_READY`
 - 隐藏测试数据哨兵：低频运行 `YOJ_SYNC_ENABLE_SUBMIT=1 python3 tools/yoj_scheduler.py --sentinel --allow-submit`；每批轮换少量 `PUBLIC_READY` 题目，证据隔离在 `staging/online-sentinel.json`，失败不自动降级发布版本
 - GitHub Pages：部署 workflow 已进入仓库；首次使用需在仓库 Settings → Pages 将 Source 设为 GitHub Actions，启用后快捷链接才会提供可执行页面
@@ -122,7 +122,7 @@
 | 161 | # 161 . 数据加密 | [查看题面](%E9%A2%98%E8%A7%A3/0161_%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%AF%86/0161_%E9%A2%98%E7%9B%AE.md) | [已发布（清洗并核验；在线 `Accepted` #1399701）](%E4%BB%A3%E7%A0%81%E5%BA%93/0161_%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%AF%86/0161_%E6%8F%90%E4%BA%A4_1277260_c_%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81.c) | [已发布（可提交形态已核验；在线 `Accepted` #1399701）](%E4%BB%A3%E7%A0%81%E5%BA%93/0161_%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%AF%86/0161_%E6%8F%90%E4%BA%A4_1277260_c_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.c) | `c` | [复制并提交](https://scorpascal.github.io/RUC_YOJ/yoj-quick-submit.html?pno=161) | `PUBLIC_READY; ONLINE_ACCEPTED` |
 | 162 | # 162 . ISBN号码 | [查看题面](%E9%A2%98%E8%A7%A3/0162_ISBN%E5%8F%B7%E7%A0%81/0162_%E9%A2%98%E7%9B%AE.md) | [已发布（清洗并核验；在线 `Accepted` #1399702）](%E4%BB%A3%E7%A0%81%E5%BA%93/0162_ISBN%E5%8F%B7%E7%A0%81/0162_%E6%8F%90%E4%BA%A4_1177300_cpp17-clang_%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81.cpp) | [已发布（可提交形态已核验；在线 `Accepted` #1399702）](%E4%BB%A3%E7%A0%81%E5%BA%93/0162_ISBN%E5%8F%B7%E7%A0%81/0162_%E6%8F%90%E4%BA%A4_1177300_cpp17-clang_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp) | `cpp17-clang` | [复制并提交](https://scorpascal.github.io/RUC_YOJ/yoj-quick-submit.html?pno=162) | `PUBLIC_READY; ONLINE_ACCEPTED` |
 | 163 | # 163 . 最大岛屿 | [查看题面](%E9%A2%98%E8%A7%A3/0163_%E6%9C%80%E5%A4%A7%E5%B2%9B%E5%B1%BF/0163_%E9%A2%98%E7%9B%AE.md) | [已发布（清洗并核验；在线 `Accepted` #1399703）](%E4%BB%A3%E7%A0%81%E5%BA%93/0163_%E6%9C%80%E5%A4%A7%E5%B2%9B%E5%B1%BF/0163_%E6%8F%90%E4%BA%A4_1277263_c_%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81.c) | [已发布（可提交形态已核验；在线 `Accepted` #1399703）](%E4%BB%A3%E7%A0%81%E5%BA%93/0163_%E6%9C%80%E5%A4%A7%E5%B2%9B%E5%B1%BF/0163_%E6%8F%90%E4%BA%A4_1277263_c_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.c) | `c` | [复制并提交](https://scorpascal.github.io/RUC_YOJ/yoj-quick-submit.html?pno=163) | `PUBLIC_READY; ONLINE_ACCEPTED` |
-| 168 | 输出hello world 函数版 | [查看题面](%E9%A2%98%E8%A7%A3/0168_%E8%BE%93%E5%87%BAhello_world_%E5%87%BD%E6%95%B0%E7%89%88/0168_%E9%A2%98%E7%9B%AE.md) | [已同步（待清洗；在线跳过 `SUBMIT_FORM_NOT_FOUND`）](%E4%BB%A3%E7%A0%81%E5%BA%93/0168_%E8%BE%93%E5%87%BAhello_world_%E5%87%BD%E6%95%B0%E7%89%88/0168_%E6%8F%90%E4%BA%A4_1277269_cpp_%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81.cpp) | [已同步（提交形态待核验；在线跳过 `SUBMIT_FORM_NOT_FOUND`）](%E4%BB%A3%E7%A0%81%E5%BA%93/0168_%E8%BE%93%E5%87%BAhello_world_%E5%87%BD%E6%95%B0%E7%89%88/0168_%E6%8F%90%E4%BA%A4_1277269_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp) | `cpp` | [尝试快捷提交（历史 AC）](https://scorpascal.github.io/RUC_YOJ/yoj-quick-submit.html?pno=168&mode=archive) | `RAW_CAPTURED; ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND` |
+| 168 | 输出hello world 函数版 | [查看题面](%E9%A2%98%E8%A7%A3/0168_%E8%BE%93%E5%87%BAhello_world_%E5%87%BD%E6%95%B0%E7%89%88/0168_%E9%A2%98%E7%9B%AE.md) | [已同步（待清洗；在线 `Accepted` #1402302）](%E4%BB%A3%E7%A0%81%E5%BA%93/0168_%E8%BE%93%E5%87%BAhello_world_%E5%87%BD%E6%95%B0%E7%89%88/0168_%E6%8F%90%E4%BA%A4_1277269_cpp_%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81.cpp) | [特殊填空（见题面下载框架；在线 `Accepted` #1402302）](%E9%A2%98%E8%A7%A3/0168_%E8%BE%93%E5%87%BAhello_world_%E5%87%BD%E6%95%B0%E7%89%88/0168_%E9%A2%98%E7%9B%AE.md) | `cpp` | — | `RAW_CAPTURED; ONLINE_ACCEPTED` |
 | 170 | # 170 . 羽毛球比赛 | [查看题面](%E9%A2%98%E8%A7%A3/0170_%E7%BE%BD%E6%AF%9B%E7%90%83%E6%AF%94%E8%B5%9B/0170_%E9%A2%98%E7%9B%AE.md) | [已发布（清洗并核验；在线 `Accepted` #1399704）](%E4%BB%A3%E7%A0%81%E5%BA%93/0170_%E7%BE%BD%E6%AF%9B%E7%90%83%E6%AF%94%E8%B5%9B/0170_%E6%8F%90%E4%BA%A4_1189033_cpp_%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81.cpp) | [已发布（可提交形态已核验；在线 `Accepted` #1399704）](%E4%BB%A3%E7%A0%81%E5%BA%93/0170_%E7%BE%BD%E6%AF%9B%E7%90%83%E6%AF%94%E8%B5%9B/0170_%E6%8F%90%E4%BA%A4_1189033_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp) | `cpp` | [复制并提交](https://scorpascal.github.io/RUC_YOJ/yoj-quick-submit.html?pno=170) | `PUBLIC_READY; ONLINE_ACCEPTED` |
 | 171 | # 171 . 简单计算器 | [查看题面](%E9%A2%98%E8%A7%A3/0171_%E7%AE%80%E5%8D%95%E8%AE%A1%E7%AE%97%E5%99%A8/0171_%E9%A2%98%E7%9B%AE.md) | [已发布（清洗并核验；在线 `Accepted` #1399705）](%E4%BB%A3%E7%A0%81%E5%BA%93/0171_%E7%AE%80%E5%8D%95%E8%AE%A1%E7%AE%97%E5%99%A8/0171_%E6%8F%90%E4%BA%A4_1176819_cpp17-clang_%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81.cpp) | [已发布（可提交形态已核验；在线 `Accepted` #1399705）](%E4%BB%A3%E7%A0%81%E5%BA%93/0171_%E7%AE%80%E5%8D%95%E8%AE%A1%E7%AE%97%E5%99%A8/0171_%E6%8F%90%E4%BA%A4_1176819_cpp17-clang_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp) | `cpp17-clang` | [复制并提交](https://scorpascal.github.io/RUC_YOJ/yoj-quick-submit.html?pno=171) | `PUBLIC_READY; ONLINE_ACCEPTED` |
 | 172 | # 172 . 数列区间求和 | [查看题面](%E9%A2%98%E8%A7%A3/0172_%E6%95%B0%E5%88%97%E5%8C%BA%E9%97%B4%E6%B1%82%E5%92%8C/0172_%E9%A2%98%E7%9B%AE.md) | [已发布（清洗并核验；在线 `Accepted` #1399706）](%E4%BB%A3%E7%A0%81%E5%BA%93/0172_%E6%95%B0%E5%88%97%E5%8C%BA%E9%97%B4%E6%B1%82%E5%92%8C/0172_%E6%8F%90%E4%BA%A4_1189215_cpp_%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81.cpp) | [已发布（可提交形态已核验；在线 `Accepted` #1399706）](%E4%BB%A3%E7%A0%81%E5%BA%93/0172_%E6%95%B0%E5%88%97%E5%8C%BA%E9%97%B4%E6%B1%82%E5%92%8C/0172_%E6%8F%90%E4%BA%A4_1189215_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp) | `cpp` | [复制并提交](https://scorpascal.github.io/RUC_YOJ/yoj-quick-submit.html?pno=172) | `PUBLIC_READY; ONLINE_ACCEPTED` |

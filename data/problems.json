@@ -3638,6 +3638,15 @@
           "directlySubmittableFile": "0168_提交_1277269_cpp_可提交代码.cpp",
           "blocks": [],
           "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
+        },
+        "template": {
+          "path": "题解/0168_输出hello_world_函数版/assets/01_168.cpp",
+          "sourceUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/168.html",
+          "filename": "01_168.cpp",
+          "status": "DOWNLOADED_FRAMEWORK",
+          "bytes": 146,
+          "sha256": "903cf9fa9a6679cca0bfc7564df288b1cd8fee66e09293a504abfa48cb928eec",
+          "placeholder": "____qcodep____"
         }
       },
       "public": {
@@ -3646,7 +3655,7 @@
         "statement": "题解/0168_输出hello_world_函数版/0168_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -3664,9 +3673,9 @@
             "label": "下载代码文件",
             "filename": "01_168.cpp",
             "relativePath": "assets/01_168.cpp",
-            "status": "DETECTED_NOT_DOWNLOADED",
-            "bytes": 0,
-            "sha256": "",
+            "status": "CACHED",
+            "bytes": 146,
+            "sha256": "903cf9fa9a6679cca0bfc7564df288b1cd8fee66e09293a504abfa48cb928eec",
             "sourceSha256": "",
             "transform": "",
             "error": ""

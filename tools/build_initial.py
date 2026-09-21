@@ -104,6 +104,29 @@ def load_public_ready() -> dict[str, dict[str, Any]]:
     }
 
 
+def load_online_status_overrides() -> dict[str, str]:
+    """Load explicit online evidence for generated statement status text."""
+
+    if not ONLINE_REPORT_PATH.is_file():
+        return {}
+    try:
+        payload = json_load(ONLINE_REPORT_PATH)
+    except (OSError, TypeError, ValueError, json.JSONDecodeError):
+        return {}
+    overrides: dict[str, str] = {}
+    for row in payload.get("records") or []:
+        if row.get("problemNo") is None:
+            continue
+        status = str(row.get("status") or "UNKNOWN").upper().replace(" ", "_")
+        overrides[str(row["problemNo"])] = f"ONLINE_{status}"
+    for row in payload.get("skipped") or []:
+        if row.get("problemNo") is None:
+            continue
+        reason = str(row.get("reason") or "UNKNOWN").upper().replace(" ", "_")
+        overrides[str(row["problemNo"])] = f"ONLINE_SKIPPED_{reason}"
+    return overrides
+
+
 def load_online_public_numbers() -> set[int]:
     """Load the current public YOJ IDs used for archive-preview links."""
 
@@ -131,6 +154,12 @@ def make_archived_quick_entry(record: dict[str, Any], online_public_numbers: set
     if str((record.get("public") or {}).get("status") or "") == "PUBLIC_READY":
         return None
     archive = record.get("archive") or {}
+    if archive.get("template"):
+        # A downloaded-framework/fill-in problem cannot safely use the
+        # historical full program in the ordinary one-field quick-submit UI.
+        # Keep the template and special-form evidence in the problem archive;
+        # do not expose a misleading direct-submit link.
+        return None
     accepted = archive.get("acceptedRun") or {}
     if str(accepted.get("status") or "") != "Accepted":
         return None
@@ -935,10 +964,12 @@ def build_statement(
     raw_dir: Path,
     download_assets: bool = False,
     public_ready: dict[str, Any] | None = None,
+    online_status_override: str = "",
 ) -> tuple[dict[str, Any], str]:
     problem = metadata.get("problem", {})
     source = metadata.get("source", {})
     code_meta = metadata.get("code", {})
+    template_meta = metadata.get("template") if isinstance(metadata.get("template"), dict) else {}
     title = str(problem.get("title") or entry.get("title") or "未命名题目").strip()
     problem_no = str(problem.get("problemNo") or entry.get("problemNo") or "0")
     problem_no_padded = problem_no.zfill(4)
@@ -1030,8 +1061,13 @@ def build_statement(
         phase_text = "> 当前仓库阶段：`TOPIC_CAPTURED`。题面已从 YOJ 公开题目列表归档，但尚无本人 Accepted 源码；未生成伪造代码，也未执行代码复验。"
     else:
         public_status = "RAW_CAPTURED"
-        online_status = "NOT_RUN"
-        phase_text = "> 当前仓库阶段：`RAW_CAPTURED`。代码尚未完成脱敏清理、版本规范化、提交形态核验和在线复验。"
+        online_status = online_status_override or "NOT_RUN"
+        if online_status == "ONLINE_ACCEPTED":
+            phase_text = "> 当前仓库阶段：`RAW_CAPTURED`。在线复验已取得 `Accepted`，但代码尚未完成脱敏清理、版本规范化、源码回收和公开发布门禁。"
+        elif online_status.startswith("ONLINE_SKIPPED_"):
+            phase_text = f"> 当前仓库阶段：`RAW_CAPTURED`。在线复验状态为 `{online_status}`，代码尚未完成脱敏清理、版本规范化和提交形态核验。"
+        else:
+            phase_text = "> 当前仓库阶段：`RAW_CAPTURED`。代码尚未完成脱敏清理、版本规范化、提交形态核验和在线复验。"
 
     statement_rel = Path("题解") / folder / f"{problem_no_padded}_题目.md"
     statement_text = [
@@ -1059,6 +1095,13 @@ def build_statement(
             target = asset["relativePath"] if asset["status"] in {"DOWNLOADED", "CACHED"} else asset["url"]
             label = normalize_inline_text(asset["label"]).strip() or asset["filename"]
             statement_text.append(f"- [{label}]({target})（状态：`{asset['status']}`）")
+    direct_submission_status = (
+        "VERIFIED"
+        if is_ready
+        else "SPECIAL_FILL_IN_TEMPLATE"
+        if template_meta
+        else "UNKNOWN_UNTIL_FORM_MAP"
+    )
     statement_text.extend(
         [
             "",
@@ -1069,9 +1112,21 @@ def build_statement(
             f"- 题面转换：`{status}`",
             f"- 代码状态：`{public_status}`" + ("（清洗候选已通过发布门禁）" if is_ready else "（不可视为已清洗的公开题解）"),
             f"- 在线 AC 复验：`{online_status}`",
-            "- 直接提交分块：`VERIFIED`" if is_ready else "- 直接提交分块：`UNKNOWN_UNTIL_FORM_MAP`",
+            f"- 直接提交分块：`{direct_submission_status}`",
         ]
     )
+    if template_meta:
+        template_filename = str(template_meta.get("filename") or "下载框架文件").strip()
+        statement_text.extend(
+            [
+                "",
+                "## 特殊提交形态",
+                "",
+                f"- 原始下载框架：[`{template_filename}`](assets/{template_filename})",
+                "- 提交方式：使用下载框架中的待填区；历史完整 AC 程序不能直接替代待提交片段。",
+                "- 本地记录：框架文件的来源、字节数、SHA-256 和实际在线提交尝试保存在代码库元数据与在线复验证据中。",
+            ]
+        )
     if converter.warnings:
         statement_text.extend(["", "## 自动转换提醒", ""])
         statement_text.extend(f"- {warning}" for warning in sorted(set(converter.warnings)))
@@ -1132,6 +1187,8 @@ def build_statement(
             "warnings": sorted(set(converter.warnings)),
         },
     }
+    if template_meta:
+        record["archive"]["template"] = template_meta
     return record, "\n".join(statement_text)
 
 
@@ -1328,7 +1385,7 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         f"- 在线源码回收：`Accepted` 中已回收并比对 `{online_visible}/{online_accepted}`；编号、状态、跳过原因和源码回收证据保存在被忽略的 `staging/online-verification.json`",
         f"- YOJ 快捷提交入口：严格 `PUBLIC_READY` `{quick_submit_count}` 道；另有当前公开历史 Accepted 归档 `{len(archived_quick_by_no)}` 道提供带警告的人工尝试入口；当前公开且仓库有代码 `{current_public_code_count}` 道，不改变发布状态",
         "- 题面中的时间/内存是题目页限制；每条归档记录的 `archive.acceptedRun` 单独保存某次 AC 的实测耗时/内存，二者不混用",
-        "- 自动调度：每天北京时间 22:30–23:30 尝试运行；仅在本机用户已登录且钥匙串可用时执行，当天未登录/未解锁则跳过，不在次日补跑；未完成请求保留断点，在下一天窗口继续；YOJ 登录密码只从本机钥匙串注入，不进入 GitHub",
+        "- 自动调度：每天北京时间 22:30–23:30 尝试运行；公开题号发现不依赖账号，若本机登录态或钥匙串不可用，新题仍可只抓题面并记录为 `TOPIC_CAPTURED`，需要账号的源码抓取/在线复验则暂停；未完成请求保留断点，在下一天窗口继续；YOJ 登录密码只从本机钥匙串注入，不进入 GitHub",
         "- 同题号漂移审计：低频运行 `python3 tools/yoj_scheduler.py --drift-audit`；只比较规范化题面正文（含样例）、标题和题面限制，结果进入被忽略的 `staging/problem-drift.json`，不覆盖已冻结的 `PUBLIC_READY`",
         "- 隐藏测试数据哨兵：低频运行 `YOJ_SYNC_ENABLE_SUBMIT=1 python3 tools/yoj_scheduler.py --sentinel --allow-submit`；每批轮换少量 `PUBLIC_READY` 题目，证据隔离在 `staging/online-sentinel.json`，失败不自动降级发布版本",
         "- GitHub Pages：部署 workflow 已进入仓库；首次使用需在仓库 Settings → Pages 将 Source 设为 GitHub Actions，启用后快捷链接才会提供可执行页面",
@@ -1362,7 +1419,10 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
             direct_link = f"[已发布（可提交形态已核验{online_suffix}）]({markdown_path(direct)})" if direct else "未同步"
         else:
             complete_link = f"[已同步（待清洗{online_suffix}）]({markdown_path(complete)})" if complete else "未同步"
-            direct_link = f"[已同步（提交形态待核验{online_suffix}）]({markdown_path(direct)})" if direct else "未同步"
+            if (record.get("archive") or {}).get("template"):
+                direct_link = f"[特殊填空（见题面下载框架{online_suffix}）]({statement})"
+            else:
+                direct_link = f"[已同步（提交形态待核验{online_suffix}）]({markdown_path(direct)})" if direct else "未同步"
         title = record["title"].replace("|", r"\|").replace("\n", " ")
         status = base_status
         if online_status:
@@ -1542,6 +1602,7 @@ def build() -> int:
     statement_texts: list[tuple[Path, str]] = []
     failures: list[str] = []
     hash_mismatches = 0
+    online_status_overrides = load_online_status_overrides()
 
     for entry in sorted(entries, key=get_problem_no):
         problem_no = str(entry.get("problemNo") or "")
@@ -1586,6 +1647,7 @@ def build() -> int:
                 raw_dir,
                 download_assets=not args.check and not args.no_download_assets,
                 public_ready=None,
+                online_status_override=online_status_overrides.get(problem_no, ""),
             )
             if ready_entry:
                 statement_path = ROOT / str((record.get("public") or {}).get("statement") or "")

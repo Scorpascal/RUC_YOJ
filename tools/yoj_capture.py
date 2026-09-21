@@ -30,6 +30,7 @@ from online_verify import YoJClient, clean_text, parse_submission_rows  # noqa: 
 MANIFEST_PATH = ROOT / "代码库" / "AC抓取清单.json"
 DATA_PROBLEMS_PATH = ROOT / "data" / "problems.json"
 RAW_ROOT = ROOT / "代码库"
+LOCAL_PROBLEM_ROOTS = (RAW_ROOT, ROOT / "题解")
 STATE_DIR = ROOT / ".yoj-sync"
 CAPTURE_RESULT_PATH = STATE_DIR / "capture-result.json"
 BASE = "http://yoj.ruc.edu.cn"
@@ -205,9 +206,9 @@ def extract_title(page: str, fallback: str) -> str:
 def local_problem_numbers(manifest_entries: dict[int, dict[str, Any]]) -> set[int]:
     """Return every problem number that has already appeared locally.
 
-    The manifest is the primary source, while the generated public index and
-    raw directories are included as a safety net.  A partially materialized
-    problem must not be treated as a brand-new problem on the next run.
+    The manifest is the primary source, while generated data and both public
+    problem-directory trees are included as a safety net. A partially
+    materialized problem must not be treated as brand-new on the next run.
     """
 
     numbers = set(manifest_entries)
@@ -220,8 +221,10 @@ def local_problem_numbers(manifest_entries: dict[int, dict[str, Any]]) -> set[in
             value = record.get("problemNo")
             if str(value).isdigit():
                 numbers.add(int(value))
-    if RAW_ROOT.is_dir():
-        for path in RAW_ROOT.iterdir():
+    for problem_root in LOCAL_PROBLEM_ROOTS:
+        if not problem_root.is_dir():
+            continue
+        for path in problem_root.iterdir():
             match = PROBLEM_DIR_RE.match(path.name)
             if match and path.is_dir():
                 numbers.add(int(match.group(1)))

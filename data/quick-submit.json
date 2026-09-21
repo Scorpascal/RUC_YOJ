@@ -5854,21 +5854,6 @@
       "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
     },
     {
-      "problemNo": 168,
-      "title": "输出hello world 函数版",
-      "language": "cpp",
-      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/168.html",
-      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
-      "codePath": "代码库/0168_输出hello_world_函数版/0168_提交_1277269_cpp_可提交代码.cpp",
-      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0168_%E8%BE%93%E5%87%BAhello_world_%E5%87%BD%E6%95%B0%E7%89%88/0168_%E6%8F%90%E4%BA%A4_1277269_cpp_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
-      "codeSha256": "afd0b26f3efd41039bd29e355de87b58be4b739d612624f1327fdca94616dd14",
-      "onlineStatus": "Accepted (历史归档)",
-      "onlineSubmissionNo": "1277269",
-      "source": "ACCEPTED_ARCHIVE",
-      "requiresReview": true,
-      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。 本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。"
-    },
-    {
       "problemNo": 261,
       "title": "编写函数计算x的y次幂",
       "language": "cpp",

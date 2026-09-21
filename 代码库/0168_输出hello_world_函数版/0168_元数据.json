@@ -47,6 +47,38 @@
     "completeCode": "0168_提交_1277269_cpp_完整代码.cpp",
     "directlySubmittableCode": "0168_提交_1277269_cpp_可提交代码.cpp"
   },
+  "template": {
+    "path": "题解/0168_输出hello_world_函数版/assets/01_168.cpp",
+    "sourceUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/168.html",
+    "filename": "01_168.cpp",
+    "status": "DOWNLOADED_FRAMEWORK",
+    "bytes": 146,
+    "sha256": "903cf9fa9a6679cca0bfc7564df288b1cd8fee66e09293a504abfa48cb928eec",
+    "placeholder": "____qcodep____"
+  },
+  "onlineVerification": {
+    "status": "Accepted",
+    "submissionNo": "1402302",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1402302.html",
+    "submissionMode": "downloaded_framework_fill_in",
+    "fragmentShape": "whole_function_definition",
+    "attempts": [
+      {
+        "submissionNo": "1402291",
+        "status": "Compile Error",
+        "submittedBytes": 154
+      },
+      {
+        "submissionNo": "1402302",
+        "status": "Accepted",
+        "score": 100,
+        "time": "6 ms",
+        "memory": "348 KB",
+        "submittedBytes": 191
+      }
+    ],
+    "sourceRecovery": "PENDING_DETAIL"
+  },
   "code": {
     "language": "cpp",
     "extension": ".cpp",
