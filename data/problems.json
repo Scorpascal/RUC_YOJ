@@ -1307,7 +1307,7 @@
         "statement": "题解/0119_递归倒置字符数组/0119_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_PARTIAL_CODE_FORM",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -5794,7 +5794,7 @@
         "statement": "题解/0261_编写函数计算x的y次幂/0261_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -6230,7 +6230,7 @@
         "statement": "题解/0284_黄页建立/0284_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_LOCAL_GATE_SAMPLE_SAMPLE_INCONSISTENT",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -6302,7 +6302,7 @@
         "statement": "题解/0285_链表操作(加入节点)/0285_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_FILL_IN_FRAGMENT_TEMPLATE_UNAVAILABLE",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -6374,7 +6374,7 @@
         "statement": "题解/0286_链表操作(删除节点)/0286_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_FILL_IN_FRAGMENT_TEMPLATE_UNAVAILABLE",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -7925,7 +7925,7 @@
         "statement": "题解/0391_存款额度(版本2)/0391_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -8115,7 +8115,7 @@
         "statement": "题解/0421_C++复数运算符重载(+与__)/0421_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -10920,7 +10920,7 @@
         "statement": "题解/0685_实现标准输入输出/0685_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -24886,7 +24886,7 @@
         "statement": "题解/1378_银行转账管理/1378_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -24958,7 +24958,7 @@
         "statement": "题解/1379_图书借阅/1379_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -25089,7 +25089,7 @@
         "statement": "题解/1408_员工管理系统/1408_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -25161,7 +25161,7 @@
         "statement": "题解/1409_图形渲染/1409_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -25233,7 +25233,7 @@
         "statement": "题解/1410_数据计算/1410_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -25305,7 +25305,7 @@
         "statement": "题解/1411_数据计算2/1411_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -28490,7 +28490,7 @@
         "statement": "题解/1560_排排坐/1560_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -28562,7 +28562,7 @@
         "statement": "题解/1561_两点间距离函数/1561_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -28693,7 +28693,7 @@
         "statement": "题解/1563_点结构体/1563_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -28824,7 +28824,7 @@
         "statement": "题解/1576_斐波那契数列/1576_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
