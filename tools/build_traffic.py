@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-"""Refresh the public traffic snapshot used by the GitHub Pages home page.
+"""Build or validate the legacy static traffic fallback.
 
-Visitor Badge is intentionally queried with ``query_only=true`` here.  The
-browser page owns the incrementing probes; this job only reads the total and
-seven date-scoped counters so the static Pages site can render real numbers
-without needing a server-side API.
+The page is designed to use the real-time Worker/D1 endpoint configured in
+``docs/data/traffic-config.json``; until that one-time service binding is
+activated, the public configuration stays on a safe static fallback.  This
+script remains intentionally small:
+it validates the last known static snapshot during Pages deployment and can
+still be run manually to refresh that fallback when the legacy Visitor Badge
+service is available.  It is no longer scheduled and never commits by itself.
 """
 
 from __future__ import annotations
@@ -180,7 +183,7 @@ def build_payload(today: date | None = None) -> dict:
     series: list[dict] = []
     for offset in range(6, -1, -1):
         day = current_day - timedelta(days=offset)
-        # Keep this identical to the browser probe in docs/index.html.
+        # Keep the historical date-scoped IDs stable for manual fallback refreshes.
         day_id = f"{PAGE_ID}.day.{day:%Y-%m-%d}"
         series.append(
             {

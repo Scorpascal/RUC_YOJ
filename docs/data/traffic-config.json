@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "mode": "fallback",
+  "apiBaseUrl": "",
+  "fallbackUrl": "data/traffic.json"
+}

@@ -1,0 +1,11 @@
+name = "ruc-yoj-traffic"
+main = "src/index.js"
+compatibility_date = "2026-09-21"
+
+[vars]
+ALLOWED_ORIGIN = "https://scorpascal.github.io"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ruc-yoj-traffic"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"

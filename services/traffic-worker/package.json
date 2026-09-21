@@ -1,0 +1,8 @@
+{
+  "name": "ruc-yoj-traffic-worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/worker.test.mjs"
+  }
+}
