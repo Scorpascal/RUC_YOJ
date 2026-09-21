@@ -86,6 +86,7 @@ def scheduler_command() -> list[str]:
         str(ROOT / "tools" / "yoj_scheduler.py"),
         "--allow-submit",
         "--publish",
+        "--push",
     ]
 
 
