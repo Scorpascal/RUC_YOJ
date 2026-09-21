@@ -35,6 +35,7 @@ VISIBILITY_REPORT_PATH = STATE_DIR / "public-visibility-report.json"
 SENTINEL_STATE_PATH = STATE_DIR / "sentinel-state.json"
 DRIFT_REPORT_PATH = ROOT / "staging" / "problem-drift.json"
 PUBLIC_READY_PATH = ROOT / "data" / "public-ready.json"
+PROBLEMS_PATH = ROOT / "data" / "problems.json"
 PUBLIC_SNAPSHOT_PATH = ROOT / "data" / "yoj-public-problems.json"
 KEYCHAIN_SERVICE = "RUC_YOJ/yoj-sync"
 TZ = ZoneInfo("Asia/Shanghai")
@@ -259,6 +260,54 @@ def public_ready_snapshot() -> dict[int, str]:
 
 def public_ready_problem_numbers() -> set[int]:
     return set(public_ready_snapshot())
+
+
+def select_visible_ac_cleanup_backlog() -> list[int]:
+    """Select visible archived ACs that still need the release pipeline.
+
+    New-topic discovery is intentionally separate from this backlog.  A topic
+    can be present in the local archive for days while its raw Accepted source
+    is still waiting for sanitization, local gates, or a fresh online
+    round-trip.  Only candidates with both archived source files and an
+    Accepted archive run are eligible; topic-only records never enter an
+    unattended submission path.
+    """
+
+    try:
+        problems_payload = json.loads(PROBLEMS_PATH.read_text(encoding="utf-8"))
+        snapshot_payload = json.loads(PUBLIC_SNAPSHOT_PATH.read_text(encoding="utf-8"))
+    except (OSError, TypeError, ValueError, json.JSONDecodeError) as exc:
+        log(f"清洗 backlog 选择失败：{exc}")
+        return []
+
+    current_public = {
+        int(row["problemNo"])
+        for row in (snapshot_payload.get("records") or [])
+        if isinstance(row, dict) and str(row.get("problemNo", "")).isdigit()
+    }
+    frozen_public = public_ready_problem_numbers()
+    selected: list[int] = []
+    for record in problems_payload.get("records") or []:
+        if not isinstance(record, dict) or not str(record.get("problemNo", "")).isdigit():
+            continue
+        problem_no = int(record["problemNo"])
+        if problem_no not in current_public or problem_no in frozen_public:
+            continue
+        archive = record.get("archive") or {}
+        public = record.get("public") or {}
+        accepted_run = archive.get("acceptedRun") or {}
+        complete = ROOT / str(archive.get("completeCode") or "")
+        direct = ROOT / str(archive.get("directlySubmittableCode") or "")
+        if not complete.is_file() or not direct.is_file():
+            continue
+        if str(accepted_run.get("status") or "").strip().lower() != "accepted":
+            continue
+        if (
+            str(public.get("status") or "") == "RAW_CAPTURED"
+            or str(public.get("onlineVerification") or "") != "ONLINE_ACCEPTED"
+        ):
+            selected.append(problem_no)
+    return sorted(set(selected))
 
 
 def load_sentinel_state() -> dict[str, object]:
@@ -591,7 +640,14 @@ def run_once(args: argparse.Namespace) -> int:
             remember_generated_changes()
             return 3
 
-        if not discovered_problem_numbers:
+        backlog_problem_numbers = select_visible_ac_cleanup_backlog()
+        if backlog_problem_numbers:
+            log(
+                "本轮发现当前公开、已有归档 AC 代码但仍待清洗/在线复核的题目："
+                f"{backlog_problem_numbers}"
+            )
+
+        if not discovered_problem_numbers and not backlog_problem_numbers:
             has_visibility_transition = bool(visibility_report.get("hasVisibilityTransitions"))
             if has_visibility_transition or snapshot_changed:
                 archived = visibility_report.get("archivedProblemNumbers") or []
@@ -635,51 +691,59 @@ def run_once(args: argparse.Namespace) -> int:
             remember_generated_changes()
             return 0
 
-        capture_environment = environment
-        public_only = False
-        try:
-            capture_environment = prepare_online_environment()
-        except RuntimeError as exc:
-            # A public-list discovery must still be useful without an account:
-            # capture the new statements and let later stages mark them as
-            # TOPIC_CAPTURED/NO_LOCAL_AC instead of dropping the update.
-            public_only = True
-            log(f"未取得 YOJ 登录态，改用公开题面增量抓取：{exc}")
-        capture_command = [
-            sys.executable,
-            str(ROOT / "tools" / "yoj_capture.py"),
-            "--request-interval",
-            str(args.request_interval),
-            "--public-snapshot",
-            str(PUBLIC_SNAPSHOT_PATH),
-        ]
-        if public_only:
-            capture_command.append("--public-only")
-        if run_command(capture_command, capture_environment, 3600):
-            log("增量抓取未正常完成，本轮不继续构建、复验或发布")
-            remember_generated_changes()
-            return 3
-        capture_result = load_capture_result()
-        if not capture_result or capture_result.get("scope") != "public_problem_numbers_only":
-            log("调度暂停：抓取结果缺失或版本不受信，未继续后续阶段")
-            remember_generated_changes()
-            return 3
-        try:
-            new_problem_numbers = sorted({int(value) for value in (capture_result.get("newProblemNumbers") or [])})
-        except (TypeError, ValueError):
-            log("调度暂停：抓取结果中的新题号无法解析")
-            remember_generated_changes()
-            return 3
-        if new_problem_numbers != discovered_problem_numbers:
-            log(
-                "调度暂停：发现阶段与实际抓取阶段的新题号集合不一致；"
-                f"发现 {discovered_problem_numbers}，抓取 {new_problem_numbers}"
-            )
-            remember_generated_changes()
-            return 3
+        new_problem_numbers: list[int] = []
+        if discovered_problem_numbers:
+            capture_environment = environment
+            public_only = False
+            try:
+                capture_environment = prepare_online_environment()
+            except RuntimeError as exc:
+                # A public-list discovery must still be useful without an account:
+                # capture the new statements and let later stages mark them as
+                # TOPIC_CAPTURED/NO_LOCAL_AC instead of dropping the update.
+                public_only = True
+                log(f"未取得 YOJ 登录态，改用公开题面增量抓取：{exc}")
+            capture_command = [
+                sys.executable,
+                str(ROOT / "tools" / "yoj_capture.py"),
+                "--request-interval",
+                str(args.request_interval),
+                "--public-snapshot",
+                str(PUBLIC_SNAPSHOT_PATH),
+            ]
+            if public_only:
+                capture_command.append("--public-only")
+            if run_command(capture_command, capture_environment, 3600):
+                log("增量抓取未正常完成，本轮不继续构建、复验或发布")
+                remember_generated_changes()
+                return 3
+            capture_result = load_capture_result()
+            if not capture_result or capture_result.get("scope") != "public_problem_numbers_only":
+                log("调度暂停：抓取结果缺失或版本不受信，未继续后续阶段")
+                remember_generated_changes()
+                return 3
+            try:
+                new_problem_numbers = sorted(
+                    {int(value) for value in (capture_result.get("newProblemNumbers") or [])}
+                )
+            except (TypeError, ValueError):
+                log("调度暂停：抓取结果中的新题号无法解析")
+                remember_generated_changes()
+                return 3
+            if new_problem_numbers != discovered_problem_numbers:
+                log(
+                    "调度暂停：发现阶段与实际抓取阶段的新题号集合不一致；"
+                    f"发现 {discovered_problem_numbers}，抓取 {new_problem_numbers}"
+                )
+                remember_generated_changes()
+                return 3
 
-        selected = problem_selector(new_problem_numbers)
-        log(f"本轮只处理新题号：{new_problem_numbers}")
+        selected_problem_numbers = sorted(set(new_problem_numbers) | set(backlog_problem_numbers))
+        selected = problem_selector(selected_problem_numbers)
+        log(
+            "本轮进入清洗/门禁/在线复核流水线："
+            f"新题号 {new_problem_numbers}；待处理 backlog {backlog_problem_numbers}"
+        )
         steps: list[tuple[list[str], dict[str, str], int]] = [
             (
                 [sys.executable, str(ROOT / "tools" / "build_initial.py"), "--preserve-frozen", *selected],
@@ -715,6 +779,7 @@ def run_once(args: argparse.Namespace) -> int:
                         str(ROOT / "tools" / "online_verify.py"),
                         "--max-submissions",
                         str(args.max_submissions),
+                        *(["--reverify-accepted", "--retry-abnormal"] if backlog_problem_numbers else []),
                         *selected,
                     ]
                     if run_command(command, online_environment, 7200):
@@ -730,10 +795,10 @@ def run_once(args: argparse.Namespace) -> int:
                 remember_generated_changes()
                 return 3
             release_numbers = public_ready_delta(before_ready)
-            # A newly discovered topic must be publishable even when it has no
-            # local AC yet; otherwise the catalog would link to files that were
-            # deliberately left out of the commit.
-            release_numbers.update(new_problem_numbers)
+            # Keep selected new/backlog problem paths eligible for the scoped
+            # publication allowlist.  The release gate still decides whether
+            # code is actually materialized as PUBLIC_READY.
+            release_numbers.update(selected_problem_numbers)
             if run_command(
                 [sys.executable, str(ROOT / "tools" / "build_initial.py"), "--preserve-frozen", *selected],
                 environment,
