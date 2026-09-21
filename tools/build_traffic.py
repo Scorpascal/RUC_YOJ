@@ -44,10 +44,14 @@ def badge_url(page_id: str) -> str:
 def parse_count(svg: str) -> int | None:
     """Extract the final numeric text node from Visitor Badge's SVG."""
 
-    # A provider-side error is not a real zero.  Treat it as incomplete so a
-    # transient outage cannot overwrite a valid snapshot with false data.
-    if re.search(r">[^<]*(?:Error|Count API Failed)[^<]*<", svg, flags=re.IGNORECASE):
+    # Visitor Badge uses ``Error`` for a date-scoped counter that has not been
+    # created yet; for this dashboard that is a legitimate zero.  Its explicit
+    # ``Count API Failed`` response is different and must remain incomplete so
+    # a provider outage cannot overwrite a valid snapshot.
+    if re.search(r">[^<]*Count API Failed[^<]*<", svg, flags=re.IGNORECASE):
         return None
+    if re.search(r">[^<]*Error[^<]*<", svg, flags=re.IGNORECASE):
+        return 0
     values = re.findall(r">([0-9][0-9,]*)<", svg)
     numbers = [int(value.replace(",", "")) for value in values]
     return numbers[-1] if numbers else None
