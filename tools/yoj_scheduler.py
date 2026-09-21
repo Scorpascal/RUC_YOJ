@@ -31,6 +31,8 @@ LOCK_PATH = STATE_DIR / "scheduler.lock"
 LOG_PATH = STATE_DIR / "scheduler.log"
 EXPECTED_CHANGES_PATH = STATE_DIR / "expected-generated-changes.json"
 CAPTURE_RESULT_PATH = STATE_DIR / "capture-result.json"
+SENTINEL_STATE_PATH = STATE_DIR / "sentinel-state.json"
+DRIFT_REPORT_PATH = ROOT / "staging" / "problem-drift.json"
 PUBLIC_READY_PATH = ROOT / "data" / "public-ready.json"
 KEYCHAIN_SERVICE = "RUC_YOJ/yoj-sync"
 TZ = ZoneInfo("Asia/Shanghai")
@@ -218,6 +220,46 @@ def public_ready_problem_numbers() -> set[int]:
     return set(public_ready_snapshot())
 
 
+def load_sentinel_state() -> dict[str, object]:
+    if not SENTINEL_STATE_PATH.is_file():
+        return {}
+    try:
+        payload = json.loads(SENTINEL_STATE_PATH.read_text(encoding="utf-8"))
+    except (OSError, TypeError, ValueError, json.JSONDecodeError):
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def select_sentinel_problems(count: int) -> tuple[list[int], int]:
+    """Select a deterministic rotating slice of frozen public solutions."""
+
+    candidates = sorted(public_ready_problem_numbers())
+    if not candidates or count <= 0:
+        return [], 0
+    state = load_sentinel_state()
+    try:
+        cursor = int(state.get("cursor", 0)) % len(candidates)
+    except (TypeError, ValueError):
+        cursor = 0
+    amount = min(count, len(candidates))
+    selected = [candidates[(cursor + offset) % len(candidates)] for offset in range(amount)]
+    return selected, (cursor + amount) % len(candidates)
+
+
+def save_sentinel_state(problem_numbers: list[int], next_cursor: int) -> None:
+    STATE_DIR.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "schemaVersion": 1,
+        "purpose": "rotating low-frequency YOJ online sentinel cursor; no release state",
+        "cursor": next_cursor,
+        "lastProblemNumbers": problem_numbers,
+        "lastRunAt": now_local().isoformat(timespec="seconds"),
+    }
+    temporary = SENTINEL_STATE_PATH.with_name(SENTINEL_STATE_PATH.name + ".tmp")
+    temporary.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    temporary.replace(SENTINEL_STATE_PATH)
+
+
 def path_problem_number(path: str) -> int | None:
     match = PROBLEM_PATH_RE.match(path)
     return int(match.group(1)) if match else None
@@ -313,6 +355,80 @@ def publish(push: bool, release_numbers: set[int], secret_values: tuple[str, ...
     return pushed.returncode
 
 
+def run_drift_audit(args: argparse.Namespace, environment: dict[str, str]) -> int:
+    """Run the explicit, low-frequency semantic statement audit only."""
+
+    # Refreshing this unauthenticated list is part of the low-frequency audit
+    # boundary.  It is deliberately not part of the ordinary no-new daily
+    # path beyond the existing ID discovery.
+    if run_command(
+        [sys.executable, str(ROOT / "tools" / "audit_online_availability.py")],
+        environment,
+        600,
+    ):
+        log("低频漂移审计暂停：YOJ 当前公开列表快照未正常完成")
+        return 3
+    command = [
+        sys.executable,
+        str(ROOT / "tools" / "audit_problem_drift.py"),
+        "--public-snapshot",
+        str(ROOT / "data" / "yoj-public-problems.json"),
+        "--report",
+        str(DRIFT_REPORT_PATH),
+        "--request-interval",
+        str(args.drift_request_interval),
+    ]
+    if args.drift_max_problems:
+        command.extend(["--max-problems", str(args.drift_max_problems)])
+    result = run_command(command, environment, max(1800, args.drift_max_problems * 45 or 1800))
+    remember_generated_changes()
+    if result:
+        log("低频漂移审计发现抓取/基线异常；现有 PUBLIC_READY 未覆盖，保留报告等待复核")
+    else:
+        log("低频漂移审计完成；漂移只进入 staging/problem-drift.json，不自动覆盖发布内容")
+    return result
+
+
+def run_sentinel(args: argparse.Namespace) -> int:
+    """Reverify a small rotating sample into an isolated evidence report."""
+
+    if os.environ.get("YOJ_SYNC_ENABLE_SUBMIT") != "1":
+        log("在线哨兵跳过：YOJ_SYNC_ENABLE_SUBMIT 不为 1；未登录、未提交、未改变发布状态")
+        return 2
+    selected, next_cursor = select_sentinel_problems(args.sentinel_count)
+    if not selected:
+        log("在线哨兵跳过：没有可轮换的 PUBLIC_READY 题目")
+        return 0
+    try:
+        online_environment = prepare_online_environment()
+    except RuntimeError as exc:
+        log(f"在线哨兵未执行：{exc}")
+        return 2
+    command = [
+        sys.executable,
+        str(ROOT / "tools" / "online_verify.py"),
+        "--report",
+        str(ROOT / "staging" / "online-sentinel.json"),
+        "--reverify-accepted",
+        "--retry-abnormal",
+        "--max-submissions",
+        str(len(selected)),
+        *problem_selector(selected),
+    ]
+    result = run_command(command, online_environment, 7200)
+    remember_generated_changes()
+    if result:
+        log(
+            f"在线哨兵未通过：题号 {selected} 的结果保留在 staging/online-sentinel.json；"
+            "canonical 在线证据和 PUBLIC_READY 均未覆盖"
+        )
+        return result
+    save_sentinel_state(selected, next_cursor)
+    remember_generated_changes()
+    log(f"在线哨兵完成：本轮轮换题号 {selected}；证据与发布状态隔离")
+    return 0
+
+
 def run_once(args: argparse.Namespace) -> int:
     if in_maintenance():
         log("处于北京时间 23:55–00:10 维护窗口，本轮不访问 YOJ")
@@ -329,6 +445,10 @@ def run_once(args: argparse.Namespace) -> int:
             return 4
 
         environment = child_environment()
+        if args.drift_audit:
+            return run_drift_audit(args, environment)
+        if args.sentinel:
+            return run_sentinel(args)
         online_environment: dict[str, str] | None = None
         online_ran = False
         release_numbers: set[int] = set()
@@ -516,13 +636,52 @@ def main() -> int:
     parser.add_argument("--publish", action="store_true", help="提交白名单生成物；不等于推送")
     parser.add_argument("--push", action="store_true", help="在 YOJ_SYNC_ALLOW_PUSH=1 且当前为 main 时推送")
     parser.add_argument("--dry-run", action="store_true", help="只运行离线构建检查，不访问 YOJ")
+    audit_mode = parser.add_mutually_exclusive_group()
+    audit_mode.add_argument(
+        "--drift-audit",
+        action="store_true",
+        help="低频读取当前公开题面，生成语义漂移复核队列；不构建、不提交、不发布",
+    )
+    audit_mode.add_argument(
+        "--sentinel",
+        action="store_true",
+        help="低频轮换少量 PUBLIC_READY 题目在线复验，证据写入隔离报告",
+    )
+    parser.add_argument(
+        "--drift-max-problems",
+        type=int,
+        default=int(os.environ.get("YOJ_DRIFT_MAX_PROBLEMS", "0")),
+        help="漂移审计最多检查的题数；0 表示当前公开题目的全部题号",
+    )
+    parser.add_argument(
+        "--drift-request-interval",
+        type=float,
+        default=float(os.environ.get("YOJ_DRIFT_REQUEST_INTERVAL", "1")),
+        help="低频漂移审计的题面请求间隔秒数",
+    )
+    parser.add_argument(
+        "--sentinel-count",
+        type=int,
+        default=int(os.environ.get("YOJ_SENTINEL_COUNT", "5")),
+        help="在线哨兵每批轮换的 PUBLIC_READY 题目数，默认 5",
+    )
     parser.add_argument("--max-submissions", type=int, default=int(os.environ.get("YOJ_MAX_SUBMISSIONS", "20")))
     parser.add_argument("--request-interval", type=float, default=float(os.environ.get("YOJ_REQUEST_INTERVAL", "1")))
     args = parser.parse_args()
-    if args.max_submissions < 0 or args.request_interval < 0:
-        raise SystemExit("提交预算和请求间隔不能为负数")
-    if args.dry_run and (args.allow_submit or args.publish or args.push):
+    if (
+        args.max_submissions < 0
+        or args.request_interval < 0
+        or args.drift_max_problems < 0
+        or args.drift_request_interval < 0
+        or args.sentinel_count < 0
+    ):
+        raise SystemExit("提交预算、题目数和请求间隔不能为负数")
+    if args.dry_run and (args.allow_submit or args.publish or args.push or args.drift_audit or args.sentinel):
         raise SystemExit("--dry-run 不能与在线提交或发布选项同时使用")
+    if args.drift_audit and (args.allow_submit or args.publish or args.push):
+        raise SystemExit("--drift-audit 只允许低频只读审计，不能附带提交或发布")
+    if args.sentinel and (not args.allow_submit or args.publish or args.push):
+        raise SystemExit("--sentinel 必须显式带 --allow-submit，且不能附带发布或推送")
     try:
         return run_once(args)
     except (OSError, RuntimeError, subprocess.SubprocessError) as exc:

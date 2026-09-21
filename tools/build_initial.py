@@ -1329,6 +1329,8 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         f"- YOJ 快捷提交入口：严格 `PUBLIC_READY` `{quick_submit_count}` 道；另有当前公开历史 Accepted 归档 `{len(archived_quick_by_no)}` 道提供带警告的人工尝试入口；当前公开且仓库有代码 `{current_public_code_count}` 道，不改变发布状态",
         "- 题面中的时间/内存是题目页限制；每条归档记录的 `archive.acceptedRun` 单独保存某次 AC 的实测耗时/内存，二者不混用",
         "- 自动调度：每天北京时间 22:30–23:30 尝试运行；仅在本机用户已登录且钥匙串可用时执行，当天未登录/未解锁则跳过，不在次日补跑；未完成请求保留断点，在下一天窗口继续；YOJ 登录密码只从本机钥匙串注入，不进入 GitHub",
+        "- 同题号漂移审计：低频运行 `python3 tools/yoj_scheduler.py --drift-audit`；只比较规范化题面正文（含样例）、标题和题面限制，结果进入被忽略的 `staging/problem-drift.json`，不覆盖已冻结的 `PUBLIC_READY`",
+        "- 隐藏测试数据哨兵：低频运行 `YOJ_SYNC_ENABLE_SUBMIT=1 python3 tools/yoj_scheduler.py --sentinel --allow-submit`；每批轮换少量 `PUBLIC_READY` 题目，证据隔离在 `staging/online-sentinel.json`，失败不自动降级发布版本",
         "- GitHub Pages：部署 workflow 已进入仓库；首次使用需在仓库 Settings → Pages 将 Source 设为 GitHub Actions，启用后快捷链接才会提供可执行页面",
         "- 维护窗口：按 Method 约定，`23:55–00:10` 暂停网络操作；题面更新需要重新抓取并复核图片、公式和题面差异",
         "",

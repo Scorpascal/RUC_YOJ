@@ -32,7 +32,8 @@ except ImportError:  # pragma: no cover - supports ``import tools.online_verify`
 
 ROOT = Path(os.environ.get("YOJ_ROOT", Path(__file__).resolve().parents[1])).resolve()
 BASE = "http://yoj.ruc.edu.cn"
-REPORT_PATH = ROOT / "staging" / "online-verification.json"
+CANONICAL_REPORT_PATH = ROOT / "staging" / "online-verification.json"
+REPORT_PATH = CANONICAL_REPORT_PATH
 SUBMIT_INTERVAL = 15.0
 POLL_INTERVAL = 3.0
 POLL_LIMIT = 30
@@ -91,6 +92,36 @@ def candidate_info(path: Path) -> tuple[int, str] | None:
     if not match:
         return None
     return int(match.group(1)), match.group(2)
+
+
+def ensure_report(path: Path, isolated: bool = False) -> None:
+    """Create an empty evidence report for an explicitly isolated batch."""
+
+    if path.is_file():
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    purpose = (
+        "YOJ 在线哨兵复验证据；该文件属于被 .gitignore 排除的隔离批次，"
+        "失败不得覆盖 canonical online-verification.json。"
+        if isolated
+        else "YOJ 在线复验证据；该文件属于被 .gitignore 排除的后台工作区，不替代原始归档。"
+    )
+    path.write_text(
+        json.dumps(
+            {
+                "schemaVersion": 1,
+                "purpose": purpose,
+                "updatedAt": utc_now(),
+                "site": BASE,
+                "records": [],
+                "skipped": [],
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
 
 
 def load_context() -> tuple[dict[int, dict[str, Any]], dict[int, dict[str, Any]], dict[int, dict[str, Any]]]:
@@ -277,6 +308,12 @@ def record_skip(
 
 
 def rebuild_public_index() -> None:
+    # An isolated sentinel report is intentionally evidence-only.  Rebuilding
+    # the canonical public index from it would allow a failed probe to affect
+    # PUBLIC_READY or the tracked README, so only the normal report may trigger
+    # this compatibility refresh.
+    if REPORT_PATH.resolve() != CANONICAL_REPORT_PATH.resolve():
+        return
     result = subprocess.run(
         [sys.executable, str(ROOT / "tools" / "build_initial.py")],
         cwd=ROOT,
@@ -327,9 +364,22 @@ def main() -> int:
         type=int,
         help="对指定题目使用题面实际提供的 cpp17 语言值提交",
     )
+    parser.add_argument(
+        "--report",
+        type=Path,
+        help=(
+            "将证据写入指定的 staging 报告；用于隔离哨兵批次。"
+            "默认使用 canonical online-verification.json"
+        ),
+    )
     args = parser.parse_args()
     if args.max_submissions < 0 or args.submit_interval < 0:
         raise SystemExit("--max-submissions 和 --submit-interval 不能为负数")
+    global REPORT_PATH
+    if args.report:
+        REPORT_PATH = args.report if args.report.is_absolute() else (ROOT / args.report)
+        REPORT_PATH = REPORT_PATH.resolve()
+    ensure_report(REPORT_PATH, isolated=REPORT_PATH.resolve() != CANONICAL_REPORT_PATH.resolve())
     problems, records, skips = load_context()
     candidates = read_candidates()
     selected_problems = set(args.problem_nos or [])
