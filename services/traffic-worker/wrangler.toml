@@ -8,4 +8,4 @@ ALLOWED_ORIGIN = "https://scorpascal.github.io"
 [[d1_databases]]
 binding = "DB"
 database_name = "ruc-yoj-traffic"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "5a5ef10f-2de3-4eaf-a3de-48543c497f10"

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "mode": "fallback",
-  "apiBaseUrl": "",
+  "mode": "realtime",
+  "apiBaseUrl": "https://ruc-yoj-traffic.ruc-yoj-traffic-worker.workers.dev",
   "fallbackUrl": "data/traffic.json"
 }
