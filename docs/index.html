@@ -76,6 +76,8 @@
     .analytics-meta, .analytics-title-row, .analytics-chart-head, .analytics-axis { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
     .analytics-meta { color: #9fbae0; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
     .analytics-kicker { color: #7fb1ff; font-weight: 800; }
+    .analytics-meta.is-stale { color: #f1d27a; }
+    .analytics-meta.is-stale .analytics-kicker { color: #ffd166; }
     .analytics-title-row { margin-top: 7px; }
     .analytics-title-row h2 { margin: 0; color: #fff; font-size: 24px; line-height: 1.2; letter-spacing: -.045em; }
     .analytics-zone { color: #c5d9f4; font-size: 11px; }
@@ -101,6 +103,8 @@
     .traffic-empty { margin: 38px 0 40px; color: #88a5cc; font-size: 11px; text-align: center; }
     .analytics-footnote { display: flex; align-items: center; gap: 6px; margin: 11px 1px 0; color: #8ca8ce; font-size: 10px; line-height: 1.4; }
     .traffic-status-dot { width: 6px; height: 6px; flex: 0 0 6px; border-radius: 50%; background: #58d89f; box-shadow: 0 0 0 3px rgba(88, 216, 159, .13); }
+    .analytics-footnote.is-stale { color: #d9b95a; }
+    .analytics-footnote.is-stale .traffic-status-dot { background: #ffd166; box-shadow: 0 0 0 3px rgba(255, 209, 102, .14); }
     .analytics-probe { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 
     .main { padding: 42px 0 72px; }
@@ -269,7 +273,7 @@
         <div id="hero-topics" class="hero-topics" aria-label="热门知识点"></div>
       </div>
       <aside class="hero-analytics" aria-labelledby="analytics-title">
-        <div class="analytics-meta"><span class="analytics-kicker">LIVE TRAFFIC</span><span id="analytics-updated">待同步</span></div>
+        <div id="analytics-meta" class="analytics-meta"><span class="analytics-kicker">LIVE TRAFFIC</span><span id="analytics-updated">待同步</span></div>
         <div class="analytics-title-row"><h2 id="analytics-title">访问概览</h2><span class="analytics-zone">北京时间</span></div>
         <div class="analytics-stat-grid">
           <div class="analytics-stat"><span>今日访问</span><strong id="analytics-today">—</strong><small>当天页面加载</small></div>
@@ -281,7 +285,7 @@
           <div id="traffic-axis" class="analytics-axis" aria-hidden="true"></div>
           <div id="traffic-empty" class="traffic-empty" hidden>近 7 日数据将在统计服务同步后显示</div>
         </div>
-        <p class="analytics-footnote"><span class="traffic-status-dot" aria-hidden="true"></span><span id="analytics-source-note">统计按页面加载计数，非去重访客人数</span></p>
+        <p id="analytics-footnote" class="analytics-footnote"><span class="traffic-status-dot" aria-hidden="true"></span><span id="analytics-source-note">统计按页面加载计数，非去重访客人数</span></p>
         <img id="traffic-total-probe" class="analytics-probe" alt="" aria-hidden="true">
         <img id="traffic-today-probe" class="analytics-probe" alt="" aria-hidden="true">
       </aside>
@@ -325,11 +329,13 @@
       const TRAFFIC_PAGE_ID = "Scorpascal.RUC_YOJ";
       const TRAFFIC_BADGE_URL = "https://visitor-badge.laobi.icu/badge";
       const TRAFFIC_TIMEZONE = "Asia/Shanghai";
+      const TRAFFIC_STALE_AFTER_MS = 90 * 60 * 1000;
       const trafficNumber = new Intl.NumberFormat("zh-CN");
       function formatTraffic(value) { const number = Number(value); return Number.isFinite(number) ? trafficNumber.format(number) : "—"; }
       function trafficDate(offset = 0) { const parts = new Intl.DateTimeFormat("en-US", { timeZone: TRAFFIC_TIMEZONE, year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(new Date()); const part = (type) => parts.find((item) => item.type === type)?.value; const current = new Date(Date.UTC(Number(part("year")), Number(part("month")) - 1, Number(part("day")) - offset)); return current.toISOString().slice(0, 10); }
+      function updateTrafficFreshness(payload = {}) { const updatedAt = typeof payload.updatedAt === "string" ? Date.parse(payload.updatedAt) : NaN; const stale = !Number.isFinite(updatedAt) || Date.now() - updatedAt > TRAFFIC_STALE_AFTER_MS; const meta = $("analytics-meta"); const footnote = $("analytics-footnote"); meta.classList.toggle("is-stale", stale); footnote.classList.toggle("is-stale", stale); const updated = $("analytics-updated"); updated.textContent = payload.updatedAt ? `${stale ? "同步延迟 · " : "同步 "}${formatDateTime(payload.updatedAt)}` : "待同步"; updated.title = stale ? "统计任务超过 90 分钟未成功发布，当前显示最后成功快照" : "统计快照已在 90 分钟内成功发布"; const provider = payload.source?.provider || "统计服务"; $("analytics-source-note").textContent = stale ? `来源 ${provider} · 当前为最后成功快照，请等待统计任务恢复` : `来源 ${provider} · 按页面加载计数，非去重访客人数`; }
       function renderTraffic(payload = {}) { const series = Array.isArray(payload.series) ? payload.series.slice(-7) : []; const latest = series[series.length - 1]; $("analytics-today").textContent = formatTraffic(payload.todayVisits ?? latest?.visits); $("analytics-total").textContent = formatTraffic(payload.totalVisits); $("analytics-updated").textContent = payload.updatedAt ? `同步 ${formatDateTime(payload.updatedAt)}` : "待同步"; $("analytics-source-note").textContent = payload.source?.provider ? `来源 ${payload.source.provider} · 按页面加载计数，非去重访客人数` : "统计数据尚未同步"; const values = series.map((item) => Number(item.visits)); const chartReady = series.length >= 2 && values.every((value) => Number.isFinite(value)); $("traffic-chart").hidden = !chartReady; $("traffic-empty").hidden = chartReady; const axis = $("traffic-axis"); axis.replaceChildren(); series.forEach((item) => axis.append(make("span", "", item.label || String(item.date || "").slice(5)))); const pointsGroup = $("traffic-points"); pointsGroup.replaceChildren(); if (!chartReady) { $("traffic-line").setAttribute("d", ""); $("traffic-area").setAttribute("d", ""); $("analytics-chart-summary").textContent = "等待数据"; return; } const left = 18; const right = 442; const top = 20; const bottom = 118; const peak = Math.max(0, ...values); const max = Math.max(1, peak); const step = (right - left) / (values.length - 1); const points = values.map((value, index) => ({ x: left + step * index, y: bottom - (value / max) * (bottom - top) })); const linePath = points.map((point, index) => `${index === 0 ? "M" : "L"} ${point.x.toFixed(2)} ${point.y.toFixed(2)}`).join(" "); $("traffic-line").setAttribute("d", linePath); $("traffic-area").setAttribute("d", `M ${left} ${bottom} ${points.map((point) => `L ${point.x.toFixed(2)} ${point.y.toFixed(2)}`).join(" ")} L ${right} ${bottom} Z`); points.forEach((point) => { const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle"); circle.setAttribute("class", "traffic-point"); circle.setAttribute("cx", point.x.toFixed(2)); circle.setAttribute("cy", point.y.toFixed(2)); circle.setAttribute("r", "4"); pointsGroup.append(circle); }); $("analytics-chart-summary").textContent = `最高 ${formatTraffic(peak)} 次`; $("traffic-chart").setAttribute("aria-label", `近 7 天访问趋势，最高 ${formatTraffic(peak)} 次`); }
-      async function loadTraffic() { try { const response = await fetch("data/traffic.json", { cache: "no-store" }); if (!response.ok) throw new Error(`访问统计加载失败（HTTP ${response.status}）`); renderTraffic(await response.json()); } catch (error) { renderTraffic(); } }
+      async function loadTraffic() { try { const response = await fetch("data/traffic.json", { cache: "no-store" }); if (!response.ok) throw new Error(`访问统计加载失败（HTTP ${response.status}）`); const payload = await response.json(); renderTraffic(payload); updateTrafficFreshness(payload); } catch (error) { renderTraffic(); updateTrafficFreshness(); } }
       function activateTrafficProbes() { if (!location.hostname || /^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return; const total = new URLSearchParams({ page_id: TRAFFIC_PAGE_ID }); const today = new URLSearchParams({ page_id: `${TRAFFIC_PAGE_ID}.day.${trafficDate()}` }); $("traffic-total-probe").src = `${TRAFFIC_BADGE_URL}?${total.toString()}`; $("traffic-today-probe").src = `${TRAFFIC_BADGE_URL}?${today.toString()}`; }
       function filteredEntries() { const query = state.query.trim().toLowerCase(); return state.entries.filter((entry) => { const haystack = [entry.problemNo, entry.title, ...(entry.tags || []), entry.language].join(" ").toLowerCase(); const matchesStatus = !state.status || (state.status === "verified" ? entry.verified : state.status === "online" ? entry.onlineAvailable : !entry.onlineAvailable && !entry.verified); return (!query || haystack.includes(query)) && (!state.tag || entry.tags.includes(state.tag)) && matchesStatus && (!state.language || entry.language === state.language); }); }
       function filteredEntries() { const query = state.query.trim().toLowerCase(); return state.entries.filter((entry) => { const haystack = [entry.problemNo, entry.title, ...(entry.tags || []), entry.language].join(" ").toLowerCase(); const hasAccepted = entry.verified || entry.onlineAccepted === true; const matchesStatus = !state.status || (state.status === "verified" ? hasAccepted : state.status === "online" ? entry.onlineAvailable : !entry.onlineAvailable && !entry.verified); return (!query || haystack.includes(query)) && (!state.tag || entry.tags.includes(state.tag)) && matchesStatus && (!state.language || entry.language === state.language); }); }

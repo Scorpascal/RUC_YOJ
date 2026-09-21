@@ -38,6 +38,8 @@ jobs:
         uses: actions/configure-pages@v6
       - name: Verify generated Pages data
         run: python3 tools/build_site_catalog.py --check
+      - name: Verify traffic data invariants
+        run: python3 tools/build_traffic.py --check
       - name: Audit public release evidence
         run: python3 tools/audit_consistency.py
       - name: Upload Pages artifact

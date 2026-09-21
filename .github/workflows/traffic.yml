@@ -2,9 +2,10 @@ name: Refresh RUC YOJ traffic stats
 
 on:
   schedule:
-    # Every hour at :25 Asia/Shanghai, so today's number does not wait for the
-    # next midnight to become visible on the static Pages site.
-    - cron: "25 * * * *"
+    # GitHub interprets cron in UTC.  Two off-peak checkpoints per hour make
+    # a delayed or dropped scheduled event less likely to leave stale data.
+    - cron: "17 * * * *"
+    - cron: "47 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -14,7 +15,7 @@ permissions:
 
 concurrency:
   group: pages-traffic
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   refresh:
@@ -27,6 +28,8 @@ jobs:
         uses: actions/checkout@v5
       - name: Refresh traffic snapshot
         run: python3 tools/build_traffic.py
+      - name: Validate traffic snapshot invariants
+        run: python3 tools/build_traffic.py --check
       - name: Commit traffic snapshot
         run: |
           if git diff --quiet -- docs/data/traffic.json; then
@@ -46,3 +49,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+      - name: Verify deployed traffic snapshot
+        env:
+          DEPLOYED_PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: python3 tools/verify_traffic_deploy.py --url "$DEPLOYED_PAGE_URL" --expected docs/data/traffic.json
