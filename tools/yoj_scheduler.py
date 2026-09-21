@@ -260,6 +260,31 @@ def save_sentinel_state(problem_numbers: list[int], next_cursor: int) -> None:
     temporary.replace(SENTINEL_STATE_PATH)
 
 
+def sentinel_all_accepted(problem_numbers: list[int]) -> tuple[bool, dict[int, str]]:
+    """Treat a completed command as success only when every probe is Accepted."""
+
+    report_path = ROOT / "staging" / "online-sentinel.json"
+    try:
+        payload = json.loads(report_path.read_text(encoding="utf-8"))
+    except (OSError, TypeError, ValueError, json.JSONDecodeError):
+        return False, {problem_no: "REPORT_MISSING_OR_INVALID" for problem_no in problem_numbers}
+    records = {
+        int(row["problemNo"]): str(row.get("status") or "UNKNOWN")
+        for row in (payload.get("records") or [])
+        if str(row.get("problemNo", "")).isdigit()
+    }
+    skipped = {
+        int(row["problemNo"]): str(row.get("reason") or "SKIPPED")
+        for row in (payload.get("skipped") or [])
+        if str(row.get("problemNo", "")).isdigit()
+    }
+    outcomes = {
+        problem_no: records.get(problem_no, skipped.get(problem_no, "NO_RESULT"))
+        for problem_no in problem_numbers
+    }
+    return all(outcome == "Accepted" for outcome in outcomes.values()), outcomes
+
+
 def path_problem_number(path: str) -> int | None:
     match = PROBLEM_PATH_RE.match(path)
     return int(match.group(1)) if match else None
@@ -423,6 +448,13 @@ def run_sentinel(args: argparse.Namespace) -> int:
             "canonical 在线证据和 PUBLIC_READY 均未覆盖"
         )
         return result
+    accepted, outcomes = sentinel_all_accepted(selected)
+    if not accepted:
+        log(
+            f"在线哨兵发现非 Accepted/跳过结果：{outcomes}；"
+            "不推进轮换游标，保留隔离报告等待复核"
+        )
+        return 3
     save_sentinel_state(selected, next_cursor)
     remember_generated_changes()
     log(f"在线哨兵完成：本轮轮换题号 {selected}；证据与发布状态隔离")
