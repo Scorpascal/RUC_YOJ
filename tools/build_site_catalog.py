@@ -115,8 +115,11 @@ def build_payload() -> dict:
         for tag in tags:
             tag_counts[tag] += 1
         verified = public.get("status") == "PUBLIC_READY" and quick_entry.get("onlineStatus") == "Accepted"
+        publication_status = str(public.get("status") or "NOT_RECORDED")
         online_accepted = public.get("onlineVerification") == "ONLINE_ACCEPTED"
+        online_verification_status = str(public.get("onlineVerification") or "NOT_RECORDED")
         online_available = problem_no in online_public
+        visibility_status = "CURRENT_PUBLIC" if online_available else "NOT_IN_CURRENT_PUBLIC_INDEX"
         archive = record.get("archive") or {}
         archive_code_path = str(archive.get("directlySubmittableCode") or "")
         archive_code_file = ROOT / archive_code_path if archive_code_path else None
@@ -141,8 +144,13 @@ def build_payload() -> dict:
                 "timeLimit": limits.get("time") or "—",
                 "memoryLimit": limits.get("memory") or "—",
                 "verified": verified,
+                "publicationStatus": publication_status,
                 "onlineAccepted": online_accepted,
+                "onlineVerificationStatus": online_verification_status,
+                "onlineVerificationAt": public.get("verifiedAt"),
+                "onlineVerificationSubmissionNo": public.get("verifiedSubmissionNo"),
                 "onlineAvailable": online_available,
+                "visibilityStatus": visibility_status,
                 "onlineStatus": "YOJ_PUBLIC" if online_available else "NOT_IN_CURRENT_PUBLIC_INDEX",
                 "solutionStatus": "solution" if has_notes else "statement",
                 "problemUrl": quick_entry.get("problemUrl") or record.get("problemUrl"),
