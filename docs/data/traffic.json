@@ -6,10 +6,10 @@
     "timezone": "Asia/Shanghai",
     "countSemantics": "page_loads"
   },
-  "updatedAt": "2026-09-21T11:53:48Z",
+  "updatedAt": "2026-09-21T12:03:53Z",
   "today": "2026-09-21",
-  "todayVisits": 109,
-  "totalVisits": 121,
+  "todayVisits": 111,
+  "totalVisits": 124,
   "series": [
     {
       "date": "2026-09-15",
@@ -44,7 +44,7 @@
     {
       "date": "2026-09-21",
       "label": "9/21",
-      "visits": 109
+      "visits": 111
     }
   ]
 }
