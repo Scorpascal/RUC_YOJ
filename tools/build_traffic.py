@@ -71,7 +71,8 @@ def build_payload(today: date | None = None) -> dict:
     series: list[dict] = []
     for offset in range(6, -1, -1):
         day = current_day - timedelta(days=offset)
-        day_id = f"{PAGE_ID}.day.{day:%Y%m%d}"
+        # Keep this identical to the browser probe in docs/index.html.
+        day_id = f"{PAGE_ID}.day.{day:%Y-%m-%d}"
         series.append(
             {
                 "date": day.isoformat(),

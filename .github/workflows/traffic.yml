@@ -2,9 +2,9 @@ name: Refresh RUC YOJ traffic stats
 
 on:
   schedule:
-    # 00:25 Asia/Shanghai.  The date-scoped counters are then ready for the
-    # previous day while the current day starts accumulating immediately.
-    - cron: "25 16 * * *"
+    # Every hour at :25 Asia/Shanghai, so today's number does not wait for the
+    # next midnight to become visible on the static Pages site.
+    - cron: "25 * * * *"
   workflow_dispatch:
 
 permissions:
