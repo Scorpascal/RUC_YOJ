@@ -21,7 +21,7 @@
 | 在线复验 | `NO_LOCAL_AC` | `5` | 1.01% | 题面已归档，但尚无本人 Accepted 源码；不执行代码复验 |
 | 在线复验 | `ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND` | `20` | 4.05% | 未找到提交表单，需人工确认提交形态 |
 | YOJ 可见性 | `YOJ_PUBLIC` | `438` | 88.66% | 本轮 YOJ 公开索引仍可见；不等于 Accepted 或 PUBLIC_READY |
-| YOJ 可见性 | `NOT_IN_CURRENT_PUBLIC_INDEX` | `56` | 11.34% | 本轮 YOJ 公开索引未发现；不等于题面或历史代码失效 |
+| YOJ 可见性 | `NOT_IN_CURRENT_PUBLIC_INDEX` | `56` | 11.34% | 本轮原站 YOJ 公开列表未列出；本站本地归档仍可查看，不等于题面或历史代码失效 |
 
 > 当前重点：待清洗/发布 `49` 道；在线复验非 Accepted 或跳过 `25` 道；其中在线已 Accepted 但仍待清洗发布 `24` 道。
 
@@ -37,14 +37,14 @@
 
 > 这是按 Method 指引生成的离线初步构建。当前把原始题面快照转换成 Markdown：公式尽量保留为 LaTeX，题面图片优先本地化到对应题目目录；原始 HTML 不进入公开索引。
 > `代码库/` 保留题号和文件格式；只有标记为 `PUBLIC_READY` 的题目才表示对应清洗代码已通过本地门禁、YOJ Accepted 和源码回收核验，其余记录仍是待复核归档。
-> YOJ 当前公开可见性由 `data/yoj-public-problems.json` 独立记录；`YOJ 当前公开` 不等于 Accepted，`题面已归档` 也不等于题目已经从 YOJ 下线。
+> YOJ 当前公开可见性由 `data/yoj-public-problems.json` 独立记录；这里的“公开”指原站公开题目列表，不是本站本地归档页面。`YOJ 当前公开` 不等于 Accepted，`题面已归档` 也不等于题目已经从 YOJ 下线。
 
 ## 当前状态
 
 - 原始归档时间：`2026-09-20T18:43:59Z`
 - 已生成题面：`494` 道
-- YOJ 公开列表快照：`438` 道，最近核验时间 `2026-09-20T18:54:06Z`；该可见性证据不替代 Accepted 或 `PUBLIC_READY`
-- YOJ 可见性投影：当前公开 `438` 道；本轮公开索引未发现 `56` 道；下线只更新可见性，不降级冻结的 `PUBLIC_READY` 内容
+- YOJ 公开列表快照：`438` 道，最近发生变化时间 `2026-09-20T18:54:06Z`；每日任务仍会复核未变化的列表，该可见性证据不替代 Accepted 或 `PUBLIC_READY`
+- YOJ 可见性投影：当前公开 `438` 道；原站公开列表未列出 `56` 道；下线只更新可见性，不降级冻结的 `PUBLIC_READY` 内容
 - 状态统计：发布阶段 `{'PUBLIC_READY': 445, 'RAW_CAPTURED': 44, 'TOPIC_CAPTURED': 5}`；在线复验 `{'NO_LOCAL_AC': 5, 'ONLINE_ACCEPTED': 469, 'ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND': 20}`（详细表见上方）
 - 原始代码同步：完整代码 `489/494`，可提交代码 `489/494`；原始归档不等于公开发布版本
 - 公开清洗版本：`445/494` 道通过本地门禁、YOJ Accepted 与源码回收核验
@@ -53,7 +53,7 @@
 - YOJ 快捷提交入口：严格 `PUBLIC_READY` `445` 道；另有当前公开历史 Accepted 归档 `20` 道提供带警告的人工尝试入口；当前公开且仓库有代码 `433` 道，不改变发布状态
 - 题面中的时间/内存是题目页限制；每条归档记录的 `archive.acceptedRun` 单独保存某次 AC 的实测耗时/内存，二者不混用
 - 自动调度：每天北京时间 22:30–23:30 尝试运行；公开题号发现不依赖账号，若本机登录态或钥匙串不可用，新题仍可只抓题面并记录为 `TOPIC_CAPTURED`，需要账号的源码抓取/在线复验则暂停；未完成请求保留断点，在下一天窗口继续；通过工作树门禁的公开白名单生成物会自动提交并推送到 `main`；YOJ 登录密码只从本机钥匙串注入，不进入 GitHub
-- 每日可见性转变：先比较本地归档与 YOJ 当前公开列表；下线题目只更新 `NOT_IN_CURRENT_PUBLIC_INDEX`/历史 AC 投影，不降级冻结版本；重新开放的历史归档题目只走 `--visibility-only`，恢复符合门禁的查看代码与快捷提交入口；无新题且无转变时不登录、不构建、不复验、不发布
+- 每日可见性转变：先比较本地归档与 YOJ 当前公开列表；下线题目只更新 `NOT_IN_CURRENT_PUBLIC_INDEX`/历史 AC 投影，不降级冻结版本；重新开放或公开列表内容变化时走 `--visibility-only`，恢复符合门禁的查看代码与快捷提交入口并发布快照；无新题、无转变且快照未变化时才不登录、不构建、不复验、不发布
 - 同题号漂移审计：低频运行 `python3 tools/yoj_scheduler.py --drift-audit`；只比较规范化题面正文（含样例）、标题和题面限制，结果进入被忽略的 `staging/problem-drift.json`，不覆盖已冻结的 `PUBLIC_READY`
 - 隐藏测试数据哨兵：低频运行 `YOJ_SYNC_ENABLE_SUBMIT=1 python3 tools/yoj_scheduler.py --sentinel --allow-submit`；每批轮换少量 `PUBLIC_READY` 题目，证据隔离在 `staging/online-sentinel.json`，失败不自动降级发布版本
 - GitHub Pages：部署 workflow 已进入仓库；首次使用需在仓库 Settings → Pages 将 Source 设为 GitHub Actions，启用后快捷链接才会提供可执行页面

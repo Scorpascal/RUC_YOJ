@@ -196,7 +196,7 @@ def build_payload() -> dict:
             "onlineSnapshotCapturedAt": online_snapshot.get("capturedAt"),
             "onlineSnapshotSha256": online_snapshot.get("problemListSha256"),
             "tagging": "title-heuristic-v1",
-            "note": "YOJ 可见性来自独立公开列表快照；它不替代仓库自己的 Accepted/PUBLIC_READY 证据。知识点标签为根据题名生成的初步导航标签，需逐题人工校准。",
+            "note": "YOJ 可见性来自独立的原站未登录公开列表快照；本站目录仍展示本地全部归档题目，因此本地可见不等于原站当前公开。该快照不替代仓库自己的 Accepted/PUBLIC_READY 证据。知识点标签为根据题名生成的初步导航标签，需逐题人工校准。",
         },
         "tagCounts": dict(sorted(tag_counts.items(), key=lambda pair: (-pair[1], pair[0]))),
         "entries": entries,

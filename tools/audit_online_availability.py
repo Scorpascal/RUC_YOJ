@@ -264,7 +264,7 @@ def main() -> int:
         action = "captured" if changed else "unchanged"
         print(
             f"{action} {len(rows)} public YOJ problems across {pages_fetched} pages -> {args.output}; "
-            f"id-set sha256={digest_rows(rows)}"
+            f"public-list sha256={digest_rows(rows)}"
         )
         return 0
     except (OSError, TypeError, ValueError, json.JSONDecodeError) as exc:

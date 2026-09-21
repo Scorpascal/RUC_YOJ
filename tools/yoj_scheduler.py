@@ -35,6 +35,7 @@ VISIBILITY_REPORT_PATH = STATE_DIR / "public-visibility-report.json"
 SENTINEL_STATE_PATH = STATE_DIR / "sentinel-state.json"
 DRIFT_REPORT_PATH = ROOT / "staging" / "problem-drift.json"
 PUBLIC_READY_PATH = ROOT / "data" / "public-ready.json"
+PUBLIC_SNAPSHOT_PATH = ROOT / "data" / "yoj-public-problems.json"
 KEYCHAIN_SERVICE = "RUC_YOJ/yoj-sync"
 TZ = ZoneInfo("Asia/Shanghai")
 PUBLIC_PUBLISH_PREFIXES = ("README.md", "data/", "docs/")
@@ -141,6 +142,19 @@ def file_sha256(path: Path) -> str | None:
     return digest.hexdigest()
 
 
+def snapshot_content_digest(path: Path) -> str | None:
+    """Return the public-list digest, ignoring a timestamp-only rewrite."""
+
+    if not path.is_file():
+        return None
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, TypeError, ValueError, json.JSONDecodeError):
+        return file_sha256(path)
+    digest = payload.get("problemListSha256") if isinstance(payload, dict) else None
+    return str(digest) if digest else file_sha256(path)
+
+
 def load_expected_changes() -> dict[str, str | None]:
     if not EXPECTED_CHANGES_PATH.is_file():
         return {}
@@ -197,7 +211,7 @@ def run_visibility_audit(environment: dict[str, str], commit: bool = False) -> b
         sys.executable,
         str(ROOT / "tools" / "audit_public_visibility.py"),
         "--snapshot",
-        str(ROOT / "data" / "yoj-public-problems.json"),
+        str(PUBLIC_SNAPSHOT_PATH),
         "--report",
         str(VISIBILITY_REPORT_PATH),
     ]
@@ -424,7 +438,7 @@ def run_drift_audit(args: argparse.Namespace, environment: dict[str, str]) -> in
         sys.executable,
         str(ROOT / "tools" / "audit_problem_drift.py"),
         "--public-snapshot",
-        str(ROOT / "data" / "yoj-public-problems.json"),
+        str(PUBLIC_SNAPSHOT_PATH),
         "--report",
         str(DRIFT_REPORT_PATH),
         "--request-interval",
@@ -528,6 +542,7 @@ def run_once(args: argparse.Namespace) -> int:
         # Refresh the public, unauthenticated evidence first.  This keeps the
         # visibility axis current even when no new problem is discovered, and
         # ensures the account is never needed merely to compare problem IDs.
+        snapshot_before = snapshot_content_digest(PUBLIC_SNAPSHOT_PATH)
         if run_command(
             [sys.executable, str(ROOT / "tools" / "audit_online_availability.py")],
             environment,
@@ -535,6 +550,7 @@ def run_once(args: argparse.Namespace) -> int:
         ):
             log("公开题目列表快照未正常完成，本轮不继续抓取、构建或发布")
             return 3
+        snapshot_changed = snapshot_content_digest(PUBLIC_SNAPSHOT_PATH) != snapshot_before
 
         if not run_visibility_audit(environment):
             log("公开题目可见性转变审计未正常完成，本轮不继续抓取、构建或发布")
@@ -555,7 +571,7 @@ def run_once(args: argparse.Namespace) -> int:
             "--request-interval",
             str(args.request_interval),
             "--public-snapshot",
-            str(ROOT / "data" / "yoj-public-problems.json"),
+            str(PUBLIC_SNAPSHOT_PATH),
         ]
         if run_command(discovery_command, environment, 600):
             log("新题号发现阶段未正常完成，本轮不继续抓取、构建或发布")
@@ -577,13 +593,16 @@ def run_once(args: argparse.Namespace) -> int:
 
         if not discovered_problem_numbers:
             has_visibility_transition = bool(visibility_report.get("hasVisibilityTransitions"))
-            if has_visibility_transition:
+            if has_visibility_transition or snapshot_changed:
                 archived = visibility_report.get("archivedProblemNumbers") or []
                 reopened = visibility_report.get("reopenedProblemNumbers") or []
-                log(
-                    "本轮没有新题号，但发现 YOJ 可见性转变："
-                    f"下线 {archived}，重新开放 {reopened}；只刷新状态和快捷提交投影"
-                )
+                if has_visibility_transition:
+                    log(
+                        "本轮没有新题号，但发现 YOJ 可见性转变："
+                        f"下线 {archived}，重新开放 {reopened}；只刷新状态和快捷提交投影"
+                    )
+                else:
+                    log("本轮没有新题号，但公开列表快照内容发生变化；刷新状态、README 和 Pages 目录")
                 visibility_refresh = [
                     sys.executable,
                     str(ROOT / "tools" / "build_initial.py"),
@@ -608,7 +627,7 @@ def run_once(args: argparse.Namespace) -> int:
                         remember_generated_changes()
                         return result
             else:
-                log("本轮未发现本地从未出现过的新题号；跳过整库构建、编译、样例、在线复验和发布")
+                log("本轮无新题号、无可见性转变且公开列表快照未变化；跳过整库构建、编译、样例、在线复验和发布")
             if not run_visibility_audit(environment, commit=True):
                 log("可见性基线保存失败；下一轮将重新核对")
                 remember_generated_changes()
@@ -632,7 +651,7 @@ def run_once(args: argparse.Namespace) -> int:
             "--request-interval",
             str(args.request_interval),
             "--public-snapshot",
-            str(ROOT / "data" / "yoj-public-problems.json"),
+            str(PUBLIC_SNAPSHOT_PATH),
         ]
         if public_only:
             capture_command.append("--public-only")

@@ -14,7 +14,7 @@
     "onlineSnapshotCapturedAt": "2026-09-20T18:54:06Z",
     "onlineSnapshotSha256": "26081189664c04c854c6bc56441554237caea82dc448da8f8f4409b1ba54aad2",
     "tagging": "title-heuristic-v1",
-    "note": "YOJ 可见性来自独立公开列表快照；它不替代仓库自己的 Accepted/PUBLIC_READY 证据。知识点标签为根据题名生成的初步导航标签，需逐题人工校准。"
+    "note": "YOJ 可见性来自独立的原站未登录公开列表快照；本站目录仍展示本地全部归档题目，因此本地可见不等于原站当前公开。该快照不替代仓库自己的 Accepted/PUBLIC_READY 证据。知识点标签为根据题名生成的初步导航标签，需逐题人工校准。"
   },
   "tagCounts": {
     "基础语法": 262,
