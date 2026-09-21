@@ -437,7 +437,7 @@ def main() -> int:
 
         complete_candidate, direct_candidate = candidate_paths(problem)
         gate_reasons = local_gate_reasons(problem_no, complete_candidate, direct_candidate)
-        if direct_candidate.resolve() != path.resolve():
+        if direct_candidate is None or direct_candidate.resolve() != path.resolve():
             gate_reasons.append("CANDIDATE_SELECTION_STALE")
         if gate_reasons:
             reason = "LOCAL_GATE_" + "+".join(sorted(set(gate_reasons)))

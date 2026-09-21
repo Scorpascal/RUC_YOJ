@@ -46,11 +46,21 @@ def relative(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
 
 
-def candidate_path(raw_path: Path) -> Path:
-    """Return the highest-priority existing candidate for a raw archive file."""
+def candidate_path(raw_path: Path | None) -> Path | None:
+    """Return the highest-priority candidate, or ``None`` when no raw file exists.
 
+    Topic-only records deliberately have no archive code paths.  Treat an
+    empty or out-of-tree path as a missing candidate instead of allowing
+    ``Path.relative_to`` to turn a normal publication block into an exception.
+    """
+
+    if raw_path is None:
+        return None
     raw_path = raw_path.resolve()
-    relative_path = raw_path.relative_to(RAW_ROOT.resolve())
+    try:
+        relative_path = raw_path.relative_to(RAW_ROOT.resolve())
+    except ValueError:
+        return None
     for root in _CANDIDATE_ROOTS:
         candidate = root / relative_path
         if candidate.is_file():
@@ -58,10 +68,12 @@ def candidate_path(raw_path: Path) -> Path:
     return raw_path
 
 
-def candidate_paths(record: dict[str, Any]) -> tuple[Path, Path]:
+def candidate_paths(record: dict[str, Any]) -> tuple[Path | None, Path | None]:
     archive = record.get("archive") or {}
-    complete_raw = ROOT / str(archive.get("completeCode") or "")
-    direct_raw = ROOT / str(archive.get("directlySubmittableCode") or "")
+    complete_ref = str(archive.get("completeCode") or "")
+    direct_ref = str(archive.get("directlySubmittableCode") or "")
+    complete_raw = ROOT / complete_ref if complete_ref else None
+    direct_raw = ROOT / direct_ref if direct_ref else None
     return candidate_path(complete_raw), candidate_path(direct_raw)
 
 
@@ -106,7 +118,7 @@ def _find_file_row(rows: Iterable[dict[str, Any]], paths: set[str]) -> dict[str,
     return None
 
 
-def local_gate_reasons(problem_no: int, complete: Path, direct: Path) -> list[str]:
+def local_gate_reasons(problem_no: int, complete: Path | None, direct: Path | None) -> list[str]:
     """Return blocking reasons for one candidate.
 
     ``NO_SAMPLE`` is explicitly allowed: it means that the statement parser
@@ -115,7 +127,7 @@ def local_gate_reasons(problem_no: int, complete: Path, direct: Path) -> list[st
     """
 
     reasons: list[str] = []
-    if not complete.is_file() or not direct.is_file():
+    if complete is None or direct is None or not complete.is_file() or not direct.is_file():
         return ["CANDIDATE_FILE_MISSING"]
 
     complete_rel = relative(complete)
@@ -164,13 +176,13 @@ def local_gate_reasons(problem_no: int, complete: Path, direct: Path) -> list[st
     return sorted(set(reasons))
 
 
-def online_ready_reasons(row: dict[str, Any], direct: Path) -> list[str]:
+def online_ready_reasons(row: dict[str, Any], direct: Path | None) -> list[str]:
     """Return blocking reasons for the online evidence of one candidate."""
 
     reasons: list[str] = []
     if str(row.get("status") or "") != "Accepted":
         reasons.append(f"ONLINE_{row.get('status') or 'UNKNOWN'}")
-    if not direct.is_file():
+    if direct is None or not direct.is_file():
         reasons.append("DIRECT_CANDIDATE_MISSING")
     else:
         candidate_sha = str(row.get("candidateSha256") or "")
@@ -189,7 +201,9 @@ def online_ready_reasons(row: dict[str, Any], direct: Path) -> list[str]:
     return sorted(set(reasons))
 
 
-def is_public_ready(row: dict[str, Any], complete: Path, direct: Path, problem_no: int) -> tuple[bool, list[str]]:
+def is_public_ready(
+    row: dict[str, Any], complete: Path | None, direct: Path | None, problem_no: int
+) -> tuple[bool, list[str]]:
     reasons = local_gate_reasons(problem_no, complete, direct)
     reasons.extend(online_ready_reasons(row, direct))
     return not reasons, sorted(set(reasons))

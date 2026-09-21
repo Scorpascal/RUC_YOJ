@@ -89,8 +89,8 @@ def ready_record(record: dict[str, Any], online: dict[str, Any], previous: dict[
     problem_no = int(record["problemNo"])
     complete, direct = candidate_paths(record)
     ready, reasons = is_public_ready(online, complete, direct, problem_no)
-    complete_sha = sha256_file(complete) if complete.is_file() else ""
-    direct_sha = sha256_file(direct) if direct.is_file() else ""
+    complete_sha = sha256_file(complete) if complete is not None and complete.is_file() else ""
+    direct_sha = sha256_file(direct) if direct is not None and direct.is_file() else ""
     current_statement_hash = statement_hash(record)
 
     # PUBLIC_READY is immutable by the unattended pipeline.  A later AC or a
@@ -205,7 +205,9 @@ def apply_release(records: list[dict[str, Any]], ready_by_no: dict[str, dict[str
         # current staging candidate has not completed a new online gate.  In
         # that case the candidate must not overwrite the frozen public bytes.
         candidate_matches_release = bool(
-            complete_candidate.is_file()
+            complete_candidate is not None
+            and direct_candidate is not None
+            and complete_candidate.is_file()
             and direct_candidate.is_file()
             and sha256_file(complete_candidate) == str(ready.get("completeCodeSha256") or "")
             and sha256_file(direct_candidate) == str(ready.get("directlySubmittableCodeSha256") or "")
