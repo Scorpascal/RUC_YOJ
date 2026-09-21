@@ -154,6 +154,9 @@ def main() -> int:
         expected_status = "YOJ_PUBLIC" if expected_online else "NOT_IN_CURRENT_PUBLIC_INDEX"
         if str(catalog_row.get("onlineStatus") or "") != expected_status:
             failures.append(f"{number}: catalog onlineStatus differs from YOJ public-index snapshot")
+        expected_online_accepted = str((problems[number].get("public") or {}).get("onlineVerification") or "") == "ONLINE_ACCEPTED"
+        if bool(catalog_row.get("onlineAccepted")) != expected_online_accepted:
+            failures.append(f"{number}: catalog onlineAccepted differs from data/problems.json")
 
     source = load("docs/data/catalog.json").get("source") or {}
     expected_online_ids = set(online)
@@ -167,6 +170,8 @@ def main() -> int:
         failures.append("catalog source archivedQuickSubmitEntries differs from the manifest")
     if int(source.get("archivedCodeEntries") or -1) != sum(bool(row.get("archiveCodeAvailable")) for row in catalog.values()):
         failures.append("catalog source archivedCodeEntries differs from the catalog")
+    if int(source.get("onlineAcceptedSubmissions") or -1) != sum(bool(row.get("onlineAccepted")) for row in catalog.values()):
+        failures.append("catalog source onlineAcceptedSubmissions differs from the catalog")
 
     online_missing_from_repository = sorted(set(online) - set(problems))
     if online_missing_from_repository:

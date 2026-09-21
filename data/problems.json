@@ -662,7 +662,7 @@
         "statement": "题解/0087_图像处理/0087_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_LOCAL_GATE_SAMPLE_SAMPLE_INCONSISTENT",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -20798,7 +20798,7 @@
         "statement": "题解/1134_#_1134_._圆/1134_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""

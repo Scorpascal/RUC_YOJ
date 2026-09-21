@@ -115,6 +115,7 @@ def build_payload() -> dict:
         for tag in tags:
             tag_counts[tag] += 1
         verified = public.get("status") == "PUBLIC_READY" and quick_entry.get("onlineStatus") == "Accepted"
+        online_accepted = public.get("onlineVerification") == "ONLINE_ACCEPTED"
         online_available = problem_no in online_public
         archive = record.get("archive") or {}
         archive_code_path = str(archive.get("directlySubmittableCode") or "")
@@ -140,6 +141,7 @@ def build_payload() -> dict:
                 "timeLimit": limits.get("time") or "—",
                 "memoryLimit": limits.get("memory") or "—",
                 "verified": verified,
+                "onlineAccepted": online_accepted,
                 "onlineAvailable": online_available,
                 "onlineStatus": "YOJ_PUBLIC" if online_available else "NOT_IN_CURRENT_PUBLIC_INDEX",
                 "solutionStatus": "solution" if has_notes else "statement",
@@ -176,6 +178,7 @@ def build_payload() -> dict:
         "source": {
             "problemRecords": len(entries),
             "verifiedSubmissions": sum(1 for item in entries if item["verified"]),
+            "onlineAcceptedSubmissions": sum(1 for item in entries if item["onlineAccepted"]),
             "onlinePublicProblems": len(online_public),
             "onlinePublicInRepository": sum(1 for item in entries if item["onlineAvailable"]),
             "onlinePublicMissingRepository": len(set(online_public) - {item["problemNo"] for item in entries}),

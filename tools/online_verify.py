@@ -39,6 +39,7 @@ POLL_LIMIT = 30
 BUILD_EVERY = 20
 FILL_IN_PROBLEMS = {285, 286}
 PENDING_STATUSES = {"waiting", "compiling", "running", "judging", "pending"}
+PARTIAL_FORM_MARKERS = ("部分代码提交", "待填区", "填空", "detailtk")
 
 
 def utc_now() -> str:
@@ -132,6 +133,9 @@ def parse_form(page: str, problem_no: int, language: str) -> tuple[str, str | No
     form_tags = re.findall(r"<form\b[^>]*>", page, flags=re.I)
     submit_tag = next((tag for tag in form_tags if re.search(r"id=[\"']submit_code[\"']", tag, re.I)), "")
     if not submit_tag:
+        page_text = clean_text(page).lower()
+        if any(marker.lower() in page_text for marker in PARTIAL_FORM_MARKERS):
+            raise ValueError("PARTIAL_CODE_FORM")
         raise ValueError("SUBMIT_FORM_NOT_FOUND")
     action_match = re.search(r"action=[\"']([^\"']+)[\"']", submit_tag, re.I)
     action = action_match.group(1) if action_match else "/index.php/index/index/prob_submit.html"
@@ -347,6 +351,17 @@ def main() -> int:
         submit_language = "cpp17" if problem_no in cpp17_problems else language
         candidate_sha256 = hashlib.sha256(path.read_bytes()).hexdigest()
         previous = records.get(problem_no)
+        if (
+            previous
+            and previous.get("manualBrowserEvidence")
+            and previous.get("status") == "Accepted"
+            and not args.reverify_accepted
+        ):
+            # Browser-confirmed evidence may intentionally point at a
+            # submitted source that is not yet recoverable as a repository
+            # candidate.  Do not erase it merely because the automated
+            # candidate directory selects a different file on the next run.
+            continue
         if previous and previous.get("candidateSha256") == candidate_sha256:
             if previous.get("status") == "Accepted":
                 if not args.reverify_accepted:

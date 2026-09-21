@@ -151,7 +151,7 @@ def make_archived_quick_entry(record: dict[str, Any], online_public_numbers: set
     if gate_reasons:
         warnings.append("原题样例自身与题面格式不一致，未据此改写代码；提交前请先核对题面和输入输出。")
     online_verification = str((record.get("public") or {}).get("onlineVerification") or "")
-    if "SUBMIT_FORM_NOT_FOUND" in online_verification:
+    if any(marker in online_verification for marker in ("SUBMIT_FORM_NOT_FOUND", "PARTIAL_CODE_FORM")):
         warnings.append("本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。")
 
     return {
@@ -1172,6 +1172,7 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         "RAW_CAPTURED": "已归档，待清洗、复核或发布",
         "ONLINE_ACCEPTED": "在线提交为 Accepted；若仍是 RAW_CAPTURED，还需完成清洗发布",
         "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND": "未找到提交表单，需人工确认提交形态",
+        "ONLINE_SKIPPED_PARTIAL_CODE_FORM": "YOJ 当前为部分代码/填空提交形态，缺少完整固定模板",
         "ONLINE_SKIPPED_FILL_IN_FRAGMENT_TEMPLATE_UNAVAILABLE": "填空/片段模板未具备，需人工处理",
         "ONLINE_COMPILE_ERROR": "在线编译失败，需检查代码或题目语言配置",
         "ONLINE_TIME_LIMIT_EXCEEDED": "在线运行超时，需检查算法或时间限制",
