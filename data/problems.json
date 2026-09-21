@@ -1307,7 +1307,7 @@
         "statement": "题解/0119_递归倒置字符数组/0119_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_SKIPPED_PARTIAL_CODE_FORM",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -2139,7 +2139,7 @@
         "statement": "题解/0132_指针练习/0132_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -2709,7 +2709,7 @@
         "statement": "题解/0144_子串替换/0144_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""

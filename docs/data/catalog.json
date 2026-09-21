@@ -4,7 +4,7 @@
   "source": {
     "problemRecords": 494,
     "verifiedSubmissions": 445,
-    "onlineAcceptedSubmissions": 447,
+    "onlineAcceptedSubmissions": 449,
     "onlinePublicProblems": 438,
     "onlinePublicInRepository": 438,
     "onlinePublicMissingRepository": 0,
@@ -863,7 +863,7 @@
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
       "verified": false,
-      "onlineAccepted": false,
+      "onlineAccepted": true,
       "onlineAvailable": true,
       "onlineStatus": "YOJ_PUBLIC",
       "solutionStatus": "statement",
@@ -874,7 +874,7 @@
       "archiveCodeAvailable": true,
       "quickSubmitMode": "archived",
       "quickSubmitUrl": "./yoj-quick-submit.html?pno=132&mode=archive",
-      "quickSubmitWarning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。 本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。",
+      "quickSubmitWarning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。",
       "submissionNo": "1165605"
     },
     {
@@ -1091,7 +1091,7 @@
       "timeLimit": "1000 ms",
       "memoryLimit": "256MiB",
       "verified": false,
-      "onlineAccepted": false,
+      "onlineAccepted": true,
       "onlineAvailable": true,
       "onlineStatus": "YOJ_PUBLIC",
       "solutionStatus": "statement",
@@ -1102,7 +1102,7 @@
       "archiveCodeAvailable": true,
       "quickSubmitMode": "archived",
       "quickSubmitUrl": "./yoj-quick-submit.html?pno=144&mode=archive",
-      "quickSubmitWarning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。 本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。",
+      "quickSubmitWarning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。",
       "submissionNo": "1343749"
     },
     {
