@@ -52,7 +52,7 @@
 - 在线源码回收：`Accepted` 中已回收并比对 `445/469`；编号、状态、跳过原因和源码回收证据保存在被忽略的 `staging/online-verification.json`
 - YOJ 快捷提交入口：严格 `PUBLIC_READY` `445` 道；另有当前公开历史 Accepted 归档 `20` 道提供带警告的人工尝试入口；当前公开且仓库有代码 `433` 道，不改变发布状态
 - 题面中的时间/内存是题目页限制；每条归档记录的 `archive.acceptedRun` 单独保存某次 AC 的实测耗时/内存，二者不混用
-- 自动调度：每天北京时间 22:30–23:30 尝试运行；公开题号发现不依赖账号，若本机登录态或钥匙串不可用，新题仍可只抓题面并记录为 `TOPIC_CAPTURED`，需要账号的源码抓取/在线复验则暂停；未完成请求保留断点，在下一天窗口继续；YOJ 登录密码只从本机钥匙串注入，不进入 GitHub
+- 自动调度：每天北京时间 22:30–23:30 尝试运行；公开题号发现不依赖账号，若本机登录态或钥匙串不可用，新题仍可只抓题面并记录为 `TOPIC_CAPTURED`，需要账号的源码抓取/在线复验则暂停；未完成请求保留断点，在下一天窗口继续；通过工作树门禁的公开白名单生成物会自动提交并推送到 `main`；YOJ 登录密码只从本机钥匙串注入，不进入 GitHub
 - 每日可见性转变：先比较本地归档与 YOJ 当前公开列表；下线题目只更新 `NOT_IN_CURRENT_PUBLIC_INDEX`/历史 AC 投影，不降级冻结版本；重新开放的历史归档题目只走 `--visibility-only`，恢复符合门禁的查看代码与快捷提交入口；无新题且无转变时不登录、不构建、不复验、不发布
 - 同题号漂移审计：低频运行 `python3 tools/yoj_scheduler.py --drift-audit`；只比较规范化题面正文（含样例）、标题和题面限制，结果进入被忽略的 `staging/problem-drift.json`，不覆盖已冻结的 `PUBLIC_READY`
 - 隐藏测试数据哨兵：低频运行 `YOJ_SYNC_ENABLE_SUBMIT=1 python3 tools/yoj_scheduler.py --sentinel --allow-submit`；每批轮换少量 `PUBLIC_READY` 题目，证据隔离在 `staging/online-sentinel.json`，失败不自动降级发布版本
