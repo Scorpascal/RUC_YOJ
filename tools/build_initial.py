@@ -270,6 +270,57 @@ def rebuild_site_catalog() -> str | None:
     return f"Pages catalog generation failed (exit {result.returncode}): {detail}"
 
 
+def refresh_visibility_projection() -> int:
+    """Refresh only visibility-dependent public projections.
+
+    A daily public-list transition must update the README, the two quick-submit
+    manifests, and the Pages catalog, but it must not reparse statements,
+    rewrite frozen ``PUBLIC_READY`` records, compile candidates, or submit
+    code.  This path intentionally consumes the already materialized
+    ``data/problems.json`` records as its sole problem-data source.
+    """
+
+    problems_path = DATA_ROOT / "problems.json"
+    if not problems_path.is_file():
+        print(f"找不到既有题库数据: {problems_path}", file=sys.stderr)
+        return 2
+    try:
+        problems_payload = json_load(problems_path)
+        records = [row for row in (problems_payload.get("records") or []) if isinstance(row, dict)]
+        if MANIFEST_PATH.is_file():
+            manifest = json_load(MANIFEST_PATH)
+        else:
+            manifest = {
+                "capturedAt": problems_payload.get("capturedAt"),
+                "problems": records,
+            }
+        quick_submit_manifest = make_quick_submit_manifest(records, manifest)
+        readme = make_readme(records, manifest)
+    except (OSError, KeyError, TypeError, ValueError, json.JSONDecodeError) as exc:
+        print(f"可见性轻量投影失败: {exc}", file=sys.stderr)
+        return 1
+
+    write_json(DATA_ROOT / "quick-submit.json", quick_submit_manifest)
+    write_json(ROOT / "docs" / QUICK_SUBMIT_MANIFEST_URL, quick_submit_manifest)
+    write_text(ROOT / "README.md", readme)
+    catalog_failure = rebuild_site_catalog()
+    if catalog_failure:
+        print(catalog_failure, file=sys.stderr)
+        return 1
+    print(
+        json.dumps(
+            {
+                "mode": "visibility-only",
+                "records": len(records),
+                "verifiedEntries": len(quick_submit_manifest.get("entries") or []),
+                "archivedQuickSubmitEntries": len(quick_submit_manifest.get("archivedEntries") or []),
+            },
+            ensure_ascii=False,
+        )
+    )
+    return 0
+
+
 def local_name(node: Any) -> str:
     tag = getattr(node, "tag", "")
     if not isinstance(tag, str):
@@ -1172,6 +1223,7 @@ def build_statement(
             "cleanCode": relative_path(complete_path) if is_ready and complete_path.is_file() else None,
             "directlySubmittableCode": relative_path(direct_path) if is_ready and direct_path.is_file() else None,
             "onlineVerification": online_status,
+            "onlineVerificationNote": "",
             "verifiedAt": str((public_ready or {}).get("verifiedAt") or "") if is_ready else "",
             "verifiedSubmissionNo": str((public_ready or {}).get("submissionNo") or "") if is_ready else "",
             "codeSha256": str((public_ready or {}).get("completeCodeSha256") or observed_hash) if is_ready else "",
@@ -1202,12 +1254,17 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
             online_snapshot = {}
     online_public_count = online_snapshot.get("publicCount") or "未记录"
     online_captured_at = str(online_snapshot.get("capturedAt") or "未记录")
+    online_public_numbers = load_online_public_numbers()
     public_status_counts = Counter(
         str((record.get("public") or {}).get("status") or "UNKNOWN")
         for record in records
     )
     online_status_counts = Counter(
         str((record.get("public") or {}).get("onlineVerification") or "NOT_RECORDED")
+        for record in records
+    )
+    visibility_counts = Counter(
+        "YOJ_PUBLIC" if int(record.get("problemNo") or 0) in online_public_numbers else "NOT_IN_CURRENT_PUBLIC_INDEX"
         for record in records
     )
     total_records = len(records)
@@ -1223,6 +1280,7 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
     online_status_order.extend(
         sorted(status for status in online_status_counts if status not in online_status_order)
     )
+    visibility_status_order = ["YOJ_PUBLIC", "NOT_IN_CURRENT_PUBLIC_INDEX"]
     status_descriptions = {
         "PUBLIC_READY": "清洗、本地门禁、在线 Accepted 与源码回收均完成",
         "TOPIC_CAPTURED": "已从 YOJ 公开题目列表归档题面，但尚无本人 Accepted 源码；不生成伪代码",
@@ -1237,6 +1295,8 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         "ONLINE_FILE_ERROR": "在线文件处理异常，需人工复核",
         "NO_LOCAL_AC": "题面已归档，但尚无本人 Accepted 源码；不执行代码复验",
         "NOT_RECORDED": "尚无在线复验记录",
+        "YOJ_PUBLIC": "本轮 YOJ 公开索引仍可见；不等于 Accepted 或 PUBLIC_READY",
+        "NOT_IN_CURRENT_PUBLIC_INDEX": "本轮 YOJ 公开索引未发现；不等于题面或历史代码失效",
     }
     public_pending_ids: dict[str, list[str]] = {}
     online_pending_ids: dict[str, list[str]] = {}
@@ -1270,6 +1330,13 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         count = online_status_counts[status]
         dashboard_lines.append(
             f"| 在线复验 | `{status}` | `{count}` | {percentage(count)} | {status_descriptions.get(status, '待人工检查')} |"
+        )
+    for status in visibility_status_order:
+        if status not in visibility_counts:
+            continue
+        count = visibility_counts[status]
+        dashboard_lines.append(
+            f"| YOJ 可见性 | `{status}` | `{count}` | {percentage(count)} | {status_descriptions[status]} |"
         )
 
     raw_pending_count = total_records - public_status_counts.get("PUBLIC_READY", 0)
@@ -1344,7 +1411,6 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         and bool(record["public"].get("directlySubmittableCode"))
         for record in records
     )
-    online_public_numbers = load_online_public_numbers()
     archived_quick_by_no = {
         int(record["problemNo"]): make_archived_quick_entry(record, online_public_numbers)
         for record in records
@@ -1378,6 +1444,7 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         f"- 原始归档时间：`{captured_at}`",
         f"- 已生成题面：`{len(records)}` 道",
         f"- YOJ 公开列表快照：`{online_public_count}` 道，最近核验时间 `{online_captured_at}`；该可见性证据不替代 Accepted 或 `PUBLIC_READY`",
+        f"- YOJ 可见性投影：当前公开 `{visibility_counts.get('YOJ_PUBLIC', 0)}` 道；本轮公开索引未发现 `{visibility_counts.get('NOT_IN_CURRENT_PUBLIC_INDEX', 0)}` 道；下线只更新可见性，不降级冻结的 `PUBLIC_READY` 内容",
         f"- 状态统计：发布阶段 `{dict(sorted(public_status_counts.items()))}`；在线复验 `{dict(sorted(online_status_counts.items()))}`（详细表见上方）",
         f"- 原始代码同步：完整代码 `{sum(bool(record['archive'].get('completeCode')) for record in records)}/{len(records)}`，可提交代码 `{sum(bool(record['archive'].get('directlySubmittableCode')) for record in records)}/{len(records)}`；原始归档不等于公开发布版本",
         f"- 公开清洗版本：`{public_ready_count}/{len(records)}` 道通过本地门禁、YOJ Accepted 与源码回收核验",
@@ -1386,6 +1453,7 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         f"- YOJ 快捷提交入口：严格 `PUBLIC_READY` `{quick_submit_count}` 道；另有当前公开历史 Accepted 归档 `{len(archived_quick_by_no)}` 道提供带警告的人工尝试入口；当前公开且仓库有代码 `{current_public_code_count}` 道，不改变发布状态",
         "- 题面中的时间/内存是题目页限制；每条归档记录的 `archive.acceptedRun` 单独保存某次 AC 的实测耗时/内存，二者不混用",
         "- 自动调度：每天北京时间 22:30–23:30 尝试运行；公开题号发现不依赖账号，若本机登录态或钥匙串不可用，新题仍可只抓题面并记录为 `TOPIC_CAPTURED`，需要账号的源码抓取/在线复验则暂停；未完成请求保留断点，在下一天窗口继续；YOJ 登录密码只从本机钥匙串注入，不进入 GitHub",
+        "- 每日可见性转变：先比较本地归档与 YOJ 当前公开列表；下线题目只更新 `NOT_IN_CURRENT_PUBLIC_INDEX`/历史 AC 投影，不降级冻结版本；重新开放的历史归档题目只走 `--visibility-only`，恢复符合门禁的查看代码与快捷提交入口；无新题且无转变时不登录、不构建、不复验、不发布",
         "- 同题号漂移审计：低频运行 `python3 tools/yoj_scheduler.py --drift-audit`；只比较规范化题面正文（含样例）、标题和题面限制，结果进入被忽略的 `staging/problem-drift.json`，不覆盖已冻结的 `PUBLIC_READY`",
         "- 隐藏测试数据哨兵：低频运行 `YOJ_SYNC_ENABLE_SUBMIT=1 python3 tools/yoj_scheduler.py --sentinel --allow-submit`；每批轮换少量 `PUBLIC_READY` 题目，证据隔离在 `staging/online-sentinel.json`，失败不自动降级发布版本",
         "- GitHub Pages：部署 workflow 已进入仓库；首次使用需在仓库 Settings → Pages 将 Source 设为 GitHub Actions，启用后快捷链接才会提供可执行页面",
@@ -1405,9 +1473,12 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         online_no = str(online.get("submissionNo") or "")
         skipped = online_skips.get(str(record["problemNo"])) or {}
         skip_reason = str(skipped.get("reason") or "")
+        skip_note = str(skipped.get("note") or record["public"].get("onlineVerificationNote") or "").replace("|", r"\|").replace("\n", " ")
         online_suffix = f"；在线 `{online_status}` #{online_no}" if online_status and online_no else ""
         if not online_suffix and skip_reason:
             online_suffix = f"；在线跳过 `{skip_reason}`"
+        if skip_note:
+            online_suffix += f"；备注：{skip_note}"
         base_status = str(record["public"]["status"])
         if base_status == "PUBLIC_READY":
             complete = record["public"].get("cleanCode")
@@ -1429,6 +1500,19 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
             status = f"{status}; ONLINE_{online_status.upper().replace(' ', '_')}"
         elif skip_reason:
             status = f"{status}; ONLINE_SKIPPED_{skip_reason.upper().replace(' ', '_')}"
+        if skip_note:
+            status = f"{status}; 备注：{skip_note}"
+        visibility_status = (
+            "YOJ_PUBLIC"
+            if int(record.get("problemNo") or 0) in online_public_numbers
+            else "NOT_IN_CURRENT_PUBLIC_INDEX"
+        )
+        # Keep the generated table stable for the common case.  The explicit
+        # negative marker is the important transition: it turns an old
+        # ``ONLINE_ACCEPTED`` row into a visibly archived one without adding
+        # a noisy suffix to every currently public problem.
+        if visibility_status != "YOJ_PUBLIC":
+            status = f"{status}; {visibility_status}"
         archived_quick = archived_quick_by_no.get(int(record["problemNo"]))
         if base_status == "PUBLIC_READY" and online_status == "Accepted" and direct:
             quick_link = f"[复制并提交]({QUICK_SUBMIT_PAGE}?pno={record['problemNo']})"
@@ -1479,6 +1563,19 @@ def apply_online_status(records: list[dict[str, Any]]) -> None:
         for row in (online_data.get("skipped") or [])
         if row.get("problemNo") is not None
     }
+
+    def apply_note(record: dict[str, Any], evidence: dict[str, Any] | None) -> None:
+        note = str((evidence or {}).get("note") or "").strip()
+        if not note:
+            return
+        record["public"]["onlineVerificationNote"] = note
+        record.setdefault("archive", {})["onlineVerificationNote"] = note
+        statement = record.setdefault("statement", {})
+        warnings = list(statement.get("warnings") or [])
+        if note not in warnings:
+            warnings.append(note)
+        statement["warnings"] = sorted(set(warnings))
+
     for record in records:
         problem_key = str(record.get("problemNo"))
         if (record.get("public") or {}).get("status") == "PUBLIC_READY":
@@ -1489,14 +1586,18 @@ def apply_online_status(records: list[dict[str, Any]]) -> None:
             # online evidence.  Ignore stale staging rows rather than
             # allowing them to manufacture an Accepted-looking status.
             record["public"]["onlineVerification"] = "NO_LOCAL_AC"
+            apply_note(record, online_skips.get(problem_key))
             continue
         row = online_rows.get(problem_key)
         if row:
             status = str(row.get("status") or "UNKNOWN").upper().replace(" ", "_")
             record["public"]["onlineVerification"] = f"ONLINE_{status}"
+            apply_note(record, row)
         elif problem_key in online_skips:
-            reason = str(online_skips[problem_key].get("reason") or "UNKNOWN").upper().replace(" ", "_")
+            skipped = online_skips[problem_key]
+            reason = str(skipped.get("reason") or "UNKNOWN").upper().replace(" ", "_")
             record["public"]["onlineVerification"] = f"ONLINE_SKIPPED_{reason}"
+            apply_note(record, skipped)
 
 
 def make_quick_submit_manifest(records: list[dict[str, Any]], manifest: dict[str, Any]) -> dict[str, Any]:
@@ -1565,6 +1666,11 @@ def make_quick_submit_manifest(records: list[dict[str, Any]], manifest: dict[str
 def build() -> int:
     parser = argparse.ArgumentParser(description="生成 RUC YOJ 离线初步仓库结构")
     parser.add_argument("--check", action="store_true", help="只检查输入与可转换性，不写入生成文件")
+    parser.add_argument(
+        "--visibility-only",
+        action="store_true",
+        help="只按最新 YOJ 公开列表刷新 README、快捷提交清单和 Pages catalog，不重建题面或代码",
+    )
     parser.add_argument("--no-download-assets", action="store_true", help="不下载题面识别出的附件资源")
     parser.add_argument(
         "--preserve-frozen",
@@ -1579,6 +1685,11 @@ def build() -> int:
         help="只物化指定题号；其他题目沿用已有 data/problems.json 与题解文件",
     )
     args = parser.parse_args()
+
+    if args.visibility_only:
+        if args.check or args.no_download_assets or args.preserve_frozen or args.problem_nos:
+            parser.error("--visibility-only 不能与 --check、--no-download-assets、--preserve-frozen 或 --problem 同用")
+        return refresh_visibility_projection()
 
     if not MANIFEST_PATH.is_file():
         print(f"找不到抓取清单: {MANIFEST_PATH}", file=sys.stderr)

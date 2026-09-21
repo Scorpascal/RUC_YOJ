@@ -313,12 +313,11 @@
       function safeText(value, fallback = "—") { return value === null || value === undefined || value === "" ? fallback : String(value); }
       function make(tag, className, text) { const element = document.createElement(tag); if (className) element.className = className; if (text !== undefined) element.textContent = text; return element; }
       function tagElement(label) { return make("span", "tag", label); }
-      function statusLabel(entry) { return entry.verified ? (entry.onlineAvailable ? "在线 AC" : "历史 AC") : (entry.onlineAvailable ? "YOJ 当前公开" : "题面已归档"); }
-      function statusClass(entry) { return entry.verified ? (entry.onlineAvailable ? "verified" : "historical") : (entry.onlineAvailable ? "available" : ""); }
-      function statusElement(entry) { return make("span", `status ${statusClass(entry)}`, statusLabel(entry)); }
       function isOnlineAccepted(entry) { return entry.onlineAccepted === true && entry.onlineAvailable === true; }
-      function statusLabel(entry) { return entry.verified ? (entry.onlineAvailable ? "在线 AC" : "历史 AC") : (isOnlineAccepted(entry) ? "在线 AC" : entry.onlineAvailable ? "YOJ 当前公开" : "题面已归档"); }
-      function statusClass(entry) { return entry.verified ? (entry.onlineAvailable ? "verified" : "historical") : (isOnlineAccepted(entry) ? "verified" : entry.onlineAvailable ? "available" : ""); }
+      function hasAcceptedEvidence(entry) { return entry.verified === true || entry.onlineAccepted === true; }
+      function statusLabel(entry) { return hasAcceptedEvidence(entry) ? (entry.onlineAvailable ? "在线 AC" : "历史 AC") : (entry.onlineAvailable ? "YOJ 当前公开" : "题面已归档"); }
+      function statusClass(entry) { return hasAcceptedEvidence(entry) ? (entry.onlineAvailable ? "verified" : "historical") : (entry.onlineAvailable ? "available" : ""); }
+      function statusElement(entry) { return make("span", `status ${statusClass(entry)}`, statusLabel(entry)); }
       function displayNo(number) { return String(number).padStart(4, "0"); }
       function displayTitle(value) { return String(value || "未命名题目").replace(/^#?\s*\d+\s*[.．、]\s*/, "").trim() || "未命名题目"; }
       function formatDate(value) { if (!value) return "—"; const date = new Date(value); return Number.isNaN(date.getTime()) ? value.slice(0, 10) : date.toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" }); }

@@ -5929,21 +5929,6 @@
       "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
     },
     {
-      "problemNo": 999,
-      "title": "字符串编辑",
-      "language": "cpp11",
-      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/999.html",
-      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
-      "codePath": "代码库/0999_字符串编辑/0999_提交_1399459_cpp11_可提交代码.cpp",
-      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/0999_%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BC%96%E8%BE%91/0999_%E6%8F%90%E4%BA%A4_1399459_cpp11_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
-      "codeSha256": "fa6574e6cb05f430b8ac08f88dd17b21ac644bae9c1f77454baad99a7f3cd84e",
-      "onlineStatus": "Accepted (历史归档)",
-      "onlineSubmissionNo": "1399459",
-      "source": "ACCEPTED_ARCHIVE",
-      "requiresReview": true,
-      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。 本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。"
-    },
-    {
       "problemNo": 1134,
       "title": "# 1134 . 圆",
       "language": "cpp17",

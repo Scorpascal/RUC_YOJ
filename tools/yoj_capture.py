@@ -518,6 +518,11 @@ def main() -> int:
         help="不登录、不扫描提交，只为公开新题号抓取题面并写入 TOPIC_CAPTURED",
     )
     parser.add_argument(
+        "--discover-only",
+        action="store_true",
+        help="只用公开题目快照计算新题号，不登录、不抓题面、不扫描提交",
+    )
+    parser.add_argument(
         "--public-snapshot",
         type=Path,
         help="使用已保存的公开列表快照计算差集，避免再次请求 YOJ 公开列表",
@@ -525,11 +530,11 @@ def main() -> int:
     args = parser.parse_args()
     if args.request_interval < 0 or args.max_pages < 1:
         raise SystemExit("请求间隔必须非负，页数必须为正数")
+    if args.public_only and args.discover_only:
+        raise SystemExit("--public-only 不能与 --discover-only 同用")
 
     manifest, existing, known_problem_numbers = existing_context()
     client = YoJClient()
-    if not args.public_only:
-        client.login()
     limiter = RateLimiter(args.request_interval)
     now = utc_now()
     high_water = max((submission_number(row.get("submissionNo")) for row in existing.values()), default=0)
@@ -561,6 +566,36 @@ def main() -> int:
         save_capture_result(result)
         print(json.dumps(result, ensure_ascii=False))
         return 0
+
+    if args.discover_only:
+        result = {
+            "schemaVersion": 2,
+            "status": "NEW_PROBLEMS_FOUND",
+            "scope": "public_problem_numbers_only",
+            "capturedAt": now,
+            "publicProblemListPages": public_pages,
+            "publicProblemNumbersSeen": len(public_numbers),
+            "highWaterSubmissionNo": high_water,
+            "acceptedProblemsSeen": None,
+            "submissionScan": "SKIPPED_DISCOVERY_ONLY",
+            "knownProblemNumbers": len(known_problem_numbers),
+            "newProblemNumbers": new_problem_numbers,
+            "newTopicNumbers": [],
+            "newAcNumbers": [],
+            "changedProblems": 0,
+            "changedFiles": 0,
+            "manifestUpdated": False,
+            "downstream": "DISCOVERY_ONLY",
+        }
+        save_capture_result(result)
+        print(json.dumps(result, ensure_ascii=False))
+        return 0
+
+    if not args.public_only:
+        # Login is deliberately deferred until after the public ID difference
+        # is known.  A no-new daily cycle must not touch the account or
+        # Keychain merely to discover that it has nothing to process.
+        client.login()
 
     if args.public_only:
         changed_files = 0

@@ -31,6 +31,7 @@ LOCK_PATH = STATE_DIR / "scheduler.lock"
 LOG_PATH = STATE_DIR / "scheduler.log"
 EXPECTED_CHANGES_PATH = STATE_DIR / "expected-generated-changes.json"
 CAPTURE_RESULT_PATH = STATE_DIR / "capture-result.json"
+VISIBILITY_REPORT_PATH = STATE_DIR / "public-visibility-report.json"
 SENTINEL_STATE_PATH = STATE_DIR / "sentinel-state.json"
 DRIFT_REPORT_PATH = ROOT / "staging" / "problem-drift.json"
 PUBLIC_READY_PATH = ROOT / "data" / "public-ready.json"
@@ -177,6 +178,32 @@ def load_capture_result() -> dict[str, object] | None:
     except (OSError, TypeError, ValueError, json.JSONDecodeError):
         return None
     return payload if isinstance(payload, dict) else None
+
+
+def load_visibility_report() -> dict[str, object] | None:
+    """Read the current public-list transition report."""
+
+    if not VISIBILITY_REPORT_PATH.is_file():
+        return None
+    try:
+        payload = json.loads(VISIBILITY_REPORT_PATH.read_text(encoding="utf-8"))
+    except (OSError, TypeError, ValueError, json.JSONDecodeError):
+        return None
+    return payload if isinstance(payload, dict) else None
+
+
+def run_visibility_audit(environment: dict[str, str], commit: bool = False) -> bool:
+    command = [
+        sys.executable,
+        str(ROOT / "tools" / "audit_public_visibility.py"),
+        "--snapshot",
+        str(ROOT / "data" / "yoj-public-problems.json"),
+        "--report",
+        str(VISIBILITY_REPORT_PATH),
+    ]
+    if commit:
+        command.append("--commit")
+    return run_command(command, environment, 600) == 0
 
 
 def problem_selector(problem_numbers: list[int]) -> list[str]:
@@ -509,6 +536,86 @@ def run_once(args: argparse.Namespace) -> int:
             log("公开题目列表快照未正常完成，本轮不继续抓取、构建或发布")
             return 3
 
+        if not run_visibility_audit(environment):
+            log("公开题目可见性转变审计未正常完成，本轮不继续抓取、构建或发布")
+            return 3
+        visibility_report = load_visibility_report()
+        if not visibility_report:
+            log("调度暂停：公开题目可见性报告缺失或不可解析")
+            remember_generated_changes()
+            return 3
+
+        # Discovery is intentionally unauthenticated.  It computes the same
+        # local-history difference as the normal capture path, but does not
+        # touch the account or Keychain until a genuinely new ID exists.
+        discovery_command = [
+            sys.executable,
+            str(ROOT / "tools" / "yoj_capture.py"),
+            "--discover-only",
+            "--request-interval",
+            str(args.request_interval),
+            "--public-snapshot",
+            str(ROOT / "data" / "yoj-public-problems.json"),
+        ]
+        if run_command(discovery_command, environment, 600):
+            log("新题号发现阶段未正常完成，本轮不继续抓取、构建或发布")
+            remember_generated_changes()
+            return 3
+        discovery_result = load_capture_result()
+        if not discovery_result or discovery_result.get("scope") != "public_problem_numbers_only":
+            log("调度暂停：新题号发现结果缺失或版本不受信，未继续后续阶段")
+            remember_generated_changes()
+            return 3
+        try:
+            discovered_problem_numbers = sorted(
+                {int(value) for value in (discovery_result.get("newProblemNumbers") or [])}
+            )
+        except (TypeError, ValueError):
+            log("调度暂停：新题号发现结果无法解析")
+            remember_generated_changes()
+            return 3
+
+        if not discovered_problem_numbers:
+            has_visibility_transition = bool(visibility_report.get("hasVisibilityTransitions"))
+            if has_visibility_transition:
+                archived = visibility_report.get("archivedProblemNumbers") or []
+                reopened = visibility_report.get("reopenedProblemNumbers") or []
+                log(
+                    "本轮没有新题号，但发现 YOJ 可见性转变："
+                    f"下线 {archived}，重新开放 {reopened}；只刷新状态和快捷提交投影"
+                )
+                visibility_refresh = [
+                    sys.executable,
+                    str(ROOT / "tools" / "build_initial.py"),
+                    "--visibility-only",
+                ]
+                if run_command(visibility_refresh, environment, 1800):
+                    log("可见性轻量投影失败；保留旧基线，下一轮重试")
+                    remember_generated_changes()
+                    return 3
+                for command in (
+                    [sys.executable, str(ROOT / "tools" / "build_site_catalog.py"), "--check"],
+                    [sys.executable, str(ROOT / "tools" / "audit_consistency.py")],
+                ):
+                    if run_command(command, environment, 600):
+                        log("可见性轻量投影的离线一致性门禁失败；保留旧基线，下一轮重试")
+                        remember_generated_changes()
+                        return 3
+                if args.publish:
+                    result = publish(args.push, set())
+                    if result:
+                        log("可见性投影已生成但 Git 发布未完成；保留旧基线等待下一轮")
+                        remember_generated_changes()
+                        return result
+            else:
+                log("本轮未发现本地从未出现过的新题号；跳过整库构建、编译、样例、在线复验和发布")
+            if not run_visibility_audit(environment, commit=True):
+                log("可见性基线保存失败；下一轮将重新核对")
+                remember_generated_changes()
+                return 3
+            remember_generated_changes()
+            return 0
+
         capture_environment = environment
         public_only = False
         try:
@@ -531,6 +638,7 @@ def run_once(args: argparse.Namespace) -> int:
             capture_command.append("--public-only")
         if run_command(capture_command, capture_environment, 3600):
             log("增量抓取未正常完成，本轮不继续构建、复验或发布")
+            remember_generated_changes()
             return 3
         capture_result = load_capture_result()
         if not capture_result or capture_result.get("scope") != "public_problem_numbers_only":
@@ -543,19 +651,17 @@ def run_once(args: argparse.Namespace) -> int:
             log("调度暂停：抓取结果中的新题号无法解析")
             remember_generated_changes()
             return 3
-        if not new_problem_numbers:
-            log("本轮未发现本地从未出现过的新题号；跳过整库构建、复验和发布")
+        if new_problem_numbers != discovered_problem_numbers:
+            log(
+                "调度暂停：发现阶段与实际抓取阶段的新题号集合不一致；"
+                f"发现 {discovered_problem_numbers}，抓取 {new_problem_numbers}"
+            )
             remember_generated_changes()
-            return 0
+            return 3
 
         selected = problem_selector(new_problem_numbers)
         log(f"本轮只处理新题号：{new_problem_numbers}")
         steps: list[tuple[list[str], dict[str, str], int]] = [
-            (
-                [sys.executable, str(ROOT / "tools" / "audit_online_availability.py")],
-                environment,
-                600,
-            ),
             (
                 [sys.executable, str(ROOT / "tools" / "build_initial.py"), "--preserve-frozen", *selected],
                 environment,
@@ -637,6 +743,10 @@ def run_once(args: argparse.Namespace) -> int:
                     if value
                 ),
             )
+            if result == 0 and not run_visibility_audit(environment, commit=True):
+                log("公开提交已完成，但可见性基线保存失败；下一轮会重试核对")
+                remember_generated_changes()
+                return 3
             remember_generated_changes()
             return result
         if online_ran:
@@ -657,6 +767,10 @@ def run_once(args: argparse.Namespace) -> int:
             if run_command([sys.executable, str(ROOT / "tools" / "audit_consistency.py")], environment, 600):
                 remember_generated_changes()
                 return 3
+        if not run_visibility_audit(environment, commit=True):
+            log("可见性基线保存失败；公开构建结果保留在本地待下一轮处理")
+            remember_generated_changes()
+            return 3
         remember_generated_changes()
         log("本轮完成：未执行 Git 发布")
         return 0

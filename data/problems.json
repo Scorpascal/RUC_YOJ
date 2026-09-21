@@ -10980,7 +10980,8 @@
         },
         "blockHandling": {
           "status": "unknown"
-        }
+        },
+        "onlineVerificationNote": "YOJ 当前题面主体为空；已有历史代码实测为 Wrong Answer，缺乏可靠题意与可验证答案。除非题面恢复或补充权威题意，不再猜测或重复提交。"
       },
       "public": {
         "status": "TOPIC_CAPTURED",
@@ -10989,6 +10990,7 @@
         "cleanCode": null,
         "directlySubmittableCode": null,
         "onlineVerification": "NO_LOCAL_AC",
+        "onlineVerificationNote": "YOJ 当前题面主体为空；已有历史代码实测为 Wrong Answer，缺乏可靠题意与可验证答案。除非题面恢复或补充权威题意，不再猜测或重复提交。",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -11002,6 +11004,7 @@
         "imageLocalCount": 0,
         "assets": [],
         "warnings": [
+          "YOJ 当前题面主体为空；已有历史代码实测为 Wrong Answer，缺乏可靠题意与可验证答案。除非题面恢复或补充权威题意，不再猜测或重复提交。",
           "题面主体为空，题面需要人工复核"
         ]
       }
@@ -16897,7 +16900,17 @@
           "directlySubmittableFile": "0999_提交_1399459_cpp11_可提交代码.cpp",
           "blocks": [],
           "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-        }
+        },
+        "template": {
+          "path": "题解/0999_字符串编辑/assets/01_999.cpp",
+          "sourceUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/999.html",
+          "filename": "01_999.cpp",
+          "status": "DOWNLOADED_FRAMEWORK",
+          "bytes": 8635,
+          "sha256": "4868de1e26371148cbc3c30d47ae1ca6762ad5032a7460ef0b5f7f5aa1173847",
+          "placeholder": "____qcodep____"
+        },
+        "onlineVerificationNote": "本题为 detailtk 代码补全题；本次在线提交的是下载框架中的 Editor 方法定义片段，脱敏完整代码仅作历史归档，不能按普通整段源码解释；源码回收仍待详情页确认。"
       },
       "public": {
         "status": "RAW_CAPTURED",
@@ -16905,7 +16918,8 @@
         "statement": "题解/0999_字符串编辑/0999_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "onlineVerificationNote": "本题为 detailtk 代码补全题；本次在线提交的是下载框架中的 Editor 方法定义片段，脱敏完整代码仅作历史归档，不能按普通整段源码解释；源码回收仍待详情页确认。",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -16931,7 +16945,9 @@
             "error": ""
           }
         ],
-        "warnings": []
+        "warnings": [
+          "本题为 detailtk 代码补全题；本次在线提交的是下载框架中的 Editor 方法定义片段，脱敏完整代码仅作历史归档，不能按普通整段源码解释；源码回收仍待详情页确认。"
+        ]
       }
     },
     {
@@ -20916,7 +20932,8 @@
         },
         "blockHandling": {
           "status": "unknown"
-        }
+        },
+        "onlineVerificationNote": "YOJ 在线终态为 No Testdata；平台未提供可执行测试数据，无法判定代码正确性。除非测试数据恢复，不再重复提交。"
       },
       "public": {
         "status": "TOPIC_CAPTURED",
@@ -20925,6 +20942,7 @@
         "cleanCode": null,
         "directlySubmittableCode": null,
         "onlineVerification": "NO_LOCAL_AC",
+        "onlineVerificationNote": "YOJ 在线终态为 No Testdata；平台未提供可执行测试数据，无法判定代码正确性。除非测试数据恢复，不再重复提交。",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -20937,7 +20955,9 @@
         "imageAssets": [],
         "imageLocalCount": 0,
         "assets": [],
-        "warnings": []
+        "warnings": [
+          "YOJ 在线终态为 No Testdata；平台未提供可执行测试数据，无法判定代码正确性。除非测试数据恢复，不再重复提交。"
+        ]
       }
     },
     {
@@ -24063,7 +24083,8 @@
         },
         "blockHandling": {
           "status": "unknown"
-        }
+        },
+        "onlineVerificationNote": "YOJ 在线终态为 No Testdata；平台未提供可执行测试数据，无法判定代码正确性。除非测试数据恢复，不再重复提交。"
       },
       "public": {
         "status": "TOPIC_CAPTURED",
@@ -24072,6 +24093,7 @@
         "cleanCode": null,
         "directlySubmittableCode": null,
         "onlineVerification": "NO_LOCAL_AC",
+        "onlineVerificationNote": "YOJ 在线终态为 No Testdata；平台未提供可执行测试数据，无法判定代码正确性。除非测试数据恢复，不再重复提交。",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -24084,7 +24106,9 @@
         "imageAssets": [],
         "imageLocalCount": 0,
         "assets": [],
-        "warnings": []
+        "warnings": [
+          "YOJ 在线终态为 No Testdata；平台未提供可执行测试数据，无法判定代码正确性。除非测试数据恢复，不再重复提交。"
+        ]
       }
     },
     {
@@ -30651,7 +30675,8 @@
         },
         "blockHandling": {
           "status": "unknown"
-        }
+        },
+        "onlineVerificationNote": "已有实测为 10/100；评测环境缺少附件 menu_7.csv，详细输出为 Error: File menu_7.csv not found. 题目还依赖 student_template_7.py；附件恢复前无法完成在线通过，不再重复提交。"
       },
       "public": {
         "status": "TOPIC_CAPTURED",
@@ -30660,6 +30685,7 @@
         "cleanCode": null,
         "directlySubmittableCode": null,
         "onlineVerification": "NO_LOCAL_AC",
+        "onlineVerificationNote": "已有实测为 10/100；评测环境缺少附件 menu_7.csv，详细输出为 Error: File menu_7.csv not found. 题目还依赖 student_template_7.py；附件恢复前无法完成在线通过，不再重复提交。",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -30672,7 +30698,9 @@
         "imageAssets": [],
         "imageLocalCount": 0,
         "assets": [],
-        "warnings": []
+        "warnings": [
+          "已有实测为 10/100；评测环境缺少附件 menu_7.csv，详细输出为 Error: File menu_7.csv not found. 题目还依赖 student_template_7.py；附件恢复前无法完成在线通过，不再重复提交。"
+        ]
       }
     },
     {
@@ -31119,7 +31147,8 @@
         },
         "blockHandling": {
           "status": "unknown"
-        }
+        },
+        "onlineVerificationNote": "提交后未生成评测记录，无法取得状态、分数、时间或内存终态；不能视为通过。除非 YOJ 评测记录服务恢复，不再重复提交。"
       },
       "public": {
         "status": "TOPIC_CAPTURED",
@@ -31128,6 +31157,7 @@
         "cleanCode": null,
         "directlySubmittableCode": null,
         "onlineVerification": "NO_LOCAL_AC",
+        "onlineVerificationNote": "提交后未生成评测记录，无法取得状态、分数、时间或内存终态；不能视为通过。除非 YOJ 评测记录服务恢复，不再重复提交。",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -31140,7 +31170,9 @@
         "imageAssets": [],
         "imageLocalCount": 0,
         "assets": [],
-        "warnings": []
+        "warnings": [
+          "提交后未生成评测记录，无法取得状态、分数、时间或内存终态；不能视为通过。除非 YOJ 评测记录服务恢复，不再重复提交。"
+        ]
       }
     },
     {

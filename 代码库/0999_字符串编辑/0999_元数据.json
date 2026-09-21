@@ -47,6 +47,34 @@
     "completeCode": "0999_提交_1399459_cpp11_完整代码.cpp",
     "directlySubmittableCode": "0999_提交_1399459_cpp11_可提交代码.cpp"
   },
+  "template": {
+    "path": "题解/0999_字符串编辑/assets/01_999.cpp",
+    "sourceUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/999.html",
+    "filename": "01_999.cpp",
+    "status": "DOWNLOADED_FRAMEWORK",
+    "bytes": 8635,
+    "sha256": "4868de1e26371148cbc3c30d47ae1ca6762ad5032a7460ef0b5f7f5aa1173847",
+    "placeholder": "____qcodep____"
+  },
+  "onlineVerification": {
+    "status": "Accepted",
+    "submissionNo": "1403429",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1403429.html",
+    "submissionMode": "downloaded_framework_fill_in",
+    "fragmentShape": "class_method_definitions",
+    "attempts": [
+      {
+        "submissionNo": "1403429",
+        "status": "Accepted",
+        "score": 100,
+        "time": "810 ms",
+        "memory": "21988 KB",
+        "submittedBytes": 9617,
+        "language": "cpp11"
+      }
+    ],
+    "sourceRecovery": "PENDING_DETAIL"
+  },
   "code": {
     "language": "cpp11",
     "extension": ".cpp",
