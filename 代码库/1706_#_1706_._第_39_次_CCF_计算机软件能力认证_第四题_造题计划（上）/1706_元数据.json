@@ -1,0 +1,31 @@
+{
+  "problem": {
+    "submissionNo": "",
+    "problemNo": "1706",
+    "title": "# 1706 . 第 39 次 CCF 计算机软件能力认证 第四题 造题计划（上）",
+    "status": "TOPIC_CAPTURED",
+    "score": "",
+    "language": "",
+    "submitter": "未抓取源码",
+    "submissionUrl": "",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1706.html"
+  },
+  "source": {
+    "captureVersion": 3,
+    "capturedAt": "2026-09-22T14:30:07Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "discovery": "public_problem_index",
+    "note": "公开题目列表首次发现；本轮未找到本人 Accepted 源码，未生成或伪造代码文件。"
+  },
+  "files": {
+    "problemHtml": "1706_题目原文.html",
+    "metadata": "1706_元数据.json"
+  },
+  "code": {
+    "status": "NO_LOCAL_AC",
+    "language": "",
+    "extension": "",
+    "bytesUtf8": 0,
+    "sha256": ""
+  }
+}
