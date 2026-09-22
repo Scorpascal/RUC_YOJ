@@ -555,36 +555,32 @@ def public_ready_problem_numbers() -> set[int]:
     return set(public_ready_snapshot())
 
 
-def select_visible_ac_cleanup_backlog() -> list[int]:
-    """Select visible archived ACs that still need the release pipeline.
+def select_raw_cleanup_backlog() -> list[int]:
+    """Select every RAW_CAPTURED archived AC that still needs release.
 
     New-topic discovery is intentionally separate from this backlog.  A topic
     can be present in the local archive for days while its raw Accepted source
     is still waiting for sanitization, local gates, or a fresh online
-    round-trip.  Only candidates with both archived source files and an
-    Accepted archive run are eligible; topic-only records never enter an
-    unattended submission path.
+    round-trip.  The backlog is deliberately independent of the current YOJ
+    public-list snapshot: a previously public problem must not be stranded in
+    RAW_CAPTURED merely because it later disappears from that snapshot.  Only
+    candidates with both archived source files and an Accepted archive run are
+    eligible; topic-only records never enter an unattended submission path.
     """
 
     try:
         problems_payload = json.loads(PROBLEMS_PATH.read_text(encoding="utf-8"))
-        snapshot_payload = json.loads(PUBLIC_SNAPSHOT_PATH.read_text(encoding="utf-8"))
     except (OSError, TypeError, ValueError, json.JSONDecodeError) as exc:
         log(f"清洗 backlog 选择失败：{exc}")
         return []
 
-    current_public = {
-        int(row["problemNo"])
-        for row in (snapshot_payload.get("records") or [])
-        if isinstance(row, dict) and str(row.get("problemNo", "")).isdigit()
-    }
     frozen_public = public_ready_problem_numbers()
     selected: list[int] = []
     for record in problems_payload.get("records") or []:
         if not isinstance(record, dict) or not str(record.get("problemNo", "")).isdigit():
             continue
         problem_no = int(record["problemNo"])
-        if problem_no not in current_public or problem_no in frozen_public:
+        if problem_no in frozen_public:
             continue
         archive = record.get("archive") or {}
         public = record.get("public") or {}
@@ -1030,10 +1026,10 @@ def run_once(args: argparse.Namespace) -> int:
             remember_generated_changes()
             return 3
 
-        backlog_problem_numbers = select_visible_ac_cleanup_backlog()
+        backlog_problem_numbers = select_raw_cleanup_backlog()
         if backlog_problem_numbers:
             log(
-                "本轮发现当前公开、已有归档 AC 代码但仍待清洗/在线复核的题目："
+                "本轮发现所有仍为 RAW_CAPTURED、已有归档 AC 代码且待清洗/在线复核的题目："
                 f"{backlog_problem_numbers}"
             )
 

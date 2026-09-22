@@ -61,7 +61,7 @@
 - YOJ 快捷提交入口：严格 `PUBLIC_READY` `446` 道；另有当前公开历史 Accepted 归档 `19` 道提供带警告的人工尝试入口；当前公开且仓库有代码 `433` 道，不改变发布状态
 - 题面中的时间/内存是题目页限制；每条归档记录的 `archive.acceptedRun` 单独保存某次 AC 的实测耗时/内存，二者不混用
 - 自动调度：每天北京时间 22:30–23:30 尝试运行；公开题号发现不依赖账号，若本机登录态或钥匙串不可用，新题仍可只抓题面并记录为 `TOPIC_CAPTURED`，需要账号的源码抓取/在线复验则暂停；未完成请求保留断点，在下一天窗口继续；通过工作树门禁的公开白名单生成物会自动提交并推送到 `main`；YOJ 登录密码只从本机钥匙串注入，不进入 GitHub
-- 每日 backlog：在公开列表发现阶段之后，自动筛选“原站当前公开、归档中已有 Accepted 完整代码和可提交代码、但仍为 `RAW_CAPTURED` 或在线复验未完成”的题目，复用清洗、规范化、本地语法/编译/样例/提交表单门禁，并用 `--reverify-accepted --retry-abnormal` 做在线复核；只有 `publish_ready.py` 通过源码回收与 `Accepted` 证据后才提升为 `PUBLIC_READY` 并发布，受表单形态、样例或账号状态阻塞的题目保留 backlog 等下一窗口重试
+- 每日 backlog：在公开列表发现阶段之后，自动筛选所有仍为 `RAW_CAPTURED`、归档中已有 Accepted 完整代码和可提交代码、但尚未完成清洗或在线复验的题目，不受当前 YOJ 公开列表是否仍列出的影响；复用清洗、规范化、本地语法/编译/样例/提交表单门禁，并用 `--reverify-accepted --retry-abnormal` 做在线复核；每轮在线提交受预算限制，未完成题目保留 backlog 到下一窗口；只有 `publish_ready.py` 通过源码回收与 `Accepted` 证据后才提升为 `PUBLIC_READY` 并发布，受表单形态、样例或账号状态阻塞的题目继续等待
 - 每日可见性转变：先比较本地归档与 YOJ 当前公开列表；下线题目只更新 `NOT_IN_CURRENT_PUBLIC_INDEX`/历史 AC 投影，不降级冻结版本；重新开放或公开列表内容变化时走 `--visibility-only`，恢复符合门禁的查看代码与快捷提交入口并发布快照；无新题、无转变且快照未变化时才不登录、不构建、不复验、不发布
 - 同题号漂移审计：低频运行 `python3 tools/yoj_scheduler.py --drift-audit`；只比较规范化题面正文（含样例）、标题和题面限制，结果进入被忽略的 `staging/problem-drift.json`，不覆盖已冻结的 `PUBLIC_READY`
 - 隐藏测试数据哨兵：低频运行 `YOJ_SYNC_ENABLE_SUBMIT=1 python3 tools/yoj_scheduler.py --sentinel --allow-submit`；每批轮换少量 `PUBLIC_READY` 题目，证据隔离在 `staging/online-sentinel.json`，失败不自动降级发布版本
