@@ -18,6 +18,7 @@ import hashlib
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tarfile
@@ -216,6 +217,61 @@ def github_repository() -> tuple[str, str] | None:
     return (parts[0], parts[1]) if len(parts) == 2 else None
 
 
+def github_api_json(endpoint: str) -> tuple[object | None, str | None]:
+    """Read a public GitHub API response with a verified-TLS fallback.
+
+    The launchd interpreter may be a framework/conda Python whose OpenSSL CA
+    bundle is absent or stale, while macOS ``curl`` uses SecureTransport and
+    the system trust store.  Retry the same read-only request through curl;
+    never disable certificate verification and never pass the YOJ credential.
+    """
+
+    request = urllib.request.Request(
+        endpoint,
+        headers={
+            "Accept": "application/vnd.github+json",
+            "User-Agent": "RUC-YOJ-sync/1.0",
+        },
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=15) as response:
+            return json.loads(response.read().decode("utf-8")), None
+    except (OSError, urllib.error.URLError, urllib.error.HTTPError, UnicodeError, json.JSONDecodeError) as exc:
+        urllib_detail = str(exc)
+
+    curl = shutil.which("curl")
+    if not curl:
+        return None, f"Python HTTPS: {urllib_detail}; curl 不可用"
+    fallback = subprocess.run(
+        [
+            curl,
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--location",
+            "--max-time",
+            "15",
+            "-H",
+            "Accept: application/vnd.github+json",
+            "-H",
+            "User-Agent: RUC-YOJ-sync/1.0",
+            endpoint,
+        ],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        timeout=20,
+        check=False,
+    )
+    if fallback.returncode:
+        curl_detail = (fallback.stderr or fallback.stdout).strip()[-500:]
+        return None, f"Python HTTPS: {urllib_detail}; curl: {curl_detail or fallback.returncode}"
+    try:
+        return json.loads(fallback.stdout), None
+    except (TypeError, ValueError, json.JSONDecodeError) as exc:
+        return None, f"Python HTTPS: {urllib_detail}; curl JSON: {exc}"
+
+
 def load_pending_remote() -> dict[str, object] | None:
     if not PENDING_REMOTE_PATH.is_file():
         return None
@@ -263,18 +319,9 @@ def remote_workflow_state(commit_sha: str) -> tuple[str, str]:
     owner, name = repository
     query = urllib.parse.urlencode({"head_sha": commit_sha, "per_page": "20"})
     endpoint = f"https://api.github.com/repos/{owner}/{name}/actions/runs?{query}"
-    request = urllib.request.Request(
-        endpoint,
-        headers={
-            "Accept": "application/vnd.github+json",
-            "User-Agent": "RUC-YOJ-sync/1.0",
-        },
-    )
-    try:
-        with urllib.request.urlopen(request, timeout=15) as response:
-            payload = json.loads(response.read().decode("utf-8"))
-    except (OSError, urllib.error.URLError, urllib.error.HTTPError, UnicodeError, json.JSONDecodeError) as exc:
-        return "UNAVAILABLE", f"GitHub Actions API: {exc}"
+    payload, error = github_api_json(endpoint)
+    if error:
+        return "UNAVAILABLE", f"GitHub Actions API: {error}"
     runs = payload.get("workflow_runs") if isinstance(payload, dict) else None
     if not isinstance(runs, list):
         return "UNAVAILABLE", "GitHub Actions API returned no workflow_runs list"
