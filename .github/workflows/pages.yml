@@ -9,6 +9,11 @@ on:
       - "data/quick-submit.json"
       - "data/public-ready.json"
       - "data/yoj-public-problems.json"
+      # Release evidence also includes the source and statement files referenced
+      # by the manifests; validate when either side changes independently.
+      - "代码库/**"
+      - "题解/**"
+      - "README.md"
       - "tools/build_site_catalog.py"
       - "tools/build_initial.py"
       - "tools/audit_consistency.py"
