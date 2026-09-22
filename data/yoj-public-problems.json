@@ -1,9 +1,10 @@
 {
   "schemaVersion": 1,
-  "capturedAt": "2026-09-20T18:54:06Z",
+  "capturedAt": "2026-09-22T14:30:06Z",
   "source": "http://yoj.ruc.edu.cn/index.php/index/problem/index.html",
-  "publicCount": 438,
-  "problemListSha256": "26081189664c04c854c6bc56441554237caea82dc448da8f8f4409b1ba54aad2",
+  "publicCount": 443,
+  "pagesFetched": 2,
+  "problemListSha256": "06f5843015713a539d3b79371b65763a6f40e03a117dcceac7c3538b099b9881",
   "records": [
     {
       "problemNo": 1,
@@ -2194,6 +2195,31 @@
       "problemNo": 1690,
       "title": "绝世好串（CSP 202605-5）",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1690.html"
+    },
+    {
+      "problemNo": 1703,
+      "title": "第 39 次 CCF 计算机软件能力认证 第一题 蒙特卡洛",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1703.html"
+    },
+    {
+      "problemNo": 1704,
+      "title": "第 39 次 CCF 计算机软件能力认证 第二题 水印检查",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1704.html"
+    },
+    {
+      "problemNo": 1705,
+      "title": "第 39 次 CCF 计算机软件能力认证 第三题 HTTP头信息",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1705.html"
+    },
+    {
+      "problemNo": 1706,
+      "title": "第 39 次 CCF 计算机软件能力认证 第四题 造题计划（上）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1706.html"
+    },
+    {
+      "problemNo": 1709,
+      "title": "第 39 次 CCF 计算机软件能力认证 第五题 造题计划（下）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1709.html"
     }
   ]
 }

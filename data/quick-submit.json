@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-20T18:43:59Z",
+  "generatedAt": "2026-09-22T14:30:07Z",
   "repository": "Scorpascal/RUC_YOJ",
   "page": "yoj-quick-submit.html",
   "yojBase": "http://yoj.ruc.edu.cn",
@@ -4011,6 +4011,19 @@
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     },
     {
+      "problemNo": 1134,
+      "title": "# 1134 . 圆",
+      "language": "cpp17",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1134.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/1134_#_1134_._圆/1134_提交_1399627_cpp17_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1134_%23_1134_._%E5%9C%86/1134_%E6%8F%90%E4%BA%A4_1399627_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "46691156fe2f0aa90069216da053542683aae7bf8dae15fc4dca3887bd655bd6",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1409501",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
       "problemNo": 1135,
       "title": "# 1135 . 圆覆盖",
       "language": "cpp17",
@@ -5821,7 +5834,7 @@
       "onlineSubmissionNo": "1234787",
       "source": "ACCEPTED_ARCHIVE",
       "requiresReview": true,
-      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。 本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。"
     },
     {
       "problemNo": 132,
@@ -5836,7 +5849,7 @@
       "onlineSubmissionNo": "1165605",
       "source": "ACCEPTED_ARCHIVE",
       "requiresReview": true,
-      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。 本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。"
     },
     {
       "problemNo": 144,
@@ -5851,7 +5864,7 @@
       "onlineSubmissionNo": "1343749",
       "source": "ACCEPTED_ARCHIVE",
       "requiresReview": true,
-      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。 本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。"
     },
     {
       "problemNo": 261,
@@ -5866,7 +5879,7 @@
       "onlineSubmissionNo": "1280413",
       "source": "ACCEPTED_ARCHIVE",
       "requiresReview": true,
-      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。 本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。"
     },
     {
       "problemNo": 284,
@@ -5896,7 +5909,7 @@
       "onlineSubmissionNo": "1342127",
       "source": "ACCEPTED_ARCHIVE",
       "requiresReview": true,
-      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。 本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。"
     },
     {
       "problemNo": 421,
@@ -5911,7 +5924,7 @@
       "onlineSubmissionNo": "1280437",
       "source": "ACCEPTED_ARCHIVE",
       "requiresReview": true,
-      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。 本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。"
     },
     {
       "problemNo": 685,
@@ -5926,22 +5939,7 @@
       "onlineSubmissionNo": "1306084",
       "source": "ACCEPTED_ARCHIVE",
       "requiresReview": true,
-      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
-    },
-    {
-      "problemNo": 1134,
-      "title": "# 1134 . 圆",
-      "language": "cpp17",
-      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1134.html",
-      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
-      "codePath": "代码库/1134_#_1134_._圆/1134_提交_1399627_cpp17_可提交代码.cpp",
-      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1134_%23_1134_._%E5%9C%86/1134_%E6%8F%90%E4%BA%A4_1399627_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
-      "codeSha256": "42decc1f66d5f75205e05c4dbeb4c91087e0b425f32f268a25354e34bf3f79a9",
-      "onlineStatus": "Accepted (历史归档)",
-      "onlineSubmissionNo": "1399627",
-      "source": "ACCEPTED_ARCHIVE",
-      "requiresReview": true,
-      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。 本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。"
     },
     {
       "problemNo": 1378,
@@ -5956,7 +5954,7 @@
       "onlineSubmissionNo": "1312168",
       "source": "ACCEPTED_ARCHIVE",
       "requiresReview": true,
-      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。 本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。"
     },
     {
       "problemNo": 1379,
@@ -5971,7 +5969,7 @@
       "onlineSubmissionNo": "1290371",
       "source": "ACCEPTED_ARCHIVE",
       "requiresReview": true,
-      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。 本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。"
     },
     {
       "problemNo": 1408,
@@ -5986,7 +5984,7 @@
       "onlineSubmissionNo": "1317822",
       "source": "ACCEPTED_ARCHIVE",
       "requiresReview": true,
-      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。 本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。"
     },
     {
       "problemNo": 1409,
@@ -6001,7 +5999,7 @@
       "onlineSubmissionNo": "1302826",
       "source": "ACCEPTED_ARCHIVE",
       "requiresReview": true,
-      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。 本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。"
     },
     {
       "problemNo": 1410,
@@ -6016,7 +6014,7 @@
       "onlineSubmissionNo": "1322382",
       "source": "ACCEPTED_ARCHIVE",
       "requiresReview": true,
-      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。 本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。"
     },
     {
       "problemNo": 1411,
@@ -6031,7 +6029,7 @@
       "onlineSubmissionNo": "1308718",
       "source": "ACCEPTED_ARCHIVE",
       "requiresReview": true,
-      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。 本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。"
     },
     {
       "problemNo": 1560,
@@ -6046,7 +6044,7 @@
       "onlineSubmissionNo": "1340640",
       "source": "ACCEPTED_ARCHIVE",
       "requiresReview": true,
-      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。 本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。"
     },
     {
       "problemNo": 1561,
@@ -6061,7 +6059,7 @@
       "onlineSubmissionNo": "1342110",
       "source": "ACCEPTED_ARCHIVE",
       "requiresReview": true,
-      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。 本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。"
     },
     {
       "problemNo": 1563,
@@ -6076,7 +6074,7 @@
       "onlineSubmissionNo": "1342115",
       "source": "ACCEPTED_ARCHIVE",
       "requiresReview": true,
-      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。 本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。"
     },
     {
       "problemNo": 1576,
@@ -6091,7 +6089,7 @@
       "onlineSubmissionNo": "1342121",
       "source": "ACCEPTED_ARCHIVE",
       "requiresReview": true,
-      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。 本地历史复核尚未确认当前提交表单，页面只提供人工确认后的尝试入口。"
     }
   ]
 }

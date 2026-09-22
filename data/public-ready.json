@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "purpose": "public release manifest; credentials and session data are excluded",
-  "updatedAt": "2026-09-20T14:04:04Z",
+  "updatedAt": "2026-09-22T14:33:17Z",
   "records": [
     {
       "status": "PUBLIC_READY",
@@ -6470,6 +6470,27 @@
         "canonicalByteMatch": false
       },
       "readyAt": "2026-09-20T08:23:50Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1134,
+      "title": "# 1134 . 圆",
+      "completeCode": "代码库/1134_#_1134_._圆/1134_提交_1399627_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1134_#_1134_._圆/1134_提交_1399627_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "46691156fe2f0aa90069216da053542683aae7bf8dae15fc4dca3887bd655bd6",
+      "directlySubmittableCodeSha256": "46691156fe2f0aa90069216da053542683aae7bf8dae15fc4dca3887bd655bd6",
+      "statementSha256": "ac1c7347ed3292fbf41b30a4bdefee391a444d308e595d92a437a07a387e3153",
+      "candidatePath": "staging/cleaned-code/1134_#_1134_._圆/1134_提交_1399627_cpp17_可提交代码.cpp",
+      "candidateSha256": "46691156fe2f0aa90069216da053542683aae7bf8dae15fc4dca3887bd655bd6",
+      "submissionNo": 1409501,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-22T14:32:58Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-22T14:33:16Z"
     },
     {
       "status": "PUBLIC_READY",
