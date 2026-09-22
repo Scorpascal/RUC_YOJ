@@ -20,6 +20,12 @@ import os
 import re
 import subprocess
 import sys
+import tarfile
+import tempfile
+import time
+import urllib.error
+import urllib.parse
+import urllib.request
 from datetime import datetime, time as day_time
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -30,6 +36,7 @@ STATE_DIR = ROOT / ".yoj-sync"
 LOCK_PATH = STATE_DIR / "scheduler.lock"
 LOG_PATH = STATE_DIR / "scheduler.log"
 EXPECTED_CHANGES_PATH = STATE_DIR / "expected-generated-changes.json"
+PENDING_REMOTE_PATH = STATE_DIR / "pending-remote-deployment.json"
 CAPTURE_RESULT_PATH = STATE_DIR / "capture-result.json"
 VISIBILITY_REPORT_PATH = STATE_DIR / "public-visibility-report.json"
 SENTINEL_STATE_PATH = STATE_DIR / "sentinel-state.json"
@@ -41,6 +48,8 @@ KEYCHAIN_SERVICE = "RUC_YOJ/yoj-sync"
 TZ = ZoneInfo("Asia/Shanghai")
 PUBLIC_PUBLISH_PREFIXES = ("README.md", "data/", "docs/")
 PROBLEM_PATH_RE = re.compile(r"^(?:代码库|题解)/(\d{4})(?:_|/)")
+PAGES_WORKFLOW_PATH = ".github/workflows/pages.yml"
+REMOTE_VERIFY_TIMEOUT = max(30, int(os.environ.get("YOJ_SYNC_REMOTE_VERIFY_TIMEOUT", "180")))
 
 
 def now_local() -> datetime:
@@ -114,23 +123,214 @@ def prepare_online_environment() -> dict[str, str]:
 
 
 def changed_paths() -> list[str]:
+    """Return actual repository-relative paths without Git's C-style quoting.
+
+    ``git status --short`` quotes non-ASCII names by default.  That is unsafe
+    here because the publication allowlist and the problem-number matcher use
+    the real UTF-8 path (``代码库/`` and ``题解/``).  Porcelain ``-z`` is the
+    machine-readable form: filenames are emitted as raw bytes and are never
+    quoted.  Rename/copy records contain a second NUL-terminated path; retain
+    both names so staging and the resume checkpoint cannot silently lose one
+    side of a change.
+    """
     result = subprocess.run(
-        ["git", "status", "--short", "--untracked-files=all"],
+        ["git", "status", "--porcelain=v1", "--untracked-files=all", "-z"],
+        cwd=ROOT,
+        capture_output=True,
+        text=False,
+        timeout=30,
+        check=True,
+    )
+    paths: list[str] = []
+    records = result.stdout.split(b"\0")
+    index = 0
+    while index < len(records):
+        record = records[index]
+        index += 1
+        if not record:
+            continue
+        if len(record) < 3:
+            raise RuntimeError("git status returned a malformed porcelain record")
+        status = record[:2].decode("ascii", errors="replace")
+        path = os.fsdecode(record[3:])
+        if path:
+            paths.append(path)
+        if "R" in status or "C" in status:
+            if index >= len(records) or not records[index]:
+                raise RuntimeError("git status returned an incomplete rename/copy record")
+            paths.append(os.fsdecode(records[index]))
+            index += 1
+    return paths
+
+
+def staged_paths() -> list[str]:
+    """Return the paths in the index using Git's unquoted NUL format."""
+
+    result = subprocess.run(
+        ["git", "diff", "--cached", "--name-only", "-z"],
+        cwd=ROOT,
+        capture_output=True,
+        text=False,
+        timeout=30,
+        check=True,
+    )
+    return [os.fsdecode(value) for value in result.stdout.split(b"\0") if value]
+
+
+def git_head_sha() -> str:
+    result = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
         cwd=ROOT,
         capture_output=True,
         text=True,
         timeout=30,
         check=True,
     )
-    paths: list[str] = []
-    for line in result.stdout.splitlines():
-        if not line:
-            continue
-        value = line[3:] if len(line) >= 3 else line
-        if " -> " in value:
-            value = value.split(" -> ", 1)[1]
-        paths.append(value.strip())
-    return paths
+    return result.stdout.strip()
+
+
+def github_repository() -> tuple[str, str] | None:
+    """Return the owner/repository for the origin GitHub remote."""
+
+    result = subprocess.run(
+        ["git", "remote", "get-url", "origin"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        timeout=30,
+        check=False,
+    )
+    if result.returncode:
+        return None
+    remote = result.stdout.strip()
+    if remote.startswith("git@github.com:"):
+        slug = remote.split(":", 1)[1]
+    else:
+        parsed = urllib.parse.urlparse(remote)
+        if parsed.hostname != "github.com":
+            return None
+        slug = parsed.path.strip("/")
+    if slug.endswith(".git"):
+        slug = slug[:-4]
+    parts = [part for part in slug.split("/") if part]
+    return (parts[0], parts[1]) if len(parts) == 2 else None
+
+
+def load_pending_remote() -> dict[str, object] | None:
+    if not PENDING_REMOTE_PATH.is_file():
+        return None
+    try:
+        payload = json.loads(PENDING_REMOTE_PATH.read_text(encoding="utf-8"))
+    except (OSError, TypeError, ValueError, json.JSONDecodeError):
+        return None
+    return payload if isinstance(payload, dict) else None
+
+
+def save_pending_remote(commit_sha: str, state: str = "pending", detail: str = "") -> None:
+    STATE_DIR.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "schemaVersion": 1,
+        "commit": commit_sha,
+        "workflow": PAGES_WORKFLOW_PATH,
+        "state": state,
+        "detail": detail,
+        "updatedAt": now_local().isoformat(timespec="seconds"),
+    }
+    temporary = PENDING_REMOTE_PATH.with_name(PENDING_REMOTE_PATH.name + ".tmp")
+    temporary.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    temporary.replace(PENDING_REMOTE_PATH)
+
+
+def clear_pending_remote() -> None:
+    try:
+        PENDING_REMOTE_PATH.unlink()
+    except FileNotFoundError:
+        pass
+
+
+def remote_workflow_state(commit_sha: str) -> tuple[str, str]:
+    """Read the public GitHub Actions state for one pushed commit.
+
+    The repository is public, so this read-only API check does not require a
+    token.  ``MISSING`` and ``UNAVAILABLE`` are deliberately distinct from a
+    terminal workflow failure: the former may simply mean GitHub has not
+    queued the push yet.
+    """
+
+    repository = github_repository()
+    if not repository:
+        return "UNAVAILABLE", "origin is not a GitHub repository"
+    owner, name = repository
+    query = urllib.parse.urlencode({"head_sha": commit_sha, "per_page": "20"})
+    endpoint = f"https://api.github.com/repos/{owner}/{name}/actions/runs?{query}"
+    request = urllib.request.Request(
+        endpoint,
+        headers={
+            "Accept": "application/vnd.github+json",
+            "User-Agent": "RUC-YOJ-sync/1.0",
+        },
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=15) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+    except (OSError, urllib.error.URLError, urllib.error.HTTPError, UnicodeError, json.JSONDecodeError) as exc:
+        return "UNAVAILABLE", f"GitHub Actions API: {exc}"
+    runs = payload.get("workflow_runs") if isinstance(payload, dict) else None
+    if not isinstance(runs, list):
+        return "UNAVAILABLE", "GitHub Actions API returned no workflow_runs list"
+    matching = [
+        run
+        for run in runs
+        if isinstance(run, dict)
+        and str(run.get("head_sha") or "") == commit_sha
+        and str(run.get("path") or "") == PAGES_WORKFLOW_PATH
+    ]
+    if not matching:
+        return "MISSING", "no Pages workflow run for the pushed commit"
+    run = max(matching, key=lambda item: int(item.get("id") or 0))
+    status = str(run.get("status") or "unknown")
+    url = str(run.get("html_url") or "")
+    if status != "completed":
+        return "RUNNING", f"{status} {url}".strip()
+    conclusion = str(run.get("conclusion") or "unknown")
+    if conclusion == "success":
+        return "SUCCESS", url
+    return "FAILURE", f"{conclusion} {url}".strip()
+
+
+def verify_remote_workflow(commit_sha: str) -> bool:
+    """Wait for the Pages workflow for a pushed commit to reach success."""
+
+    deadline = time.monotonic() + REMOTE_VERIFY_TIMEOUT
+    while True:
+        state, detail = remote_workflow_state(commit_sha)
+        if state == "SUCCESS":
+            log(f"GitHub Pages workflow 已成功：commit={commit_sha[:12]} {detail}")
+            return True
+        if state == "FAILURE":
+            log(f"GitHub Pages workflow 失败：commit={commit_sha[:12]} {detail}")
+            return False
+        if time.monotonic() >= deadline:
+            log(f"GitHub Pages workflow 未在时限内完成：commit={commit_sha[:12]} state={state} {detail}")
+            return False
+        log(f"等待 GitHub Pages workflow：commit={commit_sha[:12]} state={state} {detail}")
+        time.sleep(min(15, max(1, int(deadline - time.monotonic()))))
+
+
+def verify_pending_remote() -> bool:
+    pending = load_pending_remote()
+    if not pending:
+        return True
+    commit_sha = str(pending.get("commit") or "")
+    if not re.fullmatch(r"[0-9a-f]{40}", commit_sha):
+        log("调度暂停：远端部署检查点损坏；未继续自动发布")
+        return False
+    log(f"恢复远端部署检查点：commit={commit_sha[:12]}")
+    if verify_remote_workflow(commit_sha):
+        clear_pending_remote()
+        return True
+    save_pending_remote(commit_sha, state="failed-or-pending")
+    return False
 
 
 def file_sha256(path: Path) -> str | None:
@@ -141,6 +341,37 @@ def file_sha256(path: Path) -> str | None:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def decode_legacy_git_status_path(value: str) -> str:
+    """Decode the C-style path emitted by the old text status parser."""
+
+    if len(value) < 2 or value[0] != '"' or value[-1] != '"':
+        return value
+    encoded = value[1:-1]
+    raw = bytearray()
+    index = 0
+    while index < len(encoded):
+        character = encoded[index]
+        if character != "\\":
+            raw.extend(character.encode("utf-8"))
+            index += 1
+            continue
+        index += 1
+        if index >= len(encoded):
+            raw.extend(b"\\")
+            break
+        escaped = encoded[index]
+        index += 1
+        if escaped in "01234567":
+            digits = escaped
+            while index < len(encoded) and len(digits) < 3 and encoded[index] in "01234567":
+                digits += encoded[index]
+                index += 1
+            raw.append(int(digits, 8))
+        else:
+            raw.extend({"t": b"\t", "n": b"\n", "r": b"\r"}.get(escaped, escaped.encode("utf-8")))
+    return os.fsdecode(bytes(raw))
 
 
 def snapshot_content_digest(path: Path) -> str | None:
@@ -164,7 +395,7 @@ def load_expected_changes() -> dict[str, str | None]:
     except (OSError, TypeError, ValueError, json.JSONDecodeError):
         return {}
     return {
-        str(item.get("path")): item.get("sha256")
+        decode_legacy_git_status_path(str(item.get("path"))): item.get("sha256")
         for item in (payload.get("paths") or [])
         if item.get("path")
     }
@@ -232,6 +463,21 @@ def validate_worktree_before_run() -> bool:
     if not paths:
         return True
     expected = load_expected_changes()
+    legacy_checkpoint = any(value is None for value in expected.values())
+    if legacy_checkpoint:
+        unexpected = [path for path in paths if path not in expected]
+        if unexpected:
+            log(
+                "调度暂停：旧版路径检查点无法覆盖当前变化 "
+                f"{unexpected[:12]}；请先人工审阅并处理"
+            )
+            return False
+        # The old parser stored quoted paths and null hashes, so it cannot
+        # prove byte identity.  Rebaseline only the exact known path set once;
+        # any newly appearing path still fails closed above.
+        log("迁移旧版路径检查点：改用真实 UTF-8 路径并重新记录当前文件哈希")
+        remember_generated_changes()
+        return True
     unexpected = [path for path in paths if path not in expected or expected[path] != file_sha256(ROOT / path)]
     missing = [path for path in expected if path not in paths]
     if unexpected or missing:
@@ -401,12 +647,94 @@ def scan_for_secrets(paths: list[str], secret_values: tuple[str, ...]) -> str | 
     return None
 
 
+def run_staged_consistency_audit() -> bool:
+    """Audit the exact index tree that the next commit would contain.
+
+    The ordinary audit reads the working tree.  That is necessary for the
+    build stages, but it cannot catch a publisher that accidentally leaves a
+    referenced source file unstaged.  Materialising the index with
+    ``git write-tree``/``git archive`` makes the final commit boundary
+    independently auditable before ``git commit``.
+    """
+
+    tree = subprocess.run(
+        ["git", "write-tree"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        timeout=30,
+        check=False,
+    )
+    if tree.returncode or not tree.stdout.strip():
+        log(f"发布暂停：无法生成暂存树：{tree.stdout[-500:]}{tree.stderr[-500:]}")
+        return False
+
+    with tempfile.TemporaryDirectory(prefix="yoj-staged-audit-") as directory:
+        temporary_root = Path(directory)
+        archive_path = temporary_root / "index.tar"
+        staged_root = (temporary_root / "tree").resolve()
+        staged_root.mkdir()
+        archived = subprocess.run(
+            [
+                "git",
+                "archive",
+                "--format=tar",
+                "--output",
+                str(archive_path),
+                tree.stdout.strip(),
+            ],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            timeout=120,
+            check=False,
+        )
+        if archived.returncode:
+            log(f"发布暂停：无法展开暂存树：{archived.stdout[-500:]}{archived.stderr[-500:]}")
+            return False
+        try:
+            with tarfile.open(archive_path, mode="r") as archive:
+                for member in archive.getmembers():
+                    target = (staged_root / member.name).resolve()
+                    if target != staged_root and staged_root not in target.parents:
+                        log(f"发布暂停：暂存树包含越界路径：{member.name}")
+                        return False
+                    archive.extract(member, staged_root)
+        except (OSError, tarfile.TarError) as exc:
+            log(f"发布暂停：展开暂存树失败：{exc}")
+            return False
+
+        audit = subprocess.run(
+            [sys.executable, str(staged_root / "tools" / "audit_consistency.py")],
+            cwd=staged_root,
+            env=child_environment(),
+            capture_output=True,
+            text=True,
+            timeout=600,
+            check=False,
+        )
+        output = (audit.stdout + "\n" + audit.stderr).strip()
+        if output:
+            log(f"暂存树一致性审计输出尾部：{output[-2000:]}")
+        if audit.returncode:
+            log("发布暂停：最终暂存树未通过一致性审计；未提交、未推送")
+            return False
+    return True
+
+
 def public_ready_delta(before: dict[int, str]) -> set[int]:
     after = public_ready_snapshot()
     return {problem_no for problem_no, value in after.items() if before.get(problem_no) != value}
 
 
 def publish(push: bool, release_numbers: set[int], secret_values: tuple[str, ...] = ()) -> int:
+    preexisting_staged = staged_paths()
+    if preexisting_staged:
+        log(
+            "发布暂停：检测到调度器启动前已有暂存内容；"
+            f"为避免误提交人工变化，未继续发布：{preexisting_staged[:12]}"
+        )
+        return 5
     paths = changed_paths()
     secret_path = scan_for_secrets(paths, secret_values)
     if secret_path:
@@ -433,9 +761,7 @@ def publish(push: bool, release_numbers: set[int], secret_values: tuple[str, ...
         log("发布跳过：没有本轮 PUBLIC_READY 对应或公开索引白名单变化")
         return 0
     subprocess.run(["git", "add", "--", *stage_paths], cwd=ROOT, check=True)
-    staged = subprocess.run(
-        ["git", "diff", "--cached", "--name-only"], cwd=ROOT, capture_output=True, text=True, check=True
-    ).stdout.splitlines()
+    staged = staged_paths()
     if any(not path_is_publishable(path, release_numbers) for path in staged):
         log("发布暂停：暂存区出现白名单之外的路径")
         subprocess.run(["git", "reset", "--", *staged], cwd=ROOT, check=False)
@@ -448,6 +774,9 @@ def publish(push: bool, release_numbers: set[int], secret_values: tuple[str, ...
     if not staged:
         log("发布跳过：没有可提交的白名单变化")
         return 0
+    if not run_staged_consistency_audit():
+        subprocess.run(["git", "reset", "--", *staged], cwd=ROOT, check=False)
+        return 5
     message = f"chore: sync YOJ archive {now_local().strftime('%Y-%m-%d %H:%M') }"
     commit = subprocess.run(["git", "commit", "-m", message], cwd=ROOT, capture_output=True, text=True, check=False)
     log(f"Git 提交：exit={commit.returncode} {commit.stdout[-1000:]}{commit.stderr[-1000:]}")
@@ -467,7 +796,14 @@ def publish(push: bool, release_numbers: set[int], secret_values: tuple[str, ...
         return 6
     pushed = subprocess.run(["git", "push", "origin", "main"], cwd=ROOT, capture_output=True, text=True, check=False)
     log(f"Git 推送：exit={pushed.returncode} {pushed.stdout[-1000:]}{pushed.stderr[-1000:]}")
-    return pushed.returncode
+    if pushed.returncode:
+        return pushed.returncode
+    commit_sha = git_head_sha()
+    save_pending_remote(commit_sha)
+    if not verify_remote_workflow(commit_sha):
+        return 8
+    clear_pending_remote()
+    return 0
 
 
 def run_drift_audit(args: argparse.Namespace, environment: dict[str, str]) -> int:
@@ -565,6 +901,13 @@ def run_once(args: argparse.Namespace) -> int:
 
         if not validate_worktree_before_run():
             return 4
+
+        # A successful local ``git push`` is not the end of the release.  If
+        # the previous cycle stopped before GitHub Actions/Pages reached a
+        # terminal success, resolve that checkpoint before starting another
+        # capture or publishing a second batch.
+        if not verify_pending_remote():
+            return 8
 
         environment = child_environment()
         if args.drift_audit:
