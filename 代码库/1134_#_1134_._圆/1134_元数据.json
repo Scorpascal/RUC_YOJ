@@ -42,13 +42,23 @@
     "language": "cpp17",
     "extension": ".cpp",
     "bytesUtf8": 6628,
-    "sha256": "42decc1f66d5f75205e05c4dbeb4c91087e0b425f32f268a25354e34bf3f79a9",
+    "sha256": "46691156fe2f0aa90069216da053542683aae7bf8dae15fc4dca3887bd655bd6",
     "blockHandling": {
       "status": "endpoint_returned_one_code_field",
       "completeCodeFile": "1134_提交_1399627_cpp17_完整代码.cpp",
       "directlySubmittableFile": "1134_提交_1399627_cpp17_可提交代码.cpp",
       "blocks": [],
       "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
-    }
+    },
+    "rawArchiveSha256": "42decc1f66d5f75205e05c4dbeb4c91087e0b425f32f268a25354e34bf3f79a9",
+    "directlySubmittableSha256": "46691156fe2f0aa90069216da053542683aae7bf8dae15fc4dca3887bd655bd6",
+    "status": "CLEANED_ONLINE_VERIFIED"
+  },
+  "publication": {
+    "status": "PUBLIC_READY",
+    "batchId": "20260922T143315Z",
+    "candidateSha256": "46691156fe2f0aa90069216da053542683aae7bf8dae15fc4dca3887bd655bd6",
+    "submissionNo": 1409501,
+    "verifiedAt": "2026-09-22T14:32:58Z"
   }
 }
