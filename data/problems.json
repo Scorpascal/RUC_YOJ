@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "purpose": "offline build; only explicit PUBLIC_READY records are public releases",
   "generatedFrom": "代码库/AC抓取清单.json",
-  "capturedAt": "2026-09-22T14:30:07Z",
-  "generatedRecords": 499,
+  "capturedAt": "2026-09-23T15:04:21Z",
+  "generatedRecords": 509,
   "records": [
     {
       "problemNo": "1",
@@ -9676,7 +9676,7 @@
         "statement": "题解/0626_模板与迭代器/0626_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_SKIPPED_PARTIAL_CODE_FORM",
         "onlineVerificationNote": "",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
@@ -9749,7 +9749,7 @@
         "statement": "题解/0627_模板与链式迭代器/0627_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_SKIPPED_PARTIAL_CODE_FORM",
         "onlineVerificationNote": "",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
@@ -9822,7 +9822,7 @@
         "statement": "题解/0628_STL容器练习(1)/0628_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_SKIPPED_PARTIAL_CODE_FORM",
         "onlineVerificationNote": "",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
@@ -9895,7 +9895,7 @@
         "statement": "题解/0629_STL容器练习(2)/0629_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_SKIPPED_PARTIAL_CODE_FORM",
         "onlineVerificationNote": "",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
@@ -9968,7 +9968,7 @@
         "statement": "题解/0630_STL容器集合处理/0630_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_SKIPPED_PARTIAL_CODE_FORM",
         "onlineVerificationNote": "",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
@@ -24663,7 +24663,7 @@
         "statement": "题解/1286_骇客博弈/1286_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_SKIPPED_PARTIAL_CODE_FORM",
         "onlineVerificationNote": "",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
@@ -25016,7 +25016,7 @@
         "statement": "题解/1362_智能时钟设计(C++填空)/1362_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_SKIPPED_PARTIAL_CODE_FORM",
         "onlineVerificationNote": "",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
@@ -25089,7 +25089,7 @@
         "statement": "题解/1363_智能家居设备管理系统(C++填空)/1363_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_SKIPPED_PARTIAL_CODE_FORM",
         "onlineVerificationNote": "",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
@@ -25162,7 +25162,7 @@
         "statement": "题解/1370_复数运算/1370_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_SKIPPED_PARTIAL_CODE_FORM",
         "onlineVerificationNote": "",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
@@ -25235,7 +25235,7 @@
         "statement": "题解/1371_实现多项式类/1371_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
-        "onlineVerification": "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND",
+        "onlineVerification": "ONLINE_SKIPPED_PARTIAL_CODE_FORM",
         "onlineVerificationNote": "",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
@@ -32286,6 +32286,617 @@
         "status": "TOPIC_CAPTURED",
         "publish": false,
         "statement": "题解/1709_#_1709_._第_39_次_CCF_计算机软件能力认证_第五题_造题计划（下）/1709_题目.md",
+        "cleanCode": null,
+        "directlySubmittableCode": null,
+        "onlineVerification": "NO_LOCAL_AC",
+        "onlineVerificationNote": "",
+        "verifiedAt": "",
+        "verifiedSubmissionNo": "",
+        "codeSha256": ""
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
+      "problemNo": "1710",
+      "title": "# 1710 . 第 40 次 CCF 计算机软件能力认证 第一题 集合 (set)",
+      "folder": "1710_#_1710_._第_40_次_CCF_计算机软件能力认证_第一题_集合_(set)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1710.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "512MiB"
+      },
+      "language": "",
+      "archive": {
+        "status": "TOPIC_CAPTURED",
+        "submissionNo": "",
+        "capturedAt": "2026-09-23T15:04:21Z",
+        "sourceSha256": "",
+        "recordedSha256": "",
+        "sourceHashMatchesMetadata": false,
+        "metadata": "代码库/1710_#_1710_._第_40_次_CCF_计算机软件能力认证_第一题_集合_(set)/1710_元数据.json",
+        "completeCode": null,
+        "directlySubmittableCode": null,
+        "acceptedRun": {
+          "source": "public_problem_index",
+          "status": "NO_LOCAL_AC",
+          "score": "",
+          "language": "",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "unknown"
+        }
+      },
+      "public": {
+        "status": "TOPIC_CAPTURED",
+        "publish": false,
+        "statement": "题解/1710_#_1710_._第_40_次_CCF_计算机软件能力认证_第一题_集合_(set)/1710_题目.md",
+        "cleanCode": null,
+        "directlySubmittableCode": null,
+        "onlineVerification": "NO_LOCAL_AC",
+        "onlineVerificationNote": "",
+        "verifiedAt": "",
+        "verifiedSubmissionNo": "",
+        "codeSha256": ""
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
+      "problemNo": "1711",
+      "title": "# 1711 . 第 40 次 CCF 计算机软件能力认证 第二题：数字变换 (transform)",
+      "folder": "1711_#_1711_._第_40_次_CCF_计算机软件能力认证_第二题：数字变换_(transform)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1711.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "512MiB"
+      },
+      "language": "",
+      "archive": {
+        "status": "TOPIC_CAPTURED",
+        "submissionNo": "",
+        "capturedAt": "2026-09-23T15:04:21Z",
+        "sourceSha256": "",
+        "recordedSha256": "",
+        "sourceHashMatchesMetadata": false,
+        "metadata": "代码库/1711_#_1711_._第_40_次_CCF_计算机软件能力认证_第二题：数字变换_(transform)/1711_元数据.json",
+        "completeCode": null,
+        "directlySubmittableCode": null,
+        "acceptedRun": {
+          "source": "public_problem_index",
+          "status": "NO_LOCAL_AC",
+          "score": "",
+          "language": "",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "unknown"
+        }
+      },
+      "public": {
+        "status": "TOPIC_CAPTURED",
+        "publish": false,
+        "statement": "题解/1711_#_1711_._第_40_次_CCF_计算机软件能力认证_第二题：数字变换_(transform)/1711_题目.md",
+        "cleanCode": null,
+        "directlySubmittableCode": null,
+        "onlineVerification": "NO_LOCAL_AC",
+        "onlineVerificationNote": "",
+        "verifiedAt": "",
+        "verifiedSubmissionNo": "",
+        "codeSha256": ""
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
+      "problemNo": "1712",
+      "title": "# 1712 . 第 40 次 CCF 计算机软件能力认证 第三题：图片解码 (decode)",
+      "folder": "1712_#_1712_._第_40_次_CCF_计算机软件能力认证_第三题：图片解码_(decode)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1712.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "512MiB"
+      },
+      "language": "",
+      "archive": {
+        "status": "TOPIC_CAPTURED",
+        "submissionNo": "",
+        "capturedAt": "2026-09-23T15:04:21Z",
+        "sourceSha256": "",
+        "recordedSha256": "",
+        "sourceHashMatchesMetadata": false,
+        "metadata": "代码库/1712_#_1712_._第_40_次_CCF_计算机软件能力认证_第三题：图片解码_(decode)/1712_元数据.json",
+        "completeCode": null,
+        "directlySubmittableCode": null,
+        "acceptedRun": {
+          "source": "public_problem_index",
+          "status": "NO_LOCAL_AC",
+          "score": "",
+          "language": "",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "unknown"
+        }
+      },
+      "public": {
+        "status": "TOPIC_CAPTURED",
+        "publish": false,
+        "statement": "题解/1712_#_1712_._第_40_次_CCF_计算机软件能力认证_第三题：图片解码_(decode)/1712_题目.md",
+        "cleanCode": null,
+        "directlySubmittableCode": null,
+        "onlineVerification": "NO_LOCAL_AC",
+        "onlineVerificationNote": "",
+        "verifiedAt": "",
+        "verifiedSubmissionNo": "",
+        "codeSha256": ""
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
+      "problemNo": "1713",
+      "title": "# 1713 . 第 40 次 CCF 计算机软件能力认证 第四题：C 形阵 (square)",
+      "folder": "1713_#_1713_._第_40_次_CCF_计算机软件能力认证_第四题：C_形阵_(square)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1713.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "512MiB"
+      },
+      "language": "",
+      "archive": {
+        "status": "TOPIC_CAPTURED",
+        "submissionNo": "",
+        "capturedAt": "2026-09-23T15:04:21Z",
+        "sourceSha256": "",
+        "recordedSha256": "",
+        "sourceHashMatchesMetadata": false,
+        "metadata": "代码库/1713_#_1713_._第_40_次_CCF_计算机软件能力认证_第四题：C_形阵_(square)/1713_元数据.json",
+        "completeCode": null,
+        "directlySubmittableCode": null,
+        "acceptedRun": {
+          "source": "public_problem_index",
+          "status": "NO_LOCAL_AC",
+          "score": "",
+          "language": "",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "unknown"
+        }
+      },
+      "public": {
+        "status": "TOPIC_CAPTURED",
+        "publish": false,
+        "statement": "题解/1713_#_1713_._第_40_次_CCF_计算机软件能力认证_第四题：C_形阵_(square)/1713_题目.md",
+        "cleanCode": null,
+        "directlySubmittableCode": null,
+        "onlineVerification": "NO_LOCAL_AC",
+        "onlineVerificationNote": "",
+        "verifiedAt": "",
+        "verifiedSubmissionNo": "",
+        "codeSha256": ""
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
+      "problemNo": "1714",
+      "title": "# 1714 . 第 40 次 CCF 计算机软件能力认证 第五题：数据抢修 (repair)",
+      "folder": "1714_#_1714_._第_40_次_CCF_计算机软件能力认证_第五题：数据抢修_(repair)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1714.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "512MiB"
+      },
+      "language": "",
+      "archive": {
+        "status": "TOPIC_CAPTURED",
+        "submissionNo": "",
+        "capturedAt": "2026-09-23T15:04:21Z",
+        "sourceSha256": "",
+        "recordedSha256": "",
+        "sourceHashMatchesMetadata": false,
+        "metadata": "代码库/1714_#_1714_._第_40_次_CCF_计算机软件能力认证_第五题：数据抢修_(repair)/1714_元数据.json",
+        "completeCode": null,
+        "directlySubmittableCode": null,
+        "acceptedRun": {
+          "source": "public_problem_index",
+          "status": "NO_LOCAL_AC",
+          "score": "",
+          "language": "",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "unknown"
+        }
+      },
+      "public": {
+        "status": "TOPIC_CAPTURED",
+        "publish": false,
+        "statement": "题解/1714_#_1714_._第_40_次_CCF_计算机软件能力认证_第五题：数据抢修_(repair)/1714_题目.md",
+        "cleanCode": null,
+        "directlySubmittableCode": null,
+        "onlineVerification": "NO_LOCAL_AC",
+        "onlineVerificationNote": "",
+        "verifiedAt": "",
+        "verifiedSubmissionNo": "",
+        "codeSha256": ""
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
+      "problemNo": "1715",
+      "title": "# 1715 . 第 41 次 CCF 计算机软件能力认证 第一题：平衡数（balance）",
+      "folder": "1715_#_1715_._第_41_次_CCF_计算机软件能力认证_第一题：平衡数（balance）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1715.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "512MiB"
+      },
+      "language": "",
+      "archive": {
+        "status": "TOPIC_CAPTURED",
+        "submissionNo": "",
+        "capturedAt": "2026-09-23T15:04:21Z",
+        "sourceSha256": "",
+        "recordedSha256": "",
+        "sourceHashMatchesMetadata": false,
+        "metadata": "代码库/1715_#_1715_._第_41_次_CCF_计算机软件能力认证_第一题：平衡数（balance）/1715_元数据.json",
+        "completeCode": null,
+        "directlySubmittableCode": null,
+        "acceptedRun": {
+          "source": "public_problem_index",
+          "status": "NO_LOCAL_AC",
+          "score": "",
+          "language": "",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "unknown"
+        }
+      },
+      "public": {
+        "status": "TOPIC_CAPTURED",
+        "publish": false,
+        "statement": "题解/1715_#_1715_._第_41_次_CCF_计算机软件能力认证_第一题：平衡数（balance）/1715_题目.md",
+        "cleanCode": null,
+        "directlySubmittableCode": null,
+        "onlineVerification": "NO_LOCAL_AC",
+        "onlineVerificationNote": "",
+        "verifiedAt": "",
+        "verifiedSubmissionNo": "",
+        "codeSha256": ""
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
+      "problemNo": "1716",
+      "title": "# 1716 . 第 41 次 CCF 计算机软件能力认证 第二题：机器人项目管理（crashing）",
+      "folder": "1716_#_1716_._第_41_次_CCF_计算机软件能力认证_第二题：机器人项目管理（crashing）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1716.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "512MiB"
+      },
+      "language": "",
+      "archive": {
+        "status": "TOPIC_CAPTURED",
+        "submissionNo": "",
+        "capturedAt": "2026-09-23T15:04:21Z",
+        "sourceSha256": "",
+        "recordedSha256": "",
+        "sourceHashMatchesMetadata": false,
+        "metadata": "代码库/1716_#_1716_._第_41_次_CCF_计算机软件能力认证_第二题：机器人项目管理（crashing）/1716_元数据.json",
+        "completeCode": null,
+        "directlySubmittableCode": null,
+        "acceptedRun": {
+          "source": "public_problem_index",
+          "status": "NO_LOCAL_AC",
+          "score": "",
+          "language": "",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "unknown"
+        }
+      },
+      "public": {
+        "status": "TOPIC_CAPTURED",
+        "publish": false,
+        "statement": "题解/1716_#_1716_._第_41_次_CCF_计算机软件能力认证_第二题：机器人项目管理（crashing）/1716_题目.md",
+        "cleanCode": null,
+        "directlySubmittableCode": null,
+        "onlineVerification": "NO_LOCAL_AC",
+        "onlineVerificationNote": "",
+        "verifiedAt": "",
+        "verifiedSubmissionNo": "",
+        "codeSha256": ""
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
+      "problemNo": "1717",
+      "title": "# 1717 . 第 41 次 CCF 计算机软件能力认证 第三题：进程通信（communicate）",
+      "folder": "1717_#_1717_._第_41_次_CCF_计算机软件能力认证_第三题：进程通信（communicate）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1717.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "512MiB"
+      },
+      "language": "",
+      "archive": {
+        "status": "TOPIC_CAPTURED",
+        "submissionNo": "",
+        "capturedAt": "2026-09-23T15:04:21Z",
+        "sourceSha256": "",
+        "recordedSha256": "",
+        "sourceHashMatchesMetadata": false,
+        "metadata": "代码库/1717_#_1717_._第_41_次_CCF_计算机软件能力认证_第三题：进程通信（communicate）/1717_元数据.json",
+        "completeCode": null,
+        "directlySubmittableCode": null,
+        "acceptedRun": {
+          "source": "public_problem_index",
+          "status": "NO_LOCAL_AC",
+          "score": "",
+          "language": "",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "unknown"
+        }
+      },
+      "public": {
+        "status": "TOPIC_CAPTURED",
+        "publish": false,
+        "statement": "题解/1717_#_1717_._第_41_次_CCF_计算机软件能力认证_第三题：进程通信（communicate）/1717_题目.md",
+        "cleanCode": null,
+        "directlySubmittableCode": null,
+        "onlineVerification": "NO_LOCAL_AC",
+        "onlineVerificationNote": "",
+        "verifiedAt": "",
+        "verifiedSubmissionNo": "",
+        "codeSha256": ""
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 4,
+        "imageUrls": [
+          "https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/09K3WbVzbEzThOtW.Image1.svg/Image1.svg",
+          "https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/BQwE1wfM0nfms0qn.Image2.svg/Image2.svg",
+          "https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/5J66qyZJxuOuY4dk.Image3.svg/Image3.svg",
+          "https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/WUWGDKcaaHn4im1X.Image4.svg/Image4.svg"
+        ],
+        "imageAssets": [
+          {
+            "url": "https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/09K3WbVzbEzThOtW.Image1.svg/Image1.svg",
+            "label": "img",
+            "filename": "img_01_Image1.svg",
+            "relativePath": "assets/img_01_Image1.svg",
+            "status": "DOWNLOAD_FAILED",
+            "bytes": 0,
+            "sha256": "",
+            "error": "DOWNLOAD_FAILED"
+          },
+          {
+            "url": "https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/BQwE1wfM0nfms0qn.Image2.svg/Image2.svg",
+            "label": "img",
+            "filename": "img_02_Image2.svg",
+            "relativePath": "assets/img_02_Image2.svg",
+            "status": "DOWNLOAD_FAILED",
+            "bytes": 0,
+            "sha256": "",
+            "error": "DOWNLOAD_FAILED"
+          },
+          {
+            "url": "https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/5J66qyZJxuOuY4dk.Image3.svg/Image3.svg",
+            "label": "img",
+            "filename": "img_03_Image3.svg",
+            "relativePath": "assets/img_03_Image3.svg",
+            "status": "DOWNLOAD_FAILED",
+            "bytes": 0,
+            "sha256": "",
+            "error": "DOWNLOAD_FAILED"
+          },
+          {
+            "url": "https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/WUWGDKcaaHn4im1X.Image4.svg/Image4.svg",
+            "label": "img",
+            "filename": "img_04_Image4.svg",
+            "relativePath": "assets/img_04_Image4.svg",
+            "status": "DOWNLOAD_FAILED",
+            "bytes": 0,
+            "sha256": "",
+            "error": "DOWNLOAD_FAILED"
+          }
+        ],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": [
+          "题面图片下载失败: https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/09K3WbVzbEzThOtW.Image1.svg/Image1.svg (DOWNLOAD_FAILED)",
+          "题面图片下载失败: https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/5J66qyZJxuOuY4dk.Image3.svg/Image3.svg (DOWNLOAD_FAILED)",
+          "题面图片下载失败: https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/BQwE1wfM0nfms0qn.Image2.svg/Image2.svg (DOWNLOAD_FAILED)",
+          "题面图片下载失败: https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/WUWGDKcaaHn4im1X.Image4.svg/Image4.svg (DOWNLOAD_FAILED)"
+        ]
+      }
+    },
+    {
+      "problemNo": "1718",
+      "title": "# 1718 . 第 41 次 CCF 计算机软件能力认证 第四题：异或（xor）",
+      "folder": "1718_#_1718_._第_41_次_CCF_计算机软件能力认证_第四题：异或（xor）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1718.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "1024MiB"
+      },
+      "language": "",
+      "archive": {
+        "status": "TOPIC_CAPTURED",
+        "submissionNo": "",
+        "capturedAt": "2026-09-23T15:04:21Z",
+        "sourceSha256": "",
+        "recordedSha256": "",
+        "sourceHashMatchesMetadata": false,
+        "metadata": "代码库/1718_#_1718_._第_41_次_CCF_计算机软件能力认证_第四题：异或（xor）/1718_元数据.json",
+        "completeCode": null,
+        "directlySubmittableCode": null,
+        "acceptedRun": {
+          "source": "public_problem_index",
+          "status": "NO_LOCAL_AC",
+          "score": "",
+          "language": "",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "unknown"
+        }
+      },
+      "public": {
+        "status": "TOPIC_CAPTURED",
+        "publish": false,
+        "statement": "题解/1718_#_1718_._第_41_次_CCF_计算机软件能力认证_第四题：异或（xor）/1718_题目.md",
+        "cleanCode": null,
+        "directlySubmittableCode": null,
+        "onlineVerification": "NO_LOCAL_AC",
+        "onlineVerificationNote": "",
+        "verifiedAt": "",
+        "verifiedSubmissionNo": "",
+        "codeSha256": ""
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
+      "problemNo": "1719",
+      "title": "# 1719 . 第 41 次 CCF 计算机软件能力认证 第五题：旅游计划（travel）",
+      "folder": "1719_#_1719_._第_41_次_CCF_计算机软件能力认证_第五题：旅游计划（travel）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1719.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "1024MiB"
+      },
+      "language": "",
+      "archive": {
+        "status": "TOPIC_CAPTURED",
+        "submissionNo": "",
+        "capturedAt": "2026-09-23T15:04:21Z",
+        "sourceSha256": "",
+        "recordedSha256": "",
+        "sourceHashMatchesMetadata": false,
+        "metadata": "代码库/1719_#_1719_._第_41_次_CCF_计算机软件能力认证_第五题：旅游计划（travel）/1719_元数据.json",
+        "completeCode": null,
+        "directlySubmittableCode": null,
+        "acceptedRun": {
+          "source": "public_problem_index",
+          "status": "NO_LOCAL_AC",
+          "score": "",
+          "language": "",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "unknown"
+        }
+      },
+      "public": {
+        "status": "TOPIC_CAPTURED",
+        "publish": false,
+        "statement": "题解/1719_#_1719_._第_41_次_CCF_计算机软件能力认证_第五题：旅游计划（travel）/1719_题目.md",
         "cleanCode": null,
         "directlySubmittableCode": null,
         "onlineVerification": "NO_LOCAL_AC",

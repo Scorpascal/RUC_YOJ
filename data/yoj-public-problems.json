@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "capturedAt": "2026-09-22T14:30:06Z",
+  "capturedAt": "2026-09-23T15:04:20Z",
   "source": "http://yoj.ruc.edu.cn/index.php/index/problem/index.html",
-  "publicCount": 443,
+  "publicCount": 453,
   "pagesFetched": 2,
-  "problemListSha256": "06f5843015713a539d3b79371b65763a6f40e03a117dcceac7c3538b099b9881",
+  "problemListSha256": "3acc8c650a02247970998d466dae0b5323f6f702152e3ddfaac6814d5c9ccd16",
   "records": [
     {
       "problemNo": 1,
@@ -2220,6 +2220,56 @@
       "problemNo": 1709,
       "title": "第 39 次 CCF 计算机软件能力认证 第五题 造题计划（下）",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1709.html"
+    },
+    {
+      "problemNo": 1710,
+      "title": "第 40 次 CCF 计算机软件能力认证 第一题 集合 (set)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1710.html"
+    },
+    {
+      "problemNo": 1711,
+      "title": "第 40 次 CCF 计算机软件能力认证 第二题：数字变换 (transform)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1711.html"
+    },
+    {
+      "problemNo": 1712,
+      "title": "第 40 次 CCF 计算机软件能力认证 第三题：图片解码 (decode)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1712.html"
+    },
+    {
+      "problemNo": 1713,
+      "title": "第 40 次 CCF 计算机软件能力认证 第四题：C 形阵 (square)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1713.html"
+    },
+    {
+      "problemNo": 1714,
+      "title": "第 40 次 CCF 计算机软件能力认证 第五题：数据抢修 (repair)",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1714.html"
+    },
+    {
+      "problemNo": 1715,
+      "title": "第 41 次 CCF 计算机软件能力认证 第一题：平衡数（balance）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1715.html"
+    },
+    {
+      "problemNo": 1716,
+      "title": "第 41 次 CCF 计算机软件能力认证 第二题：机器人项目管理（crashing）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1716.html"
+    },
+    {
+      "problemNo": 1717,
+      "title": "第 41 次 CCF 计算机软件能力认证 第三题：进程通信（communicate）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1717.html"
+    },
+    {
+      "problemNo": 1718,
+      "title": "第 41 次 CCF 计算机软件能力认证 第四题：异或（xor）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1718.html"
+    },
+    {
+      "problemNo": 1719,
+      "title": "第 41 次 CCF 计算机软件能力认证 第五题：旅游计划（travel）",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1719.html"
     }
   ]
 }
