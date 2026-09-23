@@ -770,6 +770,71 @@ def public_ready_delta(before: dict[int, str]) -> set[int]:
     return {problem_no for problem_no, value in after.items() if before.get(problem_no) != value}
 
 
+def run_visibility_watch(args: argparse.Namespace, environment: dict[str, str]) -> int:
+    """Recheck and publish only the public-list projection after the main sync.
+
+    launchd invokes this mode on its 15-minute compensation interval after
+    the full daily cycle has succeeded.  It must never discover/download code,
+    run candidate gates, or submit to YOJ.
+    """
+
+    snapshot_before = snapshot_content_digest(PUBLIC_SNAPSHOT_PATH)
+    if run_command(
+        [sys.executable, str(ROOT / "tools" / "audit_online_availability.py")],
+        environment,
+        600,
+    ):
+        log("轻量可见性复查未能获取公开列表；保留基线，等待下一次间隔复查")
+        return 3
+    snapshot_changed = snapshot_content_digest(PUBLIC_SNAPSHOT_PATH) != snapshot_before
+    if not run_visibility_audit(environment):
+        log("轻量可见性复查无法生成状态报告；保留基线，等待下一次间隔复查")
+        return 3
+    report = load_visibility_report()
+    if not report:
+        log("轻量可见性复查报告缺失；保留基线，等待下一次间隔复查")
+        return 3
+
+    transitions = bool(report.get("hasVisibilityTransitions"))
+    if snapshot_changed or transitions:
+        reopened = report.get("reopenedProblemNumbers") or []
+        archived = report.get("archivedProblemNumbers") or []
+        log(
+            "轻量复查发现公开列表变化："
+            f"重新开放 {reopened}，下线 {archived}；刷新 README 和 Pages 目录"
+        )
+        if run_command(
+            [sys.executable, str(ROOT / "tools" / "build_initial.py"), "--visibility-only"],
+            environment,
+            1800,
+        ):
+            log("轻量可见性投影失败；保留旧基线，等待下一次间隔复查")
+            remember_generated_changes()
+            return 3
+        for command in (
+            [sys.executable, str(ROOT / "tools" / "build_site_catalog.py"), "--check"],
+            [sys.executable, str(ROOT / "tools" / "audit_consistency.py")],
+        ):
+            if run_command(command, environment, 600):
+                log("轻量可见性投影未通过一致性门禁；保留旧基线，等待下一次间隔复查")
+                remember_generated_changes()
+                return 3
+        result = publish(args.push, set()) if args.publish else 0
+        if result:
+            log("轻量可见性投影发布未完成；保留旧基线，等待下一次间隔复查")
+            remember_generated_changes()
+            return result
+    else:
+        log("轻量可见性复查完成：公开列表未变化")
+
+    if not run_visibility_audit(environment, commit=True):
+        log("轻量可见性基线保存失败；等待下一次间隔复查")
+        remember_generated_changes()
+        return 3
+    remember_generated_changes()
+    return 0
+
+
 def publish(push: bool, release_numbers: set[int], secret_values: tuple[str, ...] = ()) -> int:
     preexisting_staged = staged_paths()
     if preexisting_staged:
@@ -953,6 +1018,8 @@ def run_once(args: argparse.Namespace) -> int:
             return 8
 
         environment = child_environment()
+        if args.visibility_watch:
+            return run_visibility_watch(args, environment)
         if args.drift_audit:
             return run_drift_audit(args, environment)
         if args.sentinel:
@@ -1252,6 +1319,11 @@ def main() -> int:
     parser.add_argument("--publish", action="store_true", help="提交白名单生成物；不等于推送")
     parser.add_argument("--push", action="store_true", help="在 YOJ_SYNC_ALLOW_PUSH=1 且当前为 main 时推送")
     parser.add_argument("--dry-run", action="store_true", help="只运行离线构建检查，不访问 YOJ")
+    parser.add_argument(
+        "--visibility-watch",
+        action="store_true",
+        help="仅刷新公开列表并在变化时发布可见性投影；供每日主流程成功后的 launchd 间隔复查使用",
+    )
     audit_mode = parser.add_mutually_exclusive_group()
     audit_mode.add_argument(
         "--drift-audit",
@@ -1292,8 +1364,10 @@ def main() -> int:
         or args.sentinel_count < 0
     ):
         raise SystemExit("提交预算、题目数和请求间隔不能为负数")
-    if args.dry_run and (args.allow_submit or args.publish or args.push or args.drift_audit or args.sentinel):
+    if args.dry_run and (args.allow_submit or args.publish or args.push or args.drift_audit or args.sentinel or args.visibility_watch):
         raise SystemExit("--dry-run 不能与在线提交或发布选项同时使用")
+    if args.visibility_watch and (args.drift_audit or args.sentinel or args.allow_submit):
+        raise SystemExit("--visibility-watch 仅允许公开列表投影，不能与提交或其他复核模式同时使用")
     if args.drift_audit and (args.allow_submit or args.publish or args.push):
         raise SystemExit("--drift-audit 只允许低频只读审计，不能附带提交或发布")
     if args.sentinel and (not args.allow_submit or args.publish or args.push):

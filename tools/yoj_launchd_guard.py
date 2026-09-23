@@ -2,10 +2,11 @@
 """Gate the daily YOJ scheduler for a bounded launchd update window.
 
 The LaunchAgent may load before the daily window, when the user logs in during
-the window, or while the login keychain is still locked.  This guard only
-allows work from 22:30 through 23:30 Beijing time.  A missed day is skipped,
-while the scheduler's own checkpoints remain available for the next day's
-window.
+the window, or while the login keychain is still locked.  This guard allows
+the full sync from 22:30 onward and, after that sync succeeds, performs a
+lightweight public-visibility check every 15 minutes until 23:55 Beijing
+time.  A missed day is skipped, while scheduler checkpoints remain available
+for the next day's window.
 """
 
 from __future__ import annotations
@@ -27,7 +28,7 @@ GUARD_STATE_PATH = STATE_DIR / "launchd-cycle.json"
 LOG_PATH = STATE_DIR / "launchd-guard.log"
 TZ = ZoneInfo("Asia/Shanghai")
 UPDATE_WINDOW_START = day_time(22, 30)
-UPDATE_WINDOW_END = day_time(23, 30)
+UPDATE_WINDOW_END = day_time(23, 55)
 MAINTENANCE_START = day_time(23, 55)
 MAINTENANCE_END = day_time(0, 10)
 
@@ -80,7 +81,15 @@ def save_state(state: dict[str, str]) -> None:
     os.replace(temporary, GUARD_STATE_PATH)
 
 
-def scheduler_command() -> list[str]:
+def scheduler_command(visibility_watch: bool = False) -> list[str]:
+    if visibility_watch:
+        return [
+            sys.executable,
+            str(ROOT / "tools" / "yoj_scheduler.py"),
+            "--visibility-watch",
+            "--publish",
+            "--push",
+        ]
     return [
         sys.executable,
         str(ROOT / "tools" / "yoj_scheduler.py"),
@@ -90,11 +99,11 @@ def scheduler_command() -> list[str]:
     ]
 
 
-def run_scheduler() -> int:
+def run_scheduler(visibility_watch: bool = False) -> int:
     environment = os.environ.copy()
     environment["YOJ_ROOT"] = str(ROOT)
     result = subprocess.run(
-        scheduler_command(),
+        scheduler_command(visibility_watch),
         cwd=ROOT,
         env=environment,
         check=False,
@@ -106,19 +115,14 @@ def run_scheduler() -> int:
 def main() -> int:
     current = now_local()
     if not in_update_window(current):
-        log("不在北京时间 22:30–23:30 更新窗口，本次跳过；错过当天不补跑")
-        return 0
-
-    state = load_state()
-    cycle = cycle_key(current)
-    if state.get("lastSuccessfulCycle") == cycle:
-        log(f"本周期已完成：cycle={cycle}")
+        log("不在北京时间 22:30–23:55 更新窗口，本次跳过；错过当天不补跑")
         return 0
     if in_maintenance(current):
         log("处于北京时间 23:55–00:10 维护窗口，等待下一次补偿触发")
         return 0
 
     STATE_DIR.mkdir(parents=True, exist_ok=True)
+    cycle = cycle_key(current)
     with GUARD_LOCK_PATH.open("w", encoding="utf-8") as lock:
         try:
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -130,16 +134,21 @@ def main() -> int:
         # calendar/interval events cannot start a duplicate cycle.
         state = load_state()
         if state.get("lastSuccessfulCycle") == cycle:
-            log(f"本周期已由其他触发完成：cycle={cycle}")
-            return 0
-        result = run_scheduler()
-        if result == 0:
-            state["lastSuccessfulCycle"] = cycle
-            state["lastSuccessfulAt"] = now_local().isoformat(timespec="seconds")
-            save_state(state)
-            log(f"记录本周期成功：cycle={cycle}")
+            log(f"主同步本周期已完成，执行轻量公开状态复查：cycle={cycle}")
+            visibility_watch = True
         else:
-            log(f"本周期未完成，保留调度器断点等待重试：cycle={cycle}")
+            visibility_watch = False
+        result = run_scheduler(visibility_watch=visibility_watch)
+        if result == 0:
+            if visibility_watch:
+                state["lastVisibilityWatchAt"] = now_local().isoformat(timespec="seconds")
+            else:
+                state["lastSuccessfulCycle"] = cycle
+                state["lastSuccessfulAt"] = now_local().isoformat(timespec="seconds")
+            save_state(state)
+            log(f"记录{'轻量复查' if visibility_watch else '主同步'}成功：cycle={cycle}")
+        else:
+            log(f"{'轻量复查' if visibility_watch else '本周期同步'}未完成，保留断点等待重试：cycle={cycle}")
         return result
 
 
