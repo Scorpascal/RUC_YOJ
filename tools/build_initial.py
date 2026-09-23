@@ -475,6 +475,8 @@ class StatementConverter:
         asset_dir: Path | None = None,
         download_assets: bool = False,
         asset_extension: str = "",
+        previous_assets: list[dict[str, Any]] | None = None,
+        previous_image_assets: list[dict[str, Any]] | None = None,
     ) -> None:
         self.problem_url = problem_url or SITE_BASE
         self.images: list[str] = []
@@ -487,6 +489,12 @@ class StatementConverter:
         self.image_assets: list[dict[str, Any]] = []
         self._asset_by_url: dict[str, dict[str, Any]] = {}
         self._image_by_url: dict[str, dict[str, Any]] = {}
+        self._previous_assets_by_url = {
+            str(item.get("url")): item for item in (previous_assets or []) if item.get("url")
+        }
+        self._previous_image_assets_by_url = {
+            str(item.get("url")): item for item in (previous_image_assets or []) if item.get("url")
+        }
 
     def absolute_url(self, value: str) -> str:
         return urljoin(self.problem_url, value)
@@ -575,6 +583,40 @@ class StatementConverter:
             raw_name = f"{Path(raw_name).stem}{self.asset_extension}"
         return f"{index:02d}_{raw_name}"
 
+    def reuse_offline_asset_evidence(
+        self,
+        item: dict[str, Any],
+        previous_by_url: dict[str, dict[str, Any]],
+        warning_prefix: str,
+    ) -> None:
+        """Keep known cache/failure evidence when this build deliberately skips downloads."""
+
+        if self.download_assets or item.get("status") != "DETECTED_NOT_DOWNLOADED" or self.asset_dir is None:
+            return
+        previous = previous_by_url.get(str(item.get("url") or ""))
+        if not previous:
+            return
+        previous_name = str(previous.get("filename") or Path(str(previous.get("relativePath") or "")).name)
+        previous_path = self.asset_dir / previous_name if previous_name else None
+        local_available = bool(previous_path and previous_path.is_file() and previous_path.stat().st_size > 0)
+        previous_status = str(previous.get("status") or "")
+        if previous_status in {"CACHED", "DOWNLOADED"} and local_available:
+            actual_hash = source_file_hash(previous_path)
+            expected_hash = str(previous.get("sha256") or "")
+            if not expected_hash or actual_hash != expected_hash:
+                return
+            item.update(previous)
+            item["status"] = "CACHED"
+            item["bytes"] = previous_path.stat().st_size
+            item["sha256"] = actual_hash
+            return
+        if previous_status == "DOWNLOAD_FAILED" and not local_available:
+            item.update(previous)
+            error = str(item.get("error") or "DOWNLOAD_FAILED")
+            warning = f"{warning_prefix}: {item['url']} ({error})"
+            if warning not in self.warnings:
+                self.warnings.append(warning)
+
     def materialize_asset(self, source: str, label: str) -> dict[str, Any]:
         if source in self._asset_by_url:
             return self._asset_by_url[source]
@@ -629,6 +671,8 @@ class StatementConverter:
                 item["status"] = "DOWNLOAD_FAILED"
                 item["error"] = stable_download_error(exc)
                 self.warnings.append(f"附件下载失败: {source} ({item['error']})")
+        else:
+            self.reuse_offline_asset_evidence(item, self._previous_assets_by_url, "附件下载失败")
         self.assets.append(item)
         self._asset_by_url[source] = item
         return item
@@ -675,6 +719,10 @@ class StatementConverter:
                 item["status"] = "DOWNLOAD_FAILED"
                 item["error"] = stable_download_error(exc)
                 self.warnings.append(f"题面图片下载失败: {source} ({item['error']})")
+        else:
+            self.reuse_offline_asset_evidence(
+                item, self._previous_image_assets_by_url, "题面图片下载失败"
+            )
         self.image_assets.append(item)
         self._image_by_url[source] = item
         return item
@@ -1016,6 +1064,7 @@ def build_statement(
     download_assets: bool = False,
     public_ready: dict[str, Any] | None = None,
     online_status_override: str = "",
+    previous_statement: dict[str, Any] | None = None,
 ) -> tuple[dict[str, Any], str]:
     problem = metadata.get("problem", {})
     source = metadata.get("source", {})
@@ -1035,6 +1084,8 @@ def build_statement(
         asset_dir=asset_dir,
         download_assets=download_assets,
         asset_extension=code_extension_for_language(archived_language),
+        previous_assets=list((previous_statement or {}).get("assets") or []),
+        previous_image_assets=list((previous_statement or {}).get("imageAssets") or []),
     )
     status = "CONVERTED_FROM_HTML_SNAPSHOT"
     body = ""
@@ -1105,27 +1156,19 @@ def build_statement(
     if is_ready:
         public_status = "PUBLIC_READY"
         online_status = "ONLINE_ACCEPTED"
-        phase_text = "> 当前版本已完成清洗、本地门禁、YOJ Accepted 复验和源码回收，可作为公开版本。"
     elif topic_only:
         public_status = "TOPIC_CAPTURED"
         online_status = "NO_LOCAL_AC"
-        phase_text = "> 当前仓库阶段：`TOPIC_CAPTURED`。题面已从 YOJ 公开题目列表归档，但尚无本人 Accepted 源码；未生成伪造代码，也未执行代码复验。"
     else:
         public_status = "RAW_CAPTURED"
         online_status = online_status_override or "NOT_RUN"
-        if online_status == "ONLINE_ACCEPTED":
-            phase_text = "> 当前仓库阶段：`RAW_CAPTURED`。在线复验已取得 `Accepted`，但代码尚未完成脱敏清理、版本规范化、源码回收和公开发布门禁。"
-        elif online_status.startswith("ONLINE_SKIPPED_"):
-            phase_text = f"> 当前仓库阶段：`RAW_CAPTURED`。在线复验状态为 `{online_status}`，代码尚未完成脱敏清理、版本规范化和提交形态核验。"
-        else:
-            phase_text = "> 当前仓库阶段：`RAW_CAPTURED`。代码尚未完成脱敏清理、版本规范化、提交形态核验和在线复验。"
 
     statement_rel = Path("题解") / folder / f"{problem_no_padded}_题目.md"
     statement_text = [
         f"# {problem_no_padded}. {title}",
         "",
         "> 当前文件由 YOJ 原始题面快照的题面主体离线转换生成。公式尽量转换为 LaTeX，图片优先本地化为 Markdown 图片链接；下载失败时保留原始链接并记录 warning。",
-        phase_text,
+        "> 发布阶段、在线复验和提交形态等动态状态以 [data/problems.json](../../data/problems.json) 为准；本文件只保存题面内容和来源信息。",
         "",
         "## 题目信息",
         "",
@@ -1146,26 +1189,6 @@ def build_statement(
             target = asset["relativePath"] if asset["status"] in {"DOWNLOADED", "CACHED"} else asset["url"]
             label = normalize_inline_text(asset["label"]).strip() or asset["filename"]
             statement_text.append(f"- [{label}]({target})（状态：`{asset['status']}`）")
-    direct_submission_status = (
-        "VERIFIED"
-        if is_ready
-        else "SPECIAL_FILL_IN_TEMPLATE"
-        if template_meta
-        else "UNKNOWN_UNTIL_FORM_MAP"
-    )
-    statement_text.extend(
-        [
-            "",
-            "---",
-            "",
-            "## 归档状态",
-            "",
-            f"- 题面转换：`{status}`",
-            f"- 代码状态：`{public_status}`" + ("（清洗候选已通过发布门禁）" if is_ready else "（不可视为已清洗的公开题解）"),
-            f"- 在线 AC 复验：`{online_status}`",
-            f"- 直接提交分块：`{direct_submission_status}`",
-        ]
-    )
     if template_meta:
         template_filename = str(template_meta.get("filename") or "下载框架文件").strip()
         statement_text.extend(
@@ -1262,6 +1285,9 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
     online_status_counts = Counter(
         str((record.get("public") or {}).get("onlineVerification") or "NOT_RECORDED")
         for record in records
+    )
+    online_skipped_count = sum(
+        count for status, count in online_status_counts.items() if status.startswith("ONLINE_SKIPPED_")
     )
     visibility_counts = Counter(
         "YOJ_PUBLIC" if int(record.get("problemNo") or 0) in online_public_numbers else "NOT_IN_CURRENT_PUBLIC_INDEX"
@@ -1448,7 +1474,7 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         f"- 状态统计：发布阶段 `{dict(sorted(public_status_counts.items()))}`；在线复验 `{dict(sorted(online_status_counts.items()))}`（详细表见上方）",
         f"- 原始代码同步：完整代码 `{sum(bool(record['archive'].get('completeCode')) for record in records)}/{len(records)}`，可提交代码 `{sum(bool(record['archive'].get('directlySubmittableCode')) for record in records)}/{len(records)}`；原始归档不等于公开发布版本",
         f"- 公开清洗版本：`{public_ready_count}/{len(records)}` 道通过本地门禁、YOJ Accepted 与源码回收核验",
-        f"- 在线复验：已提交 `{online_attempted}/{len(records)}`，其中 `Accepted` `{online_accepted}`、明确非通过 `{online_nonaccepted}`；另有表单/模板跳过 `{len(online_skips)}` 道",
+        f"- 在线复验：已提交 `{online_attempted}/{len(records)}`，其中 `Accepted` `{online_accepted}`、明确非通过 `{online_nonaccepted}`；当前状态仍标记为在线跳过 `{online_skipped_count}` 道（按 `data/problems.json` 统计，历史跳过记录不重复计数）",
         f"- 在线源码回收：`Accepted` 中已回收并比对 `{online_visible}/{online_accepted}`；编号、状态、跳过原因和源码回收证据保存在被忽略的 `staging/online-verification.json`",
         f"- YOJ 快捷提交入口：严格 `PUBLIC_READY` `{quick_submit_count}` 道；另有当前公开历史 Accepted 归档 `{len(archived_quick_by_no)}` 道提供带警告的人工尝试入口；当前公开且仓库有代码 `{current_public_code_count}` 道，不改变发布状态",
         "- 题面中的时间/内存是题目页限制；每条归档记录的 `archive.acceptedRun` 单独保存某次 AC 的实测耗时/内存，二者不混用",
@@ -1469,17 +1495,38 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         statement = markdown_path(record["public"]["statement"])
         complete = record["archive"].get("completeCode")
         direct = record["archive"].get("directlySubmittableCode")
+        online_state = str(record["public"].get("onlineVerification") or "NOT_RECORDED")
         online = online_rows.get(str(record["problemNo"])) or {}
-        online_status = str(online.get("status") or "")
-        online_no = str(online.get("submissionNo") or "")
-        skipped = online_skips.get(str(record["problemNo"])) or {}
-        skip_reason = str(skipped.get("reason") or "")
-        skip_note = str(skipped.get("note") or record["public"].get("onlineVerificationNote") or "").replace("|", r"\|").replace("\n", " ")
+        online_status = ""
+        online_no = ""
+        skip_reason = ""
+        skip_note = str(record["public"].get("onlineVerificationNote") or "")
+        if online_state == "ONLINE_ACCEPTED":
+            online_status = "Accepted"
+            online_no = str(record["public"].get("verifiedSubmissionNo") or "")
+            if not online_no and str(online.get("status") or "") == "Accepted":
+                online_no = str(online.get("submissionNo") or "")
+        elif online_state.startswith("ONLINE_SKIPPED_"):
+            skip_reason = online_state.removeprefix("ONLINE_SKIPPED_")
+            skipped = online_skips.get(str(record["problemNo"])) or {}
+            if str(skipped.get("reason") or "").upper().replace(" ", "_") != skip_reason:
+                skipped = {}
+            skip_note = str(record["public"].get("onlineVerificationNote") or skipped.get("note") or "")
+        elif online_state.startswith("ONLINE_"):
+            outcome = online_state.removeprefix("ONLINE_")
+            row_outcome = str(online.get("status") or "").upper().replace(" ", "_")
+            online_status = str(online.get("status") or outcome) if row_outcome == outcome else outcome
+            online_no = str(online.get("submissionNo") or "")
+        elif online_state == "NO_LOCAL_AC" and skip_note and not skip_note.startswith("历史复验备注："):
+            # Keep a useful terminal note from ignored staging history, while
+            # making clear it is not the current online-verification state.
+            skip_note = f"历史复验备注：{skip_note}"
+        skip_note = skip_note.replace("|", r"\|").replace("\n", " ")
         online_suffix = f"；在线 `{online_status}` #{online_no}" if online_status and online_no else ""
         if not online_suffix and skip_reason:
             online_suffix = f"；在线跳过 `{skip_reason}`"
         if skip_note:
-            online_suffix += f"；备注：{skip_note}"
+            online_suffix += f"；{skip_note}" if skip_note.startswith("历史复验备注：") else f"；备注：{skip_note}"
         base_status = str(record["public"]["status"])
         if base_status == "PUBLIC_READY":
             complete = record["public"].get("cleanCode")
@@ -1496,13 +1543,9 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
             else:
                 direct_link = f"[已同步（提交形态待核验{online_suffix}）]({markdown_path(direct)})" if direct else "未同步"
         title = record["title"].replace("|", r"\|").replace("\n", " ")
-        status = base_status
-        if online_status:
-            status = f"{status}; ONLINE_{online_status.upper().replace(' ', '_')}"
-        elif skip_reason:
-            status = f"{status}; ONLINE_SKIPPED_{skip_reason.upper().replace(' ', '_')}"
+        status = f"{base_status}; {online_state}"
         if skip_note:
-            status = f"{status}; 备注：{skip_note}"
+            status = f"{status}; {skip_note}"
         visibility_status = (
             "YOJ_PUBLIC"
             if int(record.get("problemNo") or 0) in online_public_numbers
@@ -1565,17 +1608,16 @@ def apply_online_status(records: list[dict[str, Any]]) -> None:
         if row.get("problemNo") is not None
     }
 
-    def apply_note(record: dict[str, Any], evidence: dict[str, Any] | None) -> None:
+    def apply_note(
+        record: dict[str, Any], evidence: dict[str, Any] | None, *, historical: bool = False
+    ) -> None:
         note = str((evidence or {}).get("note") or "").strip()
         if not note:
             return
+        if historical:
+            note = f"历史复验备注：{note}"
         record["public"]["onlineVerificationNote"] = note
         record.setdefault("archive", {})["onlineVerificationNote"] = note
-        statement = record.setdefault("statement", {})
-        warnings = list(statement.get("warnings") or [])
-        if note not in warnings:
-            warnings.append(note)
-        statement["warnings"] = sorted(set(warnings))
 
     for record in records:
         problem_key = str(record.get("problemNo"))
@@ -1584,10 +1626,10 @@ def apply_online_status(records: list[dict[str, Any]]) -> None:
             continue
         if not (record.get("archive") or {}).get("completeCode"):
             # A topic-only record has no candidate that could have produced
-            # online evidence.  Ignore stale staging rows rather than
-            # allowing them to manufacture an Accepted-looking status.
+            # current online evidence.  Keep a historical note if present,
+            # but never project that old attempt as the current status.
             record["public"]["onlineVerification"] = "NO_LOCAL_AC"
-            apply_note(record, online_skips.get(problem_key))
+            apply_note(record, online_skips.get(problem_key), historical=True)
             continue
         row = online_rows.get(problem_key)
         if row:
@@ -1700,7 +1742,7 @@ def build() -> int:
     public_ready_by_no = load_public_ready()
     previous_records_by_no: dict[str, dict[str, Any]] = {}
     selected_problem_numbers = set(args.problem_nos or [])
-    if (args.preserve_frozen or selected_problem_numbers) and (DATA_ROOT / "problems.json").is_file():
+    if (args.preserve_frozen or selected_problem_numbers or args.no_download_assets or args.check) and (DATA_ROOT / "problems.json").is_file():
         try:
             previous_records = json_load(DATA_ROOT / "problems.json").get("records") or []
             previous_records_by_no = {
@@ -1718,8 +1760,8 @@ def build() -> int:
 
     for entry in sorted(entries, key=get_problem_no):
         problem_no = str(entry.get("problemNo") or "")
+        previous_record = previous_records_by_no.get(problem_no)
         if selected_problem_numbers and int(problem_no) not in selected_problem_numbers:
-            previous_record = previous_records_by_no.get(problem_no)
             previous_statement_path = (
                 ROOT / str((previous_record.get("public") or {}).get("statement") or "")
                 if previous_record
@@ -1760,6 +1802,7 @@ def build() -> int:
                 download_assets=not args.check and not args.no_download_assets,
                 public_ready=None,
                 online_status_override=online_status_overrides.get(problem_no, ""),
+                previous_statement=(previous_record.get("statement") or {}) if previous_record else None,
             )
             if ready_entry:
                 statement_path = ROOT / str((record.get("public") or {}).get("statement") or "")

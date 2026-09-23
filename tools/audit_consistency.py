@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -15,6 +16,15 @@ except ImportError:  # pragma: no cover - supports package-style imports
 
 
 ROOT = Path(__file__).resolve().parents[1]
+STATEMENT_STATUS_SOURCE = "[data/problems.json](../../data/problems.json)"
+DYNAMIC_STATEMENT_STATUS_MARKERS = (
+    "> 当前仓库阶段：",
+    "> 当前版本已完成",
+    "## 归档状态",
+    "- 代码状态：",
+    "- 在线 AC 复验：",
+    "- 直接提交分块：",
+)
 
 
 def load(relative: str) -> dict[str, Any]:
@@ -66,6 +76,20 @@ def main() -> int:
     catalog = index(load("docs/data/catalog.json").get("entries") or [], "catalog", failures)
     online_payload = load("data/yoj-public-problems.json")
     online = index(validate_snapshot(online_payload), "YOJ public-index snapshot", failures)
+    readme_path = ROOT / "README.md"
+    readme = readme_path.read_text(encoding="utf-8") if readme_path.is_file() else ""
+
+    current_online_skips = sum(
+        1
+        for problem in problems.values()
+        if str((problem.get("public") or {}).get("onlineVerification") or "").startswith("ONLINE_SKIPPED_")
+    )
+    expected_skip_summary = (
+        f"当前状态仍标记为在线跳过 `{current_online_skips}` 道"
+        "（按 `data/problems.json` 统计，历史跳过记录不重复计数）"
+    )
+    if readme.count("当前状态仍标记为在线跳过 `") != 1 or expected_skip_summary not in readme:
+        failures.append("README current online-skip count differs from data/problems.json")
 
     if set(catalog) != set(problems):
         failures.append("catalog problem-number set differs from data/problems.json")
@@ -123,6 +147,31 @@ def main() -> int:
             failures.append(f"{number}: catalog codeUrl differs from quick-submit")
 
     for number, problem in problems.items():
+        public = problem.get("public") or {}
+        statement_path = str(public.get("statement") or "")
+        statement_file = ROOT / statement_path
+        if not statement_path or not statement_file.is_file():
+            failures.append(f"{number}: problem statement missing: {statement_path or '<empty>'}")
+        else:
+            statement_text = statement_file.read_text(encoding="utf-8")
+            if STATEMENT_STATUS_SOURCE not in statement_text:
+                failures.append(f"{number}: statement does not direct readers to the canonical status index")
+            if any(marker in statement_text for marker in DYNAMIC_STATEMENT_STATUS_MARKERS):
+                failures.append(f"{number}: statement contains a dynamic status projection")
+
+        row_match = re.search(
+            rf"^\| {number} \|.*\| `([^`]+)` \|$", readme, re.MULTILINE
+        )
+        if row_match is None:
+            failures.append(f"{number}: README status row is missing")
+        else:
+            current_online_status = str(public.get("onlineVerification") or "NOT_RECORDED")
+            readme_status = row_match.group(1)
+            if f"; {current_online_status}" not in f"; {readme_status}":
+                failures.append(f"{number}: README online status differs from data/problems.json")
+            if current_online_status == "NO_LOCAL_AC" and "ONLINE_SKIPPED_" in readme_status:
+                failures.append(f"{number}: README projects a historical skip as a current status")
+
         is_ready = (problem.get("public") or {}).get("status") == "PUBLIC_READY"
         if is_ready != (number in ready):
             failures.append(f"{number}: problems/public-ready status membership differs")

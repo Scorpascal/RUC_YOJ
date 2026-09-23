@@ -11166,7 +11166,7 @@
         "blockHandling": {
           "status": "unknown"
         },
-        "onlineVerificationNote": "YOJ 当前题面主体为空；已有历史代码实测为 Wrong Answer，缺乏可靠题意与可验证答案。除非题面恢复或补充权威题意，不再猜测或重复提交。"
+        "onlineVerificationNote": "历史复验备注：YOJ 当前题面主体为空；已有历史代码实测为 Wrong Answer，缺乏可靠题意与可验证答案。除非题面恢复或补充权威题意，不再猜测或重复提交。"
       },
       "public": {
         "status": "TOPIC_CAPTURED",
@@ -11175,7 +11175,7 @@
         "cleanCode": null,
         "directlySubmittableCode": null,
         "onlineVerification": "NO_LOCAL_AC",
-        "onlineVerificationNote": "YOJ 当前题面主体为空；已有历史代码实测为 Wrong Answer，缺乏可靠题意与可验证答案。除非题面恢复或补充权威题意，不再猜测或重复提交。",
+        "onlineVerificationNote": "历史复验备注：YOJ 当前题面主体为空；已有历史代码实测为 Wrong Answer，缺乏可靠题意与可验证答案。除非题面恢复或补充权威题意，不再猜测或重复提交。",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -11189,7 +11189,6 @@
         "imageLocalCount": 0,
         "assets": [],
         "warnings": [
-          "YOJ 当前题面主体为空；已有历史代码实测为 Wrong Answer，缺乏可靠题意与可验证答案。除非题面恢复或补充权威题意，不再猜测或重复提交。",
           "题面主体为空，题面需要人工复核"
         ]
       }
@@ -21278,7 +21277,7 @@
         "blockHandling": {
           "status": "unknown"
         },
-        "onlineVerificationNote": "YOJ 在线终态为 No Testdata；平台未提供可执行测试数据，无法判定代码正确性。除非测试数据恢复，不再重复提交。"
+        "onlineVerificationNote": "历史复验备注：YOJ 在线终态为 No Testdata；平台未提供可执行测试数据，无法判定代码正确性。除非测试数据恢复，不再重复提交。"
       },
       "public": {
         "status": "TOPIC_CAPTURED",
@@ -21287,7 +21286,7 @@
         "cleanCode": null,
         "directlySubmittableCode": null,
         "onlineVerification": "NO_LOCAL_AC",
-        "onlineVerificationNote": "YOJ 在线终态为 No Testdata；平台未提供可执行测试数据，无法判定代码正确性。除非测试数据恢复，不再重复提交。",
+        "onlineVerificationNote": "历史复验备注：YOJ 在线终态为 No Testdata；平台未提供可执行测试数据，无法判定代码正确性。除非测试数据恢复，不再重复提交。",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -21300,9 +21299,7 @@
         "imageAssets": [],
         "imageLocalCount": 0,
         "assets": [],
-        "warnings": [
-          "YOJ 在线终态为 No Testdata；平台未提供可执行测试数据，无法判定代码正确性。除非测试数据恢复，不再重复提交。"
-        ]
+        "warnings": []
       }
     },
     {
@@ -24473,7 +24470,7 @@
         "blockHandling": {
           "status": "unknown"
         },
-        "onlineVerificationNote": "YOJ 在线终态为 No Testdata；平台未提供可执行测试数据，无法判定代码正确性。除非测试数据恢复，不再重复提交。"
+        "onlineVerificationNote": "历史复验备注：YOJ 在线终态为 No Testdata；平台未提供可执行测试数据，无法判定代码正确性。除非测试数据恢复，不再重复提交。"
       },
       "public": {
         "status": "TOPIC_CAPTURED",
@@ -24482,7 +24479,7 @@
         "cleanCode": null,
         "directlySubmittableCode": null,
         "onlineVerification": "NO_LOCAL_AC",
-        "onlineVerificationNote": "YOJ 在线终态为 No Testdata；平台未提供可执行测试数据，无法判定代码正确性。除非测试数据恢复，不再重复提交。",
+        "onlineVerificationNote": "历史复验备注：YOJ 在线终态为 No Testdata；平台未提供可执行测试数据，无法判定代码正确性。除非测试数据恢复，不再重复提交。",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -24495,9 +24492,7 @@
         "imageAssets": [],
         "imageLocalCount": 0,
         "assets": [],
-        "warnings": [
-          "YOJ 在线终态为 No Testdata；平台未提供可执行测试数据，无法判定代码正确性。除非测试数据恢复，不再重复提交。"
-        ]
+        "warnings": []
       }
     },
     {
@@ -31159,7 +31154,7 @@
         "blockHandling": {
           "status": "unknown"
         },
-        "onlineVerificationNote": "已有实测为 10/100；评测环境缺少附件 menu_7.csv，详细输出为 Error: File menu_7.csv not found. 题目还依赖 student_template_7.py；附件恢复前无法完成在线通过，不再重复提交。"
+        "onlineVerificationNote": "历史复验备注：已有实测为 10/100；评测环境缺少附件 menu_7.csv，详细输出为 Error: File menu_7.csv not found. 题目还依赖 student_template_7.py；附件恢复前无法完成在线通过，不再重复提交。"
       },
       "public": {
         "status": "TOPIC_CAPTURED",
@@ -31168,7 +31163,7 @@
         "cleanCode": null,
         "directlySubmittableCode": null,
         "onlineVerification": "NO_LOCAL_AC",
-        "onlineVerificationNote": "已有实测为 10/100；评测环境缺少附件 menu_7.csv，详细输出为 Error: File menu_7.csv not found. 题目还依赖 student_template_7.py；附件恢复前无法完成在线通过，不再重复提交。",
+        "onlineVerificationNote": "历史复验备注：已有实测为 10/100；评测环境缺少附件 menu_7.csv，详细输出为 Error: File menu_7.csv not found. 题目还依赖 student_template_7.py；附件恢复前无法完成在线通过，不再重复提交。",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -31181,9 +31176,7 @@
         "imageAssets": [],
         "imageLocalCount": 0,
         "assets": [],
-        "warnings": [
-          "已有实测为 10/100；评测环境缺少附件 menu_7.csv，详细输出为 Error: File menu_7.csv not found. 题目还依赖 student_template_7.py；附件恢复前无法完成在线通过，不再重复提交。"
-        ]
+        "warnings": []
       }
     },
     {
@@ -31638,7 +31631,7 @@
         "blockHandling": {
           "status": "unknown"
         },
-        "onlineVerificationNote": "提交后未生成评测记录，无法取得状态、分数、时间或内存终态；不能视为通过。除非 YOJ 评测记录服务恢复，不再重复提交。"
+        "onlineVerificationNote": "历史复验备注：提交后未生成评测记录，无法取得状态、分数、时间或内存终态；不能视为通过。除非 YOJ 评测记录服务恢复，不再重复提交。"
       },
       "public": {
         "status": "TOPIC_CAPTURED",
@@ -31647,7 +31640,7 @@
         "cleanCode": null,
         "directlySubmittableCode": null,
         "onlineVerification": "NO_LOCAL_AC",
-        "onlineVerificationNote": "提交后未生成评测记录，无法取得状态、分数、时间或内存终态；不能视为通过。除非 YOJ 评测记录服务恢复，不再重复提交。",
+        "onlineVerificationNote": "历史复验备注：提交后未生成评测记录，无法取得状态、分数、时间或内存终态；不能视为通过。除非 YOJ 评测记录服务恢复，不再重复提交。",
         "verifiedAt": "",
         "verifiedSubmissionNo": "",
         "codeSha256": ""
@@ -31660,9 +31653,7 @@
         "imageAssets": [],
         "imageLocalCount": 0,
         "assets": [],
-        "warnings": [
-          "提交后未生成评测记录，无法取得状态、分数、时间或内存终态；不能视为通过。除非 YOJ 评测记录服务恢复，不再重复提交。"
-        ]
+        "warnings": []
       }
     },
     {
