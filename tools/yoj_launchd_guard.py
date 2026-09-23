@@ -4,9 +4,10 @@
 The LaunchAgent may load before the daily window, when the user logs in during
 the window, or while the login keychain is still locked.  This guard allows
 the full sync from 22:30 onward and, after that sync succeeds, performs a
-lightweight public-visibility check every 15 minutes until 23:55 Beijing
-time.  A missed day is skipped, while scheduler checkpoints remain available
-for the next day's window.
+lightweight public-visibility check every 15 minutes until 23:30 Beijing
+time.  The 23:30–23:55 period is reserved as a flexibility buffer before the
+maintenance window; it starts no new scheduler run. A missed day is skipped,
+while scheduler checkpoints remain available for the next day's window.
 """
 
 from __future__ import annotations
@@ -28,7 +29,7 @@ GUARD_STATE_PATH = STATE_DIR / "launchd-cycle.json"
 LOG_PATH = STATE_DIR / "launchd-guard.log"
 TZ = ZoneInfo("Asia/Shanghai")
 UPDATE_WINDOW_START = day_time(22, 30)
-UPDATE_WINDOW_END = day_time(23, 55)
+UPDATE_WINDOW_END = day_time(23, 30)
 MAINTENANCE_START = day_time(23, 55)
 MAINTENANCE_END = day_time(0, 10)
 
@@ -114,11 +115,14 @@ def run_scheduler(visibility_watch: bool = False) -> int:
 
 def main() -> int:
     current = now_local()
-    if not in_update_window(current):
-        log("不在北京时间 22:30–23:55 更新窗口，本次跳过；错过当天不补跑")
-        return 0
     if in_maintenance(current):
-        log("处于北京时间 23:55–00:10 维护窗口，等待下一次补偿触发")
+        log("处于北京时间 23:55–00:10 维护窗口，本次跳过网络操作")
+        return 0
+    if not in_update_window(current):
+        if day_time(23, 30) <= current.time() < day_time(23, 55):
+            log("北京时间 23:30–23:55 为维护前弹性缓冲，不启动新一轮自动化")
+        else:
+            log("不在北京时间 22:30–23:30 更新窗口，本次跳过；错过当天不补跑")
         return 0
 
     STATE_DIR.mkdir(parents=True, exist_ok=True)
