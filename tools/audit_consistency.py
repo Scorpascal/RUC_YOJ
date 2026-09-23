@@ -160,17 +160,23 @@ def main() -> int:
 
     source = load("docs/data/catalog.json").get("source") or {}
     expected_online_ids = set(online)
-    if int(source.get("onlinePublicProblems") or -1) != len(expected_online_ids):
+    def source_count(key: str) -> int:
+        # Zero is a valid count (for example, when no archived quick-submit
+        # fallback exists).  Do not turn it into the missing-value sentinel.
+        value = source.get(key)
+        return int(value) if value is not None else -1
+
+    if source_count("onlinePublicProblems") != len(expected_online_ids):
         failures.append("catalog source onlinePublicProblems differs from the snapshot")
     if str(source.get("onlineSnapshotCapturedAt") or "") != str(online_payload.get("capturedAt") or ""):
         failures.append("catalog source onlineSnapshotCapturedAt differs from the snapshot")
     if str(source.get("onlineSnapshotSha256") or "") != str(online_payload.get("problemListSha256") or ""):
         failures.append("catalog source onlineSnapshotSha256 differs from the snapshot")
-    if int(source.get("archivedQuickSubmitEntries") or -1) != len(archived_quick):
+    if source_count("archivedQuickSubmitEntries") != len(archived_quick):
         failures.append("catalog source archivedQuickSubmitEntries differs from the manifest")
-    if int(source.get("archivedCodeEntries") or -1) != sum(bool(row.get("archiveCodeAvailable")) for row in catalog.values()):
+    if source_count("archivedCodeEntries") != sum(bool(row.get("archiveCodeAvailable")) for row in catalog.values()):
         failures.append("catalog source archivedCodeEntries differs from the catalog")
-    if int(source.get("onlineAcceptedSubmissions") or -1) != sum(bool(row.get("onlineAccepted")) for row in catalog.values()):
+    if source_count("onlineAcceptedSubmissions") != sum(bool(row.get("onlineAccepted")) for row in catalog.values()):
         failures.append("catalog source onlineAcceptedSubmissions differs from the catalog")
 
     online_missing_from_repository = sorted(set(online) - set(problems))

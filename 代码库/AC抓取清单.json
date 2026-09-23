@@ -1,7 +1,7 @@
 {
   "version": 1,
   "purpose": "YOJ accepted source archive; raw capture materialization only",
-  "capturedAt": "2026-09-22T14:30:07Z",
+  "capturedAt": "2026-09-23T15:04:21Z",
   "account": {
     "username": "已脱敏"
   },
@@ -12,8 +12,8 @@
   "totals": {
     "submissionRecords": 1028,
     "acceptedSubmissionRecords": 644,
-    "uniqueProblems": 499,
-    "materializedProblemDirectories": 499,
+    "uniqueProblems": 509,
+    "materializedProblemDirectories": 509,
     "materializedCodeFiles": 489
   },
   "problems": [
@@ -7479,6 +7479,136 @@
       "files": {
         "problem": "1709_#_1709_._第_39_次_CCF_计算机软件能力认证_第五题_造题计划（下）/1709_题目原文.html",
         "metadata": "1709_#_1709_._第_39_次_CCF_计算机软件能力认证_第五题_造题计划（下）/1709_元数据.json"
+      },
+      "codeSha256": ""
+    },
+    {
+      "problemNo": "1710",
+      "title": "# 1710 . 第 40 次 CCF 计算机软件能力认证 第一题 集合 (set)",
+      "folder": "1710_#_1710_._第_40_次_CCF_计算机软件能力认证_第一题_集合_(set)",
+      "submissionNo": "",
+      "language": "",
+      "status": "TOPIC_CAPTURED",
+      "files": {
+        "problem": "1710_#_1710_._第_40_次_CCF_计算机软件能力认证_第一题_集合_(set)/1710_题目原文.html",
+        "metadata": "1710_#_1710_._第_40_次_CCF_计算机软件能力认证_第一题_集合_(set)/1710_元数据.json"
+      },
+      "codeSha256": ""
+    },
+    {
+      "problemNo": "1711",
+      "title": "# 1711 . 第 40 次 CCF 计算机软件能力认证 第二题：数字变换 (transform)",
+      "folder": "1711_#_1711_._第_40_次_CCF_计算机软件能力认证_第二题：数字变换_(transform)",
+      "submissionNo": "",
+      "language": "",
+      "status": "TOPIC_CAPTURED",
+      "files": {
+        "problem": "1711_#_1711_._第_40_次_CCF_计算机软件能力认证_第二题：数字变换_(transform)/1711_题目原文.html",
+        "metadata": "1711_#_1711_._第_40_次_CCF_计算机软件能力认证_第二题：数字变换_(transform)/1711_元数据.json"
+      },
+      "codeSha256": ""
+    },
+    {
+      "problemNo": "1712",
+      "title": "# 1712 . 第 40 次 CCF 计算机软件能力认证 第三题：图片解码 (decode)",
+      "folder": "1712_#_1712_._第_40_次_CCF_计算机软件能力认证_第三题：图片解码_(decode)",
+      "submissionNo": "",
+      "language": "",
+      "status": "TOPIC_CAPTURED",
+      "files": {
+        "problem": "1712_#_1712_._第_40_次_CCF_计算机软件能力认证_第三题：图片解码_(decode)/1712_题目原文.html",
+        "metadata": "1712_#_1712_._第_40_次_CCF_计算机软件能力认证_第三题：图片解码_(decode)/1712_元数据.json"
+      },
+      "codeSha256": ""
+    },
+    {
+      "problemNo": "1713",
+      "title": "# 1713 . 第 40 次 CCF 计算机软件能力认证 第四题：C 形阵 (square)",
+      "folder": "1713_#_1713_._第_40_次_CCF_计算机软件能力认证_第四题：C_形阵_(square)",
+      "submissionNo": "",
+      "language": "",
+      "status": "TOPIC_CAPTURED",
+      "files": {
+        "problem": "1713_#_1713_._第_40_次_CCF_计算机软件能力认证_第四题：C_形阵_(square)/1713_题目原文.html",
+        "metadata": "1713_#_1713_._第_40_次_CCF_计算机软件能力认证_第四题：C_形阵_(square)/1713_元数据.json"
+      },
+      "codeSha256": ""
+    },
+    {
+      "problemNo": "1714",
+      "title": "# 1714 . 第 40 次 CCF 计算机软件能力认证 第五题：数据抢修 (repair)",
+      "folder": "1714_#_1714_._第_40_次_CCF_计算机软件能力认证_第五题：数据抢修_(repair)",
+      "submissionNo": "",
+      "language": "",
+      "status": "TOPIC_CAPTURED",
+      "files": {
+        "problem": "1714_#_1714_._第_40_次_CCF_计算机软件能力认证_第五题：数据抢修_(repair)/1714_题目原文.html",
+        "metadata": "1714_#_1714_._第_40_次_CCF_计算机软件能力认证_第五题：数据抢修_(repair)/1714_元数据.json"
+      },
+      "codeSha256": ""
+    },
+    {
+      "problemNo": "1715",
+      "title": "# 1715 . 第 41 次 CCF 计算机软件能力认证 第一题：平衡数（balance）",
+      "folder": "1715_#_1715_._第_41_次_CCF_计算机软件能力认证_第一题：平衡数（balance）",
+      "submissionNo": "",
+      "language": "",
+      "status": "TOPIC_CAPTURED",
+      "files": {
+        "problem": "1715_#_1715_._第_41_次_CCF_计算机软件能力认证_第一题：平衡数（balance）/1715_题目原文.html",
+        "metadata": "1715_#_1715_._第_41_次_CCF_计算机软件能力认证_第一题：平衡数（balance）/1715_元数据.json"
+      },
+      "codeSha256": ""
+    },
+    {
+      "problemNo": "1716",
+      "title": "# 1716 . 第 41 次 CCF 计算机软件能力认证 第二题：机器人项目管理（crashing）",
+      "folder": "1716_#_1716_._第_41_次_CCF_计算机软件能力认证_第二题：机器人项目管理（crashing）",
+      "submissionNo": "",
+      "language": "",
+      "status": "TOPIC_CAPTURED",
+      "files": {
+        "problem": "1716_#_1716_._第_41_次_CCF_计算机软件能力认证_第二题：机器人项目管理（crashing）/1716_题目原文.html",
+        "metadata": "1716_#_1716_._第_41_次_CCF_计算机软件能力认证_第二题：机器人项目管理（crashing）/1716_元数据.json"
+      },
+      "codeSha256": ""
+    },
+    {
+      "problemNo": "1717",
+      "title": "# 1717 . 第 41 次 CCF 计算机软件能力认证 第三题：进程通信（communicate）",
+      "folder": "1717_#_1717_._第_41_次_CCF_计算机软件能力认证_第三题：进程通信（communicate）",
+      "submissionNo": "",
+      "language": "",
+      "status": "TOPIC_CAPTURED",
+      "files": {
+        "problem": "1717_#_1717_._第_41_次_CCF_计算机软件能力认证_第三题：进程通信（communicate）/1717_题目原文.html",
+        "metadata": "1717_#_1717_._第_41_次_CCF_计算机软件能力认证_第三题：进程通信（communicate）/1717_元数据.json"
+      },
+      "codeSha256": ""
+    },
+    {
+      "problemNo": "1718",
+      "title": "# 1718 . 第 41 次 CCF 计算机软件能力认证 第四题：异或（xor）",
+      "folder": "1718_#_1718_._第_41_次_CCF_计算机软件能力认证_第四题：异或（xor）",
+      "submissionNo": "",
+      "language": "",
+      "status": "TOPIC_CAPTURED",
+      "files": {
+        "problem": "1718_#_1718_._第_41_次_CCF_计算机软件能力认证_第四题：异或（xor）/1718_题目原文.html",
+        "metadata": "1718_#_1718_._第_41_次_CCF_计算机软件能力认证_第四题：异或（xor）/1718_元数据.json"
+      },
+      "codeSha256": ""
+    },
+    {
+      "problemNo": "1719",
+      "title": "# 1719 . 第 41 次 CCF 计算机软件能力认证 第五题：旅游计划（travel）",
+      "folder": "1719_#_1719_._第_41_次_CCF_计算机软件能力认证_第五题：旅游计划（travel）",
+      "submissionNo": "",
+      "language": "",
+      "status": "TOPIC_CAPTURED",
+      "files": {
+        "problem": "1719_#_1719_._第_41_次_CCF_计算机软件能力认证_第五题：旅游计划（travel）/1719_题目原文.html",
+        "metadata": "1719_#_1719_._第_41_次_CCF_计算机软件能力认证_第五题：旅游计划（travel）/1719_元数据.json"
       },
       "codeSha256": ""
     }

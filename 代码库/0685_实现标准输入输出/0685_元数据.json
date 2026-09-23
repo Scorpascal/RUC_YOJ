@@ -58,6 +58,16 @@
       "directlySubmittableFile": "0685_提交_1306084_cpp_可提交代码.cpp",
       "blocks": [],
       "note": "本次接口返回一个 code 字段；未从不完整的异步页面 HTML 猜测分块边界，因此保留原始完整代码，并将同一份字节内容另存为可直接提交文件。"
-    }
+    },
+    "rawArchiveSha256": "45f25d82d6d1dfe3a944e2649d05c1a2bbc392d0402d9934d1651e765089153d",
+    "directlySubmittableSha256": "45f25d82d6d1dfe3a944e2649d05c1a2bbc392d0402d9934d1651e765089153d",
+    "status": "CLEANED_ONLINE_VERIFIED"
+  },
+  "publication": {
+    "status": "PUBLIC_READY",
+    "batchId": "20260923T160532Z",
+    "candidateSha256": "45f25d82d6d1dfe3a944e2649d05c1a2bbc392d0402d9934d1651e765089153d",
+    "submissionNo": 1411431,
+    "verifiedAt": "2026-09-23T15:48:27Z"
   }
 }

@@ -22,6 +22,7 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlencode, urljoin
 from urllib.request import HTTPCookieProcessor, Request, build_opener
+from urllib.error import URLError
 from http.cookiejar import CookieJar
 
 try:
@@ -38,7 +39,13 @@ SUBMIT_INTERVAL = 15.0
 POLL_INTERVAL = 3.0
 POLL_LIMIT = 30
 BUILD_EVERY = 20
-FILL_IN_PROBLEMS = {285, 286}
+PARTIAL_TEMPLATE_ENDPOINT = "/index.php/index/problem/gettkcode.html"
+PARTIAL_SUBMIT_ENDPOINT = "/index.php/index/index/prob_submit_tk.html"
+PARTIAL_PLACEHOLDER = "____qcodep____"
+# These two legacy entries are function-body fragments by design.  Their
+# live partial-code template can be submitted safely, but compiling the
+# fragment as a standalone file is not a meaningful local proof.
+PARTIAL_FRAGMENT_PROBLEMS = {285, 286}
 PENDING_STATUSES = {"waiting", "compiling", "running", "judging", "pending"}
 PARTIAL_FORM_MARKERS = ("部分代码提交", "待填区", "填空", "detailtk")
 
@@ -58,7 +65,13 @@ class YoJClient:
         self.login_user = os.environ.get("YOJ_LOGIN_USER", "")
         self.login_pass = os.environ.get("YOJ_LOGIN_PASS", "")
 
-    def request(self, path: str, data: dict[str, str] | None = None, referer: str = "") -> str:
+    def request(
+        self,
+        path: str,
+        data: dict[str, str] | None = None,
+        referer: str = "",
+        retry_safe: bool = False,
+    ) -> str:
         url = urljoin(BASE + "/", path)
         body = urlencode(data or {}).encode("utf-8") if data is not None else None
         headers = {
@@ -71,8 +84,28 @@ class YoJClient:
             headers["Content-Type"] = "application/x-www-form-urlencoded"
             headers["X-Requested-With"] = "XMLHttpRequest"
         request = Request(url, data=body, headers=headers, method="POST" if data is not None else "GET")
-        with self.opener.open(request, timeout=35) as response:
-            return response.read().decode("utf-8", errors="replace")
+        attempts = 3 if retry_safe else 1
+        for attempt in range(1, attempts + 1):
+            try:
+                with self.opener.open(request, timeout=35) as response:
+                    return response.read().decode("utf-8", errors="replace")
+            except (TimeoutError, ConnectionError, URLError):
+                if attempt >= attempts:
+                    raise
+                time.sleep(2 * attempt)
+
+    def request_json(
+        self,
+        path: str,
+        data: dict[str, str] | None = None,
+        referer: str = "",
+        retry_safe: bool = False,
+    ) -> dict[str, Any]:
+        raw = self.request(path, data, referer, retry_safe=retry_safe).lstrip("\ufeff")
+        payload = json.loads(raw)
+        if not isinstance(payload, dict):
+            raise ValueError("JSON_RESPONSE_NOT_OBJECT")
+        return payload
 
     def login(self) -> None:
         if not self.login_user or not self.login_pass:
@@ -81,6 +114,7 @@ class YoJClient:
             "/index.php/index/login/login2.html",
             {"username": self.login_user, "passwd": self.login_pass},
             "/index.php/index/index/signin.html",
+            retry_safe=True,
         ).lstrip("\ufeff")
         result = json.loads(raw)
         if str(result.get("status")) != "1":
@@ -145,18 +179,45 @@ def save_report(records: dict[int, dict[str, Any]], skips: dict[int, dict[str, A
 
 def read_candidates() -> dict[int, tuple[Path, str]]:
     candidates: dict[int, tuple[Path, str]] = {}
-    # Prefer the most reviewed candidate directory.  A lower-priority
-    # directory is used only when the problem has no higher-priority result.
+    # Prefer the most reviewed candidate directory, but resolve each problem
+    # through its manifest path first.  A broad directory scan can pick an
+    # older submission of the same problem (for example 87), which then
+    # falsely triggers CANDIDATE_SELECTION_STALE against the release gate.
+    try:
+        payload = json.loads((ROOT / "data" / "problems.json").read_text(encoding="utf-8"))
+    except (OSError, TypeError, ValueError, json.JSONDecodeError):
+        payload = {}
+    for record in payload.get("records") or []:
+        archive = record.get("archive") or {}
+        direct_ref = str(archive.get("directlySubmittableCode") or "")
+        if not direct_ref:
+            continue
+        raw_path = ROOT / direct_ref
+        try:
+            relative_path = raw_path.relative_to(ROOT / "代码库")
+        except ValueError:
+            continue
+        problem_no = int(record["problemNo"]) if str(record.get("problemNo", "")).isdigit() else 0
+        if problem_no <= 0:
+            continue
+        for directory_name in ("cleaned-code", "repaired-code", "cpp17-portable", "cpp17-compatible"):
+            path = ROOT / "staging" / directory_name / relative_path
+            if not path.is_file():
+                continue
+            info = candidate_info(path)
+            if info is not None and info[0] == problem_no:
+                candidates[problem_no] = (path, info[1])
+                break
+
+    # Keep the fallback for newly captured candidates whose generated problem
+    # record has not yet been rebuilt into data/problems.json.
     for directory_name in ("cleaned-code", "repaired-code", "cpp17-portable", "cpp17-compatible"):
         directory = ROOT / "staging" / directory_name
         for path in sorted(directory.glob("????_*/*_可提交代码.*"), key=lambda item: item.as_posix()):
             info = candidate_info(path)
-            if info is None:
+            if info is None or info[0] in candidates:
                 continue
-            problem_no, language = info
-            if problem_no in candidates:
-                continue
-            candidates[problem_no] = (path, language)
+            candidates[info[0]] = (path, info[1])
     return candidates
 
 
@@ -183,6 +244,117 @@ def parse_form(page: str, problem_no: int, language: str) -> tuple[str, str | No
     if language not in values:
         raise ValueError(f"LANGUAGE_NOT_AVAILABLE:{language}")
     return urljoin(BASE + "/", action), pid_match.group(1)
+
+
+def _non_whitespace_map(value: str) -> tuple[str, list[int]]:
+    chars: list[str] = []
+    positions: list[int] = []
+    for index, char in enumerate(value):
+        if not char.isspace():
+            chars.append(char)
+            positions.append(index)
+    return "".join(chars), positions
+
+
+def extract_partial_blocks(template: str, source: str) -> list[str]:
+    """Extract the values for YOJ's ``____qcodep____`` blocks.
+
+    YOJ renders the fixed framework asynchronously, so the ordinary HTML
+    form parser cannot see a submit form.  Match the live framework against
+    the cleaned full source while ignoring formatting-only whitespace.  A
+    single-block source without ``main`` is also accepted as a deliberate
+    fragment fallback for legacy exercises such as 285 and 286.
+    """
+
+    parts = template.split(PARTIAL_PLACEHOLDER)
+    block_count = len(parts) - 1
+    if block_count <= 0:
+        raise ValueError("PARTIAL_TEMPLATE_PLACEHOLDER_MISSING")
+
+    normalized_source, source_positions = _non_whitespace_map(source)
+    anchors: list[tuple[int, int] | None] = []
+    cursor = 0
+    for part in parts:
+        normalized_part, _ = _non_whitespace_map(part)
+        if not normalized_part:
+            anchors.append(None)
+            continue
+        start = normalized_source.find(normalized_part, cursor)
+        if start < 0:
+            if block_count == 1 and source.strip() and not re.search(r"\bmain\s*\(", source):
+                return [source.strip("\r\n")]
+            raise ValueError("PARTIAL_TEMPLATE_SOURCE_MISMATCH")
+        end = start + len(normalized_part)
+        anchors.append((start, end))
+        cursor = end
+
+    def raw_end(index: int) -> int:
+        anchor = anchors[index]
+        if anchor is not None:
+            return source_positions[anchor[1] - 1] + 1
+        for previous in range(index - 1, -1, -1):
+            if anchors[previous] is not None:
+                return source_positions[anchors[previous][1] - 1] + 1
+        return 0
+
+    def raw_start(index: int) -> int:
+        anchor = anchors[index]
+        if anchor is not None:
+            return source_positions[anchor[0]]
+        for following in range(index + 1, len(anchors)):
+            if anchors[following] is not None:
+                return source_positions[anchors[following][0]]
+        return len(source)
+
+    return [source[raw_end(index) : raw_start(index + 1)].strip() for index in range(block_count)]
+
+
+def partial_submission_payload(
+    client: YoJClient,
+    problem_no: int,
+    source: str,
+    language: str,
+    referer: str,
+    fallback_source: str = "",
+) -> tuple[list[str], str, str]:
+    payload = client.request_json(
+        PARTIAL_TEMPLATE_ENDPOINT,
+        {"pno": str(problem_no)},
+        referer,
+        retry_safe=True,
+    )
+    if str(payload.get("status")) != "1":
+        raise ValueError(f"PARTIAL_TEMPLATE_UNAVAILABLE:{payload.get('info') or payload.get('status')}")
+    template = str(payload.get("content") or "")
+    try:
+        blocks = extract_partial_blocks(template, source)
+    except ValueError:
+        if not fallback_source:
+            raise
+        blocks = extract_partial_blocks(template, fallback_source)
+        normalized_source, _ = _non_whitespace_map(source)
+        cursor = 0
+        for block in blocks:
+            normalized_block, _ = _non_whitespace_map(block)
+            if not normalized_block:
+                continue
+            start = normalized_source.find(normalized_block, cursor)
+            if start < 0:
+                raise ValueError("PARTIAL_CANDIDATE_BLOCK_MISMATCH")
+            cursor = start + len(normalized_block)
+    compiler = language
+    return blocks, compiler, template
+
+
+def assemble_partial_template(template: str, blocks: list[str]) -> str:
+    parts = template.split(PARTIAL_PLACEHOLDER)
+    if len(parts) != len(blocks) + 1:
+        raise ValueError("PARTIAL_TEMPLATE_BLOCK_COUNT_MISMATCH")
+    result: list[str] = []
+    for index, part in enumerate(parts[:-1]):
+        result.extend((part, blocks[index]))
+    result.append(parts[-1])
+    return "".join(result)
 
 
 def parse_submission_rows(page: str) -> list[dict[str, Any]]:
@@ -217,7 +389,12 @@ def fetch_rows(client: YoJClient) -> list[dict[str, Any]]:
     return parse_submission_rows(client.request("/index.php/index/submissions/index.html"))
 
 
-def recover_source(client: YoJClient, submission_no: int, candidate_bytes: bytes) -> dict[str, Any]:
+def recover_source(
+    client: YoJClient,
+    submission_no: int,
+    candidate_bytes: bytes,
+    alternate_expected: list[bytes] | None = None,
+) -> dict[str, Any]:
     try:
         raw = client.request(
             "/index.php/index/submissions/getcode.html",
@@ -229,24 +406,35 @@ def recover_source(client: YoJClient, submission_no: int, candidate_bytes: bytes
         if not isinstance(source, str):
             raise ValueError("源码接口没有返回 code")
         source_bytes = source.encode("utf-8")
-        exact = source_bytes == candidate_bytes
-        canonical_source = source_bytes.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
-        canonical_candidate = candidate_bytes.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
-        canonical_source = b"\n".join(line.rstrip() for line in canonical_source.split(b"\n")).rstrip(b"\n")
-        canonical_candidate = b"\n".join(line.rstrip() for line in canonical_candidate.split(b"\n")).rstrip(b"\n")
-        canonical = canonical_source == canonical_candidate
+        alternate = alternate_expected or []
+        candidate_exact = source_bytes == candidate_bytes
+        alternate_exact = any(source_bytes == item for item in alternate)
+
+        def canonicalize(value: bytes) -> bytes:
+            normalized = value.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+            return b"\n".join(line.rstrip() for line in normalized.split(b"\n")).rstrip(b"\n")
+
+        canonical_source = canonicalize(source_bytes)
+        candidate_canonical = canonical_source == canonicalize(candidate_bytes)
+        alternate_canonical = any(canonical_source == canonicalize(item) for item in alternate)
         return {
             "status": "VISIBLE",
             "sourceVisibleInSubmissionDetail": True,
-            "exactByteMatch": exact,
-            "canonicalByteMatch": canonical,
+            "exactByteMatch": candidate_exact,
+            "canonicalByteMatch": candidate_canonical,
+            "templateExactByteMatch": alternate_exact,
+            "templateCanonicalByteMatch": alternate_canonical,
             "sourceSha256": hashlib.sha256(source_bytes).hexdigest(),
             "canonicalSourceSha256": hashlib.sha256(canonical_source).hexdigest(),
             "matchNote": (
                 "终端 getcode 接口回收源码并完成候选字节比对。"
-                if exact
+                if candidate_exact
                 else "终端回收源码与候选仅存在换行或行尾空白差异。"
-                if canonical
+                if candidate_canonical
+                else "终端回收源码与在线固定框架拼接结果一致。"
+                if alternate_exact
+                else "终端回收源码与在线固定框架拼接结果仅存在换行或行尾空白差异。"
+                if alternate_canonical
                 else "终端 getcode 接口回收源码，但与本地候选内容不一致。"
             ),
         }
@@ -260,17 +448,26 @@ def recover_source(client: YoJClient, submission_no: int, candidate_bytes: bytes
         }
 
 
-def make_record(problem: dict[str, Any], path: Path, language: str, row: dict[str, Any], client: YoJClient) -> dict[str, Any]:
+def make_record(
+    problem: dict[str, Any],
+    path: Path,
+    language: str,
+    row: dict[str, Any],
+    client: YoJClient,
+    alternate_expected: list[bytes] | None = None,
+    submission_kind: str = "",
+    partial_template_verified: bool = False,
+) -> dict[str, Any]:
     candidate_bytes = path.read_bytes()
     submission_no = int(row["submissionNo"])
-    round_trip = recover_source(client, submission_no, candidate_bytes) if row["status"] == "Accepted" else {
+    round_trip = recover_source(client, submission_no, candidate_bytes, alternate_expected) if row["status"] == "Accepted" else {
         "status": "NOT_APPLICABLE",
         "sourceVisibleInSubmissionDetail": False,
         "exactByteMatch": False,
         "canonicalByteMatch": False,
         "matchNote": "提交结果不是 Accepted，暂不回收源码。",
     }
-    return {
+    record = {
         "problemNo": int(problem["problemNo"]),
         "title": str(problem.get("title") or path.parent.name.split("_", 1)[-1]),
         "language": language,
@@ -286,6 +483,11 @@ def make_record(problem: dict[str, Any], path: Path, language: str, row: dict[st
         "roundTrip": round_trip,
         "verifiedAt": utc_now(),
     }
+    if submission_kind:
+        record["submissionKind"] = submission_kind
+    if partial_template_verified:
+        record["partialTemplateVerified"] = True
+    return record
 
 
 def record_skip(
@@ -331,8 +533,8 @@ def main() -> int:
     parser.add_argument(
         "--max-submissions",
         type=int,
-        default=int(os.environ.get("YOJ_MAX_SUBMISSIONS", "20")),
-        help="本轮最多发出的新提交数，默认 20",
+        default=int(os.environ.get("YOJ_MAX_SUBMISSIONS", "50")),
+        help="本轮最多发出的新提交数，默认 50；仍受候选、门禁和站点终态限制",
     )
     parser.add_argument(
         "--submit-interval",
@@ -414,6 +616,12 @@ def main() -> int:
             continue
         if previous and previous.get("candidateSha256") == candidate_sha256:
             if previous.get("status") == "Accepted":
+                if previous.get("localFragmentOverride"):
+                    # A live partial-code submission has already established
+                    # the online result.  Its standalone-fragment local gate
+                    # intentionally prevents PUBLIC_READY, so a nightly
+                    # backlog pass must not create duplicate submissions.
+                    continue
                 if not args.reverify_accepted:
                     continue
             elif not args.retry_abnormal:
@@ -429,16 +637,22 @@ def main() -> int:
         skips.pop(problem_no, None)
         problem = problems.get(problem_no, {"problemNo": problem_no, "title": path.parent.name.split("_", 1)[-1]})
 
-        if problem_no in FILL_IN_PROBLEMS:
-            record_skip(skips, problem, path, submit_language, "FILL_IN_FRAGMENT_TEMPLATE_UNAVAILABLE", candidate_sha256)
-            save_report(records, skips)
-            print(f"[{problem_no}] 跳过：固定模板不可得的填空片段。", flush=True)
-            continue
-
         complete_candidate, direct_candidate = candidate_paths(problem)
         gate_reasons = local_gate_reasons(problem_no, complete_candidate, direct_candidate)
         if direct_candidate is None or direct_candidate.resolve() != path.resolve():
             gate_reasons.append("CANDIDATE_SELECTION_STALE")
+        local_fragment_override = False
+        if (
+            problem_no in PARTIAL_FRAGMENT_PROBLEMS
+            and gate_reasons
+            and all("FILL_IN_FRAGMENT" in reason for reason in gate_reasons)
+        ):
+            # The hidden fixed framework is supplied by YOJ's partial-code
+            # form.  Allow the online template itself to be the correctness
+            # boundary, while retaining the fragment-specific local warning
+            # in the release gate so it cannot become PUBLIC_READY silently.
+            local_fragment_override = True
+            gate_reasons = []
         if gate_reasons:
             reason = "LOCAL_GATE_" + "+".join(sorted(set(gate_reasons)))
             record_skip(skips, problem, path, submit_language, reason, candidate_sha256)
@@ -446,9 +660,37 @@ def main() -> int:
             print(f"[{problem_no}] 跳过：{reason}", flush=True)
             continue
 
+        partial_codes: list[str] | None = None
+        partial_compiler = submit_language
+        partial_expected: list[bytes] = []
+        submit_kind = "STANDARD_CODE"
+        partial_template_verified = False
         try:
             page = client.request(f"/index.php/index/problem/detail/pno/{problem_no}.html")
-            action, pid = parse_form(page, problem_no, submit_language)
+            try:
+                action, pid = parse_form(page, problem_no, submit_language)
+                submit_kind = "STANDARD_CODE"
+            except ValueError as exc:
+                if str(exc) != "PARTIAL_CODE_FORM" and not any(marker in page for marker in PARTIAL_FORM_MARKERS):
+                    raise
+                archive = problem.get("archive") or {}
+                raw_complete_ref = str(archive.get("completeCode") or "")
+                raw_complete_path = ROOT / raw_complete_ref if raw_complete_ref else None
+                fallback_source = ""
+                if raw_complete_path is not None and raw_complete_path.is_file() and raw_complete_path != path:
+                    fallback_source = raw_complete_path.read_text(encoding="utf-8")
+                partial_codes, partial_compiler, template = partial_submission_payload(
+                    client,
+                    problem_no,
+                    path.read_text(encoding="utf-8"),
+                    submit_language,
+                    f"/index.php/index/problem/detailtk/pno/{problem_no}.html",
+                    fallback_source,
+                )
+                action, pid, submit_kind = PARTIAL_SUBMIT_ENDPOINT, str(problem_no), "PARTIAL_CODE"
+                partial_template_verified = True
+                if partial_codes:
+                    partial_expected.append(assemble_partial_template(template, partial_codes).encode("utf-8"))
         except Exception as exc:  # noqa: BLE001 - persist the exact gate failure
             reason = str(exc)
             record_skip(skips, problem, path, submit_language, reason, candidate_sha256)
@@ -464,11 +706,28 @@ def main() -> int:
         try:
             baseline_rows = fetch_rows(client)
             baseline_max = max((int(row["submissionNo"]) for row in baseline_rows), default=0)
-            client.request(
-                action,
-                {"language": submit_language, "code": path.read_text(encoding="utf-8"), "pid": str(pid)},
-                f"/index.php/index/problem/detail/pno/{problem_no}.html",
-            )
+            if submit_kind == "PARTIAL_CODE":
+                response = client.request_json(
+                    action,
+                    {
+                        "pno": str(problem_no),
+                        "codes": json.dumps(partial_codes or [], ensure_ascii=False),
+                        "compiler": partial_compiler,
+                    },
+                    f"/index.php/index/problem/detailtk/pno/{problem_no}.html",
+                )
+            else:
+                raw_response = client.request(
+                    action,
+                    {"language": submit_language, "code": path.read_text(encoding="utf-8"), "pid": str(pid)},
+                    f"/index.php/index/problem/detail/pno/{problem_no}.html",
+                )
+                try:
+                    response = json.loads(raw_response.lstrip("\ufeff"))
+                except (TypeError, ValueError, json.JSONDecodeError):
+                    response = {}
+            if isinstance(response, dict) and str(response.get("status")) not in {"", "1", "None"}:
+                raise RuntimeError(f"SUBMISSION_REJECTED:{response.get('info') or response.get('status')}")
             last_submit_at = time.monotonic()
             row: dict[str, Any] | None = None
             for _ in range(POLL_LIMIT):
@@ -483,7 +742,18 @@ def main() -> int:
                 raise RuntimeError("SUBMISSION_STATUS_UNKNOWN")
             if row["status"].lower() in PENDING_STATUSES:
                 raise RuntimeError(f"SUBMISSION_STATUS_UNKNOWN:{row['submissionNo']}:{row['status']}")
-            records[problem_no] = make_record(problem, path, submit_language, row, client)
+            records[problem_no] = make_record(
+                problem,
+                path,
+                submit_language,
+                row,
+                client,
+                partial_expected,
+                submit_kind,
+                partial_template_verified,
+            )
+            if local_fragment_override:
+                records[problem_no]["localFragmentOverride"] = True
             skips.pop(problem_no, None)
             save_report(records, skips)
             actual_submissions += 1

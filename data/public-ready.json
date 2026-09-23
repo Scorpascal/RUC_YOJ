@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "purpose": "public release manifest; credentials and session data are excluded",
-  "updatedAt": "2026-09-22T14:33:17Z",
+  "updatedAt": "2026-09-23T16:05:32Z",
   "records": [
     {
       "status": "PUBLIC_READY",
@@ -215,6 +215,27 @@
     },
     {
       "status": "PUBLIC_READY",
+      "problemNo": 87,
+      "title": "# 87 . 图像处理",
+      "completeCode": "代码库/0087_图像处理/0087_提交_1399661_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/0087_图像处理/0087_提交_1399661_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "05b825b085472b9cfb9fee0730d1db4e73c4e031afb0027140cb27c217820ab3",
+      "directlySubmittableCodeSha256": "05b825b085472b9cfb9fee0730d1db4e73c4e031afb0027140cb27c217820ab3",
+      "statementSha256": "e0a3308e5c445c02f4d2ef471fcdb45d2b6536cb75e64440cce504900ba90b4d",
+      "candidatePath": "staging/cleaned-code/0087_图像处理/0087_提交_1399661_cpp17_可提交代码.cpp",
+      "candidateSha256": "05b825b085472b9cfb9fee0730d1db4e73c4e031afb0027140cb27c217820ab3",
+      "submissionNo": 1411404,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-23T15:45:18Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
       "problemNo": 88,
       "title": "纠结的矩阵",
       "completeCode": "代码库/0088_纠结的矩阵/0088_提交_1161035_cpp17_完整代码.cpp",
@@ -380,6 +401,27 @@
         "canonicalByteMatch": false
       },
       "readyAt": "2026-09-20T08:23:49Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 119,
+      "title": "递归倒置字符数组",
+      "completeCode": "代码库/0119_递归倒置字符数组/0119_提交_1234787_cpp_完整代码.cpp",
+      "directlySubmittableCode": "代码库/0119_递归倒置字符数组/0119_提交_1234787_cpp_可提交代码.cpp",
+      "completeCodeSha256": "64437c39a3688aa6083d59fd61b2bc624e52a6968fa5e23c7a496274d28c4d46",
+      "directlySubmittableCodeSha256": "64437c39a3688aa6083d59fd61b2bc624e52a6968fa5e23c7a496274d28c4d46",
+      "statementSha256": "505b48de5ee1678c71becd7c255b4a106c7cb678a1a5accfafdac1034565f3bb",
+      "candidatePath": "staging/cleaned-code/0119_递归倒置字符数组/0119_提交_1234787_cpp_可提交代码.cpp",
+      "candidateSha256": "64437c39a3688aa6083d59fd61b2bc624e52a6968fa5e23c7a496274d28c4d46",
+      "submissionNo": 1411397,
+      "language": "cpp",
+      "verifiedAt": "2026-09-23T15:43:58Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": false
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
     },
     {
       "status": "PUBLIC_READY",
@@ -635,6 +677,27 @@
     },
     {
       "status": "PUBLIC_READY",
+      "problemNo": 132,
+      "title": "指针练习",
+      "completeCode": "代码库/0132_指针练习/0132_提交_1165605_cpp_完整代码.cpp",
+      "directlySubmittableCode": "代码库/0132_指针练习/0132_提交_1165605_cpp_可提交代码.cpp",
+      "completeCodeSha256": "8a7b33c074bfcfcf606d5943e5729e172bee773c097eb774977254294d9cc770",
+      "directlySubmittableCodeSha256": "8a7b33c074bfcfcf606d5943e5729e172bee773c097eb774977254294d9cc770",
+      "statementSha256": "fe3bfe64182f46173a1cbb36fc532cfc5d62a4846988303ebffd7a7fca46d180",
+      "candidatePath": "staging/cleaned-code/0132_指针练习/0132_提交_1165605_cpp_可提交代码.cpp",
+      "candidateSha256": "8a7b33c074bfcfcf606d5943e5729e172bee773c097eb774977254294d9cc770",
+      "submissionNo": 1411406,
+      "language": "cpp",
+      "verifiedAt": "2026-09-23T15:45:36Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": false
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
       "problemNo": 133,
       "title": "分式变小数",
       "completeCode": "代码库/0133_分式变小数/0133_提交_1343745_cpp17_完整代码.cpp",
@@ -800,6 +863,27 @@
         "canonicalByteMatch": false
       },
       "readyAt": "2026-09-20T08:23:49Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 144,
+      "title": "子串替换",
+      "completeCode": "代码库/0144_子串替换/0144_提交_1343749_cpp_完整代码.cpp",
+      "directlySubmittableCode": "代码库/0144_子串替换/0144_提交_1343749_cpp_可提交代码.cpp",
+      "completeCodeSha256": "d4695c1f2ab992cfcb9d87cad4ef6aa5dfa3041ddcf6ed8c84ff6ff2f3056cbd",
+      "directlySubmittableCodeSha256": "d4695c1f2ab992cfcb9d87cad4ef6aa5dfa3041ddcf6ed8c84ff6ff2f3056cbd",
+      "statementSha256": "b7046bffc5915c93451de674813060c751debaa86f278e229440a37fa00c413a",
+      "candidatePath": "staging/cleaned-code/0144_子串替换/0144_提交_1343749_cpp_可提交代码.cpp",
+      "candidateSha256": "d4695c1f2ab992cfcb9d87cad4ef6aa5dfa3041ddcf6ed8c84ff6ff2f3056cbd",
+      "submissionNo": 1411408,
+      "language": "cpp",
+      "verifiedAt": "2026-09-23T15:45:49Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": false
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
     },
     {
       "status": "PUBLIC_READY",
@@ -1094,6 +1178,27 @@
         "canonicalByteMatch": false
       },
       "readyAt": "2026-09-20T08:23:49Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 168,
+      "title": "输出hello world 函数版",
+      "completeCode": "代码库/0168_输出hello_world_函数版/0168_提交_1277269_cpp_完整代码.cpp",
+      "directlySubmittableCode": "代码库/0168_输出hello_world_函数版/0168_提交_1277269_cpp_可提交代码.cpp",
+      "completeCodeSha256": "a60963e34f0239968fd73838587355799268d4b0ca4a6208e2a2d8cf0e6dcba0",
+      "directlySubmittableCodeSha256": "a60963e34f0239968fd73838587355799268d4b0ca4a6208e2a2d8cf0e6dcba0",
+      "statementSha256": "8663deff54fe05fe09094f99402ebe4d5e1be597830335de10ac2f0aae3f80b2",
+      "candidatePath": "staging/cleaned-code/0168_输出hello_world_函数版/0168_提交_1277269_cpp_可提交代码.cpp",
+      "candidateSha256": "a60963e34f0239968fd73838587355799268d4b0ca4a6208e2a2d8cf0e6dcba0",
+      "submissionNo": 1411410,
+      "language": "cpp",
+      "verifiedAt": "2026-09-23T15:46:05Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
     },
     {
       "status": "PUBLIC_READY",
@@ -1811,6 +1916,27 @@
     },
     {
       "status": "PUBLIC_READY",
+      "problemNo": 261,
+      "title": "编写函数计算x的y次幂",
+      "completeCode": "代码库/0261_编写函数计算x的y次幂/0261_提交_1280413_cpp_完整代码.cpp",
+      "directlySubmittableCode": "代码库/0261_编写函数计算x的y次幂/0261_提交_1280413_cpp_可提交代码.cpp",
+      "completeCodeSha256": "406778a9a1df9ae0319d95eea420f9efee0e9b60ca29f19f44616e5f1ceb39e7",
+      "directlySubmittableCodeSha256": "406778a9a1df9ae0319d95eea420f9efee0e9b60ca29f19f44616e5f1ceb39e7",
+      "statementSha256": "7eb9c8368ecf0f563f117c01d85804cdc55517efa65054e5cf6c906b0a46d3f5",
+      "candidatePath": "staging/cleaned-code/0261_编写函数计算x的y次幂/0261_提交_1280413_cpp_可提交代码.cpp",
+      "candidateSha256": "406778a9a1df9ae0319d95eea420f9efee0e9b60ca29f19f44616e5f1ceb39e7",
+      "submissionNo": 1411412,
+      "language": "cpp",
+      "verifiedAt": "2026-09-23T15:46:17Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
       "problemNo": 266,
       "title": "矩阵旋转",
       "completeCode": "代码库/0266_矩阵旋转/0266_提交_1244149_c_完整代码.c",
@@ -1892,6 +2018,27 @@
         "canonicalByteMatch": false
       },
       "readyAt": "2026-09-20T08:23:49Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 284,
+      "title": "黄页建立",
+      "completeCode": "代码库/0284_黄页建立/0284_提交_1280417_cpp_完整代码.cpp",
+      "directlySubmittableCode": "代码库/0284_黄页建立/0284_提交_1280417_cpp_可提交代码.cpp",
+      "completeCodeSha256": "97ace8708f3268392b09f6647a03c113ea84cefe9be5e5df932c9c888d399685",
+      "directlySubmittableCodeSha256": "97ace8708f3268392b09f6647a03c113ea84cefe9be5e5df932c9c888d399685",
+      "statementSha256": "be219bec268da756d5d9828e09f0c155a3ef9ee102bf965a71bfa1110957b44b",
+      "candidatePath": "staging/cleaned-code/0284_黄页建立/0284_提交_1280417_cpp_可提交代码.cpp",
+      "candidateSha256": "97ace8708f3268392b09f6647a03c113ea84cefe9be5e5df932c9c888d399685",
+      "submissionNo": 1411414,
+      "language": "cpp",
+      "verifiedAt": "2026-09-23T15:46:37Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
     },
     {
       "status": "PUBLIC_READY",
@@ -2399,6 +2546,27 @@
     },
     {
       "status": "PUBLIC_READY",
+      "problemNo": 391,
+      "title": "存款额度（版本2）",
+      "completeCode": "代码库/0391_存款额度(版本2)/0391_提交_1342127_cpp_完整代码.cpp",
+      "directlySubmittableCode": "代码库/0391_存款额度(版本2)/0391_提交_1342127_cpp_可提交代码.cpp",
+      "completeCodeSha256": "f50aaf3ce03cec1465cf0749f81bc9ca6762c22582824c92486307158377c973",
+      "directlySubmittableCodeSha256": "f50aaf3ce03cec1465cf0749f81bc9ca6762c22582824c92486307158377c973",
+      "statementSha256": "8ba6b86114c55d6c464db0db5b9b4741da1a25e8febd96bf00cb9978acb6b37f",
+      "candidatePath": "staging/cleaned-code/0391_存款额度(版本2)/0391_提交_1342127_cpp_可提交代码.cpp",
+      "candidateSha256": "f50aaf3ce03cec1465cf0749f81bc9ca6762c22582824c92486307158377c973",
+      "submissionNo": 1411400,
+      "language": "cpp",
+      "verifiedAt": "2026-09-23T15:44:42Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
       "problemNo": 409,
       "title": "最长的A单词",
       "completeCode": "代码库/0409_最长的A单词/0409_提交_1150662_c_完整代码.c",
@@ -2438,6 +2606,27 @@
         "canonicalByteMatch": false
       },
       "readyAt": "2026-09-20T08:23:49Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 421,
+      "title": "C++复数运算符重载（+与<<）",
+      "completeCode": "代码库/0421_C++复数运算符重载(+与__)/0421_提交_1280437_cpp_完整代码.cpp",
+      "directlySubmittableCode": "代码库/0421_C++复数运算符重载(+与__)/0421_提交_1280437_cpp_可提交代码.cpp",
+      "completeCodeSha256": "de2de23c60e202e6eaff41ca503d657f5570ad0430eaa17af457baf2b6179f7f",
+      "directlySubmittableCodeSha256": "de2de23c60e202e6eaff41ca503d657f5570ad0430eaa17af457baf2b6179f7f",
+      "statementSha256": "125a138baebd292ee85cb9d491d3a646d33d2277ea6ede40900eca0df45a84c0",
+      "candidatePath": "staging/cleaned-code/0421_C++复数运算符重载(+与__)/0421_提交_1280437_cpp_可提交代码.cpp",
+      "candidateSha256": "de2de23c60e202e6eaff41ca503d657f5570ad0430eaa17af457baf2b6179f7f",
+      "submissionNo": 1411416,
+      "language": "cpp",
+      "verifiedAt": "2026-09-23T15:46:52Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
     },
     {
       "status": "PUBLIC_READY",
@@ -2840,6 +3029,111 @@
     },
     {
       "status": "PUBLIC_READY",
+      "problemNo": 626,
+      "title": "模板与迭代器",
+      "completeCode": "代码库/0626_模板与迭代器/0626_提交_1396692_cpp11_完整代码.cpp",
+      "directlySubmittableCode": "代码库/0626_模板与迭代器/0626_提交_1396692_cpp11_可提交代码.cpp",
+      "completeCodeSha256": "ce144e06f117faef1bf53cc4a0d29026739f4840f72b9822e9dfd05fd34fb582",
+      "directlySubmittableCodeSha256": "ce144e06f117faef1bf53cc4a0d29026739f4840f72b9822e9dfd05fd34fb582",
+      "statementSha256": "caf234ff7958c401e95de7f6179f208def640ad3ac56908fe08c1551aabe7e24",
+      "candidatePath": "staging/cleaned-code/0626_模板与迭代器/0626_提交_1396692_cpp11_可提交代码.cpp",
+      "candidateSha256": "ce144e06f117faef1bf53cc4a0d29026739f4840f72b9822e9dfd05fd34fb582",
+      "submissionNo": 1411418,
+      "language": "cpp11",
+      "verifiedAt": "2026-09-23T15:47:05Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 627,
+      "title": "模板与链式迭代器",
+      "completeCode": "代码库/0627_模板与链式迭代器/0627_提交_1396716_cpp11_完整代码.cpp",
+      "directlySubmittableCode": "代码库/0627_模板与链式迭代器/0627_提交_1396716_cpp11_可提交代码.cpp",
+      "completeCodeSha256": "74ad9d853a34fa7906438a64951ad06e341463eec6ceceed12ef3db72eec52fd",
+      "directlySubmittableCodeSha256": "74ad9d853a34fa7906438a64951ad06e341463eec6ceceed12ef3db72eec52fd",
+      "statementSha256": "4cd8716db31a7fc094a50400d3b984be0c9df11a16ed89902cc7e73b10911a48",
+      "candidatePath": "staging/cleaned-code/0627_模板与链式迭代器/0627_提交_1396716_cpp11_可提交代码.cpp",
+      "candidateSha256": "74ad9d853a34fa7906438a64951ad06e341463eec6ceceed12ef3db72eec52fd",
+      "submissionNo": 1411422,
+      "language": "cpp11",
+      "verifiedAt": "2026-09-23T15:47:24Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 628,
+      "title": "STL容器练习（1）",
+      "completeCode": "代码库/0628_STL容器练习(1)/0628_提交_1396734_cpp11_完整代码.cpp",
+      "directlySubmittableCode": "代码库/0628_STL容器练习(1)/0628_提交_1396734_cpp11_可提交代码.cpp",
+      "completeCodeSha256": "f5e5966ac3ef989dcf81d9c71f0a3c159420a550d5f260bc9afbcd7e2798d11c",
+      "directlySubmittableCodeSha256": "f5e5966ac3ef989dcf81d9c71f0a3c159420a550d5f260bc9afbcd7e2798d11c",
+      "statementSha256": "8611c32dc975ec9a0bf4c16148fce03c95594e9f1f60b2c3c6363cc92e29134e",
+      "candidatePath": "staging/cleaned-code/0628_STL容器练习(1)/0628_提交_1396734_cpp11_可提交代码.cpp",
+      "candidateSha256": "f5e5966ac3ef989dcf81d9c71f0a3c159420a550d5f260bc9afbcd7e2798d11c",
+      "submissionNo": 1411425,
+      "language": "cpp11",
+      "verifiedAt": "2026-09-23T15:47:40Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 629,
+      "title": "STL容器练习（2）",
+      "completeCode": "代码库/0629_STL容器练习(2)/0629_提交_1396739_cpp11_完整代码.cpp",
+      "directlySubmittableCode": "代码库/0629_STL容器练习(2)/0629_提交_1396739_cpp11_可提交代码.cpp",
+      "completeCodeSha256": "f4b879c5406bbc44d1b6a309f37165b42dd2148deb3bb03a0aeba02e463e2f24",
+      "directlySubmittableCodeSha256": "f4b879c5406bbc44d1b6a309f37165b42dd2148deb3bb03a0aeba02e463e2f24",
+      "statementSha256": "7bab5caff79a3dfae1a57dd7fc197f71aca7c231acb9da037040265b7ae43bee",
+      "candidatePath": "staging/cleaned-code/0629_STL容器练习(2)/0629_提交_1396739_cpp11_可提交代码.cpp",
+      "candidateSha256": "f4b879c5406bbc44d1b6a309f37165b42dd2148deb3bb03a0aeba02e463e2f24",
+      "submissionNo": 1411427,
+      "language": "cpp11",
+      "verifiedAt": "2026-09-23T15:47:52Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 630,
+      "title": "STL容器集合处理",
+      "completeCode": "代码库/0630_STL容器集合处理/0630_提交_1396748_cpp11_完整代码.cpp",
+      "directlySubmittableCode": "代码库/0630_STL容器集合处理/0630_提交_1396748_cpp11_可提交代码.cpp",
+      "completeCodeSha256": "b0c83c32ee474e0d8efaae8ac94cc94b08766a50f5dd98e25b5f00f7b63f6515",
+      "directlySubmittableCodeSha256": "b0c83c32ee474e0d8efaae8ac94cc94b08766a50f5dd98e25b5f00f7b63f6515",
+      "statementSha256": "7cfdb852a72dec900cf47c042d01012949249e629684452771824854fd3160a0",
+      "candidatePath": "staging/cleaned-code/0630_STL容器集合处理/0630_提交_1396748_cpp11_可提交代码.cpp",
+      "candidateSha256": "b0c83c32ee474e0d8efaae8ac94cc94b08766a50f5dd98e25b5f00f7b63f6515",
+      "submissionNo": 1411429,
+      "language": "cpp11",
+      "verifiedAt": "2026-09-23T15:48:08Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
       "problemNo": 636,
       "title": "博饼游戏",
       "completeCode": "代码库/0636_博饼游戏/0636_提交_1176851_cpp_完整代码.cpp",
@@ -3152,6 +3446,27 @@
         "canonicalByteMatch": false
       },
       "readyAt": "2026-09-20T08:23:49Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 685,
+      "title": "实现标准输入输出",
+      "completeCode": "代码库/0685_实现标准输入输出/0685_提交_1306084_cpp_完整代码.cpp",
+      "directlySubmittableCode": "代码库/0685_实现标准输入输出/0685_提交_1306084_cpp_可提交代码.cpp",
+      "completeCodeSha256": "45f25d82d6d1dfe3a944e2649d05c1a2bbc392d0402d9934d1651e765089153d",
+      "directlySubmittableCodeSha256": "45f25d82d6d1dfe3a944e2649d05c1a2bbc392d0402d9934d1651e765089153d",
+      "statementSha256": "fb6767801aa56e6f1dcc3a4967c1393e14016bcdcba26cf3d2a87ad7b32911fb",
+      "candidatePath": "staging/cleaned-code/0685_实现标准输入输出/0685_提交_1306084_cpp_可提交代码.cpp",
+      "candidateSha256": "45f25d82d6d1dfe3a944e2649d05c1a2bbc392d0402d9934d1651e765089153d",
+      "submissionNo": 1411431,
+      "language": "cpp",
+      "verifiedAt": "2026-09-23T15:48:27Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
     },
     {
       "status": "PUBLIC_READY",
@@ -5126,6 +5441,27 @@
         "canonicalByteMatch": false
       },
       "readyAt": "2026-09-20T08:23:50Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 999,
+      "title": "字符串编辑",
+      "completeCode": "代码库/0999_字符串编辑/0999_提交_1399459_cpp11_完整代码.cpp",
+      "directlySubmittableCode": "代码库/0999_字符串编辑/0999_提交_1399459_cpp11_可提交代码.cpp",
+      "completeCodeSha256": "758e0b112eab571f34e1eaad586b6bf380254b7f4a7426d1933a4f5000220715",
+      "directlySubmittableCodeSha256": "758e0b112eab571f34e1eaad586b6bf380254b7f4a7426d1933a4f5000220715",
+      "statementSha256": "413430c546fa91cb152dc7f69a5ea5a8eec0550d0f8c9b282d35e9935d687d54",
+      "candidatePath": "staging/cleaned-code/0999_字符串编辑/0999_提交_1399459_cpp11_可提交代码.cpp",
+      "candidateSha256": "758e0b112eab571f34e1eaad586b6bf380254b7f4a7426d1933a4f5000220715",
+      "submissionNo": 1411471,
+      "language": "cpp11",
+      "verifiedAt": "2026-09-23T15:56:22Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": false
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
     },
     {
       "status": "PUBLIC_READY",
@@ -7481,6 +7817,27 @@
     },
     {
       "status": "PUBLIC_READY",
+      "problemNo": 1286,
+      "title": "骇客博弈",
+      "completeCode": "代码库/1286_骇客博弈/1286_提交_1298459_cpp_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1286_骇客博弈/1286_提交_1298459_cpp_可提交代码.cpp",
+      "completeCodeSha256": "4da153acd8cbd1bcb69fadace85c78565d5aa10deda345338034e5731f3c4555",
+      "directlySubmittableCodeSha256": "4da153acd8cbd1bcb69fadace85c78565d5aa10deda345338034e5731f3c4555",
+      "statementSha256": "f3fa2e1ec9dcada2d0f00d318175e38263e2e93169702f51f3928a76edf82401",
+      "candidatePath": "staging/cleaned-code/1286_骇客博弈/1286_提交_1298459_cpp_可提交代码.cpp",
+      "candidateSha256": "4da153acd8cbd1bcb69fadace85c78565d5aa10deda345338034e5731f3c4555",
+      "submissionNo": 1411433,
+      "language": "cpp",
+      "verifiedAt": "2026-09-23T15:48:43Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
       "problemNo": 1287,
       "title": "数独趣味格子",
       "completeCode": "代码库/1287_数独趣味格子/1287_提交_1297811_c_完整代码.c",
@@ -7523,6 +7880,132 @@
     },
     {
       "status": "PUBLIC_READY",
+      "problemNo": 1362,
+      "title": "智能时钟设计（C++填空）",
+      "completeCode": "代码库/1362_智能时钟设计(C++填空)/1362_提交_1298568_cpp_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1362_智能时钟设计(C++填空)/1362_提交_1298568_cpp_可提交代码.cpp",
+      "completeCodeSha256": "da8b66567e7d2ad9c099b8a5e321cc5862f6d89c0eda0f5536c7f3f4e41b6a80",
+      "directlySubmittableCodeSha256": "da8b66567e7d2ad9c099b8a5e321cc5862f6d89c0eda0f5536c7f3f4e41b6a80",
+      "statementSha256": "68662694f61a06240f56e290343e96a62e66f7a0068a357039c70a67e214f931",
+      "candidatePath": "staging/cleaned-code/1362_智能时钟设计(C++填空)/1362_提交_1298568_cpp_可提交代码.cpp",
+      "candidateSha256": "da8b66567e7d2ad9c099b8a5e321cc5862f6d89c0eda0f5536c7f3f4e41b6a80",
+      "submissionNo": 1411435,
+      "language": "cpp",
+      "verifiedAt": "2026-09-23T15:48:59Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1363,
+      "title": "智能家居设备管理系统（C++填空）",
+      "completeCode": "代码库/1363_智能家居设备管理系统(C++填空)/1363_提交_1268239_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1363_智能家居设备管理系统(C++填空)/1363_提交_1268239_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "2b3424a5d8f6686cc02d37744a4eb5ac90d1fd35ab1783e67f2ffd243da258ee",
+      "directlySubmittableCodeSha256": "2b3424a5d8f6686cc02d37744a4eb5ac90d1fd35ab1783e67f2ffd243da258ee",
+      "statementSha256": "35154e7dc535d447c05ee8211408e35390e80d529a86501cf1851d207cf5c2bf",
+      "candidatePath": "staging/cleaned-code/1363_智能家居设备管理系统(C++填空)/1363_提交_1268239_cpp17_可提交代码.cpp",
+      "candidateSha256": "2b3424a5d8f6686cc02d37744a4eb5ac90d1fd35ab1783e67f2ffd243da258ee",
+      "submissionNo": 1411437,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-23T15:49:11Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1370,
+      "title": "复数运算",
+      "completeCode": "代码库/1370_复数运算/1370_提交_1312160_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1370_复数运算/1370_提交_1312160_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "10035479ca5a7a77f9cf22cea764fbf8a9fd302c689b9e962aedca59f2fa2e23",
+      "directlySubmittableCodeSha256": "10035479ca5a7a77f9cf22cea764fbf8a9fd302c689b9e962aedca59f2fa2e23",
+      "statementSha256": "bb24ed6731662b1e3d73872aa800dcd3b795012edff791e1f8ac29d4f9a1c40d",
+      "candidatePath": "staging/cleaned-code/1370_复数运算/1370_提交_1312160_cpp17_可提交代码.cpp",
+      "candidateSha256": "10035479ca5a7a77f9cf22cea764fbf8a9fd302c689b9e962aedca59f2fa2e23",
+      "submissionNo": 1411439,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-23T15:49:27Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1371,
+      "title": "实现多项式类",
+      "completeCode": "代码库/1371_实现多项式类/1371_提交_1312156_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1371_实现多项式类/1371_提交_1312156_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "cede61019c7124279dd8e3d6767228268ea017bce58fcf7039b39eb70f469741",
+      "directlySubmittableCodeSha256": "cede61019c7124279dd8e3d6767228268ea017bce58fcf7039b39eb70f469741",
+      "statementSha256": "4938786611eac9979db02c174df547fea9a346125660c5d615736927bb1012c4",
+      "candidatePath": "staging/cleaned-code/1371_实现多项式类/1371_提交_1312156_cpp17_可提交代码.cpp",
+      "candidateSha256": "cede61019c7124279dd8e3d6767228268ea017bce58fcf7039b39eb70f469741",
+      "submissionNo": 1411441,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-23T15:49:43Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1378,
+      "title": "银行转账管理",
+      "completeCode": "代码库/1378_银行转账管理/1378_提交_1312168_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1378_银行转账管理/1378_提交_1312168_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "abdc24a857597b409b0de8e906aa25531721ae2112cc44779b48729e40b5c653",
+      "directlySubmittableCodeSha256": "abdc24a857597b409b0de8e906aa25531721ae2112cc44779b48729e40b5c653",
+      "statementSha256": "334d8d486edd2486492ce6b289609abf94273354c23dd5cd2429b8bee88e81ea",
+      "candidatePath": "staging/cleaned-code/1378_银行转账管理/1378_提交_1312168_cpp17_可提交代码.cpp",
+      "candidateSha256": "abdc24a857597b409b0de8e906aa25531721ae2112cc44779b48729e40b5c653",
+      "submissionNo": 1411443,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-23T15:50:02Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": false
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1379,
+      "title": "图书借阅",
+      "completeCode": "代码库/1379_图书借阅/1379_提交_1290371_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1379_图书借阅/1379_提交_1290371_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "ed3cb96a111fd80b6b3ca633dd63cd517b99d76e56e3881e04e1207783919682",
+      "directlySubmittableCodeSha256": "ed3cb96a111fd80b6b3ca633dd63cd517b99d76e56e3881e04e1207783919682",
+      "statementSha256": "9a1bfb7b96ae11eb3e0d579ad08cdc6b20adf9990a8bf4a554ad7d7516fb7634",
+      "candidatePath": "staging/cleaned-code/1379_图书借阅/1379_提交_1290371_cpp17_可提交代码.cpp",
+      "candidateSha256": "ed3cb96a111fd80b6b3ca633dd63cd517b99d76e56e3881e04e1207783919682",
+      "submissionNo": 1411445,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-23T15:50:18Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
       "problemNo": 1380,
       "title": "宝石切割",
       "completeCode": "代码库/1380_宝石切割/1380_提交_1340609_cpp17_完整代码.cpp",
@@ -7541,6 +8024,90 @@
         "canonicalByteMatch": true
       },
       "readyAt": "2026-09-20T13:58:57Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1408,
+      "title": "员工管理系统",
+      "completeCode": "代码库/1408_员工管理系统/1408_提交_1317822_cpp11_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1408_员工管理系统/1408_提交_1317822_cpp11_可提交代码.cpp",
+      "completeCodeSha256": "46fdc4032e4b0e919961a14327ce7571536c0c714cba374e354c36478128287f",
+      "directlySubmittableCodeSha256": "46fdc4032e4b0e919961a14327ce7571536c0c714cba374e354c36478128287f",
+      "statementSha256": "fa5d033f41c53f2dc23a7fde838c38feef0240f83e23f23f884ed0aa7918aa92",
+      "candidatePath": "staging/cleaned-code/1408_员工管理系统/1408_提交_1317822_cpp11_可提交代码.cpp",
+      "candidateSha256": "46fdc4032e4b0e919961a14327ce7571536c0c714cba374e354c36478128287f",
+      "submissionNo": 1411448,
+      "language": "cpp11",
+      "verifiedAt": "2026-09-23T15:50:36Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1409,
+      "title": "图形渲染",
+      "completeCode": "代码库/1409_图形渲染/1409_提交_1302826_cpp11_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1409_图形渲染/1409_提交_1302826_cpp11_可提交代码.cpp",
+      "completeCodeSha256": "323e806bcc59d59c5367db9b2c45e66ad8ae7a71fdc4d9d038f0d255857243f7",
+      "directlySubmittableCodeSha256": "323e806bcc59d59c5367db9b2c45e66ad8ae7a71fdc4d9d038f0d255857243f7",
+      "statementSha256": "36bf251115232bbfac8e706874dbb8143f325493b250f9e113ebd06099614a23",
+      "candidatePath": "staging/cleaned-code/1409_图形渲染/1409_提交_1302826_cpp11_可提交代码.cpp",
+      "candidateSha256": "323e806bcc59d59c5367db9b2c45e66ad8ae7a71fdc4d9d038f0d255857243f7",
+      "submissionNo": 1411450,
+      "language": "cpp11",
+      "verifiedAt": "2026-09-23T15:50:55Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": false
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1410,
+      "title": "数据计算",
+      "completeCode": "代码库/1410_数据计算/1410_提交_1322382_cpp11_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1410_数据计算/1410_提交_1322382_cpp11_可提交代码.cpp",
+      "completeCodeSha256": "a184f168ad0c5f7f814d2497b9e65b69cb7a926848e555f5ea0208442cdcf397",
+      "directlySubmittableCodeSha256": "a184f168ad0c5f7f814d2497b9e65b69cb7a926848e555f5ea0208442cdcf397",
+      "statementSha256": "3df42d27a2a1ec596e444e7bc9c53213512016817a812b49605703e39e20d61c",
+      "candidatePath": "staging/cleaned-code/1410_数据计算/1410_提交_1322382_cpp11_可提交代码.cpp",
+      "candidateSha256": "a184f168ad0c5f7f814d2497b9e65b69cb7a926848e555f5ea0208442cdcf397",
+      "submissionNo": 1411473,
+      "language": "cpp11",
+      "verifiedAt": "2026-09-23T15:56:23Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1411,
+      "title": "数据计算2",
+      "completeCode": "代码库/1411_数据计算2/1411_提交_1308718_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1411_数据计算2/1411_提交_1308718_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "a26487a58cd964d3b2ae8847b6936b4f783d24f434e259e026fa916b7329350e",
+      "directlySubmittableCodeSha256": "a26487a58cd964d3b2ae8847b6936b4f783d24f434e259e026fa916b7329350e",
+      "statementSha256": "383aced839dc2c9f5db517eb193aa25f5f362a00860f166648038d0932513b4c",
+      "candidatePath": "staging/cleaned-code/1411_数据计算2/1411_提交_1308718_cpp17_可提交代码.cpp",
+      "candidateSha256": "a26487a58cd964d3b2ae8847b6936b4f783d24f434e259e026fa916b7329350e",
+      "submissionNo": 1411453,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-23T15:51:11Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": false
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
     },
     {
       "status": "PUBLIC_READY",
@@ -8489,6 +9056,48 @@
     },
     {
       "status": "PUBLIC_READY",
+      "problemNo": 1560,
+      "title": "排排坐",
+      "completeCode": "代码库/1560_排排坐/1560_提交_1340640_cpp_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1560_排排坐/1560_提交_1340640_cpp_可提交代码.cpp",
+      "completeCodeSha256": "41b046375fe17611b944905415b5e7a33f3fff2d8491a51e0231cb3fe42c5797",
+      "directlySubmittableCodeSha256": "41b046375fe17611b944905415b5e7a33f3fff2d8491a51e0231cb3fe42c5797",
+      "statementSha256": "370d06b2f8a9a943a28bda8a589b6981f6f33871a60ac835a1c599d30727b310",
+      "candidatePath": "staging/cleaned-code/1560_排排坐/1560_提交_1340640_cpp_可提交代码.cpp",
+      "candidateSha256": "41b046375fe17611b944905415b5e7a33f3fff2d8491a51e0231cb3fe42c5797",
+      "submissionNo": 1411455,
+      "language": "cpp",
+      "verifiedAt": "2026-09-23T15:51:27Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1561,
+      "title": "两点间距离函数",
+      "completeCode": "代码库/1561_两点间距离函数/1561_提交_1342110_cpp_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1561_两点间距离函数/1561_提交_1342110_cpp_可提交代码.cpp",
+      "completeCodeSha256": "97945611a5536c79981d4c2ec21154dc1795b242bc874ddecf2b0ab5db1aa1d6",
+      "directlySubmittableCodeSha256": "97945611a5536c79981d4c2ec21154dc1795b242bc874ddecf2b0ab5db1aa1d6",
+      "statementSha256": "620a3c7103b89e5d6b39d962cef5f8c22fc85b27027a993aec354e45a10271c3",
+      "candidatePath": "staging/cleaned-code/1561_两点间距离函数/1561_提交_1342110_cpp_可提交代码.cpp",
+      "candidateSha256": "97945611a5536c79981d4c2ec21154dc1795b242bc874ddecf2b0ab5db1aa1d6",
+      "submissionNo": 1411457,
+      "language": "cpp",
+      "verifiedAt": "2026-09-23T15:51:43Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
       "problemNo": 1562,
       "title": "校园寻宝大比拼",
       "completeCode": "代码库/1562_校园寻宝大比拼/1562_提交_1342113_cpp17_完整代码.cpp",
@@ -8510,6 +9119,27 @@
     },
     {
       "status": "PUBLIC_READY",
+      "problemNo": 1563,
+      "title": "点结构体",
+      "completeCode": "代码库/1563_点结构体/1563_提交_1342115_cpp_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1563_点结构体/1563_提交_1342115_cpp_可提交代码.cpp",
+      "completeCodeSha256": "34c41f9815e892b96045176781374bd1f298d5b19fa15a0c4acf5a59efcc2db5",
+      "directlySubmittableCodeSha256": "34c41f9815e892b96045176781374bd1f298d5b19fa15a0c4acf5a59efcc2db5",
+      "statementSha256": "fbf1c53d1dd05af348d5237637983de46c7872efd8836c1756f30e287f60e074",
+      "candidatePath": "staging/cleaned-code/1563_点结构体/1563_提交_1342115_cpp_可提交代码.cpp",
+      "candidateSha256": "34c41f9815e892b96045176781374bd1f298d5b19fa15a0c4acf5a59efcc2db5",
+      "submissionNo": 1411459,
+      "language": "cpp",
+      "verifiedAt": "2026-09-23T15:51:59Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
       "problemNo": 1564,
       "title": "宿舍魔力对决",
       "completeCode": "代码库/1564_宿舍魔力对决/1564_提交_1268655_c_完整代码.c",
@@ -8528,6 +9158,27 @@
         "canonicalByteMatch": false
       },
       "readyAt": "2026-09-20T08:23:50Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1576,
+      "title": "斐波那契数列",
+      "completeCode": "代码库/1576_斐波那契数列/1576_提交_1342121_cpp_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1576_斐波那契数列/1576_提交_1342121_cpp_可提交代码.cpp",
+      "completeCodeSha256": "7c901fe17ae9c21cc31239ad71a806bc0acb5a67c35cb8653b636e38d27ad68f",
+      "directlySubmittableCodeSha256": "7c901fe17ae9c21cc31239ad71a806bc0acb5a67c35cb8653b636e38d27ad68f",
+      "statementSha256": "0c39ab0bcdf321c1f255fed5092254dfb03c83093a34fea6dd2a24df6c1138b1",
+      "candidatePath": "staging/cleaned-code/1576_斐波那契数列/1576_提交_1342121_cpp_可提交代码.cpp",
+      "candidateSha256": "7c901fe17ae9c21cc31239ad71a806bc0acb5a67c35cb8653b636e38d27ad68f",
+      "submissionNo": 1411461,
+      "language": "cpp",
+      "verifiedAt": "2026-09-23T15:52:14Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": false
+      },
+      "readyAt": "2026-09-23T16:05:32Z"
     },
     {
       "status": "PUBLIC_READY",

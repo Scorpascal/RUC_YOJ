@@ -1281,7 +1281,7 @@ def main() -> int:
         default=int(os.environ.get("YOJ_SENTINEL_COUNT", "5")),
         help="在线哨兵每批轮换的 PUBLIC_READY 题目数，默认 5",
     )
-    parser.add_argument("--max-submissions", type=int, default=int(os.environ.get("YOJ_MAX_SUBMISSIONS", "20")))
+    parser.add_argument("--max-submissions", type=int, default=int(os.environ.get("YOJ_MAX_SUBMISSIONS", "50")))
     parser.add_argument("--request-interval", type=float, default=float(os.environ.get("YOJ_REQUEST_INTERVAL", "1")))
     args = parser.parse_args()
     if (
