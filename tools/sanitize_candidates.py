@@ -32,27 +32,28 @@ PERSONAL_TERMS_FILE = ROOT / "method" / "personal_terms.txt"
 
 # 通用（不含个人信息）的本地路径标记，可安全留在源码中。
 GENERIC_MARKERS = (
-    re.compile(r"/Users/[^\s*]+"),
-    re.compile(r"/var/folders/[^\s*]+"),
-    re.compile(r"[A-Za-z]:\\Users\\[^\s*]+", re.IGNORECASE),
+    re.compile(r"/Users/[^\s*/\\[\]\"'<>]+"),
+    re.compile(r"/var/folders/[^\s*/\\[\]\"'<>]+"),
+    re.compile(r"[A-Za-z]:\\Users\\[^\s*\\[\]\"'<>]+", re.IGNORECASE),
 )
 
 
-def load_personal_markers() -> tuple[re.Pattern[str], ...]:
+def load_personal_markers(path: Path | None = None) -> tuple[re.Pattern[str], ...]:
     """从本地词表加载个人标识正则，每行一条，`#` 开头为注释。
 
     词表缺失时只使用通用路径规则，并给出提示，避免静默漏脱敏。
     """
     patterns: list[re.Pattern[str]] = []
-    if PERSONAL_TERMS_FILE.exists():
-        for line in PERSONAL_TERMS_FILE.read_text(encoding="utf-8").splitlines():
+    terms_file = path or PERSONAL_TERMS_FILE
+    if terms_file.exists():
+        for line in terms_file.read_text(encoding="utf-8").splitlines():
             line = line.strip()
             if not line or line.startswith("#"):
                 continue
             patterns.append(re.compile(line))
     else:
         print(
-            f"[warn] 未找到个人词表 {PERSONAL_TERMS_FILE}，本次只应用通用路径规则。",
+            f"[warn] 未找到个人词表 {terms_file}，本次只应用通用路径规则。",
             file=sys.stderr,
         )
     return tuple(patterns)

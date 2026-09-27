@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Incrementally capture newly public YOJ problem pages and optional AC source.
+"""Capture new public topics and Accepted source for selected pending topics.
 
 This is a read-only crawler with respect to the judge: it performs GETs for
 submission/problem/detail pages and the authenticated getcode read endpoint;
@@ -29,6 +29,7 @@ from online_verify import YoJClient, clean_text, parse_submission_rows  # noqa: 
 
 MANIFEST_PATH = ROOT / "代码库" / "AC抓取清单.json"
 DATA_PROBLEMS_PATH = ROOT / "data" / "problems.json"
+PUBLIC_READY_PATH = ROOT / "data" / "public-ready.json"
 RAW_ROOT = ROOT / "代码库"
 LOCAL_PROBLEM_ROOTS = (RAW_ROOT, ROOT / "题解")
 STATE_DIR = ROOT / ".yoj-sync"
@@ -237,6 +238,17 @@ def existing_context() -> tuple[dict[str, Any], dict[int, dict[str, Any]], set[i
     return manifest, entries, local_problem_numbers(entries)
 
 
+def frozen_public_ready_numbers() -> set[int]:
+    if not PUBLIC_READY_PATH.is_file():
+        return set()
+    payload = json.loads(PUBLIC_READY_PATH.read_text(encoding="utf-8"))
+    return {
+        int(row["problemNo"])
+        for row in payload.get("records") or []
+        if row.get("status") == "PUBLIC_READY" and str(row.get("problemNo", "")).isdigit()
+    }
+
+
 def submission_number(value: Any) -> int:
     """Treat topic-only records without a submission as zero."""
 
@@ -268,11 +280,36 @@ def all_submission_rows(
     limiter: RateLimiter,
     max_pages: int,
     stop_after_submission_no: int | None = None,
+    require_complete: bool = False,
 ) -> list[dict[str, Any]]:
     first = fetch(client, limiter, SUBMISSION_INDEX)
     pages = page_numbers(first)
     discovered: dict[int, str] = {1: first}
     first_rows = parse_submission_rows(first)
+    if require_complete and not first_rows:
+        raise RuntimeError("本人提交列表首页未解析到提交；本轮未将其误判为无新 AC")
+    if require_complete and pages and max(pages) > max_pages:
+        raise RuntimeError(f"本人提交列表至少有 {max(pages)} 页，超过本轮 {max_pages} 页上限")
+    if require_complete:
+        previous_numbers = {int(row["submissionNo"]) for row in first_rows}
+        for page_no in range(2, max_pages + 1):
+            page = fetch(client, limiter, SUBMISSION_PAGE.format(page=page_no))
+            page_rows = parse_submission_rows(page)
+            current_numbers = {int(row["submissionNo"]) for row in page_rows}
+            if not current_numbers or current_numbers == previous_numbers:
+                if pages and page_no <= max(pages):
+                    raise RuntimeError(f"本人提交列表第 {page_no} 页提前中断或重复；本轮不推断为无新 AC")
+                break
+            discovered[page_no] = page
+            previous_numbers = current_numbers
+        else:
+            raise RuntimeError(f"本人提交列表达到 {max_pages} 页上限，无法确认候选题的完整 AC 历史")
+        accepted: dict[int, dict[str, Any]] = {}
+        for page in discovered.values():
+            for row in parse_submission_rows(page):
+                if str(row.get("status")) == "Accepted":
+                    accepted[int(row["submissionNo"])] = row
+        return list(accepted.values())
     # Follow server-provided page links first, then probe consecutive pages
     # only while the page still contains rows.  This handles moving totals.
     targets = sorted(set(pages) | set(range(2, (max(pages) if pages else 1) + 1)))
@@ -509,9 +546,9 @@ def materialize_topic(entry: dict[str, Any]) -> int:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="按 YOJ 公开新题号增量读取题面和本人 Accepted 源码")
+    parser = argparse.ArgumentParser(description="读取 YOJ 新题面和指定待复验题目的本人 Accepted 源码")
     parser.add_argument("--request-interval", type=float, default=1.0, help="只读请求最小间隔秒数，默认 1")
-    parser.add_argument("--max-pages", type=int, default=100, help="公开题目/提交列表最多扫描页数，默认 100")
+    parser.add_argument("--max-pages", type=int, default=250, help="公开题目/提交列表最多扫描页数，默认 250")
     parser.add_argument(
         "--public-only",
         action="store_true",
@@ -527,11 +564,23 @@ def main() -> int:
         type=Path,
         help="使用已保存的公开列表快照计算差集，避免再次请求 YOJ 公开列表",
     )
+    parser.add_argument(
+        "--ac-target",
+        dest="ac_targets",
+        action="append",
+        type=int,
+        help="检查该当前公开、尚未发布的题目是否出现本人新 Accepted；可重复指定",
+    )
     args = parser.parse_args()
     if args.request_interval < 0 or args.max_pages < 1:
         raise SystemExit("请求间隔必须非负，页数必须为正数")
     if args.public_only and args.discover_only:
         raise SystemExit("--public-only 不能与 --discover-only 同用")
+    ac_targets = sorted(set(args.ac_targets or []))
+    if ac_targets and (args.public_only or args.discover_only):
+        raise SystemExit("--ac-target 仅可用于已登录的源码抓取阶段")
+    if any(problem_no <= 0 for problem_no in ac_targets):
+        raise SystemExit("--ac-target 题号必须为正整数")
 
     manifest, existing, known_problem_numbers = existing_context()
     client = YoJClient()
@@ -543,7 +592,16 @@ def main() -> int:
     else:
         public_numbers, public_pages = all_public_problem_numbers(client, limiter, args.max_pages)
     new_problem_numbers = sorted(public_numbers - known_problem_numbers)
-    if not new_problem_numbers:
+    if ac_targets:
+        unknown = set(ac_targets) - set(existing)
+        unavailable = set(ac_targets) - public_numbers
+        frozen = set(ac_targets) & frozen_public_ready_numbers()
+        if unknown or unavailable or frozen:
+            raise RuntimeError(
+                "AC 目标与当前题库/公开快照/冻结发布记录不一致："
+                f"未归档 {sorted(unknown)}，未公开 {sorted(unavailable)}，已发布 {sorted(frozen)}"
+            )
+    if not new_problem_numbers and not ac_targets:
         result = {
             "schemaVersion": 2,
             "status": "NO_NEW_PROBLEMS",
@@ -592,9 +650,8 @@ def main() -> int:
         return 0
 
     if not args.public_only:
-        # Login is deliberately deferred until after the public ID difference
-        # is known.  A no-new daily cycle must not touch the account or
-        # Keychain merely to discover that it has nothing to process.
+        # The authenticated path runs for a new public topic or an explicit
+        # pending-AC target. Published problems are rejected above.
         client.login()
 
     if args.public_only:
@@ -645,11 +702,11 @@ def main() -> int:
         print(json.dumps(result, ensure_ascii=False))
         return 0
 
-    # Submission scanning is intentionally deferred until a new public topic
-    # exists.  Unlike the no-new path, this one-time scan may inspect older
-    # pages so a newly published topic is not missed merely because its first
-    # Accepted submission predates the local submission high-water mark.
-    accepted_rows = all_submission_rows(client, limiter, args.max_pages, None)
+    # Scan the full personal history for the selected pending topics. Their
+    # first Accepted can predate the latest submission already in the archive.
+    accepted_rows = all_submission_rows(
+        client, limiter, args.max_pages, None, require_complete=bool(ac_targets)
+    )
     latest: dict[int, dict[str, Any]] = {}
     for row in accepted_rows:
         pno = int(row["problemNo"])
@@ -661,20 +718,26 @@ def main() -> int:
     changed_problems = 0
     new_topic_numbers: list[int] = []
     new_ac_numbers: list[int] = []
-    for pno in new_problem_numbers:
-        title_fallback = ""
+    refreshed_ac_numbers: list[int] = []
+    manifest_entries = {int(row["problemNo"]): row for row in manifest.get("problems") or []}
+    for pno in sorted(set(new_problem_numbers) | set(ac_targets)):
+        previous_entry = existing.get(pno)
+        row = latest.get(pno)
+        if previous_entry is not None and (
+            row is None or int(row["submissionNo"]) <= submission_number(previous_entry.get("submissionNo"))
+        ):
+            continue
         problem_path = f"/index.php/index/problem/detail/pno/{pno}.html"
         problem_html = fetch(client, limiter, problem_path)
-        title = extract_title(problem_html, title_fallback)
-        folder_name = f"{pno:04d}_{safe_title(title)}"
+        title = str((previous_entry or {}).get("title") or extract_title(problem_html, ""))
+        folder_name = str((previous_entry or {}).get("folder") or f"{pno:04d}_{safe_title(title)}")
 
-        row = latest.get(pno)
         if row is None:
             candidate = build_topic_entry(pno, title, folder_name, problem_html, now)
             changed_files += materialize_topic(candidate)
             candidate.pop("_materialized", None)
             manifest_entry = {key: value for key, value in candidate.items() if not key.startswith("_")}
-            manifest.setdefault("problems", []).append(manifest_entry)
+            manifest_entries[pno] = manifest_entry
             existing[pno] = manifest_entry
             new_topic_numbers.append(pno)
             changed_problems += 1
@@ -708,13 +771,15 @@ def main() -> int:
         changed_files += materialize(candidate)
         candidate.pop("_materialized", None)
         manifest_entry = {key: value for key, value in candidate.items() if not key.startswith("_")}
-        manifest.setdefault("problems", []).append(manifest_entry)
+        manifest_entries[pno] = manifest_entry
         existing[pno] = manifest_entry
         new_ac_numbers.append(pno)
+        if pno in ac_targets:
+            refreshed_ac_numbers.append(pno)
         changed_problems += 1
 
     if changed_files or changed_problems:
-        manifest["problems"] = sorted(manifest.get("problems", []), key=lambda item: int(item["problemNo"]))
+        manifest["problems"] = [manifest_entries[key] for key in sorted(manifest_entries)]
         manifest["capturedAt"] = now
         totals = manifest.setdefault("totals", {})
         totals["uniqueProblems"] = len(manifest["problems"])
@@ -725,22 +790,24 @@ def main() -> int:
         atomic_write(MANIFEST_PATH, (json.dumps(manifest, ensure_ascii=False, indent=2) + "\n").encode("utf-8"))
     result = {
         "schemaVersion": 2,
-        "status": "NEW_PROBLEMS_FOUND" if new_problem_numbers else "NO_NEW_PROBLEMS",
-        "scope": "public_problem_numbers_only",
+        "status": "NEW_PROBLEMS_FOUND" if new_problem_numbers else "NEW_AC_FOUND" if refreshed_ac_numbers else "NO_NEW_PROBLEMS",
+        "scope": "public_problem_numbers_and_personal_accepted",
         "capturedAt": now,
         "publicProblemListPages": public_pages,
         "publicProblemNumbersSeen": len(public_numbers),
         "highWaterSubmissionNo": high_water,
         "acceptedProblemsSeen": len(latest),
-        "submissionScan": "FULL_ON_NEW_TOPIC",
+        "submissionScan": "FULL_TARGETED" if ac_targets else "FULL_ON_NEW_TOPIC",
         "knownProblemNumbers": len(known_problem_numbers),
+        "acTargetNumbers": ac_targets,
         "newProblemNumbers": new_problem_numbers,
         "newTopicNumbers": new_topic_numbers,
         "newAcNumbers": new_ac_numbers,
+        "refreshedAcNumbers": refreshed_ac_numbers,
         "changedProblems": changed_problems,
         "changedFiles": changed_files,
         "manifestUpdated": bool(changed_files or changed_problems),
-        "downstream": "SELECTED_PROBLEM_NUMBERS_ONLY",
+        "downstream": "SELECTED_PROBLEM_NUMBERS_ONLY" if new_problem_numbers or refreshed_ac_numbers else "SKIP_ALL",
     }
     save_capture_result(result)
     print(
