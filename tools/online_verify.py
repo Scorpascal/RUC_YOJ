@@ -628,6 +628,9 @@ def main() -> int:
                 continue
         previous_skip = skips.get(problem_no)
         if previous_skip and previous_skip.get("candidateSha256") == candidate_sha256:
+            if previous_skip.get("reason") == "SUBMISSION_STATE_UNCERTAIN":
+                print(f"[{problem_no}] 上次提交状态不明；保留断点，需核对远端记录后解除，禁止自动重发。", flush=True)
+                return 3
             if not args.retry_abnormal:
                 continue
         # A changed candidate is a new submission intent.  Remove only the
@@ -696,6 +699,9 @@ def main() -> int:
             record_skip(skips, problem, path, submit_language, reason, candidate_sha256)
             save_report(records, skips)
             print(f"[{problem_no}] 跳过：{reason}", flush=True)
+            if isinstance(exc, (URLError, ConnectionError, TimeoutError)):
+                print("网络/访问异常；停止本批，等待调度器下一窗口重试。", flush=True)
+                return 3
             continue
 
         wait_for = args.submit_interval - (time.monotonic() - last_submit_at)
@@ -706,6 +712,11 @@ def main() -> int:
         try:
             baseline_rows = fetch_rows(client)
             baseline_max = max((int(row["submissionNo"]) for row in baseline_rows), default=0)
+            # Persist intent before the non-idempotent POST. A lost response
+            # must not result in an automatic duplicate on the next run.
+            record_skip(skips, problem, path, submit_language, "SUBMISSION_STATE_UNCERTAIN", candidate_sha256)
+            skips[problem_no]["baselineSubmissionNo"] = baseline_max
+            save_report(records, skips)
             if submit_kind == "PARTIAL_CODE":
                 response = client.request_json(
                     action,

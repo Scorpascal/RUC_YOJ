@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import sys
 import tempfile
 import unittest
@@ -10,7 +11,7 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
-from tools import yoj_capture, yoj_scheduler
+from tools import yoj_capture, yoj_scheduler, online_verify
 
 
 def write_json(path: Path, value: dict) -> None:
@@ -88,6 +89,90 @@ class CaptureRefreshTests(unittest.TestCase):
 
 
 class SchedulerRefreshTests(unittest.TestCase):
+    def test_released_folder_does_not_publish_raw_siblings(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            manifest = Path(directory) / "public-ready.json"
+            clean = "代码库/1717_题目/1717_clean.cpp"
+            raw = "代码库/1717_题目/1717_raw.cpp"
+            write_json(manifest, {"records": [{"problemNo": 1717, "completeCode": clean, "directlySubmittableCode": clean}]})
+            with patch.object(yoj_scheduler, "PUBLIC_READY_PATH", manifest):
+                self.assertTrue(yoj_scheduler.path_is_publishable(clean, {1717}))
+                self.assertFalse(yoj_scheduler.path_is_publishable(raw, {1717}))
+
+    def test_pending_raw_does_not_block_other_verified_publication(self) -> None:
+        raw = "代码库/1717_原目录/1717_代码.cpp"
+        staged: list[str] = []
+        def git(command: list[str], **_kwargs: object) -> SimpleNamespace:
+            if command[:2] == ["git", "add"]:
+                staged.extend(command[3:])
+            return SimpleNamespace(returncode=0, stdout="", stderr="")
+        with (
+            patch.object(yoj_scheduler, "staged_paths", side_effect=lambda: list(staged)),
+            patch.object(yoj_scheduler, "changed_paths", return_value=[raw, "data/public-ready.json"]),
+            patch.object(yoj_scheduler, "public_ready_problem_numbers", return_value={42}),
+            patch.object(yoj_scheduler, "scan_for_personal_markers", return_value=None),
+            patch.object(yoj_scheduler, "run_staged_consistency_audit", return_value=True),
+            patch.object(yoj_scheduler, "log"),
+            patch.object(yoj_scheduler.subprocess, "run", side_effect=git),
+        ):
+            self.assertEqual(yoj_scheduler.publish(False, {42}), 0)
+        self.assertEqual(staged, ["data/public-ready.json"])
+
+    def test_interrupted_online_batch_publishes_passed_rows_but_remains_retryable(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            state = Path(directory)
+            args = SimpleNamespace(visibility_watch=False, drift_audit=False, sentinel=False, dry_run=False,
+                                   request_interval=0, allow_submit=True, max_submissions=50, publish=True, push=False)
+            results = iter([
+                {"scope": "public_problem_numbers_only", "newProblemNumbers": []},
+                {"scope": "public_problem_numbers_and_personal_accepted", "newProblemNumbers": [], "newTopicNumbers": [], "acTargetNumbers": [1717], "refreshedAcNumbers": [1717], "submissionScan": "FULL_TARGETED"},
+            ])
+            with (
+                patch.object(yoj_scheduler, "STATE_DIR", state),
+                patch.object(yoj_scheduler, "LOCK_PATH", state / "lock"),
+                patch.object(yoj_scheduler, "in_maintenance", return_value=False),
+                patch.object(yoj_scheduler, "validate_worktree_before_run", return_value=True),
+                patch.object(yoj_scheduler, "verify_pending_remote", return_value=True),
+                patch.object(yoj_scheduler, "child_environment", return_value={}),
+                patch.object(yoj_scheduler, "prepare_online_environment", return_value={}),
+                patch.object(yoj_scheduler, "snapshot_content_digest", return_value="same"),
+                patch.object(yoj_scheduler, "run_visibility_audit", return_value=True),
+                patch.object(yoj_scheduler, "load_visibility_report", return_value={"hasVisibilityTransitions": False}),
+                patch.object(yoj_scheduler, "load_capture_result", side_effect=lambda: next(results)),
+                patch.object(yoj_scheduler, "select_pending_personal_ac_targets", return_value=[1717]),
+                patch.object(yoj_scheduler, "select_raw_cleanup_backlog", return_value=[]),
+                patch.object(yoj_scheduler, "eligible_unpublished_numbers", return_value=[]),
+                patch.object(yoj_scheduler, "publish_verified_checkpoint", return_value=0) as release,
+                patch.object(yoj_scheduler, "run_command", side_effect=lambda cmd, *_a: 3 if "online_verify.py" in " ".join(cmd) else 0),
+                patch.object(yoj_scheduler, "remember_generated_changes"),
+                patch.object(yoj_scheduler, "log"),
+                patch.dict(yoj_scheduler.os.environ, {"YOJ_SYNC_ENABLE_SUBMIT": "1"}),
+            ):
+                self.assertEqual(yoj_scheduler.run_once(args), 3)
+                release.assert_called_once()
+
+    def test_saved_release_precedes_failed_public_list_request(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            state = Path(directory)
+            events: list[str] = []
+            args = SimpleNamespace(visibility_watch=False, drift_audit=False, sentinel=False, dry_run=False,
+                                   publish=True, push=False)
+            with (
+                patch.object(yoj_scheduler, "STATE_DIR", state),
+                patch.object(yoj_scheduler, "LOCK_PATH", state / "lock"),
+                patch.object(yoj_scheduler, "in_maintenance", return_value=False),
+                patch.object(yoj_scheduler, "validate_worktree_before_run", return_value=True),
+                patch.object(yoj_scheduler, "verify_pending_remote", return_value=True),
+                patch.object(yoj_scheduler, "child_environment", return_value={}),
+                patch.object(yoj_scheduler, "snapshot_content_digest", return_value="same"),
+                patch.object(yoj_scheduler, "eligible_unpublished_numbers", return_value=[1703]),
+                patch.object(yoj_scheduler, "publish_verified_checkpoint", side_effect=lambda *_a: events.append("release") or 0),
+                patch.object(yoj_scheduler, "run_command", side_effect=lambda *_a: events.append("network") or 1),
+                patch.object(yoj_scheduler, "log"),
+            ):
+                self.assertEqual(yoj_scheduler.run_once(args), 3)
+            self.assertEqual(events, ["release", "network"])
+
     def test_publisher_waits_when_new_raw_source_has_not_passed_release_gate(self) -> None:
         raw_path = "代码库/1717_原目录/1717_代码.cpp"
         with (
@@ -180,7 +265,74 @@ class SchedulerRefreshTests(unittest.TestCase):
             verification = next(command for command in calls if "online_verify.py" in " ".join(command))
             self.assertIn("--problem", verification)
             self.assertIn("1717", verification)
-            self.assertIn("--reverify-accepted", verification)
+            self.assertNotIn("--reverify-accepted", verification)
+
+
+class OnlineResumeTests(unittest.TestCase):
+    def test_lost_post_response_persists_uncertain_intent_before_request(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            candidate = root / "candidate.cpp"
+            candidate.write_text("int main() {}", encoding="utf-8")
+            records: dict = {}
+            skips: dict = {}
+            saved: list[str] = []
+            def request(path: str, data: dict | None = None, *_a: object) -> str:
+                if data is not None:
+                    self.assertEqual(saved[-1], "SUBMISSION_STATE_UNCERTAIN")
+                    raise ConnectionError("lost response")
+                return "form"
+            with (
+                patch.object(sys, "argv", ["online_verify.py", "--problem", "1717", "--submit-interval", "0"]),
+                patch.object(online_verify, "ROOT", root),
+                patch.object(online_verify, "ensure_report"),
+                patch.object(online_verify, "load_context", return_value=({1717: {"problemNo": 1717}}, records, skips)),
+                patch.object(online_verify, "read_candidates", return_value={1717: (candidate, "cpp")}),
+                patch.object(online_verify, "candidate_paths", return_value=(candidate, candidate)),
+                patch.object(online_verify, "local_gate_reasons", return_value=[]),
+                patch.object(online_verify, "parse_form", return_value=("/submit", "1717")),
+                patch.object(online_verify, "fetch_rows", return_value=[]),
+                patch.object(online_verify, "save_report", side_effect=lambda _r, s: saved.append(s[1717]["reason"])),
+                patch.object(online_verify, "YoJClient") as client,
+            ):
+                client.return_value.request.side_effect = request
+                self.assertEqual(online_verify.main(), 3)
+            self.assertEqual(skips[1717]["reason"], "SUBMISSION_STATE_UNCERTAIN")
+            self.assertEqual(skips[1717]["baselineSubmissionNo"], 0)
+
+    def test_uncertain_post_is_not_repeated_even_with_retry_abnormal(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            candidate = Path(directory) / "candidate.cpp"
+            candidate.write_text("int main() {}", encoding="utf-8")
+            digest = hashlib.sha256(candidate.read_bytes()).hexdigest()
+            skips = {1717: {"candidateSha256": digest, "reason": "SUBMISSION_STATE_UNCERTAIN"}}
+            with (
+                patch.object(sys, "argv", ["online_verify.py", "--retry-abnormal", "--problem", "1717"]),
+                patch.object(online_verify, "ensure_report"),
+                patch.object(online_verify, "load_context", return_value=({}, {}, skips)),
+                patch.object(online_verify, "read_candidates", return_value={1717: (candidate, "cpp")}),
+                patch.object(online_verify, "YoJClient") as client,
+            ):
+                self.assertEqual(online_verify.main(), 3)
+                client.return_value.request.assert_not_called()
+                client.return_value.request_json.assert_not_called()
+
+    def test_same_accepted_candidate_is_not_resubmitted(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            candidate = Path(directory) / "candidate.cpp"
+            candidate.write_text("int main() {}", encoding="utf-8")
+            digest = hashlib.sha256(candidate.read_bytes()).hexdigest()
+            records = {1717: {"candidateSha256": digest, "status": "Accepted"}}
+            with (
+                patch.object(sys, "argv", ["online_verify.py", "--retry-abnormal", "--problem", "1717"]),
+                patch.object(online_verify, "ensure_report"),
+                patch.object(online_verify, "load_context", return_value=({}, records, {})),
+                patch.object(online_verify, "read_candidates", return_value={1717: (candidate, "cpp")}),
+                patch.object(online_verify, "YoJClient") as client,
+            ):
+                self.assertEqual(online_verify.main(), 0)
+                client.return_value.request.assert_not_called()
+                client.return_value.request_json.assert_not_called()
 
 
 if __name__ == "__main__":

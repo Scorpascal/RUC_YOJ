@@ -710,6 +710,15 @@ def path_is_publishable(path: str, release_numbers: set[int], topic_numbers: set
     if problem_no is None:
         return False
     if problem_no in release_numbers:
+        if path.startswith("代码库/") and Path(path).suffix.lower() in {".c", ".cc", ".cpp", ".cxx", ".h", ".hpp", ".py", ".java", ".txt"}:
+            # Being in a released folder is not sufficient: historical/raw
+            # siblings are not necessarily the sanitized, verified source.
+            payload = json.loads(PUBLIC_READY_PATH.read_text(encoding="utf-8"))
+            return any(
+                int(row["problemNo"]) == problem_no
+                and path in {row.get("completeCode"), row.get("directlySubmittableCode")}
+                for row in payload.get("records", [])
+            )
         return True
     return problem_no in (topic_numbers or set()) and (
         path.startswith("题解/") or path.endswith("_元数据.json")
@@ -922,14 +931,20 @@ def publish(
     paths = changed_paths()
     pending_raw = pending_unreleased_code_paths(paths)
     if pending_raw:
-        log(f"发布等待：{len(pending_raw)} 个新归档源码尚未通过 PUBLIC_READY，保留本地继续复核")
-        return 0
+        log(f"分批发布：{len(pending_raw)} 个未通过 PUBLIC_READY 的源码保留本地，不阻塞合格题目")
     secret_path = scan_for_secrets(paths, secret_values)
     if secret_path:
         log(f"发布暂停：文件 {secret_path} 命中运行时凭据；未暂存、未提交、未推送")
         return 7
     if not paths:
         log("发布跳过：工作树无变化")
+        return 0
+    stage_paths = [path for path in paths if path_is_publishable(path, release_numbers, topic_numbers)]
+    deferred = [path for path in paths if path not in stage_paths]
+    if deferred:
+        log(f"发布保留本地待处理变化（未暂存）：{deferred[:12]}")
+    if not stage_paths:
+        log("发布跳过：没有本轮 PUBLIC_READY 对应或公开索引白名单变化")
         return 0
     check_paths = [
         path
@@ -941,13 +956,6 @@ def publish(
     if check.returncode:
         log(f"发布暂停：git diff --check 失败：{check.stdout[-1000:]}{check.stderr[-1000:]}")
         return check.returncode
-    stage_paths = [path for path in paths if path_is_publishable(path, release_numbers, topic_numbers)]
-    deferred = [path for path in paths if path not in stage_paths]
-    if deferred:
-        log(f"发布保留本地待处理变化（未暂存）：{deferred[:12]}")
-    if not stage_paths:
-        log("发布跳过：没有本轮 PUBLIC_READY 对应或公开索引白名单变化")
-        return 0
     personal_path = scan_for_personal_markers(stage_paths)
     if personal_path:
         log(f"发布暂停：文件 {personal_path} 命中本机脱敏词表；未暂存、未提交、未推送")
@@ -996,6 +1004,44 @@ def publish(
         return 8
     clear_pending_remote()
     return 0
+
+
+def eligible_unpublished_numbers() -> list[int]:
+    """Re-evaluate saved evidence without contacting YOJ or weakening gates."""
+    try:
+        from publish_ready import load_online, load_previous, ready_record
+    except ImportError:
+        from tools.publish_ready import load_online, load_previous, ready_record
+    payload = json.loads(PROBLEMS_PATH.read_text(encoding="utf-8"))
+    online, previous = load_online(), load_previous()
+    return sorted(
+        int(record["problemNo"])
+        for record in payload.get("records", [])
+        if str(record["problemNo"]) not in previous
+        and ready_record(record, online.get(str(record["problemNo"]), {}), None)[0]
+    )
+
+
+def publish_verified_checkpoint(
+    environment: dict[str, str], push: bool, selected: list[str],
+    secret_values: tuple[str, ...] = (), topic_numbers: set[int] | None = None,
+) -> int:
+    """Publish individually eligible rows, retaining all other local work."""
+    commands = [
+        ([sys.executable, str(ROOT / "tools" / "publish_ready.py"), "--apply"], 1800),
+        ([sys.executable, str(ROOT / "tools" / "build_initial.py"), "--preserve-frozen", "--no-download-assets", *selected], 1800),
+        ([sys.executable, str(ROOT / "tools" / "build_site_catalog.py")], 600),
+        ([sys.executable, str(ROOT / "tools" / "build_site_catalog.py"), "--check"], 600),
+        ([sys.executable, str(ROOT / "tools" / "audit_consistency.py")], 600),
+    ]
+    for command, timeout in commands:
+        if run_command(command, environment, timeout):
+            log("分批发布门禁或一致性检查失败；保留断点，不提交")
+            remember_generated_changes()
+            return 3
+    result = publish(push, public_ready_problem_numbers(), secret_values, topic_numbers=topic_numbers)
+    remember_generated_changes()
+    return result
 
 
 def run_drift_audit(args: argparse.Namespace, environment: dict[str, str]) -> int:
@@ -1110,6 +1156,7 @@ def run_once(args: argparse.Namespace) -> int:
             return run_sentinel(args)
         online_environment: dict[str, str] | None = None
         online_ran = False
+        online_incomplete = False
         release_numbers: set[int] = set()
         if args.dry_run:
             offline_checks = [
@@ -1125,6 +1172,16 @@ def run_once(args: argparse.Namespace) -> int:
             remember_generated_changes()
             log("dry-run 完成：未访问 YOJ，未执行在线复验或发布")
             return 0
+        # Saved terminal AC and matching recovered source can be released
+        # even while YOJ is unavailable. This never updates visibility from
+        # a stale snapshot; that axis is refreshed independently below.
+        if args.publish:
+            recovered = eligible_unpublished_numbers()
+            if recovered or "data/public-ready.json" in changed_paths():
+                log(f"优先恢复本地已通过全部发布门禁的题目：{recovered}")
+                result = publish_verified_checkpoint(environment, args.push, problem_selector(recovered))
+                if result:
+                    return result
         # Refresh the public, unauthenticated evidence first.  This keeps the
         # visibility axis current even when no new problem is discovered, and
         # ensures the account is never needed merely to compare problem IDs.
@@ -1342,40 +1399,18 @@ def run_once(args: argparse.Namespace) -> int:
                         str(ROOT / "tools" / "online_verify.py"),
                         "--max-submissions",
                         str(args.max_submissions),
-                        *(["--reverify-accepted", "--retry-abnormal"] if backlog_problem_numbers or refreshed_ac_numbers else []),
+                        *(["--retry-abnormal"] if backlog_problem_numbers or refreshed_ac_numbers else []),
                         *selected,
                     ]
                     if run_command(command, online_environment, 7200):
-                        log("在线复验未正常完成；保留 staging 检查点，不发布")
+                        log("在线复验中断；保留未完成题目，继续按题发布已有合格证据")
                         remember_generated_changes()
-                        return 3
+                        online_incomplete = True
                     online_ran = True
 
         if args.publish:
-            if run_command([sys.executable, str(ROOT / "tools" / "publish_ready.py"), "--apply"], environment, 1800):
-                log("公开发布闸门未正常完成；不生成 Git 提交")
-                remember_generated_changes()
-                return 3
-            release_numbers = public_ready_problem_numbers()
-            if run_command(
-                [sys.executable, str(ROOT / "tools" / "build_initial.py"), "--preserve-frozen", *selected],
-                environment,
-                1800,
-            ):
-                remember_generated_changes()
-                return 3
-            if run_command([sys.executable, str(ROOT / "tools" / "build_site_catalog.py")], environment, 600):
-                remember_generated_changes()
-                return 3
-            if run_command([sys.executable, str(ROOT / "tools" / "build_site_catalog.py"), "--check"], environment, 600):
-                remember_generated_changes()
-                return 3
-            if run_command([sys.executable, str(ROOT / "tools" / "audit_consistency.py")], environment, 600):
-                remember_generated_changes()
-                return 3
-            result = publish(
-                args.push,
-                release_numbers,
+            result = publish_verified_checkpoint(
+                environment, args.push, selected,
                 tuple(
                     value
                     for value in (
@@ -1391,7 +1426,7 @@ def run_once(args: argparse.Namespace) -> int:
                 remember_generated_changes()
                 return 3
             remember_generated_changes()
-            return 3 if ac_scan_incomplete and result == 0 else result
+            return 3 if (ac_scan_incomplete or online_incomplete) and result == 0 else result
         if online_ran:
             if run_command(
                 [sys.executable, str(ROOT / "tools" / "build_initial.py"), "--preserve-frozen", *selected],
@@ -1416,7 +1451,7 @@ def run_once(args: argparse.Namespace) -> int:
             return 3
         remember_generated_changes()
         log("本轮完成：未执行 Git 发布")
-        return 3 if ac_scan_incomplete else 0
+        return 3 if ac_scan_incomplete or online_incomplete else 0
 
 
 def main() -> int:
