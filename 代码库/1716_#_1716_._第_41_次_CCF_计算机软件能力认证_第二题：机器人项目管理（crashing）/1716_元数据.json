@@ -1,31 +1,54 @@
 {
   "problem": {
-    "submissionNo": "",
+    "submissionNo": "1411381",
     "problemNo": "1716",
     "title": "# 1716 . 第 41 次 CCF 计算机软件能力认证 第二题：机器人项目管理（crashing）",
-    "status": "TOPIC_CAPTURED",
-    "score": "",
-    "language": "",
-    "submitter": "未抓取源码",
-    "submissionUrl": "",
+    "status": "Accepted",
+    "score": "100",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1411381.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1716.html"
+  },
+  "submission": {
+    "submissionNo": "1411381",
+    "problemNo": "1716",
+    "title": "# 1716 . 第 41 次 CCF 计算机软件能力认证 第二题：机器人项目管理（crashing）",
+    "status": "Accepted",
+    "score": "100",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1411381.html",
     "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1716.html"
   },
   "source": {
-    "captureVersion": 3,
-    "capturedAt": "2026-09-23T15:04:21Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-28T14:30:06Z",
     "site": "http://yoj.ruc.edu.cn",
-    "discovery": "public_problem_index",
-    "note": "公开题目列表首次发现；本轮未找到本人 Accepted 源码，未生成或伪造代码文件。"
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    }
   },
   "files": {
-    "problemHtml": "1716_题目原文.html",
+    "problem": "1716_题目原文.html",
+    "submission": "1716_提交_1411381_详情.html",
+    "completeCode": "1716_提交_1411381_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "1716_提交_1411381_cpp17_可提交代码.cpp",
     "metadata": "1716_元数据.json"
   },
   "code": {
-    "status": "NO_LOCAL_AC",
-    "language": "",
-    "extension": "",
-    "bytesUtf8": 0,
-    "sha256": ""
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 2555,
+    "sha256": "cab16483d3f2fae56edb12064724b5b2ce18fedb6e272f1785b6f55a702ff739",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1716_提交_1411381_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "1716_提交_1411381_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }

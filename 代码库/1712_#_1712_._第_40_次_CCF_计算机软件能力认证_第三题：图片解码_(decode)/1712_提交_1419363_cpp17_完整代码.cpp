@@ -1,0 +1,8 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <utility>
+#include <algorithm>
+using namespace std;
+struct D{int z=0,o=0;vector<string>a;pair<int,int> mp(int r,int c)const{if(o==0)return{r,c};if(o==1)return{z-1-c,r};if(o==2)return{z-1-r,z-1-c};return{c,z-1-r};}char get(int r,int c)const{auto [x,y]=mp(r,c);return a[x][y];}void setc(int r,int c,char v){auto [x,y]=mp(r,c);a[x][y]=v;}void ur(int t,int l,int L,int deg){char b[10][10];for(int i=0;i<L;i++)for(int j=0;j<L;j++)b[i][j]=get(t+i,l+j);int q=deg/90;for(int i=0;i<L;i++)for(int j=0;j<L;j++){int r,c;if(q==1)r=j,c=L-1-i;else if(q==2)r=L-1-i,c=L-1-j;else r=L-1-j,c=i;setc(t+i,l+j,b[r][c]);}}void uf(int t,int d,int l,int r,int dir){int h=d-t+1,w=r-l+1;char b[10][10];for(int i=0;i<h;i++)for(int j=0;j<w;j++)b[i][j]=get(t+i,l+j);for(int i=0;i<h;i++)for(int j=0;j<w;j++){int x=dir==1?h-1-i:i,y=dir==-1?w-1-j:j;setc(t+i,l+j,b[x][y]);}}};
+int main(){ios::sync_with_stdio(false);cin.tie(nullptr);D d;if(!(cin>>d.z))return 0;d.a.resize(d.z);for(auto &s:d.a)cin>>s;int K;cin>>K;vector<int>key(K);for(int &x:key)cin>>x;int t=key.empty()?0:key[0];for(int q=t-1;q>=0;q--){int p=1+q*6;if(key[p]==1){int u=key[p+1]-1,v=key[p+2]-1,L=key[p+3],deg=key[p+4],r=key[p+5];d.o=(d.o+r)%4;d.ur(u,v,L,deg);}else{int u=key[p+1]-1,dd=key[p+2]-1,l=key[p+3]-1,r=key[p+4]-1,dir=key[p+5];d.uf(u,dd,l,r,dir);}}int R=-1,C=-1;for(int i=0;i<d.z;i++)for(int j=0;j<d.z;j++)if(d.get(i,j)!='?'){R=max(R,i);C=max(C,j);}cout<<R+1<<' '<<C+1<<'\n';for(int i=0;i<=R;i++){for(int j=0;j<=C;j++)cout<<d.get(i,j);cout<<'\n';}}

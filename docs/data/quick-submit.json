@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-23T15:04:21Z",
+  "generatedAt": "2026-09-28T14:50:55Z",
   "repository": "Scorpascal/RUC_YOJ",
   "page": "yoj-quick-submit.html",
   "yojBase": "http://yoj.ruc.edu.cn",
@@ -6208,5 +6208,96 @@
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     }
   ],
-  "archivedEntries": []
+  "archivedEntries": [
+    {
+      "problemNo": 1714,
+      "title": "# 1714 . 第 40 次 CCF 计算机软件能力认证 第五题：数据抢修 (repair)",
+      "language": "cpp17",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1714.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/1714_#_1714_._第_40_次_CCF_计算机软件能力认证_第五题：数据抢修_(repair)/1714_提交_1411478_cpp17_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1714_%23_1714_._%E7%AC%AC_40_%E6%AC%A1_CCF_%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E4%BB%B6%E8%83%BD%E5%8A%9B%E8%AE%A4%E8%AF%81_%E7%AC%AC%E4%BA%94%E9%A2%98%EF%BC%9A%E6%95%B0%E6%8D%AE%E6%8A%A2%E4%BF%AE_%28repair%29/1714_%E6%8F%90%E4%BA%A4_1411478_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "3604601114e0ac80391548262f4e7f5bdb9adcbd82b83b726b07e2267388f66a",
+      "onlineStatus": "Accepted (历史归档)",
+      "onlineSubmissionNo": "1411478",
+      "source": "ACCEPTED_ARCHIVE",
+      "requiresReview": true,
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+    },
+    {
+      "problemNo": 1715,
+      "title": "# 1715 . 第 41 次 CCF 计算机软件能力认证 第一题：平衡数（balance）",
+      "language": "cpp17",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1715.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/1715_#_1715_._第_41_次_CCF_计算机软件能力认证_第一题：平衡数（balance）/1715_提交_1411372_cpp17_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1715_%23_1715_._%E7%AC%AC_41_%E6%AC%A1_CCF_%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E4%BB%B6%E8%83%BD%E5%8A%9B%E8%AE%A4%E8%AF%81_%E7%AC%AC%E4%B8%80%E9%A2%98%EF%BC%9A%E5%B9%B3%E8%A1%A1%E6%95%B0%EF%BC%88balance%EF%BC%89/1715_%E6%8F%90%E4%BA%A4_1411372_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "fb2fcdce6dab829f620e1f84f1222dc6279aac43648ac547b37399378a8d8b05",
+      "onlineStatus": "Accepted (历史归档)",
+      "onlineSubmissionNo": "1411372",
+      "source": "ACCEPTED_ARCHIVE",
+      "requiresReview": true,
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+    },
+    {
+      "problemNo": 1716,
+      "title": "# 1716 . 第 41 次 CCF 计算机软件能力认证 第二题：机器人项目管理（crashing）",
+      "language": "cpp17",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1716.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/1716_#_1716_._第_41_次_CCF_计算机软件能力认证_第二题：机器人项目管理（crashing）/1716_提交_1411381_cpp17_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1716_%23_1716_._%E7%AC%AC_41_%E6%AC%A1_CCF_%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E4%BB%B6%E8%83%BD%E5%8A%9B%E8%AE%A4%E8%AF%81_%E7%AC%AC%E4%BA%8C%E9%A2%98%EF%BC%9A%E6%9C%BA%E5%99%A8%E4%BA%BA%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%EF%BC%88crashing%EF%BC%89/1716_%E6%8F%90%E4%BA%A4_1411381_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "cab16483d3f2fae56edb12064724b5b2ce18fedb6e272f1785b6f55a702ff739",
+      "onlineStatus": "Accepted (历史归档)",
+      "onlineSubmissionNo": "1411381",
+      "source": "ACCEPTED_ARCHIVE",
+      "requiresReview": true,
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+    },
+    {
+      "problemNo": 1717,
+      "title": "# 1717 . 第 41 次 CCF 计算机软件能力认证 第三题：进程通信（communicate）",
+      "language": "cpp17",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1717.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/1717_#_1717_._第_41_次_CCF_计算机软件能力认证_第三题：进程通信（communicate）/1717_提交_1411374_cpp17_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1717_%23_1717_._%E7%AC%AC_41_%E6%AC%A1_CCF_%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E4%BB%B6%E8%83%BD%E5%8A%9B%E8%AE%A4%E8%AF%81_%E7%AC%AC%E4%B8%89%E9%A2%98%EF%BC%9A%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%EF%BC%88communicate%EF%BC%89/1717_%E6%8F%90%E4%BA%A4_1411374_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "cb43a08282dee59f02948ac6b298634e9864567adc065744b8d97bbb4d22e6f2",
+      "onlineStatus": "Accepted (历史归档)",
+      "onlineSubmissionNo": "1411374",
+      "source": "ACCEPTED_ARCHIVE",
+      "requiresReview": true,
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+    },
+    {
+      "problemNo": 1718,
+      "title": "# 1718 . 第 41 次 CCF 计算机软件能力认证 第四题：异或（xor）",
+      "language": "cpp17",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1718.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/1718_#_1718_._第_41_次_CCF_计算机软件能力认证_第四题：异或（xor）/1718_提交_1411377_cpp17_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1718_%23_1718_._%E7%AC%AC_41_%E6%AC%A1_CCF_%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E4%BB%B6%E8%83%BD%E5%8A%9B%E8%AE%A4%E8%AF%81_%E7%AC%AC%E5%9B%9B%E9%A2%98%EF%BC%9A%E5%BC%82%E6%88%96%EF%BC%88xor%EF%BC%89/1718_%E6%8F%90%E4%BA%A4_1411377_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "a12a796f34b7301f6c432c85a819b936bdd10fc6b73317d36becfcf031052e1b",
+      "onlineStatus": "Accepted (历史归档)",
+      "onlineSubmissionNo": "1411377",
+      "source": "ACCEPTED_ARCHIVE",
+      "requiresReview": true,
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+    },
+    {
+      "problemNo": 1719,
+      "title": "# 1719 . 第 41 次 CCF 计算机软件能力认证 第五题：旅游计划（travel）",
+      "language": "cpp17",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1719.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/1719_#_1719_._第_41_次_CCF_计算机软件能力认证_第五题：旅游计划（travel）/1719_提交_1411469_cpp17_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1719_%23_1719_._%E7%AC%AC_41_%E6%AC%A1_CCF_%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E4%BB%B6%E8%83%BD%E5%8A%9B%E8%AE%A4%E8%AF%81_%E7%AC%AC%E4%BA%94%E9%A2%98%EF%BC%9A%E6%97%85%E6%B8%B8%E8%AE%A1%E5%88%92%EF%BC%88travel%EF%BC%89/1719_%E6%8F%90%E4%BA%A4_1411469_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "d204fef88cd0a5349c9294f53dae06853b66b1b2ae7c7ec81adb3c736f99d8c9",
+      "onlineStatus": "Accepted (历史归档)",
+      "onlineSubmissionNo": "1411469",
+      "source": "ACCEPTED_ARCHIVE",
+      "requiresReview": true,
+      "warning": "当前题目出现在 YOJ 公开列表，仓库保留本人历史 Accepted 可提交代码；该入口不等同于 PUBLIC_READY，提交结果以 YOJ 页面为准。"
+    }
+  ]
 }

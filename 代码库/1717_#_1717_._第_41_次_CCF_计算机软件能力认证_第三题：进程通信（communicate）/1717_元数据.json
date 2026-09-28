@@ -1,31 +1,54 @@
 {
   "problem": {
-    "submissionNo": "",
+    "submissionNo": "1411374",
     "problemNo": "1717",
     "title": "# 1717 . 第 41 次 CCF 计算机软件能力认证 第三题：进程通信（communicate）",
-    "status": "TOPIC_CAPTURED",
-    "score": "",
-    "language": "",
-    "submitter": "未抓取源码",
-    "submissionUrl": "",
+    "status": "Accepted",
+    "score": "100",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1411374.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1717.html"
+  },
+  "submission": {
+    "submissionNo": "1411374",
+    "problemNo": "1717",
+    "title": "# 1717 . 第 41 次 CCF 计算机软件能力认证 第三题：进程通信（communicate）",
+    "status": "Accepted",
+    "score": "100",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1411374.html",
     "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1717.html"
   },
   "source": {
-    "captureVersion": 3,
-    "capturedAt": "2026-09-23T15:04:21Z",
+    "captureVersion": 2,
+    "capturedAt": "2026-09-28T14:30:06Z",
     "site": "http://yoj.ruc.edu.cn",
-    "discovery": "public_problem_index",
-    "note": "公开题目列表首次发现；本轮未找到本人 Accepted 源码，未生成或伪造代码文件。"
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    }
   },
   "files": {
-    "problemHtml": "1717_题目原文.html",
+    "problem": "1717_题目原文.html",
+    "submission": "1717_提交_1411374_详情.html",
+    "completeCode": "1717_提交_1411374_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "1717_提交_1411374_cpp17_可提交代码.cpp",
     "metadata": "1717_元数据.json"
   },
   "code": {
-    "status": "NO_LOCAL_AC",
-    "language": "",
-    "extension": "",
-    "bytesUtf8": 0,
-    "sha256": ""
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 1303,
+    "sha256": "cb43a08282dee59f02948ac6b298634e9864567adc065744b8d97bbb4d22e6f2",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1717_提交_1411374_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "1717_提交_1411374_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    }
   }
 }
