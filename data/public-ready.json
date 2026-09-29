@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "purpose": "public release manifest; credentials and session data are excluded",
-  "updatedAt": "2026-09-23T16:05:32Z",
+  "updatedAt": "2026-09-29T14:30:09Z",
   "records": [
     {
       "status": "PUBLIC_READY",
@@ -10019,6 +10019,195 @@
         "canonicalByteMatch": false
       },
       "readyAt": "2026-09-20T08:23:51Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1703,
+      "title": "# 1703 . 第 39 次 CCF 计算机软件能力认证 第一题 蒙特卡洛",
+      "completeCode": "代码库/1703_#_1703_._第_39_次_CCF_计算机软件能力认证_第一题_蒙特卡洛/1703_提交_1419352_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1703_#_1703_._第_39_次_CCF_计算机软件能力认证_第一题_蒙特卡洛/1703_提交_1419352_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "2736b6bda41e3c2f6329674f4624d9a28dada2bee6cb42b5da7ed0eb5a0f8bcf",
+      "directlySubmittableCodeSha256": "2736b6bda41e3c2f6329674f4624d9a28dada2bee6cb42b5da7ed0eb5a0f8bcf",
+      "statementSha256": "08da88f30a96a9d702c07a49ebcdbd9ca86941ed72428f5c75cb3c8b39081e1c",
+      "candidatePath": "staging/cleaned-code/1703_#_1703_._第_39_次_CCF_计算机软件能力认证_第一题_蒙特卡洛/1703_提交_1409578_cpp17_可提交代码.cpp",
+      "candidateSha256": "2736b6bda41e3c2f6329674f4624d9a28dada2bee6cb42b5da7ed0eb5a0f8bcf",
+      "submissionNo": 1419352,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-28T14:33:33Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-29T14:30:09Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1704,
+      "title": "# 1704 . 第 39 次 CCF 计算机软件能力认证 第二题 水印检查",
+      "completeCode": "代码库/1704_#_1704_._第_39_次_CCF_计算机软件能力认证_第二题_水印检查/1704_提交_1419354_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1704_#_1704_._第_39_次_CCF_计算机软件能力认证_第二题_水印检查/1704_提交_1419354_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "c2ee4fc973a9753f2050aea0f381003a39668f5bb101109f2ca8d222d28ceb0e",
+      "directlySubmittableCodeSha256": "c2ee4fc973a9753f2050aea0f381003a39668f5bb101109f2ca8d222d28ceb0e",
+      "statementSha256": "739a146d1a2659a89dc5114b94c2babf1f0a259d1275b74c74de5aec1ea91746",
+      "candidatePath": "staging/cleaned-code/1704_#_1704_._第_39_次_CCF_计算机软件能力认证_第二题_水印检查/1704_提交_1409574_cpp17_可提交代码.cpp",
+      "candidateSha256": "c2ee4fc973a9753f2050aea0f381003a39668f5bb101109f2ca8d222d28ceb0e",
+      "submissionNo": 1419354,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-28T14:33:52Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-29T14:30:09Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1705,
+      "title": "# 1705 . 第 39 次 CCF 计算机软件能力认证 第三题 HTTP头信息",
+      "completeCode": "代码库/1705_#_1705_._第_39_次_CCF_计算机软件能力认证_第三题_HTTP头信息/1705_提交_1419355_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1705_#_1705_._第_39_次_CCF_计算机软件能力认证_第三题_HTTP头信息/1705_提交_1419355_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "9500d261ccdf5c910d922ede8ca2e505057277d89fe8cf51dc6d5a2fc45363dd",
+      "directlySubmittableCodeSha256": "9500d261ccdf5c910d922ede8ca2e505057277d89fe8cf51dc6d5a2fc45363dd",
+      "statementSha256": "426a109a7586522ffbf141958745e5bbca0b6696cbe8888eed54df70f90d41c2",
+      "candidatePath": "staging/cleaned-code/1705_#_1705_._第_39_次_CCF_计算机软件能力认证_第三题_HTTP头信息/1705_提交_1409575_cpp17_可提交代码.cpp",
+      "candidateSha256": "9500d261ccdf5c910d922ede8ca2e505057277d89fe8cf51dc6d5a2fc45363dd",
+      "submissionNo": 1419355,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-28T14:34:05Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-29T14:30:09Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1706,
+      "title": "# 1706 . 第 39 次 CCF 计算机软件能力认证 第四题 造题计划（上）",
+      "completeCode": "代码库/1706_#_1706_._第_39_次_CCF_计算机软件能力认证_第四题_造题计划（上）/1706_提交_1419356_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1706_#_1706_._第_39_次_CCF_计算机软件能力认证_第四题_造题计划（上）/1706_提交_1419356_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "1198f9bdf7004931a6889543ecc139eca60a04a9f13c60cbb66e344e42863850",
+      "directlySubmittableCodeSha256": "1198f9bdf7004931a6889543ecc139eca60a04a9f13c60cbb66e344e42863850",
+      "statementSha256": "98865a6cea2536774f3696201adfc567c43078bce7c66d4702a9f1b86fdabcc1",
+      "candidatePath": "staging/cleaned-code/1706_#_1706_._第_39_次_CCF_计算机软件能力认证_第四题_造题计划（上）/1706_提交_1409576_cpp17_可提交代码.cpp",
+      "candidateSha256": "1198f9bdf7004931a6889543ecc139eca60a04a9f13c60cbb66e344e42863850",
+      "submissionNo": 1419356,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-28T14:34:24Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-29T14:30:09Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1709,
+      "title": "# 1709 . 第 39 次 CCF 计算机软件能力认证 第五题 造题计划（下）",
+      "completeCode": "代码库/1709_#_1709_._第_39_次_CCF_计算机软件能力认证_第五题_造题计划（下）/1709_提交_1419358_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1709_#_1709_._第_39_次_CCF_计算机软件能力认证_第五题_造题计划（下）/1709_提交_1419358_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "5a8f6b042e7fa71cba7173c72ffd8e35d1f0ec243eaf6e757da4d7b296aa2e3e",
+      "directlySubmittableCodeSha256": "5a8f6b042e7fa71cba7173c72ffd8e35d1f0ec243eaf6e757da4d7b296aa2e3e",
+      "statementSha256": "b05e33131a8711ee2edcdf40e88da0a5ea12a107b6e2bc2406937e6078f9a850",
+      "candidatePath": "staging/cleaned-code/1709_#_1709_._第_39_次_CCF_计算机软件能力认证_第五题_造题计划（下）/1709_提交_1409577_cpp17_可提交代码.cpp",
+      "candidateSha256": "5a8f6b042e7fa71cba7173c72ffd8e35d1f0ec243eaf6e757da4d7b296aa2e3e",
+      "submissionNo": 1419358,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-28T14:34:39Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-29T14:30:09Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1710,
+      "title": "# 1710 . 第 40 次 CCF 计算机软件能力认证 第一题 集合 (set)",
+      "completeCode": "代码库/1710_#_1710_._第_40_次_CCF_计算机软件能力认证_第一题_集合_(set)/1710_提交_1419359_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1710_#_1710_._第_40_次_CCF_计算机软件能力认证_第一题_集合_(set)/1710_提交_1419359_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "2a52e0497b7d2c377d7e644f723ee871d8b1ed27eb27fa72e520be59a9b001e6",
+      "directlySubmittableCodeSha256": "2a52e0497b7d2c377d7e644f723ee871d8b1ed27eb27fa72e520be59a9b001e6",
+      "statementSha256": "f92604041fa0148958b25aa44c6c263c2daf79d11ee7210df5ec6f6f89d8030c",
+      "candidatePath": "staging/cleaned-code/1710_#_1710_._第_40_次_CCF_计算机软件能力认证_第一题_集合_(set)/1710_提交_1411362_cpp17_可提交代码.cpp",
+      "candidateSha256": "2a52e0497b7d2c377d7e644f723ee871d8b1ed27eb27fa72e520be59a9b001e6",
+      "submissionNo": 1419359,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-28T14:34:52Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-29T14:30:09Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1711,
+      "title": "# 1711 . 第 40 次 CCF 计算机软件能力认证 第二题：数字变换 (transform)",
+      "completeCode": "代码库/1711_#_1711_._第_40_次_CCF_计算机软件能力认证_第二题：数字变换_(transform)/1711_提交_1419361_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1711_#_1711_._第_40_次_CCF_计算机软件能力认证_第二题：数字变换_(transform)/1711_提交_1419361_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "4d74fd333ff68961c89d7f83c64f3e089c26a034c98f03f21c4bbed511dd27f5",
+      "directlySubmittableCodeSha256": "4d74fd333ff68961c89d7f83c64f3e089c26a034c98f03f21c4bbed511dd27f5",
+      "statementSha256": "54768bb58d5d7bb9f9afadd8795fb57ff0d4d475891002d52de07a8a1cef5d9e",
+      "candidatePath": "staging/cleaned-code/1711_#_1711_._第_40_次_CCF_计算机软件能力认证_第二题：数字变换_(transform)/1711_提交_1411369_cpp17_可提交代码.cpp",
+      "candidateSha256": "4d74fd333ff68961c89d7f83c64f3e089c26a034c98f03f21c4bbed511dd27f5",
+      "submissionNo": 1419361,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-28T14:35:08Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-29T14:30:09Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1712,
+      "title": "# 1712 . 第 40 次 CCF 计算机软件能力认证 第三题：图片解码 (decode)",
+      "completeCode": "代码库/1712_#_1712_._第_40_次_CCF_计算机软件能力认证_第三题：图片解码_(decode)/1712_提交_1419363_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1712_#_1712_._第_40_次_CCF_计算机软件能力认证_第三题：图片解码_(decode)/1712_提交_1419363_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "907f2b2b3f07e91c4478c53f3b6d415d4c9828404062d703677694bab630dc7a",
+      "directlySubmittableCodeSha256": "907f2b2b3f07e91c4478c53f3b6d415d4c9828404062d703677694bab630dc7a",
+      "statementSha256": "d0d448baca108f7a8f82ae705ae386fe4421bfaa9adbdf5dd9369b3c0c0f8fc3",
+      "candidatePath": "staging/cleaned-code/1712_#_1712_._第_40_次_CCF_计算机软件能力认证_第三题：图片解码_(decode)/1712_提交_1411370_cpp17_可提交代码.cpp",
+      "candidateSha256": "907f2b2b3f07e91c4478c53f3b6d415d4c9828404062d703677694bab630dc7a",
+      "submissionNo": 1419363,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-28T14:35:27Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-29T14:30:09Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1713,
+      "title": "# 1713 . 第 40 次 CCF 计算机软件能力认证 第四题：C 形阵 (square)",
+      "completeCode": "代码库/1713_#_1713_._第_40_次_CCF_计算机软件能力认证_第四题：C_形阵_(square)/1713_提交_1419364_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1713_#_1713_._第_40_次_CCF_计算机软件能力认证_第四题：C_形阵_(square)/1713_提交_1419364_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "2999333c267868409912b2e2df8cba074a29fbf5c71dd4bd35249b941ef08423",
+      "directlySubmittableCodeSha256": "2999333c267868409912b2e2df8cba074a29fbf5c71dd4bd35249b941ef08423",
+      "statementSha256": "7b62a08271b40058e904bf49e6d12a89a85e1465506f7a0191211a08e5c48ba2",
+      "candidatePath": "staging/cleaned-code/1713_#_1713_._第_40_次_CCF_计算机软件能力认证_第四题：C_形阵_(square)/1713_提交_1411387_cpp17_可提交代码.cpp",
+      "candidateSha256": "2999333c267868409912b2e2df8cba074a29fbf5c71dd4bd35249b941ef08423",
+      "submissionNo": 1419364,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-28T14:35:42Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-29T14:30:09Z"
     }
   ]
 }

@@ -32054,16 +32054,16 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1703_#_1703_._第_39_次_CCF_计算机软件能力认证_第一题_蒙特卡洛/1703_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/1703_#_1703_._第_39_次_CCF_计算机软件能力认证_第一题_蒙特卡洛/1703_提交_1419352_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1703_#_1703_._第_39_次_CCF_计算机软件能力认证_第一题_蒙特卡洛/1703_提交_1419352_cpp17_可提交代码.cpp",
         "onlineVerification": "ONLINE_ACCEPTED",
         "onlineVerificationNote": "",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-28T14:33:33Z",
+        "verifiedSubmissionNo": "1419352",
+        "codeSha256": "2736b6bda41e3c2f6329674f4624d9a28dada2bee6cb42b5da7ed0eb5a0f8bcf"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -32114,16 +32114,16 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1704_#_1704_._第_39_次_CCF_计算机软件能力认证_第二题_水印检查/1704_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/1704_#_1704_._第_39_次_CCF_计算机软件能力认证_第二题_水印检查/1704_提交_1419354_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1704_#_1704_._第_39_次_CCF_计算机软件能力认证_第二题_水印检查/1704_提交_1419354_cpp17_可提交代码.cpp",
         "onlineVerification": "ONLINE_ACCEPTED",
         "onlineVerificationNote": "",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-28T14:33:52Z",
+        "verifiedSubmissionNo": "1419354",
+        "codeSha256": "c2ee4fc973a9753f2050aea0f381003a39668f5bb101109f2ca8d222d28ceb0e"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -32174,16 +32174,16 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1705_#_1705_._第_39_次_CCF_计算机软件能力认证_第三题_HTTP头信息/1705_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/1705_#_1705_._第_39_次_CCF_计算机软件能力认证_第三题_HTTP头信息/1705_提交_1419355_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1705_#_1705_._第_39_次_CCF_计算机软件能力认证_第三题_HTTP头信息/1705_提交_1419355_cpp17_可提交代码.cpp",
         "onlineVerification": "ONLINE_ACCEPTED",
         "onlineVerificationNote": "",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-28T14:34:05Z",
+        "verifiedSubmissionNo": "1419355",
+        "codeSha256": "9500d261ccdf5c910d922ede8ca2e505057277d89fe8cf51dc6d5a2fc45363dd"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -32234,16 +32234,16 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1706_#_1706_._第_39_次_CCF_计算机软件能力认证_第四题_造题计划（上）/1706_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/1706_#_1706_._第_39_次_CCF_计算机软件能力认证_第四题_造题计划（上）/1706_提交_1419356_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1706_#_1706_._第_39_次_CCF_计算机软件能力认证_第四题_造题计划（上）/1706_提交_1419356_cpp17_可提交代码.cpp",
         "onlineVerification": "ONLINE_ACCEPTED",
         "onlineVerificationNote": "",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-28T14:34:24Z",
+        "verifiedSubmissionNo": "1419356",
+        "codeSha256": "1198f9bdf7004931a6889543ecc139eca60a04a9f13c60cbb66e344e42863850"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -32294,16 +32294,16 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1709_#_1709_._第_39_次_CCF_计算机软件能力认证_第五题_造题计划（下）/1709_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/1709_#_1709_._第_39_次_CCF_计算机软件能力认证_第五题_造题计划（下）/1709_提交_1419358_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1709_#_1709_._第_39_次_CCF_计算机软件能力认证_第五题_造题计划（下）/1709_提交_1419358_cpp17_可提交代码.cpp",
         "onlineVerification": "ONLINE_ACCEPTED",
         "onlineVerificationNote": "",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-28T14:34:39Z",
+        "verifiedSubmissionNo": "1419358",
+        "codeSha256": "5a8f6b042e7fa71cba7173c72ffd8e35d1f0ec243eaf6e757da4d7b296aa2e3e"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -32354,16 +32354,16 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1710_#_1710_._第_40_次_CCF_计算机软件能力认证_第一题_集合_(set)/1710_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/1710_#_1710_._第_40_次_CCF_计算机软件能力认证_第一题_集合_(set)/1710_提交_1419359_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1710_#_1710_._第_40_次_CCF_计算机软件能力认证_第一题_集合_(set)/1710_提交_1419359_cpp17_可提交代码.cpp",
         "onlineVerification": "ONLINE_ACCEPTED",
         "onlineVerificationNote": "",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-28T14:34:52Z",
+        "verifiedSubmissionNo": "1419359",
+        "codeSha256": "2a52e0497b7d2c377d7e644f723ee871d8b1ed27eb27fa72e520be59a9b001e6"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -32414,16 +32414,16 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1711_#_1711_._第_40_次_CCF_计算机软件能力认证_第二题：数字变换_(transform)/1711_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/1711_#_1711_._第_40_次_CCF_计算机软件能力认证_第二题：数字变换_(transform)/1711_提交_1419361_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1711_#_1711_._第_40_次_CCF_计算机软件能力认证_第二题：数字变换_(transform)/1711_提交_1419361_cpp17_可提交代码.cpp",
         "onlineVerification": "ONLINE_ACCEPTED",
         "onlineVerificationNote": "",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-28T14:35:08Z",
+        "verifiedSubmissionNo": "1419361",
+        "codeSha256": "4d74fd333ff68961c89d7f83c64f3e089c26a034c98f03f21c4bbed511dd27f5"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -32474,16 +32474,16 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1712_#_1712_._第_40_次_CCF_计算机软件能力认证_第三题：图片解码_(decode)/1712_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/1712_#_1712_._第_40_次_CCF_计算机软件能力认证_第三题：图片解码_(decode)/1712_提交_1419363_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1712_#_1712_._第_40_次_CCF_计算机软件能力认证_第三题：图片解码_(decode)/1712_提交_1419363_cpp17_可提交代码.cpp",
         "onlineVerification": "ONLINE_ACCEPTED",
         "onlineVerificationNote": "",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-28T14:35:27Z",
+        "verifiedSubmissionNo": "1419363",
+        "codeSha256": "907f2b2b3f07e91c4478c53f3b6d415d4c9828404062d703677694bab630dc7a"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -32534,16 +32534,16 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1713_#_1713_._第_40_次_CCF_计算机软件能力认证_第四题：C_形阵_(square)/1713_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "代码库/1713_#_1713_._第_40_次_CCF_计算机软件能力认证_第四题：C_形阵_(square)/1713_提交_1419364_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1713_#_1713_._第_40_次_CCF_计算机软件能力认证_第四题：C_形阵_(square)/1713_提交_1419364_cpp17_可提交代码.cpp",
         "onlineVerification": "ONLINE_ACCEPTED",
         "onlineVerificationNote": "",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-28T14:35:42Z",
+        "verifiedSubmissionNo": "1419364",
+        "codeSha256": "2999333c267868409912b2e2df8cba074a29fbf5c71dd4bd35249b941ef08423"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",

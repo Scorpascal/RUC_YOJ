@@ -49,6 +49,16 @@
       "directlySubmittableFile": "1709_提交_1419358_cpp17_可提交代码.cpp",
       "blocks": [],
       "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
-    }
+    },
+    "rawArchiveSha256": "5a8f6b042e7fa71cba7173c72ffd8e35d1f0ec243eaf6e757da4d7b296aa2e3e",
+    "directlySubmittableSha256": "5a8f6b042e7fa71cba7173c72ffd8e35d1f0ec243eaf6e757da4d7b296aa2e3e",
+    "status": "CLEANED_ONLINE_VERIFIED"
+  },
+  "publication": {
+    "status": "PUBLIC_READY",
+    "batchId": "20260929T143006Z",
+    "candidateSha256": "5a8f6b042e7fa71cba7173c72ffd8e35d1f0ec243eaf6e757da4d7b296aa2e3e",
+    "submissionNo": 1419358,
+    "verifiedAt": "2026-09-28T14:34:39Z"
   }
 }
