@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "purpose": "public release manifest; credentials and session data are excluded",
-  "updatedAt": "2026-09-29T14:30:09Z",
+  "updatedAt": "2026-09-29T14:53:06Z",
   "records": [
     {
       "status": "PUBLIC_READY",
@@ -10208,6 +10208,132 @@
         "canonicalByteMatch": true
       },
       "readyAt": "2026-09-29T14:30:09Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1714,
+      "title": "# 1714 . 第 40 次 CCF 计算机软件能力认证 第五题：数据抢修 (repair)",
+      "completeCode": "代码库/1714_#_1714_._第_40_次_CCF_计算机软件能力认证_第五题：数据抢修_(repair)/1714_提交_1411478_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1714_#_1714_._第_40_次_CCF_计算机软件能力认证_第五题：数据抢修_(repair)/1714_提交_1411478_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "e8473e9f10377023c190ec88714f32686dbfcdc55a3514069f902a068c8d9c59",
+      "directlySubmittableCodeSha256": "e8473e9f10377023c190ec88714f32686dbfcdc55a3514069f902a068c8d9c59",
+      "statementSha256": "778be4366da3f2aa79f4f10dd78cf7a98a4dfff0391c6265dbeb637ab0f220a5",
+      "candidatePath": "staging/cleaned-code/1714_#_1714_._第_40_次_CCF_计算机软件能力认证_第五题：数据抢修_(repair)/1714_提交_1411478_cpp17_可提交代码.cpp",
+      "candidateSha256": "e8473e9f10377023c190ec88714f32686dbfcdc55a3514069f902a068c8d9c59",
+      "submissionNo": 1420875,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-29T14:51:27Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-29T14:53:06Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1715,
+      "title": "# 1715 . 第 41 次 CCF 计算机软件能力认证 第一题：平衡数（balance）",
+      "completeCode": "代码库/1715_#_1715_._第_41_次_CCF_计算机软件能力认证_第一题：平衡数（balance）/1715_提交_1419461_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1715_#_1715_._第_41_次_CCF_计算机软件能力认证_第一题：平衡数（balance）/1715_提交_1419461_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "f5ba95642873c4329f85a4ae54166421f8a04be6d28029b5d879f2800aa26a7a",
+      "directlySubmittableCodeSha256": "f5ba95642873c4329f85a4ae54166421f8a04be6d28029b5d879f2800aa26a7a",
+      "statementSha256": "2c1269cdc396f4611b80c4d863d2343b943a7dc2977d59668db8d92c97ea298f",
+      "candidatePath": "staging/cleaned-code/1715_#_1715_._第_41_次_CCF_计算机软件能力认证_第一题：平衡数（balance）/1715_提交_1419461_cpp17_可提交代码.cpp",
+      "candidateSha256": "f5ba95642873c4329f85a4ae54166421f8a04be6d28029b5d879f2800aa26a7a",
+      "submissionNo": 1420876,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-29T14:51:40Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-29T14:53:06Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1716,
+      "title": "# 1716 . 第 41 次 CCF 计算机软件能力认证 第二题：机器人项目管理（crashing）",
+      "completeCode": "代码库/1716_#_1716_._第_41_次_CCF_计算机软件能力认证_第二题：机器人项目管理（crashing）/1716_提交_1411381_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1716_#_1716_._第_41_次_CCF_计算机软件能力认证_第二题：机器人项目管理（crashing）/1716_提交_1411381_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "99bb8d0e7de112832903ad200b094ca92a3d1ff452bea0e9b905f6e654a4ee71",
+      "directlySubmittableCodeSha256": "99bb8d0e7de112832903ad200b094ca92a3d1ff452bea0e9b905f6e654a4ee71",
+      "statementSha256": "09d57404e52addf6685752515299eefaec98d2790d35ce90a00e95d326056c6c",
+      "candidatePath": "staging/cleaned-code/1716_#_1716_._第_41_次_CCF_计算机软件能力认证_第二题：机器人项目管理（crashing）/1716_提交_1411381_cpp17_可提交代码.cpp",
+      "candidateSha256": "99bb8d0e7de112832903ad200b094ca92a3d1ff452bea0e9b905f6e654a4ee71",
+      "submissionNo": 1420877,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-29T14:51:59Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-29T14:53:06Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1717,
+      "title": "# 1717 . 第 41 次 CCF 计算机软件能力认证 第三题：进程通信（communicate）",
+      "completeCode": "代码库/1717_#_1717_._第_41_次_CCF_计算机软件能力认证_第三题：进程通信（communicate）/1717_提交_1411374_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1717_#_1717_._第_41_次_CCF_计算机软件能力认证_第三题：进程通信（communicate）/1717_提交_1411374_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "54c75180dda98bae7a656707ed72d677d39bb9ac59fee5b8566058c8b44baca8",
+      "directlySubmittableCodeSha256": "54c75180dda98bae7a656707ed72d677d39bb9ac59fee5b8566058c8b44baca8",
+      "statementSha256": "d830ee1ef847bc3e27a9d03f399b1c65160d2b7db10136848b47f96cc6b248e5",
+      "candidatePath": "staging/cleaned-code/1717_#_1717_._第_41_次_CCF_计算机软件能力认证_第三题：进程通信（communicate）/1717_提交_1411374_cpp17_可提交代码.cpp",
+      "candidateSha256": "54c75180dda98bae7a656707ed72d677d39bb9ac59fee5b8566058c8b44baca8",
+      "submissionNo": 1420878,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-29T14:52:15Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-29T14:53:06Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1718,
+      "title": "# 1718 . 第 41 次 CCF 计算机软件能力认证 第四题：异或（xor）",
+      "completeCode": "代码库/1718_#_1718_._第_41_次_CCF_计算机软件能力认证_第四题：异或（xor）/1718_提交_1411377_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1718_#_1718_._第_41_次_CCF_计算机软件能力认证_第四题：异或（xor）/1718_提交_1411377_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "27ea4f4f090f37fdc2d6bf3d47abe1b58e0df30f4433aa8ae92188300f9abebc",
+      "directlySubmittableCodeSha256": "27ea4f4f090f37fdc2d6bf3d47abe1b58e0df30f4433aa8ae92188300f9abebc",
+      "statementSha256": "f5c47d2fcf6f189805875ff8235b30dea9b5f7dfb52313a54f279f21f1f1ccc9",
+      "candidatePath": "staging/cleaned-code/1718_#_1718_._第_41_次_CCF_计算机软件能力认证_第四题：异或（xor）/1718_提交_1411377_cpp17_可提交代码.cpp",
+      "candidateSha256": "27ea4f4f090f37fdc2d6bf3d47abe1b58e0df30f4433aa8ae92188300f9abebc",
+      "submissionNo": 1420879,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-29T14:52:31Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-29T14:53:06Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1719,
+      "title": "# 1719 . 第 41 次 CCF 计算机软件能力认证 第五题：旅游计划（travel）",
+      "completeCode": "代码库/1719_#_1719_._第_41_次_CCF_计算机软件能力认证_第五题：旅游计划（travel）/1719_提交_1411469_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1719_#_1719_._第_41_次_CCF_计算机软件能力认证_第五题：旅游计划（travel）/1719_提交_1411469_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "90fee378dea6412d119d91cceaeca139a696d9e6e2925835c849f82aac30f41e",
+      "directlySubmittableCodeSha256": "90fee378dea6412d119d91cceaeca139a696d9e6e2925835c849f82aac30f41e",
+      "statementSha256": "4d11465c465b6425455fc0da3dbc8f5ca416cfa7d4c9ec291efac5f246d285e8",
+      "candidatePath": "staging/cleaned-code/1719_#_1719_._第_41_次_CCF_计算机软件能力认证_第五题：旅游计划（travel）/1719_提交_1411469_cpp17_可提交代码.cpp",
+      "candidateSha256": "90fee378dea6412d119d91cceaeca139a696d9e6e2925835c849f82aac30f41e",
+      "submissionNo": 1420880,
+      "language": "cpp17",
+      "verifiedAt": "2026-09-29T14:52:43Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-09-29T14:53:06Z"
     }
   ]
 }

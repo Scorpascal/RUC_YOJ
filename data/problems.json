@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "purpose": "offline build; only explicit PUBLIC_READY records are public releases",
   "generatedFrom": "代码库/AC抓取清单.json",
-  "capturedAt": "2026-09-28T14:50:55Z",
+  "capturedAt": "2026-09-29T14:49:14Z",
   "generatedRecords": 509,
   "records": [
     {
@@ -32571,8 +32571,8 @@
         "status": "RAW_CAPTURED",
         "submissionNo": "1411478",
         "capturedAt": "2026-09-28T14:30:06Z",
-        "sourceSha256": "3604601114e0ac80391548262f4e7f5bdb9adcbd82b83b726b07e2267388f66a",
-        "recordedSha256": "3604601114e0ac80391548262f4e7f5bdb9adcbd82b83b726b07e2267388f66a",
+        "sourceSha256": "e8473e9f10377023c190ec88714f32686dbfcdc55a3514069f902a068c8d9c59",
+        "recordedSha256": "e8473e9f10377023c190ec88714f32686dbfcdc55a3514069f902a068c8d9c59",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/1714_#_1714_._第_40_次_CCF_计算机软件能力认证_第五题：数据抢修_(repair)/1714_元数据.json",
         "completeCode": "代码库/1714_#_1714_._第_40_次_CCF_计算机软件能力认证_第五题：数据抢修_(repair)/1714_提交_1411478_cpp17_完整代码.cpp",
@@ -32594,16 +32594,16 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1714_#_1714_._第_40_次_CCF_计算机软件能力认证_第五题：数据抢修_(repair)/1714_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN",
+        "cleanCode": "代码库/1714_#_1714_._第_40_次_CCF_计算机软件能力认证_第五题：数据抢修_(repair)/1714_提交_1411478_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1714_#_1714_._第_40_次_CCF_计算机软件能力认证_第五题：数据抢修_(repair)/1714_提交_1411478_cpp17_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "onlineVerificationNote": "",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-29T14:51:27Z",
+        "verifiedSubmissionNo": "1420875",
+        "codeSha256": "e8473e9f10377023c190ec88714f32686dbfcdc55a3514069f902a068c8d9c59"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -32629,14 +32629,14 @@
       "language": "cpp17",
       "archive": {
         "status": "RAW_CAPTURED",
-        "submissionNo": "1411372",
-        "capturedAt": "2026-09-28T14:30:06Z",
-        "sourceSha256": "fb2fcdce6dab829f620e1f84f1222dc6279aac43648ac547b37399378a8d8b05",
-        "recordedSha256": "fb2fcdce6dab829f620e1f84f1222dc6279aac43648ac547b37399378a8d8b05",
+        "submissionNo": "1419461",
+        "capturedAt": "2026-09-29T14:49:14Z",
+        "sourceSha256": "f5ba95642873c4329f85a4ae54166421f8a04be6d28029b5d879f2800aa26a7a",
+        "recordedSha256": "f5ba95642873c4329f85a4ae54166421f8a04be6d28029b5d879f2800aa26a7a",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/1715_#_1715_._第_41_次_CCF_计算机软件能力认证_第一题：平衡数（balance）/1715_元数据.json",
-        "completeCode": "代码库/1715_#_1715_._第_41_次_CCF_计算机软件能力认证_第一题：平衡数（balance）/1715_提交_1411372_cpp17_完整代码.cpp",
-        "directlySubmittableCode": "代码库/1715_#_1715_._第_41_次_CCF_计算机软件能力认证_第一题：平衡数（balance）/1715_提交_1411372_cpp17_可提交代码.cpp",
+        "completeCode": "代码库/1715_#_1715_._第_41_次_CCF_计算机软件能力认证_第一题：平衡数（balance）/1715_提交_1419461_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1715_#_1715_._第_41_次_CCF_计算机软件能力认证_第一题：平衡数（balance）/1715_提交_1419461_cpp17_可提交代码.cpp",
         "acceptedRun": {
           "source": "submission_detail",
           "status": "Accepted",
@@ -32647,23 +32647,23 @@
         },
         "blockHandling": {
           "status": "endpoint_returned_one_code_field",
-          "completeCodeFile": "1715_提交_1411372_cpp17_完整代码.cpp",
-          "directlySubmittableFile": "1715_提交_1411372_cpp17_可提交代码.cpp",
+          "completeCodeFile": "1715_提交_1419461_cpp17_完整代码.cpp",
+          "directlySubmittableFile": "1715_提交_1419461_cpp17_可提交代码.cpp",
           "blocks": [],
           "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1715_#_1715_._第_41_次_CCF_计算机软件能力认证_第一题：平衡数（balance）/1715_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN",
+        "cleanCode": "代码库/1715_#_1715_._第_41_次_CCF_计算机软件能力认证_第一题：平衡数（balance）/1715_提交_1419461_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1715_#_1715_._第_41_次_CCF_计算机软件能力认证_第一题：平衡数（balance）/1715_提交_1419461_cpp17_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "onlineVerificationNote": "",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-29T14:51:40Z",
+        "verifiedSubmissionNo": "1420876",
+        "codeSha256": "f5ba95642873c4329f85a4ae54166421f8a04be6d28029b5d879f2800aa26a7a"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -32691,8 +32691,8 @@
         "status": "RAW_CAPTURED",
         "submissionNo": "1411381",
         "capturedAt": "2026-09-28T14:30:06Z",
-        "sourceSha256": "cab16483d3f2fae56edb12064724b5b2ce18fedb6e272f1785b6f55a702ff739",
-        "recordedSha256": "cab16483d3f2fae56edb12064724b5b2ce18fedb6e272f1785b6f55a702ff739",
+        "sourceSha256": "99bb8d0e7de112832903ad200b094ca92a3d1ff452bea0e9b905f6e654a4ee71",
+        "recordedSha256": "99bb8d0e7de112832903ad200b094ca92a3d1ff452bea0e9b905f6e654a4ee71",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/1716_#_1716_._第_41_次_CCF_计算机软件能力认证_第二题：机器人项目管理（crashing）/1716_元数据.json",
         "completeCode": "代码库/1716_#_1716_._第_41_次_CCF_计算机软件能力认证_第二题：机器人项目管理（crashing）/1716_提交_1411381_cpp17_完整代码.cpp",
@@ -32714,16 +32714,16 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1716_#_1716_._第_41_次_CCF_计算机软件能力认证_第二题：机器人项目管理（crashing）/1716_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN",
+        "cleanCode": "代码库/1716_#_1716_._第_41_次_CCF_计算机软件能力认证_第二题：机器人项目管理（crashing）/1716_提交_1411381_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1716_#_1716_._第_41_次_CCF_计算机软件能力认证_第二题：机器人项目管理（crashing）/1716_提交_1411381_cpp17_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "onlineVerificationNote": "",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-29T14:51:59Z",
+        "verifiedSubmissionNo": "1420877",
+        "codeSha256": "99bb8d0e7de112832903ad200b094ca92a3d1ff452bea0e9b905f6e654a4ee71"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -32751,8 +32751,8 @@
         "status": "RAW_CAPTURED",
         "submissionNo": "1411374",
         "capturedAt": "2026-09-28T14:30:06Z",
-        "sourceSha256": "cb43a08282dee59f02948ac6b298634e9864567adc065744b8d97bbb4d22e6f2",
-        "recordedSha256": "cb43a08282dee59f02948ac6b298634e9864567adc065744b8d97bbb4d22e6f2",
+        "sourceSha256": "54c75180dda98bae7a656707ed72d677d39bb9ac59fee5b8566058c8b44baca8",
+        "recordedSha256": "54c75180dda98bae7a656707ed72d677d39bb9ac59fee5b8566058c8b44baca8",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/1717_#_1717_._第_41_次_CCF_计算机软件能力认证_第三题：进程通信（communicate）/1717_元数据.json",
         "completeCode": "代码库/1717_#_1717_._第_41_次_CCF_计算机软件能力认证_第三题：进程通信（communicate）/1717_提交_1411374_cpp17_完整代码.cpp",
@@ -32774,16 +32774,16 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1717_#_1717_._第_41_次_CCF_计算机软件能力认证_第三题：进程通信（communicate）/1717_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN",
+        "cleanCode": "代码库/1717_#_1717_._第_41_次_CCF_计算机软件能力认证_第三题：进程通信（communicate）/1717_提交_1411374_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1717_#_1717_._第_41_次_CCF_计算机软件能力认证_第三题：进程通信（communicate）/1717_提交_1411374_cpp17_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "onlineVerificationNote": "",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-29T14:52:15Z",
+        "verifiedSubmissionNo": "1420878",
+        "codeSha256": "54c75180dda98bae7a656707ed72d677d39bb9ac59fee5b8566058c8b44baca8"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -32862,8 +32862,8 @@
         "status": "RAW_CAPTURED",
         "submissionNo": "1411377",
         "capturedAt": "2026-09-28T14:30:06Z",
-        "sourceSha256": "a12a796f34b7301f6c432c85a819b936bdd10fc6b73317d36becfcf031052e1b",
-        "recordedSha256": "a12a796f34b7301f6c432c85a819b936bdd10fc6b73317d36becfcf031052e1b",
+        "sourceSha256": "27ea4f4f090f37fdc2d6bf3d47abe1b58e0df30f4433aa8ae92188300f9abebc",
+        "recordedSha256": "27ea4f4f090f37fdc2d6bf3d47abe1b58e0df30f4433aa8ae92188300f9abebc",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/1718_#_1718_._第_41_次_CCF_计算机软件能力认证_第四题：异或（xor）/1718_元数据.json",
         "completeCode": "代码库/1718_#_1718_._第_41_次_CCF_计算机软件能力认证_第四题：异或（xor）/1718_提交_1411377_cpp17_完整代码.cpp",
@@ -32885,16 +32885,16 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1718_#_1718_._第_41_次_CCF_计算机软件能力认证_第四题：异或（xor）/1718_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN",
+        "cleanCode": "代码库/1718_#_1718_._第_41_次_CCF_计算机软件能力认证_第四题：异或（xor）/1718_提交_1411377_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1718_#_1718_._第_41_次_CCF_计算机软件能力认证_第四题：异或（xor）/1718_提交_1411377_cpp17_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "onlineVerificationNote": "",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-29T14:52:31Z",
+        "verifiedSubmissionNo": "1420879",
+        "codeSha256": "27ea4f4f090f37fdc2d6bf3d47abe1b58e0df30f4433aa8ae92188300f9abebc"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -32922,8 +32922,8 @@
         "status": "RAW_CAPTURED",
         "submissionNo": "1411469",
         "capturedAt": "2026-09-28T14:30:06Z",
-        "sourceSha256": "d204fef88cd0a5349c9294f53dae06853b66b1b2ae7c7ec81adb3c736f99d8c9",
-        "recordedSha256": "d204fef88cd0a5349c9294f53dae06853b66b1b2ae7c7ec81adb3c736f99d8c9",
+        "sourceSha256": "90fee378dea6412d119d91cceaeca139a696d9e6e2925835c849f82aac30f41e",
+        "recordedSha256": "90fee378dea6412d119d91cceaeca139a696d9e6e2925835c849f82aac30f41e",
         "sourceHashMatchesMetadata": true,
         "metadata": "代码库/1719_#_1719_._第_41_次_CCF_计算机软件能力认证_第五题：旅游计划（travel）/1719_元数据.json",
         "completeCode": "代码库/1719_#_1719_._第_41_次_CCF_计算机软件能力认证_第五题：旅游计划（travel）/1719_提交_1411469_cpp17_完整代码.cpp",
@@ -32945,16 +32945,16 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/1719_#_1719_._第_41_次_CCF_计算机软件能力认证_第五题：旅游计划（travel）/1719_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
-        "onlineVerification": "NOT_RUN",
+        "cleanCode": "代码库/1719_#_1719_._第_41_次_CCF_计算机软件能力认证_第五题：旅游计划（travel）/1719_提交_1411469_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1719_#_1719_._第_41_次_CCF_计算机软件能力认证_第五题：旅游计划（travel）/1719_提交_1411469_cpp17_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
         "onlineVerificationNote": "",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-09-29T14:52:43Z",
+        "verifiedSubmissionNo": "1420880",
+        "codeSha256": "90fee378dea6412d119d91cceaeca139a696d9e6e2925835c849f82aac30f41e"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
