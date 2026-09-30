@@ -89,6 +89,113 @@ class CaptureRefreshTests(unittest.TestCase):
 
 
 class SchedulerRefreshTests(unittest.TestCase):
+    def test_publication_saves_exact_commit_before_first_push(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            state = Path(directory)
+            base_sha, commit_sha = "a" * 40, "b" * 40
+            staged: list[str] = []
+
+            def git(command: list[str], **_kwargs: object) -> SimpleNamespace:
+                if command[:2] == ["git", "add"]:
+                    staged.extend(command[3:])
+                if command[:3] == ["git", "rev-parse", "origin/main"]:
+                    return SimpleNamespace(returncode=0, stdout=base_sha + "\n", stderr="")
+                if command[:3] == ["git", "branch", "--show-current"]:
+                    return SimpleNamespace(returncode=0, stdout="main\n", stderr="")
+                if command[:2] == ["git", "push"]:
+                    self.assertEqual(yoj_scheduler.load_pending_remote()["state"], "push-pending")
+                    self.assertEqual(yoj_scheduler.load_pending_remote()["commit"], commit_sha)
+                    return SimpleNamespace(returncode=128, stdout="", stderr="network unavailable")
+                return SimpleNamespace(returncode=0, stdout="", stderr="")
+
+            with (
+                patch.object(yoj_scheduler, "STATE_DIR", state),
+                patch.object(yoj_scheduler, "PENDING_REMOTE_PATH", state / "pending.json"),
+                patch.object(yoj_scheduler, "staged_paths", side_effect=lambda: list(staged)),
+                patch.object(yoj_scheduler, "changed_paths", return_value=["data/public-ready.json"]),
+                patch.object(yoj_scheduler, "pending_unreleased_code_paths", return_value=[]),
+                patch.object(yoj_scheduler, "scan_for_secrets", return_value=None),
+                patch.object(yoj_scheduler, "scan_for_personal_markers", return_value=None),
+                patch.object(yoj_scheduler, "run_staged_consistency_audit", return_value=True),
+                patch.object(yoj_scheduler, "git_head_sha", side_effect=[base_sha, commit_sha, commit_sha]),
+                patch.object(yoj_scheduler.subprocess, "run", side_effect=git),
+                patch.object(yoj_scheduler, "log"),
+                patch.dict(yoj_scheduler.os.environ, {"YOJ_SYNC_ALLOW_PUSH": "1"}),
+            ):
+                self.assertEqual(yoj_scheduler.publish(True, {42}), 8)
+                self.assertEqual(yoj_scheduler.load_pending_remote()["state"], "push-failed")
+
+    def test_failed_push_is_checkpointed_then_only_same_commit_retried(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            state = Path(directory)
+            commit_sha = "b" * 40
+            push_attempts: list[list[str]] = []
+
+            def git(command: list[str], **_kwargs: object) -> SimpleNamespace:
+                if command[:3] == ["git", "branch", "--show-current"]:
+                    return SimpleNamespace(returncode=0, stdout="main\n", stderr="")
+                if command[:2] == ["git", "merge-base"]:
+                    return SimpleNamespace(returncode=0, stdout="", stderr="")
+                if command[:2] == ["git", "push"]:
+                    push_attempts.append(command)
+                    return SimpleNamespace(returncode=128 if len(push_attempts) == 1 else 0,
+                                           stdout="", stderr="temporary network failure")
+                raise AssertionError(command)
+
+            with (
+                patch.object(yoj_scheduler, "STATE_DIR", state),
+                patch.object(yoj_scheduler, "PENDING_REMOTE_PATH", state / "pending.json"),
+                patch.object(yoj_scheduler, "git_head_sha", return_value=commit_sha),
+                patch.object(yoj_scheduler.subprocess, "run", side_effect=git),
+                patch.object(yoj_scheduler, "verify_remote_workflow", return_value=True) as workflow,
+                patch.object(yoj_scheduler, "log"),
+                patch.dict(yoj_scheduler.os.environ, {"YOJ_SYNC_ALLOW_PUSH": "1"}),
+            ):
+                yoj_scheduler.save_pending_remote(commit_sha, state="push-pending")
+                self.assertFalse(yoj_scheduler.verify_pending_remote(allow_push=True))
+                self.assertEqual(yoj_scheduler.load_pending_remote()["state"], "push-failed")
+                workflow.assert_not_called()
+                self.assertFalse(yoj_scheduler.verify_pending_remote(allow_push=False))
+                self.assertEqual(len(push_attempts), 1)
+                self.assertTrue(yoj_scheduler.verify_pending_remote(allow_push=True))
+                self.assertEqual(push_attempts, [["git", "push", "origin", "main"]] * 2)
+                workflow.assert_called_once_with(commit_sha)
+                self.assertIsNone(yoj_scheduler.load_pending_remote())
+
+    def test_changed_head_cannot_expand_retry_scope(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            state = Path(directory)
+            with (
+                patch.object(yoj_scheduler, "STATE_DIR", state),
+                patch.object(yoj_scheduler, "PENDING_REMOTE_PATH", state / "pending.json"),
+                patch.object(yoj_scheduler, "git_head_sha", return_value="c" * 40),
+                patch.object(yoj_scheduler.subprocess, "run") as git,
+                patch.object(yoj_scheduler, "log"),
+                patch.dict(yoj_scheduler.os.environ, {"YOJ_SYNC_ALLOW_PUSH": "1"}),
+            ):
+                yoj_scheduler.save_pending_remote("b" * 40, state="push-pending")
+                git.return_value = SimpleNamespace(returncode=0, stdout="main\n", stderr="")
+                self.assertFalse(yoj_scheduler.verify_pending_remote(allow_push=True))
+                self.assertEqual(yoj_scheduler.load_pending_remote()["state"], "push-failed")
+                self.assertFalse(any(call.args[0][:2] == ["git", "push"] for call in git.call_args_list))
+
+    def test_pushed_checkpoint_waits_for_matching_pages_without_repush(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            state = Path(directory)
+            with (
+                patch.object(yoj_scheduler, "STATE_DIR", state),
+                patch.object(yoj_scheduler, "PENDING_REMOTE_PATH", state / "pending.json"),
+                patch.object(yoj_scheduler, "verify_remote_workflow", side_effect=[False, True]) as workflow,
+                patch.object(yoj_scheduler.subprocess, "run") as git,
+                patch.object(yoj_scheduler, "log"),
+            ):
+                yoj_scheduler.save_pending_remote("b" * 40, state="deployment-pending")
+                self.assertFalse(yoj_scheduler.verify_pending_remote())
+                self.assertTrue(yoj_scheduler.verify_pending_remote())
+                self.assertEqual(workflow.call_count, 2)
+                git.assert_not_called()
+                self.assertIsNone(yoj_scheduler.load_pending_remote())
+
     def test_released_folder_does_not_publish_raw_siblings(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             manifest = Path(directory) / "public-ready.json"

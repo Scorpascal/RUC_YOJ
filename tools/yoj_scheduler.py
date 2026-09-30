@@ -369,7 +369,39 @@ def verify_remote_workflow(commit_sha: str) -> bool:
         time.sleep(min(15, max(1, int(deadline - time.monotonic()))))
 
 
-def verify_pending_remote() -> bool:
+def push_pending_commit(commit_sha: str) -> bool:
+    """Retry only the exact commit previously cleared by publication gates."""
+
+    if os.environ.get("YOJ_SYNC_ALLOW_PUSH") != "1":
+        log("远端补推暂停：YOJ_SYNC_ALLOW_PUSH 不为 1")
+        return False
+    head = git_head_sha()
+    branch = subprocess.run(
+        ["git", "branch", "--show-current"], cwd=ROOT, capture_output=True, text=True, check=False
+    )
+    if head != commit_sha or branch.returncode or branch.stdout.strip() != "main":
+        log("远端补推暂停：分支或 HEAD 已变化，不能扩大已审核提交范围")
+        return False
+    ancestor = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", "origin/main", commit_sha],
+        cwd=ROOT, capture_output=True, text=True, check=False,
+    )
+    if ancestor.returncode:
+        log("远端补推暂停：提交并非 origin/main 的快进后继，未强推或覆盖远端")
+        return False
+    try:
+        pushed = subprocess.run(
+            ["git", "push", "origin", "main"], cwd=ROOT, capture_output=True,
+            text=True, timeout=120, check=False,
+        )
+    except subprocess.TimeoutExpired:
+        log("Git 补推超时；保留检查点，等待下一次定时重试")
+        return False
+    log(f"Git 补推：exit={pushed.returncode} {pushed.stdout[-1000:]}{pushed.stderr[-1000:]}")
+    return pushed.returncode == 0
+
+
+def verify_pending_remote(allow_push: bool = False) -> bool:
     pending = load_pending_remote()
     if not pending:
         return True
@@ -377,11 +409,23 @@ def verify_pending_remote() -> bool:
     if not re.fullmatch(r"[0-9a-f]{40}", commit_sha):
         log("调度暂停：远端部署检查点损坏；未继续自动发布")
         return False
-    log(f"恢复远端部署检查点：commit={commit_sha[:12]}")
+    state = str(pending.get("state") or "pending")
+    log(f"恢复远端同步检查点：commit={commit_sha[:12]} state={state}")
+    if state in {"push-pending", "push-failed"}:
+        if not allow_push:
+            log("远端补推待处理；本轮未授权 push，不继续新同步")
+            return False
+        if not push_pending_commit(commit_sha):
+            save_pending_remote(commit_sha, state="push-failed")
+            return False
+        save_pending_remote(commit_sha, state="deployment-pending")
+    elif state not in {"pending", "failed-or-pending", "deployment-pending"}:
+        log("调度暂停：远端同步检查点状态不受信")
+        return False
     if verify_remote_workflow(commit_sha):
         clear_pending_remote()
         return True
-    save_pending_remote(commit_sha, state="failed-or-pending")
+    save_pending_remote(commit_sha, state="deployment-pending")
     return False
 
 
@@ -974,6 +1018,18 @@ def publish(
     if not staged:
         log("发布跳过：没有可提交的白名单变化")
         return 0
+    if push and os.environ.get("YOJ_SYNC_ALLOW_PUSH") == "1":
+        head = git_head_sha()
+        branch = subprocess.run(
+            ["git", "branch", "--show-current"], cwd=ROOT, capture_output=True, text=True, check=False
+        )
+        tracking = subprocess.run(
+            ["git", "rev-parse", "origin/main"], cwd=ROOT, capture_output=True, text=True, check=False
+        )
+        if branch.returncode or branch.stdout.strip() != "main" or tracking.returncode or tracking.stdout.strip() != head:
+            log("发布暂停：分支不是 main、已有未审核的本地提交或远端跟踪状态不明；不扩大本轮推送范围")
+            subprocess.run(["git", "reset", "--", *staged], cwd=ROOT, check=False)
+            return 6
     if not run_staged_consistency_audit():
         subprocess.run(["git", "reset", "--", *staged], cwd=ROOT, check=False)
         return 5
@@ -988,18 +1044,12 @@ def publish(
     if os.environ.get("YOJ_SYNC_ALLOW_PUSH") != "1":
         log("已生成本地同步提交；YOJ_SYNC_ALLOW_PUSH 不为 1，未推送")
         return 0
-    branch = subprocess.run(
-        ["git", "branch", "--show-current"], cwd=ROOT, capture_output=True, text=True, check=True
-    ).stdout.strip()
-    if branch != "main":
-        log(f"推送暂停：当前分支为 {branch!r}，只允许明确的 main 调度工作树")
-        return 6
-    pushed = subprocess.run(["git", "push", "origin", "main"], cwd=ROOT, capture_output=True, text=True, check=False)
-    log(f"Git 推送：exit={pushed.returncode} {pushed.stdout[-1000:]}{pushed.stderr[-1000:]}")
-    if pushed.returncode:
-        return pushed.returncode
     commit_sha = git_head_sha()
-    save_pending_remote(commit_sha)
+    save_pending_remote(commit_sha, state="push-pending")
+    if not push_pending_commit(commit_sha):
+        save_pending_remote(commit_sha, state="push-failed")
+        return 8
+    save_pending_remote(commit_sha, state="deployment-pending")
     if not verify_remote_workflow(commit_sha):
         return 8
     clear_pending_remote()
@@ -1144,8 +1194,17 @@ def run_once(args: argparse.Namespace) -> int:
         # the previous cycle stopped before GitHub Actions/Pages reached a
         # terminal success, resolve that checkpoint before starting another
         # capture or publishing a second batch.
-        if not verify_pending_remote():
+        if not verify_pending_remote(allow_push=args.push):
             return 8
+        # An older local commit without a publication checkpoint cannot be
+        # assumed safe to push just because the working tree is clean.
+        if args.push:
+            tracking = subprocess.run(
+                ["git", "rev-parse", "origin/main"], cwd=ROOT, capture_output=True, text=True, check=False
+            )
+            if tracking.returncode or tracking.stdout.strip() != git_head_sha():
+                log("调度暂停：存在无远端检查点的本地提交；需先审阅，不能误报周期成功")
+                return 8
 
         environment = child_environment()
         if args.visibility_watch:
