@@ -395,15 +395,39 @@ class PublicCheckerTests(unittest.TestCase):
 
     def test_network_failure_is_bounded_and_not_missing_receipt(self):
         with patch.object(health.urllib.request, "urlopen", side_effect=OSError("PRIVATE_MARKER")) as request, \
+             patch.object(health.subprocess, "run", side_effect=OSError("PRIVATE_MARKER")) as fallback, \
              patch.object(health.time, "sleep"), self.assertRaisesRegex(health.HealthError, "OBSERVATION_ERROR"):
             health.public_json("git/ref/heads/example")
-        self.assertEqual(request.call_count, 3)
+        self.assertEqual(request.call_count + fallback.call_count, 3)
         self.assertFalse(request.call_args.args[0].has_header("Authorization"))
         for status in (403, 429, 500):
             error = urllib.error.HTTPError("https://example.invalid", status, "PRIVATE_MARKER", {}, None)
             with self.subTest(status=status), patch.object(health.urllib.request, "urlopen", side_effect=error), \
                  patch.object(health.time, "sleep"), self.assertRaises(health.HealthError):
                 health.public_json("git/ref/heads/example")
+
+    def test_system_tls_fallback_is_anonymous_verified_and_size_limited(self):
+        response = SimpleNamespace(returncode=0, stdout=b'{"ref":"safe"}\n200')
+        with patch.object(health.urllib.request, "urlopen", side_effect=OSError("certificate roots unavailable")), \
+             patch.object(health.subprocess, "run", return_value=response) as curl, patch.object(health.time, "sleep"):
+            self.assertEqual(health.public_json("git/ref/heads/example"), {"ref": "safe"})
+        command = curl.call_args.args[0]
+        self.assertEqual(command[:2], ["curl", "--disable"])
+        self.assertNotIn("--insecure", command)
+        self.assertNotIn("-k", command)
+        self.assertNotIn("Authorization", " ".join(command))
+        self.assertIn("--max-filesize", command)
+
+    def test_system_tls_http_error_is_not_a_receipt(self):
+        for status, missing in [(b"404", True), (b"403", False), (b"503", False)]:
+            with self.subTest(status=status), patch.object(health.urllib.request, "urlopen", side_effect=OSError("TLS roots")), \
+                 patch.object(health.subprocess, "run", return_value=SimpleNamespace(returncode=0, stdout=b'{}\n' + status)), \
+                 patch.object(health.time, "sleep"):
+                if missing:
+                    self.assertIsNone(health.public_json("git/ref/heads/example"))
+                else:
+                    with self.assertRaisesRegex(health.HealthError, "OBSERVATION_ERROR"):
+                        health.public_json("git/ref/heads/example")
 
     def test_cli_exit_distinguishes_scheduling_from_business_failure(self):
         import io

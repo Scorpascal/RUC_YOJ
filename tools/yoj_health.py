@@ -474,10 +474,31 @@ def public_json(endpoint: str) -> dict | None:
     """Anonymous, bounded API access. None means a genuine HTTP 404."""
     request = urllib.request.Request(f"https://api.github.com/repos/{REPOSITORY}/{endpoint}",
                                      headers={"Accept": "application/vnd.github+json", "User-Agent": "YOJ-nightly-health", "Cache-Control": "no-cache"})
+    use_system_tls = False
     for attempt in range(3):
         try:
-            with urllib.request.urlopen(request, timeout=10) as response:
-                raw = response.read(32769)
+            if use_system_tls:
+                # Some macOS Python installations lack the OS trust roots.
+                # Retain certificate verification and the same anonymous URL;
+                # --disable prevents ~/.curlrc from adding credentials/options.
+                response = subprocess.run(
+                    ["curl", "--disable", "--silent", "--show-error", "--location",
+                     "--proto", "=https", "--proto-redir", "=https", "--max-redirs", "3",
+                     "--max-time", "10", "--max-filesize", "32768", "--write-out", "\n%{http_code}",
+                     "-H", "Accept: application/vnd.github+json", "-H", "User-Agent: YOJ-nightly-health",
+                     "-H", "Cache-Control: no-cache", request.full_url],
+                    env=clean_environment(), capture_output=True, timeout=12, check=False,
+                )
+                raw, _, status = response.stdout.rpartition(b"\n")
+                if response.returncode:
+                    raise OSError("SYSTEM_HTTPS_UNAVAILABLE")
+                if status == b"404":
+                    return None
+                if status != b"200":
+                    raise OSError("SYSTEM_HTTPS_UNAVAILABLE")
+            else:
+                with urllib.request.urlopen(request, timeout=10) as response:
+                    raw = response.read(32769)
             if len(raw) > 32768:
                 raise HealthError("OBSERVATION_ERROR")
             value = json.loads(raw)
@@ -487,7 +508,9 @@ def public_json(endpoint: str) -> dict | None:
         except urllib.error.HTTPError as exc:
             if exc.code == 404:
                 return None
-        except (OSError, ValueError, UnicodeError):
+        except (OSError, subprocess.SubprocessError):
+            use_system_tls = True
+        except (ValueError, UnicodeError):
             pass
         if attempt < 2:
             time.sleep(attempt + 1)
