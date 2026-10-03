@@ -1,0 +1,56 @@
+name: Check local YOJ nightly schedule receipt
+
+on:
+  schedule:
+    - cron: "55 15 * * *" # UTC 15:55 = Asia/Shanghai 23:55
+  workflow_dispatch:
+    inputs:
+      cycle_date:
+        description: "Optional completed cycle date (YYYY-MM-DD)"
+        required: false
+        type: string
+  push:
+    branches: [main]
+    paths:
+      - "tools/yoj_health.py"
+      - "tools/yoj_launchd_guard.py"
+      - "tools/yoj_scheduler.py"
+      - "tests/test_yoj_health.py"
+      - ".github/workflows/nightly-health.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: yoj-nightly-health
+  cancel-in-progress: false
+
+jobs:
+  regression:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Verify observer isolation and existing publication gates
+        run: python3 -B -m unittest discover -s tests -q
+
+  check-receipt:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Check completed nightly cycles
+        env:
+          REQUESTED_CYCLE: ${{ inputs.cycle_date }}
+        run: >-
+          python3 -B tools/yoj_health.py check
+          --cycle-date "$REQUESTED_CYCLE"
+          --lookback-days 2
+          --summary "$GITHUB_STEP_SUMMARY"

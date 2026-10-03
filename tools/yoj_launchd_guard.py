@@ -103,14 +103,37 @@ def scheduler_command(visibility_watch: bool = False) -> list[str]:
 def run_scheduler(visibility_watch: bool = False) -> int:
     environment = os.environ.copy()
     environment["YOJ_ROOT"] = str(ROOT)
-    result = subprocess.run(
-        scheduler_command(visibility_watch),
-        cwd=ROOT,
-        env=environment,
-        check=False,
-    )
+    environment.pop("YOJ_HEALTH_CONTEXT", None)
+    context = health_observe("begin") if not visibility_watch else None
+    if context:
+        environment["YOJ_HEALTH_CONTEXT"] = context
+    result = None
+    try:
+        result = subprocess.run(
+            scheduler_command(visibility_watch),
+            cwd=ROOT,
+            env=environment,
+            check=False,
+        )
+    finally:
+        if context:
+            health_observe("finished", token=context, returncode=result.returncode if result else None)
+        else:
+            health_observe("flush")
     log(f"调度器结束：exit={result.returncode}")
     return result.returncode
+
+
+def health_observe(event: str, **kwargs: object) -> str | None:
+    """Optional telemetry must not affect the existing guard control flow."""
+    try:
+        if __package__:
+            from .yoj_health import observe
+        else:
+            from yoj_health import observe
+        return observe(ROOT, event, **kwargs)
+    except Exception:
+        return None
 
 
 def main() -> int:

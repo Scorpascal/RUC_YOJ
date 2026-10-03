@@ -1175,8 +1175,26 @@ def run_sentinel(args: argparse.Namespace) -> int:
     return 0
 
 
+def health_observe(args: argparse.Namespace, event: str, **kwargs: object) -> None:
+    """A guarded, optional observer; never changes admission or exit status."""
+    context = os.environ.get("YOJ_HEALTH_CONTEXT")
+    if not context or any(getattr(args, flag, False) for flag in ("dry_run", "visibility_watch", "drift_audit", "sentinel")):
+        return
+    if not all(getattr(args, flag, False) for flag in ("allow_submit", "publish", "push")):
+        return
+    try:
+        if __package__:
+            from .yoj_health import observe
+        else:
+            from yoj_health import observe
+        observe(ROOT, event, token=context, **kwargs)
+    except Exception:
+        pass
+
+
 def run_once(args: argparse.Namespace) -> int:
     if in_maintenance():
+        health_observe(args, "skipped", reason="MAINTENANCE")
         log("处于北京时间 23:55–00:10 维护窗口，本轮不访问 YOJ")
         return 0
     STATE_DIR.mkdir(parents=True, exist_ok=True)
@@ -1184,9 +1202,11 @@ def run_once(args: argparse.Namespace) -> int:
         try:
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError:
+            health_observe(args, "skipped", reason="LOCKED")
             log("已有调度实例运行，本轮退出")
             return 0
 
+        health_observe(args, "entered")
         if not validate_worktree_before_run():
             return 4
 
