@@ -143,6 +143,9 @@ def main() -> int:
         return 0
     if not in_update_window(current):
         if day_time(23, 30) <= current.time() < day_time(23, 55):
+            # Retry only already-recorded telemetry. Never invoke the business
+            # scheduler or manufacture a new cycle in the flexibility buffer.
+            health_observe("flush")
             log("北京时间 23:30–23:55 为维护前弹性缓冲，不启动新一轮自动化")
         else:
             log("不在北京时间 22:30–23:30 更新窗口，本次跳过；错过当天不补跑")

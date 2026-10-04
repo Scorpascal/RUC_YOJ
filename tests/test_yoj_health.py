@@ -246,6 +246,18 @@ class LocalHookTests(unittest.TestCase):
             self.assertNotIn("PRIVATE_MARKER", str(environment))
             self.assertNotIn("GIT_CONFIG_COUNT", environment)
 
+    def test_buffer_retries_receipts_only_and_maintenance_remains_quiet(self):
+        for moment, flush in [("23:30:00", True), ("23:45:00", True),
+                              ("23:54:59", True), ("23:55:00", False),
+                              ("00:05:00", False), ("21:00:00", False)]:
+            with self.subTest(moment=moment), patch.object(guard, "now_local", return_value=at(f"2026-10-04T{moment}+08:00")), \
+                 patch.object(guard, "health_observe") as observer, patch.object(guard, "run_scheduler") as run, \
+                 patch.object(guard, "save_state") as save, patch.object(guard, "log"):
+                self.assertEqual(guard.main(), 0)
+                self.assertEqual(observer.call_args_list, [unittest.mock.call("flush")] if flush else [])
+                run.assert_not_called()
+                save.assert_not_called()
+
 
 class DeliveryTests(unittest.TestCase):
     def setUp(self):
@@ -366,6 +378,68 @@ class DeliveryTests(unittest.TestCase):
             health.GitDelivery(self.root).git("ls-remote", health.REMOTE, health.REF)
         kill.assert_called_once_with(process.pid, health.signal.SIGKILL)
 
+    def test_replay_preserves_failed_journals_without_starting_a_new_cycle(self):
+        path = health.health_dir(self.root) / "receipts/2026-10-03.json"
+        original = receipt(code=3)
+        health.atomic_json(path, original)
+        before = path.read_bytes()
+        with patch.dict(os.environ, {"YOJ_SYNC_ALLOW_PUSH": "1"}), \
+             patch.object(health, "now_local", return_value=at("2026-10-05T12:00:00+08:00")):
+            self.assertIsNone(health.deliver(self.root))  # automatic mode still gated
+            sha = health.deliver(self.root, replay=True)
+        self.assertEqual(path.read_bytes(), before)
+        self.assertEqual(json.loads(self.git("--git-dir", str(self.remote), "show", f"{sha}:receipts/2026-10-03.json")), original)
+        self.assertEqual(list(path.parent.glob("*.json")), [path])
+        self.assertFalse((self.root / ".yoj-sync/launchd-cycle.json").exists())
+        self.assertFalse((health.health_dir(self.root) / "contexts").exists())
+
+    def test_replay_cannot_bypass_push_gate_maintenance_or_validation(self):
+        with patch.dict(os.environ, {"YOJ_SYNC_ALLOW_PUSH": "0"}), self.assertRaisesRegex(health.HealthError, "PUSH_DISABLED"):
+            health.deliver(self.root, replay=True)
+        with patch.dict(os.environ, {"YOJ_SYNC_ALLOW_PUSH": "1"}), self.assertRaisesRegex(health.HealthError, "OUTSIDE_DELIVERY_WINDOW"):
+            health.deliver(self.root, replay=True)  # 23:56
+        value = receipt()
+        value["private"] = "PRIVATE_MARKER"
+        health.atomic_json(health.health_dir(self.root) / "receipts/2026-10-03.json", value)
+        with patch.dict(os.environ, {"YOJ_SYNC_ALLOW_PUSH": "1"}), \
+             patch.object(health, "now_local", return_value=at("2026-10-05T12:00:00+08:00")), \
+             patch.object(health.GitDelivery, "publish") as publish, self.assertRaises(health.HealthError):
+            health.deliver(self.root, replay=True)
+        publish.assert_not_called()
+
+    def test_transient_failures_retry_fresh_snapshot_and_status_is_private_safe(self):
+        health.atomic_json(health.health_dir(self.root) / "receipts/2026-10-03.json", receipt(code=3))
+        for errors, expected, calls in [
+            ([health.HealthError("GIT_DELIVERY_FAILED"), "a" * 40], "DELIVERED", 2),
+            ([health.HealthError("DELIVERY_TIMEOUT")] * 3, "DELIVERY_FAILED", 3),
+            ([health.HealthError("RECEIPT_CONFLICT")], "DELIVERY_FAILED", 1),
+            ([OSError("PRIVATE_MARKER")], "DELIVERY_FAILED", 1),
+        ]:
+            with self.subTest(expected=expected, calls=calls), patch.dict(os.environ, {"YOJ_SYNC_ALLOW_PUSH": "1"}), \
+                 patch.object(health, "now_local", return_value=at("2026-10-05T12:00:00+08:00")), \
+                 patch.object(health.GitDelivery, "publish", side_effect=errors) as publish, patch.object(health.time, "sleep"):
+                if expected == "DELIVERED":
+                    health.deliver(self.root, replay=True)
+                else:
+                    with self.assertRaises((OSError, health.HealthError)):
+                        health.deliver(self.root, replay=True)
+            self.assertEqual(publish.call_count, calls)
+            status = json.loads((health.health_dir(self.root) / "delivery-status.json").read_bytes())
+            self.assertEqual(status["state"], expected)
+            self.assertNotIn("PRIVATE_MARKER", str(status))
+
+    def test_transient_retries_stop_when_total_budget_is_exhausted(self):
+        def exhausted(publisher, *args):
+            publisher.deadline = health.time.monotonic()
+            raise health.HealthError("DELIVERY_TIMEOUT")
+        with patch.dict(os.environ, {"YOJ_SYNC_ALLOW_PUSH": "1"}), \
+             patch.object(health, "now_local", return_value=at("2026-10-05T12:00:00+08:00")), \
+             patch.object(health.GitDelivery, "publish", autospec=True, side_effect=exhausted) as publish, \
+             patch.object(health.time, "sleep") as sleep, self.assertRaises(health.HealthError):
+            health.deliver(self.root, replay=True)
+        self.assertEqual(publish.call_count, 1)
+        sleep.assert_not_called()
+
 
 class PublicCheckerTests(unittest.TestCase):
     def item(self, payload):
@@ -439,8 +513,9 @@ class PublicCheckerTests(unittest.TestCase):
                 self.assertIn("::warning::", output.getvalue())
         with patch.object(health, "now_local", return_value=at()), \
              patch.object(health, "check_cycles", return_value=[{"cycleDate": "2026-10-03", "scheduleState": "NO_RECEIPT", "runState": "UNKNOWN"}]), \
-             patch.object(health.sys, "argv", ["yoj_health.py", "check"]), patch("sys.stdout", new_callable=io.StringIO):
+             patch.object(health.sys, "argv", ["yoj_health.py", "check"]), patch("sys.stdout", new_callable=io.StringIO) as output:
             self.assertEqual(health.main(), 1)
+            self.assertIn("::error::2026-10-03: scheduling=NO_RECEIPT", output.getvalue())
 
 
 if __name__ == "__main__":

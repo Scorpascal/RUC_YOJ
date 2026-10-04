@@ -39,6 +39,11 @@ AUTHOR = "Scorpascal"
 EMAIL = "229578631+Scorpascal@users.noreply.github.com"
 CONTEXT_ENV = "YOJ_HEALTH_CONTEXT"
 MAX_BYTES = 8192
+DELIVERY_BUDGET = 60
+GIT_STEP_TIMEOUT = 20
+DELIVERY_ERRORS = {"DELIVERY_TIMEOUT", "GIT_DELIVERY_FAILED", "RECEIPT_CONFLICT",
+                   "INVALID_RECEIPT", "INVALID_REMOTE", "INVALID_REMOTE_TREE",
+                   "LOCAL_STATE_ERROR"}
 ATTEMPT_KEYS = {"attemptNo", "invokedAt", "enteredAt", "finishedAt", "outcome", "exitCode", "skipReason"}
 DATE_RE = re.compile(r"\d{4}-\d{2}-\d{2}\Z")
 TOKEN_RE = re.compile(r"[0-9a-f]{32}\Z")
@@ -297,7 +302,7 @@ def merge_receipts(remote: dict, local: dict) -> dict:
 class GitDelivery:
     """An isolated object database with one fixed destination and no main ref."""
 
-    def __init__(self, root: Path, budget: float = 20):
+    def __init__(self, root: Path, budget: float = DELIVERY_BUDGET):
         self.directory = root / ".yoj-sync" / "health.git"
         self.deadline = time.monotonic() + budget
         self.environment = clean_environment()
@@ -314,7 +319,7 @@ class GitDelivery:
             stderr=subprocess.PIPE, start_new_session=True,
         )
         try:
-            output, _ = process.communicate(data, timeout=remaining)
+            output, _ = process.communicate(data, timeout=min(remaining, GIT_STEP_TIMEOUT))
         except subprocess.TimeoutExpired:
             # Kill this Git process group, including stalled transport/helpers;
             # the business scheduler belongs to a different process group.
@@ -406,11 +411,18 @@ class GitDelivery:
         return commit
 
 
-def deliver(root: Path, initialize: bool = False) -> str | None:
+def deliver(root: Path, initialize: bool = False, replay: bool = False) -> str | None:
+    """Send authentic journals only; replay is an explicit operator recovery.
+
+    Automatic delivery stays inside the nightly/buffer window. Replay changes
+    neither timestamps nor outcomes and cannot start the business scheduler.
+    """
     current = now_local()
     if os.environ.get("YOJ_SYNC_ALLOW_PUSH") != "1":
         raise HealthError("PUSH_DISABLED")
-    if initialize:
+    if initialize and replay:
+        raise HealthError("INVALID_DELIVERY_MODE")
+    if initialize or replay:
         if current.time() >= day_time(23, 55) or current.time() < day_time(0, 10):
             raise HealthError("OUTSIDE_DELIVERY_WINDOW")
     elif not network_window(current):
@@ -419,21 +431,41 @@ def deliver(root: Path, initialize: bool = False) -> str | None:
     started = time.monotonic()
     with exclusive(directory / "delivery.lock", wait=20):
         current = now_local()
-        if not initialize and not network_window(current):
+        if current.time() >= day_time(23, 55) or current.time() < day_time(0, 10):
+            return None
+        if not (initialize or replay) and not network_window(current):
             return None
         # Initialization publishes an empty branch, never a fabricated run.
         seconds_left = (datetime.combine(current.date(), day_time(23, 55), TZ) - current).total_seconds()
-        publisher = GitDelivery(root, min(20 - (time.monotonic() - started), seconds_left))
-        while True:
-            receipts = [] if initialize else [read_receipt(path, now_local()) for path in sorted((directory / "receipts").glob("*.json"))]
-            result = publisher.publish(receipts, initialize)
-            # A fast no-op can finish while its RUNNING receipt is uploading.
-            # Coalesce that final journal update within the same worker budget.
-            latest = [] if initialize else [read_receipt(path, now_local()) for path in sorted((directory / "receipts").glob("*.json"))]
-            if latest == receipts:
-                break
-        atomic_json(directory / "delivery-status.json", {"state": "DELIVERED", "checkedAt": stamp(now_local())})
-        return result
+        publisher = GitDelivery(root, min(DELIVERY_BUDGET - (time.monotonic() - started), seconds_left))
+        failures = 0
+        try:
+            while True:
+                receipts = [] if initialize else [read_receipt(path, now_local()) for path in sorted((directory / "receipts").glob("*.json"))]
+                try:
+                    result = publisher.publish(receipts, initialize)
+                except HealthError as exc:
+                    failures += 1
+                    if (str(exc) not in {"DELIVERY_TIMEOUT", "GIT_DELIVERY_FAILED"}
+                            or failures >= 3 or publisher.deadline - time.monotonic() <= 2):
+                        raise
+                    time.sleep(1)
+                    # Refresh the branch on retry, including after an ambiguous
+                    # push result; never blindly repeat a stale/force push.
+                    continue
+                # Coalesce a terminal journal update arriving during upload.
+                latest = [] if initialize else [read_receipt(path, now_local()) for path in sorted((directory / "receipts").glob("*.json"))]
+                if latest == receipts:
+                    break
+            atomic_json(directory / "delivery-status.json", {"state": "DELIVERED", "checkedAt": stamp(now_local())})
+            return result
+        except Exception as exc:
+            # Persist fixed categories locally: no Git stderr or credentials.
+            category = str(exc) if isinstance(exc, HealthError) and str(exc) in DELIVERY_ERRORS else "LOCAL_STATE_ERROR"
+            atomic_json(directory / "delivery-status.json", {
+                "state": "DELIVERY_FAILED", "checkedAt": stamp(now_local()), "category": category,
+            })
+            raise
 
 
 def expected_cycles(now: datetime, enabled_from: str, requested: str = "", lookback: int = 2) -> list[str]:
@@ -562,7 +594,7 @@ def render_summary(results: list[dict], error: str | None = None) -> str:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
-    for name in ("flush", "initialize"):
+    for name in ("flush", "initialize", "replay"):
         child = commands.add_parser(name)
         child.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
     check = commands.add_parser("check")
@@ -573,7 +605,7 @@ def main() -> int:
     args = parser.parse_args()
     if args.command != "check":
         try:
-            result = deliver(args.root.resolve(), initialize=args.command == "initialize")
+            result = deliver(args.root.resolve(), initialize=args.command == "initialize", replay=args.command == "replay")
             print(result or "NO_DELIVERY")
             return 0
         except Exception:
@@ -593,8 +625,12 @@ def main() -> int:
     print(summary)
     if args.summary:
         args.summary.write_text(summary, encoding="utf-8")
+    if error:
+        print(f"::error::Receipt check unavailable: {error}; scheduling is unknown")
     for result in results:
-        if result["scheduleState"] == "ON_TIME" and result["runState"] != "RETURNED_OK":
+        if result["scheduleState"] != "ON_TIME":
+            print(f"::error::{result['cycleDate']}: scheduling={result['scheduleState']}; no confirmed on-time receipt")
+        elif result["runState"] != "RETURNED_OK":
             print(f"::warning::{result['cycleDate']}: scheduled on time; execution={result['runState']}")
     return int(bool(error) or any(result["scheduleState"] != "ON_TIME" for result in results))
 

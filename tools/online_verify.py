@@ -21,9 +21,14 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlencode, urljoin
-from urllib.request import HTTPCookieProcessor, Request, build_opener
+from urllib.request import HTTPCookieProcessor, Request
 from urllib.error import URLError
 from http.cookiejar import CookieJar
+
+if __package__:
+    from .yoj_http import build_yoj_opener, validate_yoj_url
+else:
+    from yoj_http import build_yoj_opener, validate_yoj_url
 
 try:
     from release_gate import candidate_paths, local_gate_reasons
@@ -61,7 +66,7 @@ def clean_text(value: str) -> str:
 
 class YoJClient:
     def __init__(self) -> None:
-        self.opener = build_opener(HTTPCookieProcessor(CookieJar()))
+        self.opener = build_yoj_opener(HTTPCookieProcessor(CookieJar()))
         self.login_user = os.environ.get("YOJ_LOGIN_USER", "")
         self.login_pass = os.environ.get("YOJ_LOGIN_PASS", "")
 
@@ -73,6 +78,7 @@ class YoJClient:
         retry_safe: bool = False,
     ) -> str:
         url = urljoin(BASE + "/", path)
+        validate_yoj_url(url)
         body = urlencode(data or {}).encode("utf-8") if data is not None else None
         headers = {
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X) YOJ-verification-runner",

@@ -22,7 +22,12 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
-from urllib.request import Request, urlopen
+from urllib.request import Request
+
+if __package__:
+    from .yoj_http import build_yoj_opener, validate_yoj_url
+else:
+    from yoj_http import build_yoj_opener, validate_yoj_url
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -94,11 +99,12 @@ def public_page_links(page: str) -> dict[int, str]:
 
 
 def fetch_page(url: str = PUBLIC_INDEX_URL) -> str:
+    validate_yoj_url(url)
     request = Request(
         url,
         headers={"User-Agent": "RUC_YOJ-public-availability-audit/1.0"},
     )
-    with urlopen(request, timeout=REQUEST_TIMEOUT) as response:
+    with build_yoj_opener().open(request, timeout=REQUEST_TIMEOUT) as response:
         body = response.read()
         charset = response.headers.get_content_charset() or "utf-8"
     return body.decode(charset, errors="replace")

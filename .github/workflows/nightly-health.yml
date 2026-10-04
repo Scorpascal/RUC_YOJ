@@ -15,7 +15,11 @@ on:
       - "tools/yoj_health.py"
       - "tools/yoj_launchd_guard.py"
       - "tools/yoj_scheduler.py"
+      - "tools/yoj_http.py"
+      - "tools/audit_online_availability.py"
+      - "tools/online_verify.py"
       - "tests/test_yoj_health.py"
+      - "tests/test_yoj_http.py"
       - ".github/workflows/nightly-health.yml"
 
 permissions:
