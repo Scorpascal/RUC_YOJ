@@ -39,12 +39,76 @@ def arguments(**overrides) -> argparse.Namespace:
     return argparse.Namespace(**{**values, **overrides})
 
 
+def sync_evidence(source="AVAILABLE", state="SUCCEEDED", reason="NONE",
+                  successful="2026-10-03T22:40:00+08:00") -> dict:
+    return {"sourceState": source, "syncState": state, "reason": reason,
+            "lastSuccessfulSyncAt": successful}
+
+
+def sync_status(**overrides) -> dict:
+    return {"schemaVersion": 1, "startedAt": "2026-10-03T22:30:00+08:00",
+            "finishedAt": "2026-10-03T22:40:00+08:00", "mode": "MAIN",
+            "retryAfter": None, **sync_evidence(), **overrides}
+
+
 class ReceiptTests(unittest.TestCase):
     def test_no_change_and_business_failure_both_prove_scheduled_execution(self):
         for code, run in [(0, "RETURNED_OK"), (3, "RETURNED_NONZERO"), (4, "RETURNED_NONZERO"), (8, "RETURNED_NONZERO")]:
             with self.subTest(code=code):
                 result = health.classify(receipt(code=code), "2026-10-03", at())
                 self.assertEqual((result["scheduleState"], result["runState"]), ("ON_TIME", run))
+                self.assertEqual((result["sourceState"], result["syncState"]), ("UNKNOWN", "UNKNOWN"))
+                self.assertIsNone(result["lastSuccessfulSyncAt"])
+
+    def test_explicit_success_including_no_change_is_separate_from_scheduling(self):
+        value = receipt()
+        value["attempts"][0]["sync"] = sync_evidence()
+        result = health.classify(value, value["cycleDate"], at())
+        self.assertEqual((result["scheduleState"], result["sourceState"], result["syncState"]),
+                         ("ON_TIME", "AVAILABLE", "SUCCEEDED"))
+        self.assertEqual(result["lastSuccessfulSyncAt"], value["attempts"][0]["finishedAt"])
+
+    def test_blocked_and_incomplete_sources_do_not_become_sync_success(self):
+        for source, state, reason in [("BLOCKED", "BLOCKED", "YOJ_TLS_CERTIFICATE_ERROR"),
+                                     ("AVAILABLE", "INCOMPLETE", "YOJ_AUTH_REQUIRED"),
+                                     ("TRANSIENT_ERROR", "BLOCKED", "YOJ_TRANSIENT_NETWORK_ERROR")]:
+            with self.subTest(reason=reason):
+                value = receipt(code=3)
+                value["attempts"][0]["sync"] = sync_evidence(source, state, reason, "2026-10-02T22:40:00+08:00")
+                result = health.classify(value, value["cycleDate"], at())
+                self.assertEqual((result["scheduleState"], result["sourceState"], result["syncState"]),
+                                 ("ON_TIME", source, state))
+                self.assertEqual(result["lastSuccessfulSyncAt"], "2026-10-02T22:40:00+08:00")
+
+    def test_optional_sync_rejects_private_unknown_or_unproven_success(self):
+        mutations = [lambda a: a["sync"].update(url="PRIVATE_MARKER"),
+                     lambda a: a["sync"].update(reason="PRIVATE_MARKER"),
+                     lambda a: a["sync"].update(sourceState=[]),
+                     lambda a: a["sync"].update(syncState="UNKNOWN"),
+                     lambda a: a["sync"].update(lastSuccessfulSyncAt="2026-10-03T22:40:00Z"),
+                     lambda a: a["sync"].update(lastSuccessfulSyncAt="2026-10-03T22:40:01+08:00"),
+                     lambda a: a["sync"].update(lastSuccessfulSyncAt="2026-10-02T22:40:00+08:00"),
+                     lambda a: a["sync"].update(lastSuccessfulSyncAt=None),
+                     lambda a: a["sync"].update(sourceState="BLOCKED"),
+                     lambda a: a.update(enteredAt=None), lambda a: a.update(exitCode=3),
+                     lambda a: a.update(outcome="RUNNING", finishedAt=None, exitCode=None)]
+        for mutate in mutations:
+            value = receipt()
+            attempt = value["attempts"][0]
+            attempt["sync"] = sync_evidence()
+            mutate(attempt)
+            with self.subTest(value=value), self.assertRaises(health.HealthError):
+                health.validate(value, value["cycleDate"], at())
+
+    def test_latest_unknown_attempt_does_not_erase_previous_success_time(self):
+        value = receipt()
+        value["attempts"][0]["sync"] = sync_evidence()
+        second = copy.deepcopy(receipt(outcome="RUNNING")["attempts"][0])
+        second.update(attemptNo=2, invokedAt="2026-10-03T22:45:00+08:00", enteredAt="2026-10-03T22:45:01+08:00")
+        value["attempts"].append(second)
+        result = health.classify(value, value["cycleDate"], at())
+        self.assertEqual(result["syncState"], "UNKNOWN")
+        self.assertEqual(result["lastSuccessfulSyncAt"], "2026-10-03T22:40:00+08:00")
 
     def test_missing_terminal_does_not_guess_alive_or_dead(self):
         result = health.classify(receipt(outcome="RUNNING"), "2026-10-03", at())
@@ -122,6 +186,18 @@ class ReceiptTests(unittest.TestCase):
         with self.assertRaises(health.HealthError):
             health.merge_receipts(done, unrelated)
 
+    def test_optional_sync_can_only_extend_an_identical_terminal_receipt(self):
+        old = receipt()
+        new = copy.deepcopy(old)
+        new["attempts"][0]["sync"] = sync_evidence()
+        self.assertEqual(health.merge_receipts(old, new), new)
+        self.assertEqual(health.merge_receipts(new, old), new)
+        self.assertEqual(health.merge_receipts(new, new), new)
+        changed = copy.deepcopy(new)
+        changed["attempts"][0]["sync"]["lastSuccessfulSyncAt"] = "2026-10-03T22:39:00+08:00"
+        with self.assertRaises(health.HealthError):
+            health.merge_receipts(new, changed)
+
     def test_due_date_uses_beijing_deadline_not_elapsed_24_hours(self):
         for value, expected in [
             ("2026-10-03T23:54:59+08:00", ["2026-10-02", "2026-10-01"]),
@@ -161,6 +237,29 @@ class LocalHookTests(unittest.TestCase):
         payload = self.read()
         self.assertEqual(payload["attempts"][0]["exitCode"], 8)
         self.assertNotIn("PRIVATE_MARKER", health.encode(payload).decode())
+
+    def test_sync_evidence_is_optional_and_invalid_evidence_does_not_lose_completion(self):
+        token = health.observe(self.root, "begin")
+        health.observe(self.root, "entered", token=token)
+        self.clock.return_value = at("2026-10-03T22:40:00+08:00")
+        health.observe(self.root, "finished", token=token, returncode=0, sync=sync_evidence())
+        self.assertEqual(self.read()["attempts"][0]["sync"], sync_evidence())
+        token = health.observe(self.root, "begin")
+        health.observe(self.root, "entered", token=token)
+        invalid = {**sync_evidence(), "token": "PRIVATE_MARKER"}
+        health.observe(self.root, "finished", token=token, returncode=0, sync=invalid)
+        attempt = self.read()["attempts"][-1]
+        self.assertEqual((attempt["outcome"], attempt["exitCode"]), ("RETURNED", 0))
+        self.assertNotIn("sync", attempt)
+        self.assertNotIn("PRIVATE_MARKER", health.encode(self.read()).decode())
+
+    def test_unentered_success_evidence_cannot_manufacture_sync_success(self):
+        token = health.observe(self.root, "begin")
+        self.clock.return_value = at("2026-10-03T22:40:00+08:00")
+        health.observe(self.root, "finished", token=token, returncode=0, sync=sync_evidence())
+        attempt = self.read()["attempts"][0]
+        self.assertEqual(attempt["outcome"], "RETURNED")
+        self.assertNotIn("sync", attempt)
 
     def test_returned_zero_does_not_overwrite_lock_skip(self):
         token = health.observe(self.root, "begin")
@@ -257,6 +356,271 @@ class LocalHookTests(unittest.TestCase):
                 self.assertEqual(observer.call_args_list, [unittest.mock.call("flush")] if flush else [])
                 run.assert_not_called()
                 save.assert_not_called()
+
+
+class GuardStatusTests(unittest.TestCase):
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary.cleanup)
+        self.root = Path(self.temporary.name)
+        self.directory = self.root / ".yoj-sync"
+        self.directory.mkdir()
+        self.path = self.directory / guard.SYNC_STATUS_NAME
+        self.started = at("2026-10-03T22:30:00+08:00")
+        self.finished = at("2026-10-03T22:40:00+08:00")
+        for name, value in [("ROOT", self.root), ("STATE_DIR", self.directory),
+                            ("GUARD_LOCK_PATH", self.directory / "launchd-guard.lock")]:
+            patch.object(guard, name, value).start()
+        self.guard_clock = patch.object(guard, "now_local", return_value=self.started).start()
+        self.health_clock = patch.object(health, "now_local", return_value=self.started).start()
+        patch.object(health, "spawn_delivery").start()
+        patch.object(guard, "log").start()
+        self.addCleanup(patch.stopall)
+
+    def write(self, payload=None, *, raw=None, modified=None):
+        self.path.write_bytes(raw if raw is not None else health.encode(payload or sync_status()))
+        moment = (modified or self.finished).timestamp()
+        os.utime(self.path, (moment, moment))
+
+    def test_fresh_full_success_status_and_return_code_are_both_required(self):
+        self.write()
+        self.assertEqual(guard.read_current_sync(self.started, self.finished, 0), sync_evidence())
+        for code in (3, -15, None):
+            self.assertIsNone(guard.read_current_sync(self.started, self.finished, code))
+
+    def test_current_invocation_id_is_required_when_guard_supplies_it(self):
+        invocation = "a" * 32
+        self.write()
+        self.assertIsNone(guard.read_current_sync(self.started, self.finished, 0, invocation_id=invocation))
+        self.write(sync_status(invocationId=invocation))
+        self.assertEqual(guard.read_current_sync(self.started, self.finished, 0, invocation_id=invocation), sync_evidence())
+        self.assertIsNone(guard.read_current_sync(self.started, self.finished, 0, invocation_id="b" * 32))
+        self.write(sync_status(invocationId="invalid"))
+        self.assertIsNone(guard.read_current_sync(self.started, self.finished, 0))
+
+    def test_status_rejects_stale_oversized_symlink_nonregular_or_invalid_payload(self):
+        cases = [sync_status(mode="VISIBILITY"), sync_status(schemaVersion=True),
+                 sync_status(token="PRIVATE_MARKER"), sync_status(reason="PRIVATE_MARKER"),
+                 sync_status(startedAt="2026-10-03T22:29:59+08:00"),
+                 sync_status(finishedAt="2026-10-03T22:40:01+08:00"),
+                 sync_status(lastSuccessfulSyncAt="2026-10-03T22:39:00+08:00"),
+                 sync_status(retryAfter="2026-10-03T22:35:00+08:00")]
+        for payload in cases:
+            with self.subTest(payload=payload):
+                self.write(payload)
+                self.assertIsNone(guard.read_current_sync(self.started, self.finished, 0))
+        self.write(modified=at("2026-10-03T22:29:59+08:00"))
+        self.assertIsNone(guard.read_current_sync(self.started, self.finished, 0))
+        self.write(raw=b" " * (guard.MAX_STATUS_BYTES + 1))
+        self.assertIsNone(guard.read_current_sync(self.started, self.finished, 0))
+        self.write(raw=health.encode(sync_status()).replace(b'"mode":"MAIN"', b'"mode":"MAIN","mode":"MAIN"'))
+        self.assertIsNone(guard.read_current_sync(self.started, self.finished, 0))
+        target = self.root / "status.json"
+        self.path.replace(target)
+        self.path.symlink_to(target)
+        self.assertIsNone(guard.read_current_sync(self.started, self.finished, 0))
+        self.path.unlink()
+        os.mkfifo(self.path)
+        self.assertIsNone(guard.read_current_sync(self.started, self.finished, 0))
+
+    def test_guard_attaches_only_this_run_evidence_and_preserves_business_exit(self):
+        for code, state, source, reason in [(0, "SUCCEEDED", "AVAILABLE", "NONE"),
+                                            (3, "BLOCKED", "BLOCKED", "YOJ_TLS_CERTIFICATE_ERROR")]:
+            with self.subTest(code=code):
+                if code == 3:
+                    self.started, self.finished = at("2026-10-03T22:45:00+08:00"), at("2026-10-03T22:50:00+08:00")
+                self.guard_clock.return_value = self.started
+                self.health_clock.return_value = self.started
+                successful = "2026-10-03T22:40:00+08:00" if code == 0 else "2026-10-02T22:40:00+08:00"
+                payload = sync_status(startedAt=health.stamp(self.started), finishedAt=health.stamp(self.finished),
+                                      syncState=state, sourceState=source, reason=reason, lastSuccessfulSyncAt=successful)
+                def run(*args, **kwargs):
+                    health.observe(self.root, "entered", token=kwargs["env"][health.CONTEXT_ENV])
+                    payload["invocationId"] = kwargs["env"][guard.INVOCATION_ENV]
+                    self.write(payload)
+                    self.guard_clock.return_value = self.finished
+                    self.health_clock.return_value = self.finished
+                    return SimpleNamespace(returncode=code)
+                with patch.object(guard.subprocess, "run", side_effect=run):
+                    self.assertEqual(guard.run_scheduler(), code)
+                journal = health.read_receipt(health.health_dir(self.root) / "receipts/2026-10-03.json")
+                self.assertEqual(journal["attempts"][-1]["sync"], {key: payload[key] for key in health.SYNC_KEYS})
+                self.assertNotIn(payload["invocationId"], health.encode(journal).decode())
+
+    def test_stale_or_io_failure_does_not_change_exit_and_does_not_create_sync_evidence(self):
+        self.write(modified=at("2026-10-03T22:29:59+08:00"))
+        def run(*args, **kwargs):
+            health.observe(self.root, "entered", token=kwargs["env"][health.CONTEXT_ENV])
+            self.guard_clock.return_value = self.finished
+            self.health_clock.return_value = self.finished
+            return SimpleNamespace(returncode=3)
+        with patch.object(guard.subprocess, "run", side_effect=run):
+            self.assertEqual(guard.run_scheduler(), 3)
+        journal = health.read_receipt(health.health_dir(self.root) / "receipts/2026-10-03.json")
+        self.assertNotIn("sync", journal["attempts"][0])
+        with patch.object(guard, "read_bounded_object", side_effect=OSError("PRIVATE_MARKER")), \
+             patch.object(guard.subprocess, "run", return_value=SimpleNamespace(returncode=8)):
+            self.assertEqual(guard.run_scheduler(), 8)
+
+    def test_checkpoint_accepts_explicit_success_or_confirmed_legacy_entry_only(self):
+        cases = [(0, sync_evidence(), True, True, True),
+                 (0, sync_evidence("UNKNOWN", "SKIPPED", "SYNC_SKIPPED", None), True, False, False),
+                 (0, sync_evidence("AVAILABLE", "INCOMPLETE", "SYNC_INCOMPLETE", None), True, True, False),
+                 (3, sync_evidence("BLOCKED", "BLOCKED", "YOJ_TLS_CERTIFICATE_ERROR", None), True, True, False),
+                 (0, None, True, True, False), (0, None, False, True, True), (0, None, False, False, False)]
+        for code, evidence, has_status, admitted, succeeds in cases:
+            with self.subTest(code=code, evidence=evidence, has_status=has_status, admitted=admitted):
+                def run(visibility_watch=False):
+                    self.assertFalse(visibility_watch)
+                    guard._last_run_sync, guard._last_run_admitted, guard._last_run_has_status = evidence, admitted, has_status
+                    return code
+                with patch.object(guard, "load_state", return_value={}), patch.object(guard, "run_scheduler", side_effect=run), \
+                     patch.object(guard, "save_state") as save:
+                    self.assertEqual(guard.main(), code)
+                    self.assertEqual(save.called, succeeds)
+                    if succeeds:
+                        self.assertEqual(save.call_args.args[0]["lastSuccessfulCycle"], "2026-10-03")
+                        if evidence:
+                            self.assertEqual(save.call_args.args[0]["lastSuccessfulAt"], evidence["lastSuccessfulSyncAt"])
+
+    def test_actual_scheduler_lock_and_maintenance_zero_do_not_admit_or_checkpoint(self):
+        for skip in ("LOCKED", "MAINTENANCE"):
+            with self.subTest(skip=skip):
+                self.guard_clock.return_value = self.started
+                self.health_clock.return_value = self.started
+                def run(*args, **kwargs):
+                    health.observe(self.root, "skipped", token=kwargs["env"][health.CONTEXT_ENV], reason=skip)
+                    return SimpleNamespace(returncode=0)
+                with patch.object(guard, "load_state", return_value={}), \
+                     patch.object(guard.subprocess, "run", side_effect=run), patch.object(guard, "save_state") as save:
+                    self.assertEqual(guard.main(), 0)
+                    save.assert_not_called()
+                self.assertFalse(guard._last_run_admitted)
+                self.assertTrue(guard._last_run_skipped)
+
+    def test_known_lock_skip_rejects_old_fresh_and_same_second_concurrent_success(self):
+        cases = [("old", "2026-10-03T22:30:00.100000+08:00", "2026-10-03T22:30:01.300000+08:00",
+                  "2026-10-03T22:29:00+08:00", "2026-10-03T22:29:01+08:00", "2026-10-03T22:29:01+08:00"),
+                 ("fresh", "2026-10-03T22:45:00.100000+08:00", "2026-10-03T22:45:01.300000+08:00",
+                  "2026-10-03T22:45:00+08:00", "2026-10-03T22:45:01+08:00", "2026-10-03T22:45:01.200000+08:00"),
+                 ("same-second", "2026-10-03T23:00:00.100000+08:00", "2026-10-03T23:00:00.300000+08:00",
+                  "2026-10-03T23:00:00+08:00", "2026-10-03T23:00:00+08:00", "2026-10-03T23:00:00.200000+08:00")]
+        for name, start, finish, status_start, status_finish, modified in cases:
+            with self.subTest(status=name):
+                self.started, self.finished = at(start), at(finish)
+                self.guard_clock.return_value = self.started
+                self.health_clock.return_value = self.started
+                payload = sync_status(startedAt=status_start, finishedAt=status_finish,
+                                      lastSuccessfulSyncAt=status_finish)
+                self.write(payload, modified=at(modified))
+                if name != "old":
+                    # These shared times pass freshness checks independently;
+                    # the local skip must veto their attribution to this run.
+                    self.assertEqual(guard.read_current_sync(self.started, self.finished, 0)["syncState"], "SUCCEEDED")
+                def run(*args, **kwargs):
+                    health.observe(self.root, "skipped", token=kwargs["env"][health.CONTEXT_ENV], reason="LOCKED")
+                    payload["invocationId"] = kwargs["env"][guard.INVOCATION_ENV]
+                    self.write(payload, modified=at(modified))
+                    self.guard_clock.return_value = self.finished
+                    self.health_clock.return_value = self.finished
+                    return SimpleNamespace(returncode=0)
+                with patch.object(guard, "load_state", return_value={}), \
+                     patch.object(guard.subprocess, "run", side_effect=run), patch.object(guard, "save_state") as save:
+                    self.assertEqual(guard.main(), 0)
+                    save.assert_not_called()
+                self.assertTrue(guard._last_run_skipped)
+                self.assertIsNone(guard._last_run_sync)
+                attempt = health.read_receipt(health.health_dir(self.root) / "receipts/2026-10-03.json")["attempts"][-1]
+                self.assertEqual((attempt["outcome"], attempt["skipReason"]), ("SKIPPED", "LOCKED"))
+                self.assertNotIn("sync", attempt)
+
+    def test_unknown_entry_keeps_strict_current_success_checkpoint_compatibility(self):
+        def run(*args, **kwargs):
+            self.write(sync_status(invocationId=kwargs["env"][guard.INVOCATION_ENV]))
+            self.guard_clock.return_value = self.finished
+            self.health_clock.return_value = self.finished
+            return SimpleNamespace(returncode=0)
+        with patch.object(guard, "observed_entry", return_value="UNKNOWN"), \
+             patch.object(guard, "load_state", return_value={}), \
+             patch.object(guard.subprocess, "run", side_effect=run), patch.object(guard, "save_state") as save:
+            self.assertEqual(guard.main(), 0)
+            save.assert_called_once()
+        self.assertFalse(guard._last_run_skipped)
+        self.assertEqual(guard._last_run_sync["syncState"], "SUCCEEDED")
+        attempt = health.read_receipt(health.health_dir(self.root) / "receipts/2026-10-03.json")["attempts"][-1]
+        self.assertNotIn("sync", attempt)  # unentered receipt remains UNKNOWN
+
+    def test_unknown_entry_cannot_borrow_another_same_second_invocation_success(self):
+        self.started = at("2026-10-03T22:30:00.100000+08:00")
+        self.finished = at("2026-10-03T22:30:00.300000+08:00")
+        self.guard_clock.return_value = self.started
+        self.health_clock.return_value = self.started
+        def run(*args, **kwargs):
+            other = "a" * 32 if kwargs["env"][guard.INVOCATION_ENV] != "a" * 32 else "b" * 32
+            self.write(sync_status(finishedAt="2026-10-03T22:30:00+08:00",
+                                   lastSuccessfulSyncAt="2026-10-03T22:30:00+08:00", invocationId=other),
+                       modified=at("2026-10-03T22:30:00.200000+08:00"))
+            self.assertEqual(guard.read_current_sync(self.started, self.finished, 0)["syncState"], "SUCCEEDED")
+            self.guard_clock.return_value = self.finished
+            self.health_clock.return_value = self.finished
+            return SimpleNamespace(returncode=0)
+        with patch.object(guard, "observed_entry", return_value="UNKNOWN"), \
+             patch.object(guard, "load_state", return_value={}), \
+             patch.object(guard.subprocess, "run", side_effect=run), patch.object(guard, "save_state") as save:
+            self.assertEqual(guard.main(), 0)
+            save.assert_not_called()
+        self.assertFalse(guard._last_run_skipped)
+        self.assertIsNone(guard._last_run_sync)
+
+    def test_scheduler_status_wrapper_guard_and_receipt_agree_without_real_business_commands(self):
+        cases = [("22:30:00", "22:40:00", "SUCCEEDED", 0),
+                 ("22:45:00", "22:45:01", "SKIPPED", 0),
+                 ("23:00:00", "23:01:00", "INCOMPLETE", 0),
+                 ("23:15:00", "23:16:00", "BLOCKED", 3)]
+        for start, finish, state, code in cases:
+            with self.subTest(state=state):
+                self.started, self.finished = at(f"2026-10-03T{start}+08:00"), at(f"2026-10-03T{finish}+08:00")
+                self.guard_clock.return_value = self.started
+                self.health_clock.return_value = self.started
+                args = arguments()
+                previous_status = self.path.read_bytes() if self.path.exists() else None
+                def business(_args):
+                    context = scheduler._SYNC_CONTEXT.get()
+                    if state == "SKIPPED":
+                        scheduler.health_observe(args, "skipped", reason="LOCKED")
+                    else:
+                        scheduler.health_observe(args, "entered")
+                        context.update(admitted=True, sourceState="BLOCKED" if state == "BLOCKED" else "AVAILABLE",
+                                       sourceReason="YOJ_TLS_CERTIFICATE_ERROR" if state == "BLOCKED" else "NONE",
+                                       complete=state == "SUCCEEDED")
+                    self.guard_clock.return_value = self.finished
+                    self.health_clock.return_value = self.finished
+                    return code
+                def process(*_args, **kwargs):
+                    with patch.dict(os.environ, kwargs["env"]):
+                        result = scheduler.run_once(args)
+                    if state != "SKIPPED":
+                        moment = self.finished.timestamp()
+                        os.utime(self.path, (moment, moment))
+                    return SimpleNamespace(returncode=result)
+                with patch.object(scheduler, "ROOT", self.root), patch.object(scheduler, "STATE_DIR", self.directory), \
+                     patch.object(scheduler, "now_local", side_effect=lambda: self.guard_clock.return_value), \
+                     patch.object(scheduler, "_run_once", side_effect=business), \
+                     patch.object(guard.subprocess, "run", side_effect=process), \
+                     patch.object(guard, "load_state", return_value={}), patch.object(guard, "save_state") as save:
+                    self.assertEqual(guard.main(), code)
+                    self.assertEqual(save.called, state == "SUCCEEDED")
+                journal = health.read_receipt(health.health_dir(self.root) / "receipts/2026-10-03.json")
+                latest = journal["attempts"][-1]
+                if state == "SKIPPED":
+                    self.assertEqual(latest["outcome"], "SKIPPED")
+                    self.assertEqual(latest["skipReason"], "LOCKED")
+                    self.assertNotIn("sync", latest)
+                    self.assertEqual(self.path.read_bytes(), previous_status)
+                    self.assertIsNone(guard._last_run_sync)
+                else:
+                    self.assertEqual(latest["sync"]["syncState"], state)
+                    self.assertEqual(latest["sync"]["lastSuccessfulSyncAt"], "2026-10-03T22:40:00+08:00")
 
 
 class DeliveryTests(unittest.TestCase):
@@ -381,6 +745,8 @@ class DeliveryTests(unittest.TestCase):
     def test_replay_preserves_failed_journals_without_starting_a_new_cycle(self):
         path = health.health_dir(self.root) / "receipts/2026-10-03.json"
         original = receipt(code=3)
+        original["attempts"][0]["sync"] = sync_evidence("BLOCKED", "BLOCKED", "YOJ_TLS_CERTIFICATE_ERROR",
+                                                      "2026-10-02T22:40:00+08:00")
         health.atomic_json(path, original)
         before = path.read_bytes()
         with patch.dict(os.environ, {"YOJ_SYNC_ALLOW_PUSH": "1"}), \
@@ -392,6 +758,9 @@ class DeliveryTests(unittest.TestCase):
         self.assertEqual(list(path.parent.glob("*.json")), [path])
         self.assertFalse((self.root / ".yoj-sync/launchd-cycle.json").exists())
         self.assertFalse((health.health_dir(self.root) / "contexts").exists())
+        result = health.classify(original, original["cycleDate"], at("2026-10-05T12:00:00+08:00"))
+        self.assertEqual((result["syncState"], result["lastSuccessfulSyncAt"]),
+                         ("BLOCKED", "2026-10-02T22:40:00+08:00"))
 
     def test_replay_cannot_bypass_push_gate_maintenance_or_validation(self):
         with patch.dict(os.environ, {"YOJ_SYNC_ALLOW_PUSH": "0"}), self.assertRaisesRegex(health.HealthError, "PUSH_DISABLED"):
@@ -492,6 +861,22 @@ class PublicCheckerTests(unittest.TestCase):
         self.assertNotIn("Authorization", " ".join(command))
         self.assertIn("--max-filesize", command)
 
+    def test_http_error_response_is_closed_on_404_and_repeated_retries(self):
+        import io
+        for status, calls in [(404, 1), (403, 3)]:
+            with self.subTest(status=status):
+                stream = io.BytesIO(b"fixture response")
+                error = urllib.error.HTTPError("https://example.invalid", status, "PRIVATE_MARKER", {}, stream)
+                with patch.object(health.urllib.request, "urlopen", side_effect=error) as request, \
+                     patch.object(health.time, "sleep"):
+                    if status == 404:
+                        self.assertIsNone(health.public_json("git/ref/heads/example"))
+                    else:
+                        with self.assertRaisesRegex(health.HealthError, "OBSERVATION_ERROR"):
+                            health.public_json("git/ref/heads/example")
+                self.assertEqual(request.call_count, calls)
+                self.assertTrue(stream.closed)
+
     def test_system_tls_http_error_is_not_a_receipt(self):
         for status, missing in [(b"404", True), (b"403", False), (b"503", False)]:
             with self.subTest(status=status), patch.object(health.urllib.request, "urlopen", side_effect=OSError("TLS roots")), \
@@ -516,6 +901,28 @@ class PublicCheckerTests(unittest.TestCase):
              patch.object(health.sys, "argv", ["yoj_health.py", "check"]), patch("sys.stdout", new_callable=io.StringIO) as output:
             self.assertEqual(health.main(), 1)
             self.assertIn("::error::2026-10-03: scheduling=NO_RECEIPT", output.getvalue())
+
+    def test_optional_sync_requirement_and_summary_do_not_change_default_schedule_check(self):
+        import io
+        succeeded, blocked, legacy = receipt(), receipt(code=3), receipt()
+        succeeded["attempts"][0]["sync"] = sync_evidence()
+        blocked["attempts"][0]["sync"] = sync_evidence("BLOCKED", "BLOCKED", "YOJ_TLS_CERTIFICATE_ERROR",
+                                                      "2026-10-02T22:40:00+08:00")
+        for payload, required, expected in [(legacy, False, 0), (legacy, True, 1), (succeeded, True, 0),
+                                             (blocked, False, 0), (blocked, True, 1)]:
+            with self.subTest(required=required, sync=payload["attempts"][0].get("sync")):
+                result = health.classify(payload, "2026-10-03", at())
+                argv = ["yoj_health.py", "check"] + (["--require-sync"] if required else [])
+                with patch.object(health, "now_local", return_value=at()), patch.object(health, "check_cycles", return_value=[result]), \
+                     patch.object(health.sys, "argv", argv), patch("sys.stdout", new_callable=io.StringIO) as output:
+                    self.assertEqual(health.main(), expected)
+                rendered = output.getvalue()
+                self.assertIn("| Scheduling | Execution | Source | Sync | Reason | Last successful sync", rendered)
+                if payload is legacy:
+                    self.assertIn("sync=UNKNOWN", rendered)
+                if payload is blocked:
+                    self.assertIn("source=BLOCKED; sync=BLOCKED; reason=YOJ_TLS_CERTIFICATE_ERROR", rendered)
+                    self.assertIn("2026-10-02T22:40:00+08:00", rendered)
 
 
 if __name__ == "__main__":

@@ -17,17 +17,22 @@ import argparse
 import hashlib
 import html
 import json
+import os
 import re
 import sys
-from datetime import datetime, timezone
+import tempfile
+from datetime import datetime, timedelta, timezone
+from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
 from urllib.request import Request
 
 if __package__:
-    from .yoj_http import build_yoj_opener, validate_yoj_url
+    from .yoj_http import (YoJNetworkError, build_yoj_opener, classify_yoj_error,
+                          read_public_get, source_state_for_reason, validate_yoj_url)
 else:
-    from yoj_http import build_yoj_opener, validate_yoj_url
+    from yoj_http import (YoJNetworkError, build_yoj_opener, classify_yoj_error,
+                         read_public_get, source_state_for_reason, validate_yoj_url)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -53,6 +58,69 @@ def utc_now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
+def checked_now() -> str:
+    return datetime.now(timezone(timedelta(hours=8))).replace(microsecond=0).isoformat()
+
+
+LOGIN_ROUTE_RE = re.compile(r"/(?:signin|login|login2)(?:\.html)?/?$", re.I)
+LOGIN_TITLE_RE = re.compile(r"\blog\s*in\b|\bsign\s*in\b|登录|登陆", re.I)
+
+
+class _PageSignals(HTMLParser):
+    """Look at portal/form structure, never ordinary navigation link text."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.in_title = False
+        self.title_parts: list[str] = []
+        self.in_form = False
+        self.password_form = False
+        self.campus_form = False
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == "title":
+            self.in_title = True
+        elif tag == "form":
+            self.in_form = True
+            action = urlparse(urljoin(PUBLIC_INDEX_URL, attrs.get("action") or ""))
+            if action.hostname in {"wvpn.ruc.edu.cn", "webvpn.ruc.edu.cn"}:
+                self.campus_form = True
+        elif tag == "input" and self.in_form and (attrs.get("type") or "").lower() == "password":
+            self.password_form = True
+
+    def handle_endtag(self, tag):
+        if tag == "title":
+            self.in_title = False
+        elif tag == "form":
+            self.in_form = False
+
+    def handle_data(self, data):
+        if self.in_title:
+            self.title_parts.append(data)
+
+
+def validate_public_page(page: str, final_url: str = PUBLIC_INDEX_URL) -> None:
+    """Reject access portals on *every* page, including legacy pagination.
+
+    An index with a login navigation link (or even an embedded login form)
+    remains valid when its title and problem rows identify the index itself.
+    """
+
+    validate_yoj_url(final_url)
+    if LOGIN_ROUTE_RE.search(urlparse(final_url).path):
+        raise YoJNetworkError("YOJ_AUTH_REQUIRED")
+    signals = _PageSignals()
+    signals.feed(page)
+    title = " ".join(signals.title_parts)
+    if signals.campus_form or re.search(r"web\s*vpn", title, re.I):
+        raise YoJNetworkError("YOJ_CAMPUS_ACCESS_REQUIRED")
+    has_rows = bool(ANCHOR_RE.search(page))
+    login_title = bool(LOGIN_TITLE_RE.search(title))
+    if (signals.password_form and (not has_rows or login_title)) or (login_title and not has_rows):
+        raise YoJNetworkError("YOJ_AUTH_REQUIRED")
+
+
 def clean_title(value: str) -> str:
     value = TAG_RE.sub(" ", value)
     value = html.unescape(value).replace("\xa0", " ")
@@ -68,15 +136,16 @@ def parse_rows(page: str) -> list[dict[str, object]]:
         problem_no = int(raw_number)
         title = clean_title(raw_title)
         if not title:
-            raise ValueError(f"public index has an empty title for problem {problem_no}")
+            raise YoJNetworkError("YOJ_INVALID_PUBLIC_INDEX")
         problem_url = urljoin(PUBLIC_INDEX_URL, href)
+        validate_yoj_url(problem_url)
         previous = rows.get(problem_no)
         current = {"problemNo": problem_no, "title": title, "problemUrl": problem_url}
         if previous is not None and previous != current:
-            raise ValueError(f"public index has conflicting rows for problem {problem_no}")
+            raise YoJNetworkError("YOJ_INVALID_PUBLIC_INDEX")
         rows[problem_no] = current
     if not rows:
-        raise ValueError("YOJ public index yielded no problem rows; refusing to record an empty snapshot")
+        raise YoJNetworkError("YOJ_INVALID_PUBLIC_INDEX")
     return [rows[number] for number in sorted(rows)]
 
 
@@ -87,6 +156,9 @@ def public_page_links(page: str) -> dict[int, str]:
     for href in re.findall(r"<a\b[^>]*href\s*=\s*[\"']([^\"']+)[\"'][^>]*>", page, flags=re.I | re.S):
         absolute = urljoin(PUBLIC_INDEX_URL, href)
         parsed = urlparse(absolute)
+        # A login/user/help link with ?page=2 is not an index page.
+        if not re.search(r"/index\.php/(?:index/)?problem/(?:index|list)(?:[/.]|$)", parsed.path, re.I):
+            continue
         match = PAGE_LINK_RE.search(parsed.path)
         if not match:
             match = PAGE_LINK_RE.search(parsed.query)
@@ -104,10 +176,10 @@ def fetch_page(url: str = PUBLIC_INDEX_URL) -> str:
         url,
         headers={"User-Agent": "RUC_YOJ-public-availability-audit/1.0"},
     )
-    with build_yoj_opener().open(request, timeout=REQUEST_TIMEOUT) as response:
-        body = response.read()
-        charset = response.headers.get_content_charset() or "utf-8"
-    return body.decode(charset, errors="replace")
+    body, charset, final_url = read_public_get(build_yoj_opener(), request, REQUEST_TIMEOUT)
+    page = body.decode(charset, errors="replace")
+    validate_public_page(page, final_url)
+    return page
 
 
 def merge_rows(rows: dict[int, dict[str, object]], page_rows: list[dict[str, object]]) -> None:
@@ -117,7 +189,7 @@ def merge_rows(rows: dict[int, dict[str, object]], page_rows: list[dict[str, obj
         problem_no = int(row["problemNo"])
         previous = rows.get(problem_no)
         if previous is not None and previous != row:
-            raise ValueError(f"public index has conflicting rows for problem {problem_no}")
+            raise YoJNetworkError("YOJ_INVALID_PUBLIC_INDEX")
         rows[problem_no] = row
 
 
@@ -134,6 +206,7 @@ def fetch_all_rows(max_pages: int = 100) -> tuple[list[dict[str, object]], int]:
     if max_pages < 1:
         raise ValueError("max_pages must be positive")
     first = fetch_page()
+    validate_public_page(first)
     merged: dict[int, dict[str, object]] = {}
     merge_rows(merged, parse_rows(first))
     pages: dict[int, str] = {1: PUBLIC_INDEX_URL}
@@ -147,6 +220,7 @@ def fetch_all_rows(max_pages: int = 100) -> tuple[list[dict[str, object]], int]:
         if page_no in visited or page_no > max_pages:
             continue
         page = fetch_page(pages[page_no])
+        validate_public_page(page, pages[page_no])
         visited.add(page_no)
         fetched += 1
         merge_rows(merged, parse_rows(page))
@@ -160,6 +234,7 @@ def fetch_all_rows(max_pages: int = 100) -> tuple[list[dict[str, object]], int]:
         previous_numbers = set(merged)
         for page_no in range(2, max_pages + 1):
             page = fetch_page(PUBLIC_INDEX_PAGE_URL.format(page=page_no))
+            validate_public_page(page, PUBLIC_INDEX_PAGE_URL.format(page=page_no))
             fetched += 1
             page_rows = parse_rows(page) if ANCHOR_RE.search(page) else []
             current_numbers = {int(row["problemNo"]) for row in page_rows}
@@ -169,7 +244,7 @@ def fetch_all_rows(max_pages: int = 100) -> tuple[list[dict[str, object]], int]:
             previous_numbers = current_numbers
 
     if not merged:
-        raise ValueError("YOJ public index yielded no problem rows; refusing to record an empty snapshot")
+        raise YoJNetworkError("YOJ_INVALID_PUBLIC_INDEX")
     return [merged[number] for number in sorted(merged)], fetched
 
 
@@ -212,6 +287,34 @@ def validate_snapshot(payload: dict[str, object]) -> list[dict[str, object]]:
     return parsed
 
 
+def write_json_atomic(output: Path, payload: dict[str, object]) -> None:
+    """Replace complete JSON in one step; a failed write leaves prior evidence."""
+
+    output.parent.mkdir(parents=True, exist_ok=True)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=output.parent,
+                                         prefix=f".{output.name}.", suffix=".tmp", delete=False) as stream:
+            temporary = Path(stream.name)
+            stream.write(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
+            stream.flush()
+            os.fsync(stream.fileno())
+        temporary.replace(output)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
+
+
+def write_status(output: Path, reason: str, changed: bool | None) -> None:
+    write_json_atomic(output, {
+        "schemaVersion": 1,
+        "checkedAt": checked_now(),
+        "sourceState": source_state_for_reason(reason),
+        "reason": reason,
+        "snapshotChanged": changed,
+    })
+
+
 def write_snapshot(rows: list[dict[str, object]], output: Path, pages_fetched: int = 1) -> bool:
     """Persist a snapshot only when the public-list evidence changed.
 
@@ -238,8 +341,7 @@ def write_snapshot(rows: list[dict[str, object]], output: Path, pages_fetched: i
         "problemListSha256": digest,
         "records": rows,
     }
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    write_json_atomic(output, payload)
     return True
 
 
@@ -249,9 +351,15 @@ def main() -> int:
     source.add_argument("--check", action="store_true", help="只检查已保存快照，不访问 YOJ")
     source.add_argument("--input-html", type=Path, help="使用已保存的公开索引 HTML，便于可重复生成")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT, help="快照输出路径")
+    parser.add_argument("--status-output", type=Path, help="独立保存本次实时来源检查状态；不支持 --check 或 --input-html")
     parser.add_argument("--max-pages", type=int, default=100, help="公开题目列表最多扫描页数，默认 100")
     args = parser.parse_args()
+    if args.status_output and (args.check or args.input_html or args.status_output.resolve() == args.output.resolve()):
+        parser.error("--status-output requires a source audit and a path distinct from --output")
 
+    reason = "NONE"
+    changed = None
+    result = 0
     try:
         if args.check:
             payload = json.loads(args.output.read_text(encoding="utf-8"))
@@ -262,6 +370,7 @@ def main() -> int:
             raise ValueError("max_pages must be positive")
         if args.input_html:
             page = args.input_html.read_text(encoding="utf-8", errors="replace")
+            validate_public_page(page)
             rows = parse_rows(page)
             pages_fetched = 1
         else:
@@ -272,10 +381,17 @@ def main() -> int:
             f"{action} {len(rows)} public YOJ problems across {pages_fetched} pages -> {args.output}; "
             f"public-list sha256={digest_rows(rows)}"
         )
-        return 0
-    except (OSError, TypeError, ValueError, json.JSONDecodeError) as exc:
-        print(f"online availability audit failed: {exc}", file=sys.stderr)
-        return 1
+    except Exception as exc:
+        reason = classify_yoj_error(exc)
+        changed = None
+        result = 1
+        print(f"online availability audit failed: {reason}", file=sys.stderr)
+    if args.status_output:
+        try:
+            write_status(args.status_output, reason, changed)
+        except OSError:
+            print("online availability status warning: YOJ_SOURCE_ERROR", file=sys.stderr)
+    return result
 
 
 if __name__ == "__main__":

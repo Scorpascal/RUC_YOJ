@@ -45,6 +45,13 @@ DELIVERY_ERRORS = {"DELIVERY_TIMEOUT", "GIT_DELIVERY_FAILED", "RECEIPT_CONFLICT"
                    "INVALID_RECEIPT", "INVALID_REMOTE", "INVALID_REMOTE_TREE",
                    "LOCAL_STATE_ERROR"}
 ATTEMPT_KEYS = {"attemptNo", "invokedAt", "enteredAt", "finishedAt", "outcome", "exitCode", "skipReason"}
+SYNC_KEYS = {"sourceState", "syncState", "reason", "lastSuccessfulSyncAt"}
+SOURCE_STATES = {"UNKNOWN", "AVAILABLE", "BLOCKED", "TRANSIENT_ERROR", "ERROR"}
+SYNC_STATES = {"SUCCEEDED", "INCOMPLETE", "BLOCKED", "SKIPPED", "FAILED"}
+SYNC_REASONS = {"NONE", "YOJ_TLS_CERTIFICATE_ERROR", "YOJ_CAMPUS_ACCESS_REQUIRED",
+                "YOJ_AUTH_REQUIRED", "YOJ_TRANSIENT_NETWORK_ERROR", "YOJ_UNEXPECTED_DESTINATION",
+                "YOJ_HTTPS_DOWNGRADE_REFUSED", "YOJ_INVALID_PUBLIC_INDEX", "YOJ_SOURCE_ERROR",
+                "SYNC_INCOMPLETE", "SYNC_FAILED", "SYNC_SKIPPED", "ACCESS_COOLDOWN"}
 DATE_RE = re.compile(r"\d{4}-\d{2}-\d{2}\Z")
 TOKEN_RE = re.compile(r"[0-9a-f]{32}\Z")
 SHA_RE = re.compile(r"[0-9a-f]{40}\Z")
@@ -85,6 +92,29 @@ def encode(payload: dict) -> bytes:
     return (json.dumps(payload, ensure_ascii=True, sort_keys=True, separators=(",", ":")) + "\n").encode()
 
 
+def validate_sync(value: object, attempt: dict) -> dict:
+    """Accept fixed public categories only, never infer success from exit zero."""
+    if not isinstance(value, dict) or set(value) != SYNC_KEYS:
+        raise HealthError("INVALID_RECEIPT")
+    if (not isinstance(value["sourceState"], str) or value["sourceState"] not in SOURCE_STATES
+            or not isinstance(value["syncState"], str) or value["syncState"] not in SYNC_STATES
+            or not isinstance(value["reason"], str) or value["reason"] not in SYNC_REASONS):
+        raise HealthError("INVALID_RECEIPT")
+    finished = timestamp(attempt["finishedAt"]) if attempt["finishedAt"] is not None else None
+    successful = timestamp(value["lastSuccessfulSyncAt"]) if value["lastSuccessfulSyncAt"] is not None else None
+    if finished is None or (successful is not None and successful > finished):
+        raise HealthError("INVALID_RECEIPT")
+    if value["syncState"] == "SUCCEEDED":
+        entered = timestamp(attempt["enteredAt"]) if attempt["enteredAt"] is not None else None
+        if (attempt["outcome"] != "RETURNED" or attempt["exitCode"] != 0 or entered is None
+                or value["sourceState"] != "AVAILABLE" or value["reason"] != "NONE"
+                or successful is None or successful < entered):
+            raise HealthError("INVALID_RECEIPT")
+    elif value["reason"] == "NONE":
+        raise HealthError("INVALID_RECEIPT")
+    return value
+
+
 def validate(payload: object, cycle: str, now: datetime | None = None) -> dict:
     cycle_date(cycle)
     if not isinstance(payload, dict) or set(payload) != {"schemaVersion", "cycleDate", "attempts"}:
@@ -96,7 +126,7 @@ def validate(payload: object, cycle: str, now: datetime | None = None) -> dict:
         raise HealthError("INVALID_RECEIPT")
     previous = None
     for ordinal, attempt in enumerate(attempts, 1):
-        if not isinstance(attempt, dict) or set(attempt) != ATTEMPT_KEYS:
+        if not isinstance(attempt, dict) or set(attempt) not in (ATTEMPT_KEYS, ATTEMPT_KEYS | {"sync"}):
             raise HealthError("INVALID_RECEIPT")
         if type(attempt["attemptNo"]) is not int or attempt["attemptNo"] != ordinal:
             raise HealthError("INVALID_RECEIPT")
@@ -125,6 +155,8 @@ def validate(payload: object, cycle: str, now: datetime | None = None) -> dict:
             valid = False
         if not valid:
             raise HealthError("INVALID_RECEIPT")
+        if "sync" in attempt:
+            validate_sync(attempt["sync"], attempt)
     return payload
 
 
@@ -213,7 +245,8 @@ def spawn_delivery(root: Path) -> None:
 
 
 def observe(root: Path, event: str, *, token: str | None = None,
-            returncode: int | None = None, reason: str | None = None) -> str | None:
+            returncode: int | None = None, reason: str | None = None,
+            sync: dict | None = None) -> str | None:
     """Best-effort local hooks: return a context token, never raise into sync."""
     try:
         directory = health_dir(root)
@@ -261,6 +294,13 @@ def observe(root: Path, event: str, *, token: str | None = None,
             elif event == "finished":
                 attempt.update(outcome="RETURNED" if returncode is not None and returncode >= 0 else "PROCESS_ERROR",
                                finishedAt=stamp(current), exitCode=returncode)
+                if sync is not None:
+                    # Invalid optional evidence must not lose the authentic
+                    # terminal receipt or alter the scheduler's return code.
+                    try:
+                        attempt["sync"] = json.loads(encode(validate_sync(sync, attempt)))
+                    except (HealthError, TypeError, ValueError, UnicodeError):
+                        pass
             else:
                 return None
             validate(payload, context["cycleDate"], current)
@@ -289,7 +329,17 @@ def merge_receipts(remote: dict, local: dict) -> dict:
             continue
         if existing["outcome"] != "RUNNING":
             if candidate["outcome"] != "RUNNING":
-                raise HealthError("RECEIPT_CONFLICT")
+                # A schema-1 writer may still replay the identical terminal
+                # attempt without optional sync evidence. Preserve evidence,
+                # and only accept a one-way addition to an unchanged attempt.
+                base_existing = {key: existing[key] for key in ATTEMPT_KEYS}
+                base_candidate = {key: candidate[key] for key in ATTEMPT_KEYS}
+                if base_existing != base_candidate:
+                    raise HealthError("RECEIPT_CONFLICT")
+                if "sync" not in existing:
+                    merged["attempts"][index] = candidate
+                elif "sync" in candidate and existing["sync"] != candidate["sync"]:
+                    raise HealthError("RECEIPT_CONFLICT")
             continue
         if existing["enteredAt"] and existing["enteredAt"] != candidate["enteredAt"]:
             if candidate["enteredAt"] is None and candidate["outcome"] == "RUNNING":
@@ -499,7 +549,15 @@ def classify(payload: dict, cycle: str, now: datetime) -> dict:
         result = "RETURNED_OK" if latest["exitCode"] == 0 else "RETURNED_NONZERO"
     else:
         result = latest["outcome"]
-    return {"cycleDate": cycle, "scheduleState": schedule, "runState": result, "attempts": attempts}
+    evidence = latest.get("sync", {})
+    successful = [a["sync"]["lastSuccessfulSyncAt"] for a in attempts
+                  if a.get("sync", {}).get("lastSuccessfulSyncAt") is not None]
+    return {"cycleDate": cycle, "scheduleState": schedule, "runState": result,
+            "sourceState": evidence.get("sourceState", "UNKNOWN"),
+            "syncState": evidence.get("syncState", "UNKNOWN"),
+            "reason": evidence.get("reason", "UNKNOWN"),
+            "lastSuccessfulSyncAt": max(successful) if successful else None,
+            "attempts": attempts}
 
 
 def public_json(endpoint: str) -> dict | None:
@@ -538,6 +596,12 @@ def public_json(endpoint: str) -> dict | None:
                 raise HealthError("OBSERVATION_ERROR")
             return value
         except urllib.error.HTTPError as exc:
+            # HTTPError also owns a response stream; release it on every
+            # retry and on 404 without changing the observation semantics.
+            try:
+                exc.close()
+            except OSError:
+                pass
             if exc.code == 404:
                 return None
         except (OSError, subprocess.SubprocessError):
@@ -576,17 +640,21 @@ def check_cycles(cycles: list[str], now: datetime) -> list[dict]:
 
 
 def render_summary(results: list[dict], error: str | None = None) -> str:
-    lines = ["# Local nightly schedule receipts", "", "This check confirms scheduling, not YOJ acceptance or Pages deployment.", ""]
+    lines = ["# Local nightly schedule and sync receipts", "",
+             "Scheduling, source access and sync completion are separate evidence. The default exit status checks scheduling only.", "",
+             "Legacy receipts report sync UNKNOWN even with exit 0. Receipt replay preserves original outcomes and success times; it does not prove a new sync or Pages deployment.", ""]
     if error:
         lines.append(f"Check unavailable: `{error}`.")
     elif not results:
         lines.append("NOT_DUE: no monitored nightly cycle has reached its deadline.")
     else:
-        lines.extend(["| Cycle (Asia/Shanghai) | Scheduling | Execution |", "| --- | --- | --- |"])
+        lines.extend(["| Cycle (Asia/Shanghai) | Scheduling | Execution | Source | Sync | Reason | Last successful sync (Asia/Shanghai) |",
+                      "| --- | --- | --- | --- | --- | --- | --- |"])
         for result in results:
-            lines.append(f"| {result['cycleDate']} | {result['scheduleState']} | {result['runState']} |")
+            lines.append(f"| {result['cycleDate']} | {result['scheduleState']} | {result['runState']} | {result.get('sourceState', 'UNKNOWN')} | {result.get('syncState', 'UNKNOWN')} | {result.get('reason', 'UNKNOWN')} | {result.get('lastSuccessfulSyncAt') or 'unknown'} |")
             for attempt in result.get("attempts", []):
-                lines.append(f"| Attempt {attempt['attemptNo']} | entered: {attempt['enteredAt'] or 'unconfirmed'} | {attempt['outcome']}, exit: {attempt['exitCode']} |")
+                sync = attempt.get("sync", {})
+                lines.append(f"| Attempt {attempt['attemptNo']} | entered: {attempt['enteredAt'] or 'unconfirmed'} | {attempt['outcome']}, exit: {attempt['exitCode']} | {sync.get('sourceState', 'UNKNOWN')} | {sync.get('syncState', 'UNKNOWN')} | {sync.get('reason', 'UNKNOWN')} | {sync.get('lastSuccessfulSyncAt') or 'unknown'} |")
         lines.extend(["", "NO_RECEIPT means no remote evidence; it does not identify a local or network failure."])
     return "\n".join(lines) + "\n"
 
@@ -602,6 +670,8 @@ def main() -> int:
     check.add_argument("--cycle-date", default="")
     check.add_argument("--lookback-days", type=int, default=2)
     check.add_argument("--summary", type=Path)
+    check.add_argument("--require-sync", action="store_true",
+                       help="Also fail when a completed cycle lacks explicit successful sync evidence")
     args = parser.parse_args()
     if args.command != "check":
         try:
@@ -632,7 +702,11 @@ def main() -> int:
             print(f"::error::{result['cycleDate']}: scheduling={result['scheduleState']}; no confirmed on-time receipt")
         elif result["runState"] != "RETURNED_OK":
             print(f"::warning::{result['cycleDate']}: scheduled on time; execution={result['runState']}")
-    return int(bool(error) or any(result["scheduleState"] != "ON_TIME" for result in results))
+        if result.get("syncState", "UNKNOWN") != "SUCCEEDED":
+            level = "error" if args.require_sync else "warning"
+            print(f"::{level}::{result['cycleDate']}: source={result.get('sourceState', 'UNKNOWN')}; sync={result.get('syncState', 'UNKNOWN')}; reason={result.get('reason', 'UNKNOWN')}; last successful sync={result.get('lastSuccessfulSyncAt') or 'unknown'}")
+    return int(bool(error) or any(result["scheduleState"] != "ON_TIME" for result in results)
+               or (args.require_sync and any(result.get("syncState", "UNKNOWN") != "SUCCEEDED" for result in results)))
 
 
 if __name__ == "__main__":

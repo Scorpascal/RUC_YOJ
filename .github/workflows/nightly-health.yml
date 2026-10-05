@@ -18,8 +18,12 @@ on:
       - "tools/yoj_http.py"
       - "tools/audit_online_availability.py"
       - "tools/online_verify.py"
+      - "tools/yoj_sync_status.py"
       - "tests/test_yoj_health.py"
       - "tests/test_yoj_http.py"
+      - "tests/test_yoj_nightly.py"
+      - "tests/test_yoj_availability.py"
+      - "tests/test_yoj_publication_status.py"
       - ".github/workflows/nightly-health.yml"
 
 permissions:

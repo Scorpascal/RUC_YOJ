@@ -27,7 +27,8 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import datetime, time as day_time
+from contextvars import ContextVar
+from datetime import datetime, time as day_time, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -35,6 +36,11 @@ try:
     from audit_online_availability import validate_snapshot
 except ImportError:  # pragma: no cover - supports ``import tools.yoj_scheduler``
     from tools.audit_online_availability import validate_snapshot
+
+if __package__:
+    from . import yoj_sync_status as sync_status
+else:
+    import yoj_sync_status as sync_status
 
 
 ROOT = Path(os.environ.get("YOJ_ROOT", Path(__file__).resolve().parents[1])).resolve()
@@ -56,6 +62,8 @@ PUBLIC_PUBLISH_PREFIXES = ("README.md", "data/", "docs/")
 PROBLEM_PATH_RE = re.compile(r"^(?:代码库|题解)/(\d{4})(?:_|/)")
 PAGES_WORKFLOW_PATH = ".github/workflows/pages.yml"
 REMOTE_VERIFY_TIMEOUT = max(30, int(os.environ.get("YOJ_SYNC_REMOTE_VERIFY_TIMEOUT", "180")))
+ACCESS_COOLDOWN = timedelta(minutes=30)
+_SYNC_CONTEXT: ContextVar[dict | None] = ContextVar("yoj_sync_observation", default=None)
 
 
 def now_local() -> datetime:
@@ -77,6 +85,79 @@ def log(message: str) -> None:
     print(message, flush=True)
 
 
+def mark_source(state: str, reason: str = "NONE") -> None:
+    context = _SYNC_CONTEXT.get()
+    if context is not None:
+        context.update(sourceState=state, sourceReason=reason, retryAfter=None)
+        if state == "BLOCKED" and reason in sync_status.BLOCKING_REASONS:
+            context["retryAfter"] = (now_local() + ACCESS_COOLDOWN).isoformat(timespec="seconds")
+
+
+def mark_incomplete(reason: str = "SYNC_INCOMPLETE") -> None:
+    context = _SYNC_CONTEXT.get()
+    if context is not None:
+        context["incompleteReason"] = reason
+
+
+def mark_complete() -> None:
+    context = _SYNC_CONTEXT.get()
+    if context is not None:
+        context["complete"] = True
+
+
+def audit_public_source(environment: dict[str, str]) -> int:
+    """Cool down only source access, after checkpoint recovery and local gates.
+
+    Thirty minutes permits a recovery probe in the same nightly window. A
+    skipped probe keeps its original deadline, and transient failures never
+    enter this cooldown. It cannot suppress an already-audited pending push.
+    """
+    previous = sync_status.read(STATE_DIR)
+    current = now_local()
+    if (_SYNC_CONTEXT.get() is not None and previous and previous["retryAfter"]
+            and previous["reason"] in sync_status.BLOCKING_REASONS):
+        retry = sync_status.timestamp(previous["retryAfter"])
+        if retry.date() == current.date() and current < retry <= current + ACCESS_COOLDOWN:
+            mark_source("BLOCKED", previous["reason"])
+            context = _SYNC_CONTEXT.get()
+            if context is not None:
+                context["retryAfter"] = previous["retryAfter"]
+            log(f"来源访问仍在冷却期：{previous['reason']}；{previous['retryAfter']} 后重新预检；保留有效快照")
+            return 1
+    report = STATE_DIR / "source-access-result.json"
+    report_enabled = False
+    command = [sys.executable, str(ROOT / "tools" / "audit_online_availability.py")]
+    try:
+        if report.is_symlink():
+            raise OSError("INVALID_SOURCE_STATUS")
+        report.unlink(missing_ok=True)  # Never attribute an old failure to this request.
+        command.extend(("--status-output", str(report)))
+        report_enabled = True
+    except OSError:
+        log("来源状态文件不可用；按原流程执行审计，不使用旧状态")
+    result = run_command(command, environment, 600)
+    if result == 0:
+        mark_source("AVAILABLE")
+    else:
+        context = _SYNC_CONTEXT.get()
+        if context is None or context["sourceState"] == "UNKNOWN":
+            mark_source("ERROR", "YOJ_SOURCE_ERROR")
+        try:
+            if not report_enabled or report.is_symlink() or not report.is_file() or report.stat().st_size > 2048:
+                return result
+            payload = json.loads(report.read_bytes())
+            if (set(payload) == {"schemaVersion", "checkedAt", "sourceState", "reason", "snapshotChanged"}
+                    and type(payload["schemaVersion"]) is int and payload["schemaVersion"] == 1
+                    and current.replace(microsecond=0) <= sync_status.timestamp(payload["checkedAt"]) <= now_local()
+                    and payload["sourceState"] in {"BLOCKED", "TRANSIENT_ERROR", "ERROR"}
+                    and payload["reason"] in sync_status.REASONS - {"NONE"}
+                    and payload["snapshotChanged"] is None):
+                mark_source(payload["sourceState"], payload["reason"])
+        except (OSError, TypeError, ValueError):
+            pass
+    return result
+
+
 def run_command(command: list[str], env: dict[str, str] | None = None, timeout: int = 1800) -> int:
     label = " ".join(command)
     log(f"开始：{label}")
@@ -90,6 +171,16 @@ def run_command(command: list[str], env: dict[str, str] | None = None, timeout: 
         check=False,
     )
     output = (result.stdout + "\n" + result.stderr).strip()
+    if result.returncode:
+        # Recognize only fixed transport diagnostics; no response, exception
+        # text, URL or account data is copied into status/remote receipts.
+        for reason in (*sorted(sync_status.BLOCKING_REASONS), "YOJ_TRANSIENT_NETWORK_ERROR"):
+            if re.search(r"\b" + reason + r"\b", output):
+                mark_source("TRANSIENT_ERROR" if reason == "YOJ_TRANSIENT_NETWORK_ERROR" else "BLOCKED", reason)
+                break
+        else:
+            if "CERTIFICATE_VERIFY_FAILED" in output:
+                mark_source("BLOCKED", "YOJ_TLS_CERTIFICATE_ERROR")
     if output:
         # The child tools never receive the password in their stdout/stderr;
         # retain only a bounded tail so a broken HTML response cannot grow the
@@ -903,11 +994,7 @@ def run_visibility_watch(args: argparse.Namespace, environment: dict[str, str]) 
     """
 
     snapshot_before = snapshot_content_digest(PUBLIC_SNAPSHOT_PATH)
-    if run_command(
-        [sys.executable, str(ROOT / "tools" / "audit_online_availability.py")],
-        environment,
-        600,
-    ):
+    if audit_public_source(environment):
         log("轻量可见性复查未能获取公开列表；保留基线，等待下一次间隔复查")
         return 3
     snapshot_changed = snapshot_content_digest(PUBLIC_SNAPSHOT_PATH) != snapshot_before
@@ -956,6 +1043,7 @@ def run_visibility_watch(args: argparse.Namespace, environment: dict[str, str]) 
         remember_generated_changes()
         return 3
     remember_generated_changes()
+    mark_complete()
     return 0
 
 
@@ -1039,9 +1127,11 @@ def publish(
     if commit.returncode:
         return commit.returncode
     if not push:
+        mark_incomplete()
         log("已生成本地同步提交；未启用 push")
         return 0
     if os.environ.get("YOJ_SYNC_ALLOW_PUSH") != "1":
+        mark_incomplete()
         log("已生成本地同步提交；YOJ_SYNC_ALLOW_PUSH 不为 1，未推送")
         return 0
     commit_sha = git_head_sha()
@@ -1192,7 +1282,7 @@ def health_observe(args: argparse.Namespace, event: str, **kwargs: object) -> No
         pass
 
 
-def run_once(args: argparse.Namespace) -> int:
+def _run_once(args: argparse.Namespace) -> int:
     if in_maintenance():
         health_observe(args, "skipped", reason="MAINTENANCE")
         log("处于北京时间 23:55–00:10 维护窗口，本轮不访问 YOJ")
@@ -1207,6 +1297,9 @@ def run_once(args: argparse.Namespace) -> int:
             return 0
 
         health_observe(args, "entered")
+        context = _SYNC_CONTEXT.get()
+        if context is not None:
+            context["admitted"] = True
         if not validate_worktree_before_run():
             return 4
 
@@ -1265,11 +1358,7 @@ def run_once(args: argparse.Namespace) -> int:
         # visibility axis current even when no new problem is discovered, and
         # ensures the account is never needed merely to compare problem IDs.
         snapshot_before = snapshot_content_digest(PUBLIC_SNAPSHOT_PATH)
-        if run_command(
-            [sys.executable, str(ROOT / "tools" / "audit_online_availability.py")],
-            environment,
-            600,
-        ):
+        if audit_public_source(environment):
             log("公开题目列表快照未正常完成，本轮不继续抓取、构建或发布")
             return 3
         snapshot_changed = snapshot_content_digest(PUBLIC_SNAPSHOT_PATH) != snapshot_before
@@ -1332,6 +1421,7 @@ def run_once(args: argparse.Namespace) -> int:
             try:
                 capture_environment = prepare_online_environment()
             except RuntimeError as exc:
+                mark_incomplete("YOJ_AUTH_REQUIRED")
                 # Still capture newly public statements when the account is
                 # unavailable, but keep the personal AC scan pending.
                 ac_scan_incomplete = bool(ac_targets)
@@ -1435,6 +1525,8 @@ def run_once(args: argparse.Namespace) -> int:
                 remember_generated_changes()
                 return 3
             remember_generated_changes()
+            if not ac_scan_incomplete:
+                mark_complete()
             return 3 if ac_scan_incomplete else 0
 
         selected_problem_numbers = sorted(set(new_problem_numbers) | set(backlog_problem_numbers) | set(refreshed_ac_numbers))
@@ -1466,11 +1558,13 @@ def run_once(args: argparse.Namespace) -> int:
 
         if args.allow_submit:
             if os.environ.get("YOJ_SYNC_ENABLE_SUBMIT") != "1":
+                mark_incomplete()
                 log("在线提交跳过：YOJ_SYNC_ENABLE_SUBMIT 不为 1")
             else:
                 try:
                     online_environment = prepare_online_environment()
                 except RuntimeError as exc:
+                    mark_incomplete("YOJ_AUTH_REQUIRED")
                     log(f"在线提交跳过：{exc}")
                 else:
                     command = [
@@ -1505,6 +1599,8 @@ def run_once(args: argparse.Namespace) -> int:
                 remember_generated_changes()
                 return 3
             remember_generated_changes()
+            if result == 0 and not ac_scan_incomplete and not online_incomplete:
+                mark_complete()
             return 3 if (ac_scan_incomplete or online_incomplete) and result == 0 else result
         if online_ran:
             if run_command(
@@ -1531,6 +1627,60 @@ def run_once(args: argparse.Namespace) -> int:
         remember_generated_changes()
         log("本轮完成：未执行 Git 发布")
         return 3 if ac_scan_incomplete or online_incomplete else 0
+
+
+def run_once(args: argparse.Namespace) -> int:
+    """Observe actual completion while retaining the existing business result."""
+    special = any(getattr(args, name, False) for name in ("dry_run", "drift_audit", "sentinel"))
+    nightly = all(getattr(args, name, False) for name in ("allow_submit", "publish", "push"))
+    watch = getattr(args, "visibility_watch", False) and getattr(args, "publish", False) and getattr(args, "push", False)
+    if special or not (nightly or watch):
+        return _run_once(args)
+    started = now_local().isoformat(timespec="seconds")
+    previous = sync_status.read(STATE_DIR)
+    context = {"admitted": False, "complete": False, "sourceState": "UNKNOWN",
+               "sourceReason": "NONE", "incompleteReason": "NONE", "retryAfter": None}
+    token = _SYNC_CONTEXT.set(context)
+    result = None
+    try:
+        result = _run_once(args)
+        return result
+    finally:
+        _SYNC_CONTEXT.reset(token)
+        finished = now_local().isoformat(timespec="seconds")
+        reason = context["sourceReason"]
+        if result is None:
+            state, reason = "FAILED", "SYNC_FAILED"
+        elif not context["admitted"]:
+            state, reason = "SKIPPED", "SYNC_SKIPPED"
+        elif context["sourceState"] == "BLOCKED":
+            state = "BLOCKED"
+        elif result == 0 and context["complete"] and context["incompleteReason"] == "NONE":
+            state, reason = "SUCCEEDED", "NONE"
+        else:
+            state = "INCOMPLETE" if result in (0, 3, 8) else "FAILED"
+            if reason == "NONE":
+                reason = context["incompleteReason"] if context["incompleteReason"] != "NONE" else "SYNC_" + state
+        last = previous["lastSuccessfulSyncAt"] if previous else None
+        if state == "SUCCEEDED" and not watch:
+            last = finished
+        try:
+            payload = {
+                "schemaVersion": 1, "startedAt": started, "finishedAt": finished,
+                "mode": "VISIBILITY" if watch else "MAIN", "sourceState": context["sourceState"],
+                "syncState": state, "reason": reason, "lastSuccessfulSyncAt": last,
+                "retryAfter": context["retryAfter"],
+            }
+            invocation = os.environ.get("YOJ_SYNC_INVOCATION_ID", "")
+            if sync_status.INVOCATION_RE.fullmatch(invocation):
+                payload["invocationId"] = invocation  # Local binding only; never part of a public receipt.
+            sync_status.write(STATE_DIR, payload)
+        except (OSError, TypeError, ValueError):
+            # An observer failure cannot change publication gates or exit codes.
+            try:
+                log("本轮同步状态记录不可用；不修改业务退出码或发布检查点")
+            except OSError:
+                pass
 
 
 def main() -> int:
