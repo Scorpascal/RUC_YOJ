@@ -2,9 +2,49 @@
 
 验证日期：2026-10-08（Asia/Shanghai；Actions 时间为 2026-10-07 UTC）。
 
-结论：本轮在真实 GitHub-hosted `ubuntu-24.04` 和 `ubuntu-26.04` 上，使用镜像自带 `/usr/bin/python3`，证明 nightly-health 的 regression、历史回执 check 路径及 Pages 的校验、目录生成、打包上传兼容。没有发现真实 OS 不兼容；只新增验证设施和本报告，不需要固定生产作业到 24.04。没有执行生产 deploy-pages，不能据此声称完整部署已验证。
+结论：在真实 GitHub-hosted `ubuntu-24.04` 和 `ubuntu-26.04` 上，使用镜像自带 `/usr/bin/python3`，证明 nightly-health 的 regression、历史回执 check 路径及 Pages 的校验、目录生成、打包上传兼容。后续补充了聚焦测试，并修复测试确认的辅助验证器门禁与归因问题；没有发现生产 OS 不兼容，不需要固定生产作业到 24.04。没有执行生产 deploy-pages，不能据此声称完整部署已验证。
 
-## 基准、提交与真实运行
+## PR #1 聚焦测试与辅助验证器修复
+
+接续日期：2026-10-08（Asia/Shanghai）。重新核对远端 main、分支和 PR，接续 HEAD 为 `17682e3fe3ac9d157b384494416170b509aed574`，工作区干净。Copilot review `5446553903` 为 COMMENTED / Needs a closer look、0 open findings，建议补充跨 runner compare 的通过/失败门禁测试；这属于验证设施的测试缺口，不能解释为生产兼容缺陷。
+
+新增 `tests/test_ubuntu_compat_receipts_compare.py`（17 项测试方法、123 个小场景）及 `tests/test_ubuntu_compat_receipts_observe.py`（12 项测试方法）。使用 unittest、临时目录及单个 attempt 的小 fixture，不访问网络、不请求 Actions artifact、不复制庞大的真实运行结果；严格断言退出码和 JSON/Markdown 报告。覆盖：
+
+- compare 正常通过；缺失、重复、额外 runner；候选 SHA、回执 SHA/blob、周期及观察时间不同；固定快照状态、摘要及退出码不同。
+- 顶层 FAIL，以及顶层 PASS 与 HTTPS、curl、固定快照或在线子结果 FAIL 矛盾；坏 JSON、缺必要字段、非法状态、退出码及嵌套类型；内部矛盾或未验证的在线 ref。
+- 相同稳定在线 SHA 下的合法语义差异必须失败；ref 在观察期间变化或两侧在线 SHA 不同时，同一固定快照仍可比较，但明确 `onlineComparable=false`、在线一致性为 null，不声称联网结果一致。
+- select 正常路径优先，以及只存在合法业务失败回执时仍保留它；online_cli 和 observe 的业务失败、调度非零退出、legacy UNKNOWN、网络不可用、缺摘要、无有效状态、无效回执及原始退出码与摘要矛盾。
+
+先在旧核心逻辑上运行测试并保留失败复现，随后最小修复；确认的问题均在新增辅助验证器：
+
+| 最小复现 | 旧行为 | 修复与回归 |
+| --- | --- | --- |
+| 两份合法 fixture 顶层 PASS，HTTPS/curl 子结果改为 FAIL | compare 仍返回 0 / PASS | 独立验证所有子结果、必要字段及类型，借生产 classify/render_summary 核对固定快照；矛盾证据非零 FAIL |
+| JSON 损坏或必要字段缺失 | 可能误通过；即使非零退出也可能没有比较报告 | 逐份验证，错误输入仍生成明确 FAIL 报告并保留验证失败信息 |
+| 合法 OUT_OF_WINDOW 回执，原始 CLI exit 1、有效摘要 | online_cli 标 FAIL，observe 将业务门禁误归为兼容失败 | 分开 observationValid、businessHealth、原始 exitCode；符合生产默认调度语义的非零结果可作兼容对照，仍展示 UNHEALTHY 和 exit 1 |
+| 非法状态或重复周期行；本次 CLI 未写摘要但输出目录残留上次有效摘要 | 可凭不完整或旧证据 PASS | 严格验证单一有效周期行和原始退出语义；调用前删除旧摘要，无当前证据即 FAIL |
+| 回执 ref 的 object=[] 或 null | 未捕获 AttributeError | 明确检查 object 类型，返回 INVALID_REMOTE_REF，不扩展生产检查逻辑 |
+
+合法 ON_TIME + RETURNED_NONZERO 原来就有正确的默认 CLI exit 0：它只证明调度正常，业务仍不健康；本轮保留该行为并加测试。历史业务失败和原始 CLI 非零均完整保留；网络失败、无有效证据、快照不一致和跨 OS 语义差异继续失败关闭。新字段的 PASS 表示有效语义观察/兼容证据，不表示历史业务健康。没有修改生产 `yoj_health.py` 的调度、同步或退出码门禁。
+
+最终被验证的代码和测试提交：[2de8490a51b90a416daa4fabb251522a54857a59](https://github.com/Scorpascal/RUC_YOJ/commit/2de8490a51b90a416daa4fabb251522a54857a59)。本地 29 项新增测试和 153 项完整 unittest 均通过、0 跳过。推送原分支后仅运行一次既有双 runner 工作流：[Actions run 37669243283](https://github.com/Scorpascal/RUC_YOJ/actions/runs/37669243283)，6 作业以及所有必要步骤全部 success，无失败重跑。
+
+| 最新真实结果 | ubuntu-24.04 | ubuntu-26.04 |
+| --- | --- | --- |
+| ImageVersion / 默认 Python | 20261004.327.1 / 3.12.3 | 20260927.149.1 / 3.14.4 |
+| Python OpenSSL | 3.0.13 | 3.5.5 |
+| 全部 unittest（含新增 29 项） | 153 项，0 跳过，exit 0 | 153 项，0 跳过，exit 0 |
+| Pages 校验与 catalog 生成 | 509 项 / 492 verified；全部通过、无漂移 | 509 项 / 492 verified；全部通过、无漂移 |
+| artifact 上传、下载、全部文件哈希 | 6 文件全部一致，API 确认存在 | 6 文件全部一致，API 确认存在 |
+| 原始在线 CLI / 固定快照 | exit 0 / exit 0；一致 | exit 0 / exit 0；一致 |
+| 原生 HTTPS / 真实 curl 回退 | PASS / PASS | PASS / PASS |
+| 在线状态及业务健康 | ON_TIME / RETURNED_OK / SUCCEEDED；HEALTHY | ON_TIME / RETURNED_OK / SUCCEEDED；HEALTHY |
+
+最终汇总：同一代码 SHA、同一固定快照的状态/摘要/退出码一致；在线分支两侧稳定且相同，在线结果也一致。此处 HEALTHY 是已存在历史回执的结果，不证明新一轮 YOJ 同步。所有新增测试由既有 unittest discover 在两种 runner 真正执行；没有修改 workflow 或 Pages verify_archive，没有新增生产兼容修复或无关依赖升级。
+
+本报告在运行完成后以仅文档提交更新，使用 `[skip ci]` 避免对未变代码重复整套验证。该文档提交改变 HEAD，不改变上述已验证代码/测试 SHA；PR #1 同时列出两者。生产 `ubuntu-latest`、未执行 deploy-pages/新部署站点及真实 killpg 的覆盖边界继续保留。
+
+## 基准、提交与真实运行（首轮）
 
 - 重新 fetch 后 `origin/main`：`8f3025a073a11289e0c4976a6ee7e2fdbc7c1fa2`，仍与历史审计基准一致；没有已有同任务分支或 PR，也没有适用 AGENTS.md / CONTRIBUTING 文件。
 - 原工作树干净，在独立 worktree 建立 `codex/ubuntu-2604-compat`，保留原 `work` 分支。没有修改题目、题解、发布清单、站点数据或历史回执。
@@ -12,7 +52,7 @@
 - [真实 Actions run 37665213637](https://github.com/Scorpascal/RUC_YOJ/actions/runs/37665213637)：同一候选 SHA，6 个作业全部 success，没有重跑、setup-python 或额外 Python 依赖安装。
 - [PR #1](https://github.com/Scorpascal/RUC_YOJ/pull/1)：文档提交后的 HEAD 也由测试分支 push 自动运行同一双镜像验证；其最新运行结果和 SHA 以 PR 中的验证链接为准。
 
-## 真实 runner 结果
+## 真实 runner 结果（首轮）
 
 | 项目 | ubuntu-24.04 | ubuntu-26.04 |
 | --- | --- | --- |
@@ -40,7 +80,7 @@ Python 默认 CA 路径均为 `/usr/lib/ssl/cert.pem` 与 `/usr/lib/ssl/certs`�
 
 Pages artifact 名称分别为 `ubuntu-compat-pages-ubuntu-24.04`（首轮 ID 11503475050）和 `ubuntu-compat-pages-ubuntu-26.04`（首轮 ID 11502223462）。已通过 API 确认存在且未过期，再由每个 runner 下载自己的 artifact。验证 GNU tar 可读取，并逐文件比较整个可发布文件清单和 SHA256，包含 `index.html`、`yoj-quick-submit.html`、catalog、quick-submit、traffic、traffic-config。两边文件哈希完全一致，catalog SHA256 为 `fa1a4f8ce6cd2f63b4ff5fa4017be949298d0f0238171f90a5121e8d2bc3c494`。Pages 包保留 1 天，其他诊断保留 7 天；过期后以本报告和 Actions 日志为长期摘要证据。
 
-## 回执与联网证据
+## 回执与联网证据（首轮）
 
 自动选择已完成、格式有效且能覆盖正常路径的 `cycle_date=2026-10-07`。固定下载快照来自回执分支 `codex/yoj-health` 的 SHA `c9ba2b8bf20cd6b0247eedfc07380406457b6a98`，文件 blob SHA `feff821e0a22374acd48db60a774426197c3d4a0`；冻结观察时间为 `2026-10-08T02:13:58+08:00`。
 
@@ -75,4 +115,4 @@ Pages artifact 名称分别为 `ubuntu-compat-pages-ubuntu-24.04`（首轮 ID 11
 
 生产两个工作流原样保留 ubuntu-latest，不建议固定到 24.04。验证工作流使用独立 concurrency、不取消生产 Pages/夜间作业，仅本测试分支 push 或手动触发，无生产部署权限。
 
-未合并时关闭 PR、删除测试分支即可撤销远端验证设施，main 从未变更；合并后 revert 本任务验证设施及报告提交（或删除新增工作流、两个 helper 与 maintenance 报告）。无需回滚生产 runner、题库数据或回执。没有自动合并 PR。
+未合并时关闭 PR、删除测试分支即可撤销远端验证设施，main 从未变更；合并后 revert 本任务验证设施、测试和报告提交（或删除新增工作流、两个 helper、两个聚焦测试文件与 maintenance 报告）。仅撤销本轮补充时 revert `2de8490` 及后续报告提交即可。无需回滚生产 runner、题库数据或回执。没有自动合并 PR。
