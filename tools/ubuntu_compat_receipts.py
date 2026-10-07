@@ -17,7 +17,10 @@ import urllib.error
 import urllib.request
 from unittest.mock import patch
 
-import yoj_health as health
+try:
+    from . import yoj_health as health
+except ImportError:  # Direct execution from the workflow's tools/ path.
+    import yoj_health as health
 
 
 REF_ENDPOINT = f"git/ref/heads/{health.BRANCH}"
@@ -39,10 +42,98 @@ def read_json(path: Path) -> dict:
 def ref_sha(ref: dict | None) -> str:
     if not isinstance(ref, dict) or ref.get("ref") != health.REF:
         raise health.HealthError("INVALID_REMOTE_REF")
-    sha = ref.get("object", {}).get("sha", "")
+    if not isinstance(ref.get("object"), dict):
+        raise health.HealthError("INVALID_REMOTE_REF")
+    sha = ref["object"].get("sha", "")
     if not isinstance(sha, str) or not health.SHA_RE.fullmatch(sha):
         raise health.HealthError("INVALID_REMOTE_REF")
     return sha
+
+
+STATE_KEYS = ("scheduleState", "runState", "sourceState", "syncState", "reason", "lastSuccessfulSyncAt")
+IDENTITIES = ("candidateSha", "receiptSha", "receiptBlobSha", "cycleDate", "snapshotObservedAt")
+
+
+def business_health(states: dict) -> str:
+    if states["scheduleState"] != "ON_TIME" or states["runState"] != "RETURNED_OK":
+        return "UNHEALTHY"
+    if states["syncState"] == "UNKNOWN":
+        return "UNKNOWN"
+    return "HEALTHY" if states["syncState"] == "SUCCEEDED" else "UNHEALTHY"
+
+
+def summary_states(summary: str, cycle: str) -> dict:
+    """Accept one real receipt row, excluding unavailable/missing/invalid evidence."""
+    if not isinstance(summary, str) or "Check unavailable:" in summary:
+        raise health.HealthError("INVALID_ONLINE_EVIDENCE")
+    rows = [[field.strip() for field in line.split("|")]
+            for line in summary.splitlines() if line.startswith("|")]
+    matches = [row for row in rows if len(row) == 9 and row[1] == cycle]
+    if len(matches) != 1:
+        raise health.HealthError("INVALID_ONLINE_EVIDENCE")
+    states = dict(zip(STATE_KEYS, matches[0][2:8]))
+    allowed = ({"ON_TIME", "OUT_OF_WINDOW", "NOT_ENTERED", "ENTRY_UNCONFIRMED"},
+               {"RETURNED_OK", "RETURNED_NONZERO", "SKIPPED", "PROCESS_ERROR", "NO_TERMINAL_RECEIPT"},
+               health.SOURCE_STATES | {"UNKNOWN"}, health.SYNC_STATES | {"UNKNOWN"},
+               health.SYNC_REASONS | {"UNKNOWN"})
+    if any(states[key] not in values for key, values in zip(STATE_KEYS, allowed)):
+        raise health.HealthError("INVALID_ONLINE_EVIDENCE")
+    if states["lastSuccessfulSyncAt"] != "unknown":
+        health.timestamp(states["lastSuccessfulSyncAt"])
+    return states
+
+
+def validate_result(result: dict) -> None:
+    """Check the small evidence format instead of trusting its top-level PASS."""
+    required = {"schemaVersion", "runner", *IDENTITIES, "onlineRefBefore", "onlineRefAfter",
+                "onlineRefStatus", "onlineCli", "snapshotCli", "nativeHttps", "curlFallback", "status"}
+    if (not isinstance(result, dict) or not required <= result.keys()
+            or type(result["schemaVersion"]) is not int or result["schemaVersion"] != 1
+            or not isinstance(result["runner"], str) or result["runner"] not in RUNNERS
+            or result["status"] != "PASS"):
+        raise health.HealthError("INVALID_RUNNER_EVIDENCE")
+    for key in IDENTITIES[:3]:
+        if not isinstance(result[key], str) or not health.SHA_RE.fullmatch(result[key]):
+            raise health.HealthError("INVALID_RUNNER_EVIDENCE")
+    health.cycle_date(result["cycleDate"])
+    now = health.timestamp(result["snapshotObservedAt"])
+    refs = [result["onlineRefBefore"], result["onlineRefAfter"]]
+    for ref in refs:
+        if (not isinstance(ref, dict) or ref.get("status") != "PASS"
+                or not isinstance(ref.get("sha"), str) or not health.SHA_RE.fullmatch(ref["sha"])):
+            raise health.HealthError("INVALID_RUNNER_EVIDENCE")
+    ref_status = "STABLE" if refs[0]["sha"] == refs[1]["sha"] else "CHANGED"
+    if result["onlineRefStatus"] != ref_status:
+        raise health.HealthError("INVALID_RUNNER_EVIDENCE")
+    for key in ("nativeHttps", "curlFallback"):
+        probe = result[key]
+        if (not isinstance(probe, dict) or probe.get("status") != "PASS"
+                or probe.get("sha") != result["receiptSha"]):
+            raise health.HealthError("INVALID_RUNNER_EVIDENCE")
+    calls = result["curlFallback"].get("curlCalls")
+    if type(calls) is not int or not 1 <= calls <= 3:
+        raise health.HealthError("INVALID_RUNNER_EVIDENCE")
+    fixed = result["snapshotCli"]
+    if (not isinstance(fixed, dict) or fixed.get("status") != "PASS"
+            or type(fixed.get("exitCode")) is not int or not isinstance(fixed.get("results"), list)
+            or len(fixed["results"]) != 1 or not isinstance(fixed["results"][0], dict)):
+        raise health.HealthError("INVALID_RUNNER_EVIDENCE")
+    classified = fixed["results"][0]
+    payload = {"schemaVersion": 1, "cycleDate": result["cycleDate"], "attempts": classified.get("attempts")}
+    if (health.classify(payload, result["cycleDate"], now) != classified
+            or fixed.get("summary") != health.render_summary(fixed["results"])
+            or fixed["exitCode"] != int(classified["scheduleState"] != "ON_TIME")):
+        raise health.HealthError("INVALID_RUNNER_EVIDENCE")
+    online = result["onlineCli"]
+    if (not isinstance(online, dict) or online.get("status") != "PASS"
+            or not {"exitCode", "states", "summary", "error"} <= online.keys()
+            or online["error"] is not None or type(online["exitCode"]) is not int):
+        raise health.HealthError("INVALID_RUNNER_EVIDENCE")
+    states = summary_states(online["summary"], result["cycleDate"])
+    if (states != online["states"] or online["exitCode"] != int(states["scheduleState"] != "ON_TIME")
+            or online.get("observationValid", True) is not True
+            or online.get("businessHealth", business_health(states)) != business_health(states)):
+        raise health.HealthError("INVALID_RUNNER_EVIDENCE")
 
 
 def snapshot_cli(metadata: dict, ref: dict, contents: dict, summary_path: Path) -> dict:
@@ -183,24 +274,30 @@ def curl_fallback(sha: str) -> dict:
 def online_cli(cycle: str, target: Path) -> dict:
     summary_path = target / "online-summary.md"
     try:
+        summary_path.unlink(missing_ok=True)  # A previous invocation is not current evidence.
         process = subprocess.run(
             [sys.executable, "-B", str(Path(health.__file__).resolve()), "check",
              "--cycle-date", cycle, "--summary", str(summary_path)],
             capture_output=True, text=True, encoding="utf-8", timeout=100, check=False)
         summary = summary_path.read_text(encoding="utf-8") if summary_path.is_file() else ""
-        states = {}
-        for line in summary.splitlines():
-            fields = [field.strip() for field in line.split("|")]
-            if len(fields) == 9 and fields[1] == cycle:
-                states = dict(zip(("scheduleState", "runState", "sourceState", "syncState", "reason",
-                                   "lastSuccessfulSyncAt"), fields[2:8]))
-        error = "OBSERVATION_ERROR" if "Check unavailable:" in summary else None
-        return {"status": "PASS" if process.returncode == 0 and states else "FAIL",
+        states, error = {}, None
+        try:
+            states = summary_states(summary, cycle)
+            # This command has no --require-sync: its original gate checks scheduling only.
+            if type(process.returncode) is not int or process.returncode != int(states["scheduleState"] != "ON_TIME"):
+                raise health.HealthError("CLI_EXIT_SEMANTICS_MISMATCH")
+        except health.HealthError as exc:
+            error = str(exc)
+        valid = error is None
+        return {"status": "PASS" if valid else "FAIL", "observationValid": valid,
+                "businessHealth": business_health(states) if valid else "UNKNOWN",
                 "exitCode": process.returncode, "states": states, "summary": summary, "error": error}
     except subprocess.TimeoutExpired:
-        return {"status": "FAIL", "exitCode": None, "error": "ONLINE_CLI_TIMEOUT", "summary": "", "states": {}}
+        return {"status": "FAIL", "observationValid": False, "businessHealth": "UNKNOWN",
+                "exitCode": None, "error": "ONLINE_CLI_TIMEOUT", "summary": "", "states": {}}
     except (OSError, ValueError, UnicodeError):
-        return {"status": "FAIL", "exitCode": None, "error": "ONLINE_CLI_UNAVAILABLE", "summary": "", "states": {}}
+        return {"status": "FAIL", "observationValid": False, "businessHealth": "UNKNOWN",
+                "exitCode": None, "error": "ONLINE_CLI_UNAVAILABLE", "summary": "", "states": {}}
 
 
 def append_summary(text: str) -> None:
@@ -240,6 +337,12 @@ def observe(args: argparse.Namespace) -> int:
               "onlineRefBefore": before, "onlineRefAfter": after, "onlineRefStatus": ref_status,
               "onlineCli": online, "snapshotCli": fixed, "nativeHttps": native,
               "curlFallback": fallback, "status": "PASS" if passed else "FAIL"}
+    if passed:
+        try:
+            validate_result(result)
+        except (health.HealthError, ValueError, KeyError, TypeError):
+            passed = False
+            result["status"] = "FAIL"
     write_json(target / "result.json", result)
     report = (f"## Receipt probes: {args.runner}\n\nCandidate: `{candidate_sha}`; cycle: `{metadata['cycleDate']}`; "
               f"snapshot receipt branch: `{sha}`; blob: `{metadata['receiptBlobSha']}`.\n\n"
@@ -250,6 +353,10 @@ def observe(args: argparse.Namespace) -> int:
               f"| Original CLI, fixed downloaded snapshot/time | {fixed['status']} | {fixed['exitCode']} |\n"
               f"| Python native verified HTTPS | {native['status']} | {native.get('error', 'OK')} |\n"
               f"| Existing real curl fallback | {fallback['status']} | {fallback.get('error', 'OK')} |\n\n"
+              f"Online observation valid: **{online['observationValid']}**; "
+              f"business health: **{online['businessHealth']}**; original CLI exit: **{online['exitCode']}**.\n\n"
+              "Compatibility checks evidence and matching CLI semantics, independently of historical business health. "
+              "A valid scheduling failure keeps its original nonzero exit; missing or invalid evidence still fails.\n\n"
               "Snapshot PASS means exact expected states, summary and exit code; a historical nonzero business exit remains visible. "
               "The snapshot does not prove online availability. Changed online refs do not invalidate the fixed snapshot.\n\n"
               f"### Original online summary\n\n{online['summary'] or 'No online summary produced.\n'}\n"
@@ -262,42 +369,62 @@ def observe(args: argparse.Namespace) -> int:
 
 
 def compare(args: argparse.Namespace) -> int:
-    results = [read_json(path) for path in sorted(args.results.rglob("result.json"))]
-    found = {result.get("runner") for result in results}
-    comparable = len(results) == 2 and found == RUNNERS
-    identities = ("candidateSha", "receiptSha", "receiptBlobSha", "cycleDate", "snapshotObservedAt")
+    results, errors = [], []
+    paths = sorted(args.results.rglob("result.json"))
+    for path in paths:
+        try:
+            result = read_json(path)
+            results.append(result)
+            validate_result(result)
+        except (health.HealthError, OSError, ValueError, KeyError, TypeError):
+            errors.append(f"Invalid or failed evidence: {path.parent.name}/result.json")
+    found = {result.get("runner") for result in results if isinstance(result.get("runner"), str)}
+    comparable = len(paths) == 2 and len(results) == 2 and found == RUNNERS
+    if not comparable:
+        errors.append("Require exactly one result for each of ubuntu-24.04 and ubuntu-26.04")
     if comparable:
         first, second = results
-        comparable = all(first[key] == second[key] for key in identities)
-    fixed_match = comparable and results[0]["snapshotCli"] == results[1]["snapshotCli"]
-    online_shas = [result["onlineRefBefore"].get("sha") for result in results]
-    online_comparable = (comparable and all(result["onlineRefStatus"] == "STABLE" for result in results)
-                         and online_shas[0] == online_shas[1])
+        comparable = all(key in first and key in second and first[key] == second[key] for key in IDENTITIES)
+    valid = not errors
+    fixed_match = bool(comparable and valid and results[0]["snapshotCli"] == results[1]["snapshotCli"])
+    online_comparable = bool(comparable and valid
+                             and all(result["onlineRefStatus"] == "STABLE" for result in results)
+                             and results[0]["onlineRefBefore"]["sha"] == results[1]["onlineRefBefore"]["sha"])
     online_match = (results[0]["onlineCli"] == results[1]["onlineCli"]) if online_comparable else None
-    passed = (fixed_match and all(result["status"] == "PASS" for result in results)
-              and online_match is not False)
+    passed = fixed_match and online_match is not False
     summary = {"status": "PASS" if passed else "FAIL", "runners": sorted(found),
                "sameCandidateAndSnapshot": comparable, "snapshotStatesSummaryAndExitMatch": fixed_match,
                "onlineComparable": online_comparable, "onlineStatesSummaryAndExitMatch": online_match,
+               "validationErrors": errors,
                "results": results}
     args.output.mkdir(parents=True, exist_ok=True)
     write_json(args.output / "comparison.json", summary)
     lines = ["## Cross-runner receipt and HTTPS comparison", "",
              f"Overall: **{summary['status']}**; same candidate/snapshot: **{comparable}**; "
              f"fixed states/summary/exit match: **{fixed_match}**.", "",
-             "| Runner | Snapshot exit/status | Online exit/status | schedule / run / sync | Native HTTPS | Real curl |",
-             "| --- | --- | --- | --- | --- | --- |"]
+             "| Runner | Snapshot exit/status | Online exit/status | schedule / run / sync | Business health | Native HTTPS | Real curl |",
+             "| --- | --- | --- | --- | --- | --- | --- |"]
     for result in results:
+        try:
+            validate_result(result)
+        except (health.HealthError, ValueError, KeyError, TypeError):
+            lines.append("| Invalid or failed runner evidence | UNVERIFIED | UNVERIFIED | UNKNOWN | UNKNOWN | UNVERIFIED | UNVERIFIED |")
+            continue
         fixed, online = result["snapshotCli"], result["onlineCli"]
         states = online["states"]
         lines.append(f"| {result['runner']} | {fixed['exitCode']} / {fixed['status']} | "
                      f"{online['exitCode']} / {online['status']} | {states.get('scheduleState', 'UNKNOWN')} / "
                      f"{states.get('runState', 'UNKNOWN')} / {states.get('syncState', 'UNKNOWN')} | "
+                     f"{business_health(states)} | "
                      f"{result['nativeHttps']['status']} | {result['curlFallback']['status']} |")
     lines.extend(["", f"Online branch snapshots directly comparable: **{online_comparable}**; "
                   f"online states/summary/exit match: **{online_match}**.", "",
                   "When live branch SHAs differ or move, online results are observations only. "
                   "The immutable downloaded responses and selection time provide the deterministic OS comparison.", ""])
+    lines.extend(["Compatibility PASS validates evidence and equal semantics; it does not declare business health successful. "
+                  "Original CLI exit codes and historical business failures remain recorded.", ""])
+    if errors:
+        lines.extend(["Evidence validation failures:", "", *[f"- {error}" for error in errors], ""])
     report = "\n".join(lines)
     (args.output / "comparison.md").write_text(report, encoding="utf-8")
     append_summary(report)
