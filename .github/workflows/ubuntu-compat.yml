@@ -1,0 +1,182 @@
+name: Ubuntu runner compatibility
+
+on:
+  push:
+    branches: [codex/ubuntu-2604-compat]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash # Explicit bash enables pipefail for checks whose output is saved with tee.
+
+concurrency:
+  group: ubuntu-compat-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  python-pages:
+    name: Python and Pages (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, ubuntu-26.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: read # configure-pages reads existing metadata; enablement is disabled.
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Record runner and default Python
+        run: python3 -B tools/ubuntu_compat.py inventory --output "$RUNNER_TEMP/evidence/inventory.json"
+      - name: Configure existing Pages (read only)
+        id: configure
+        uses: actions/configure-pages@v6
+        with:
+          enablement: false
+      - name: Regression
+        id: regression
+        if: ${{ !cancelled() }}
+        run: python3 -B -m unittest discover -s tests -q 2>&1 | tee "$RUNNER_TEMP/evidence/unittest.log"
+      - name: Verify committed catalog
+        id: catalog
+        if: ${{ !cancelled() }}
+        run: python3 -B tools/build_site_catalog.py --check 2>&1 | tee "$RUNNER_TEMP/evidence/catalog.log"
+      - name: Verify committed traffic
+        id: traffic
+        if: ${{ !cancelled() }}
+        run: python3 -B tools/build_traffic.py --check 2>&1 | tee "$RUNNER_TEMP/evidence/traffic.log"
+      - name: Audit public release evidence
+        id: audit
+        if: ${{ !cancelled() }}
+        run: python3 -B tools/audit_consistency.py 2>&1 | tee "$RUNNER_TEMP/evidence/audit.log"
+      - name: Regenerate catalog and require no drift
+        id: generate
+        if: ${{ !cancelled() && steps.catalog.outcome == 'success' }}
+        run: |
+          python3 -B tools/build_site_catalog.py
+          git diff --exit-code -- docs/data/catalog.json
+      - name: Upload Pages artifact with production action
+        id: pages
+        if: ${{ !cancelled() && steps.catalog.outcome == 'success' && steps.traffic.outcome == 'success' && steps.audit.outcome == 'success' && steps.generate.outcome == 'success' }}
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: docs
+          name: ubuntu-compat-pages-${{ matrix.os }}
+          retention-days: 1
+      - name: Download uploaded Pages artifact
+        id: download
+        if: ${{ !cancelled() && steps.pages.outcome == 'success' }}
+        uses: actions/download-artifact@v5
+        with:
+          name: ubuntu-compat-pages-${{ matrix.os }}
+          path: ${{ runner.temp }}/downloaded-pages
+      - name: Verify uploaded site files and hashes
+        id: archive
+        if: ${{ !cancelled() && steps.download.outcome == 'success' }}
+        run: python3 -B tools/ubuntu_compat.py archive --archive "$RUNNER_TEMP/downloaded-pages/artifact.tar" --output "$RUNNER_TEMP/evidence/archive.json"
+      - name: Summarize independent results
+        if: ${{ !cancelled() }}
+        env:
+          RESULTS: ${{ toJSON(steps) }}
+        run: |
+          python3 -B - <<'PY'
+          import json, os
+          from pathlib import Path
+          steps = json.loads(os.environ['RESULTS'])
+          results = {key: steps[key]['outcome'] for key in ('configure', 'regression', 'catalog', 'traffic', 'audit', 'generate', 'pages', 'download', 'archive')}
+          Path(os.environ['RUNNER_TEMP'], 'evidence', 'steps.json').write_text(json.dumps(results, indent=2) + '\n', encoding='utf-8')
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as output:
+              output.write('\n## Python and Pages results\n\n| Step | Result |\n| --- | --- |\n')
+              for name, outcome in results.items():
+                  output.write(f'| {name} | {outcome} |\n')
+              output.write('\nProduction deploy-pages was not executed.\n')
+          PY
+      - name: Preserve diagnostics
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: ubuntu-compat-evidence-${{ matrix.os }}
+          path: ${{ runner.temp }}/evidence
+          retention-days: 7
+          if-no-files-found: error
+
+  receipt-snapshot:
+    name: Select completed historical receipt
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Select and pin a valid completed receipt
+        run: python3 -B tools/ubuntu_compat_receipts.py select --snapshot "$RUNNER_TEMP/receipt-snapshot"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ubuntu-compat-receipt-snapshot
+          path: ${{ runner.temp }}/receipt-snapshot
+          retention-days: 7
+          if-no-files-found: error
+
+  receipt-https:
+    name: Receipt and HTTPS (${{ matrix.os }})
+    needs: receipt-snapshot
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, ubuntu-26.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Record runner and default Python
+        run: python3 -B tools/ubuntu_compat.py inventory --output "$RUNNER_TEMP/receipt-results/inventory.json"
+      - uses: actions/download-artifact@v5
+        with:
+          name: ubuntu-compat-receipt-snapshot
+          path: ${{ runner.temp }}/receipt-snapshot
+      - name: Original receipt CLI, pinned semantics and real HTTPS
+        run: python3 -B tools/ubuntu_compat_receipts.py observe --snapshot "$RUNNER_TEMP/receipt-snapshot" --output "$RUNNER_TEMP/receipt-results" --runner "${{ matrix.os }}"
+      - name: Preserve all receipt and HTTPS outcomes
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: ubuntu-compat-receipts-${{ matrix.os }}
+          path: ${{ runner.temp }}/receipt-results
+          retention-days: 7
+          if-no-files-found: error
+
+  compare-receipts:
+    name: Compare receipt evidence
+    needs: receipt-https
+    if: ${{ !cancelled() && needs.receipt-https.result != 'skipped' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@v5
+        with:
+          pattern: ubuntu-compat-receipts-*
+          path: ${{ runner.temp }}/receipt-results
+      - name: Require matching pinned semantics and report online failures
+        run: python3 -B tools/ubuntu_compat_receipts.py compare --results "$RUNNER_TEMP/receipt-results" --output "$RUNNER_TEMP/comparison"
+      - uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: ubuntu-compat-receipt-comparison
+          path: ${{ runner.temp }}/comparison
+          retention-days: 7
+          if-no-files-found: error
