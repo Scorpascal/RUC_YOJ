@@ -62,6 +62,38 @@ class HealthError(Exception):
     """Only fixed error categories may reach public output."""
 
 
+class GitCommandError(HealthError):
+    """Private delivery diagnostics; never retain command arguments or stderr."""
+
+    def __init__(self, category: str, step: str, failure: str):
+        super().__init__(category)
+        self.step = step if step in {
+            "init", "ls-remote", "fetch", "rev-parse", "ls-tree", "cat-file",
+            "hash-object", "mktree", "commit-tree", "push",
+        } else "OTHER"
+        self.failure = failure if failure in {
+            "AUTH_UNAVAILABLE", "TLS_ERROR", "NETWORK_ERROR", "REF_CONFLICT",
+            "REMOTE_REJECTED", "TIMEOUT",
+        } else "UNKNOWN"
+
+
+def git_failure(stderr: bytes) -> str:
+    """Classify in memory; discard URLs, helper output and credential material."""
+    message = stderr.lower()
+    for category, markers in (
+        ("AUTH_UNAVAILABLE", (b"could not read username", b"could not read password",
+                              b"terminal prompts disabled", b"authentication failed")),
+        ("TLS_ERROR", (b"ssl certificate", b"certificate verify failed")),
+        ("NETWORK_ERROR", (b"connection reset", b"failed to connect", b"could not resolve",
+                           b"recv failure", b"empty reply", b"timed out")),
+        ("REF_CONFLICT", (b"non-fast-forward", b"fetch first", b"cannot lock ref")),
+        ("REMOTE_REJECTED", (b"permission denied", b"remote rejected", b"error: 403")),
+    ):
+        if any(marker in message for marker in markers):
+            return category
+    return "UNKNOWN"
+
+
 def now_local() -> datetime:
     return datetime.now(TZ)
 
@@ -358,9 +390,10 @@ class GitDelivery:
         self.environment = clean_environment()
 
     def git(self, *args: str, data: bytes | None = None) -> bytes:
+        step = args[0] if args else "OTHER"
         remaining = self.deadline - time.monotonic()
         if remaining <= 0:
-            raise HealthError("DELIVERY_TIMEOUT")
+            raise GitCommandError("DELIVERY_TIMEOUT", step, "TIMEOUT")
         process = subprocess.Popen(
             ["git", "-c", "core.hooksPath=/dev/null", "-c", "commit.gpgSign=false",
              "-c", f"user.name={AUTHOR}", "-c", f"user.email={EMAIL}",
@@ -369,7 +402,7 @@ class GitDelivery:
             stderr=subprocess.PIPE, start_new_session=True,
         )
         try:
-            output, _ = process.communicate(data, timeout=min(remaining, GIT_STEP_TIMEOUT))
+            output, stderr = process.communicate(data, timeout=min(remaining, GIT_STEP_TIMEOUT))
         except subprocess.TimeoutExpired:
             # Kill this Git process group, including stalled transport/helpers;
             # the business scheduler belongs to a different process group.
@@ -378,9 +411,9 @@ class GitDelivery:
             except ProcessLookupError:
                 pass
             process.communicate(timeout=1)
-            raise HealthError("DELIVERY_TIMEOUT") from None
+            raise GitCommandError("DELIVERY_TIMEOUT", step, "TIMEOUT") from None
         if process.returncode:
-            raise HealthError("GIT_DELIVERY_FAILED")
+            raise GitCommandError("GIT_DELIVERY_FAILED", step, git_failure(stderr))
         return output
 
     def snapshot(self) -> tuple[str | None, dict[str, tuple[str, dict]]]:
@@ -512,9 +545,12 @@ def deliver(root: Path, initialize: bool = False, replay: bool = False) -> str |
         except Exception as exc:
             # Persist fixed categories locally: no Git stderr or credentials.
             category = str(exc) if isinstance(exc, HealthError) and str(exc) in DELIVERY_ERRORS else "LOCAL_STATE_ERROR"
-            atomic_json(directory / "delivery-status.json", {
+            status = {
                 "state": "DELIVERY_FAILED", "checkedAt": stamp(now_local()), "category": category,
-            })
+            }
+            if isinstance(exc, GitCommandError):
+                status.update(gitStep=exc.step, gitFailure=exc.failure)
+            atomic_json(directory / "delivery-status.json", status)
             raise
 
 

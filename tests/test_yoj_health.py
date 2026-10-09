@@ -738,9 +738,60 @@ class DeliveryTests(unittest.TestCase):
         from unittest.mock import Mock
         process.communicate = Mock(side_effect=[subprocess.TimeoutExpired("git", 1), (b"", b"")])
         with patch.object(health.subprocess, "Popen", return_value=process), patch.object(health.os, "killpg") as kill, \
-             self.assertRaisesRegex(health.HealthError, "DELIVERY_TIMEOUT"):
+             self.assertRaisesRegex(health.GitCommandError, "DELIVERY_TIMEOUT") as raised:
             health.GitDelivery(self.root).git("ls-remote", health.REMOTE, health.REF)
         kill.assert_called_once_with(process.pid, health.signal.SIGKILL)
+        self.assertEqual((raised.exception.step, raised.exception.failure), ("ls-remote", "TIMEOUT"))
+
+    def test_git_failure_diagnostics_are_fixed_categories_not_private_stderr(self):
+        cases = [
+            (b"fatal: could not read Username for 'https://PRIVATE_MARKER': terminal prompts disabled", "AUTH_UNAVAILABLE"),
+            (b"Authentication failed PRIVATE_MARKER", "AUTH_UNAVAILABLE"),
+            (b"SSL certificate problem PRIVATE_MARKER", "TLS_ERROR"),
+            (b"Recv failure: Connection reset by peer PRIVATE_MARKER", "NETWORK_ERROR"),
+            (b"PRIVATE_MARKER non-fast-forward", "REF_CONFLICT"),
+            (b"PRIVATE_MARKER remote rejected", "REMOTE_REJECTED"),
+            (b"PRIVATE_MARKER unexpected failure", "UNKNOWN"),
+        ]
+        from unittest.mock import Mock
+        for stderr, expected in cases:
+            process = SimpleNamespace(returncode=128, communicate=Mock(return_value=(b"", stderr)))
+            with self.subTest(expected=expected), patch.object(health.subprocess, "Popen", return_value=process), \
+                 self.assertRaises(health.GitCommandError) as raised:
+                health.GitDelivery(self.root).git("push", health.REMOTE, health.REF)
+            self.assertEqual(str(raised.exception), "GIT_DELIVERY_FAILED")
+            self.assertEqual((raised.exception.step, raised.exception.failure), ("push", expected))
+            self.assertNotIn("PRIVATE_MARKER", str(vars(raised.exception)))
+        unknown = health.GitCommandError("GIT_DELIVERY_FAILED", "PRIVATE_MARKER", "PRIVATE_MARKER")
+        self.assertEqual((unknown.step, unknown.failure), ("OTHER", "UNKNOWN"))
+
+    def test_failed_push_records_stage_without_mutating_receipt_or_success_time(self):
+        path = health.health_dir(self.root) / "receipts/2026-10-03.json"
+        original = receipt(code=3)
+        original["attempts"][0]["sync"] = sync_evidence(
+            "AVAILABLE", "INCOMPLETE", "YOJ_AUTH_REQUIRED", "2026-10-02T22:40:00+08:00")
+        health.atomic_json(path, original)
+        before = path.read_bytes()
+        with patch.dict(os.environ, {"YOJ_SYNC_ALLOW_PUSH": "1"}), \
+             patch.object(health, "now_local", return_value=at("2026-10-05T12:00:00+08:00")), \
+             patch.object(health.GitDelivery, "publish", side_effect=health.GitCommandError(
+                 "GIT_DELIVERY_FAILED", "push", "AUTH_UNAVAILABLE")), patch.object(health.time, "sleep"), \
+             self.assertRaises(health.GitCommandError):
+            health.deliver(self.root, replay=True)
+        status = json.loads((health.health_dir(self.root) / "delivery-status.json").read_bytes())
+        self.assertEqual(status, {"state": "DELIVERY_FAILED", "checkedAt": "2026-10-05T12:00:00+08:00",
+                                  "category": "GIT_DELIVERY_FAILED", "gitStep": "push", "gitFailure": "AUTH_UNAVAILABLE"})
+        self.assertEqual(path.read_bytes(), before)
+        self.assertFalse((self.root / ".yoj-sync/launchd-cycle.json").exists())
+        # Recovery clears stale delivery errors, but never rewrites business evidence.
+        with patch.dict(os.environ, {"YOJ_SYNC_ALLOW_PUSH": "1"}), \
+             patch.object(health, "now_local", return_value=at("2026-10-05T12:00:00+08:00")):
+            sha = health.deliver(self.root, replay=True)
+        self.assertEqual(path.read_bytes(), before)
+        status = json.loads((health.health_dir(self.root) / "delivery-status.json").read_bytes())
+        self.assertEqual(status["state"], "DELIVERED")
+        self.assertNotIn("gitFailure", status)
+        self.assertEqual(json.loads(self.git("--git-dir", str(self.remote), "show", f"{sha}:receipts/2026-10-03.json")), original)
 
     def test_replay_preserves_failed_journals_without_starting_a_new_cycle(self):
         path = health.health_dir(self.root) / "receipts/2026-10-03.json"
