@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import base64
 import fcntl
+import hashlib
 import json
 import os
 import re
@@ -41,6 +42,7 @@ CONTEXT_ENV = "YOJ_HEALTH_CONTEXT"
 MAX_BYTES = 8192
 DELIVERY_BUDGET = 60
 GIT_STEP_TIMEOUT = 20
+PENDING_RETRY_INTERVAL = 900
 DELIVERY_ERRORS = {"DELIVERY_TIMEOUT", "GIT_DELIVERY_FAILED", "RECEIPT_CONFLICT",
                    "INVALID_RECEIPT", "INVALID_REMOTE", "INVALID_REMOTE_TREE",
                    "LOCAL_STATE_ERROR"}
@@ -120,7 +122,7 @@ def timestamp(value: object) -> datetime:
         raise HealthError("INVALID_RECEIPT") from None
 
 
-def encode(payload: dict) -> bytes:
+def encode(payload: dict | list) -> bytes:
     return (json.dumps(payload, ensure_ascii=True, sort_keys=True, separators=(",", ":")) + "\n").encode()
 
 
@@ -255,6 +257,52 @@ def network_window(now: datetime) -> bool:
     return day_time(22, 30) <= now.astimezone(TZ).time() < day_time(23, 55)
 
 
+def maintenance_window(now: datetime) -> bool:
+    value = now.astimezone(TZ).time()
+    return value >= day_time(23, 55) or value < day_time(0, 10)
+
+
+def journal_receipts(root: Path, now: datetime) -> list[dict]:
+    return [read_receipt(path, now) for path in sorted((health_dir(root) / "receipts").glob("*.json"))]
+
+
+def journal_digest(receipts: list[dict]) -> str:
+    return hashlib.sha256(encode(receipts)).hexdigest()
+
+
+def pending_delivery(root: Path, now: datetime) -> bool:
+    """Retry authentic changed journals, with a private acknowledgement and cooldown."""
+    if maintenance_window(now):
+        return False
+    receipts = journal_receipts(root, now)
+    if not receipts:
+        return False
+    status = {}
+    path = health_dir(root) / "delivery-status.json"
+    try:
+        if path.is_symlink() or not path.is_file():
+            raise ValueError
+        with path.open("rb") as handle:
+            raw = handle.read(MAX_BYTES + 1)
+        if len(raw) > MAX_BYTES:
+            raise ValueError
+        status = json.loads(raw)
+        if not isinstance(status, dict):
+            status = {}
+    except (OSError, ValueError, UnicodeError):
+        pass
+    if status.get("state") == "DELIVERED" and status.get("journalSha256") == journal_digest(receipts):
+        return False
+    if status.get("state") == "DELIVERY_FAILED":
+        try:
+            checked = timestamp(status.get("checkedAt"))
+            if (now - checked).total_seconds() < PENDING_RETRY_INTERVAL:
+                return False
+        except HealthError:
+            pass
+    return True
+
+
 def clean_environment() -> dict[str, str]:
     # Git's existing OS credential helper remains usable. No YOJ environment
     # or arbitrary GIT_* configuration is inherited by the delivery process.
@@ -264,13 +312,16 @@ def clean_environment() -> dict[str, str]:
     return environment
 
 
-def spawn_delivery(root: Path) -> None:
-    if os.environ.get("YOJ_SYNC_ALLOW_PUSH") != "1" or not network_window(now_local()):
+def spawn_delivery(root: Path, pending_only: bool = False) -> None:
+    current = now_local()
+    if (os.environ.get("YOJ_SYNC_ALLOW_PUSH") != "1" or maintenance_window(current)
+            or (not pending_delivery(root, current) if pending_only else not network_window(current))):
         return
     environment = clean_environment()
     environment["YOJ_SYNC_ALLOW_PUSH"] = "1"
     subprocess.Popen(
-        [sys.executable, "-B", str(Path(__file__).resolve()), "flush", "--root", str(root)],
+        [sys.executable, "-B", str(Path(__file__).resolve()),
+         "retry-pending" if pending_only else "flush", "--root", str(root)],
         env=environment, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL, start_new_session=True, close_fds=True,
     )
@@ -285,6 +336,9 @@ def observe(root: Path, event: str, *, token: str | None = None,
         current = now_local()
         if event == "flush":
             spawn_delivery(root)
+            return None
+        if event == "retry-pending":
+            spawn_delivery(root, pending_only=True)
             return None
         with exclusive(directory / "journal.lock"):
             if event == "begin":
@@ -494,29 +548,36 @@ class GitDelivery:
         return commit
 
 
-def deliver(root: Path, initialize: bool = False, replay: bool = False) -> str | None:
+def deliver(root: Path, initialize: bool = False, replay: bool = False,
+            pending_only: bool = False) -> str | None:
     """Send authentic journals only; replay is an explicit operator recovery.
 
-    Automatic delivery stays inside the nightly/buffer window. Replay changes
-    neither timestamps nor outcomes and cannot start the business scheduler.
+    Flush stays inside the nightly/buffer window. Pending recovery sends only
+    existing journals after wake, outside maintenance and within its cooldown.
+    No delivery mode can start the business scheduler or change run evidence.
     """
     current = now_local()
     if os.environ.get("YOJ_SYNC_ALLOW_PUSH") != "1":
         raise HealthError("PUSH_DISABLED")
-    if initialize and replay:
+    if sum((initialize, replay, pending_only)) > 1:
         raise HealthError("INVALID_DELIVERY_MODE")
     if initialize or replay:
-        if current.time() >= day_time(23, 55) or current.time() < day_time(0, 10):
+        if maintenance_window(current):
             raise HealthError("OUTSIDE_DELIVERY_WINDOW")
+    elif pending_only:
+        if not pending_delivery(root, current):
+            return None
     elif not network_window(current):
         return None
     directory = health_dir(root)
     started = time.monotonic()
     with exclusive(directory / "delivery.lock", wait=20):
         current = now_local()
-        if current.time() >= day_time(23, 55) or current.time() < day_time(0, 10):
+        if maintenance_window(current):
             return None
-        if not (initialize or replay) and not network_window(current):
+        if pending_only and not pending_delivery(root, current):
+            return None
+        if not (initialize or replay or pending_only) and not network_window(current):
             return None
         # Initialization publishes an empty branch, never a fabricated run.
         seconds_left = (datetime.combine(current.date(), day_time(23, 55), TZ) - current).total_seconds()
@@ -524,7 +585,7 @@ def deliver(root: Path, initialize: bool = False, replay: bool = False) -> str |
         failures = 0
         try:
             while True:
-                receipts = [] if initialize else [read_receipt(path, now_local()) for path in sorted((directory / "receipts").glob("*.json"))]
+                receipts = [] if initialize else journal_receipts(root, now_local())
                 try:
                     result = publisher.publish(receipts, initialize)
                 except HealthError as exc:
@@ -537,10 +598,13 @@ def deliver(root: Path, initialize: bool = False, replay: bool = False) -> str |
                     # push result; never blindly repeat a stale/force push.
                     continue
                 # Coalesce a terminal journal update arriving during upload.
-                latest = [] if initialize else [read_receipt(path, now_local()) for path in sorted((directory / "receipts").glob("*.json"))]
+                latest = [] if initialize else journal_receipts(root, now_local())
                 if latest == receipts:
                     break
-            atomic_json(directory / "delivery-status.json", {"state": "DELIVERED", "checkedAt": stamp(now_local())})
+            atomic_json(directory / "delivery-status.json", {
+                "state": "DELIVERED", "checkedAt": stamp(now_local()),
+                "journalSha256": journal_digest(latest),
+            })
             return result
         except Exception as exc:
             # Persist fixed categories locally: no Git stderr or credentials.
@@ -698,7 +762,7 @@ def render_summary(results: list[dict], error: str | None = None) -> str:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
-    for name in ("flush", "initialize", "replay"):
+    for name in ("flush", "initialize", "replay", "retry-pending"):
         child = commands.add_parser(name)
         child.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
     check = commands.add_parser("check")
@@ -711,7 +775,8 @@ def main() -> int:
     args = parser.parse_args()
     if args.command != "check":
         try:
-            result = deliver(args.root.resolve(), initialize=args.command == "initialize", replay=args.command == "replay")
+            result = deliver(args.root.resolve(), initialize=args.command == "initialize", replay=args.command == "replay",
+                             pending_only=args.command == "retry-pending")
             print(result or "NO_DELIVERY")
             return 0
         except Exception:

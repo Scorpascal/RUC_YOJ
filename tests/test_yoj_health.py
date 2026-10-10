@@ -346,14 +346,15 @@ class LocalHookTests(unittest.TestCase):
             self.assertNotIn("GIT_CONFIG_COUNT", environment)
 
     def test_buffer_retries_receipts_only_and_maintenance_remains_quiet(self):
-        for moment, flush in [("23:30:00", True), ("23:45:00", True),
-                              ("23:54:59", True), ("23:55:00", False),
-                              ("00:05:00", False), ("21:00:00", False)]:
+        for moment, event in [("23:30:00", "flush"), ("23:45:00", "flush"),
+                              ("23:54:59", "flush"), ("23:55:00", None),
+                              ("00:05:00", None), ("00:10:00", "retry-pending"),
+                              ("01:41:00", "retry-pending"), ("21:00:00", "retry-pending")]:
             with self.subTest(moment=moment), patch.object(guard, "now_local", return_value=at(f"2026-10-04T{moment}+08:00")), \
                  patch.object(guard, "health_observe") as observer, patch.object(guard, "run_scheduler") as run, \
                  patch.object(guard, "save_state") as save, patch.object(guard, "log"):
                 self.assertEqual(guard.main(), 0)
-                self.assertEqual(observer.call_args_list, [unittest.mock.call("flush")] if flush else [])
+                self.assertEqual(observer.call_args_list, [unittest.mock.call(event)] if event else [])
                 run.assert_not_called()
                 save.assert_not_called()
 
@@ -812,6 +813,76 @@ class DeliveryTests(unittest.TestCase):
         result = health.classify(original, original["cycleDate"], at("2026-10-05T12:00:00+08:00"))
         self.assertEqual((result["syncState"], result["lastSuccessfulSyncAt"]),
                          ("BLOCKED", "2026-10-02T22:40:00+08:00"))
+
+    def test_wake_recovery_sends_only_authentic_pending_journal_once(self):
+        path = health.health_dir(self.root) / "receipts/2026-10-03.json"
+        original = receipt(code=3)
+        original["attempts"][0]["sync"] = sync_evidence(
+            "TRANSIENT_ERROR", "INCOMPLETE", "YOJ_TRANSIENT_NETWORK_ERROR", "2026-10-02T22:40:00+08:00")
+        health.atomic_json(path, original)
+        before = path.read_bytes()
+        with patch.dict(os.environ, {"YOJ_SYNC_ALLOW_PUSH": "1"}), \
+             patch.object(health, "now_local", return_value=at("2026-10-04T01:41:00+08:00")):
+            self.assertIsNone(health.deliver(self.root))
+            sha = health.deliver(self.root, pending_only=True)
+            with patch.object(health.GitDelivery, "publish") as publish:
+                self.assertIsNone(health.deliver(self.root, pending_only=True))
+                publish.assert_not_called()
+        self.assertEqual(path.read_bytes(), before)
+        self.assertEqual(json.loads(self.git("--git-dir", str(self.remote), "show", f"{sha}:receipts/2026-10-03.json")), original)
+        self.assertFalse((self.root / ".yoj-sync/launchd-cycle.json").exists())
+        self.assertEqual(list(path.parent.glob("*.json")), [path])
+        status = json.loads((health.health_dir(self.root) / "delivery-status.json").read_bytes())
+        self.assertEqual(status["journalSha256"], health.journal_digest([original]))
+        # A later terminal update still counts as pending after a RUNNING acknowledgement.
+        running = receipt(outcome="RUNNING")
+        health.atomic_json(path, running)
+        health.atomic_json(health.health_dir(self.root) / "delivery-status.json", {
+            "state": "DELIVERED", "journalSha256": health.journal_digest([running]),
+            "checkedAt": "2026-10-03T22:31:00+08:00"})
+        self.assertFalse(health.pending_delivery(self.root, at("2026-10-04T01:41:00+08:00")))
+        health.atomic_json(path, original)
+        self.assertTrue(health.pending_delivery(self.root, at("2026-10-04T01:41:00+08:00")))
+
+    def test_wake_recovery_obeys_cooldown_maintenance_push_and_validation(self):
+        path = health.health_dir(self.root) / "receipts/2026-10-03.json"
+        health.atomic_json(path, receipt(code=3))
+        health.atomic_json(health.health_dir(self.root) / "delivery-status.json", {
+            "state": "DELIVERY_FAILED", "checkedAt": "2026-10-04T01:41:00+08:00",
+            "category": "GIT_DELIVERY_FAILED", "gitStep": "ls-remote", "gitFailure": "NETWORK_ERROR"})
+        for value, pending in [("01:55:59", False), ("01:56:00", True), ("00:05:00", False), ("23:55:00", False)]:
+            self.assertEqual(health.pending_delivery(self.root, at(f"2026-10-04T{value}+08:00")), pending)
+        with patch.object(health.GitDelivery, "publish") as publish, \
+             patch.dict(os.environ, {"YOJ_SYNC_ALLOW_PUSH": "1"}), \
+             patch.object(health, "now_local", return_value=at("2026-10-04T01:50:00+08:00")):
+            self.assertIsNone(health.deliver(self.root, pending_only=True))
+            publish.assert_not_called()
+        with patch.dict(os.environ, {"YOJ_SYNC_ALLOW_PUSH": "0"}), self.assertRaises(health.HealthError):
+            health.deliver(self.root, pending_only=True)
+        invalid = receipt(code=3)
+        invalid["private"] = "PRIVATE_MARKER"
+        health.atomic_json(path, invalid)
+        with patch.dict(os.environ, {"YOJ_SYNC_ALLOW_PUSH": "1"}), \
+             patch.object(health, "now_local", return_value=at("2026-10-04T02:00:00+08:00")), \
+             patch.object(health.GitDelivery, "publish") as publish, self.assertRaises(health.HealthError):
+            health.deliver(self.root, pending_only=True)
+        publish.assert_not_called()
+
+    def test_empty_or_acknowledged_journal_does_not_launch_recovery_worker(self):
+        with patch.dict(os.environ, {"YOJ_SYNC_ALLOW_PUSH": "1"}), \
+             patch.object(health, "now_local", return_value=at("2026-10-04T01:41:00+08:00")), \
+             patch.object(health.subprocess, "Popen") as child:
+            health.spawn_delivery(self.root, pending_only=True)
+            child.assert_not_called()
+            health.atomic_json(health.health_dir(self.root) / "receipts/2026-10-03.json", receipt(code=3))
+            health.spawn_delivery(self.root, pending_only=True)
+            self.assertIn("retry-pending", child.call_args.args[0])
+            self.assertNotIn("YOJ_LOGIN_PASS", child.call_args.kwargs["env"])
+            child.reset_mock()
+            health.atomic_json(health.health_dir(self.root) / "delivery-status.json", {
+                "state": "DELIVERED", "journalSha256": health.journal_digest([receipt(code=3)])})
+            health.spawn_delivery(self.root, pending_only=True)
+            child.assert_not_called()
 
     def test_replay_cannot_bypass_push_gate_maintenance_or_validation(self):
         with patch.dict(os.environ, {"YOJ_SYNC_ALLOW_PUSH": "0"}), self.assertRaisesRegex(health.HealthError, "PUSH_DISABLED"):

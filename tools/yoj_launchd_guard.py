@@ -6,7 +6,8 @@ the window, or while the login keychain is still locked.  This guard allows
 the full sync from 22:30 onward and, after that sync succeeds, performs a
 lightweight public-visibility check every 15 minutes until 23:30 Beijing
 time.  The 23:30–23:55 period is reserved as a flexibility buffer before the
-maintenance window; it starts no new scheduler run. A missed day is skipped,
+maintenance window; it starts no new scheduler run. After waking outside the
+business window, only undelivered authentic receipts may be retried. A missed day is skipped,
 while scheduler checkpoints remain available for the next day's window.
 """
 
@@ -284,6 +285,9 @@ def main() -> int:
             health_observe("flush")
             log("北京时间 23:30–23:55 为维护前弹性缓冲，不启动新一轮自动化")
         else:
+            # Wake recovery is telemetry-only; the observer checks journal
+            # acknowledgements and a 15-minute failure cooldown before spawn.
+            health_observe("retry-pending")
             log("不在北京时间 22:30–23:30 更新窗口，本次跳过；错过当天不补跑")
         return 0
 
