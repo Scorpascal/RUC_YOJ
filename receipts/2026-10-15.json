@@ -1,0 +1,1 @@
+{"attempts":[{"attemptNo":1,"enteredAt":"2026-10-15T22:30:15+08:00","exitCode":0,"finishedAt":"2026-10-15T22:39:26+08:00","invokedAt":"2026-10-15T22:30:14+08:00","outcome":"RETURNED","skipReason":null,"sync":{"lastSuccessfulSyncAt":"2026-10-15T22:39:26+08:00","reason":"NONE","sourceState":"AVAILABLE","syncState":"SUCCEEDED"}}],"cycleDate":"2026-10-15","schemaVersion":1}
