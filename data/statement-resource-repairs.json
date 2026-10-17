@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 1,
+  "kind": "MANUALLY_REVIEWED_STATEMENT_RESOURCE_REPAIR",
+  "recordedAt": "2026-10-17T19:51:10Z",
+  "baseCommit": "2e75df0e73d43f8467308d70200aa5d8672a0d89",
+  "authorization": "User approved resource-only recovery and explicit missing notices",
+  "notANightlySync": true,
+  "unchanged": [
+    "All archived AC code bytes",
+    "Release states and online evidence",
+    "Publication gate code",
+    "Nightly scheduler and timing"
+  ],
+  "resourceDownloadFailuresBefore": 10,
+  "resourceDownloadFailuresAfter": 4,
+  "records": [
+    {
+      "problemNo": 125,
+      "statement": "题解/0125_行列式计算/0125_题目.md",
+      "previousStatementSha256": "12130bfe2a9a76ac5f4493c85b3da24cbcd5c452a787bf4bbcff8d7c45331a5f",
+      "statementSha256": "188e66c192a862e49766cd7a0bbb73e488df888c770b91c3a2e68c0f9768fdee",
+      "previousReleaseStatementSha256": "12130bfe2a9a76ac5f4493c85b3da24cbcd5c452a787bf4bbcff8d7c45331a5f",
+      "resources": [
+        {
+          "originalUrl": "http://202.112.113.190:8080/phpDownload/1385434214",
+          "previousStatus": "DOWNLOAD_FAILED",
+          "status": "DOWNLOAD_FAILED",
+          "observedHttpStatus": 502,
+          "checkedOnBeijingDate": "2026-10-18",
+          "display": "Explicit missing-resource notice; original URL retained"
+        }
+      ]
+    },
+    {
+      "problemNo": 176,
+      "statement": "题解/0176_红色警戒/0176_题目.md",
+      "previousStatementSha256": "cc3b21224a18c5ad81a7ba10c1c73d05ac5a4a615dfcc7ea10c4ca0f2071678f",
+      "statementSha256": "b1b3b284265f04f37460f2e84b9255693bcd12a46d06f2e0c927bbaf44e914cc",
+      "previousReleaseStatementSha256": "cc3b21224a18c5ad81a7ba10c1c73d05ac5a4a615dfcc7ea10c4ca0f2071678f",
+      "resources": [
+        {
+          "originalUrl": "http://yoj.ruc.edu.cn/Uploads/images/sunh/5de9a0914dc16.png",
+          "previousStatus": "CACHED",
+          "status": "CACHED",
+          "path": "题解/0176_红色警戒/assets/img_01_5de9a0914dc16.png",
+          "sha256": "e4ee09d58fb8e2951d13bc0cbae57e9de8f191a5afbda1cc13b8b98611b77d0d",
+          "bytes": 163374
+        },
+        {
+          "originalUrl": "http://yoj.ruc.edu.cn/kindeditor/attached/image/20131214/20131214083228_47867.png",
+          "previousStatus": "DOWNLOAD_FAILED",
+          "status": "DOWNLOAD_FAILED",
+          "observedHttpStatus": 404,
+          "checkedOnBeijingDate": "2026-10-18",
+          "display": "Explicit missing-resource notice; original URL retained"
+        }
+      ]
+    },
+    {
+      "problemNo": 216,
+      "statement": "题解/0216_2.循环链表/0216_题目.md",
+      "previousStatementSha256": "5850d06f50b8c3eb37e0d640ab155e242eaf7fe80201693bd0b8c2ad1d1f1390",
+      "statementSha256": "54a22b5a1b605a8d331e1b2770f5f30a25588d9f356c91be386191e0cd81ee0e",
+      "previousReleaseStatementSha256": "5850d06f50b8c3eb37e0d640ab155e242eaf7fe80201693bd0b8c2ad1d1f1390",
+      "resources": [
+        {
+          "originalUrl": "http://yoj.ruc.edu.cn/kindeditor/attached/image/20181217/20181217091610_35230.png",
+          "previousStatus": "DOWNLOAD_FAILED",
+          "status": "DOWNLOAD_FAILED",
+          "observedHttpStatus": 404,
+          "checkedOnBeijingDate": "2026-10-18",
+          "display": "Explicit missing-resource notice; original URL retained"
+        },
+        {
+          "originalUrl": "http://yoj.ruc.edu.cn/kindeditor/attached/image/20181217/20181217091610_75739.png",
+          "previousStatus": "DOWNLOAD_FAILED",
+          "status": "DOWNLOAD_FAILED",
+          "observedHttpStatus": 404,
+          "checkedOnBeijingDate": "2026-10-18",
+          "display": "Explicit missing-resource notice; original URL retained"
+        }
+      ]
+    },
+    {
+      "problemNo": 285,
+      "statement": "题解/0285_链表操作(加入节点)/0285_题目.md",
+      "previousStatementSha256": "3c66097cb51b398b1f4143781cc0e071e67f453291bf26b0e049b2828ec67b04",
+      "statementSha256": "843f8fccdbbe4fc80b14be58a4a27cab2e829b46dd444d3a279228ab055af0d3",
+      "previousReleaseStatementSha256": null,
+      "resources": [
+        {
+          "originalUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/285.html",
+          "previousStatus": "DOWNLOAD_FAILED",
+          "status": "DOWNLOADED",
+          "path": "题解/0285_链表操作(加入节点)/assets/01_285.cpp",
+          "sha256": "19142ca70a73c41cc725e063647387766e89bb952e7ba12880b61da844353ffd",
+          "bytes": 1075,
+          "sourceSha256": "19142ca70a73c41cc725e063647387766e89bb952e7ba12880b61da844353ffd",
+          "retrievedFrom": {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/gettkcode.html",
+            "method": "POST",
+            "problemNo": 285,
+            "kind": "YOJ_PUBLIC_TEMPLATE_API"
+          }
+        }
+      ]
+    },
+    {
+      "problemNo": 286,
+      "statement": "题解/0286_链表操作(删除节点)/0286_题目.md",
+      "previousStatementSha256": "c4edcc536980d6d84d2f469c9a523a857fd3f4a4cfba2c02303042272865b436",
+      "statementSha256": "e1e4879d39b17d345bd211c8d6831ed323b6b2b333468e28fa5ba559c28fd007",
+      "previousReleaseStatementSha256": null,
+      "resources": [
+        {
+          "originalUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/286.html",
+          "previousStatus": "DOWNLOAD_FAILED",
+          "status": "DOWNLOADED",
+          "path": "题解/0286_链表操作(删除节点)/assets/01_286.cpp",
+          "sha256": "d229d7ce0b516d274d1a8bb860a5347e5d152bd6b35603d1402a31579b1cccf7",
+          "bytes": 1133,
+          "sourceSha256": "d229d7ce0b516d274d1a8bb860a5347e5d152bd6b35603d1402a31579b1cccf7",
+          "retrievedFrom": {
+            "url": "http://yoj.ruc.edu.cn/index.php/index/problem/gettkcode.html",
+            "method": "POST",
+            "problemNo": 286,
+            "kind": "YOJ_PUBLIC_TEMPLATE_API"
+          }
+        }
+      ]
+    },
+    {
+      "problemNo": 1717,
+      "statement": "题解/1717_#_1717_._第_41_次_CCF_计算机软件能力认证_第三题：进程通信（communicate）/1717_题目.md",
+      "previousStatementSha256": "d830ee1ef847bc3e27a9d03f399b1c65160d2b7db10136848b47f96cc6b248e5",
+      "statementSha256": "d26ead39fdf90496ac5b0e8add5e59ccbc63594ec2a3ea41b5d5d7f9c6b1ffba",
+      "previousReleaseStatementSha256": "d830ee1ef847bc3e27a9d03f399b1c65160d2b7db10136848b47f96cc6b248e5",
+      "resources": [
+        {
+          "originalUrl": "https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/09K3WbVzbEzThOtW.Image1.svg/Image1.svg",
+          "previousStatus": "DOWNLOAD_FAILED",
+          "status": "DOWNLOADED",
+          "path": "题解/1717_#_1717_._第_41_次_CCF_计算机软件能力认证_第三题：进程通信（communicate）/assets/img_01_Image1.svg",
+          "sha256": "97501982bf452d30c9fddbc1a43be4e8aa6e181ffefbba9040e2a1df6e707f81",
+          "bytes": 70697
+        },
+        {
+          "originalUrl": "https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/BQwE1wfM0nfms0qn.Image2.svg/Image2.svg",
+          "previousStatus": "DOWNLOAD_FAILED",
+          "status": "DOWNLOADED",
+          "path": "题解/1717_#_1717_._第_41_次_CCF_计算机软件能力认证_第三题：进程通信（communicate）/assets/img_02_Image2.svg",
+          "sha256": "bba8eb7f3ba1c1bbb2542d51d0584b02a5d1dc991f6cac11eb35e67b6ffdb2ee",
+          "bytes": 128776
+        },
+        {
+          "originalUrl": "https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/5J66qyZJxuOuY4dk.Image3.svg/Image3.svg",
+          "previousStatus": "DOWNLOAD_FAILED",
+          "status": "DOWNLOADED",
+          "path": "题解/1717_#_1717_._第_41_次_CCF_计算机软件能力认证_第三题：进程通信（communicate）/assets/img_03_Image3.svg",
+          "sha256": "fce90e01f29ad503b4b3ed301d91aa4fc0119d674eebb95aed72f48dd57a3e68",
+          "bytes": 127744
+        },
+        {
+          "originalUrl": "https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/WUWGDKcaaHn4im1X.Image4.svg/Image4.svg",
+          "previousStatus": "DOWNLOAD_FAILED",
+          "status": "DOWNLOADED",
+          "path": "题解/1717_#_1717_._第_41_次_CCF_计算机软件能力认证_第三题：进程通信（communicate）/assets/img_04_Image4.svg",
+          "sha256": "44f486bfb61da61a4e78c13d023a68ceaa8f49029b0a4875b922d950b3902676",
+          "bytes": 111068
+        }
+      ]
+    }
+  ]
+}

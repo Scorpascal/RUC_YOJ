@@ -22,7 +22,7 @@ import sys
 from collections import Counter
 from pathlib import Path
 from typing import Any, Iterable
-from urllib.parse import quote, unquote, urljoin, urlparse
+from urllib.parse import quote, unquote, urlencode, urljoin, urlparse
 from urllib.request import Request, urlopen
 
 try:
@@ -39,10 +39,12 @@ try:
     from audit_online_availability import validate_snapshot
     from release_gate import candidate_paths, local_gate_reasons
     from yoj_context import problem_path as contextual_problem_path
+    from yoj_http import verified_context
 except ImportError:  # pragma: no cover - supports importing this file as a package module
     from tools.audit_online_availability import validate_snapshot
     from tools.release_gate import candidate_paths, local_gate_reasons
     from tools.yoj_context import problem_path as contextual_problem_path
+    from tools.yoj_http import verified_context
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -649,18 +651,23 @@ class StatementConverter:
                     item["status"] = "CACHED"
                     item["bytes"] = len(materialized)
                     item["sha256"] = content_hash
+                    previous = self._previous_assets_by_url.get(source, {})
+                    if previous.get("sha256") == content_hash:
+                        for key in ("sourceSha256", "transform", "retrievedFrom"):
+                            if key in previous:
+                                item[key] = previous[key]
                     if transform:
                         item["sourceSha256"] = hashlib.sha256(cached_content).hexdigest()
                         item["transform"] = transform
                 else:
-                    request = Request(source, headers={"User-Agent": "RUC-YOJ-Archive/1.0"})
-                    with urlopen(request, timeout=20) as response:  # nosec B310 - URL comes from captured problem HTML
-                        content_type = response.headers.get_content_type()
-                        content = response.read(MAX_ASSET_BYTES + 1)
-                    if content_type == "text/html" or content.lstrip().lower().startswith((b"<!doctype html", b"<html", b"\xef\xbb\xbf<!doctype html")):
-                        raise ValueError("服务器返回 HTML 而非附件")
-                    if len(content) > MAX_ASSET_BYTES:
-                        raise ValueError(f"资源超过 {MAX_ASSET_BYTES // (1024 * 1024)} MiB 限制")
+                    try:
+                        content = read_statement_resource(source)
+                    except (OSError, ValueError, TimeoutError):
+                        recovered = read_public_template_resource(source)
+                        if recovered is None:
+                            raise
+                        content, provenance = recovered
+                        item["retrievedFrom"] = provenance
                     source_content_hash = hashlib.sha256(content).hexdigest()
                     materialized, transform = normalize_code_asset(filename, content)
                     local_path.write_bytes(materialized)
@@ -705,14 +712,7 @@ class StatementConverter:
                     item["bytes"] = local_path.stat().st_size
                     item["sha256"] = source_file_hash(local_path)
                 else:
-                    request = Request(source, headers={"User-Agent": "RUC-YOJ-Archive/1.0"})
-                    with urlopen(request, timeout=20) as response:  # nosec B310 - URL comes from captured problem HTML
-                        content_type = response.headers.get_content_type()
-                        content = response.read(MAX_ASSET_BYTES + 1)
-                    if content_type == "text/html" or content.lstrip().lower().startswith((b"<!doctype html", b"<html")):
-                        raise ValueError("服务器返回 HTML 而非图片")
-                    if len(content) > MAX_ASSET_BYTES:
-                        raise ValueError(f"图片超过 {MAX_ASSET_BYTES // (1024 * 1024)} MiB 限制")
+                    content = read_statement_resource(source)
                     local_path.write_bytes(content)
                     item["status"] = "DOWNLOADED"
                     item["bytes"] = len(content)
@@ -970,6 +970,51 @@ def stable_download_error(exc: BaseException) -> str:
 
     del exc
     return "DOWNLOAD_FAILED"
+
+
+def read_statement_resource(source: str) -> bytes:
+    """Public resource GET, with the same verified CA policy as YOJ reads."""
+    request = Request(source, headers={"User-Agent": "RUC-YOJ-Archive/1.0"})
+    with urlopen(request, timeout=20, context=verified_context()) as response:
+        content_type = response.headers.get_content_type()
+        content = response.read(MAX_ASSET_BYTES + 1)
+    if len(content) > MAX_ASSET_BYTES:
+        raise ValueError("RESOURCE_TOO_LARGE")
+    prefix = content.lstrip().removeprefix(b"\xef\xbb\xbf").lstrip().lower()
+    if not prefix:
+        raise ValueError("RESOURCE_EMPTY")
+    if content_type == "text/html" or prefix.startswith((b"<!doctype html", b"<html")):
+        raise ValueError("RESOURCE_RETURNED_HTML")
+    return content
+
+
+def read_public_template_resource(source: str) -> tuple[bytes, dict[str, Any]] | None:
+    """Recover only an advertised YOJ legacy template via its public read API.
+
+    This is a read-only POST returning a framework, not a judge submission.
+    No login, cookie jar, account headers, or automatic enrollment is involved.
+    """
+    target = urlparse(source)
+    match = re.fullmatch(r"/index\.php/index/problem/downloadtk/pno/([1-9]\d*)\.html", target.path)
+    if (target.scheme not in {"http", "https"} or target.hostname != "yoj.ruc.edu.cn"
+            or target.username or target.password or target.port not in {None, 80 if target.scheme == "http" else 443}
+            or target.query or target.fragment or not match):
+        return None
+    problem_no = int(match[1])
+    endpoint = urljoin(source, "/index.php/index/problem/gettkcode.html")
+    request = Request(endpoint, data=urlencode({"pno": problem_no}).encode(), headers={
+        "User-Agent": "RUC-YOJ-Archive/1.0", "Content-Type": "application/x-www-form-urlencoded",
+        "X-Requested-With": "XMLHttpRequest", "Accept": "application/json"}, method="POST")
+    with urlopen(request, timeout=20, context=verified_context()) as response:
+        raw = response.read(MAX_ASSET_BYTES + 1)
+    if len(raw) > MAX_ASSET_BYTES:
+        raise ValueError("TEMPLATE_TOO_LARGE")
+    payload = json.loads(raw.decode("utf-8-sig"))
+    content = payload.get("content") if isinstance(payload, dict) else None
+    if (not isinstance(payload, dict) or str(payload.get("status")) != "1" or not isinstance(content, str)
+            or "____qcodep____" not in content or re.match(r"^[\s\ufeff]*<(?:html\b|!doctype\s+html\b)", content, re.I)):
+        raise ValueError("PUBLIC_TEMPLATE_UNAVAILABLE")
+    return content.encode("utf-8"), {"url": endpoint, "method": "POST", "problemNo": problem_no, "kind": "YOJ_PUBLIC_TEMPLATE_API"}
 
 
 def normalize_code_asset(filename: str, content: bytes) -> tuple[bytes, str]:

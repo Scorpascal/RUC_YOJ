@@ -21,6 +21,7 @@ on:
       - "tools/audit_consistency.py"
       - "tools/audit_online_availability.py"
       - "tests/test_quick_submit.cjs"
+      - "tests/test_statement_resources.py"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -52,6 +53,10 @@ jobs:
         run: python3 tools/audit_consistency.py
       - name: Verify quick-submit routing and safe fill behavior
         run: node --test tests/test_quick_submit.cjs
+      - name: Verify statement resources and existing sync regressions
+        run: |
+          python3 -m pip install lxml==6.1.1
+          python3 -B -m unittest discover -s tests -q
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:

@@ -6428,17 +6428,21 @@
             "label": "下载代码文件",
             "filename": "01_285.cpp",
             "relativePath": "assets/01_285.cpp",
-            "status": "DOWNLOAD_FAILED",
-            "bytes": 0,
-            "sha256": "",
-            "sourceSha256": "",
+            "status": "DOWNLOADED",
+            "bytes": 1075,
+            "sha256": "19142ca70a73c41cc725e063647387766e89bb952e7ba12880b61da844353ffd",
+            "sourceSha256": "19142ca70a73c41cc725e063647387766e89bb952e7ba12880b61da844353ffd",
             "transform": "",
-            "error": "DOWNLOAD_FAILED"
+            "error": "",
+            "retrievedFrom": {
+              "url": "http://yoj.ruc.edu.cn/index.php/index/problem/gettkcode.html",
+              "method": "POST",
+              "problemNo": 285,
+              "kind": "YOJ_PUBLIC_TEMPLATE_API"
+            }
           }
         ],
-        "warnings": [
-          "附件下载失败: http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/285.html (DOWNLOAD_FAILED)"
-        ]
+        "warnings": []
       }
     },
     {
@@ -6503,17 +6507,21 @@
             "label": "下载代码文件",
             "filename": "01_286.cpp",
             "relativePath": "assets/01_286.cpp",
-            "status": "DOWNLOAD_FAILED",
-            "bytes": 0,
-            "sha256": "",
-            "sourceSha256": "",
+            "status": "DOWNLOADED",
+            "bytes": 1133,
+            "sha256": "d229d7ce0b516d274d1a8bb860a5347e5d152bd6b35603d1402a31579b1cccf7",
+            "sourceSha256": "d229d7ce0b516d274d1a8bb860a5347e5d152bd6b35603d1402a31579b1cccf7",
             "transform": "",
-            "error": "DOWNLOAD_FAILED"
+            "error": "",
+            "retrievedFrom": {
+              "url": "http://yoj.ruc.edu.cn/index.php/index/problem/gettkcode.html",
+              "method": "POST",
+              "problemNo": 286,
+              "kind": "YOJ_PUBLIC_TEMPLATE_API"
+            }
           }
         ],
-        "warnings": [
-          "附件下载失败: http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/286.html (DOWNLOAD_FAILED)"
-        ]
+        "warnings": []
       }
     },
     {
@@ -32801,50 +32809,45 @@
             "label": "img",
             "filename": "img_01_Image1.svg",
             "relativePath": "assets/img_01_Image1.svg",
-            "status": "DOWNLOAD_FAILED",
-            "bytes": 0,
-            "sha256": "",
-            "error": "DOWNLOAD_FAILED"
+            "status": "DOWNLOADED",
+            "bytes": 70697,
+            "sha256": "97501982bf452d30c9fddbc1a43be4e8aa6e181ffefbba9040e2a1df6e707f81",
+            "error": ""
           },
           {
             "url": "https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/BQwE1wfM0nfms0qn.Image2.svg/Image2.svg",
             "label": "img",
             "filename": "img_02_Image2.svg",
             "relativePath": "assets/img_02_Image2.svg",
-            "status": "DOWNLOAD_FAILED",
-            "bytes": 0,
-            "sha256": "",
-            "error": "DOWNLOAD_FAILED"
+            "status": "DOWNLOADED",
+            "bytes": 128776,
+            "sha256": "bba8eb7f3ba1c1bbb2542d51d0584b02a5d1dc991f6cac11eb35e67b6ffdb2ee",
+            "error": ""
           },
           {
             "url": "https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/5J66qyZJxuOuY4dk.Image3.svg/Image3.svg",
             "label": "img",
             "filename": "img_03_Image3.svg",
             "relativePath": "assets/img_03_Image3.svg",
-            "status": "DOWNLOAD_FAILED",
-            "bytes": 0,
-            "sha256": "",
-            "error": "DOWNLOAD_FAILED"
+            "status": "DOWNLOADED",
+            "bytes": 127744,
+            "sha256": "fce90e01f29ad503b4b3ed301d91aa4fc0119d674eebb95aed72f48dd57a3e68",
+            "error": ""
           },
           {
             "url": "https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/WUWGDKcaaHn4im1X.Image4.svg/Image4.svg",
             "label": "img",
             "filename": "img_04_Image4.svg",
             "relativePath": "assets/img_04_Image4.svg",
-            "status": "DOWNLOAD_FAILED",
-            "bytes": 0,
-            "sha256": "",
-            "error": "DOWNLOAD_FAILED"
+            "status": "DOWNLOADED",
+            "bytes": 111068,
+            "sha256": "44f486bfb61da61a4e78c13d023a68ceaa8f49029b0a4875b922d950b3902676",
+            "error": ""
           }
         ],
-        "imageLocalCount": 0,
+        "imageLocalCount": 4,
         "assets": [],
-        "warnings": [
-          "题面图片下载失败: https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/09K3WbVzbEzThOtW.Image1.svg/Image1.svg (DOWNLOAD_FAILED)",
-          "题面图片下载失败: https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/5J66qyZJxuOuY4dk.Image3.svg/Image3.svg (DOWNLOAD_FAILED)",
-          "题面图片下载失败: https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/BQwE1wfM0nfms0qn.Image2.svg/Image2.svg (DOWNLOAD_FAILED)",
-          "题面图片下载失败: https://sim.csp.thusaac.com/staticdata/208.6CxbvEBm0h5a1rCz.pub/WUWGDKcaaHn4im1X.Image4.svg/Image4.svg (DOWNLOAD_FAILED)"
-        ]
+        "warnings": []
       }
     },
     {
