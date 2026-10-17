@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-29T14:49:14Z",
+  "generatedAt": "2026-10-17T18:00:42Z",
   "repository": "Scorpascal/RUC_YOJ",
   "page": "yoj-quick-submit.html",
   "yojBase": "http://yoj.ruc.edu.cn",
@@ -6400,6 +6400,32 @@
       "codeSha256": "90fee378dea6412d119d91cceaeca139a696d9e6e2925835c849f82aac30f41e",
       "onlineStatus": "Accepted",
       "onlineSubmissionNo": "1420880",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
+      "problemNo": 1724,
+      "title": "# 1724 . 根据前序和中序恢复后序",
+      "language": "cpp17",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1724.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/1724_#_1724_._根据前序和中序恢复后序/1724_提交_1441711_cpp17_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1724_%23_1724_._%E6%A0%B9%E6%8D%AE%E5%89%8D%E5%BA%8F%E5%92%8C%E4%B8%AD%E5%BA%8F%E6%81%A2%E5%A4%8D%E5%90%8E%E5%BA%8F/1724_%E6%8F%90%E4%BA%A4_1441711_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "3c55971c77e45e300b7718ac427bd974ae65f1005c6903f8bbd6c409193c6b70",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1441716",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
+      "problemNo": 1725,
+      "title": "# 1725 . 合并果子的最小代价",
+      "language": "cpp17",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1725.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/1725_#_1725_._合并果子的最小代价/1725_提交_1441712_cpp17_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1725_%23_1725_._%E5%90%88%E5%B9%B6%E6%9E%9C%E5%AD%90%E7%9A%84%E6%9C%80%E5%B0%8F%E4%BB%A3%E4%BB%B7/1725_%E6%8F%90%E4%BA%A4_1441712_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "b1781cf3ccfe5602ab7ee0627bc3ca4deec206b9b3db2e676ca93764704ecfa4",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1441718",
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     }
   ],

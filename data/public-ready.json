@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "purpose": "public release manifest; credentials and session data are excluded",
-  "updatedAt": "2026-09-29T14:53:06Z",
+  "updatedAt": "2026-10-17T18:02:27Z",
   "records": [
     {
       "status": "PUBLIC_READY",
@@ -10334,6 +10334,48 @@
         "canonicalByteMatch": true
       },
       "readyAt": "2026-09-29T14:53:06Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1724,
+      "title": "# 1724 . 根据前序和中序恢复后序",
+      "completeCode": "代码库/1724_#_1724_._根据前序和中序恢复后序/1724_提交_1441711_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1724_#_1724_._根据前序和中序恢复后序/1724_提交_1441711_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "3c55971c77e45e300b7718ac427bd974ae65f1005c6903f8bbd6c409193c6b70",
+      "directlySubmittableCodeSha256": "3c55971c77e45e300b7718ac427bd974ae65f1005c6903f8bbd6c409193c6b70",
+      "statementSha256": "a9d1cbba6748ff54b797d10dd87a4b2cce1cdaa1f14e61f0e651e34d001e6c5e",
+      "candidatePath": "staging/cleaned-code/1724_#_1724_._根据前序和中序恢复后序/1724_提交_1441711_cpp17_可提交代码.cpp",
+      "candidateSha256": "3c55971c77e45e300b7718ac427bd974ae65f1005c6903f8bbd6c409193c6b70",
+      "submissionNo": 1441716,
+      "language": "cpp17",
+      "verifiedAt": "2026-10-17T18:01:58Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-10-17T18:02:27Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1725,
+      "title": "# 1725 . 合并果子的最小代价",
+      "completeCode": "代码库/1725_#_1725_._合并果子的最小代价/1725_提交_1441712_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1725_#_1725_._合并果子的最小代价/1725_提交_1441712_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "b1781cf3ccfe5602ab7ee0627bc3ca4deec206b9b3db2e676ca93764704ecfa4",
+      "directlySubmittableCodeSha256": "b1781cf3ccfe5602ab7ee0627bc3ca4deec206b9b3db2e676ca93764704ecfa4",
+      "statementSha256": "e01a9138ac3dac1aff45392d4d3e2c0dccc7502eca70efce904599c20811e11f",
+      "candidatePath": "staging/cleaned-code/1725_#_1725_._合并果子的最小代价/1725_提交_1441712_cpp17_可提交代码.cpp",
+      "candidateSha256": "b1781cf3ccfe5602ab7ee0627bc3ca4deec206b9b3db2e676ca93764704ecfa4",
+      "submissionNo": 1441718,
+      "language": "cpp17",
+      "verifiedAt": "2026-10-17T18:02:14Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-10-17T18:02:27Z"
     }
   ]
 }

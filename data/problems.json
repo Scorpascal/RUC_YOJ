@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "purpose": "offline build; only explicit PUBLIC_READY records are public releases",
   "generatedFrom": "代码库/AC抓取清单.json",
-  "capturedAt": "2026-09-29T14:49:14Z",
-  "generatedRecords": 509,
+  "capturedAt": "2026-10-17T18:00:42Z",
+  "generatedRecords": 511,
   "records": [
     {
       "problemNo": "1",
@@ -32955,6 +32955,126 @@
         "verifiedAt": "2026-09-29T14:52:43Z",
         "verifiedSubmissionNo": "1420880",
         "codeSha256": "90fee378dea6412d119d91cceaeca139a696d9e6e2925835c849f82aac30f41e"
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
+      "problemNo": "1724",
+      "title": "# 1724 . 根据前序和中序恢复后序",
+      "folder": "1724_#_1724_._根据前序和中序恢复后序",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1724.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "256MiB"
+      },
+      "language": "cpp17",
+      "archive": {
+        "status": "RAW_CAPTURED",
+        "submissionNo": "1441711",
+        "capturedAt": "2026-10-17T18:00:42Z",
+        "sourceSha256": "3c55971c77e45e300b7718ac427bd974ae65f1005c6903f8bbd6c409193c6b70",
+        "recordedSha256": "3c55971c77e45e300b7718ac427bd974ae65f1005c6903f8bbd6c409193c6b70",
+        "sourceHashMatchesMetadata": true,
+        "metadata": "代码库/1724_#_1724_._根据前序和中序恢复后序/1724_元数据.json",
+        "completeCode": "代码库/1724_#_1724_._根据前序和中序恢复后序/1724_提交_1441711_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1724_#_1724_._根据前序和中序恢复后序/1724_提交_1441711_cpp17_可提交代码.cpp",
+        "acceptedRun": {
+          "source": "submission_detail",
+          "status": "Accepted",
+          "score": "100",
+          "language": "cpp17",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "endpoint_returned_one_code_field",
+          "completeCodeFile": "1724_提交_1441711_cpp17_完整代码.cpp",
+          "directlySubmittableFile": "1724_提交_1441711_cpp17_可提交代码.cpp",
+          "blocks": [],
+          "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+        }
+      },
+      "public": {
+        "status": "PUBLIC_READY",
+        "publish": true,
+        "statement": "题解/1724_#_1724_._根据前序和中序恢复后序/1724_题目.md",
+        "cleanCode": "代码库/1724_#_1724_._根据前序和中序恢复后序/1724_提交_1441711_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1724_#_1724_._根据前序和中序恢复后序/1724_提交_1441711_cpp17_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "onlineVerificationNote": "",
+        "verifiedAt": "2026-10-17T18:01:58Z",
+        "verifiedSubmissionNo": "1441716",
+        "codeSha256": "3c55971c77e45e300b7718ac427bd974ae65f1005c6903f8bbd6c409193c6b70"
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
+      "problemNo": "1725",
+      "title": "# 1725 . 合并果子的最小代价",
+      "folder": "1725_#_1725_._合并果子的最小代价",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1725.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "256MiB"
+      },
+      "language": "cpp17",
+      "archive": {
+        "status": "RAW_CAPTURED",
+        "submissionNo": "1441712",
+        "capturedAt": "2026-10-17T18:00:42Z",
+        "sourceSha256": "b1781cf3ccfe5602ab7ee0627bc3ca4deec206b9b3db2e676ca93764704ecfa4",
+        "recordedSha256": "b1781cf3ccfe5602ab7ee0627bc3ca4deec206b9b3db2e676ca93764704ecfa4",
+        "sourceHashMatchesMetadata": true,
+        "metadata": "代码库/1725_#_1725_._合并果子的最小代价/1725_元数据.json",
+        "completeCode": "代码库/1725_#_1725_._合并果子的最小代价/1725_提交_1441712_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1725_#_1725_._合并果子的最小代价/1725_提交_1441712_cpp17_可提交代码.cpp",
+        "acceptedRun": {
+          "source": "submission_detail",
+          "status": "Accepted",
+          "score": "100",
+          "language": "cpp17",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "endpoint_returned_one_code_field",
+          "completeCodeFile": "1725_提交_1441712_cpp17_完整代码.cpp",
+          "directlySubmittableFile": "1725_提交_1441712_cpp17_可提交代码.cpp",
+          "blocks": [],
+          "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+        }
+      },
+      "public": {
+        "status": "PUBLIC_READY",
+        "publish": true,
+        "statement": "题解/1725_#_1725_._合并果子的最小代价/1725_题目.md",
+        "cleanCode": "代码库/1725_#_1725_._合并果子的最小代价/1725_提交_1441712_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1725_#_1725_._合并果子的最小代价/1725_提交_1441712_cpp17_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "onlineVerificationNote": "",
+        "verifiedAt": "2026-10-17T18:02:14Z",
+        "verifiedSubmissionNo": "1441718",
+        "codeSha256": "b1781cf3ccfe5602ab7ee0627bc3ca4deec206b9b3db2e676ca93764704ecfa4"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",

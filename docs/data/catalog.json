@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "generatedAt": "2026-09-23T15:04:20Z",
   "source": {
-    "problemRecords": 509,
-    "verifiedSubmissions": 492,
-    "onlineAcceptedSubmissions": 494,
+    "problemRecords": 511,
+    "verifiedSubmissions": 494,
+    "onlineAcceptedSubmissions": 496,
     "onlinePublicProblems": 453,
     "onlinePublicInRepository": 453,
     "onlinePublicMissingRepository": 0,
-    "repositoryProblemsNotInCurrentPublicIndex": 56,
+    "repositoryProblemsNotInCurrentPublicIndex": 58,
     "archivedCodeEntries": 2,
     "archivedQuickSubmitEntries": 0,
     "onlineSnapshotCapturedAt": "2026-09-23T15:04:20Z",
@@ -17,11 +17,11 @@
     "note": "YOJ 可见性来自独立的原站未登录公开列表快照；本站目录仍展示本地全部归档题目，因此本地可见不等于原站当前公开。该快照不替代仓库自己的 Accepted/PUBLIC_READY 证据。知识点标签为根据题名生成的初步导航标签，需逐题人工校准。"
   },
   "tagCounts": {
-    "基础语法": 272,
+    "基础语法": 273,
     "数学": 118,
     "数据结构": 41,
     "图论": 37,
-    "搜索与排序": 35,
+    "搜索与排序": 36,
     "字符串": 17,
     "动态规划": 11
   },
@@ -15317,6 +15317,66 @@
       "quickSubmitUrl": "./yoj-quick-submit.html?pno=1719",
       "quickSubmitWarning": null,
       "submissionNo": "1420880"
+    },
+    {
+      "problemNo": 1724,
+      "title": "# 1724 . 根据前序和中序恢复后序",
+      "folder": "1724_#_1724_._根据前序和中序恢复后序",
+      "tags": [
+        "基础语法"
+      ],
+      "language": "cpp17",
+      "timeLimit": "1000 ms",
+      "memoryLimit": "256MiB",
+      "verified": true,
+      "publicationStatus": "PUBLIC_READY",
+      "onlineAccepted": true,
+      "onlineVerificationStatus": "ONLINE_ACCEPTED",
+      "onlineVerificationAt": "2026-10-17T18:01:58Z",
+      "onlineVerificationSubmissionNo": "1441716",
+      "onlineAvailable": false,
+      "visibilityStatus": "NOT_IN_CURRENT_PUBLIC_INDEX",
+      "onlineStatus": "NOT_IN_CURRENT_PUBLIC_INDEX",
+      "solutionStatus": "statement",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1724.html",
+      "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/1724_%23_1724_._%E6%A0%B9%E6%8D%AE%E5%89%8D%E5%BA%8F%E5%92%8C%E4%B8%AD%E5%BA%8F%E6%81%A2%E5%A4%8D%E5%90%8E%E5%BA%8F/1724_%E9%A2%98%E7%9B%AE.md",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1724_%23_1724_._%E6%A0%B9%E6%8D%AE%E5%89%8D%E5%BA%8F%E5%92%8C%E4%B8%AD%E5%BA%8F%E6%81%A2%E5%A4%8D%E5%90%8E%E5%BA%8F/1724_%E6%8F%90%E4%BA%A4_1441711_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSource": "PUBLIC_READY",
+      "archiveCodeAvailable": false,
+      "quickSubmitMode": "verified",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=1724",
+      "quickSubmitWarning": null,
+      "submissionNo": "1441716"
+    },
+    {
+      "problemNo": 1725,
+      "title": "# 1725 . 合并果子的最小代价",
+      "folder": "1725_#_1725_._合并果子的最小代价",
+      "tags": [
+        "搜索与排序"
+      ],
+      "language": "cpp17",
+      "timeLimit": "1000 ms",
+      "memoryLimit": "256MiB",
+      "verified": true,
+      "publicationStatus": "PUBLIC_READY",
+      "onlineAccepted": true,
+      "onlineVerificationStatus": "ONLINE_ACCEPTED",
+      "onlineVerificationAt": "2026-10-17T18:02:14Z",
+      "onlineVerificationSubmissionNo": "1441718",
+      "onlineAvailable": false,
+      "visibilityStatus": "NOT_IN_CURRENT_PUBLIC_INDEX",
+      "onlineStatus": "NOT_IN_CURRENT_PUBLIC_INDEX",
+      "solutionStatus": "statement",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1725.html",
+      "statementUrl": "https://github.com/Scorpascal/RUC_YOJ/blob/main/%E9%A2%98%E8%A7%A3/1725_%23_1725_._%E5%90%88%E5%B9%B6%E6%9E%9C%E5%AD%90%E7%9A%84%E6%9C%80%E5%B0%8F%E4%BB%A3%E4%BB%B7/1725_%E9%A2%98%E7%9B%AE.md",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1725_%23_1725_._%E5%90%88%E5%B9%B6%E6%9E%9C%E5%AD%90%E7%9A%84%E6%9C%80%E5%B0%8F%E4%BB%A3%E4%BB%B7/1725_%E6%8F%90%E4%BA%A4_1441712_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSource": "PUBLIC_READY",
+      "archiveCodeAvailable": false,
+      "quickSubmitMode": "verified",
+      "quickSubmitUrl": "./yoj-quick-submit.html?pno=1725",
+      "quickSubmitWarning": null,
+      "submissionNo": "1441718"
     }
   ]
 }

@@ -1,0 +1,64 @@
+{
+  "problem": {
+    "submissionNo": "1441712",
+    "problemNo": "1725",
+    "title": "# 1725 . 合并果子的最小代价",
+    "status": "Accepted",
+    "score": "100",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1441712.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1725.html"
+  },
+  "submission": {
+    "submissionNo": "1441712",
+    "problemNo": "1725",
+    "title": "# 1725 . 合并果子的最小代价",
+    "status": "Accepted",
+    "score": "100",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1441712.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1725.html"
+  },
+  "source": {
+    "captureVersion": 2,
+    "capturedAt": "2026-10-17T18:00:42Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    }
+  },
+  "files": {
+    "problem": "1725_题目原文.html",
+    "submission": "1725_提交_1441712_详情.html",
+    "completeCode": "1725_提交_1441712_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "1725_提交_1441712_cpp17_可提交代码.cpp",
+    "metadata": "1725_元数据.json"
+  },
+  "code": {
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 566,
+    "sha256": "b1781cf3ccfe5602ab7ee0627bc3ca4deec206b9b3db2e676ca93764704ecfa4",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1725_提交_1441712_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "1725_提交_1441712_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    },
+    "rawArchiveSha256": "14068eb46df4dacee4536a53f2922802ada0a0e69e5169ce32e54a5c73fbf580",
+    "directlySubmittableSha256": "b1781cf3ccfe5602ab7ee0627bc3ca4deec206b9b3db2e676ca93764704ecfa4",
+    "status": "CLEANED_ONLINE_VERIFIED"
+  },
+  "publication": {
+    "status": "PUBLIC_READY",
+    "batchId": "20261017T180226Z",
+    "candidateSha256": "b1781cf3ccfe5602ab7ee0627bc3ca4deec206b9b3db2e676ca93764704ecfa4",
+    "submissionNo": 1441718,
+    "verifiedAt": "2026-10-17T18:02:14Z"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "problem": {
+    "submissionNo": "1441711",
+    "problemNo": "1724",
+    "title": "# 1724 . 根据前序和中序恢复后序",
+    "status": "Accepted",
+    "score": "100",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1441711.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1724.html"
+  },
+  "submission": {
+    "submissionNo": "1441711",
+    "problemNo": "1724",
+    "title": "# 1724 . 根据前序和中序恢复后序",
+    "status": "Accepted",
+    "score": "100",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1441711.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1724.html"
+  },
+  "source": {
+    "captureVersion": 2,
+    "capturedAt": "2026-10-17T18:00:42Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    }
+  },
+  "files": {
+    "problem": "1724_题目原文.html",
+    "submission": "1724_提交_1441711_详情.html",
+    "completeCode": "1724_提交_1441711_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "1724_提交_1441711_cpp17_可提交代码.cpp",
+    "metadata": "1724_元数据.json"
+  },
+  "code": {
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 1101,
+    "sha256": "3c55971c77e45e300b7718ac427bd974ae65f1005c6903f8bbd6c409193c6b70",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1724_提交_1441711_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "1724_提交_1441711_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    },
+    "rawArchiveSha256": "034da92034ee2e3353d5382bb8a162d5129accf1c9c63c19cdd90b27934dc0aa",
+    "directlySubmittableSha256": "3c55971c77e45e300b7718ac427bd974ae65f1005c6903f8bbd6c409193c6b70",
+    "status": "CLEANED_ONLINE_VERIFIED"
+  },
+  "publication": {
+    "status": "PUBLIC_READY",
+    "batchId": "20261017T180226Z",
+    "candidateSha256": "3c55971c77e45e300b7718ac427bd974ae65f1005c6903f8bbd6c409193c6b70",
+    "submissionNo": 1441716,
+    "verifiedAt": "2026-10-17T18:01:58Z"
+  }
+}
