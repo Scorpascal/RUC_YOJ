@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "purpose": "public release manifest; credentials and session data are excluded",
-  "updatedAt": "2026-10-17T18:02:27Z",
+  "updatedAt": "2026-10-17T18:57:21Z",
   "records": [
     {
       "status": "PUBLIC_READY",
@@ -10376,6 +10376,27 @@
         "canonicalByteMatch": true
       },
       "readyAt": "2026-10-17T18:02:27Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1726,
+      "title": "# 1726 . 二叉树的最近公共祖先（LCA）",
+      "completeCode": "代码库/1726_#_1726_._二叉树的最近公共祖先（LCA）/1726_提交_1441715_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1726_#_1726_._二叉树的最近公共祖先（LCA）/1726_提交_1441715_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "e6c56f3397a24f51b88749330de0fb7ab958d0083069fd601e5d6630a8d58211",
+      "directlySubmittableCodeSha256": "e6c56f3397a24f51b88749330de0fb7ab958d0083069fd601e5d6630a8d58211",
+      "statementSha256": "9bacc56e0bcf1e0501f73121bbb1795fb6b152c08df04b74999eb1f26709527f",
+      "candidatePath": "staging/cleaned-code/1726_#_1726_._二叉树的最近公共祖先（LCA）/1726_提交_1441715_cpp17_可提交代码.cpp",
+      "candidateSha256": "e6c56f3397a24f51b88749330de0fb7ab958d0083069fd601e5d6630a8d58211",
+      "submissionNo": 1441724,
+      "language": "cpp17",
+      "verifiedAt": "2026-10-17T18:57:10Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-10-17T18:57:21Z"
     }
   ]
 }

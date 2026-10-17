@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-17T18:00:42Z",
+  "generatedAt": "2026-10-17T18:55:41Z",
   "repository": "Scorpascal/RUC_YOJ",
   "page": "yoj-quick-submit.html",
   "yojBase": "http://yoj.ruc.edu.cn",
@@ -6426,6 +6426,19 @@
       "codeSha256": "b1781cf3ccfe5602ab7ee0627bc3ca4deec206b9b3db2e676ca93764704ecfa4",
       "onlineStatus": "Accepted",
       "onlineSubmissionNo": "1441718",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。"
+    },
+    {
+      "problemNo": 1726,
+      "title": "# 1726 . 二叉树的最近公共祖先（LCA）",
+      "language": "cpp17",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1726/eno/2095.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html",
+      "codePath": "代码库/1726_#_1726_._二叉树的最近公共祖先（LCA）/1726_提交_1441715_cpp17_可提交代码.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E4%BB%A3%E7%A0%81%E5%BA%93/1726_%23_1726_._%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88%EF%BC%88LCA%EF%BC%89/1726_%E6%8F%90%E4%BA%A4_1441715_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp",
+      "codeSha256": "e6c56f3397a24f51b88749330de0fb7ab958d0083069fd601e5d6630a8d58211",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1441724",
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     }
   ],
