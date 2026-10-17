@@ -12,6 +12,7 @@ tmp/
 logs/
 .DS_Store
 .yoj-sync/
+/README.md.tmp
 candidates/
 staging/
 sessions/

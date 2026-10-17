@@ -16,6 +16,7 @@ on:
       - "README.md"
       - "tools/build_site_catalog.py"
       - "tools/build_initial.py"
+      - "tools/yoj_check_marker.py"
       - "tools/audit_consistency.py"
       - "tools/audit_online_availability.py"
       - ".github/workflows/pages.yml"

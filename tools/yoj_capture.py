@@ -204,6 +204,22 @@ def extract_title(page: str, fallback: str) -> str:
     return fallback or "未命名题目"
 
 
+def load_account_snapshot(path: Path) -> tuple[set[int], int]:
+    """Private same-day account evidence must never impersonate a public index."""
+    if path.is_symlink():
+        raise RuntimeError("账号题库快照不能是符号链接")
+    value = json.loads(path.read_text(encoding="utf-8"))
+    if (not isinstance(value, dict) or set(value) != {
+            "schemaVersion", "scope", "capturedAt", "pagesFetched", "problemNumbers"}
+            or type(value["schemaVersion"]) is not int or value["schemaVersion"] != 1 or value["scope"] != "account_visible"
+            or not isinstance(value["capturedAt"], str) or value["capturedAt"][:10] != utc_now()[:10]
+            or type(value["pagesFetched"]) is not int or value["pagesFetched"] < 1
+            or not isinstance(value["problemNumbers"], list) or not value["problemNumbers"]
+            or any(type(n) is not int or n <= 0 for n in value["problemNumbers"])):
+        raise RuntimeError("账号题库快照缺失、过期或不受信")
+    return set(value["problemNumbers"]), value["pagesFetched"]
+
+
 def local_problem_numbers(manifest_entries: dict[int, dict[str, Any]]) -> set[int]:
     """Return every problem number that has already appeared locally.
 
@@ -557,25 +573,29 @@ def main() -> int:
     parser.add_argument(
         "--discover-only",
         action="store_true",
-        help="只用公开题目快照计算新题号，不登录、不抓题面、不扫描提交",
+        help="只发现题号，不抓题面或扫描提交；--account-visible 时先登录",
     )
     parser.add_argument(
         "--public-snapshot",
         type=Path,
         help="使用已保存的公开列表快照计算差集，避免再次请求 YOJ 公开列表",
     )
+    parser.add_argument("--account-visible", action="store_true", help="登录后发现账号可见题目；账号快照仅保存在本机")
+    parser.add_argument("--account-snapshot", type=Path, help="抓取阶段复用本轮账号题号快照；仍需登录")
     parser.add_argument(
         "--ac-target",
         dest="ac_targets",
         action="append",
         type=int,
-        help="检查该当前公开、尚未发布的题目是否出现本人新 Accepted；可重复指定",
+        help="检查所选可见范围内尚未发布题目的本人新 Accepted；可重复指定",
     )
     args = parser.parse_args()
     if args.request_interval < 0 or args.max_pages < 1:
         raise SystemExit("请求间隔必须非负，页数必须为正数")
     if args.public_only and args.discover_only:
         raise SystemExit("--public-only 不能与 --discover-only 同用")
+    if (args.account_visible and (args.public_only or args.public_snapshot)) or (args.account_snapshot and not args.account_visible):
+        raise SystemExit("账号发现与匿名公开快照必须分离")
     ac_targets = sorted(set(args.ac_targets or []))
     if ac_targets and (args.public_only or args.discover_only):
         raise SystemExit("--ac-target 仅可用于已登录的源码抓取阶段")
@@ -587,7 +607,27 @@ def main() -> int:
     limiter = RateLimiter(args.request_interval)
     now = utc_now()
     high_water = max((submission_number(row.get("submissionNo")) for row in existing.values()), default=0)
-    if args.public_snapshot:
+    logged_in = False
+    number_scope = "account_visible_problem_numbers" if args.account_visible else "public_problem_numbers"
+    count_key = "accountVisibleProblemNumbersSeen" if args.account_visible else "publicProblemNumbersSeen"
+    pages_key = "accountVisibleProblemListPages" if args.account_visible else "publicProblemListPages"
+    if args.account_visible:
+        save_capture_result({"schemaVersion": 2, "scope": "account_login_pending", "capturedAt": now})
+        try:
+            client.login()
+        except Exception:
+            save_capture_result({"schemaVersion": 2, "scope": "account_login_unavailable", "capturedAt": now})
+            raise
+        logged_in = True
+        save_capture_result({"schemaVersion": 2, "scope": "account_list_pending", "capturedAt": now})
+        if args.account_snapshot and not args.discover_only:
+            public_numbers, public_pages = load_account_snapshot(args.account_snapshot)
+        else:
+            public_numbers, public_pages = all_public_problem_numbers(client, limiter, args.max_pages)
+            snapshot = {"schemaVersion": 1, "scope": "account_visible", "capturedAt": now,
+                        "pagesFetched": public_pages, "problemNumbers": sorted(public_numbers)}
+            atomic_write(STATE_DIR / "account-visible-problems.json", (json.dumps(snapshot) + "\n").encode())
+    elif args.public_snapshot:
         public_numbers, public_pages = load_public_snapshot(args.public_snapshot)
     else:
         public_numbers, public_pages = all_public_problem_numbers(client, limiter, args.max_pages)
@@ -605,10 +645,10 @@ def main() -> int:
         result = {
             "schemaVersion": 2,
             "status": "NO_NEW_PROBLEMS",
-            "scope": "public_problem_numbers_only",
+            "scope": number_scope + "_only",
             "capturedAt": now,
-            "publicProblemListPages": public_pages,
-            "publicProblemNumbersSeen": len(public_numbers),
+            pages_key: public_pages,
+            count_key: len(public_numbers),
             "highWaterSubmissionNo": high_water,
             "acceptedProblemsSeen": None,
             "submissionScan": "SKIPPED_NO_NEW_PROBLEMS",
@@ -629,10 +669,10 @@ def main() -> int:
         result = {
             "schemaVersion": 2,
             "status": "NEW_PROBLEMS_FOUND",
-            "scope": "public_problem_numbers_only",
+            "scope": number_scope + "_only",
             "capturedAt": now,
-            "publicProblemListPages": public_pages,
-            "publicProblemNumbersSeen": len(public_numbers),
+            pages_key: public_pages,
+            count_key: len(public_numbers),
             "highWaterSubmissionNo": high_water,
             "acceptedProblemsSeen": None,
             "submissionScan": "SKIPPED_DISCOVERY_ONLY",
@@ -649,7 +689,7 @@ def main() -> int:
         print(json.dumps(result, ensure_ascii=False))
         return 0
 
-    if not args.public_only:
+    if not args.public_only and not logged_in:
         # The authenticated path runs for a new public topic or an explicit
         # pending-AC target. Published problems are rejected above.
         client.login()
@@ -791,10 +831,10 @@ def main() -> int:
     result = {
         "schemaVersion": 2,
         "status": "NEW_PROBLEMS_FOUND" if new_problem_numbers else "NEW_AC_FOUND" if refreshed_ac_numbers else "NO_NEW_PROBLEMS",
-        "scope": "public_problem_numbers_and_personal_accepted",
+        "scope": number_scope + "_and_personal_accepted",
         "capturedAt": now,
-        "publicProblemListPages": public_pages,
-        "publicProblemNumbersSeen": len(public_numbers),
+        pages_key: public_pages,
+        count_key: len(public_numbers),
         "highWaterSubmissionNo": high_water,
         "acceptedProblemsSeen": len(latest),
         "submissionScan": "FULL_TARGETED" if ac_targets else "FULL_ON_NEW_TOPIC",

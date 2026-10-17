@@ -739,15 +739,16 @@ def select_raw_cleanup_backlog() -> list[int]:
     return sorted(set(selected))
 
 
-def select_pending_personal_ac_targets() -> list[int]:
-    """Mirror the site's current-public, not-online-passed preset for AC lookup.
+def select_pending_personal_ac_targets(visible_numbers: set[int] | None = None) -> list[int]:
+    """Select pending AC lookup targets within this run's visibility scope.
 
     A frozen PUBLIC_READY problem is only checked for public visibility. New
     personal submissions never replace its published solution automatically.
     """
 
-    snapshot = json.loads(PUBLIC_SNAPSHOT_PATH.read_text(encoding="utf-8"))
-    current_public = {int(row["problemNo"]) for row in validate_snapshot(snapshot)}
+    if visible_numbers is None:
+        snapshot = json.loads(PUBLIC_SNAPSHOT_PATH.read_text(encoding="utf-8"))
+        visible_numbers = {int(row["problemNo"]) for row in validate_snapshot(snapshot)}
     problems = json.loads(PROBLEMS_PATH.read_text(encoding="utf-8"))
     if not isinstance(problems.get("records"), list):
         raise RuntimeError("题库记录缺失，无法确定本人 AC 复查目标")
@@ -759,7 +760,7 @@ def select_pending_personal_ac_targets() -> list[int]:
         problem_no = int(record["problemNo"])
         public = record.get("public") or {}
         if (
-            problem_no in current_public
+            problem_no in visible_numbers
             and problem_no not in frozen
             and public.get("status") != "PUBLIC_READY"
             and public.get("onlineVerification") != "ONLINE_ACCEPTED"
@@ -1282,6 +1283,42 @@ def health_observe(args: argparse.Namespace, event: str, **kwargs: object) -> No
         pass
 
 
+def finish_complete_check(args: argparse.Namespace, account_environment: dict[str, str] | None) -> int:
+    """Date only an authenticated complete main check, through existing release gates."""
+    context = _SYNC_CONTEXT.get()
+    if not all(getattr(args, name, False) for name in ("allow_submit", "publish", "push")):
+        mark_complete()
+        return 0
+    if account_environment is None or (context and context["incompleteReason"] != "NONE"):
+        return 0
+    if os.environ.get("YOJ_SYNC_ALLOW_PUSH") != "1":
+        mark_incomplete()
+        return 3
+    try:
+        if __package__:
+            from .yoj_check_marker import with_check_date
+        else:
+            from yoj_check_marker import with_check_date
+        path = ROOT / "README.md"
+        previous = path.read_text(encoding="utf-8")
+        updated = with_check_date(previous, now_local().date())
+        if updated != previous:
+            temporary = path.with_suffix(".md.tmp")
+            temporary.write_text(updated, encoding="utf-8")
+            temporary.replace(path)
+            result = publish(args.push, set(), tuple(
+                value for key, value in account_environment.items() if key in {"YOJ_LOGIN_USER", "YOJ_LOGIN_PASS"} and value
+            ))
+            remember_generated_changes()
+            if result:
+                return result
+    except (OSError, ValueError):
+        log("完整检查日期保存失败；不记录本周期成功")
+        return 3
+    mark_complete()
+    return 0
+
+
 def _run_once(args: argparse.Namespace) -> int:
     if in_maintenance():
         health_observe(args, "skipped", reason="MAINTENANCE")
@@ -1354,7 +1391,36 @@ def _run_once(args: argparse.Namespace) -> int:
                 result = publish_verified_checkpoint(environment, args.push, problem_selector(recovered))
                 if result:
                     return result
-        # Refresh the public, unauthenticated evidence first.  This keeps the
+        # Discover through this account first; login failure is an explicit
+        # degraded public-only run, never a complete authenticated check.
+        account_environment = None
+        discovery_result = None
+        account_snapshot = STATE_DIR / "account-visible-problems.json"
+        try:
+            account_environment = prepare_online_environment()
+        except RuntimeError:
+            mark_incomplete("YOJ_AUTH_REQUIRED")
+            log("账号登录不可用；降级核对匿名公开题库，本轮不推进完整检查日期")
+        else:
+            command = [sys.executable, str(ROOT / "tools" / "yoj_capture.py"),
+                       "--account-visible", "--discover-only", "--request-interval", str(args.request_interval)]
+            result_path = STATE_DIR / "capture-result.json"
+            if result_path.is_symlink():
+                return 3
+            result_path.unlink(missing_ok=True)
+            if run_command(command, account_environment, 600):
+                failure = load_capture_result()
+                if not failure or failure.get("scope") not in {"account_login_unavailable", "account_login_pending"}:
+                    log("账号题库发现失败；未采用旧快照或将解析失败视为没有新题")
+                    return 3
+                account_environment = None
+                mark_incomplete("YOJ_AUTH_REQUIRED")
+                log("账号登录失败；降级核对匿名公开题库，本轮不推进完整检查日期")
+            else:
+                discovery_result = load_capture_result()
+                if not discovery_result or discovery_result.get("scope") != "account_visible_problem_numbers_only":
+                    return 3
+        # Refresh public, unauthenticated evidence independently. This keeps the
         # visibility axis current even when no new problem is discovered, and
         # ensures the account is never needed merely to compare problem IDs.
         snapshot_before = snapshot_content_digest(PUBLIC_SNAPSHOT_PATH)
@@ -1383,12 +1449,14 @@ def _run_once(args: argparse.Namespace) -> int:
             "--public-snapshot",
             str(PUBLIC_SNAPSHOT_PATH),
         ]
-        if run_command(discovery_command, environment, 600):
-            log("新题号发现阶段未正常完成，本轮不继续抓取、构建或发布")
-            remember_generated_changes()
-            return 3
-        discovery_result = load_capture_result()
-        if not discovery_result or discovery_result.get("scope") != "public_problem_numbers_only":
+        if account_environment is None:
+            if run_command(discovery_command, environment, 600):
+                log("匿名题号发现失败")
+                remember_generated_changes()
+                return 3
+            discovery_result = load_capture_result()
+        expected_discovery = "account_visible_problem_numbers_only" if account_environment is not None else "public_problem_numbers_only"
+        if not discovery_result or discovery_result.get("scope") != expected_discovery:
             log("调度暂停：新题号发现结果缺失或版本不受信，未继续后续阶段")
             remember_generated_changes()
             return 3
@@ -1401,9 +1469,20 @@ def _run_once(args: argparse.Namespace) -> int:
             remember_generated_changes()
             return 3
 
-        ac_targets = select_pending_personal_ac_targets()
+        visible_numbers = None
+        if account_environment is not None:
+            try:
+                if __package__:
+                    from .yoj_capture import load_account_snapshot
+                else:
+                    from yoj_capture import load_account_snapshot
+                visible_numbers, _ = load_account_snapshot(account_snapshot)
+            except (OSError, ValueError, RuntimeError):
+                log("本轮账号题库快照不受信")
+                return 3
+        ac_targets = select_pending_personal_ac_targets(visible_numbers)
         if ac_targets:
-            log(f"本轮当前公开且未通过在线复验的本人 AC 复查目标（{len(ac_targets)}）：{ac_targets}")
+            log(f"本轮当前可见且未通过在线复验的本人 AC 复查目标（{len(ac_targets)}）：{ac_targets}")
         backlog_problem_numbers = select_raw_cleanup_backlog()
         if backlog_problem_numbers:
             log(
@@ -1414,31 +1493,22 @@ def _run_once(args: argparse.Namespace) -> int:
         new_problem_numbers: list[int] = []
         new_topic_numbers: list[int] = []
         refreshed_ac_numbers: list[int] = []
-        ac_scan_incomplete = False
+        ac_scan_incomplete = account_environment is None
         if discovered_problem_numbers or ac_targets:
             capture_environment = environment
-            public_only = False
-            try:
-                capture_environment = prepare_online_environment()
-            except RuntimeError as exc:
-                mark_incomplete("YOJ_AUTH_REQUIRED")
-                # Still capture newly public statements when the account is
-                # unavailable, but keep the personal AC scan pending.
-                ac_scan_incomplete = bool(ac_targets)
-                public_only = True
-                log(f"未取得 YOJ 登录态，改用公开题面增量抓取：{exc}")
+            public_only = account_environment is None
+            capture_environment = account_environment if account_environment is not None else environment
             if not public_only or discovered_problem_numbers:
                 capture_command = [
                     sys.executable,
                     str(ROOT / "tools" / "yoj_capture.py"),
                     "--request-interval",
                     str(args.request_interval),
-                    "--public-snapshot",
-                    str(PUBLIC_SNAPSHOT_PATH),
                 ]
                 if public_only:
-                    capture_command.append("--public-only")
+                    capture_command.extend(("--public-only", "--public-snapshot", str(PUBLIC_SNAPSHOT_PATH)))
                 else:
+                    capture_command.extend(("--account-visible", "--account-snapshot", str(account_snapshot)))
                     for problem_no in ac_targets:
                         capture_command.extend(("--ac-target", str(problem_no)))
                 if run_command(capture_command, capture_environment, 3600):
@@ -1448,7 +1518,7 @@ def _run_once(args: argparse.Namespace) -> int:
                 capture_result = load_capture_result()
                 expected_scope = (
                     "public_problem_numbers_only" if public_only
-                    else "public_problem_numbers_and_personal_accepted"
+                    else "account_visible_problem_numbers_and_personal_accepted"
                 )
                 if not capture_result or capture_result.get("scope") != expected_scope:
                     log("调度暂停：抓取结果缺失或版本不受信，未继续后续阶段")
@@ -1526,7 +1596,7 @@ def _run_once(args: argparse.Namespace) -> int:
                 return 3
             remember_generated_changes()
             if not ac_scan_incomplete:
-                mark_complete()
+                return finish_complete_check(args, account_environment)
             return 3 if ac_scan_incomplete else 0
 
         selected_problem_numbers = sorted(set(new_problem_numbers) | set(backlog_problem_numbers) | set(refreshed_ac_numbers))
@@ -1600,7 +1670,7 @@ def _run_once(args: argparse.Namespace) -> int:
                 return 3
             remember_generated_changes()
             if result == 0 and not ac_scan_incomplete and not online_incomplete:
-                mark_complete()
+                return finish_complete_check(args, account_environment)
             return 3 if (ac_scan_incomplete or online_incomplete) and result == 0 else result
         if online_ran:
             if run_command(

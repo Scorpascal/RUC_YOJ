@@ -230,9 +230,11 @@ class SchedulerRefreshTests(unittest.TestCase):
             state = Path(directory)
             args = SimpleNamespace(visibility_watch=False, drift_audit=False, sentinel=False, dry_run=False,
                                    request_interval=0, allow_submit=True, max_submissions=50, publish=True, push=False)
+            write_json(state / "account-visible-problems.json", {"schemaVersion": 1, "scope": "account_visible",
+                "capturedAt": yoj_capture.utc_now(), "pagesFetched": 1, "problemNumbers": [1717]})
             results = iter([
-                {"scope": "public_problem_numbers_only", "newProblemNumbers": []},
-                {"scope": "public_problem_numbers_and_personal_accepted", "newProblemNumbers": [], "newTopicNumbers": [], "acTargetNumbers": [1717], "refreshedAcNumbers": [1717], "submissionScan": "FULL_TARGETED"},
+                {"scope": "account_visible_problem_numbers_only", "newProblemNumbers": []},
+                {"scope": "account_visible_problem_numbers_and_personal_accepted", "newProblemNumbers": [], "newTopicNumbers": [], "acTargetNumbers": [1717], "refreshedAcNumbers": [1717], "submissionScan": "FULL_TARGETED"},
             ])
             with (
                 patch.object(yoj_scheduler, "STATE_DIR", state),
@@ -337,9 +339,11 @@ class SchedulerRefreshTests(unittest.TestCase):
             state = Path(directory)
             calls: list[list[str]] = []
             capture_results = iter([
-                {"scope": "public_problem_numbers_only", "newProblemNumbers": []},
-                {"scope": "public_problem_numbers_and_personal_accepted", "newProblemNumbers": [], "newTopicNumbers": [], "acTargetNumbers": [1717], "refreshedAcNumbers": [1717], "submissionScan": "FULL_TARGETED"},
+                {"scope": "account_visible_problem_numbers_only", "newProblemNumbers": []},
+                {"scope": "account_visible_problem_numbers_and_personal_accepted", "newProblemNumbers": [], "newTopicNumbers": [], "acTargetNumbers": [1717], "refreshedAcNumbers": [1717], "submissionScan": "FULL_TARGETED"},
             ])
+            write_json(state / "account-visible-problems.json", {"schemaVersion": 1, "scope": "account_visible",
+                "capturedAt": yoj_capture.utc_now(), "pagesFetched": 1, "problemNumbers": [1717]})
 
             def run_command(command: list[str], *_args: object, **_kwargs: object) -> int:
                 calls.append(command)

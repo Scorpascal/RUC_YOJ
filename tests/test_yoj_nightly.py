@@ -12,7 +12,7 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
-from tools import yoj_scheduler as scheduler, yoj_sync_status as status
+from tools import yoj_scheduler as scheduler, yoj_sync_status as status, yoj_capture
 
 
 def at(value="2026-10-05T22:30:00+08:00"):
@@ -28,12 +28,13 @@ class NightlyTests(unittest.TestCase):
         self.state.mkdir()
         self.snapshot = self.root / "public.json"
         self.snapshot.write_bytes(b"last valid snapshot")
+        (self.root / "README.md").write_text("# Archive\n")
         self.now = at()
         self.events = []
         self.audit_failure = None
-        self.discovery = {"scope": "public_problem_numbers_only", "newProblemNumbers": []}
+        self.discovery = {"scope": "account_visible_problem_numbers_only", "newProblemNumbers": []}
         self.capture = {
-            "scope": "public_problem_numbers_and_personal_accepted", "newProblemNumbers": [],
+            "scope": "account_visible_problem_numbers_and_personal_accepted", "newProblemNumbers": [],
             "newTopicNumbers": [], "acTargetNumbers": [1717], "refreshedAcNumbers": [1717],
             "submissionScan": "FULL_TARGETED",
         }
@@ -55,13 +56,13 @@ class NightlyTests(unittest.TestCase):
             "snapshot_content_digest": "same", "run_visibility_audit": True,
             "load_visibility_report": {"hasVisibilityTransitions": False},
             "select_pending_personal_ac_targets": [], "select_raw_cleanup_backlog": [],
-            "prepare_online_environment": {}, "publish_verified_checkpoint": 0,
+            "prepare_online_environment": {"YOJ_LOGIN_USER": "fixture"}, "publish_verified_checkpoint": 0, "publish": 0,
             "remember_generated_changes": None, "health_observe": None, "log": None,
         }.items():
             self.stack.enter_context(patch.object(scheduler, name, return_value=value))
         self.stack.enter_context(patch.object(scheduler, "now_local", side_effect=lambda: self.now))
         self.stack.enter_context(patch.object(scheduler, "run_command", side_effect=self.command))
-        self.stack.enter_context(patch.object(scheduler, "load_capture_result", side_effect=lambda: self.discovery if self.events[-1] == "discover" else self.capture))
+        self.stack.enter_context(patch.object(scheduler, "load_capture_result", side_effect=lambda: self.discovery if not self.events or self.events[-1] == "discover" else self.capture))
         self.stack.enter_context(patch.object(scheduler.subprocess, "run", side_effect=self.git))
         self.stack.enter_context(patch.dict(scheduler.os.environ, {"YOJ_SYNC_ALLOW_PUSH": "1", "YOJ_SYNC_ENABLE_SUBMIT": "1"}))
 
@@ -81,6 +82,12 @@ class NightlyTests(unittest.TestCase):
                 return 1
         elif name == "yoj_capture.py":
             self.events.append("discover" if "--discover-only" in command else "capture")
+            if "--account-visible" in command and "--discover-only" in command:
+                (self.state / "account-visible-problems.json").write_text(json.dumps({
+                    "schemaVersion": 1, "scope": "account_visible", "capturedAt": yoj_capture.utc_now(),
+                    "pagesFetched": 1, "problemNumbers": [1717, 1725]}))
+            if "--account-visible" not in command and "--discover-only" in command:
+                self.discovery = {"scope": "public_problem_numbers_only", "newProblemNumbers": []}
         else:
             self.events.append(name)
         return 0
@@ -97,12 +104,12 @@ class NightlyTests(unittest.TestCase):
 
     def test_valid_unchanged_sync_updates_success_without_build_or_publish(self):
         self.successful_baseline()
-        self.assertEqual(self.events, ["audit", "discover"])
+        self.assertEqual(self.events, ["discover", "audit"])
         self.assertEqual(self.read()["sourceState"], "AVAILABLE")
         self.assertEqual(self.read()["lastSuccessfulSyncAt"], self.now.isoformat())
         self.assertEqual(self.snapshot.read_bytes(), b"last valid snapshot")
         scheduler.publish_verified_checkpoint.assert_not_called()
-        scheduler.prepare_online_environment.assert_not_called()
+        self.assertIn("最近完整检查日期", (self.root / "README.md").read_text())
 
     def test_guard_invocation_binding_is_recorded_only_in_private_status(self):
         invocation = "a" * 32
@@ -110,13 +117,56 @@ class NightlyTests(unittest.TestCase):
             self.successful_baseline()
         self.assertEqual(self.read()["invocationId"], invocation)
 
+    def test_unchanged_complete_run_writes_readme_check_date(self):
+        readme = self.root / "README.md"
+        readme.write_text("# Archive\n")
+        with patch.object(scheduler, "publish", return_value=0):
+            self.assertEqual(scheduler.run_once(self.args), 0)
+        self.assertIn("最近完整检查日期（北京时间）：`2026-10-05`", readme.read_text())
+
+    def test_no_change_still_requires_account_discovery(self):
+        previous = "# Archive\n\n最近完整检查日期（北京时间）：`2026-10-04`\n"
+        (self.root / "README.md").write_text(previous)
+        with patch.object(scheduler, "prepare_online_environment", side_effect=RuntimeError("unavailable")):
+            result = scheduler.run_once(self.args)
+        self.assertNotEqual(result, 0)
+        self.assertEqual(self.read()["syncState"], "INCOMPLETE")
+        self.assertEqual(self.events, ["audit", "discover"])
+        self.assertEqual((self.root / "README.md").read_text(), previous)
+
+    def test_login_rejection_uses_public_fallback_without_reusing_account_snapshot(self):
+        original = self.command
+        def command(args, *rest):
+            if "--account-visible" in args:
+                self.events.append("rejected_login")
+                return 3
+            return original(args, *rest)
+        original_result = scheduler.load_capture_result.side_effect
+        with patch.object(scheduler, "run_command", side_effect=command), \
+             patch.object(scheduler, "load_capture_result", side_effect=lambda: {
+                 "scope": "account_login_unavailable"} if self.events[-1] == "rejected_login" else original_result()):
+            self.assertEqual(scheduler.run_once(self.args), 3)
+        self.assertEqual(self.events, ["rejected_login", "audit", "discover"])
+        self.assertEqual(self.read()["reason"], "YOJ_AUTH_REQUIRED")
+        self.assertNotIn("最近完整检查日期", (self.root / "README.md").read_text())
+
+    def test_complete_check_date_is_stable_for_repeated_checks_same_day(self):
+        self.successful_baseline()
+        first = (self.root / "README.md").read_bytes()
+        self.now = at("2026-10-05T23:15:00+08:00")
+        self.successful_baseline()
+        self.assertEqual((self.root / "README.md").read_bytes(), first)
+        self.now = at("2026-10-06T22:30:00+08:00")
+        self.successful_baseline()
+        self.assertIn("`2026-10-06`", (self.root / "README.md").read_text())
+
     def test_selected_success_keeps_existing_gate_order_and_publication(self):
         with patch.object(scheduler, "select_pending_personal_ac_targets", return_value=[1717]):
             self.successful_baseline()
         gates = ["build_initial.py", "normalize_cpp_headers.py", "port_cpp17_candidates.py",
                  "repair_known_candidates.py", "sanitize_candidates.py", "validate_candidates.py",
                  "compile_candidates.py", "run_samples.py", "audit_forms.py", "audit_consistency.py"]
-        self.assertEqual(self.events, ["audit", "discover", "capture", *gates, "online_verify.py"])
+        self.assertEqual(self.events, ["discover", "audit", "capture", *gates, "online_verify.py"])
         scheduler.publish_verified_checkpoint.assert_called_once()
 
     def test_tls_cooldown_preserves_data_and_local_checkpoint_then_recovers(self):
@@ -130,7 +180,7 @@ class NightlyTests(unittest.TestCase):
         with patch.object(scheduler, "eligible_unpublished_numbers", return_value=[42]), \
              patch.object(scheduler, "publish_verified_checkpoint", side_effect=lambda *_a: self.events.append("release") or 0):
             self.assertEqual(scheduler.run_once(self.args), 3)
-        self.assertEqual(self.events, ["release"])
+        self.assertEqual(self.events, ["release", "discover"])
         scheduler.verify_pending_remote.assert_called()
         self.assertEqual(self.read()["retryAfter"], deadline)
         self.assertEqual(self.read()["lastSuccessfulSyncAt"], last)
@@ -139,7 +189,7 @@ class NightlyTests(unittest.TestCase):
         self.audit_failure = None
         self.events.clear()
         self.assertEqual(scheduler.run_once(self.args), 0)
-        self.assertEqual(self.events, ["audit", "discover"])
+        self.assertEqual(self.events, ["discover", "audit"])
         self.assertIsNone(self.read()["retryAfter"])
         self.assertEqual(self.read()["lastSuccessfulSyncAt"], self.now.isoformat())
 
@@ -151,7 +201,7 @@ class NightlyTests(unittest.TestCase):
                 self.audit_failure = (reason, source)
                 self.events.clear()
                 self.assertEqual(scheduler.run_once(self.args), 3)
-                self.assertEqual(self.events, ["audit"])
+                self.assertEqual(self.events, ["discover", "audit"])
                 self.assertEqual(self.read()["sourceState"], source)
                 self.assertEqual(self.read()["retryAfter"] is not None, source == "BLOCKED")
                 self.assertEqual(self.snapshot.read_bytes(), b"last valid snapshot")
@@ -160,7 +210,8 @@ class NightlyTests(unittest.TestCase):
         report = self.state / "source-access-result.json"
         report.write_text(json.dumps({"schemaVersion": 1, "checkedAt": self.now.isoformat(),
                                       "sourceState": "BLOCKED", "reason": "YOJ_TLS_CERTIFICATE_ERROR", "snapshotChanged": None}))
-        with patch.object(scheduler, "run_command", return_value=1):
+        original = self.command
+        with patch.object(scheduler, "run_command", side_effect=lambda command, *args: 1 if Path(command[1]).name == "audit_online_availability.py" else original(command, *args)):
             self.assertEqual(scheduler.run_once(self.args), 3)
         self.assertEqual(self.read()["sourceState"], "ERROR")
         self.assertIsNone(self.read()["retryAfter"])
@@ -173,7 +224,7 @@ class NightlyTests(unittest.TestCase):
         self.events.clear()
         self.args.push = False
         self.assertEqual(scheduler.run_once(self.args), 0)
-        self.assertEqual(self.events, ["audit", "discover"])
+        self.assertEqual(self.events, ["discover", "audit"])
         self.assertEqual(self.read()["syncState"], "BLOCKED")  # Manual work cannot manufacture a nightly success.
 
     def test_missing_account_keeps_existing_partial_flow_without_claiming_success(self):
@@ -193,8 +244,9 @@ class NightlyTests(unittest.TestCase):
             self.now = at("2026-10-05T22:45:00+08:00")
             with patch.object(scheduler, "select_raw_cleanup_backlog", return_value=[1717]), \
                  patch.dict(scheduler.os.environ, {"YOJ_SYNC_ENABLE_SUBMIT": "1" if missing_account else "0"}), \
-                 patch.object(scheduler, "prepare_online_environment", side_effect=RuntimeError("fixture unavailable")):
-                self.assertEqual(scheduler.run_once(self.args), 0)
+                 patch.object(scheduler, "prepare_online_environment", return_value={"YOJ_LOGIN_USER": "fixture"},
+                              side_effect=RuntimeError("fixture unavailable") if missing_account else None):
+                self.assertEqual(scheduler.run_once(self.args), 3 if missing_account else 0)
             self.assertEqual(self.read()["syncState"], "INCOMPLETE")
             self.assertEqual(self.read()["lastSuccessfulSyncAt"], last)
 

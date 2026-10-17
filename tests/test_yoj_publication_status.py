@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import tempfile
+import json
 import unittest
 from contextlib import ExitStack
 from datetime import datetime
@@ -10,7 +11,7 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
-from tools import yoj_scheduler as scheduler, yoj_sync_status as status
+from tools import yoj_scheduler as scheduler, yoj_sync_status as status, yoj_capture
 
 
 class PublicationStatusTests(unittest.TestCase):
@@ -30,6 +31,10 @@ class PublicationStatusTests(unittest.TestCase):
             catalog.write_text('{"records": []}\n', encoding="utf-8")
 
             now = datetime.fromisoformat("2026-10-05T22:30:00+08:00")
+            (root / "README.md").write_text("# Archive\n\n最近完整检查日期（北京时间）：`2026-10-05`\n")
+            (state / "account-visible-problems.json").write_text(json.dumps({
+                "schemaVersion": 1, "scope": "account_visible", "capturedAt": yoj_capture.utc_now(),
+                "pagesFetched": 1, "problemNumbers": [42]}))
             base_sha = "a" * 40
             head_sha = base_sha
             changed = False
@@ -103,7 +108,7 @@ class PublicationStatusTests(unittest.TestCase):
                 "in_maintenance": False, "validate_worktree_before_run": True,
                 "eligible_unpublished_numbers": [], "child_environment": {},
                 "snapshot_content_digest": "same", "run_visibility_audit": True,
-                "load_capture_result": {"scope": "public_problem_numbers_only", "newProblemNumbers": []},
+                "load_capture_result": {"scope": "account_visible_problem_numbers_only", "newProblemNumbers": []},
                 "select_pending_personal_ac_targets": [], "select_raw_cleanup_backlog": [],
                 "remember_generated_changes": None, "log": None,
             }.items():
@@ -118,7 +123,7 @@ class PublicationStatusTests(unittest.TestCase):
             stack.enter_context(patch.object(scheduler, "run_command", side_effect=command))
             stack.enter_context(patch.object(scheduler, "publish", side_effect=publish))
             stack.enter_context(patch.object(
-                scheduler, "prepare_online_environment", side_effect=AssertionError("Unexpected login"),
+                scheduler, "prepare_online_environment", return_value={},
             ))
             stack.enter_context(patch.object(scheduler.subprocess, "run", side_effect=git))
             for name in ("Popen", "call", "check_call", "check_output"):
@@ -130,7 +135,8 @@ class PublicationStatusTests(unittest.TestCase):
             }))
 
             # A valid unchanged cycle creates independent successful evidence.
-            self.assertEqual(scheduler.run_once(args), 0)
+            with patch.dict(scheduler.os.environ, {"YOJ_SYNC_ALLOW_PUSH": "1"}):
+                self.assertEqual(scheduler.run_once(args), 0)
             previous = status.read(state)
             self.assertIsNotNone(previous)
             self.assertEqual(previous["syncState"], "SUCCEEDED")

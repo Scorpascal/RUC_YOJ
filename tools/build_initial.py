@@ -1268,6 +1268,12 @@ def build_statement(
 
 
 def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
+    if __package__:
+        from .yoj_check_marker import check_date_line
+    else:
+        from yoj_check_marker import check_date_line
+    readme_path = ROOT / "README.md"
+    complete_check_line = check_date_line(readme_path.read_text(encoding="utf-8") if readme_path.is_file() else "")
     captured_at = str(manifest.get("capturedAt") or "未记录")
     online_snapshot: dict[str, Any] = {}
     if ONLINE_PUBLIC_PATH.is_file():
@@ -1452,6 +1458,8 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
     lines = [
         "# RUC YOJ 题解归档",
         "",
+        complete_check_line,
+        "",
         "## 🌐 主网页入口",
         "",
         '<h2 align="center">🚀 <a href="https://scorpascal.github.io/RUC_YOJ/">打开 RUC YOJ Solutions →</a></h2>',
@@ -1478,7 +1486,8 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         f"- 在线源码回收：`Accepted` 中已回收并比对 `{online_visible}/{online_accepted}`；编号、状态、跳过原因和源码回收证据保存在被忽略的 `staging/online-verification.json`",
         f"- YOJ 快捷提交入口：严格 `PUBLIC_READY` `{quick_submit_count}` 道；另有当前公开历史 Accepted 归档 `{len(archived_quick_by_no)}` 道提供带警告的人工尝试入口；当前公开且仓库有代码 `{current_public_code_count}` 道，不改变发布状态",
         "- 题面中的时间/内存是题目页限制；每条归档记录的 `archive.acceptedRun` 单独保存某次 AC 的实测耗时/内存，二者不混用",
-        "- 自动调度：每天北京时间 22:30–23:30 执行主流程和间隔公开列表复核；23:30–23:55 留作维护前弹性缓冲，不启动新一轮；23:55 起避开站点维护。公开题号发现不依赖账号；即使公开题号没有新增，主流程也会对当前公开且未通过/未记录在线复验、又未 `PUBLIC_READY` 的题目查找本人新 Accepted。已 `PUBLIC_READY` 的题目只核对公开可见性，不重新抓取源码。若本机登录态或钥匙串不可用，新题仍可只抓题面并记录为 `TOPIC_CAPTURED`，本人 AC 扫描和在线复验保留待重试；未完成请求保留断点，在下一天窗口继续；只有通过脱敏、本地和在线发布门禁的源码才随公开白名单生成物自动提交并推送到 `main`；YOJ 登录密码只从本机钥匙串注入，不进入 GitHub",
+        "- 自动调度：每天北京时间 22:30–23:30 执行主流程；23:30–23:55 为维护前弹性缓冲，不启动新一轮。优先登录本人账号，从登录后的题库发现新题，并复查账号可见且未完成发布的题目是否有本人新 Accepted；账号题号快照只保存在被忽略的 `.yoj-sync/`。登录不可用时降级核对匿名公开列表、抓取公开新题面，本人 AC 与在线复核保留待重试；降级不算完整成功，不推进 README 的最近完整检查日期。匿名公开快照继续独立记录原站公开可见性。已 `PUBLIC_READY` 的源码不自动替换；发布仍须通过脱敏、本地门禁、在线 Accepted 与源码回收核验，凭据不进入 GitHub。",
+        "- 最近完整检查日期：本轮账号发现及所有适用检查、内容发布和可见性基线保存成功后，每天更新 README 顶部日期，即使题库内容没有变化；日期更新沿用脱敏、暂存树审计、推送及对应 SHA 的 Pages 验证。失败、部分完成、降级或轻量复查不推进成功记录；日期与题库内容最近变化时间分别记录。",
         "- 每日 backlog：自动处理仍为 `RAW_CAPTURED` 且已有本人 Accepted 源码的题目；保留脱敏、本地语法/编译/样例/提交表单及在线复核门禁。相同候选已有 Accepted 时不重复提交；异常题目用 `--retry-abnormal` 续跑，每轮最多提交 50 道。普通及实时部分代码模板均需回收源码；片段或证据不足的题目不能提升为 `PUBLIC_READY`。",
         "- 最终远端同步：每晚生成通过脱敏与暂存树门禁的本地提交后，先保存该提交的补推检查点；GitHub 推送失败时，后续定时重试只补推同一提交，并等待对应 SHA 的 Pages workflow 成功，未完成前不把当天记为成功。分支或 HEAD 变化、存在无检查点的本地提交时暂停自动推送，不强推、不覆盖远端。",
         "- 夜间调度健康检查：主同步进入和退出时，在独立 `codex/yoj-health` 分支记录脱敏运行回执；GitHub 每日北京时间 23:55 分别展示调度、来源访问、同步完成与最后成功同步时间。默认退出码只检查调度，可用 `check --require-sync` 要求明确同步成功证据；旧回执同步状态为 `UNKNOWN`，补传不更新原结果或成功时间。完整检查通过但内容无变化仍记录成功；锁冲突、维护跳过、账号不可用及提交/推送门禁跳过不会推进成功时间。回执发送失败不改变业务退出码或发布门禁，登录、源码和原始日志不进入回执。",
