@@ -1494,6 +1494,7 @@ def _run_once(args: argparse.Namespace) -> int:
         new_topic_numbers: list[int] = []
         refreshed_ac_numbers: list[int] = []
         context_updated_numbers: list[int] = []
+        unavailable_existing_numbers: list[int] = []
         ac_scan_incomplete = account_environment is None
         if discovered_problem_numbers or ac_targets:
             capture_environment = environment
@@ -1538,6 +1539,9 @@ def _run_once(args: argparse.Namespace) -> int:
                     context_updated_numbers = sorted(
                         {int(value) for value in (capture_result.get("contextUpdatedNumbers") or [])}
                     )
+                    unavailable_existing_numbers = sorted(
+                        {int(value) for value in (capture_result.get("unavailableProblemNumbers") or [])}
+                    )
                     captured_targets = sorted(
                         {int(value) for value in (capture_result.get("acTargetNumbers") or [])}
                     )
@@ -1555,12 +1559,16 @@ def _run_once(args: argparse.Namespace) -> int:
                     capture_result.get("submissionScan") != ("FULL_TARGETED" if ac_targets else "FULL_ON_NEW_TOPIC")
                     or not set(refreshed_ac_numbers).issubset(ac_targets)
                     or not set(context_updated_numbers).issubset(ac_targets)
+                    or not set(unavailable_existing_numbers).issubset(ac_targets)
+                    or bool(set(unavailable_existing_numbers) & (set(context_updated_numbers) | set(refreshed_ac_numbers)))
                 ):
                     log("调度暂停：本人提交扫描证据与指定目标不一致")
                     remember_generated_changes()
                     return 3
                 if refreshed_ac_numbers:
                     log(f"本轮归档新的本人 Accepted 源码：{refreshed_ac_numbers}")
+                if unavailable_existing_numbers:
+                    log(f"旧归档题的已发现入口明确拒绝访问：{unavailable_existing_numbers}；未覆盖归档或伪造成功，不阻塞其他题；在线门禁继续保留逐题阻塞证据")
 
         if not new_problem_numbers and not backlog_problem_numbers and not refreshed_ac_numbers and not context_updated_numbers:
             has_visibility_transition = bool(visibility_report.get("hasVisibilityTransitions"))

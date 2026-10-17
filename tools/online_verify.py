@@ -27,10 +27,10 @@ from http.cookiejar import CookieJar
 
 if __package__:
     from .yoj_http import build_yoj_opener, validate_yoj_url
-    from .yoj_context import problem_path as contextual_problem_path
+    from .yoj_context import is_access_denied, problem_path as contextual_problem_path
 else:
     from yoj_http import build_yoj_opener, validate_yoj_url
-    from yoj_context import problem_path as contextual_problem_path
+    from yoj_context import is_access_denied, problem_path as contextual_problem_path
 
 try:
     from release_gate import candidate_paths, local_gate_reasons
@@ -230,6 +230,8 @@ def read_candidates() -> dict[int, tuple[Path, str]]:
 
 
 def parse_form(page: str, problem_no: int, language: str) -> tuple[str, str | None]:
+    if is_access_denied(page):
+        raise ValueError("PROBLEM_CONTEXT_ACCESS_DENIED")
     form_tags = re.findall(r"<form\b[^>]*>", page, flags=re.I)
     submit_tag = next((tag for tag in form_tags if re.search(r"id=[\"']submit_code[\"']", tag, re.I)), "")
     if not submit_tag:

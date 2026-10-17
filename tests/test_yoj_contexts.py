@@ -319,8 +319,57 @@ class ContextDiscoveryTests(unittest.TestCase):
     def test_truncated_context_refresh_preserves_statement_and_metadata(self):
         self.run_unchanged_ac_capture(truncated=True)
 
+    def test_explicit_denial_of_old_archive_does_not_block_new_accessible_problem(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            old = {'problemNo': '112', 'submissionNo': '1001', 'folder': '0112_old',
+                   'problemUrl': context.BASE + PREFIX + 'problem/detail/pno/112.html', 'files': {}}
+            snapshot = root / 'snapshot.json'
+            old_path = PREFIX + 'problem/detail/pno/112/eno/1742.html'
+            new_path = PREFIX + 'problem/detail/pno/1726/eno/2095.html'
+            snapshot.write_text(json.dumps({'schemaVersion': 2, 'scope': 'account_visible',
+                'capturedAt': capture.utc_now(), 'pagesFetched': 5, 'problemNumbers': [112, 1726],
+                'problemPaths': {'112': [old_path], '1726': [new_path]},
+                'coverage': {'entryPages': 4, 'courses': 0, 'exams': 2, 'homework': 0, 'inaccessibleEntries': 0}}))
+            class Client:
+                def login(self):
+                    pass
+                def request(self, path, data=None, referer=''):
+                    if path == old_path:
+                        return '<html><body><div class="system-message">看不到</div></body></html>'
+                    if path == new_path:
+                        return '<html><body><h1>#1726. Example</h1><div id="p_content">statement</div></body></html>'
+                    if 'getcode' in path:
+                        return '{"status":1,"code":"int main(){}"}'
+                    if 'submissions/detail' in path:
+                        return '<html><body>submission</body></html>'
+                    raise AssertionError(path)
+            rows = [{'problemNo': 112, 'submissionNo': 1001, 'status': 'Accepted', 'language': 'cpp17'},
+                    {'problemNo': 1726, 'submissionNo': 1002, 'status': 'Accepted', 'language': 'cpp17'}]
+            with patch.object(capture, 'ROOT', root), patch.object(capture, 'STATE_DIR', root), \
+                 patch.object(capture, 'CAPTURE_RESULT_PATH', root / 'result.json'), \
+                 patch.object(capture, 'MANIFEST_PATH', root / 'manifest.json'), \
+                 patch.object(capture, 'existing_context', return_value=({'problems': [old], 'totals': {}}, {112: old}, {112})), \
+                 patch.object(capture, 'frozen_public_ready_numbers', return_value=set()), \
+                 patch.object(capture, 'all_submission_rows', return_value=rows), patch.object(capture, 'YoJClient', Client), \
+                 patch.object(sys, 'argv', ['capture', '--account-visible', '--account-snapshot', str(snapshot), '--ac-target', '112', '--request-interval', '0']):
+                try:
+                    result = capture.main()
+                except RuntimeError:
+                    self.fail('an explicit old-archive denial prevented capture of the accessible new topic')
+                self.assertEqual(result, 0)
+            result = json.loads((root / 'result.json').read_text())
+            self.assertEqual(result['unavailableProblemNumbers'], [112])
+            self.assertEqual(result['newAcNumbers'], [1726])
+            self.assertEqual(json.loads((root / 'manifest.json').read_text())['problems'][0], old)
+
 
 class ContextVerificationTests(unittest.TestCase):
+    def test_explicit_access_denial_is_not_misreported_as_a_missing_form(self):
+        page = '<html><body><div class="system-message">看不到</div></body></html>'
+        with self.assertRaisesRegex(ValueError, 'PROBLEM_CONTEXT_ACCESS_DENIED'):
+            online.parse_form(page, 112, 'cpp17')
+
     def test_online_verifier_preserves_eno_for_form_and_post_referer(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

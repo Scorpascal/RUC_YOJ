@@ -826,6 +826,7 @@ def main() -> int:
     new_ac_numbers: list[int] = []
     refreshed_ac_numbers: list[int] = []
     context_updated_numbers: list[int] = []
+    unavailable_existing_numbers: list[int] = []
     manifest_entries = {int(row["problemNo"]): row for row in manifest.get("problems") or []}
     for pno in sorted(set(new_problem_numbers) | set(ac_targets)):
         previous_entry = existing.get(pno)
@@ -843,7 +844,17 @@ def main() -> int:
                 previous_path = contextual_problem_path(pno, previous_url)
                 paths = problem_paths[str(pno)]
                 ordered_paths = ([previous_path] if previous_path in paths else []) + [p for p in paths if p != previous_path]
-                problem_path, problem_html = fetch_problem_context(client, limiter, pno, ordered_paths)
+                try:
+                    problem_path, problem_html = fetch_problem_context(client, limiter, pno, ordered_paths)
+                except RuntimeError as exc:
+                    if str(exc) != 'ACCOUNT_PROBLEM_CONTEXT_UNAVAILABLE':
+                        raise
+                    # A complete, explicit access denial for an OLD archive
+                    # is a per-problem block, not evidence of a failed login
+                    # or permission to overwrite the archive. New topics and
+                    # malformed/network responses still fail closed.
+                    unavailable_existing_numbers.append(pno)
+                    continue
                 if problem_path != previous_path:
                     if not metadata_path.is_file() or not files.get("problem"):
                         raise RuntimeError("ACCOUNT_PROBLEM_METADATA_MISSING")
@@ -939,6 +950,7 @@ def main() -> int:
         "newAcNumbers": new_ac_numbers,
         "refreshedAcNumbers": refreshed_ac_numbers,
         "contextUpdatedNumbers": context_updated_numbers,
+        "unavailableProblemNumbers": unavailable_existing_numbers,
         "changedProblems": changed_problems,
         "changedFiles": changed_files,
         "manifestUpdated": bool(changed_files or changed_problems),
