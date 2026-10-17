@@ -20,6 +20,7 @@ on:
       - "tools/yoj_context.py"
       - "tools/audit_consistency.py"
       - "tools/audit_online_availability.py"
+      - "tests/test_quick_submit.cjs"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -49,6 +50,8 @@ jobs:
         run: python3 tools/build_traffic.py --check
       - name: Audit public release evidence
         run: python3 tools/audit_consistency.py
+      - name: Verify quick-submit routing and safe fill behavior
+        run: node --test tests/test_quick_submit.cjs
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:
