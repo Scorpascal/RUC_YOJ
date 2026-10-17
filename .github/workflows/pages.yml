@@ -22,6 +22,7 @@ on:
       - "tools/audit_online_availability.py"
       - "tests/test_quick_submit.cjs"
       - "tests/test_statement_resources.py"
+      - "tests/test_yoj_ac_refresh.py"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 

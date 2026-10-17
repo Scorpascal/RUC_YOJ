@@ -236,6 +236,9 @@ class SchedulerRefreshTests(unittest.TestCase):
                 {"scope": "account_visible_problem_numbers_only", "newProblemNumbers": []},
                 {"scope": "account_visible_problem_numbers_and_personal_accepted", "newProblemNumbers": [], "newTopicNumbers": [], "acTargetNumbers": [1717], "refreshedAcNumbers": [1717], "submissionScan": "FULL_TARGETED"},
             ])
+            # Isolate the real dirty worktree without adding another static
+            # with block: Python 3.12 limits these in one function.
+            self.enterContext(patch.object(yoj_scheduler, "changed_paths", return_value=[]))
             with (
                 patch.object(yoj_scheduler, "STATE_DIR", state),
                 patch.object(yoj_scheduler, "LOCK_PATH", state / "lock"),
@@ -251,9 +254,6 @@ class SchedulerRefreshTests(unittest.TestCase):
                 patch.object(yoj_scheduler, "select_pending_personal_ac_targets", return_value=[1717]),
                 patch.object(yoj_scheduler, "select_raw_cleanup_backlog", return_value=[]),
                 patch.object(yoj_scheduler, "eligible_unpublished_numbers", return_value=[]),
-                # This fixture has no pre-existing release change; do not read
-                # a developer's real dirty public-ready manifest from Git.
-                patch.object(yoj_scheduler, "changed_paths", return_value=[]),
                 patch.object(yoj_scheduler, "publish_verified_checkpoint", return_value=0) as release,
                 patch.object(yoj_scheduler, "run_command", side_effect=lambda cmd, *_a: 3 if "online_verify.py" in " ".join(cmd) else 0),
                 patch.object(yoj_scheduler, "remember_generated_changes"),
