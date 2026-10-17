@@ -16,7 +16,7 @@ class Links(HTMLParser):
     def __init__(self, page):
         super().__init__(convert_charrefs=True)
         self.urls = []
-        self.seen_body = self.closed_body = self.closed_html = False
+        self.seen_body = self.closed_body = False
         self.table_depth = 0
         self.feed(page)
 
@@ -31,14 +31,14 @@ class Links(HTMLParser):
     def handle_endtag(self, tag):
         if tag.lower() == 'body':
             self.closed_body = True
-        if tag.lower() == 'html':
-            self.closed_html = True
         if tag.lower() == 'table':
             self.table_depth -= 1
 
     @property
     def complete(self):
-        return self.seen_body and self.closed_body and self.closed_html and self.table_depth == 0
+        # YOJ's course template legitimately ends at </body>, omitting the
+        # optional </html>. Still require its body end marker and closed tables.
+        return self.seen_body and self.closed_body and self.table_depth == 0
 
 
 def is_access_denied(page):

@@ -95,6 +95,15 @@ class ContextDiscoveryTests(unittest.TestCase):
             root = Path(temporary)
             self.assertEqual(self.discover(pages, root), 0)
 
+    def test_course_page_with_closed_body_and_omitted_html_end_tag_is_complete(self):
+        pages = self.pages()
+        pages[PREFIX + 'course/index.html'] = ('<html><body>' + LOGOUT + '<h2>课程</h2>'
+            + link(PREFIX + 'course/detail/cno/example.html') + '</body>')
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.assertEqual(self.discover(pages, root), 0)
+            self.assertEqual(json.loads((root / 'result.json').read_text())['newProblemNumbers'], [1726])
+
     def test_course_homework_detail_can_link_to_an_exam(self):
         pages = self.pages()
         pages[PREFIX + 'course/detail/cno/example.html'] = LOGOUT + '<h4>课程主页</h4>' + link(PREFIX + 'homework/index/cno/example.html')
