@@ -169,6 +169,15 @@ class NightlyTests(unittest.TestCase):
         self.assertEqual(self.events, ["discover", "audit", "capture", *gates, "online_verify.py"])
         scheduler.publish_verified_checkpoint.assert_called_once()
 
+    def test_context_only_refresh_still_runs_selected_gates_and_publication(self):
+        self.capture['refreshedAcNumbers'] = []
+        self.capture['contextUpdatedNumbers'] = [1717]
+        with patch.object(scheduler, 'select_pending_personal_ac_targets', return_value=[1717]):
+            self.successful_baseline()
+        self.assertIn('sanitize_candidates.py', self.events)
+        self.assertIn('online_verify.py', self.events)
+        scheduler.publish_verified_checkpoint.assert_called_once()
+
     def test_tls_cooldown_preserves_data_and_local_checkpoint_then_recovers(self):
         last = self.successful_baseline()
         self.now = at("2026-10-05T22:31:00+08:00")

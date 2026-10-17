@@ -70,7 +70,7 @@ class CaptureRefreshTests(unittest.TestCase):
                 patch.object(yoj_capture, "YoJClient", FakeClient),
                 patch.object(yoj_capture, "load_public_snapshot", return_value=({42, 1717}, 0)),
                 patch.object(yoj_capture, "all_submission_rows", return_value=rows),
-                patch.object(yoj_capture, "fetch", return_value="<h1>进程通信</h1>"),
+                patch.object(yoj_capture, "fetch", return_value='<html><body><h1>#1717. 进程通信</h1><div id="p_content">statement</div></body></html>'),
                 patch.object(sys, "argv", ["yoj_capture.py", "--public-snapshot", "unused", "--ac-target", "1717", "--request-interval", "0"]),
             ]
             with patches[0], patches[1], patches[2], patches[3], patches[4], patches[5], patches[6], patches[7], patches[8], patches[9], patches[10], patches[11]:

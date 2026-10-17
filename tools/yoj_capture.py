@@ -25,6 +25,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from audit_online_availability import validate_snapshot  # noqa: E402
 from online_verify import YoJClient, clean_text, parse_submission_rows  # noqa: E402
+from yoj_context import Links, collect_problem_paths, discover_account_contexts, is_access_denied, problem_path as contextual_problem_path  # noqa: E402
 
 
 MANIFEST_PATH = ROOT / "代码库" / "AC抓取清单.json"
@@ -123,6 +124,7 @@ def all_public_problem_numbers(
     client: YoJClient,
     limiter: RateLimiter,
     max_pages: int,
+    contexts: dict[str, list[str]] | None = None,
 ) -> tuple[set[int], int]:
     """Read the complete public problem index before any submission scan.
 
@@ -135,8 +137,13 @@ def all_public_problem_numbers(
 
     first = fetch(client, limiter, PUBLIC_PROBLEM_INDEX)
     numbers = public_problem_numbers(first)
+    if contexts is not None:
+        collect_problem_paths(first, contexts, PUBLIC_PROBLEM_INDEX)
+        numbers.update(map(int, contexts))
     pages: dict[int, str] = {1: PUBLIC_PROBLEM_INDEX}
     advertised = public_problem_page_links(first)
+    if contexts is not None and any(n > max_pages for n in advertised):
+        raise RuntimeError("ACCOUNT_PROBLEM_PAGE_LIMIT")
     pages.update({page_no: path for page_no, path in advertised.items() if 1 <= page_no <= max_pages})
     fetched_pages = 1
 
@@ -147,7 +154,12 @@ def all_public_problem_numbers(
             page = fetch(client, limiter, pages[page_no])
             fetched_pages += 1
             numbers.update(public_problem_numbers(page))
+            if contexts is not None:
+                collect_problem_paths(page, contexts, pages[page_no])
+                numbers.update(map(int, contexts))
             for linked_page, linked_url in public_problem_page_links(page).items():
+                if contexts is not None and linked_page > max_pages:
+                    raise RuntimeError("ACCOUNT_PROBLEM_PAGE_LIMIT")
                 if 1 <= linked_page <= max_pages and linked_page not in pages:
                     pages[linked_page] = linked_url
         # The loop above may discover additional pages while iterating.  Walk
@@ -158,7 +170,12 @@ def all_public_problem_numbers(
             page = fetch(client, limiter, pages[page_no])
             fetched_pages += 1
             numbers.update(public_problem_numbers(page))
+            if contexts is not None:
+                collect_problem_paths(page, contexts, pages[page_no])
+                numbers.update(map(int, contexts))
             for linked_page, linked_url in public_problem_page_links(page).items():
+                if contexts is not None and linked_page > max_pages:
+                    raise RuntimeError("ACCOUNT_PROBLEM_PAGE_LIMIT")
                 if 1 <= linked_page <= max_pages and linked_page not in pages:
                     pages[linked_page] = linked_url
                     pending.append(linked_page)
@@ -173,10 +190,19 @@ def all_public_problem_numbers(
         page = fetch(client, limiter, PUBLIC_PROBLEM_PAGE.format(page=page_no))
         fetched_pages += 1
         current = public_problem_numbers(page)
+        if contexts is not None:
+            current_contexts: dict[str, list[str]] = {}
+            collect_problem_paths(page, current_contexts, PUBLIC_PROBLEM_PAGE.format(page=page_no))
+            current.update(map(int, current_contexts))
+            for number, urls in current_contexts.items():
+                contexts.setdefault(number, []).extend(u for u in urls if u not in contexts.get(number, []))
         if not current or current == previous_numbers:
             break
         numbers.update(current)
         previous_numbers = current
+    else:
+        if contexts is not None:
+            raise RuntimeError("ACCOUNT_PROBLEM_PAGE_LIMIT")
     if not numbers:
         raise RuntimeError("YOJ 公开题目列表未解析到任何题号；未把本轮误判为无新题")
     return numbers, fetched_pages
@@ -209,14 +235,31 @@ def load_account_snapshot(path: Path) -> tuple[set[int], int]:
     if path.is_symlink():
         raise RuntimeError("账号题库快照不能是符号链接")
     value = json.loads(path.read_text(encoding="utf-8"))
-    if (not isinstance(value, dict) or set(value) != {
-            "schemaVersion", "scope", "capturedAt", "pagesFetched", "problemNumbers"}
-            or type(value["schemaVersion"]) is not int or value["schemaVersion"] != 1 or value["scope"] != "account_visible"
+    keys = {"schemaVersion", "scope", "capturedAt", "pagesFetched", "problemNumbers"}
+    if isinstance(value, dict) and value.get("schemaVersion") == 2:
+        keys |= {"problemPaths", "coverage"}
+    if (not isinstance(value, dict) or set(value) != keys
+            or type(value["schemaVersion"]) is not int or value["schemaVersion"] not in {1, 2} or value["scope"] != "account_visible"
             or not isinstance(value["capturedAt"], str) or value["capturedAt"][:10] != utc_now()[:10]
             or type(value["pagesFetched"]) is not int or value["pagesFetched"] < 1
             or not isinstance(value["problemNumbers"], list) or not value["problemNumbers"]
             or any(type(n) is not int or n <= 0 for n in value["problemNumbers"])):
         raise RuntimeError("账号题库快照缺失、过期或不受信")
+    if value["schemaVersion"] == 2:
+        paths = value["problemPaths"]
+        coverage = value["coverage"]
+        coverage_keys = {"entryPages", "courses", "exams", "homework", "inaccessibleEntries"}
+        if (not isinstance(paths, dict) or set(paths) != {str(n) for n in value["problemNumbers"]}
+                or not isinstance(coverage, dict) or set(coverage) != coverage_keys
+                or any(type(n) is not int or n < 0 for n in coverage.values())
+                or coverage["entryPages"] < 2):
+            raise RuntimeError("账号题库上下文缺失或不受信")
+        for number, urls in paths.items():
+            if not isinstance(urls, list) or not urls:
+                raise RuntimeError("账号题库上下文缺失或不受信")
+            for url in urls:
+                if not isinstance(url, str) or contextual_problem_path(int(number), url) != url:
+                    raise RuntimeError("账号题库上下文缺失或不受信")
     return set(value["problemNumbers"]), value["pagesFetched"]
 
 
@@ -289,6 +332,19 @@ class RateLimiter:
 def fetch(client: YoJClient, limiter: RateLimiter, path: str) -> str:
     limiter.before_request()
     return client.request(path)
+
+
+def fetch_problem_context(client: YoJClient, limiter: RateLimiter, problem_no: int, paths: list[str]) -> tuple[str, str]:
+    for path in paths:
+        page = fetch(client, limiter, path)
+        if is_access_denied(page):
+            continue
+        heading = re.search(r'<h1\b[^>]*>(.*?)</h1>', page, re.I | re.S)
+        if (not Links(page).complete or not re.search(r'id=[\"\']p_content[\"\']', page)
+                or not heading or not re.search(rf'#\s*{problem_no}\s*[.．]', clean_text(heading[1]))):
+            raise RuntimeError('ACCOUNT_PROBLEM_RESPONSE_INVALID')
+        return path, page
+    raise RuntimeError('ACCOUNT_PROBLEM_CONTEXT_UNAVAILABLE')
 
 
 def all_submission_rows(
@@ -478,7 +534,7 @@ def materialize(entry: dict[str, Any]) -> int:
             "language": entry["language"],
             "submitter": "本人(已脱敏)",
             "submissionUrl": f"{BASE}/index.php/index/submissions/detail/subno/{entry['submissionNo']}.html",
-            "problemUrl": f"{BASE}/index.php/index/problem/detail/pno/{problem_no}.html",
+            "problemUrl": BASE + contextual_problem_path(problem_no, entry.get("problemUrl")),
         },
         "submission": {
             "submissionNo": entry["submissionNo"],
@@ -489,7 +545,7 @@ def materialize(entry: dict[str, Any]) -> int:
             "language": entry["language"],
             "submitter": "本人(已脱敏)",
             "submissionUrl": f"{BASE}/index.php/index/submissions/detail/subno/{entry['submissionNo']}.html",
-            "problemUrl": f"{BASE}/index.php/index/problem/detail/pno/{problem_no}.html",
+            "problemUrl": BASE + contextual_problem_path(problem_no, entry.get("problemUrl")),
         },
         "source": {
             "captureVersion": 2,
@@ -535,7 +591,7 @@ def materialize_topic(entry: dict[str, Any]) -> int:
             "language": "",
             "submitter": "未抓取源码",
             "submissionUrl": "",
-            "problemUrl": f"{BASE}/index.php/index/problem/detail/pno/{problem_no}.html",
+            "problemUrl": BASE + contextual_problem_path(problem_no, entry.get("problemUrl")),
         },
         "source": {
             "captureVersion": 3,
@@ -608,6 +664,7 @@ def main() -> int:
     now = utc_now()
     high_water = max((submission_number(row.get("submissionNo")) for row in existing.values()), default=0)
     logged_in = False
+    problem_paths: dict[str, list[str]] = {}
     number_scope = "account_visible_problem_numbers" if args.account_visible else "public_problem_numbers"
     count_key = "accountVisibleProblemNumbersSeen" if args.account_visible else "publicProblemNumbersSeen"
     pages_key = "accountVisibleProblemListPages" if args.account_visible else "publicProblemListPages"
@@ -622,10 +679,18 @@ def main() -> int:
         save_capture_result({"schemaVersion": 2, "scope": "account_list_pending", "capturedAt": now})
         if args.account_snapshot and not args.discover_only:
             public_numbers, public_pages = load_account_snapshot(args.account_snapshot)
+            saved = json.loads(args.account_snapshot.read_text(encoding="utf-8"))
+            if saved["schemaVersion"] != 2:
+                raise RuntimeError("账号发现快照未覆盖课程和考试；必须重新发现")
+            problem_paths = saved["problemPaths"]
         else:
-            public_numbers, public_pages = all_public_problem_numbers(client, limiter, args.max_pages)
-            snapshot = {"schemaVersion": 1, "scope": "account_visible", "capturedAt": now,
-                        "pagesFetched": public_pages, "problemNumbers": sorted(public_numbers)}
+            public_numbers, public_pages = all_public_problem_numbers(client, limiter, args.max_pages, contexts=problem_paths)
+            problem_paths, coverage = discover_account_contexts(client, limiter, public_numbers, args.max_pages, initial_paths=problem_paths)
+            public_numbers = {int(n) for n in problem_paths}
+            public_pages += coverage["entryPages"]
+            snapshot = {"schemaVersion": 2, "scope": "account_visible", "capturedAt": now,
+                        "pagesFetched": public_pages, "problemNumbers": sorted(public_numbers),
+                        "problemPaths": problem_paths, "coverage": coverage}
             atomic_write(STATE_DIR / "account-visible-problems.json", (json.dumps(snapshot) + "\n").encode())
     elif args.public_snapshot:
         public_numbers, public_pages = load_public_snapshot(args.public_snapshot)
@@ -745,7 +810,8 @@ def main() -> int:
     # Scan the full personal history for the selected pending topics. Their
     # first Accepted can predate the latest submission already in the archive.
     accepted_rows = all_submission_rows(
-        client, limiter, args.max_pages, None, require_complete=bool(ac_targets)
+        client, limiter, args.max_pages, None,
+        require_complete=bool(ac_targets or (args.account_visible and new_problem_numbers)),
     )
     latest: dict[int, dict[str, Any]] = {}
     for row in accepted_rows:
@@ -759,6 +825,7 @@ def main() -> int:
     new_topic_numbers: list[int] = []
     new_ac_numbers: list[int] = []
     refreshed_ac_numbers: list[int] = []
+    context_updated_numbers: list[int] = []
     manifest_entries = {int(row["problemNo"]): row for row in manifest.get("problems") or []}
     for pno in sorted(set(new_problem_numbers) | set(ac_targets)):
         previous_entry = existing.get(pno)
@@ -766,14 +833,40 @@ def main() -> int:
         if previous_entry is not None and (
             row is None or int(row["submissionNo"]) <= submission_number(previous_entry.get("submissionNo"))
         ):
+            # Refresh routing for an unpublished archive independently from
+            # source replacement. Never recapture/replace unchanged AC bytes.
+            if args.account_visible:
+                files = previous_entry.get("files") or {}
+                metadata_path = ROOT / "代码库" / str(files.get("metadata") or "")
+                metadata = json.loads(metadata_path.read_text(encoding="utf-8")) if metadata_path.is_file() else {}
+                previous_url = previous_entry.get("problemUrl") or (metadata.get("problem") or {}).get("problemUrl")
+                previous_path = contextual_problem_path(pno, previous_url)
+                paths = problem_paths[str(pno)]
+                ordered_paths = ([previous_path] if previous_path in paths else []) + [p for p in paths if p != previous_path]
+                problem_path, problem_html = fetch_problem_context(client, limiter, pno, ordered_paths)
+                if problem_path != previous_path:
+                    if not metadata_path.is_file() or not files.get("problem"):
+                        raise RuntimeError("ACCOUNT_PROBLEM_METADATA_MISSING")
+                    problem_url = BASE + contextual_problem_path(pno, problem_path)
+                    for section in ("problem", "submission"):
+                        if section in metadata:
+                            metadata[section]["problemUrl"] = problem_url
+                    changed_files += int(atomic_write(metadata_path, (json.dumps(metadata, ensure_ascii=False, indent=2) + "\n").encode()))
+                    changed_files += int(atomic_write(ROOT / "代码库" / files["problem"], problem_html.encode()))
+                    updated = dict(previous_entry, problemUrl=problem_url)
+                    manifest_entries[pno] = updated
+                    existing[pno] = updated
+                    context_updated_numbers.append(pno)
+                    changed_problems += 1
             continue
-        problem_path = f"/index.php/index/problem/detail/pno/{pno}.html"
-        problem_html = fetch(client, limiter, problem_path)
+        paths = problem_paths.get(str(pno), [contextual_problem_path(pno)])
+        problem_path, problem_html = fetch_problem_context(client, limiter, pno, paths)
         title = str((previous_entry or {}).get("title") or extract_title(problem_html, ""))
         folder_name = str((previous_entry or {}).get("folder") or f"{pno:04d}_{safe_title(title)}")
 
         if row is None:
             candidate = build_topic_entry(pno, title, folder_name, problem_html, now)
+            candidate["problemUrl"] = BASE + contextual_problem_path(pno, problem_path)
             changed_files += materialize_topic(candidate)
             candidate.pop("_materialized", None)
             manifest_entry = {key: value for key, value in candidate.items() if not key.startswith("_")}
@@ -808,6 +901,7 @@ def main() -> int:
             {"status": payload.get("status"), "tkhide": payload.get("tkhide")},
             now,
         )
+        candidate["problemUrl"] = BASE + contextual_problem_path(pno, problem_path)
         changed_files += materialize(candidate)
         candidate.pop("_materialized", None)
         manifest_entry = {key: value for key, value in candidate.items() if not key.startswith("_")}
@@ -830,7 +924,7 @@ def main() -> int:
         atomic_write(MANIFEST_PATH, (json.dumps(manifest, ensure_ascii=False, indent=2) + "\n").encode("utf-8"))
     result = {
         "schemaVersion": 2,
-        "status": "NEW_PROBLEMS_FOUND" if new_problem_numbers else "NEW_AC_FOUND" if refreshed_ac_numbers else "NO_NEW_PROBLEMS",
+        "status": "NEW_PROBLEMS_FOUND" if new_problem_numbers else "NEW_AC_FOUND" if refreshed_ac_numbers else "CONTEXT_UPDATED" if context_updated_numbers else "NO_NEW_PROBLEMS",
         "scope": number_scope + "_and_personal_accepted",
         "capturedAt": now,
         pages_key: public_pages,
@@ -844,10 +938,11 @@ def main() -> int:
         "newTopicNumbers": new_topic_numbers,
         "newAcNumbers": new_ac_numbers,
         "refreshedAcNumbers": refreshed_ac_numbers,
+        "contextUpdatedNumbers": context_updated_numbers,
         "changedProblems": changed_problems,
         "changedFiles": changed_files,
         "manifestUpdated": bool(changed_files or changed_problems),
-        "downstream": "SELECTED_PROBLEM_NUMBERS_ONLY" if new_problem_numbers or refreshed_ac_numbers else "SKIP_ALL",
+        "downstream": "SELECTED_PROBLEM_NUMBERS_ONLY" if new_problem_numbers or refreshed_ac_numbers or context_updated_numbers else "SKIP_ALL",
     }
     save_capture_result(result)
     print(

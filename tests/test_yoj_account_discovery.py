@@ -24,8 +24,10 @@ class AccountDiscoveryTests(unittest.TestCase):
 
                 def request(self, path):
                     events.append(path)
+                    if '/course/' in path or '/contest/' in path:
+                        return '<html><body><a href="/index.php/index/login/logout.html">logout</a><table></table></body></html>'
                     numbers = [1719, 1725] if self.logged_in else [1719]
-                    return ''.join(f'<a href="/index.php/index/problem/detail/pno/{n}.html">p</a>' for n in numbers)
+                    return '<html><body>' + ''.join(f'<a href="/index.php/index/problem/detail/pno/{n}.html">p</a>' for n in numbers) + '</body></html>'
 
             with patch.object(capture, "YoJClient", Client), \
                  patch.object(capture, "existing_context", return_value=({}, {}, {1719})), \
@@ -44,7 +46,8 @@ class AccountDiscoveryTests(unittest.TestCase):
             self.assertEqual(value["scope"], "account_visible_problem_numbers_only")
             snapshot = json.loads((root / "account-visible-problems.json").read_text())
             self.assertEqual(snapshot["problemNumbers"], [1719, 1725])
-            self.assertEqual(set(snapshot), {"schemaVersion", "scope", "capturedAt", "pagesFetched", "problemNumbers"})
+            self.assertEqual(snapshot['schemaVersion'], 2)
+            self.assertEqual(snapshot['problemPaths']['1725'], ['/index.php/index/problem/detail/pno/1725.html'])
 
     def test_failed_login_cannot_reuse_anonymous_or_old_snapshot(self):
         with tempfile.TemporaryDirectory() as directory:

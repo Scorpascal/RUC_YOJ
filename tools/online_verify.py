@@ -27,8 +27,10 @@ from http.cookiejar import CookieJar
 
 if __package__:
     from .yoj_http import build_yoj_opener, validate_yoj_url
+    from .yoj_context import problem_path as contextual_problem_path
 else:
     from yoj_http import build_yoj_opener, validate_yoj_url
+    from yoj_context import problem_path as contextual_problem_path
 
 try:
     from release_gate import candidate_paths, local_gate_reasons
@@ -675,7 +677,9 @@ def main() -> int:
         submit_kind = "STANDARD_CODE"
         partial_template_verified = False
         try:
-            page = client.request(f"/index.php/index/problem/detail/pno/{problem_no}.html")
+            detail_path = contextual_problem_path(problem_no, problem.get("problemUrl"))
+            partial_path = contextual_problem_path(problem_no, problem.get("problemUrl"), partial=True)
+            page = client.request(detail_path)
             try:
                 action, pid = parse_form(page, problem_no, submit_language)
                 submit_kind = "STANDARD_CODE"
@@ -693,7 +697,7 @@ def main() -> int:
                     problem_no,
                     path.read_text(encoding="utf-8"),
                     submit_language,
-                    f"/index.php/index/problem/detailtk/pno/{problem_no}.html",
+                    partial_path,
                     fallback_source,
                 )
                 action, pid, submit_kind = PARTIAL_SUBMIT_ENDPOINT, str(problem_no), "PARTIAL_CODE"
@@ -731,13 +735,13 @@ def main() -> int:
                         "codes": json.dumps(partial_codes or [], ensure_ascii=False),
                         "compiler": partial_compiler,
                     },
-                    f"/index.php/index/problem/detailtk/pno/{problem_no}.html",
+                    partial_path,
                 )
             else:
                 raw_response = client.request(
                     action,
                     {"language": submit_language, "code": path.read_text(encoding="utf-8"), "pid": str(pid)},
-                    f"/index.php/index/problem/detail/pno/{problem_no}.html",
+                    detail_path,
                 )
                 try:
                     response = json.loads(raw_response.lstrip("\ufeff"))

@@ -1493,6 +1493,7 @@ def _run_once(args: argparse.Namespace) -> int:
         new_problem_numbers: list[int] = []
         new_topic_numbers: list[int] = []
         refreshed_ac_numbers: list[int] = []
+        context_updated_numbers: list[int] = []
         ac_scan_incomplete = account_environment is None
         if discovered_problem_numbers or ac_targets:
             capture_environment = environment
@@ -1534,6 +1535,9 @@ def _run_once(args: argparse.Namespace) -> int:
                     refreshed_ac_numbers = sorted(
                         {int(value) for value in (capture_result.get("refreshedAcNumbers") or [])}
                     )
+                    context_updated_numbers = sorted(
+                        {int(value) for value in (capture_result.get("contextUpdatedNumbers") or [])}
+                    )
                     captured_targets = sorted(
                         {int(value) for value in (capture_result.get("acTargetNumbers") or [])}
                     )
@@ -1550,6 +1554,7 @@ def _run_once(args: argparse.Namespace) -> int:
                 if not public_only and (
                     capture_result.get("submissionScan") != ("FULL_TARGETED" if ac_targets else "FULL_ON_NEW_TOPIC")
                     or not set(refreshed_ac_numbers).issubset(ac_targets)
+                    or not set(context_updated_numbers).issubset(ac_targets)
                 ):
                     log("调度暂停：本人提交扫描证据与指定目标不一致")
                     remember_generated_changes()
@@ -1557,7 +1562,7 @@ def _run_once(args: argparse.Namespace) -> int:
                 if refreshed_ac_numbers:
                     log(f"本轮归档新的本人 Accepted 源码：{refreshed_ac_numbers}")
 
-        if not new_problem_numbers and not backlog_problem_numbers and not refreshed_ac_numbers:
+        if not new_problem_numbers and not backlog_problem_numbers and not refreshed_ac_numbers and not context_updated_numbers:
             has_visibility_transition = bool(visibility_report.get("hasVisibilityTransitions"))
             if has_visibility_transition or snapshot_changed:
                 archived = visibility_report.get("archivedProblemNumbers") or []
@@ -1599,7 +1604,7 @@ def _run_once(args: argparse.Namespace) -> int:
                 return finish_complete_check(args, account_environment)
             return 3 if ac_scan_incomplete else 0
 
-        selected_problem_numbers = sorted(set(new_problem_numbers) | set(backlog_problem_numbers) | set(refreshed_ac_numbers))
+        selected_problem_numbers = sorted(set(new_problem_numbers) | set(backlog_problem_numbers) | set(refreshed_ac_numbers) | set(context_updated_numbers))
         selected = problem_selector(selected_problem_numbers)
         log(
             "本轮进入清洗/门禁/在线复核流水线："
@@ -1642,7 +1647,7 @@ def _run_once(args: argparse.Namespace) -> int:
                         str(ROOT / "tools" / "online_verify.py"),
                         "--max-submissions",
                         str(args.max_submissions),
-                        *(["--retry-abnormal"] if backlog_problem_numbers or refreshed_ac_numbers else []),
+                        *(["--retry-abnormal"] if backlog_problem_numbers or refreshed_ac_numbers or context_updated_numbers else []),
                         *selected,
                     ]
                     if run_command(command, online_environment, 7200):
@@ -1662,7 +1667,7 @@ def _run_once(args: argparse.Namespace) -> int:
                     )
                     if value
                 ),
-                topic_numbers=set(new_topic_numbers),
+                topic_numbers=set(new_topic_numbers) | set(context_updated_numbers),
             )
             if result == 0 and not run_visibility_audit(environment, commit=True):
                 log("公开提交已完成，但可见性基线保存失败；下一轮会重试核对")

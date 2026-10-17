@@ -38,9 +38,11 @@ except ImportError:  # pragma: no cover - supports importing this file as a pack
 try:
     from audit_online_availability import validate_snapshot
     from release_gate import candidate_paths, local_gate_reasons
+    from yoj_context import problem_path as contextual_problem_path
 except ImportError:  # pragma: no cover - supports importing this file as a package module
     from tools.audit_online_availability import validate_snapshot
     from tools.release_gate import candidate_paths, local_gate_reasons
+    from tools.yoj_context import problem_path as contextual_problem_path
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -1315,7 +1317,7 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
     visibility_status_order = ["YOJ_PUBLIC", "NOT_IN_CURRENT_PUBLIC_INDEX"]
     status_descriptions = {
         "PUBLIC_READY": "清洗、本地门禁、在线 Accepted 与源码回收均完成",
-        "TOPIC_CAPTURED": "已从 YOJ 公开题目列表归档题面，但尚无本人 Accepted 源码；不生成伪代码",
+        "TOPIC_CAPTURED": "已从 YOJ 可访问题库归档题面，但尚无本人 Accepted 源码；不生成伪代码",
         "RAW_CAPTURED": "已归档，待清洗、复核或发布",
         "ONLINE_ACCEPTED": "在线提交为 Accepted；若仍是 RAW_CAPTURED，还需完成清洗发布",
         "ONLINE_SKIPPED_SUBMIT_FORM_NOT_FOUND": "未找到提交表单，需人工确认提交形态",
@@ -1486,7 +1488,7 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         f"- 在线源码回收：`Accepted` 中已回收并比对 `{online_visible}/{online_accepted}`；编号、状态、跳过原因和源码回收证据保存在被忽略的 `staging/online-verification.json`",
         f"- YOJ 快捷提交入口：严格 `PUBLIC_READY` `{quick_submit_count}` 道；另有当前公开历史 Accepted 归档 `{len(archived_quick_by_no)}` 道提供带警告的人工尝试入口；当前公开且仓库有代码 `{current_public_code_count}` 道，不改变发布状态",
         "- 题面中的时间/内存是题目页限制；每条归档记录的 `archive.acceptedRun` 单独保存某次 AC 的实测耗时/内存，二者不混用",
-        "- 自动调度：每天北京时间 22:30–23:30 执行主流程；23:30–23:55 为维护前弹性缓冲，不启动新一轮。优先登录本人账号，从登录后的题库发现新题，并复查账号可见且未完成发布的题目是否有本人新 Accepted；账号题号快照只保存在被忽略的 `.yoj-sync/`。登录不可用时降级核对匿名公开列表、抓取公开新题面，本人 AC 与在线复核保留待重试；降级不算完整成功，不推进 README 的最近完整检查日期。匿名公开快照继续独立记录原站公开可见性。已 `PUBLIC_READY` 的源码不自动替换；发布仍须通过脱敏、本地门禁、在线 Accepted 与源码回收核验，凭据不进入 GitHub。",
+        "- 自动调度：每天北京时间 22:30–23:30 执行主流程；23:30–23:55 为维护前弹性缓冲，不启动新一轮。优先登录本人账号，扫描登录题库及账号页面实际提供的课程、课程作业和考试入口（含分页），不枚举考试编号、不自动报名。题目来源的 `eno` 上下文贯穿题面抓取、在线复核和快捷链接；账号完整入口快照及覆盖统计仅保存在被忽略的 `.yoj-sync/`，公开文件只保留题目必要的来源地址，不公开成员或个人信息。复查账号可见且未完成发布的题目是否有本人新 Accepted；已 `PUBLIC_READY` 的源码不自动替换。登录不可用时降级核对匿名公开列表、抓取公开新题面；降级或入口扫描不完整不推进 README 的最近完整检查日期。匿名公开快照继续独立记录原站公开可见性。发布仍须通过脱敏、本地门禁、在线 Accepted 与源码回收核验，凭据不进入 GitHub。",
         "- 最近完整检查日期：本轮账号发现及所有适用检查、内容发布和可见性基线保存成功后，每天更新 README 顶部日期，即使题库内容没有变化；日期更新沿用脱敏、暂存树审计、推送及对应 SHA 的 Pages 验证。失败、部分完成、降级或轻量复查不推进成功记录；日期与题库内容最近变化时间分别记录。",
         "- 每日 backlog：自动处理仍为 `RAW_CAPTURED` 且已有本人 Accepted 源码的题目；保留脱敏、本地语法/编译/样例/提交表单及在线复核门禁。相同候选已有 Accepted 时不重复提交；异常题目用 `--retry-abnormal` 续跑，每轮最多提交 50 道。普通及实时部分代码模板均需回收源码；片段或证据不足的题目不能提升为 `PUBLIC_READY`。",
         "- 最终远端同步：每晚生成通过脱敏与暂存树门禁的本地提交后，先保存该提交的补推检查点；GitHub 推送失败时，后续定时重试只补推同一提交，并等待对应 SHA 的 Pages workflow 成功，未完成前不把当天记为成功。分支或 HEAD 变化、存在无检查点的本地提交时暂停自动推送，不强推、不覆盖远端。",
@@ -1696,7 +1698,7 @@ def make_quick_submit_manifest(records: list[dict[str, Any]], manifest: dict[str
                 "problemNo": int(record["problemNo"]),
                 "title": str(record.get("title") or ""),
                 "language": language,
-                "problemUrl": f"{SITE_BASE}index.php/index/problem/detail/pno/{record['problemNo']}.html",
+                "problemUrl": urljoin(SITE_BASE, contextual_problem_path(record['problemNo'], record.get('problemUrl'))),
                 "submitEndpoint": f"{SITE_BASE}index.php/index/index/prob_submit.html",
                 "codePath": code_path,
                 "codeUrl": RAW_GITHUB_BASE + quote(code_path, safe="/-_.~"),
