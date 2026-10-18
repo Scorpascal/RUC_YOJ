@@ -19,6 +19,11 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+if __package__:
+    from .assemble_fill_in_candidates import is_assembled_candidate
+else:
+    from assemble_fill_in_candidates import is_assembled_candidate
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = ROOT / "data" / "problems.json"
@@ -33,7 +38,7 @@ KNOWN_FILL_IN_FRAGMENTS = {"285", "286"}
 
 def candidate_path(raw_path: Path) -> Path:
     relative = raw_path.relative_to(RAW_ROOT)
-    for root in (REPAIRED_ROOT, PORTABLE_ROOT, CLEANED_ROOT, NORMALIZED_ROOT):
+    for root in (CLEANED_ROOT, REPAIRED_ROOT, PORTABLE_ROOT, NORMALIZED_ROOT):
         candidate = root / relative
         if candidate.is_file():
             return candidate
@@ -132,7 +137,7 @@ def main() -> int:
                 "candidateSha256": hashlib.sha256(source.read_bytes()).hexdigest(),
                 "scope": "complete_source_compile_link",
             }
-            if problem_no in KNOWN_FILL_IN_FRAGMENTS:
+            if problem_no in KNOWN_FILL_IN_FRAGMENTS and not is_assembled_candidate(record, source, ROOT):
                 item.update(
                     {
                         "category": "FILL_IN_FRAGMENT",

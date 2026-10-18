@@ -26,9 +26,11 @@ from urllib.error import URLError
 from http.cookiejar import CookieJar
 
 if __package__:
+    from .assemble_fill_in_candidates import is_assembled_candidate
     from .yoj_http import build_yoj_opener, validate_yoj_url
     from .yoj_context import is_access_denied, problem_path as contextual_problem_path
 else:
+    from assemble_fill_in_candidates import is_assembled_candidate
     from yoj_http import build_yoj_opener, validate_yoj_url
     from yoj_context import is_access_denied, problem_path as contextual_problem_path
 
@@ -367,6 +369,17 @@ def assemble_partial_template(template: str, blocks: list[str]) -> str:
     return "".join(result)
 
 
+def verify_assembled_payload(template: str, blocks: list[str], complete: Path, direct: Path) -> tuple[list[str], bytes]:
+    """Bind the actual single-slot POST to the exact locally compiled program."""
+    fragment = direct.read_bytes().decode('utf-8')
+    if len(blocks) != 1 or blocks[0].strip('\r\n') != fragment.strip('\r\n'):
+        raise ValueError('PARTIAL_ASSEMBLY_BLOCK_MISMATCH')
+    program = assemble_partial_template(template, [fragment]).encode('utf-8')
+    if program.replace(b'\r\n', b'\n') != complete.read_bytes().replace(b'\r\n', b'\n'):
+        raise ValueError('PARTIAL_ASSEMBLY_LIVE_TEMPLATE_MISMATCH')
+    return [fragment], program
+
+
 def parse_submission_rows(page: str) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for row_html in re.findall(r"<tr\b[^>]*>(.*?)</tr>", page, flags=re.I | re.S):
@@ -527,7 +540,7 @@ def rebuild_public_index() -> None:
     if REPORT_PATH.resolve() != CANONICAL_REPORT_PATH.resolve():
         return
     result = subprocess.run(
-        [sys.executable, str(ROOT / "tools" / "build_initial.py")],
+        [sys.executable, str(ROOT / "tools" / "build_initial.py"), '--preserve-frozen', '--no-download-assets'],
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -613,6 +626,11 @@ def main() -> int:
         submit_language = "cpp17" if problem_no in cpp17_problems else language
         candidate_sha256 = hashlib.sha256(path.read_bytes()).hexdigest()
         previous = records.get(problem_no)
+        problem = problems.get(problem_no, {"problemNo": problem_no, "title": path.parent.name.split("_", 1)[-1]})
+        complete_candidate, direct_candidate = candidate_paths(problem)
+        assembled = bool(complete_candidate is not None and is_assembled_candidate(problem, complete_candidate, ROOT))
+        assembled_sha = hashlib.sha256(complete_candidate.read_bytes()).hexdigest() if assembled else ''
+        assembly_needs_verification = assembled and (previous or {}).get('assembledProgramSha256') != assembled_sha
         if (
             previous
             and previous.get("manualBrowserEvidence")
@@ -626,13 +644,13 @@ def main() -> int:
             continue
         if previous and previous.get("candidateSha256") == candidate_sha256:
             if previous.get("status") == "Accepted":
-                if previous.get("localFragmentOverride"):
+                if previous.get("localFragmentOverride") and not assembled:
                     # A live partial-code submission has already established
                     # the online result.  Its standalone-fragment local gate
                     # intentionally prevents PUBLIC_READY, so a nightly
                     # backlog pass must not create duplicate submissions.
                     continue
-                if not args.reverify_accepted:
+                if not args.reverify_accepted and not assembly_needs_verification:
                     continue
             elif not args.retry_abnormal:
                 continue
@@ -648,9 +666,6 @@ def main() -> int:
         # in the previous Git/staging snapshot if an operator needs it.
         records.pop(problem_no, None)
         skips.pop(problem_no, None)
-        problem = problems.get(problem_no, {"problemNo": problem_no, "title": path.parent.name.split("_", 1)[-1]})
-
-        complete_candidate, direct_candidate = candidate_paths(problem)
         gate_reasons = local_gate_reasons(problem_no, complete_candidate, direct_candidate)
         if direct_candidate is None or direct_candidate.resolve() != path.resolve():
             gate_reasons.append("CANDIDATE_SELECTION_STALE")
@@ -704,6 +719,8 @@ def main() -> int:
                 )
                 action, pid, submit_kind = PARTIAL_SUBMIT_ENDPOINT, str(problem_no), "PARTIAL_CODE"
                 partial_template_verified = True
+                if assembled:
+                    partial_codes, _ = verify_assembled_payload(template, partial_codes, complete_candidate, path)
                 if partial_codes:
                     partial_expected.append(assemble_partial_template(template, partial_codes).encode("utf-8"))
         except Exception as exc:  # noqa: BLE001 - persist the exact gate failure
@@ -777,6 +794,8 @@ def main() -> int:
             )
             if local_fragment_override:
                 records[problem_no]["localFragmentOverride"] = True
+            if assembled:
+                records[problem_no]['assembledProgramSha256'] = assembled_sha
             skips.pop(problem_no, None)
             save_report(records, skips)
             actual_submissions += 1

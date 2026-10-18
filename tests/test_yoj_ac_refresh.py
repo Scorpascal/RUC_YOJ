@@ -311,6 +311,9 @@ class SchedulerRefreshTests(unittest.TestCase):
                 patch.object(yoj_scheduler, "ROOT", root),
                 patch.object(yoj_scheduler, "public_ready_problem_numbers", return_value={42}),
             ):
+                write_json(root / 'data/problems.json', {'records': [{'problemNo': '1717',
+                    'archive': {'metadata': '代码库/1717_原目录/1717_元数据.json'},
+                    'public': {'statement': '题解/1717_原目录/1717_题目.md'}}]})
                 self.assertEqual(yoj_scheduler.pending_unreleased_code_paths([raw_path]), [raw_path])
                 self.assertFalse(yoj_scheduler.path_is_publishable(raw_path, {42}, {1717}))
                 self.assertTrue(yoj_scheduler.path_is_publishable("代码库/1717_原目录/1717_元数据.json", {42}, {1717}))

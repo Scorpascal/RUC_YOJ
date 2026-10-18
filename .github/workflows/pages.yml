@@ -16,6 +16,13 @@ on:
       - "README.md"
       - "tools/build_site_catalog.py"
       - "tools/build_initial.py"
+      - "tools/assemble_fill_in_candidates.py"
+      - "tools/validate_candidates.py"
+      - "tools/compile_candidates.py"
+      - "tools/run_samples.py"
+      - "tools/online_verify.py"
+      - "tools/publish_ready.py"
+      - "tools/yoj_scheduler.py"
       - "tools/yoj_check_marker.py"
       - "tools/yoj_context.py"
       - "tools/audit_consistency.py"
@@ -23,6 +30,8 @@ on:
       - "tests/test_quick_submit.cjs"
       - "tests/test_statement_resources.py"
       - "tests/test_yoj_ac_refresh.py"
+      - "tests/test_fill_in_candidates.py"
+      - "tests/test_yoj_nightly.py"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 

@@ -32,6 +32,11 @@ NORMALIZED_ROOT = ROOT / "staging" / "cpp17-compatible"
 REPORT_PATH = ROOT / "staging" / "sample-test-report.json"
 WORK_ROOT = ROOT / "staging" / "sample-tests"
 KNOWN_FILL_IN_FRAGMENTS = {"285", "286"}
+
+if __package__:
+    from .assemble_fill_in_candidates import is_assembled_candidate
+else:
+    from assemble_fill_in_candidates import is_assembled_candidate
 MAX_OUTPUT_CHARS = 1_000_000
 
 # These are statement-side defects visible in the captured samples.  They
@@ -201,7 +206,7 @@ def outputs_match(actual: str, expected: str) -> tuple[bool, str]:
 
 def candidate_path(raw_path: Path) -> Path:
     relative = raw_path.relative_to(RAW_ROOT)
-    for root in (REPAIRED_ROOT, PORTABLE_ROOT, CLEANED_ROOT, NORMALIZED_ROOT):
+    for root in (CLEANED_ROOT, REPAIRED_ROOT, PORTABLE_ROOT, NORMALIZED_ROOT):
         candidate = root / relative
         if candidate.is_file():
             return candidate
@@ -291,12 +296,12 @@ def test_record(record: dict[str, Any], run: bool) -> dict[str, Any]:
         result["category"] = "SAMPLE_INCONSISTENT"
         result["runtimeDiagnostic"] = SAMPLE_QUALITY_ISSUES[problem_no]
         return result
-    if problem_no in KNOWN_FILL_IN_FRAGMENTS:
+    raw_source = ROOT / str(record["archive"]["completeCode"])
+    source = candidate_path(raw_source)
+    if problem_no in KNOWN_FILL_IN_FRAGMENTS and not is_assembled_candidate(record, source, ROOT):
         result["category"] = "FILL_IN_FRAGMENT"
         result["runtimeDiagnostic"] = "固定模板不可得，不能为样例运行臆造完整程序"
         return result
-    raw_source = ROOT / str(record["archive"]["completeCode"])
-    source = candidate_path(raw_source)
     result["source"] = source.relative_to(ROOT).as_posix()
     result["candidateSha256"] = hashlib.sha256(source.read_bytes()).hexdigest()
     language = str(record.get("language") or "")

@@ -21,6 +21,8 @@ def at(value="2026-10-05T22:30:00+08:00"):
 
 class NightlyTests(unittest.TestCase):
     def setUp(self):
+        self.real_publish = scheduler.publish
+        self.real_checkpoint = scheduler.publish_verified_checkpoint
         self.temporary = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name)
@@ -164,10 +166,174 @@ class NightlyTests(unittest.TestCase):
         with patch.object(scheduler, "select_pending_personal_ac_targets", return_value=[1717]):
             self.successful_baseline()
         gates = ["build_initial.py", "normalize_cpp_headers.py", "port_cpp17_candidates.py",
-                 "repair_known_candidates.py", "sanitize_candidates.py", "validate_candidates.py",
+                 "repair_known_candidates.py", "assemble_fill_in_candidates.py",
+                 "sanitize_candidates.py", "validate_candidates.py",
                  "compile_candidates.py", "run_samples.py", "audit_forms.py", "audit_consistency.py"]
         self.assertEqual(self.events, ["discover", "audit", "capture", *gates, "online_verify.py"])
         scheduler.publish_verified_checkpoint.assert_called_once()
+
+    def projection_fixture(self, *, audit_ok=True, pages_ok=True):
+        """Run real selection/checkpoint/publisher; keep Git and child tools in memory.
+
+        All files, status and locks belong to this test's temporary root.
+        Removing selected topic propagation must lose the backlog statements;
+        broadening the source allowlist must leak a raw sibling into the index.
+        """
+        statement = "题解/0285_backlog/0285_题目.md"
+        metadata = "代码库/0285_backlog/0285_元数据.json"
+        second_statement = "题解/0286_backlog/0286_题目.md"
+        raw = "代码库/0285_backlog/0285_完整代码.cpp"
+        verified = "代码库/0286_backlog/0286_完整代码.cpp"
+        raw_sibling = "代码库/0286_backlog/0286_原始代码.cpp"
+        excluded = [raw, raw_sibling, "题解/0285_backlog/raw.cpp", "题解/0285_backlog/private-log.json",
+                    "题解/0286_backlog/unverified.cpp", "题解/0286_backlog/private-log.json", "题解/0999_unrelated.md",
+                    "代码库/0999_unrelated/0999_元数据.json",
+                    "staging/private-report.json", ".yoj-sync/private-report.json"]
+        expected = ["README.md", "data/problems.json", statement, metadata,
+                    second_statement, verified]
+        dirty = expected + excluded
+        for name in dirty:
+            path = self.root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text("{}\n" if name.endswith(".json") else "public fixture\n")
+        (self.root / 'data/problems.json').write_text(json.dumps({'records': [
+            {'problemNo': str(number), 'public': {'statement': name},
+             'archive': {'metadata': metadata if number == 285 else ''},
+             'statement': {'assets': [], 'imageAssets': []}}
+            for number, name in [(285, statement), (286, second_statement)]]}))
+        (self.root / "README.md").write_text(
+            "# Archive\n\n最近完整检查日期（北京时间）：`2026-10-05`\n")
+        ready = self.root / "data/public-ready.json"
+        ready.write_text(json.dumps({"records": [{"problemNo": 286, "status": "PUBLIC_READY",
+                                                  "completeCode": verified}]}))
+        terms = self.root / "method/personal_terms.txt"
+        terms.parent.mkdir()
+        terms.write_text("fixture-personal-marker\n")
+        self.stack.enter_context(patch.object(scheduler, "PUBLIC_READY_PATH", ready))
+        pending = self.state / "pending.json"
+        self.stack.enter_context(patch.object(scheduler, "PENDING_REMOTE_PATH", pending))
+        self.stack.enter_context(patch.object(scheduler, "select_raw_cleanup_backlog", return_value=[285, 286]))
+        self.stack.enter_context(patch.object(scheduler, "prepare_online_environment", return_value={
+            "YOJ_LOGIN_USER": "runtime-account-value"}))
+        self.stack.enter_context(patch.object(scheduler, "publish_verified_checkpoint", self.real_checkpoint))
+        self.stack.enter_context(patch.object(scheduler, "publish", self.real_publish))
+        self.stack.enter_context(patch.object(scheduler, "changed_paths", side_effect=lambda: list(dirty)))
+        index, staged_batches, receipts = [], [], []
+        head = ["a" * 40]
+        self.stack.enter_context(patch.object(scheduler, "git_head_sha", side_effect=lambda: head[0]))
+        self.stack.enter_context(patch.object(scheduler, "staged_paths", side_effect=lambda: list(index)))
+
+        def git(command, **_kwargs):
+            if command == ["git", "rev-parse", "origin/main"]:
+                output = "a" * 40 + "\n"
+            elif command == ["git", "branch", "--show-current"]:
+                output = "main\n"
+            elif command[:3] == ["git", "diff", "--check"]:
+                output = ""
+            elif command[:3] == ["git", "add", "--"]:
+                index.extend(command[3:])
+                staged_batches.append(list(index))
+                output = ""
+            elif command[:3] == ["git", "reset", "--"]:
+                index.clear()
+                output = ""
+            elif command[:3] == ["git", "commit", "-m"]:
+                receipts.append("commit")
+                for name in index:
+                    dirty.remove(name)
+                index.clear()
+                head[0] = "b" * 40
+                output = "fixture commit\n"
+            else:
+                self.fail(f"Unexpected subprocess: {command!r}")
+            return SimpleNamespace(returncode=0, stdout=output, stderr="")
+
+        def audit():
+            receipts.append("staged-audit")
+            return audit_ok
+
+        def push(sha):
+            self.assertEqual(json.loads(pending.read_text())["state"], "push-pending")
+            self.assertEqual(json.loads(pending.read_text())["commit"], sha)
+            receipts.append(("push", sha))
+            return True
+
+        def pages(sha):
+            self.assertEqual(json.loads(pending.read_text())["state"], "deployment-pending")
+            self.assertEqual(json.loads(pending.read_text())["commit"], sha)
+            receipts.append(("pages", sha))
+            return pages_ok
+
+        self.stack.enter_context(patch.object(scheduler.subprocess, "run", side_effect=git))
+        self.stack.enter_context(patch.object(scheduler, "run_staged_consistency_audit", side_effect=audit))
+        self.stack.enter_context(patch.object(scheduler, "push_pending_commit", side_effect=push))
+        self.stack.enter_context(patch.object(scheduler, "verify_remote_workflow", side_effect=pages))
+        return SimpleNamespace(statement=statement, expected=expected, excluded=excluded,
+                               dirty=dirty, batches=staged_batches, receipts=receipts,
+                               index=index, pending=pending)
+
+    def test_backlog_statement_projection_reaches_real_publisher_without_raw_source(self):
+        fixture = self.projection_fixture()
+        self.successful_baseline()
+        self.assertEqual(fixture.batches, [fixture.expected])
+        self.assertEqual(fixture.dirty, fixture.excluded)
+        self.assertEqual(fixture.receipts, ["staged-audit", "commit",
+                                          ("push", "b" * 40), ("pages", "b" * 40)])
+        self.assertFalse(fixture.pending.exists())
+        self.assertEqual(self.events[-5:], ["publish_ready.py", "build_initial.py",
+                                           "build_site_catalog.py", "build_site_catalog.py",
+                                           "audit_consistency.py"])
+
+    def test_backlog_projection_retains_personal_marker_scan(self):
+        fixture = self.projection_fixture()
+        (self.root / fixture.statement).write_text("fixture-personal-marker\n")
+        self.assertEqual(scheduler.run_once(self.args), 7)
+        self.assertEqual(fixture.batches, [])
+        self.assertEqual(fixture.receipts, [])
+
+    def test_backlog_projection_retains_runtime_secret_scan(self):
+        fixture = self.projection_fixture()
+        (self.root / fixture.statement).write_text("fixture-runtime-secret\n")
+        with patch.object(scheduler, "prepare_online_environment", return_value={
+                "YOJ_LOGIN_USER": "fixture", "YOJ_LOGIN_PASS": "fixture-runtime-secret"}):
+            self.assertEqual(scheduler.run_once(self.args), 7)
+        self.assertEqual(fixture.batches, [])
+        self.assertEqual(fixture.receipts, [])
+
+    def test_backlog_projection_cannot_commit_when_staged_tree_audit_fails(self):
+        fixture = self.projection_fixture(audit_ok=False)
+        self.assertEqual(scheduler.run_once(self.args), 5)
+        self.assertEqual(fixture.batches, [fixture.expected])
+        self.assertEqual(fixture.index, [])
+        self.assertEqual(fixture.receipts, ["staged-audit"])
+        self.assertFalse(fixture.pending.exists())
+
+    def test_backlog_projection_keeps_exact_commit_pending_until_pages_success(self):
+        fixture = self.projection_fixture(pages_ok=False)
+        self.assertEqual(scheduler.run_once(self.args), 8)
+        checkpoint = json.loads(fixture.pending.read_text())
+        self.assertEqual(checkpoint["commit"], "b" * 40)
+        self.assertEqual(checkpoint["state"], "deployment-pending")
+        self.assertEqual(fixture.receipts[-2:], [("push", "b" * 40), ("pages", "b" * 40)])
+        self.assertEqual(self.read()["syncState"], "INCOMPLETE")
+
+    def test_assembly_failure_stops_before_sanitization_online_and_publication(self):
+        original = self.command
+
+        def command(args, *rest):
+            result = original(args, *rest)
+            if Path(args[1]).name == "assemble_fill_in_candidates.py":
+                self.assertEqual(args[2:], ["--problem", "285", "--problem", "286"])
+                return 1
+            return result
+
+        with patch.object(scheduler, "select_raw_cleanup_backlog", return_value=[285, 286]), \
+             patch.object(scheduler, "run_command", side_effect=command):
+            self.assertEqual(scheduler.run_once(self.args), 3)
+        self.assertEqual(self.events[-2:], ["repair_known_candidates.py", "assemble_fill_in_candidates.py"])
+        self.assertNotIn("sanitize_candidates.py", self.events)
+        self.assertNotIn("online_verify.py", self.events)
+        scheduler.publish_verified_checkpoint.assert_not_called()
 
     def test_context_only_refresh_still_runs_selected_gates_and_publication(self):
         self.capture['refreshedAcNumbers'] = []

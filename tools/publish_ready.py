@@ -16,6 +16,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+if __package__:
+    from .assemble_fill_in_candidates import is_assembled_candidate
+else:
+    from assemble_fill_in_candidates import is_assembled_candidate
+
 try:
     from release_gate import ROOT, candidate_paths, is_public_ready, relative, sha256_file
 except ImportError:  # pragma: no cover - supports ``import tools.publish_ready``
@@ -98,6 +103,11 @@ def ready_record(record: dict[str, Any], online: dict[str, Any], previous: dict[
     # replacing it requires a separately reviewed migration of the manifest.
     if previous and previous_release_intact(previous, current_statement_hash):
         return previous, []
+    assembled = complete is not None and is_assembled_candidate(record, complete, ROOT)
+    if problem_no in {285, 286} and not assembled:
+        return None, sorted(set(reasons + ['TEMPLATE_ASSEMBLY_EVIDENCE_MISSING']))
+    if assembled and online.get('assembledProgramSha256') != complete_sha:
+        return None, sorted(set(reasons + ['ONLINE_TEMPLATE_ASSEMBLY_NOT_VERIFIED']))
     if previous and not ready:
         return None, reasons
     if not ready:
@@ -123,6 +133,15 @@ def ready_record(record: dict[str, Any], online: dict[str, Any], previous: dict[
             "canonicalByteMatch": bool((online.get("roundTrip") or {}).get("canonicalByteMatch")),
         },
     }
+    if assembled:
+        # Preserve the historical fragment files and metadata byte-for-byte.
+        # The assembled program and cleaned submission block are new public
+        # artifacts, admitted only after the unchanged release gate above.
+        directory = Path(str((record.get('public') or {}).get('statement') or '')).parent
+        value['completeCode'] = (directory / f'{problem_no:04d}_AC完整代码.cpp').as_posix()
+        value['directlySubmittableCode'] = (directory / f'{problem_no:04d}_填空提交片段.cpp').as_posix()
+        value['submissionKind'] = 'PARTIAL_CODE'
+        value['assembledProgramSha256'] = complete_sha
     if previous and previous.get("completeCodeSha256") == complete_sha and previous.get("directlySubmittableCodeSha256") == direct_sha:
         value["readyAt"] = str(previous.get("readyAt") or utc_now())
     else:
@@ -215,11 +234,12 @@ def apply_release(records: list[dict[str, Any]], ready_by_no: dict[str, dict[str
         if not candidate_matches_release:
             continue
         archive = record.get("archive") or {}
-        complete_target = ROOT / str(archive.get("completeCode") or "")
-        direct_target = ROOT / str(archive.get("directlySubmittableCode") or "")
+        complete_target = ROOT / ready['completeCode']
+        direct_target = ROOT / ready['directlySubmittableCode']
         changed += int(backup_then_replace(complete_candidate, complete_target, backup_root, relative(complete_target)))
         changed += int(backup_then_replace(direct_candidate, direct_target, backup_root, relative(direct_target)))
-        changed += int(update_metadata(record, ready, batch_id))
+        if ready['completeCode'] == archive.get('completeCode') and ready['directlySubmittableCode'] == archive.get('directlySubmittableCode'):
+            changed += int(update_metadata(record, ready, batch_id))
     payload = {
         "schemaVersion": 1,
         "purpose": "public release manifest; credentials and session data are excluded",

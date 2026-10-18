@@ -109,9 +109,15 @@
     if (!entry || !code || submissionSent) return;
     const form = document.createElement("form");
     form.method = "post"; form.action = entry.submitEndpoint; form.target = "_blank"; form.acceptCharset = "UTF-8";
-    addHidden(form, "pid", String(entry.problemNo));
-    addHidden(form, "language", entry.language);
-    addHidden(form, "code", code);
+    if (entry.submissionKind === "PARTIAL_CODE") {
+      addHidden(form, "pno", String(entry.problemNo));
+      addHidden(form, "compiler", entry.language);
+      addHidden(form, "codes", JSON.stringify([code]));
+    } else {
+      addHidden(form, "pid", String(entry.problemNo));
+      addHidden(form, "language", entry.language);
+      addHidden(form, "code", code);
+    }
     document.body.appendChild(form);
     // Do not infer success from opening a window, or retry an uncertain POST.
     submissionSent = true; submit.disabled = true;
@@ -191,7 +197,14 @@
     code = await response.text();
     source.textContent = code;
     copy.disabled = false; submit.disabled = false;
-    makeBookmarklet();
+    if (entry.submissionKind === "PARTIAL_CODE") {
+      notice.textContent += " 本题使用原站专用填空接口一键提交，发送的是待填片段，不是完整程序。页内填充书签暂不支持此表单；也可复制片段到原站待填区手动提交。";
+      bookmarklet.href = "#";
+      bookmarklet.style.pointerEvents = "none";
+      bookmarklet.textContent = "填空题请直接提交或复制片段";
+    } else {
+      makeBookmarklet();
+    }
     setStatus(`已加载；提交时会固定使用语言 ${entry.language}，请先确认 YOJ 登录态。${entry.source === "ACCEPTED_ARCHIVE" ? "这是历史 Accepted 归档，请先人工核对。" : ""}`);
   }
   copy.addEventListener("click", copyText);

@@ -1268,6 +1268,34 @@
       "warning": "当前链接使用已清洗且在线核验的公开代码。"
     },
     {
+      "problemNo": 285,
+      "title": "链表操作（加入节点）",
+      "language": "cpp",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/285.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit_tk.html",
+      "codePath": "题解/0285_链表操作(加入节点)/0285_填空提交片段.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E9%A2%98%E8%A7%A3/0285_%E9%93%BE%E8%A1%A8%E6%93%8D%E4%BD%9C%28%E5%8A%A0%E5%85%A5%E8%8A%82%E7%82%B9%29/0285_%E5%A1%AB%E7%A9%BA%E6%8F%90%E4%BA%A4%E7%89%87%E6%AE%B5.cpp",
+      "codeSha256": "bad43704561f295de76ede396622bbe65da78669ce586faf85011ad4e5b4311b",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1442564",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。",
+      "submissionKind": "PARTIAL_CODE"
+    },
+    {
+      "problemNo": 286,
+      "title": "链表操作（删除节点）",
+      "language": "cpp",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/286.html",
+      "submitEndpoint": "http://yoj.ruc.edu.cn/index.php/index/index/prob_submit_tk.html",
+      "codePath": "题解/0286_链表操作(删除节点)/0286_填空提交片段.cpp",
+      "codeUrl": "https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/%E9%A2%98%E8%A7%A3/0286_%E9%93%BE%E8%A1%A8%E6%93%8D%E4%BD%9C%28%E5%88%A0%E9%99%A4%E8%8A%82%E7%82%B9%29/0286_%E5%A1%AB%E7%A9%BA%E6%8F%90%E4%BA%A4%E7%89%87%E6%AE%B5.cpp",
+      "codeSha256": "041669def4ee761cf7ffa725e6af8df1ee8e69ac3719fe47c099ee55a78e4f0e",
+      "onlineStatus": "Accepted",
+      "onlineSubmissionNo": "1442567",
+      "warning": "当前链接使用已清洗且在线核验的公开代码。",
+      "submissionKind": "PARTIAL_CODE"
+    },
+    {
       "problemNo": 287,
       "title": "# 287 . 拆分数字",
       "language": "cpp",

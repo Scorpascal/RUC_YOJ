@@ -839,6 +839,32 @@ def path_problem_number(path: str) -> int | None:
     return int(match.group(1)) if match else None
 
 
+def problem_projection_paths(problem_no: int) -> set[str]:
+    """Exact generated statement/metadata/resources, never a folder allowance."""
+    try:
+        payload = json.loads((ROOT / 'data/problems.json').read_text(encoding='utf-8'))
+        record = next(row for row in payload.get('records', []) if str(row.get('problemNo')) == str(problem_no))
+    except (OSError, ValueError, TypeError, StopIteration):
+        return set()
+    statement = str((record.get('public') or {}).get('statement') or '')
+    metadata = str((record.get('archive') or {}).get('metadata') or '')
+    paths: set[str] = set()
+    if statement.startswith('题解/') and path_problem_number(statement) == problem_no and statement.endswith('_题目.md'):
+        paths.add(statement)
+        parent = ROOT / Path(statement).parent
+        for asset in ((record.get('statement') or {}).get('assets') or []) + ((record.get('statement') or {}).get('imageAssets') or []):
+            relative = Path(str(asset.get('relativePath') or ''))
+            if relative.is_absolute() or '..' in relative.parts or not relative.parts or relative.parts[0] != 'assets':
+                continue
+            resource = parent / relative
+            if (asset.get('status') in {'CACHED', 'DOWNLOADED'} and resource.is_file()
+                    and file_sha256(resource) == asset.get('sha256')):
+                paths.add(resource.relative_to(ROOT).as_posix())
+    if metadata.startswith('代码库/') and path_problem_number(metadata) == problem_no and metadata.endswith('_元数据.json'):
+        paths.add(metadata)
+    return paths
+
+
 def path_is_publishable(path: str, release_numbers: set[int], topic_numbers: set[int] | None = None) -> bool:
     if any(path == prefix or path.startswith(prefix) for prefix in PUBLIC_PUBLISH_PREFIXES):
         return True
@@ -846,19 +872,19 @@ def path_is_publishable(path: str, release_numbers: set[int], topic_numbers: set
     if problem_no is None:
         return False
     if problem_no in release_numbers:
-        if path.startswith("代码库/") and Path(path).suffix.lower() in {".c", ".cc", ".cpp", ".cxx", ".h", ".hpp", ".py", ".java", ".txt"}:
-            # Being in a released folder is not sufficient: historical/raw
-            # siblings are not necessarily the sanitized, verified source.
+        try:
             payload = json.loads(PUBLIC_READY_PATH.read_text(encoding="utf-8"))
-            return any(
+            if any(
                 int(row["problemNo"]) == problem_no
                 and path in {row.get("completeCode"), row.get("directlySubmittableCode")}
                 for row in payload.get("records", [])
-            )
-        return True
-    return problem_no in (topic_numbers or set()) and (
-        path.startswith("题解/") or path.endswith("_元数据.json")
-    )
+            ):
+                return True
+        except (OSError, ValueError, TypeError, KeyError):
+            return False
+    if problem_no in release_numbers or problem_no in (topic_numbers or set()):
+        return path in problem_projection_paths(problem_no)
+    return False
 
 
 def scan_for_secrets(paths: list[str], secret_values: tuple[str, ...]) -> str | None:
@@ -1627,6 +1653,7 @@ def _run_once(args: argparse.Namespace) -> int:
             ([sys.executable, str(ROOT / "tools" / "normalize_cpp_headers.py"), *selected], environment, 1800),
             ([sys.executable, str(ROOT / "tools" / "port_cpp17_candidates.py"), *selected], environment, 1800),
             ([sys.executable, str(ROOT / "tools" / "repair_known_candidates.py"), *selected], environment, 1800),
+            ([sys.executable, str(ROOT / "tools" / "assemble_fill_in_candidates.py"), *selected], environment, 1800),
             ([sys.executable, str(ROOT / "tools" / "sanitize_candidates.py"), *selected], environment, 1800),
             ([sys.executable, str(ROOT / "tools" / "validate_candidates.py"), *selected], environment, 1800),
             ([sys.executable, str(ROOT / "tools" / "compile_candidates.py"), *selected], environment, 1800),
@@ -1675,7 +1702,9 @@ def _run_once(args: argparse.Namespace) -> int:
                     )
                     if value
                 ),
-                topic_numbers=set(new_topic_numbers) | set(context_updated_numbers),
+                # Selected rebuilds also refresh backlog statements/metadata.
+                # Source files still require the separate PUBLIC_READY gate.
+                topic_numbers=set(new_topic_numbers) | set(selected_problem_numbers),
             )
             if result == 0 and not run_visibility_audit(environment, commit=True):
                 log("公开提交已完成，但可见性基线保存失败；下一轮会重试核对")

@@ -22,12 +22,13 @@ function node() {
     select() {}, remove() {}, submit() { this.submitted = true; }};
 }
 
-async function page({url=contextUrl, clipboardFails=false, fallbackCopy=true}={}) {
+async function page({url=contextUrl, clipboardFails=false, fallbackCopy=true, kind='STANDARD_CODE'}={}) {
   const elements = Object.fromEntries(['title','meta','source','notice','status','copy','submit','open','bookmarklet'].map(id => [id,node()]));
   elements.source.firstElementChild = node();
   const body = node(), opened = [], copied = [], confirmations = [];
   const entry = {problemNo:1726,title:'LCA',language:'cpp17',problemUrl:url,
-    submitEndpoint:'http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html',codeUrl,
+    submissionKind:kind,
+    submitEndpoint:kind==='PARTIAL_CODE' ? 'http://yoj.ruc.edu.cn/index.php/index/index/prob_submit_tk.html' : 'http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html',codeUrl,
     codeSha256:'unused',onlineStatus:'Accepted'};
   const window = {confirm(message) { confirmations.push(message); return true; },
     open(...args) { opened.push(args); return {}; },setTimeout() {}};
@@ -91,6 +92,16 @@ test('ordinary shortcut keeps explicit confirmation and the original POST fields
   assert.deepEqual(Object.fromEntries(form.children.map(n=>[n.name,n.value])),{pid:'1726',language:'cpp17',code:source});
   assert.equal(p.confirmations.length,1);
   assert.equal(p.opened.length,0);
+});
+
+test('verified partial shortcut submits one exact block using native partial fields',async()=>{
+  const p = await page({kind:'PARTIAL_CODE'});
+  await p.elements.submit.listeners.click();
+  const form = p.body.children.find(n=>n.method==='post');
+  assert.ok(form?.submitted);
+  assert.equal(form.action,'http://yoj.ruc.edu.cn/index.php/index/index/prob_submit_tk.html');
+  assert.deepEqual(Object.fromEntries(form.children.map(n=>[n.name,n.value])),
+    {pno:'1726',compiler:'cpp17',codes:JSON.stringify([source])});
 });
 
 test('copy failure is reported and does not navigate or submit',async()=>{

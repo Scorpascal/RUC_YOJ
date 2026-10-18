@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "purpose": "public release manifest; credentials and session data are excluded",
-  "updatedAt": "2026-10-17T18:57:21Z",
+  "updatedAt": "2026-10-18T15:34:30Z",
   "records": [
     {
       "status": "PUBLIC_READY",
@@ -2039,6 +2039,52 @@
         "canonicalByteMatch": true
       },
       "readyAt": "2026-09-23T16:05:32Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 285,
+      "title": "链表操作（加入节点）",
+      "completeCode": "题解/0285_链表操作(加入节点)/0285_AC完整代码.cpp",
+      "directlySubmittableCode": "题解/0285_链表操作(加入节点)/0285_填空提交片段.cpp",
+      "completeCodeSha256": "966c2106066f17f71ac5fd057cdd6cd94cc9ed2740cea492f94c88207e66ceb4",
+      "directlySubmittableCodeSha256": "bad43704561f295de76ede396622bbe65da78669ce586faf85011ad4e5b4311b",
+      "statementSha256": "76e1ea016fe89182ae42dc0ff51234b9dbd0d3c1e285003ddaca24720714196b",
+      "candidatePath": "staging/cleaned-code/0285_链表操作(加入节点)/0285_提交_1342125_cpp_可提交代码.cpp",
+      "candidateSha256": "bad43704561f295de76ede396622bbe65da78669ce586faf85011ad4e5b4311b",
+      "submissionNo": 1442564,
+      "language": "cpp",
+      "verifiedAt": "2026-10-18T15:28:57Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": true
+      },
+      "submissionKind": "PARTIAL_CODE",
+      "assembledProgramSha256": "966c2106066f17f71ac5fd057cdd6cd94cc9ed2740cea492f94c88207e66ceb4",
+      "readyAt": "2026-10-18T15:34:30Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 286,
+      "title": "链表操作（删除节点）",
+      "completeCode": "题解/0286_链表操作(删除节点)/0286_AC完整代码.cpp",
+      "directlySubmittableCode": "题解/0286_链表操作(删除节点)/0286_填空提交片段.cpp",
+      "completeCodeSha256": "324887ae25bb16028ba768878539a579a0177d6cc1b6775ca3bce6cc55afa53e",
+      "directlySubmittableCodeSha256": "041669def4ee761cf7ffa725e6af8df1ee8e69ac3719fe47c099ee55a78e4f0e",
+      "statementSha256": "d0a5097c3ab1dea0cfe1595d3d74d744fba3fd069dd6f5b569ca738a34da542b",
+      "candidatePath": "staging/cleaned-code/0286_链表操作(删除节点)/0286_提交_1396622_cpp_可提交代码.cpp",
+      "candidateSha256": "041669def4ee761cf7ffa725e6af8df1ee8e69ac3719fe47c099ee55a78e4f0e",
+      "submissionNo": 1442567,
+      "language": "cpp",
+      "verifiedAt": "2026-10-18T15:29:13Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": false,
+        "canonicalByteMatch": true
+      },
+      "submissionKind": "PARTIAL_CODE",
+      "assembledProgramSha256": "324887ae25bb16028ba768878539a579a0177d6cc1b6775ca3bce6cc55afa53e",
+      "readyAt": "2026-10-18T15:34:30Z"
     },
     {
       "status": "PUBLIC_READY",

@@ -18,6 +18,11 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+if __package__:
+    from .assemble_fill_in_candidates import is_assembled_candidate
+else:
+    from assemble_fill_in_candidates import is_assembled_candidate
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = ROOT / "data" / "problems.json"
@@ -78,7 +83,7 @@ def source_sha256(path: Path) -> str:
 
 def candidate_for(raw_path: Path) -> Path:
     relative = raw_path.relative_to(RAW_ROOT)
-    for root in (REPAIRED_ROOT, PORTABLE_ROOT, CLEANED_ROOT, CANDIDATE_ROOT):
+    for root in (CLEANED_ROOT, REPAIRED_ROOT, PORTABLE_ROOT, CANDIDATE_ROOT):
         candidate = root / relative
         if candidate.is_file():
             return candidate
@@ -111,7 +116,7 @@ def validate_record(record: dict[str, Any]) -> dict[str, Any]:
         "candidateSha256": source_sha256(source),
         "scope": "complete_source_syntax_only",
     }
-    if result["problemNo"] in KNOWN_FILL_IN_FRAGMENTS:
+    if result["problemNo"] in KNOWN_FILL_IN_FRAGMENTS and not is_assembled_candidate(record, source, ROOT):
         result.update(
             {
                 "scope": "fill_in_fragment_not_standalone",

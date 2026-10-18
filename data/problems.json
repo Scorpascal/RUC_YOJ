@@ -6404,16 +6404,16 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/0285_链表操作(加入节点)/0285_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "题解/0285_链表操作(加入节点)/0285_AC完整代码.cpp",
+        "directlySubmittableCode": "题解/0285_链表操作(加入节点)/0285_填空提交片段.cpp",
         "onlineVerification": "ONLINE_ACCEPTED",
         "onlineVerificationNote": "",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-10-18T15:28:57Z",
+        "verifiedSubmissionNo": "1442564",
+        "codeSha256": "bad43704561f295de76ede396622bbe65da78669ce586faf85011ad4e5b4311b"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
@@ -6483,16 +6483,16 @@
         }
       },
       "public": {
-        "status": "RAW_CAPTURED",
-        "publish": false,
+        "status": "PUBLIC_READY",
+        "publish": true,
         "statement": "题解/0286_链表操作(删除节点)/0286_题目.md",
-        "cleanCode": null,
-        "directlySubmittableCode": null,
+        "cleanCode": "题解/0286_链表操作(删除节点)/0286_AC完整代码.cpp",
+        "directlySubmittableCode": "题解/0286_链表操作(删除节点)/0286_填空提交片段.cpp",
         "onlineVerification": "ONLINE_ACCEPTED",
         "onlineVerificationNote": "",
-        "verifiedAt": "",
-        "verifiedSubmissionNo": "",
-        "codeSha256": ""
+        "verifiedAt": "2026-10-18T15:29:13Z",
+        "verifiedSubmissionNo": "1442567",
+        "codeSha256": "041669def4ee761cf7ffa725e6af8df1ee8e69ac3719fe47c099ee55a78e4f0e"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",
