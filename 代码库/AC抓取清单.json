@@ -1,7 +1,7 @@
 {
   "version": 1,
   "purpose": "YOJ accepted source archive; raw capture materialization only",
-  "capturedAt": "2026-09-29T14:49:14Z",
+  "capturedAt": "2026-10-17T18:55:41Z",
   "account": {
     "username": "已脱敏"
   },
@@ -12,9 +12,9 @@
   "totals": {
     "submissionRecords": 1028,
     "acceptedSubmissionRecords": 644,
-    "uniqueProblems": 509,
-    "materializedProblemDirectories": 509,
-    "materializedCodeFiles": 504
+    "uniqueProblems": 512,
+    "materializedProblemDirectories": 512,
+    "materializedCodeFiles": 507
   },
   "problems": [
     {
@@ -7641,6 +7641,52 @@
         "metadata": "1719_#_1719_._第_41_次_CCF_计算机软件能力认证_第五题：旅游计划（travel）/1719_元数据.json"
       },
       "codeSha256": "d204fef88cd0a5349c9294f53dae06853b66b1b2ae7c7ec81adb3c736f99d8c9"
+    },
+    {
+      "problemNo": "1724",
+      "title": "# 1724 . 根据前序和中序恢复后序",
+      "folder": "1724_#_1724_._根据前序和中序恢复后序",
+      "submissionNo": "1441711",
+      "language": "cpp17",
+      "files": {
+        "problem": "1724_#_1724_._根据前序和中序恢复后序/1724_题目原文.html",
+        "submission": "1724_#_1724_._根据前序和中序恢复后序/1724_提交_1441711_详情.html",
+        "completeCode": "1724_#_1724_._根据前序和中序恢复后序/1724_提交_1441711_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "1724_#_1724_._根据前序和中序恢复后序/1724_提交_1441711_cpp17_可提交代码.cpp",
+        "metadata": "1724_#_1724_._根据前序和中序恢复后序/1724_元数据.json"
+      },
+      "codeSha256": "034da92034ee2e3353d5382bb8a162d5129accf1c9c63c19cdd90b27934dc0aa"
+    },
+    {
+      "problemNo": "1725",
+      "title": "# 1725 . 合并果子的最小代价",
+      "folder": "1725_#_1725_._合并果子的最小代价",
+      "submissionNo": "1441712",
+      "language": "cpp17",
+      "files": {
+        "problem": "1725_#_1725_._合并果子的最小代价/1725_题目原文.html",
+        "submission": "1725_#_1725_._合并果子的最小代价/1725_提交_1441712_详情.html",
+        "completeCode": "1725_#_1725_._合并果子的最小代价/1725_提交_1441712_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "1725_#_1725_._合并果子的最小代价/1725_提交_1441712_cpp17_可提交代码.cpp",
+        "metadata": "1725_#_1725_._合并果子的最小代价/1725_元数据.json"
+      },
+      "codeSha256": "14068eb46df4dacee4536a53f2922802ada0a0e69e5169ce32e54a5c73fbf580"
+    },
+    {
+      "problemNo": "1726",
+      "title": "# 1726 . 二叉树的最近公共祖先（LCA）",
+      "folder": "1726_#_1726_._二叉树的最近公共祖先（LCA）",
+      "submissionNo": "1441715",
+      "language": "cpp17",
+      "files": {
+        "problem": "1726_#_1726_._二叉树的最近公共祖先（LCA）/1726_题目原文.html",
+        "submission": "1726_#_1726_._二叉树的最近公共祖先（LCA）/1726_提交_1441715_详情.html",
+        "completeCode": "1726_#_1726_._二叉树的最近公共祖先（LCA）/1726_提交_1441715_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "1726_#_1726_._二叉树的最近公共祖先（LCA）/1726_提交_1441715_cpp17_可提交代码.cpp",
+        "metadata": "1726_#_1726_._二叉树的最近公共祖先（LCA）/1726_元数据.json"
+      },
+      "codeSha256": "b1cf7b55e5783443c721903e1d7b78101fce629be4039212b8a912ead4d1c153",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1726/eno/2095.html"
     }
   ],
   "errors": {
