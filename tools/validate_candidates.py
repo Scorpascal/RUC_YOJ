@@ -19,9 +19,9 @@ from pathlib import Path
 from typing import Any
 
 if __package__:
-    from .assemble_fill_in_candidates import is_assembled_candidate
+    from .assemble_fill_in_candidates import is_assembled_candidate, requires_template_assembly
 else:
-    from assemble_fill_in_candidates import is_assembled_candidate
+    from assemble_fill_in_candidates import is_assembled_candidate, requires_template_assembly
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,12 +32,6 @@ CLEANED_ROOT = ROOT / "staging" / "cleaned-code"
 PORTABLE_ROOT = ROOT / "staging" / "cpp17-portable"
 REPAIRED_ROOT = ROOT / "staging" / "repaired-code"
 REPORT_PATH = ROOT / "staging" / "local-validation-report.json"
-
-# These two submissions are function-body fragments.  Their fixed templates
-# are hidden by YOJ, so compiling them as standalone programs would require
-# inventing a wrapper and would not be evidence for a real submission.
-KNOWN_FILL_IN_FRAGMENTS = {"285", "286"}
-
 
 def classify_diagnostic(stderr: str, returncode: int) -> str:
     if returncode == 0:
@@ -116,14 +110,14 @@ def validate_record(record: dict[str, Any]) -> dict[str, Any]:
         "candidateSha256": source_sha256(source),
         "scope": "complete_source_syntax_only",
     }
-    if result["problemNo"] in KNOWN_FILL_IN_FRAGMENTS and not is_assembled_candidate(record, source, ROOT):
+    if requires_template_assembly(record, ROOT) and not is_assembled_candidate(record, source, ROOT):
         result.update(
             {
                 "scope": "fill_in_fragment_not_standalone",
                 "category": "FILL_IN_FRAGMENT",
                 "returncode": None,
                 "command": None,
-                "diagnostic": "题面固定模板下载被隐藏；当前文件只有函数体片段，未臆造 main 或模板外壳。",
+                "diagnostic": "缺少可核对的单填空模板组装证据；未臆造 main 或模板外壳。",
             }
         )
         return result

@@ -20,9 +20,9 @@ from pathlib import Path
 from typing import Any
 
 if __package__:
-    from .assemble_fill_in_candidates import is_assembled_candidate
+    from .assemble_fill_in_candidates import is_assembled_candidate, requires_template_assembly
 else:
-    from assemble_fill_in_candidates import is_assembled_candidate
+    from assemble_fill_in_candidates import is_assembled_candidate, requires_template_assembly
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -33,7 +33,6 @@ PORTABLE_ROOT = ROOT / "staging" / "cpp17-portable"
 CLEANED_ROOT = ROOT / "staging" / "cleaned-code"
 NORMALIZED_ROOT = ROOT / "staging" / "cpp17-compatible"
 REPORT_PATH = ROOT / "staging" / "local-compile-report.json"
-KNOWN_FILL_IN_FRAGMENTS = {"285", "286"}
 
 
 def candidate_path(raw_path: Path) -> Path:
@@ -137,7 +136,7 @@ def main() -> int:
                 "candidateSha256": hashlib.sha256(source.read_bytes()).hexdigest(),
                 "scope": "complete_source_compile_link",
             }
-            if problem_no in KNOWN_FILL_IN_FRAGMENTS and not is_assembled_candidate(record, source, ROOT):
+            if requires_template_assembly(record, ROOT) and not is_assembled_candidate(record, source, ROOT):
                 item.update(
                     {
                         "category": "FILL_IN_FRAGMENT",

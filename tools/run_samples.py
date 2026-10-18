@@ -31,12 +31,11 @@ CLEANED_ROOT = ROOT / "staging" / "cleaned-code"
 NORMALIZED_ROOT = ROOT / "staging" / "cpp17-compatible"
 REPORT_PATH = ROOT / "staging" / "sample-test-report.json"
 WORK_ROOT = ROOT / "staging" / "sample-tests"
-KNOWN_FILL_IN_FRAGMENTS = {"285", "286"}
 
 if __package__:
-    from .assemble_fill_in_candidates import is_assembled_candidate
+    from .assemble_fill_in_candidates import is_assembled_candidate, requires_template_assembly
 else:
-    from assemble_fill_in_candidates import is_assembled_candidate
+    from assemble_fill_in_candidates import is_assembled_candidate, requires_template_assembly
 MAX_OUTPUT_CHARS = 1_000_000
 
 # These are statement-side defects visible in the captured samples.  They
@@ -298,7 +297,7 @@ def test_record(record: dict[str, Any], run: bool) -> dict[str, Any]:
         return result
     raw_source = ROOT / str(record["archive"]["completeCode"])
     source = candidate_path(raw_source)
-    if problem_no in KNOWN_FILL_IN_FRAGMENTS and not is_assembled_candidate(record, source, ROOT):
+    if requires_template_assembly(record, ROOT) and not is_assembled_candidate(record, source, ROOT):
         result["category"] = "FILL_IN_FRAGMENT"
         result["runtimeDiagnostic"] = "固定模板不可得，不能为样例运行臆造完整程序"
         return result

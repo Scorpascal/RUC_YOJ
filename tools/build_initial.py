@@ -995,15 +995,17 @@ def read_public_template_resource(source: str) -> tuple[bytes, dict[str, Any]] |
     No login, cookie jar, account headers, or automatic enrollment is involved.
     """
     target = urlparse(source)
-    match = re.fullmatch(r"/index\.php/index/problem/downloadtk/pno/([1-9]\d*)\.html", target.path)
+    match = re.fullmatch(r"/index\.php/index/problem/downloadtk/pno/([1-9]\d*)(?:/eno/([1-9]\d*))?\.html", target.path)
     if (target.scheme not in {"http", "https"} or target.hostname != "yoj.ruc.edu.cn"
             or target.username or target.password or target.port not in {None, 80 if target.scheme == "http" else 443}
             or target.query or target.fragment or not match):
         return None
     problem_no = int(match[1])
     endpoint = urljoin(source, "/index.php/index/problem/gettkcode.html")
+    context = f"/eno/{match[2]}" if match[2] else ""
     request = Request(endpoint, data=urlencode({"pno": problem_no}).encode(), headers={
         "User-Agent": "RUC-YOJ-Archive/1.0", "Content-Type": "application/x-www-form-urlencoded",
+        "Referer": urljoin(source, f"/index.php/index/problem/detailtk/pno/{problem_no}{context}.html"),
         "X-Requested-With": "XMLHttpRequest", "Accept": "application/json"}, method="POST")
     with urlopen(request, timeout=20, context=verified_context()) as response:
         raw = response.read(MAX_ASSET_BYTES + 1)
@@ -1538,7 +1540,7 @@ def make_readme(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:
         "- 逐题访问边界：历史考试中列出的旧题不一定仍可读；若其所有已发现入口均明确拒绝访问，逐题记录阻塞并保留原归档，不阻断其他题目，也不提升被阻塞题的发布状态。新题访问失败、网络异常或题面结构不完整仍停止本轮，不能以旧快照或空结果冒充成功。",
         "- 最近完整检查日期：本轮账号发现及所有适用检查、内容发布和可见性基线保存成功后，每天更新 README 顶部日期，即使题库内容没有变化；日期更新沿用脱敏、暂存树审计、推送及对应 SHA 的 Pages 验证。失败、部分完成、降级或轻量复查不推进成功记录；日期与题库内容最近变化时间分别记录。",
         "- 每日 backlog：自动处理仍为 `RAW_CAPTURED` 且已有本人 Accepted 源码的题目；保留脱敏、本地语法/编译/样例/提交表单及在线复核门禁。相同候选已有 Accepted 时不重复提交；异常题目用 `--retry-abnormal` 续跑，每轮最多提交 50 道。普通及实时部分代码模板均需回收源码；片段或证据不足的题目不能提升为 `PUBLIC_READY`。",
-        "- 题面与公开报告同步：本轮选中题目的题面、附件及元数据即使尚未 PUBLIC_READY，也随 README 和公开索引自动经过脱敏、暂存树审计、提交、推送和对应 SHA 的 Pages 验证；未通过发布门禁的源码、staging 报告、原始日志和个人快照仍只留本机。285/286 使用原站真实模板组装候选，原始 AC 片段保持不变；完整程序与填空提交片段分别发布，当前在线模板与本地编译程序不一致时停止。",
+        "- 题面与公开报告同步：本轮选中题目的题面、附件及元数据即使尚未 PUBLIC_READY，也随 README 和公开索引自动经过脱敏、暂存树审计、提交、推送和对应 SHA 的 Pages 验证；未通过发布门禁的源码、staging 报告、原始日志和个人快照仍只留本机。C/C++ 单填空题按原站入口、模板来源与哈希自动识别组装，不依赖题号；保留 eno 和原始 AC，经脱敏、本地门禁、实时模板核对、在线 Accepted 及源码回收后，分别发布完整程序与提交片段。模板缺失、多填空、证据不明或实时模板变化时阻断该题；既有冻结发布与定时不变。",
         "- 最终远端同步：每晚生成通过脱敏与暂存树门禁的本地提交后，先保存该提交的补推检查点；GitHub 推送失败时，后续定时重试只补推同一提交，并等待对应 SHA 的 Pages workflow 成功，未完成前不把当天记为成功。分支或 HEAD 变化、存在无检查点的本地提交时暂停自动推送，不强推、不覆盖远端。",
         "- 夜间调度健康检查：主同步进入和退出时，在独立 `codex/yoj-health` 分支记录脱敏运行回执；GitHub 每日北京时间 23:55 分别展示调度、来源访问、同步完成与最后成功同步时间。默认退出码只检查调度，可用 `check --require-sync` 要求明确同步成功证据；旧回执同步状态为 `UNKNOWN`，补传不更新原结果或成功时间。完整检查通过但内容无变化仍记录成功；锁冲突、维护跳过、账号不可用及提交/推送门禁跳过不会推进成功时间。回执发送失败不改变业务退出码或发布门禁，登录、源码和原始日志不进入回执。",
         "- 回执传输恢复：独立后台发送总预算 60 秒，单次 Git 操作最多 20 秒，瞬时失败最多尝试三次；23:30–23:55 的守门器触发只重传已有回执，不补跑主同步。失败类别写入被忽略的 `.yoj-sync/health/delivery-status.json`；人工修复可在维护窗口外使用 `YOJ_SYNC_ALLOW_PUSH=1 python3 -B tools/yoj_health.py replay` 补传真实历史记录，不修改原时间、退出码或发布状态。",

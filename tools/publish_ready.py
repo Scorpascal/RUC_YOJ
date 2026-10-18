@@ -17,9 +17,9 @@ from pathlib import Path
 from typing import Any
 
 if __package__:
-    from .assemble_fill_in_candidates import is_assembled_candidate
+    from .assemble_fill_in_candidates import is_assembled_candidate, requires_template_assembly
 else:
-    from assemble_fill_in_candidates import is_assembled_candidate
+    from assemble_fill_in_candidates import is_assembled_candidate, requires_template_assembly
 
 try:
     from release_gate import ROOT, candidate_paths, is_public_ready, relative, sha256_file
@@ -104,9 +104,11 @@ def ready_record(record: dict[str, Any], online: dict[str, Any], previous: dict[
     if previous and previous_release_intact(previous, current_statement_hash):
         return previous, []
     assembled = complete is not None and is_assembled_candidate(record, complete, ROOT)
-    if problem_no in {285, 286} and not assembled:
+    if (requires_template_assembly(record, ROOT) or online.get('submissionKind') == 'PARTIAL_CODE') and not assembled:
         return None, sorted(set(reasons + ['TEMPLATE_ASSEMBLY_EVIDENCE_MISSING']))
-    if assembled and online.get('assembledProgramSha256') != complete_sha:
+    if assembled and (online.get('assembledProgramSha256') != complete_sha
+                      or online.get('submissionKind') != 'PARTIAL_CODE'
+                      or online.get('partialTemplateVerified') is not True):
         return None, sorted(set(reasons + ['ONLINE_TEMPLATE_ASSEMBLY_NOT_VERIFIED']))
     if previous and not ready:
         return None, reasons
@@ -138,8 +140,9 @@ def ready_record(record: dict[str, Any], online: dict[str, Any], previous: dict[
         # The assembled program and cleaned submission block are new public
         # artifacts, admitted only after the unchanged release gate above.
         directory = Path(str((record.get('public') or {}).get('statement') or '')).parent
-        value['completeCode'] = (directory / f'{problem_no:04d}_AC完整代码.cpp').as_posix()
-        value['directlySubmittableCode'] = (directory / f'{problem_no:04d}_填空提交片段.cpp').as_posix()
+        extension = '.c' if str(record.get('language') or '') == 'c' or str(record.get('language') or '').startswith('c-') else '.cpp'
+        value['completeCode'] = (directory / f'{problem_no:04d}_AC完整代码{extension}').as_posix()
+        value['directlySubmittableCode'] = (directory / f'{problem_no:04d}_填空提交片段{extension}').as_posix()
         value['submissionKind'] = 'PARTIAL_CODE'
         value['assembledProgramSha256'] = complete_sha
     if previous and previous.get("completeCodeSha256") == complete_sha and previous.get("directlySubmittableCodeSha256") == direct_sha:

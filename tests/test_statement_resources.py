@@ -83,6 +83,23 @@ class StatementResourceTests(unittest.TestCase):
             self.assertEqual(item['retrievedFrom'], {'url': self.api_url, 'method': 'POST', 'problemNo': 285, 'kind': 'YOJ_PUBLIC_TEMPLATE_API'})
             self.assertEqual(item['sourceSha256'], hashlib.sha256(self.template.encode()).hexdigest())
 
+    def test_contextual_template_recovery_retains_eno_in_read_only_referer(self):
+        source = 'http://yoj.ruc.edu.cn/index.php/index/problem/downloadtk/pno/2047/eno/99.html'
+        requests = []
+        def transport(request, **kwargs):
+            requests.append(request)
+            return Response(json.dumps({'status': 1, 'content': self.template}).encode(), 'application/json')
+        with patch.object(builder, 'urlopen', transport):
+            result = builder.read_public_template_resource(source)
+        self.assertIsNotNone(result)
+        self.assertEqual(result[0], self.template.encode())
+        self.assertEqual(len(requests), 1)
+        self.assertEqual(requests[0].data, b'pno=2047')
+        self.assertEqual(requests[0].get_header('Referer'),
+                         'http://yoj.ruc.edu.cn/index.php/index/problem/detailtk/pno/2047/eno/99.html')
+        self.assertNotIn('Cookie', requests[0].headers)
+        self.assertNotIn('Authorization', requests[0].headers)
+
     def test_cache_keeps_verified_alternate_source_provenance(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

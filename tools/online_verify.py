@@ -26,11 +26,11 @@ from urllib.error import URLError
 from http.cookiejar import CookieJar
 
 if __package__:
-    from .assemble_fill_in_candidates import is_assembled_candidate
+    from .assemble_fill_in_candidates import is_assembled_candidate, requires_template_assembly
     from .yoj_http import build_yoj_opener, validate_yoj_url
     from .yoj_context import is_access_denied, problem_path as contextual_problem_path
 else:
-    from assemble_fill_in_candidates import is_assembled_candidate
+    from assemble_fill_in_candidates import is_assembled_candidate, requires_template_assembly
     from yoj_http import build_yoj_opener, validate_yoj_url
     from yoj_context import is_access_denied, problem_path as contextual_problem_path
 
@@ -51,10 +51,6 @@ BUILD_EVERY = 20
 PARTIAL_TEMPLATE_ENDPOINT = "/index.php/index/problem/gettkcode.html"
 PARTIAL_SUBMIT_ENDPOINT = "/index.php/index/index/prob_submit_tk.html"
 PARTIAL_PLACEHOLDER = "____qcodep____"
-# These two legacy entries are function-body fragments by design.  Their
-# live partial-code template can be submitted safely, but compiling the
-# fragment as a standalone file is not a meaningful local proof.
-PARTIAL_FRAGMENT_PROBLEMS = {285, 286}
 PENDING_STATUSES = {"waiting", "compiling", "running", "judging", "pending"}
 PARTIAL_FORM_MARKERS = ("部分代码提交", "待填区", "填空", "detailtk")
 
@@ -275,7 +271,7 @@ def extract_partial_blocks(template: str, source: str) -> list[str]:
     form parser cannot see a submit form.  Match the live framework against
     the cleaned full source while ignoring formatting-only whitespace.  A
     single-block source without ``main`` is also accepted as a deliberate
-    fragment fallback for legacy exercises such as 285 and 286.
+    fragment fallback; submission still requires independent local assembly.
     """
 
     parts = template.split(PARTIAL_PLACEHOLDER)
@@ -630,12 +626,17 @@ def main() -> int:
         complete_candidate, direct_candidate = candidate_paths(problem)
         assembled = bool(complete_candidate is not None and is_assembled_candidate(problem, complete_candidate, ROOT))
         assembled_sha = hashlib.sha256(complete_candidate.read_bytes()).hexdigest() if assembled else ''
-        assembly_needs_verification = assembled and (previous or {}).get('assembledProgramSha256') != assembled_sha
+        assembly_needs_verification = assembled and (
+            (previous or {}).get('assembledProgramSha256') != assembled_sha
+            or (previous or {}).get('partialTemplateVerified') is not True
+            or (previous or {}).get('submissionKind') != 'PARTIAL_CODE'
+        )
         if (
             previous
             and previous.get("manualBrowserEvidence")
             and previous.get("status") == "Accepted"
             and not args.reverify_accepted
+            and not assembly_needs_verification
         ):
             # Browser-confirmed evidence may intentionally point at a
             # submitted source that is not yet recoverable as a repository
@@ -669,18 +670,8 @@ def main() -> int:
         gate_reasons = local_gate_reasons(problem_no, complete_candidate, direct_candidate)
         if direct_candidate is None or direct_candidate.resolve() != path.resolve():
             gate_reasons.append("CANDIDATE_SELECTION_STALE")
-        local_fragment_override = False
-        if (
-            problem_no in PARTIAL_FRAGMENT_PROBLEMS
-            and gate_reasons
-            and all("FILL_IN_FRAGMENT" in reason for reason in gate_reasons)
-        ):
-            # The hidden fixed framework is supplied by YOJ's partial-code
-            # form.  Allow the online template itself to be the correctness
-            # boundary, while retaining the fragment-specific local warning
-            # in the release gate so it cannot become PUBLIC_READY silently.
-            local_fragment_override = True
-            gate_reasons = []
+        if requires_template_assembly(problem, ROOT) and not assembled:
+            gate_reasons.append('TEMPLATE_ASSEMBLY_EVIDENCE_MISSING')
         if gate_reasons:
             reason = "LOCAL_GATE_" + "+".join(sorted(set(gate_reasons)))
             record_skip(skips, problem, path, submit_language, reason, candidate_sha256)
@@ -699,10 +690,16 @@ def main() -> int:
             page = client.request(detail_path)
             try:
                 action, pid = parse_form(page, problem_no, submit_language)
+                if assembled:
+                    raise ValueError('PARTIAL_ASSEMBLY_FORM_CHANGED')
                 submit_kind = "STANDARD_CODE"
             except ValueError as exc:
-                if str(exc) != "PARTIAL_CODE_FORM" and not any(marker in page for marker in PARTIAL_FORM_MARKERS):
+                if str(exc) != 'PARTIAL_CODE_FORM' and not (
+                    str(exc) == 'SUBMIT_FORM_NOT_FOUND' and any(marker in page for marker in PARTIAL_FORM_MARKERS)
+                ):
                     raise
+                if not assembled:
+                    raise ValueError('TEMPLATE_ASSEMBLY_EVIDENCE_MISSING')
                 archive = problem.get("archive") or {}
                 raw_complete_ref = str(archive.get("completeCode") or "")
                 raw_complete_path = ROOT / raw_complete_ref if raw_complete_ref else None
@@ -792,8 +789,6 @@ def main() -> int:
                 submit_kind,
                 partial_template_verified,
             )
-            if local_fragment_override:
-                records[problem_no]["localFragmentOverride"] = True
             if assembled:
                 records[problem_no]['assembledProgramSha256'] = assembled_sha
             skips.pop(problem_no, None)
