@@ -20,18 +20,18 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlencode, urljoin
+from urllib.parse import urlencode, urljoin, urlparse
 from urllib.request import HTTPCookieProcessor, Request
-from urllib.error import URLError
+from urllib.error import HTTPError, URLError
 from http.cookiejar import CookieJar
 
 if __package__:
     from .assemble_fill_in_candidates import is_assembled_candidate, requires_template_assembly
-    from .yoj_http import build_yoj_opener, validate_yoj_url
+    from .yoj_http import YoJNetworkError, build_yoj_opener, classify_yoj_error, validate_yoj_url
     from .yoj_context import is_access_denied, problem_path as contextual_problem_path
 else:
     from assemble_fill_in_candidates import is_assembled_candidate, requires_template_assembly
-    from yoj_http import build_yoj_opener, validate_yoj_url
+    from yoj_http import YoJNetworkError, build_yoj_opener, classify_yoj_error, validate_yoj_url
     from yoj_context import is_access_denied, problem_path as contextual_problem_path
 
 try:
@@ -90,14 +90,24 @@ class YoJClient:
             headers["Content-Type"] = "application/x-www-form-urlencoded"
             headers["X-Requested-With"] = "XMLHttpRequest"
         request = Request(url, data=body, headers=headers, method="POST" if data is not None else "GET")
-        attempts = 3 if retry_safe else 1
+        # Repeat safe reads within the same cookie session, not judge writes.
+        # Even an accidental retry_safe=True must never duplicate a submission.
+        safe_post = retry_safe and urlparse(url).path in {
+            "/index.php/index/login/login2.html",
+            "/index.php/index/problem/gettkcode.html",
+            "/index.php/index/submissions/getcode.html",
+        }
+        attempts = 3 if data is None or safe_post else 1
         for attempt in range(1, attempts + 1):
             try:
                 with self.opener.open(request, timeout=35) as response:
                     return response.read().decode("utf-8", errors="replace")
-            except (TimeoutError, ConnectionError, URLError):
-                if attempt >= attempts:
-                    raise
+            except OSError as exc:
+                reason = classify_yoj_error(exc)
+                if isinstance(exc, HTTPError):
+                    exc.close()
+                if reason != "YOJ_TRANSIENT_NETWORK_ERROR" or attempt >= attempts:
+                    raise YoJNetworkError(reason) from None
                 time.sleep(2 * attempt)
 
     def request_json(
@@ -725,7 +735,7 @@ def main() -> int:
             record_skip(skips, problem, path, submit_language, reason, candidate_sha256)
             save_report(records, skips)
             print(f"[{problem_no}] 跳过：{reason}", flush=True)
-            if isinstance(exc, (URLError, ConnectionError, TimeoutError)):
+            if isinstance(exc, (YoJNetworkError, URLError, ConnectionError, TimeoutError)):
                 print("网络/访问异常；停止本批，等待调度器下一窗口重试。", flush=True)
                 return 3
             continue

@@ -51,6 +51,60 @@ class TransportTests(unittest.TestCase):
                 finally:
                     error.close()
 
+    def test_account_get_recovers_from_transient_entry_error_without_relogin(self):
+        opener = Mock()
+        opener.open.side_effect = [HTTPError(audit.PUBLIC_INDEX_URL, 500, 'private', Message(), None),
+                                   self.response(b'account entry')]
+        with patch.object(online_verify, 'build_yoj_opener', return_value=opener), \
+             patch.object(online_verify.time, 'sleep'):
+            client = online_verify.YoJClient()
+            self.assertEqual(client.request('/index.php/index/course/index.html'), 'account entry')
+        self.assertEqual(opener.open.call_count, 2)
+
+    def test_account_get_exhaustion_returns_safe_transient_reason(self):
+        opener = Mock()
+        opener.open.side_effect = [HTTPError(audit.PUBLIC_INDEX_URL, 500, 'PRIVATE_MARKER', Message(), None)
+                                   for _ in range(3)]
+        with patch.object(online_verify, 'build_yoj_opener', return_value=opener), \
+             patch.object(online_verify.time, 'sleep'), self.assertRaises(transport.YoJNetworkError) as raised:
+            online_verify.YoJClient().request('/index.php/index/course/index.html')
+        self.assertEqual(str(raised.exception), 'YOJ_TRANSIENT_NETWORK_ERROR')
+        self.assertEqual(opener.open.call_count, 3)
+
+    def test_nontransient_account_get_is_never_retried(self):
+        for error in (HTTPError(audit.PUBLIC_INDEX_URL, 403, 'PRIVATE_MARKER', Message(), None),
+                      URLError(ssl.SSLCertVerificationError(1, 'PRIVATE_MARKER')),
+                      transport.YoJNetworkError('YOJ_CAMPUS_ACCESS_REQUIRED')):
+            opener = Mock()
+            opener.open.side_effect = error
+            with self.subTest(error=type(error).__name__), \
+                 patch.object(online_verify, 'build_yoj_opener', return_value=opener), \
+                 patch.object(online_verify.time, 'sleep') as sleep, self.assertRaises(OSError):
+                online_verify.YoJClient().request('/index.php/index/course/index.html')
+            self.assertEqual(opener.open.call_count, 1)
+            sleep.assert_not_called()
+
+    def test_explicit_retry_flag_cannot_repost_judge_submission(self):
+        for path in ('/index.php/index/index/prob_submit.html', online_verify.PARTIAL_SUBMIT_ENDPOINT):
+            opener = Mock()
+            opener.open.side_effect = TimeoutError('lost response')
+            with self.subTest(path=path), \
+                 patch.object(online_verify, 'build_yoj_opener', return_value=opener), \
+                 patch.object(online_verify.time, 'sleep'), self.assertRaises(OSError):
+                online_verify.YoJClient().request(path, {'code': 'fixture'}, retry_safe=True)
+            self.assertEqual(opener.open.call_count, 1)
+
+    def test_login_and_explicit_read_posts_can_retry_transient_failure(self):
+        for path in ('/index.php/index/login/login2.html', online_verify.PARTIAL_TEMPLATE_ENDPOINT,
+                     '/index.php/index/submissions/getcode.html'):
+            opener = Mock()
+            opener.open.side_effect = [TimeoutError('private'), self.response(b'ok')]
+            with self.subTest(path=path), \
+                 patch.object(online_verify, 'build_yoj_opener', return_value=opener), \
+                 patch.object(online_verify.time, 'sleep'):
+                self.assertEqual(online_verify.YoJClient().request(path, {'fixture': 'value'}, retry_safe=True), 'ok')
+            self.assertEqual(opener.open.call_count, 2)
+
     def test_public_get_retries_only_temporary_failure_and_succeeds_on_third(self):
         opener = Mock()
         opener.open.side_effect = [TimeoutError("PRIVATE_MARKER"),

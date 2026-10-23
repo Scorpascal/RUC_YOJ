@@ -4,12 +4,59 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from urllib.error import HTTPError
+from email.message import Message
 from unittest.mock import patch
 
 from tools import yoj_capture as capture
 
 
 class AccountDiscoveryTests(unittest.TestCase):
+    def test_login_failure_distinguishes_auth_transport_and_invalid_response(self):
+        for error, reason in ((RuntimeError('rejected'), 'YOJ_AUTH_REQUIRED'),
+                              (TimeoutError('PRIVATE_MARKER'), 'YOJ_TRANSIENT_NETWORK_ERROR'),
+                              (ValueError('PRIVATE_MARKER'), 'YOJ_SOURCE_ERROR')):
+            with self.subTest(reason=reason), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                class Client:
+                    def login(self): raise error
+                    def request(self, path): raise AssertionError('no scan after failed login')
+                with patch.object(capture, 'YoJClient', Client), \
+                     patch.object(capture, 'existing_context', return_value=({}, {}, set())), \
+                     patch.object(capture, 'CAPTURE_RESULT_PATH', root / 'result.json'), \
+                     patch.object(sys, 'argv', ['capture', '--account-visible', '--discover-only']):
+                    with self.assertRaises(type(error)): capture.main()
+                result = json.loads((root / 'result.json').read_text())
+                self.assertFalse(result['authenticated'])
+                self.assertEqual(result['reason'], reason)
+                self.assertNotIn('PRIVATE_MARKER', (root / 'result.json').read_text())
+
+    def test_list_transport_failure_retains_login_success_and_original_snapshot(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            snapshot = root / 'account-visible-problems.json'
+            snapshot.write_text('previous valid evidence')
+            error = HTTPError('http://yoj.ruc.edu.cn/private', 500, 'PRIVATE_MARKER', Message(), None)
+            class Client:
+                def login(self): pass
+                def request(self, path):
+                    if '/course/' in path:
+                        raise error
+                    return '<html><body><a href="/index.php/index/problem/detail/pno/1725.html">p</a></body></html>'
+            with patch.object(capture, 'YoJClient', Client), \
+                 patch.object(capture, 'existing_context', return_value=({}, {}, {1725})), \
+                 patch.object(capture, 'STATE_DIR', root), \
+                 patch.object(capture, 'CAPTURE_RESULT_PATH', root / 'result.json'), \
+                 patch.object(sys, 'argv', ['capture', '--account-visible', '--discover-only', '--request-interval', '0']):
+                with self.assertRaises(OSError): capture.main()
+            error.close()
+            result = json.loads((root / 'result.json').read_text())
+            self.assertEqual(result['scope'], 'account_list_unavailable')
+            self.assertEqual(result['reason'], 'YOJ_TRANSIENT_NETWORK_ERROR')
+            self.assertTrue(result['authenticated'])
+            self.assertEqual(snapshot.read_text(), 'previous valid evidence')
+            self.assertNotIn('PRIVATE_MARKER', (root / 'result.json').read_text())
+
     def test_login_only_problem_is_discovered_without_scanning_submissions(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

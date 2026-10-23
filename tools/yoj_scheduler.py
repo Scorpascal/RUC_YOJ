@@ -39,8 +39,10 @@ except ImportError:  # pragma: no cover - supports ``import tools.yoj_scheduler`
 
 if __package__:
     from . import yoj_sync_status as sync_status
+    from .yoj_http import REASONS as SOURCE_REASONS, source_state_for_reason
 else:
     import yoj_sync_status as sync_status
+    from yoj_http import REASONS as SOURCE_REASONS, source_state_for_reason
 
 
 ROOT = Path(os.environ.get("YOJ_ROOT", Path(__file__).resolve().parents[1])).resolve()
@@ -1436,11 +1438,17 @@ def _run_once(args: argparse.Namespace) -> int:
             result_path.unlink(missing_ok=True)
             if run_command(command, account_environment, 600):
                 failure = load_capture_result()
+                reason = failure.get("reason") if failure else None
+                trusted_reason = isinstance(reason, str) and reason in SOURCE_REASONS - {"NONE"}
+                if trusted_reason:
+                    mark_source(source_state_for_reason(reason), reason)
+                    mark_incomplete(reason)
                 if not failure or failure.get("scope") not in {"account_login_unavailable", "account_login_pending"}:
-                    log("账号题库发现失败；未采用旧快照或将解析失败视为没有新题")
+                    log("账号题库扫描未完成；未采用旧快照或将失败视为没有新题，保留上次完整检查日期")
                     return 3
                 account_environment = None
-                mark_incomplete("YOJ_AUTH_REQUIRED")
+                if not trusted_reason:
+                    mark_incomplete("YOJ_AUTH_REQUIRED")
                 log("账号登录失败；降级核对匿名公开题库，本轮不推进完整检查日期")
             else:
                 discovery_result = load_capture_result()

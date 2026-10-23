@@ -26,6 +26,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from audit_online_availability import validate_snapshot  # noqa: E402
 from online_verify import YoJClient, clean_text, parse_submission_rows  # noqa: E402
 from yoj_context import Links, collect_problem_paths, discover_account_contexts, is_access_denied, problem_path as contextual_problem_path  # noqa: E402
+from yoj_http import classify_yoj_error  # noqa: E402
 
 
 MANIFEST_PATH = ROOT / "代码库" / "AC抓取清单.json"
@@ -672,26 +673,35 @@ def main() -> int:
         save_capture_result({"schemaVersion": 2, "scope": "account_login_pending", "capturedAt": now})
         try:
             client.login()
-        except Exception:
-            save_capture_result({"schemaVersion": 2, "scope": "account_login_unavailable", "capturedAt": now})
+        except Exception as exc:
+            reason = "YOJ_AUTH_REQUIRED" if isinstance(exc, RuntimeError) else classify_yoj_error(exc)
+            save_capture_result({"schemaVersion": 2, "scope": "account_login_unavailable", "capturedAt": now,
+                                 "authenticated": False, "reason": reason})
             raise
         logged_in = True
         save_capture_result({"schemaVersion": 2, "scope": "account_list_pending", "capturedAt": now})
-        if args.account_snapshot and not args.discover_only:
-            public_numbers, public_pages = load_account_snapshot(args.account_snapshot)
-            saved = json.loads(args.account_snapshot.read_text(encoding="utf-8"))
-            if saved["schemaVersion"] != 2:
-                raise RuntimeError("账号发现快照未覆盖课程和考试；必须重新发现")
-            problem_paths = saved["problemPaths"]
-        else:
-            public_numbers, public_pages = all_public_problem_numbers(client, limiter, args.max_pages, contexts=problem_paths)
-            problem_paths, coverage = discover_account_contexts(client, limiter, public_numbers, args.max_pages, initial_paths=problem_paths)
-            public_numbers = {int(n) for n in problem_paths}
-            public_pages += coverage["entryPages"]
-            snapshot = {"schemaVersion": 2, "scope": "account_visible", "capturedAt": now,
-                        "pagesFetched": public_pages, "problemNumbers": sorted(public_numbers),
-                        "problemPaths": problem_paths, "coverage": coverage}
-            atomic_write(STATE_DIR / "account-visible-problems.json", (json.dumps(snapshot) + "\n").encode())
+        try:
+            if args.account_snapshot and not args.discover_only:
+                public_numbers, public_pages = load_account_snapshot(args.account_snapshot)
+                saved = json.loads(args.account_snapshot.read_text(encoding="utf-8"))
+                if saved["schemaVersion"] != 2:
+                    raise RuntimeError("账号发现快照未覆盖课程和考试；必须重新发现")
+                problem_paths = saved["problemPaths"]
+            else:
+                public_numbers, public_pages = all_public_problem_numbers(client, limiter, args.max_pages, contexts=problem_paths)
+                problem_paths, coverage = discover_account_contexts(client, limiter, public_numbers, args.max_pages, initial_paths=problem_paths)
+                public_numbers = {int(n) for n in problem_paths}
+                public_pages += coverage["entryPages"]
+                snapshot = {"schemaVersion": 2, "scope": "account_visible", "capturedAt": now,
+                            "pagesFetched": public_pages, "problemNumbers": sorted(public_numbers),
+                            "problemPaths": problem_paths, "coverage": coverage}
+                atomic_write(STATE_DIR / "account-visible-problems.json", (json.dumps(snapshot) + "\n").encode())
+        except Exception as exc:
+            # Login succeeded, but an incomplete graph is not a new snapshot.
+            # Store only a fixed reason, never account URLs or response text.
+            save_capture_result({"schemaVersion": 2, "scope": "account_list_unavailable", "capturedAt": now,
+                                 "authenticated": True, "reason": classify_yoj_error(exc)})
+            raise
     elif args.public_snapshot:
         public_numbers, public_pages = load_public_snapshot(args.public_snapshot)
     else:

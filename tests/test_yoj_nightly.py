@@ -162,6 +162,25 @@ class NightlyTests(unittest.TestCase):
         self.successful_baseline()
         self.assertIn("`2026-10-06`", (self.root / "README.md").read_text())
 
+    def test_authenticated_entry_failure_keeps_last_date_and_records_actual_source_reason(self):
+        previous = '# Archive\n\n最近完整检查日期（北京时间）：`2026-10-21`\n'
+        (self.root / 'README.md').write_text(previous)
+        failure = {'scope': 'account_list_unavailable', 'authenticated': True,
+                   'reason': 'YOJ_TRANSIENT_NETWORK_ERROR'}
+        with patch.object(scheduler, 'run_command', return_value=1), \
+             patch.object(scheduler, 'load_capture_result', return_value=failure):
+            self.assertEqual(scheduler.run_once(self.args), 3)
+        self.assertEqual((self.root / 'README.md').read_text(), previous)
+        self.assertEqual(self.read()['sourceState'], 'TRANSIENT_ERROR')
+        self.assertEqual(self.read()['reason'], 'YOJ_TRANSIENT_NETWORK_ERROR')
+
+    def test_later_authenticated_no_change_run_advances_date_and_publishes(self):
+        (self.root / 'README.md').write_text('# Archive\n\n最近完整检查日期（北京时间）：`2026-10-21`\n')
+        self.now = at('2026-10-24T22:30:00+08:00')
+        self.successful_baseline()
+        self.assertIn('`2026-10-24`', (self.root / 'README.md').read_text())
+        scheduler.publish.assert_called_once()
+
     def test_selected_success_keeps_existing_gate_order_and_publication(self):
         with patch.object(scheduler, "select_pending_personal_ac_targets", return_value=[1717]):
             self.successful_baseline()
