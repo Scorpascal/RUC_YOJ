@@ -23,6 +23,7 @@ on:
       - "tools/online_verify.py"
       - "tools/publish_ready.py"
       - "tools/yoj_scheduler.py"
+      - "tools/yoj_health.py"
       - "tools/yoj_check_marker.py"
       - "tools/yoj_context.py"
       - "tools/audit_consistency.py"
@@ -33,6 +34,7 @@ on:
       - "tests/test_yoj_ac_refresh.py"
       - "tests/test_fill_in_candidates.py"
       - "tests/test_yoj_nightly.py"
+      - "tests/test_yoj_health.py"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 

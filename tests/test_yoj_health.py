@@ -633,6 +633,10 @@ class DeliveryTests(unittest.TestCase):
         self.root.mkdir()
         self.remote = self.directory / "receiver.git"
         self.git("init", "--bare", str(self.remote))
+        # This fixture also owns the fake server. Its receive-pack housekeeping
+        # must finish before TemporaryDirectory cleanup, just like the client.
+        for key in ("maintenance.autoDetach", "gc.autoDetach"):
+            self.git("--git-dir", str(self.remote), "config", key, "false")
         self.git("init", str(self.root))
         self.git("-C", str(self.root), "config", "user.name", health.AUTHOR)
         self.git("-C", str(self.root), "config", "user.email", health.EMAIL)
@@ -672,6 +676,22 @@ class DeliveryTests(unittest.TestCase):
         health.GitDelivery(self.root).publish([receipt(outcome="RUNNING")])
         final = health.GitDelivery(self.root).publish([receipt()])
         self.assertEqual(health.GitDelivery(self.root).publish([receipt(outcome="RUNNING")]), final)
+
+    def test_git_maintenance_cannot_detach_beyond_delivery_process_budget(self):
+        # Real Git, real temporary repositories, no mocked process behavior.
+        # Newer Git detaches auto-maintenance even with a tiny object database;
+        # a returning parent must not leave writers racing receipt cleanup.
+        trace = self.directory / "git-trace.json"
+        environment = {**health.clean_environment(), "GIT_TRACE2_EVENT": str(trace)}
+        with patch.object(health, "clean_environment", return_value=environment):
+            health.GitDelivery(self.root).publish([receipt(outcome="RUNNING")])
+            final = health.GitDelivery(self.root).publish([receipt()])
+            self.assertEqual(health.GitDelivery(self.root).publish([receipt(outcome="RUNNING")]), final)
+        children = [event.get("argv", []) for event in
+                    (json.loads(line) for line in trace.read_text().splitlines())
+                    if event.get("event") == "child_start"]
+        self.assertFalse([args for args in children if "maintenance" in args and "--detach" in args],
+                         "automatic maintenance escaped the bounded delivery process")
 
     def test_bad_payload_and_symlink_never_reach_remote(self):
         initial = health.GitDelivery(self.root).publish([], initialize=True)

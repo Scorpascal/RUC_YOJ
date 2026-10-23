@@ -450,6 +450,9 @@ class GitDelivery:
             raise GitCommandError("DELIVERY_TIMEOUT", step, "TIMEOUT")
         process = subprocess.Popen(
             ["git", "-c", "core.hooksPath=/dev/null", "-c", "commit.gpgSign=false",
+             # Automatic housekeeping must remain inside this command's
+             # process group and deadline, not outlive its receipt/cache owner.
+             "-c", "maintenance.autoDetach=false", "-c", "gc.autoDetach=false",
              "-c", f"user.name={AUTHOR}", "-c", f"user.email={EMAIL}",
              "--git-dir", str(self.directory), *args],
             env=self.environment, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
