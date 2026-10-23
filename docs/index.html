@@ -142,6 +142,15 @@
     .problem-row { width: 100%; min-height: 57px; border: 0; border-top: 1px solid #e8eef6; color: var(--ink); background: var(--surface); text-align: left; transition: background .16s ease, box-shadow .16s ease; }
     .problem-row:hover, .problem-row:focus-visible { background: #f7fbff; outline: none; }
     .problem-row.selected { position: relative; background: #eaf3ff; box-shadow: inset 3px 0 0 var(--blue); }
+    .batch-bar {display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:12px 15px;border-bottom:1px solid var(--line);background:#f2f7ff;font-size:13px;}
+    .batch-bar p {flex:1 1 250px;margin:0;color:var(--muted);overflow-wrap:anywhere;}
+    .batch-bar .button {min-height:36px;font-size:12px;}
+    .batch-bar [aria-disabled="true"] {opacity:.5;pointer-events:none;}
+    .batch-row {display:grid;grid-template-columns:32px minmax(0,1fr);align-items:center;border-top:1px solid #e8eef6;}
+    .batch-row .problem-row {border-top:0;}
+    .batch-choice {justify-self:center;width:17px;height:17px;accent-color:var(--blue);cursor:pointer;}
+    .batch-choice:disabled {cursor:not-allowed;}
+    .problem-table-head {margin-left:32px;}
     .problem-number { color: #375d8e; font: 700 13px var(--mono); }
     .problem-title { overflow: hidden; font-size: 14px; font-weight: 680; text-overflow: ellipsis; white-space: nowrap; }
     .tag-list { display: flex; flex-wrap: wrap; gap: 5px; }
@@ -311,6 +320,7 @@
       <div class="catalog-panel">
         <div class="status-guide"><div class="status-guide-copy"><strong>状态分三条看：</strong><span>发布阶段 ≠ 在线复验 ≠ 原站公开可见性；本站会展示全部本地归档，所以能搜到题目不等于它当前列在 YOJ 原站公开列表中。要找“原站当前公开但未通过或未记录在线复验”的题目，可直接使用右侧筛选。</span></div><button id="pending-public-verification" class="filter-preset" type="button">原站当前公开且未通过/未记录在线复验（—）</button></div>
         <div class="catalog-toolbar"><label class="field search-field"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg><input id="catalog-search" type="search" placeholder="搜索题号、题目名称或知识点" aria-label="搜索题目"></label><label class="field"><span class="sr-only">知识点</span><select id="tag-filter" aria-label="按知识点筛选"><option value="">全部知识点</option></select></label><label class="field"><span class="sr-only">发布阶段</span><select id="release-filter" aria-label="按发布阶段筛选"><option value="">全部发布阶段</option><option value="PUBLIC_READY">PUBLIC_READY（已公开）</option><option value="RAW_CAPTURED">RAW_CAPTURED（待清洗/发布）</option><option value="TOPIC_CAPTURED">TOPIC_CAPTURED（仅题面）</option></select></label><label class="field"><span class="sr-only">在线复验</span><select id="verification-filter" aria-label="按在线复验筛选"><option value="">全部在线复验状态</option><option value="passed">在线复验通过</option><option value="not-passed">在线复验未通过/跳过</option><option value="not-recorded">在线复验未记录</option><option value="needs-review">在线复验未通过或未记录</option></select></label><label class="field"><span class="sr-only">原站可见性</span><select id="visibility-filter" aria-label="按原站可见性筛选"><option value="">全部原站可见性</option><option value="CURRENT_PUBLIC">原站公开列表可见</option><option value="NOT_IN_CURRENT_PUBLIC_INDEX">原站公开列表未列出</option></select></label><label class="field"><span class="sr-only">语言</span><select id="language-filter" aria-label="按语言筛选"><option value="">全部语言</option></select></label></div>
+        <div class="batch-bar" aria-label="批量提交选题"><strong id="batch-count">已选 0 / 10</strong><p id="batch-selection" role="status">勾选已发布题目，可跨分页选择；结果到YOJ查看。</p><button id="batch-clear" class="button" type="button" disabled>清空选择</button><a id="batch-review" class="button primary" href="#" aria-disabled="true" tabindex="-1">查看并批量提交</a></div>
         <div class="catalog-body"><div class="problem-browser"><div class="problem-table-head" aria-hidden="true"><span>题号</span><span>题目名称</span><span>知识点</span><span>状态</span><span>操作</span></div><div id="problem-list" aria-live="polite"></div><div id="empty" class="empty" hidden>没有匹配的题目。试试清空筛选条件，或搜索 992。</div><div id="pagination" class="pagination" aria-label="题目分页"></div></div><aside id="detail-panel" class="detail-panel" aria-labelledby="detail-title"></aside></div>
       </div>
     </section>
@@ -324,7 +334,7 @@
     (() => {
       "use strict";
       const $ = (id) => document.getElementById(id);
-      const state = { entries: [], selected: null, query: "", tag: "", release: "", verification: "", visibility: "", language: "", page: 1, perPage: 12 };
+      const state = { entries: [], selected: null, query: "", tag: "", release: "", verification: "", visibility: "", language: "", page: 1, perPage: 12, batch: new Set() };
       const tags = ["数据结构", "图论", "动态规划", "字符串", "搜索与排序", "数学", "基础语法"];
       function safeText(value, fallback = "—") { return value === null || value === undefined || value === "" ? fallback : String(value); }
       function make(tag, className, text) { const element = document.createElement(tag); if (className) element.className = className; if (text !== undefined) element.textContent = text; return element; }
@@ -382,7 +392,39 @@
         languages.forEach((language) => { const option = make("option", "", language); option.value = language; languageFilter.append(option); });
         tagFilter.value = state.tag; $("release-filter").value = state.release; $("verification-filter").value = state.verification; $("visibility-filter").value = state.visibility; languageFilter.value = state.language;
       }
-      function renderList() { const list = $("problem-list"); const empty = $("empty"); const all = filteredEntries(); const totalPages = Math.max(1, Math.ceil(all.length / state.perPage)); state.page = Math.min(state.page, totalPages); const shown = all.slice((state.page - 1) * state.perPage, state.page * state.perPage); list.replaceChildren(); shown.forEach((entry) => { const row = make("button", `problem-row ${state.selected === entry.problemNo ? "selected" : ""}`); row.type = "button"; const title = displayTitle(entry.title); row.setAttribute("aria-label", `查看题目 ${entry.problemNo} ${title}`); row.append(make("span", "problem-number", displayNo(entry.problemNo)), make("span", "problem-title", title)); const tagList = make("span", "tag-list"); (entry.tags || []).forEach((tag) => tagList.append(tagElement(tag))); row.append(tagList, statusElement(entry), make("span", "row-action", "查看题目")); row.addEventListener("click", () => selectEntry(entry.problemNo)); list.append(row); }); empty.hidden = shown.length !== 0; $("result-count").textContent = `显示 ${shown.length} / ${all.length} 道题`; renderPagination(totalPages); }
+      function updateBatchBar() {
+        const ids = [...state.batch];
+        $("batch-count").textContent = `已选 ${ids.length} / 10`;
+        $("batch-selection").textContent = ids.length ? `已选：${ids.map(displayNo).join("、")}；跨页保留，最多10题。` : "勾选已发布题目，可跨分页选择；结果到YOJ查看。";
+        $("batch-clear").disabled = !ids.length;
+        const link = $("batch-review"); link.href = ids.length ? `./yoj-batch-submit.html?pnos=${ids.join(",")}` : "#";
+        link.setAttribute("aria-disabled", String(!ids.length)); link.tabIndex = ids.length ? 0 : -1;
+        document.querySelectorAll(".batch-choice").forEach(box => { box.disabled = box.dataset.eligible !== "true" || (!box.checked && ids.length >= 10); });
+      }
+      function renderList() {
+        const list = $("problem-list"), empty = $("empty"), all = filteredEntries();
+        const totalPages = Math.max(1, Math.ceil(all.length / state.perPage)); state.page = Math.min(state.page, totalPages);
+        const shown = all.slice((state.page - 1) * state.perPage, state.page * state.perPage); list.replaceChildren();
+        shown.forEach(entry => {
+          const wrapper = make("div", "batch-row"), box = make("input", "batch-choice"); box.type = "checkbox";
+          box.setAttribute("aria-label", `加入批量提交 ${displayNo(entry.problemNo)}`);
+          box.dataset.eligible = String(entry.verified === true && publicationStatus(entry) === "PUBLIC_READY" && isOnlineAccepted(entry));
+          box.checked = state.batch.has(entry.problemNo);
+          box.title = box.dataset.eligible === "true" ? "加入/移出批量队列（最多10题）" : "未通过 PUBLIC_READY 和在线复验，不可批量提交";
+          box.addEventListener("change", () => {
+            if (box.checked && state.batch.size < 10 && box.dataset.eligible === "true") state.batch.add(entry.problemNo);
+            else { state.batch.delete(entry.problemNo); box.checked = false; }
+            updateBatchBar();
+          });
+          const row = make("button", `problem-row ${state.selected === entry.problemNo ? "selected" : ""}`); row.type = "button";
+          const title = displayTitle(entry.title); row.setAttribute("aria-label", `查看题目 ${entry.problemNo} ${title}`);
+          row.append(make("span", "problem-number", displayNo(entry.problemNo)), make("span", "problem-title", title));
+          const tagList = make("span", "tag-list"); (entry.tags || []).forEach(tag => tagList.append(tagElement(tag)));
+          row.append(tagList, statusElement(entry), make("span", "row-action", "查看题目")); row.addEventListener("click", () => selectEntry(entry.problemNo));
+          wrapper.append(box, row); list.append(wrapper);
+        });
+        updateBatchBar(); empty.hidden = shown.length !== 0; $("result-count").textContent = `显示 ${shown.length} / ${all.length} 道题`; renderPagination(totalPages);
+      }
       function renderPagination(totalPages) { const pagination = $("pagination"); pagination.replaceChildren(); const previous = make("button", "page-button", "上一页"); previous.type = "button"; previous.disabled = state.page === 1; previous.addEventListener("click", () => { state.page -= 1; renderList(); }); pagination.append(previous); const pages = new Set([1, totalPages, state.page, state.page - 1, state.page + 1]); const visible = [...pages].filter((page) => page > 0 && page <= totalPages).sort((a, b) => a - b); let last = 0; visible.forEach((page) => { if (page - last > 1) pagination.append(make("span", "page-ellipsis", "…")); const button = make("button", `page-button ${page === state.page ? "active" : ""}`, String(page)); button.type = "button"; button.setAttribute("aria-label", `第 ${page} 页`); button.addEventListener("click", () => { state.page = page; renderList(); }); pagination.append(button); last = page; }); const next = make("button", "page-button", "下一页"); next.type = "button"; next.disabled = state.page === totalPages; next.addEventListener("click", () => { state.page += 1; renderList(); }); pagination.append(next); }
       function linkButton(label, href, primary = false) { const link = make("a", `button ${primary ? "primary" : ""}`, label); if (href) { link.href = href; link.target = href.startsWith("http") ? "_blank" : "_self"; link.rel = href.startsWith("http") ? "noopener" : ""; } else { link.classList.add("disabled"); link.setAttribute("aria-disabled", "true"); } return link; }
       function renderDetail() {
@@ -439,6 +481,8 @@
       $("hero-search-form").addEventListener("submit", (event) => { event.preventDefault(); $("catalog-search").value = $("hero-search").value; syncCatalog(); $("catalog").scrollIntoView({ behavior: "smooth", block: "start" }); });
       $("catalog-search").addEventListener("input", syncCatalog); $("tag-filter").addEventListener("change", syncCatalog); $("release-filter").addEventListener("change", syncCatalog); $("verification-filter").addEventListener("change", syncCatalog); $("visibility-filter").addEventListener("change", syncCatalog); $("language-filter").addEventListener("change", syncCatalog);
       $("pending-public-verification").addEventListener("click", applyPublicVerificationFilter);
+      $("batch-clear").addEventListener("click", () => {state.batch.clear(); renderList();});
+      $("batch-review").addEventListener("click", event => {if (!state.batch.size) event.preventDefault();});
       $("star-cta").addEventListener("click", () => { $("star-cta").classList.add("star-cta-visited"); $("star-cta").setAttribute("aria-label", "GitHub 仓库已打开，请在仓库页点击 Star"); $("star-cta").querySelector(".star-copy span").textContent = "仓库已打开，再点一次 Star 即可支持"; });
       loadTraffic(); init().catch((error) => { $("result-count").textContent = error.message; $("empty").hidden = false; $("empty").textContent = "目录暂时无法加载，请稍后刷新，或直接浏览 GitHub 仓库。"; $("detail-panel").replaceChildren(make("div", "empty", "目录暂时无法加载。")); });
     })();
