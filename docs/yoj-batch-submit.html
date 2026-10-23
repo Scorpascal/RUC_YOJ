@@ -4,19 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>批量提交（最多10题） · RUC YOJ</title>
+  <link rel="stylesheet" href="assets/submit-theme.css">
   <style>
-    :root {color-scheme:light;--ink:#172a46;--muted:#60738f;--line:#dbe5f1;--blue:#1877f2;}
-    * {box-sizing:border-box;} body {margin:0;color:var(--ink);background:#f8fbff;font:15px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;}
-    main {width:min(1000px,calc(100% - 32px));margin:36px auto;} a {color:#1764c4;} h1 {margin:20px 0 8px;font-size:clamp(26px,5vw,38px);letter-spacing:-.04em;}
-    .card {padding:24px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 50px #16355e12;}
-    .muted {color:var(--muted);} .notice {margin:18px 0;padding:14px 16px;border:1px solid #f0dc9d;border-radius:10px;background:#fff8e5;color:#795912;}
+    * {box-sizing:border-box;} body {margin:0;color:var(--ink);background:linear-gradient(135deg,var(--bg),var(--bg-end));font:15px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;}
+    main {width:min(1000px,calc(100% - 32px));margin:36px auto;} a {color:var(--link);} h1 {margin:20px 0 8px;font-size:clamp(26px,5vw,38px);letter-spacing:-.04em;}
+    .card {padding:24px;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 50px var(--shadow);}
+    .muted {color:var(--muted);} .notice {margin:18px 0;padding:14px 16px;border:1px solid var(--warn-line);border-radius:10px;background:var(--warn);color:var(--warn-ink);}
     .notice p {margin:4px 0;} .table-wrap {overflow:auto;border:1px solid var(--line);border-radius:10px;}
-    table {width:100%;border-collapse:collapse;text-align:left;} th,td {padding:12px;border-bottom:1px solid var(--line);vertical-align:top;} th {background:#f2f7fd;white-space:nowrap;font-size:13px;} tr:last-child td {border-bottom:0;}
+    table {width:100%;border-collapse:collapse;text-align:left;} th,td {padding:12px;border-bottom:1px solid var(--line);vertical-align:top;} th {background:var(--table-head);white-space:nowrap;font-size:13px;} tr:last-child td {border-bottom:0;}
     td:first-child {white-space:nowrap;} td a {overflow-wrap:anywhere;} .row-state {display:block;min-width:90px;color:var(--muted);font-size:13px;}
-    .actions {display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:20px 0 10px;} button,.button {padding:10px 16px;border:1px solid var(--line);border-radius:9px;font:inherit;font-weight:700;text-decoration:none;background:#fff;color:var(--ink);cursor:pointer;}
-    button.primary {background:var(--blue);border-color:var(--blue);color:#fff;} button:disabled {opacity:.5;cursor:not-allowed;} button:focus-visible,a:focus-visible {outline:3px solid #9cc9ff;outline-offset:3px;}
-    #status,#previews p {overflow-wrap:anywhere;} .error {color:#af2f2f;} code {font-family:Menlo,Consolas,monospace;}
-    details {margin:16px 0;} pre {max-height:250px;overflow:auto;padding:14px;border-radius:8px;background:#122039;color:#e6efff;font:12px/1.6 Menlo,Consolas,monospace;white-space:pre;}
+    .actions {display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:20px 0 10px;} button,.button {padding:10px 16px;border:1px solid var(--line);border-radius:9px;font:inherit;font-weight:700;text-decoration:none;background:var(--card);color:var(--ink);cursor:pointer;}
+    button.primary {background:var(--accent);border-color:var(--accent);color:#fff;} button.primary:hover:not(:disabled) {background:var(--accent-2);border-color:var(--accent-2);} button:disabled {opacity:.5;cursor:not-allowed;} button:focus-visible,a:focus-visible,summary:focus-visible {outline:3px solid var(--focus);outline-offset:3px;}
+    #status,#previews p {overflow-wrap:anywhere;} .error {color:var(--error);} code {font-family:Menlo,Consolas,monospace;}
+    details {margin:16px 0;} pre {max-height:250px;overflow:auto;padding:14px;border-radius:8px;background:var(--code-bg);color:var(--code-ink);font:12px/1.6 Menlo,Consolas,monospace;white-space:pre;}
     @media(max-width:600px) {.card {padding:16px;} main {margin:20px auto;} th,td {padding:10px 8px;} td:first-child {white-space:normal;} .actions>* {flex:1 1 auto;text-align:center;}}
   </style>
 </head>

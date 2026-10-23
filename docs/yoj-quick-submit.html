@@ -4,13 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>YOJ 快捷提交 · RUC_YOJ</title>
+  <link rel="stylesheet" href="assets/submit-theme.css">
   <style>
-    :root { color-scheme: light dark; --bg:#f4f7fb; --card:#fff; --ink:#172033; --muted:#62708a; --line:#dfe6f0; --accent:#315efb; --accent-2:#2147c6; --warn:#fff4d7; --warn-ink:#775500; }
-    @media (prefers-color-scheme: dark) { :root { --bg:#101522; --card:#182033; --ink:#eef3ff; --muted:#a6b2c9; --line:#303c55; --warn:#3b3019; --warn-ink:#ffe08a; } }
     * { box-sizing:border-box; }
-    body { margin:0; background:linear-gradient(135deg,var(--bg),#eaf0ff); color:var(--ink); font:16px/1.6 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC",sans-serif; }
+    body { margin:0; background:linear-gradient(135deg,var(--bg),var(--bg-end)); color:var(--ink); font:16px/1.6 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC",sans-serif; }
     main { width:min(980px,calc(100% - 32px)); margin:32px auto 60px; }
-    .card { background:var(--card); border:1px solid var(--line); border-radius:18px; box-shadow:0 16px 50px #172b4d18; padding:24px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:18px; box-shadow:0 16px 50px var(--shadow); padding:24px; }
     h1 { margin:0 0 8px; font-size:clamp(24px,4vw,38px); letter-spacing:-.03em; }
     h2 { margin:28px 0 10px; font-size:20px; }
     p { margin:8px 0; }
@@ -24,14 +23,16 @@
     button:hover, .button:hover { background:var(--accent-2); }
     button.secondary, .button.secondary { background:transparent; border:1px solid var(--line); color:var(--ink); }
     button:disabled { opacity:.5; cursor:not-allowed; }
-    pre { margin:0; max-height:65vh; overflow:auto; padding:18px; border-radius:12px; background:#111827; color:#e5edf8; font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace; white-space:pre; tab-size:4; }
+    pre { margin:0; max-height:65vh; overflow:auto; padding:18px; border-radius:12px; background:var(--code-bg); color:var(--code-ink); font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace; white-space:pre; tab-size:4; }
     code { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
     .status { min-height:1.6em; color:var(--muted); }
     .small { font-size:13px; }
     footer { margin-top:18px; color:var(--muted); font-size:13px; }
     .hidden { display:none; }
     .topbar { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:20px; }
-    .topbar a { color:var(--accent); font-size:14px; font-weight:700; text-decoration:none; }
+    a { color:var(--link); }
+    button:focus-visible,a:focus-visible { outline:3px solid var(--focus); outline-offset:3px; }
+    .topbar a { color:var(--link); font-size:14px; font-weight:700; text-decoration:none; }
     .topbar a:hover { text-decoration:underline; }
     .brand-mini { color:var(--ink); font-weight:800; letter-spacing:-.025em; }
   </style>
@@ -73,7 +74,7 @@
 
   function setStatus(message, isError = false) {
     status.textContent = message;
-    status.style.color = isError ? "#c0392b" : "";
+    status.style.color = isError ? "var(--error)" : "";
   }
   function displayTitle(value) {
     return String(value || "未命名题目").replace(/^#?\s*\d+\s*[.．、]\s*/, "").trim() || "未命名题目";

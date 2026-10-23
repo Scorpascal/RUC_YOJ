@@ -1,0 +1,40 @@
+/* Shared palette for the single and batch submit helpers. No stored preference. */
+:root {
+  color-scheme: light dark;
+  --bg: #f4f7fb;
+  --bg-end: #eaf0ff;
+  --card: #fff;
+  --ink: #172033;
+  --muted: #62708a;
+  --line: #dfe6f0;
+  --accent: #315efb;
+  --accent-2: #2147c6;
+  --link: #2147c6;
+  --focus: #315efb;
+  --warn: #fff4d7;
+  --warn-ink: #775500;
+  --warn-line: #e7d49b;
+  --table-head: #f1f5fc;
+  --error: #b42318;
+  --code-bg: #111827;
+  --code-ink: #e5edf8;
+  --shadow: #172b4d18;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #101522;
+    --bg-end: #18243a;
+    --card: #182033;
+    --ink: #eef3ff;
+    --muted: #a6b2c9;
+    --line: #303c55;
+    --link: #9cb7ff;
+    --focus: #9cb7ff;
+    --warn: #3b3019;
+    --warn-ink: #ffe08a;
+    --warn-line: #65542d;
+    --table-head: #202b42;
+    --error: #ff9b94;
+    --shadow: #00000040;
+  }
+}
