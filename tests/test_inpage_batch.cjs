@@ -70,3 +70,50 @@ test('short handoff reads only its unexpired exact public approval',()=>{
  const original=data.get('yoj-batch-approved-v1:'+id);const changed=JSON.parse(JSON.stringify(p));changed.items[0].codeSha256='b'.repeat(64);assert.throws(()=>H.saveApproved(storage,changed,2000),/变化/);assert.equal(data.get('yoj-batch-approved-v1:'+id),original);H.saveApproved(storage,p,3000);assert.deepEqual(H.loadApproved(storage,id,4000),p);
  const key='yoj-batch-approved-v1:'+id;const row=JSON.parse(data.get(key));row.payload.id='22222222-2222-4222-8222-222222222222';data.set(key,JSON.stringify(row));assert.throws(()=>H.loadApproved(storage,id,4000),/不匹配/);
 });
+
+// Regression: Safari rejects detail -> detailtk redirects as "Load failed".
+function response(url,text='ok',status=200,type='basic'){return {url,status,type,ok:status>=200&&status<300,text:async()=>text};}
+const origin='http://yoj.ruc.edu.cn';
+test('only the same problem and eno canonical read is probed after a detail redirect',async()=>{
+ const seen=[];const req=H.createRequester({origin,signal:new AbortController().signal,fetcher:async(url,options)=>{seen.push([String(url),options]);return String(url).includes('/detail/')?response(String(url),'',0,'opaqueredirect'):response(String(url),'canonical');}});
+ const out=await req('/index.php/index/problem/detail/pno/144/eno/9.html',{label:'题面检查 #144',problem:true});
+ assert.equal(out.text,'canonical');assert.equal(out.url,origin+'/index.php/index/problem/detailtk/pno/144/eno/9.html');
+ assert.equal(seen.length,2);assert.ok(seen.every(([,o])=>o.redirect==='manual'));
+ await assert.rejects(req('https://other.invalid/problem',{problem:true}),/地址/);
+});
+test('unknown redirects and wrong readback URLs fail closed without following',async()=>{
+ let calls=0;const make=fetcher=>H.createRequester({origin,signal:new AbortController().signal,fetcher});
+ const req=make(async url=>{calls++;return response(String(url),'',0,'opaqueredirect');});
+ await assert.rejects(req('/index.php/index/problem/detail/pno/144.html',{label:'题面检查 #144',problem:true}),/#144.*跳转/);assert.equal(calls,2);
+ const bad=make(async()=>response(origin+'/index.php/index/problem/detail/pno/999.html'));
+ await assert.rejects(bad('/index.php/index/problem/detail/pno/144.html',{label:'题面检查 #144',problem:true}),/地址/);
+});
+test('transient read failures recover with bounded backoff; judge POST is never retried',async()=>{
+ let calls=0;const delays=[],retries=[];
+ const make=fetcher=>H.createRequester({origin,signal:new AbortController().signal,fetcher,pause:async ms=>delays.push(ms),onRetry:label=>retries.push(label)});
+ const req=make(async url=>{calls++;if(calls===1)throw TypeError('Load failed');if(calls===2)return response(String(url),'',503);return response(String(url),'recovered');});
+ assert.equal((await req('/index.php/index/submissions/index.html?score_min=0',{label:'查询近期提交'})).text,'recovered');assert.equal(calls,3);assert.deepEqual(delays,[1000,2000]);assert.equal(retries.length,2);
+ calls=0;const post=make(async()=>{calls++;throw TypeError('Load failed');});
+ await assert.rejects(post('/index.php/index/index/prob_submit.html',{data:{pid:'144',language:'cpp',code:'int main(){}'},judge:true,label:'发送 #144'}),/#144/);assert.equal(calls,1);
+ calls=0;await assert.rejects(post('/unexpected',{data:{x:'y'},label:'未知操作'}));assert.equal(calls,1);
+});
+test('source/template read POST retries safely, body failure and timeout are bounded, Stop cancels retries',async()=>{
+ for(const path of ['/index.php/index/submissions/getcode.html','/index.php/index/problem/gettkcode.html']){
+  let calls=0;const req=H.createRequester({origin,signal:new AbortController().signal,pause:async()=>{},fetcher:async url=>{calls++;return calls<3?{...response(String(url)),text:async()=>{throw TypeError('Load failed');}}:response(String(url),'source');}});
+  assert.equal((await req(path,{data:{pno:'144'},label:'只读检查 #144'})).text,'source');assert.equal(calls,3);
+ }
+ const controller=new AbortController();let calls=0;
+ const req=H.createRequester({origin,signal:controller.signal,fetcher:async()=>{calls++;throw TypeError('Load failed');},pause:async()=>controller.abort()});
+ await assert.rejects(req('/index.php/index/submissions/index.html?score_min=0',{label:'查询记录'}),e=>e.name==='AbortError');assert.equal(calls,1);
+ calls=0;const timeout=H.createRequester({origin,signal:new AbortController().signal,timeoutMs:5,pause:async()=>{},fetcher:async(url,{signal})=>{calls++;return new Promise((_,reject)=>signal.addEventListener('abort',()=>reject(new DOMException('timeout','AbortError'))));}});
+ await assert.rejects(timeout('/index.php/index/submissions/index.html?score_min=0',{label:'查询记录'}),/查询记录.*超时/);assert.equal(calls,3);
+});
+test('a live single-slot template must exactly surround the approved full program after newline normalization',()=>{
+ assert.equal(H.matchesTemplate('int main(){\r\n____qcodep____\r\n}\r\n','int main(){\nreturn 0;\n}\n'),true);
+ assert.equal(H.matchesTemplate('a____qcodep____b','a\nanswer\nb'),true);
+ for(const [template,code] of [['a____qcodep____b','changed\nanswer\nb'],['a____qcodep____b','ab'],['a____qcodep____b____qcodep____c','axbxc'],['a____qcodep____b','a____qcodep____b']])assert.equal(H.matchesTemplate(template,code),false);
+});
+test('resume validates only never-attempted problems so an old failed item cannot block the rest',async()=>{
+ const seen=[];const f=fixture({attempted:()=>new Set([8]),preflight:async items=>{seen.push(...items.map(e=>e.problemNo));if(items.some(e=>e.problemNo===8))throw Error('old inaccessible');}});
+ await f.runner.start();assert.deepEqual(seen,[9]);assert.equal(f.runner.snapshot().phase,'DONE');assert.deepEqual(f.posts.map(p=>p.n),[9]);
+});

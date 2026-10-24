@@ -33,23 +33,11 @@
     if(!value)throw Error('核验脚本不可用，未发送。');return value;
   }
   const normalized=s=>s.replace(/\r\n|\r/g,'\n');
-  async function request(path,{data,signal=controller.signal,referrer,judge=false}={}) {
-    const url=new URL(path,location.origin);if(url.origin!==location.origin)throw Error('原站地址不一致。');
-    const timeout=new AbortController(),abort=()=>timeout.abort();signal.addEventListener('abort',abort,{once:true});if(signal.aborted)abort();
-    const timer=setTimeout(abort,30000);
-    try {
-      const response=await fetch(url,{method:data?'POST':'GET',credentials:'same-origin',cache:'no-store',signal:timeout.signal,redirect:judge?'manual':'error',
-        ...(referrer?{referrer:new URL(referrer,location.origin).href,referrerPolicy:'same-origin'}:{}),
-        headers:data?{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8','X-Requested-With':'XMLHttpRequest'}:{},body:data?new URLSearchParams(data):undefined});
-      if(judge&&response.type==='opaqueredirect')return null;
-      if(!response.ok||(new URL(response.url).origin!==location.origin||new URL(response.url).pathname!==url.pathname))throw Error('YOJ 请求失败，请核对登录与网络。');
-      return await response.text();
-    }finally{clearTimeout(timer);signal.removeEventListener('abort',abort);}
-  }
+  let request;const problemPages=new Map();
   const parse=text=>new DOMParser().parseFromString(text,'text/html');
   function logged(doc){return !!doc.querySelector('a[href*="/login/logout"]');}
   async function rows(signal){
-    const doc=parse(await request('/index.php/index/submissions/index.html?score_min=0',{signal}));
+    const doc=parse((await request('/index.php/index/submissions/index.html?score_min=0',{signal,label:'查询近期提交记录'})).text);
     if(!logged(doc))throw Error('YOJ 登录已失效，已停止。');
     const table=[...doc.querySelectorAll('table')].find(t=>{const h=[...t.querySelectorAll('th')].map(e=>e.textContent).join(' ');return ['编号','题目','状态'].every(s=>h.includes(s));});
     if(!table)throw Error('无法确认原站提交列表结构，未继续发送。');
@@ -65,7 +53,8 @@
     return result;
   }
   try {
-    const H=await script('assets/inpage-batch-core.js','YOJInPageCore');
+    const H=await script('assets/inpage-batch-core.js?v=2','YOJInPageCore');
+    request=H.createRequester({origin:location.origin,fetcher:fetch,signal:controller.signal,onRetry:message=>{status.textContent=message;}});
     const fragment=location.hash,batchId=new URLSearchParams(location.search).get('yoj_batch');
     if(batchId&&!/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/.test(batchId))throw Error('批次编号无效。');
     if(!batchId&&!fragment.startsWith('#yoj-batch='))throw Error('缺少本批次清单，请回题库选择题目并打开YOJ。');
@@ -135,14 +124,17 @@
       guard,attempted:()=>ledger.attempted(),remember:n=>ledger.remember(n),
       async preflight(selected,signal){
         for(const item of selected){
-          const doc=parse(await request(new URL(item.problemUrl).pathname,{signal}));
-          if(!logged(doc))throw Error('YOJ 登录失效，未发送。');
+          status.textContent='正在检查 #'+item.problemNo+' 的原站题面、语言和权限；尚未发送。';
+          const page=await request(new URL(item.problemUrl).pathname,{signal,problem:true,label:'题面检查 #'+item.problemNo}),doc=parse(page.text);
+          problemPages.set(item.problemNo,page.url);
+          if(!logged(doc))throw Error('#'+item.problemNo+' 题面检查：YOJ 登录失效，未发送。');
           const form=doc.querySelector('#submit_code');
-          if(item.originalSubmissionKind==='PARTIAL_CODE'){
+          if(item.originalSubmissionKind==='PARTIAL_CODE'||new URL(page.url).pathname.includes('/detailtk/')){
             const heading=[...doc.querySelectorAll('h1,h2,h3')].some(h=>new RegExp('#\\s*'+item.problemNo+'(?:\\D|$)').test(h.textContent));
-            if(!heading||!doc.querySelector('#btn-submit')||![...doc.querySelectorAll('#compiler_select option')].some(e=>e.value===item.language))throw Error('#'+item.problemNo+' 题面、语言或权限不可确认，整批未发送。');
-            const template=JSON.parse(await request('/index.php/index/problem/gettkcode.html',{data:{pno:String(item.problemNo)},signal,referrer:new URL(item.problemUrl).pathname}));
+            if(!heading||(doc.querySelector('[name=pid]')&&doc.querySelector('[name=pid]').value!==String(item.problemNo))||!doc.querySelector('#btn-submit')||![...doc.querySelectorAll('#compiler_select option')].some(e=>e.value===item.language))throw Error('#'+item.problemNo+' 题面、语言或权限不可确认，整批未发送。');
+            let template;try{template=JSON.parse((await request('/index.php/index/problem/gettkcode.html',{data:{pno:String(item.problemNo)},signal,referrer:page.url,label:'读取填空模板 #'+item.problemNo})).text);}catch(error){throw Error('#'+item.problemNo+' 模板检查：'+error.message);}
             if(String(template.status)!=='1'||typeof template.content!=='string'||!template.content.includes('____qcodep____'))throw Error('#'+item.problemNo+' 当前填空模板不可用，整批未发送。');
+            if(!H.matchesTemplate(template.content,item.code))throw Error('#'+item.problemNo+' 当前单填空模板与已发布完整程序不匹配，整批未发送。');
           }else if(!form||form.querySelector('[name="pid"]')?.value!==String(item.problemNo)||!form.querySelector('[name="code"]')||![...doc.querySelectorAll('[data-value]')].some(e=>e.getAttribute('data-value')===item.language)){
             throw Error('#'+item.problemNo+' 题号、语言、提交表单或权限不匹配，整批未发送。');
           }
@@ -150,7 +142,7 @@
       },
       async baseline(signal){return Math.max(0,...(await rows(signal)).map(r=>r.submissionNo));},
       async post(item,signal){
-        const text=await request(new URL(item.submitEndpoint).pathname,{data:{pid:String(item.problemNo),language:item.language,code:item.code},signal,referrer:new URL(item.problemUrl).pathname,judge:true});
+        const {text}=await request(new URL(item.submitEndpoint).pathname,{data:{pid:String(item.problemNo),language:item.language,code:item.code},signal,referrer:problemPages.get(item.problemNo),judge:true,label:'提交 #'+item.problemNo});
         if(text===null)return; // Redirect is not acceptance; receipt checks follow.
         let response;try{response=JSON.parse(text.replace(/^\ufeff/,''));}catch(_){throw Error('YOJ 未返回可确认的受理响应，已停止，请核对记录。');}
         if(String(response?.status)!=='1')throw Error('YOJ 拒绝或未确认本题，已停止，请查看原站记录。');
@@ -161,7 +153,7 @@
           const fresh=(await rows(signal)).filter(r=>r.submissionNo>baseline&&r.problemNo===item.problemNo);
           if(fresh.length>1)throw Error('同时出现多条同题记录，无法唯一确认本次受理，已停止。');
           if(fresh.length===1){
-            const recovered=JSON.parse(await request('/index.php/index/submissions/getcode.html',{data:{subid:String(fresh[0].submissionNo)},signal}));
+            let recovered;try{recovered=JSON.parse((await request('/index.php/index/submissions/getcode.html',{data:{subid:String(fresh[0].submissionNo)},signal,label:'回收新增记录源码 #'+item.problemNo})).text);}catch(error){throw Error('#'+item.problemNo+' 源码回收：'+error.message);}
             if(String(recovered?.status)==='1'&&typeof recovered.code==='string'){
               if(normalized(recovered.code)!==normalized(item.code))throw Error('新增记录源码不匹配，已停止，请核对原站。');
               return fresh[0];
@@ -173,7 +165,7 @@
       },
       onChange(snapshot){
         for(const row of snapshot.rows){const cell=cells.get(row.problemNo);cell.textContent='#'+row.problemNo+'：'+({WAITING:'尚未发送',UNCERTAIN:'已尝试，正在核对受理记录',PREVIOUS:'本批次已尝试，已跳过，勿重发',RECEIVED:'原站已受理 #'+row.receipt?.submissionNo+' · '+row.receipt?.status})[row.state];}
-        status.textContent=({PREPARING:'正在检查整批原站题号、语言和权限，尚未发送。',RUNNING:'正在逐题发送并核对原站记录；无需逐题确认。',DONE:'本批处理结束。已受理记录列在下方，最终评测结果请在YOJ查看。',STOPPED:'已停止后续提交。结果不明的题目请核对原站，不会自动重发。'})[snapshot.phase]+(snapshot.detail?' '+snapshot.detail:'');
+        status.textContent=({PREPARING:'正在检查整批原站题号、语言和权限，尚未发送。',RUNNING:'正在逐题发送并核对原站记录；无需逐题确认。',DONE:'本批处理结束。已受理记录列在下方，最终评测结果请在YOJ查看。',STOPPED:(snapshot.rows.some(r=>r.state==='UNCERTAIN')?'已停止后续提交。结果不明的题目请核对原站，不会自动重发。':'本轮已停止，尚未发送的题目仍未发送。')+' 刷新本页后再点书签，可重新检查未发送题；已尝试题不会重发。'})[snapshot.phase]+(snapshot.detail?' '+snapshot.detail:'');
       }
     });
     await runner.start();

@@ -30,6 +30,54 @@
   }
   function matchItems(payload,items){if(!Array.isArray(items)||items.length!==payload.items.length||items.some((e,i)=>keys.some(k=>e[k]!==payload.items[i][k])))throw Error('公开代码或题目身份已变化，请回题库重新核对。');return items;}
   function pause(ms,signal){return new Promise(resolve=>{const done=()=>{clearTimeout(timer);signal.removeEventListener('abort',done);resolve();};const timer=setTimeout(done,ms);signal.addEventListener('abort',done,{once:true});if(signal.aborted)done();});}
+  function matchesTemplate(template,code){
+    if(typeof template!=='string'||typeof code!=='string')return false;
+    const normalize=s=>s.replace(/\r\n|\r/g,'\n'),parts=normalize(template).split('____qcodep____'),source=normalize(code);
+    return parts.length===2&&!source.includes('____qcodep____')&&source.startsWith(parts[0])&&source.endsWith(parts[1])&&
+      source.slice(parts[0].length,source.length-parts[1].length).trim().length>0;
+  }
+  function createRequester({origin,fetcher,signal:outerSignal,onRetry=()=>{},pause:wait=pause,timeoutMs=30000}){
+    const problemPath=/^\/index\.php\/index\/problem\/(detail|detailtk)\/pno\/[1-9]\d*(?:\/eno\/[1-9]\d*)?\.html$/;
+    const abort=()=>new DOMException('已停止','AbortError');
+    return async function request(path,{data,signal=outerSignal,referrer,judge=false,problem=false,label='YOJ 检查'}={}){
+      let url=new URL(path,origin);
+      if(url.origin!==origin||url.username||url.password||url.hash)throw Error(label+'：原站地址不一致。');
+      if(problem&&(data||url.search||!problemPath.test(url.pathname)))throw Error(label+'：题面地址无效。');
+      const readOnly=!judge&&(data?['/index.php/index/problem/gettkcode.html','/index.php/index/submissions/getcode.html'].includes(url.pathname):problemPath.test(url.pathname)||url.pathname==='/index.php/index/submissions/index.html');
+      let canonical=false;
+      for(let attempt=1;;attempt++){
+        if(signal.aborted)throw abort();
+        const timeout=new AbortController();let timedOut=false;
+        const stop=()=>timeout.abort();signal.addEventListener('abort',stop,{once:true});
+        const timer=setTimeout(()=>{timedOut=true;timeout.abort();},timeoutMs);
+        let failure;
+        try{
+          const response=await fetcher(url.href,{method:data?'POST':'GET',credentials:'same-origin',cache:'no-store',signal:timeout.signal,redirect:'manual',
+            ...(referrer?{referrer:new URL(referrer,origin).href,referrerPolicy:'same-origin'}:{}),
+            headers:data?{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8','X-Requested-With':'XMLHttpRequest'}:{},body:data?new URLSearchParams(data):undefined});
+          if(response.type==='opaqueredirect'||(response.status>=300&&response.status<400)){
+            if(judge)return {text:null,url:url.href};
+            // Never follow an unknown Location. Probe only the same approved
+            // problem/context's fixed canonical route, then validate its form.
+            if(problem&&!canonical&&url.pathname.includes('/detail/')){
+              canonical=true;url=new URL(url.href.replace('/detail/','/detailtk/'));attempt=0;continue;
+            }
+            throw Error(label+'：原站出现未支持的跳转，未继续发送。');
+          }
+          if(!response.ok){const e=Error('HTTP '+response.status);e.retryable=[408,429,500,502,503,504].includes(response.status);throw e;}
+          if(new URL(response.url).href!==url.href)throw Error(label+'：原站返回地址不一致。');
+          return {text:await response.text(),url:url.href};
+        }catch(error){
+          if(signal.aborted)throw abort();
+          const transient=timedOut||error.name==='TypeError'||error.retryable===true;
+          failure=Error(label+'：'+(timedOut?'请求超时':error.name==='TypeError'?'网络读取失败（Load failed）':error.message)+(readOnly?'。尚未确认此步骤。':'。请核对原站记录，勿重发。'));
+          if(!readOnly||!transient||attempt>=3)throw failure;
+        }finally{clearTimeout(timer);signal.removeEventListener('abort',stop);}
+        onRetry(label+'：网络暂不可用，正在安全重查（'+(attempt+1)+'/3）。');
+        await wait(attempt*1000,signal);
+      }
+    };
+  }
   function createRunner(items,io){
     const controller=new AbortController(),rows=items.map(e=>({problemNo:e.problemNo,state:'WAITING'}));let phase='READY',detail='',used=false;
     const snapshot=()=>({phase,detail,rows:rows.map(r=>({...r}))}),notify=()=>io.onChange?.(snapshot());
@@ -37,7 +85,9 @@
     async function start(){
       if(used)return;used=true;phase='PREPARING';notify();
       try {
-        await io.guard();if(controller.signal.aborted)return;await io.preflight(items,controller.signal);if(controller.signal.aborted)return;
+        await io.guard();if(controller.signal.aborted)return;
+        const attempted=io.attempted(),pending=items.filter((item,i)=>{if(attempted.has(item.problemNo)){rows[i].state='PREVIOUS';return false;}return true;});notify();
+        if(pending.length)await io.preflight(pending,controller.signal);if(controller.signal.aborted)return;
         phase='RUNNING';notify();let posted=false;
         for(let i=0;i<items.length;i++) {
           const item=items[i],row=rows[i];
@@ -60,5 +110,5 @@
     }
     return Object.freeze({start,stop,snapshot});
   }
-  return Object.freeze({parseHandoff,makeHandoff,saveApproved,loadApproved,matchItems,createRunner,pause});
+  return Object.freeze({parseHandoff,makeHandoff,saveApproved,loadApproved,matchItems,createRunner,pause,matchesTemplate,createRequester});
 });

@@ -5,7 +5,7 @@ const root=path.resolve(__dirname,'../..'),site='https://scorpascal.github.io/RU
 (async()=>{
  const browser=await chromium.launch({headless:true});
  try{
-  const context=await browser.newContext({viewport:{width:1400,height:1000}}),posts=[],errors=[],details=[];let logged=true,failHash=false,expireAfterPost=false,badTemplate=false,badTable=false,nonzeroEmpty=false;
+  const context=await browser.newContext({viewport:{width:1400,height:1000}}),posts=[],errors=[],details=[],readFaults=new Set();let persistentReadFailure=false;let logged=true,failHash=false,expireAfterPost=false,badTemplate=false,badTable=false,nonzeroEmpty=false;
   const auth='<a href="/index.php/index/login/logout.html">退出登录</a>';
   context.on('page',p=>p.on('pageerror',e=>errors.push(e.message)));
   await context.route('**/*',async route=>{
@@ -19,6 +19,11 @@ const root=path.resolve(__dirname,'../..'),site='https://scorpascal.github.io/RU
    const raw='https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/';
    if(url.startsWith(raw))return route.fulfill({status:200,body:failHash?'changed source':fs.readFileSync(path.join(root,decodeURIComponent(url.slice(raw.length)))),headers:{'Access-Control-Allow-Origin':'*'}});
    assert.equal(u.origin,origin,'Unexpected external destination');
+   if(req.resourceType()==='fetch'&&!u.pathname.endsWith('/prob_submit.html')){
+    const key=u.pathname.endsWith('/detailtk/pno/144.html')?'canonical':u.pathname.endsWith('/gettkcode.html')?'template':u.pathname.endsWith('/getcode.html')?'source':u.pathname.endsWith('/submissions/index.html')?'list':null;
+    if(persistentReadFailure&&key==='canonical')return route.abort('connectionreset');
+    if(key&&!readFaults.has(key)){readFaults.add(key);return key==='template'?route.fulfill({status:503}):route.abort('connectionreset');}
+   }
    if(u.pathname.endsWith('/prob_submit.html')){
     assert.equal(req.method(),'POST');assert.equal(req.headers()['x-requested-with'],'XMLHttpRequest');if(fields.pid==='1726')assert.match(req.headers().referer,/pno\/1726\/eno\//);
     posts.push({fields,at:Date.now(),subno:900000+posts.length});if(expireAfterPost)logged=false;
@@ -26,11 +31,12 @@ const root=path.resolve(__dirname,'../..'),site='https://scorpascal.github.io/RU
     if(fields.pid==='285')return route.abort('connectionreset');
     return route.fulfill({json:{status:1}});
    }
-   if(u.pathname.endsWith('/gettkcode.html'))return route.fulfill({json:badTemplate?{status:0}:{status:1,content:'a____qcodep____b'}});
+   if(u.pathname.endsWith('/gettkcode.html')){const folders={144:'0144_子串替换',285:'0285_链表操作(加入节点)',286:'0286_链表操作(删除节点)'};return route.fulfill({json:badTemplate?{status:0}:{status:1,content:fs.readFileSync(path.join(root,'题解',folders[fields.pno],'assets','01_'+fields.pno+'.cpp'),'utf8')}});}
    if(u.pathname.endsWith('/getcode.html'))return route.fulfill({json:{status:1,code:posts.find(p=>p.subno===Number(fields.subid)).fields.code}});
-   if(u.pathname.includes('/problem/detail/pno/')){
+   if(u.pathname==='/index.php/index/problem/detail/pno/144.html')return route.fulfill({status:302,headers:{location:origin+'/index.php/index/problem/detailtk/pno/144.html'}});
+   if(/\/problem\/(detail|detailtk)\/pno\//.test(u.pathname)){
     details.push(u.pathname);const n=Number(u.pathname.match(/pno\/(\d+)/)[1]);
-    return route.fulfill({contentType:'text/html;charset=utf-8',body:auth+(n===285||n===286?`<h2>#${n}. Fixture</h2><select id="compiler_select"><option value="cpp">cpp</option></select><button id="btn-submit">提交</button>`:`<h2>#${n}. Fixture</h2><form id="submit_code"><input name="pid" value="${n}"><textarea name="code"></textarea><b data-value="cpp"></b><b data-value="c"></b><b data-value="cpp17"></b></form>`)});
+    return route.fulfill({contentType:'text/html;charset=utf-8',body:auth+(n===144||n===285||n===286?`<h2>#${n}. Fixture</h2><input name="pid" value="${n}"><select id="compiler_select"><option value="cpp">cpp</option></select><button id="btn-submit">提交</button>`:`<h2>#${n}. Fixture</h2><form id="submit_code"><input name="pid" value="${n}"><textarea name="code"></textarea><b data-value="cpp"></b><b data-value="c"></b><b data-value="cpp17"></b></form>`)});
    }
    if(u.pathname.endsWith('/favicon.ico'))return route.fulfill({status:204});
    if(badTable)return route.fulfill({contentType:'text/html;charset=utf-8',body:auth+'<p>temporary error</p>'});
@@ -38,7 +44,7 @@ const root=path.resolve(__dirname,'../..'),site='https://scorpascal.github.io/RU
    const rows=posts.slice().reverse().map(p=>`<tr><td><a href="/index.php/index/submissions/detail/subno/${p.subno}.html">#${p.subno}</a></td><td><a href="/index.php/index/problem/detail/pno/${p.fields.pid}.html">#${p.fields.pid}</a></td><td><span class="status">Accepted</span></td></tr>`).join('');
    return route.fulfill({contentType:'text/html;charset=utf-8',body:(logged?auth:'<a>登录</a>')+'<table><thead><tr><th>编号</th><th>题目</th><th>状态</th></tr></thead><tbody>'+rows+'</tbody></table>'+(posts.length?'':'0 条记录')});
   });
-  const main=await context.newPage();await main.goto(site+'yoj-batch-submit.html?pnos=8,1726,285,286');
+  const main=await context.newPage();await main.goto(site+'yoj-batch-submit.html?pnos=144,8,1726,285,286');
   await main.waitForFunction(()=>!document.getElementById('inpage').disabled);
   const bookmark=decodeURIComponent((await main.locator('#inpage-bookmark').getAttribute('href')).slice('javascript:'.length));
   const copied=await context.newPage();const sessionCopy=await main.evaluate(()=>sessionStorage.getItem('yoj-batch-sessions-v2'));await copied.addInitScript(value=>sessionStorage.setItem('yoj-batch-sessions-v2',value),sessionCopy);await copied.goto(main.url());await copied.waitForFunction(()=>!document.getElementById('start').disabled);
@@ -48,37 +54,37 @@ const root=path.resolve(__dirname,'../..'),site='https://scorpascal.github.io/RU
   await target.evaluate(bookmark);
   await target.waitForFunction(()=>{const s=document.getElementById('yoj-inpage-panel')?.shadowRoot;return s&&s.querySelector('button').disabled;},{},{timeout:70000});
   const firstState=await target.evaluate(()=>document.getElementById('yoj-inpage-panel').shadowRoot.textContent);assert.match(firstState,/本批处理结束/);
-  assert.deepEqual(posts.map(p=>Number(p.fields.pid)),[8,1726,285,286]);
+  assert.deepEqual(posts.map(p=>Number(p.fields.pid)),[144,8,1726,285,286]);
   assert.ok(details.some(p=>p.includes('/pno/1726/eno/')));
   for(let i=1;i<posts.length;i++)assert.ok(posts[i].at-posts[i-1].at>=3000);
   assert.ok(posts.every(p=>Object.keys(p.fields).sort().join(',')==='code,language,pid'));
   for(const p of posts){const e=JSON.parse(fs.readFileSync(path.join(root,'docs/data/quick-submit.json'))).entries.find(e=>e.problemNo===Number(p.fields.pid));assert.equal(p.fields.code,fs.readFileSync(path.join(root,(e.nativeSubmission||e).codePath),'utf8'));}
-  await target.evaluate(bookmark);assert.equal(posts.length,4,'duplicate bookmark does not create a queue');
+  await target.evaluate(bookmark);assert.equal(posts.length,5,'duplicate bookmark does not create a queue');
   await target.reload();await target.evaluate(bookmark);
   await target.waitForFunction(()=>document.getElementById('yoj-inpage-panel')?.shadowRoot.textContent.includes('本批处理结束'));
-  assert.equal(posts.length,4,'reload skips attempts across documents');
+  assert.equal(posts.length,5,'reload skips attempts across documents');
   await target.screenshot({path:'/private/tmp/yoj-inpage-fixture-desktop.png'});
   await target.setViewportSize({width:390,height:844});await target.screenshot({path:'/private/tmp/yoj-inpage-fixture-mobile.png'});
   failHash=true;await main.locator('#new-batch').click();const badPromise=context.waitForEvent('page');await main.locator('#inpage').click();const bad=await badPromise;await bad.waitForURL(/yoj_batch=/);await bad.waitForLoadState();await bad.evaluate(bookmark);
   await bad.waitForFunction(()=>document.getElementById('yoj-inpage-panel')?.shadowRoot.textContent.includes('核验失败'),{},{timeout:30000});
-  assert.equal(posts.length,4,'hash failure sends no judge POST');
+  assert.equal(posts.length,5,'hash failure sends no judge POST');
   failHash=false;badTemplate=true;await main.locator('#new-batch').click();
   const partialPromise=context.waitForEvent('page');await main.locator('#inpage').click();const partial=await partialPromise;await partial.waitForURL(/yoj_batch=/);await partial.waitForLoadState();await partial.evaluate(bookmark);
   await partial.waitForFunction(()=>document.getElementById('yoj-inpage-panel')?.shadowRoot.textContent.includes('当前填空模板不可用'));
-  assert.equal(posts.length,4,'unavailable partial template blocks all POSTs');
+  assert.equal(posts.length,5,'unavailable partial template blocks all POSTs');
   badTemplate=false;badTable=true;await main.locator('#new-batch').click();
   const malformedPromise=context.waitForEvent('page');await main.locator('#inpage').click();const malformed=await malformedPromise;await malformed.waitForURL(/yoj_batch=/);await malformed.waitForLoadState();await malformed.evaluate(bookmark);
   await malformed.waitForFunction(()=>document.getElementById('yoj-inpage-panel')?.shadowRoot.textContent.includes('无法确认原站提交列表结构'));
-  assert.equal(posts.length,4,'malformed baseline is never treated as zero');
+  assert.equal(posts.length,5,'malformed baseline is never treated as zero');
   badTable=false;nonzeroEmpty=true;await main.locator('#new-batch').click();
   const emptyPromise=context.waitForEvent('page');await main.locator('#inpage').click();const empty=await emptyPromise;await empty.waitForURL(/yoj_batch=/);await empty.waitForLoadState();await empty.evaluate(bookmark);
   await empty.waitForFunction(()=>document.getElementById('yoj-inpage-panel')?.shadowRoot.textContent.includes('无法确认原站空列表'));
-  assert.equal(posts.length,4,'10 records is not a verified empty list');
+  assert.equal(posts.length,5,'10 records is not a verified empty list');
   nonzeroEmpty=false;expireAfterPost=true;await main.locator('#new-batch').click();
   const expiringPromise=context.waitForEvent('page');await main.locator('#inpage').click();const expiring=await expiringPromise;await expiring.waitForURL(/yoj_batch=/);await expiring.waitForLoadState();await expiring.evaluate(bookmark);
   await expiring.waitForFunction(()=>document.getElementById('yoj-inpage-panel')?.shadowRoot.textContent.includes('登录已失效'),{},{timeout:30000});
-  assert.equal(posts.length,5,'unknown response after session expiry stops the remaining batch');
-  await expiring.evaluate(bookmark);assert.equal(posts.length,5,'duplicate bookmark never retries uncertain POST');
+  assert.equal(posts.length,6,'unknown response after session expiry stops the remaining batch');
+  await expiring.evaluate(bookmark);assert.equal(posts.length,6,'duplicate bookmark never retries uncertain POST');
   logged=true;expireAfterPost=false;await main.locator('#new-batch').click();
   const racePromise=context.waitForEvent('page');await main.locator('#inpage').click();const raceA=await racePromise;await raceA.waitForURL(/yoj_batch=/);await raceA.waitForLoadState();
   const raceB=await context.newPage();await raceB.goto(raceA.url());
@@ -88,8 +94,15 @@ const root=path.resolve(__dirname,'../..'),site='https://scorpascal.github.io/RU
   const outcomes=await Promise.all([raceA,raceB].map(p=>p.evaluate(()=>document.getElementById('yoj-inpage-panel').shadowRoot.textContent)));
   assert.equal(outcomes.filter(t=>t.includes('本批处理结束')).length,1);
   assert.equal(outcomes.filter(t=>t.includes('另一个YOJ批次正在运行')).length,1);
-  assert.equal(posts.length,9,'atomic lease allows exactly one concurrent batch');
+  assert.equal(posts.length,11,'atomic lease allows exactly one concurrent batch');
+  assert.deepEqual([...readFaults].sort(),['canonical','list','source','template']);
+  persistentReadFailure=true;await main.locator('#new-batch').click();const stopPromise=context.waitForEvent('page');await main.locator('#inpage').click();const stopping=await stopPromise;await stopping.waitForURL(/yoj_batch=/);await stopping.waitForLoadState();await stopping.evaluate(bookmark);
+  await stopping.waitForFunction(()=>document.getElementById('yoj-inpage-panel')?.shadowRoot.textContent.includes('安全重查'));
+  await stopping.locator('#yoj-inpage-panel button').filter({hasText:'停止后续提交'}).click();
+  await stopping.waitForTimeout(2200);assert.equal(posts.length,11,'Stop during read retry sends no judge POST');
+  persistentReadFailure=false;await stopping.reload();await stopping.evaluate(bookmark);await terminal(stopping);
+  assert.match(await stopping.evaluate(()=>document.getElementById('yoj-inpage-panel').shadowRoot.textContent),/本批处理结束/);assert.equal(posts.length,16,'same batch resumes after zero-attempt preflight failure');
   assert.deepEqual(errors,[]);
-  console.log(JSON.stringify({httpYOJWithSecureHashGate:'PASS',fourReceipts:'PASS',sourceRoundTrip:'PASS',contextPreserved:'PASS',threeSecondSpacing:'PASS',duplicateBookmarkAndReload:'PASS',hashFailure:'PASS',expiredSessionStops:'PASS',atomicLease:'PASS',templateFailure:'PASS',malformedBaseline:'PASS',realJudgeRequests:0,spacingMs:posts.slice(1,4).map((p,i)=>p.at-posts[i].at)}));
+  console.log(JSON.stringify({httpYOJWithSecureHashGate:'PASS',fiveReceipts:'PASS',sourceRoundTrip:'PASS',contextPreserved:'PASS',threeSecondSpacing:'PASS',duplicateBookmarkAndReload:'PASS',hashFailure:'PASS',expiredSessionStops:'PASS',atomicLease:'PASS',templateFailure:'PASS',malformedBaseline:'PASS',readNetworkRecovery:'PASS',stopDuringReadRetry:'PASS',sameBatchRecovery:'PASS',realJudgeRequests:0,spacingMs:posts.slice(1,4).map((p,i)=>p.at-posts[i].at)}));
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});
