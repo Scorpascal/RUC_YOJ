@@ -161,6 +161,8 @@ def build_payload() -> dict:
                     else github_blob(archive_code_path) if archive_code_available else None
                 ),
                 "codeSource": "PUBLIC_READY" if verified else "ACCEPTED_ARCHIVE" if archive_code_available else None,
+                **({"nativeSubmission": quick_entry["nativeSubmission"]}
+                   if verified and "nativeSubmission" in quick_entry else {}),
                 "archiveCodeAvailable": archive_code_available,
                 "quickSubmitMode": "verified" if verified else "archived" if archived_quick_entry else None,
                 "quickSubmitUrl": (

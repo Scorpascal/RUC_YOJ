@@ -4,6 +4,10 @@ const {test} = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
+const {webcrypto,createHash}=require('node:crypto');
+const B=require('../docs/assets/batch-submit.js');
+const completeSource='// verified assembled program\nint main() { return 0; }\n';
+const sha=value=>createHash('sha256').update(value).digest('hex');
 
 const html = fs.readFileSync('docs/yoj-quick-submit.html', 'utf8');
 const pageScript = html.match(/<script>([\s\S]*?)<\/script>/)[1];
@@ -22,22 +26,30 @@ function node() {
     select() {}, remove() {}, submit() { this.submitted = true; }};
 }
 
-async function page({url=contextUrl, clipboardFails=false, fallbackCopy=true, kind='STANDARD_CODE'}={}) {
-  const elements = Object.fromEntries(['title','meta','source','notice','status','copy','submit','open','bookmarklet'].map(id => [id,node()]));
+async function page({url=contextUrl, clipboardFails=false, fallbackCopy=true, kind='STANDARD_CODE',badNativeHash=false}={}) {
+  const elements = Object.fromEntries(['title','meta','source','notice','status','copy','submit','open','bookmarklet','code-heading','native-preview','native-source','native-hash'].map(id => [id,node()]));
   elements.source.firstElementChild = node();
   const body = node(), opened = [], copied = [], confirmations = [];
   const entry = {problemNo:1726,title:'LCA',language:'cpp17',problemUrl:url,
     submissionKind:kind,
     submitEndpoint:kind==='PARTIAL_CODE' ? 'http://yoj.ruc.edu.cn/index.php/index/index/prob_submit_tk.html' : 'http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html',codeUrl,
-    codeSha256:'unused',onlineStatus:'Accepted'};
-  const window = {confirm(message) { confirmations.push(message); return true; },
+    codePath:decodeURIComponent(codeUrl.split('/main/')[1]),codeSha256:sha(source),onlineStatus:'Accepted',onlineSubmissionNo:'123'};
+  if(kind==='PARTIAL_CODE') entry.nativeSubmission={kind:'VERIFIED_ASSEMBLED_CODE',
+    codePath:'代码库/1726_complete.cpp',codeUrl:'https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/'+encodeURI('代码库/1726_complete.cpp'),
+    codeSha256:badNativeHash?'0'.repeat(64):sha(completeSource),submitEndpoint:'http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html'};
+  const catalog={entries:[{problemNo:1726,verified:true,publicationStatus:'PUBLIC_READY',onlineVerificationStatus:'ONLINE_ACCEPTED',
+    language:'cpp17',codeUrl,codeSource:'PUBLIC_READY',quickSubmitMode:'verified',problemUrl:url,submissionNo:'123',
+    onlineVerificationSubmissionNo:'123',...(entry.nativeSubmission?{nativeSubmission:entry.nativeSubmission}:{})}]};
+  const window = {YOJBatch:B,confirm(message) { confirmations.push(message); return true; },
     open(...args) { opened.push(args); return {}; },setTimeout() {}};
   const context = vm.createContext({window,document:{body,getElementById:id=>elements[id],createElement:node,
-    execCommand:()=>fallbackCopy},location:{search:'?pno=1726'},URL,URLSearchParams,
+    execCommand:()=>fallbackCopy},location:{search:'?pno=1726'},URL,URLSearchParams,crypto:webcrypto,
     navigator:{clipboard:{async writeText(value) { if (clipboardFails) throw Error('denied'); copied.push(value); }}},
-    fetch:async url=>url==='data/quick-submit.json' ? {json:async()=>({entries:[entry]})} : {ok:true,text:async()=>source}});
+    fetch:async url=>url==='data/quick-submit.json' ? {json:async()=>({schemaVersion:2,entries:[entry]})} :
+      url==='data/catalog.json'?{json:async()=>catalog}:
+      {ok:true,text:async()=>source,arrayBuffer:async()=>new TextEncoder().encode(url===entry.nativeSubmission?.codeUrl?completeSource:source).buffer}});
   vm.runInContext(pageScript, context);
-  await tick();
+  for(let i=0;i<40 && elements.copy.disabled && !elements.title.textContent.includes('失败');i++) await new Promise(r=>setTimeout(r,2));
   return {elements,body,opened,copied,confirmations,context};
 }
 
@@ -94,14 +106,25 @@ test('ordinary shortcut keeps explicit confirmation and the original POST fields
   assert.equal(p.opened.length,0);
 });
 
-test('verified partial shortcut submits one exact block using native partial fields',async()=>{
+test('verified partial shortcut copies the fragment but submits its hash-checked complete program',async()=>{
   const p = await page({kind:'PARTIAL_CODE'});
+  await p.elements.copy.listeners.click();
+  assert.deepEqual(p.copied,[source]);
+  assert.equal(p.elements['native-preview'].hidden,false);
+  assert.equal(p.elements['native-source'].textContent,completeSource);
   await p.elements.submit.listeners.click();
   const form = p.body.children.find(n=>n.method==='post');
   assert.ok(form?.submitted);
-  assert.equal(form.action,'http://yoj.ruc.edu.cn/index.php/index/index/prob_submit_tk.html');
+  assert.equal(form.action,'http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html');
   assert.deepEqual(Object.fromEntries(form.children.map(n=>[n.name,n.value])),
-    {pno:'1726',compiler:'cpp17',codes:JSON.stringify([source])});
+    {pid:'1726',language:'cpp17',code:completeSource});
+});
+
+test('partial native complete-code hash failure blocks submission',async()=>{
+  const p=await page({kind:'PARTIAL_CODE',badNativeHash:true});
+  assert.equal(p.elements.submit.disabled,true);
+  assert.match(p.elements.status.textContent,/哈希不匹配/);
+  assert.equal(p.body.children.filter(n=>n.method==='post').length,0);
 });
 
 test('copy failure is reported and does not navigate or submit',async()=>{

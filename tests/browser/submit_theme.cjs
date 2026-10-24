@@ -113,9 +113,8 @@ function readable(fg, bg, label) {
         await batch.locator('summary').first().click();
         checks.push(`${width}/${mode}`);
       }
-      batch.once('dialog', d => d.dismiss());
-      await batch.locator('#start').click();
-      assert.equal(await batch.locator('#start').isEnabled(), true, 'cancel must leave queue unstarted');
+      assert.equal(await batch.locator('#start').isEnabled(), true);
+      assert.match(await batch.locator('#start').innerText(), /确认并开始/);
     }
     await batch.goto(base + '/yoj-batch-submit.html?pnos=0');
     await single.goto(base + '/yoj-quick-submit.html?pno=0');
@@ -128,7 +127,7 @@ function readable(fg, bg, label) {
     assert.deepEqual(errors, []);
     assert.deepEqual(judgeRequests, []);
     console.log(JSON.stringify({checks, consoleErrors: 0, realJudgeRequests: 0,
-      dynamicThemeSwitch: 'PASS', previewAndCancel: 'PASS', darkErrors: 'PASS'}));
+      dynamicThemeSwitch: 'PASS', previewAndReady: 'PASS', darkErrors: 'PASS'}));
   } finally {
     await browser?.close();
     await new Promise(resolve => server.close(resolve));

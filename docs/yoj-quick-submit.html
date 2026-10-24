@@ -53,14 +53,20 @@
       <a id="open" class="button secondary" target="_blank" rel="noopener" href="#">打开 YOJ 题目页</a>
     </div>
     <p id="status" class="status" role="status">正在加载公开代码…</p>
-    <h2>提交代码</h2>
+    <h2 id="code-heading">提交代码</h2>
     <pre id="source"><code></code></pre>
+    <details id="native-preview" hidden>
+      <summary>一键提交所用完整程序（已核验）</summary>
+      <p id="native-hash" class="muted small"></p>
+      <pre id="native-source"></pre>
+    </details>
     <h2>登录后的页内填充（回退方案）</h2>
     <p class="muted small"><strong>安装步骤：</strong>请把下面的按钮拖到浏览器收藏栏（不要直接点击；旧书签需重新安装）；然后用上方链接打开 YOJ 题目页，在收藏栏点击它。它只在题号、考试上下文和语言匹配时填入代码，随后由你在 YOJ 页面点击提交。遇到登录失效、题目不可见或考试权限不足时会停止，不会自动重试提交。</p>
     <p><a id="bookmarklet" class="button secondary" draggable="true" href="#" title="拖到收藏栏后，在 YOJ 题目页点击">拖到收藏栏：YOJ 页内填充书签</a></p>
     <footer>代码来源与哈希由仓库构建脚本生成；提交结果以 YOJ 页面显示为准。</footer>
   </section>
 </main>
+<script src="assets/batch-submit.js"></script>
 <script>
 (() => {
   "use strict";
@@ -70,7 +76,7 @@
   const $ = (id) => document.getElementById(id);
   const title = $("title"), meta = $("meta"), source = $("source").firstElementChild, notice = $("notice");
   const status = $("status"), copy = $("copy"), submit = $("submit"), open = $("open"), bookmarklet = $("bookmarklet");
-  let entry = null, code = "", submissionSent = false;
+  let entry = null, code = "", nativeEntry = null, submissionSent = false;
 
   function setStatus(message, isError = false) {
     status.textContent = message;
@@ -107,24 +113,18 @@
     input.type = "hidden"; input.name = name; input.value = value; form.appendChild(input);
   }
   function submitToYOJ() {
-    if (!entry || !code || submissionSent) return;
+    if (!entry || !code || submissionSent || (entry.submissionKind === "PARTIAL_CODE" && !nativeEntry)) return;
     const form = document.createElement("form");
-    form.method = "post"; form.action = entry.submitEndpoint; form.target = "_blank"; form.acceptCharset = "UTF-8";
-    if (entry.submissionKind === "PARTIAL_CODE") {
-      addHidden(form, "pno", String(entry.problemNo));
-      addHidden(form, "compiler", entry.language);
-      addHidden(form, "codes", JSON.stringify([code]));
-    } else {
-      addHidden(form, "pid", String(entry.problemNo));
-      addHidden(form, "language", entry.language);
-      addHidden(form, "code", code);
-    }
+    form.method = "post"; form.action = nativeEntry?.submitEndpoint || entry.submitEndpoint; form.target = "_blank"; form.rel = "noopener"; form.acceptCharset = "UTF-8";
+    addHidden(form, "pid", String(entry.problemNo));
+    addHidden(form, "language", entry.language);
+    addHidden(form, "code", nativeEntry ? nativeEntry.code : code);
     document.body.appendChild(form);
     // Do not infer success from opening a window, or retry an uncertain POST.
     submissionSent = true; submit.disabled = true;
     setStatus(`已发起 ${entry.language} / ${entry.problemNo} 的提交窗口；若有浏览器安全提示，请自行确认或取消。请先核对 YOJ 提交记录；结果不明时不要重复发送，确需再次提交请刷新本页。`);
     form.submit();
-    window.setTimeout(() => form.remove(), 3000);
+    // Retain the initiating form while Safari may be asking for confirmation.
   }
   async function fillOnYOJ(payload) {
     /* Self-contained; URL normalization removes newlines, so no // comments. */
@@ -193,13 +193,23 @@
     if (/\/eno\/\d+\.html$/.test(new URL(entry.problemUrl).pathname)) {
       notice.textContent += " 本题来自课程/考试入口，一键直投仍可尝试；若原站提示找不到题目，请用“打开 YOJ 题目页”保留 eno 上下文，再使用页内填充书签。请勿自动重复提交。";
     }
-    const response = await fetch(entry.codeUrl, { cache: "no-store" });
-    if (!response.ok) throw new Error(`源码加载失败（HTTP ${response.status}）`);
-    code = await response.text();
+    if (entry.submissionKind === "PARTIAL_CODE") {
+      const catalog = await (await fetch("data/catalog.json", {cache: "no-store", credentials: "omit"})).json();
+      [nativeEntry] = await window.YOJBatch.prepareBatch([problemNo], manifest, catalog, fetch, crypto);
+      code = nativeEntry.fragmentCode;
+    } else {
+      const response = await fetch(entry.codeUrl, { cache: "no-store" });
+      if (!response.ok) throw new Error(`源码加载失败（HTTP ${response.status}）`);
+      code = await response.text();
+    }
     source.textContent = code;
     copy.disabled = false; submit.disabled = false;
     if (entry.submissionKind === "PARTIAL_CODE") {
-      notice.textContent += " 本题使用原站专用填空接口一键提交，发送的是待填片段，不是完整程序。页内填充书签暂不支持此表单；也可复制片段到原站待填区手动提交。";
+      notice.textContent += " 本题一键提交使用清单绑定且哈希校验通过的完整组装程序，兼容原生浏览器表单。下方展示和复制仍为原填空片段，可粘贴到原站待填区；原片段及发布证据不变。";
+      $("code-heading").textContent = "填空片段（复制/原站手填）";
+      $("native-preview").hidden = false;
+      $("native-source").textContent = nativeEntry.code;
+      $("native-hash").textContent = `SHA-256: ${nativeEntry.codeSha256}`;
       bookmarklet.href = "#";
       bookmarklet.style.pointerEvents = "none";
       bookmarklet.textContent = "填空题请直接提交或复制片段";

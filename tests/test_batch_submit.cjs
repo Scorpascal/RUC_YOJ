@@ -5,21 +5,27 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 // A missing feature is an assertion failure, not a module-loader error.
 const B = fs.existsSync('docs/assets/batch-submit.js') ? require('../docs/assets/batch-submit.js') : {};
+const T = fs.existsSync('docs/assets/batch-transport.js') ? require('../docs/assets/batch-transport.js') : {};
 const bytes = new TextEncoder().encode('int main() { return 0; }\n');
 const sha = createHash('sha256').update(bytes).digest('hex');
+const fullSource='int main() { return 7; }\n';
+const fullBytes=new TextEncoder().encode(fullSource);
+const fullSha=createHash('sha256').update(fullBytes).digest('hex');
 function entry(n, extra={}) {
   const codePath = `代码库/${n}/code.cpp`;
-  return {problemNo:n,title:`Problem ${n}`,language:'cpp17',onlineStatus:'Accepted',onlineSubmissionNo:String(1000000+n),codePath,
+  const result = {problemNo:n,title:`Problem ${n}`,language:'cpp17',onlineStatus:'Accepted',onlineSubmissionNo:String(1000000+n),codePath,
     problemUrl:`http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/${n}.html`,
     submitEndpoint:'http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html',
     codeUrl:'https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/'+encodeURI(codePath),codeSha256:sha,...extra};
+  if (extra.submissionKind === 'PARTIAL_CODE' && !Object.hasOwn(extra,'nativeSubmission')) result.nativeSubmission={kind:'VERIFIED_ASSEMBLED_CODE',codePath:`代码库/${n}/complete.cpp`,codeUrl:'https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/'+encodeURI(`代码库/${n}/complete.cpp`),codeSha256:fullSha,submitEndpoint:'http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html'};
+  return result;
 }
 function catalog(entries) {return {entries:entries.map(e=>({problemNo:e.problemNo,verified:true,
   publicationStatus:'PUBLIC_READY',onlineVerificationStatus:'ONLINE_ACCEPTED',language:e.language,
   codeUrl:e.codeUrl,problemUrl:e.problemUrl,codeSource:'PUBLIC_READY',quickSubmitMode:'verified',
-  submissionNo:e.onlineSubmissionNo,onlineVerificationSubmissionNo:e.onlineSubmissionNo}))};}
+  submissionNo:e.onlineSubmissionNo,onlineVerificationSubmissionNo:e.onlineSubmissionNo,...(e.nativeSubmission?{nativeSubmission:e.nativeSubmission}:{})}))};}
 const manifest = entries => ({schemaVersion:2,entries,archivedEntries:[]});
-const fetchCode = async () => ({ok:true,arrayBuffer:async()=>bytes.buffer});
+const fetchCode = async url => ({ok:true,arrayBuffer:async()=>url?.endsWith('/complete.cpp')?fullBytes.buffer:bytes.buffer});
 async function prepared(entries) {return B.prepareBatch(entries.map(e=>e.problemNo),manifest(entries),catalog(entries),fetchCode,webcrypto);}
 
 test('selection rejects zero, eleven, duplicate and noninteger IDs, accepts ten',()=>{
@@ -66,12 +72,46 @@ test('foreign code URLs, judge endpoints, mismatched pno and unknown forms are r
     {codeUrl:'https://raw.githubusercontent.com/Other/repo/main/code.cpp'}])
     await assert.rejects(()=>prepared([entry(1,extra)]));
 });
-test('normal and single-slot forms use the exact original fields',async()=>{
+test('normal and single-slot browser routes send the independently verified program bytes',async()=>{
   assert.equal(typeof B.formFields,'function');
   const [normal,partial]=await prepared([entry(1726),entry(285,{submissionKind:'PARTIAL_CODE',
     submitEndpoint:'http://yoj.ruc.edu.cn/index.php/index/index/prob_submit_tk.html'})]);
   assert.deepEqual(B.formFields(normal),{pid:'1726',language:'cpp17',code:'int main() { return 0; }\n'});
-  assert.deepEqual(B.formFields(partial),{pno:'285',compiler:'cpp17',codes:'["int main() { return 0; }\\n"]'});
+  assert.deepEqual(B.formFields(partial),{pid:'285',language:'cpp17',code:fullSource});
+});
+
+test('partial browser route fails closed if full-program evidence is missing or inconsistent',async()=>{
+  const e=entry(285,{submissionKind:'PARTIAL_CODE',submitEndpoint:'http://yoj.ruc.edu.cn/index.php/index/index/prob_submit_tk.html'});
+  for(const nativeSubmission of [null,{...e.nativeSubmission,codeSha256:'0'.repeat(64)},
+    {...e.nativeSubmission,codeUrl:'https://example.invalid/code.cpp'},
+    {...e.nativeSubmission,submitEndpoint:'http://yoj.ruc.edu.cn/index.php/index/index/prob_submit_tk.html'}]) {
+    await assert.rejects(()=>B.prepareBatch([285],manifest([{...e,nativeSubmission}]),catalog([e]),fetchCode,webcrypto));
+  }
+});
+test('matching malformed native projections still fail source and endpoint validation',async()=>{
+  const e=entry(285,{submissionKind:'PARTIAL_CODE',submitEndpoint:'http://yoj.ruc.edu.cn/index.php/index/index/prob_submit_tk.html'});
+  for(const extra of [{codeSha256:'invalid'}, {codeSha256:'0'.repeat(64)},
+    {codeUrl:'https://example.invalid/code.cpp'},
+    {codePath:'代码库/../complete.cpp'},
+    {submitEndpoint:'http://yoj.ruc.edu.cn/index.php/index/index/prob_submit_tk.html'},
+    {submitEndpoint:'http://example.invalid/index.php/index/index/prob_submit.html'}]) {
+    const malformed={...e,nativeSubmission:{...e.nativeSubmission,...extra}};
+    let downloads=0;
+    await assert.rejects(()=>B.prepareBatch([285],manifest([malformed]),catalog([malformed]),async url=>{
+      downloads++; return fetchCode(url);
+    },webcrypto));
+    assert.equal(downloads,extra.codeSha256==='0'.repeat(64)?2:0,
+      'invalid metadata rejects before downloads; a well-formed wrong digest rejects at the full-byte hash gate');
+  }
+});
+test('native metadata cannot override the validated problem or language with extra fields',async()=>{
+  const e=entry(285,{submissionKind:'PARTIAL_CODE',submitEndpoint:'http://yoj.ruc.edu.cn/index.php/index/index/prob_submit_tk.html'});
+  const forged={...e,nativeSubmission:{...e.nativeSubmission,problemNo:999,language:'python3'}};
+  let downloads=0;
+  await assert.rejects(()=>B.prepareBatch([285],manifest([forged]),catalog([forged]),async url=>{
+    downloads++; return fetchCode(url);
+  },webcrypto));
+  assert.equal(downloads,0);
 });
 
 function runner(items, overrides={}) {
@@ -79,13 +119,13 @@ function runner(items, overrides={}) {
   const target={name:'batch-test',closed:false};
   let clock=0;
   const r=B.createRunner(items,{openTarget:()=>target,
-    send(item,name){sent.push({pno:item.problemNo,name,at:clock});},
+    send(item,target){sent.push({pno:item.problemNo,name:target.name,at:clock});},
     remember(pno){remembered.push(pno);},
     async pause(ms){waits.push(ms);clock+=ms;},
     onChange(s){states.push(s);},...overrides});
   return {r,sent,remembered,waits,states,target};
 }
-test('ten distinct requests are paced 3 seconds apart in one target, never auto-restarted',async()=>{
+test('ten distinct requests are paced 3 seconds apart in one batch, never auto-restarted',async()=>{
   assert.equal(typeof B.createRunner,'function');
   const p=await prepared(Array.from({length:10},(_,i)=>entry(i+1)));
   const t=runner(p); await t.r.start(); await t.r.start();
@@ -108,12 +148,62 @@ test('stopping during pacing leaves remaining problems unsent',async()=>{
   assert.equal(typeof B.createRunner,'function');
   let release;
   const t=runner(await prepared([entry(1),entry(2)]),{pause:()=>new Promise(r=>{release=r;})});
-  const active=t.r.start(); t.r.stop(); release(); await active;
+  const active=t.r.start(); await new Promise(r=>setImmediate(r)); t.r.stop(); release(); await active;
   assert.deepEqual(t.sent.map(x=>x.pno),[1]);
   assert.equal(t.r.snapshot().phase,'STOPPED');
   await t.r.start(); assert.equal(t.sent.length,1);
 });
-test('blocked or closed result window prevents further form submissions',async()=>{
+test('pending native navigation keeps queue running and does not launch the next problem',async()=>{
+  let response;
+  const t=runner(await prepared([entry(1),entry(2)]),{send(item,name){
+    t.sent.push({pno:item.problemNo,name});
+    return new Promise(resolve=>{response=resolve;});
+  }});
+  const active=t.r.start();
+  await new Promise(r=>setImmediate(r));
+  assert.equal(t.r.snapshot().phase,'RUNNING');
+  assert.deepEqual(t.sent.map(x=>x.pno),[1]);
+  assert.equal(t.r.snapshot().rows[0].state,'UNCERTAIN');
+  t.r.stop(); response(); await active;
+  assert.equal(t.r.snapshot().phase,'STOPPED');
+  assert.deepEqual(t.sent.map(x=>x.pno),[1]);
+});
+test('rejected native navigation stays uncertain and never advances or auto-retries',async()=>{
+  const t=runner(await prepared([entry(1),entry(2)]),{send(){return Promise.reject(Error('navigation timeout'));}});
+  await t.r.start(); await t.r.start();
+  assert.equal(t.r.snapshot().phase,'STOPPED');
+  assert.deepEqual(t.r.snapshot().rows.map(r=>r.state),['UNCERTAIN','WAITING']);
+  assert.deepEqual(t.remembered,[1]);
+});
+
+function nativeDocument() {
+  const sent=[], forms=[];
+  const owner={body:{append(form){forms.push(form);}},createElement(tag){
+    return {tag,children:[],append(child){this.children.push(child);},
+      submit(){sent.push({form:this,target:this.target,action:this.action,
+        fields:Object.fromEntries(this.children.map(c=>[c.name,c.value]))});}};
+  }};
+  return {owner,sent,forms};
+}
+test('native transport uses direct independent responses without preopening or reusing a window',async()=>{
+  const f=nativeDocument(), io=T.createTransport({document:f.owner});
+  const target=io.openTarget(), signal=new AbortController().signal;
+  await io.send({...entry(1726),code:'CODE'},target,signal);
+  await io.send({...entry(285,{submissionKind:'PARTIAL_CODE'}),code:'FRAGMENT'},target,signal);
+  assert.equal(f.sent.length,2);
+  assert.notEqual(f.sent[0].form,f.sent[1].form);
+  assert.ok(f.sent.every(p=>p.target==='_blank'));
+  assert.ok(f.forms.every(p=>p.rel==='noopener' && p.hidden===true));
+  assert.deepEqual(f.sent[0].fields,{pid:'1726',language:'cpp17',code:'CODE'});
+  assert.deepEqual(f.sent[1].fields,{pno:'285',compiler:'cpp17',codes:'["FRAGMENT"]'});
+  assert.equal(f.forms.length,2,'keep forms available while browser confirmation may still be pending');
+});
+test('aborted transport never starts a native POST',async()=>{
+  const f=nativeDocument(), io=T.createTransport({document:f.owner}), c=new AbortController();
+  c.abort();await assert.rejects(()=>io.send({...entry(1),code:'A'},io.openTarget(),c.signal),{name:'AbortError'});
+  assert.equal(f.sent.length,0);
+});
+test('unavailable generic runner descriptor prevents form submissions',async()=>{
   assert.equal(typeof B.createRunner,'function');
   const blocked=runner(await prepared([entry(1)]),{openTarget:()=>null});
   await blocked.r.start(); assert.equal(blocked.sent.length,0);
@@ -136,7 +226,7 @@ test('storage failure stops before any POST',async()=>{
   await t.r.start(); assert.equal(t.sent.length,0);
 });
 
-test('closing the reused window after the first request stops remaining requests',async()=>{
+test('invalidating a generic runner descriptor stops remaining requests',async()=>{
   const t=runner(await prepared([entry(1),entry(2)]),{async pause(){t.target.closed=true;}});
   await t.r.start(); assert.deepEqual(t.sent.map(x=>x.pno),[1]);
   assert.equal(t.r.snapshot().phase,'STOPPED');
@@ -163,7 +253,7 @@ async function batchPage({numbers='1726,285',confirm=true,saved=new Map(),badHas
   const sent=[],opens=[],confirmations=[],body=node();
   function node() {return {children:[],listeners:{},disabled:true,textContent:'',append(...items){this.children.push(...items);},
     addEventListener(event,fn){this.listeners[event]=fn;},remove(){},
-    submit(){sent.push({action:this.action,target:this.target,fields:Object.fromEntries(this.children.map(c=>[c.name,c.value]))});}};}
+    submit(){sent.push({form:this,action:this.action,target:this.target,fields:Object.fromEntries(this.children.map(c=>[c.name,c.value]))});}};}
   const entries=[entry(1726,{problemUrl:'http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1726/eno/2095.html'}),
     entry(285,{submissionKind:'PARTIAL_CODE',submitEndpoint:'http://yoj.ruc.edu.cn/index.php/index/index/prob_submit_tk.html',
       ...(badHash?{codeSha256:'0'.repeat(64)}:{})})];
@@ -171,29 +261,29 @@ async function batchPage({numbers='1726,285',confirm=true,saved=new Map(),badHas
     location:{search:'?pnos='+numbers},URLSearchParams,crypto:webcrypto,
     sessionStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},
     fetch:async url=>url==='data/quick-submit.json'?{ok:true,json:async()=>manifest(entries)}:
-      url==='data/catalog.json'?{ok:true,json:async()=>catalog(entries)}:fetchCode(),
-    window:{YOJBatch:{...B,createRunner(items,io){return B.createRunner(items,{...io,pause:async()=>{}});}},
-      open(url,name){opens.push({url,name});return {closed:false};},
+      url==='data/catalog.json'?{ok:true,json:async()=>catalog(entries)}:fetchCode(url),
+    window:{YOJBatchTransport:T,YOJBatch:{...B,createRunner(items,io){return B.createRunner(items,{...io,pause:async()=>{}});}},
+      open(url,name){opens.push({url,name});throw new Error('preopening is not allowed');},
       confirm(text){confirmations.push(text);return confirm;},addEventListener(){}}});
   vm.runInContext(fs.readFileSync('docs/assets/batch-page.js','utf8'),ctx);
   for(let i=0;i<40 && elements.status.textContent==='';i++) await new Promise(r=>setTimeout(r,2));
   return {elements,sent,opens,confirmations,saved};
 }
-test('batch page never submits on load and cancellation opens no window',async()=>{
+test('batch page never submits or asks for confirmation on load',async()=>{
   const p=await batchPage({confirm:false});
   assert.equal(p.elements.start.disabled,false);assert.equal(p.sent.length,0);
   assert.match(p.elements.status.textContent,/至少需要 3 秒/);
-  p.elements.start.listeners.click();
-  assert.equal(p.sent.length,0);assert.equal(p.opens.length,0);assert.equal(p.confirmations.length,1);
+  assert.equal(p.opens.length,0);assert.equal(p.confirmations.length,0);
 });
 test('one confirmed page click sends both native forms once and blocks refresh resends',async()=>{
   const p=await batchPage(); p.elements.start.listeners.click(); p.elements.start.listeners.click();
   await new Promise(r=>setImmediate(r));
-  assert.equal(p.confirmations.length,1);assert.equal(p.opens.length,1);
+  assert.equal(p.confirmations.length,0);assert.equal(p.opens.length,0);
   assert.deepEqual(p.sent.map(s=>s.fields),[
     {pid:'1726',language:'cpp17',code:'int main() { return 0; }\n'},
-    {pno:'285',compiler:'cpp17',codes:'["int main() { return 0; }\\n"]'}]);
-  assert.equal(new Set(p.sent.map(s=>s.target)).size,1);
+    {pid:'285',language:'cpp17',code:fullSource}]);
+  assert.equal(new Set(p.sent.map(s=>s.form)).size,2);
+  assert.ok(p.sent.every(s=>s.target==='_blank'));
   assert.match(p.elements.status.textContent,/不代表已受理或Accepted/);
   const refreshed=await batchPage({saved:p.saved});
   assert.equal(refreshed.elements.start.disabled,true);

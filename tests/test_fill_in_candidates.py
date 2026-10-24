@@ -230,10 +230,15 @@ class FillInTests(unittest.TestCase):
     def test_published_fragment_uses_the_verified_partial_submission_endpoint(self):
         code = self.statement.parent / f'{self.number:04d}_填空提交片段.cpp'
         code.write_text(self.fragment)
+        complete = self.statement.parent / f'{self.number:04d}_AC完整代码.cpp'
+        complete.write_text(self.program)
+        complete_sha = hashlib.sha256(complete.read_bytes()).hexdigest()
         reference = code.relative_to(self.root).as_posix()
         ready = self.root / 'ready.json'
         ready.write_text(json.dumps({'records': [{'problemNo': self.number, 'status': 'PUBLIC_READY',
             'directlySubmittableCode': reference, 'directlySubmittableCodeSha256': hashlib.sha256(code.read_bytes()).hexdigest(),
+            'completeCode': complete.relative_to(self.root).as_posix(), 'completeCodeSha256': complete_sha,
+            'assembledProgramSha256': complete_sha,
             'submissionKind': 'PARTIAL_CODE', 'language': 'cpp'}]}))
         self.record['public'].update({'status': 'PUBLIC_READY', 'directlySubmittableCode': reference})
         with patch.object(build_initial, 'ROOT', self.root), \
@@ -242,6 +247,9 @@ class FillInTests(unittest.TestCase):
             item = build_initial.make_quick_submit_manifest([self.record], {})['entries'][0]
         self.assertEqual(item.get('submissionKind'), 'PARTIAL_CODE')
         self.assertTrue(item['submitEndpoint'].endswith('/prob_submit_tk.html'))
+        self.assertEqual(item['nativeSubmission']['codePath'], complete.relative_to(self.root).as_posix())
+        self.assertEqual(item['nativeSubmission']['codeSha256'], complete_sha)
+        self.assertTrue(item['nativeSubmission']['submitEndpoint'].endswith('/prob_submit.html'))
 
     def test_release_materializes_separate_files_without_overwriting_raw_archive(self):
         reports = self.local_reports()

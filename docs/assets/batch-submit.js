@@ -44,6 +44,21 @@
         endpoint.pathname !== (kind === "PARTIAL_CODE" ? PARTIAL : STANDARD) ||
         typeof e.language !== "string" || !/^[a-zA-Z0-9+_.-]{1,40}$/.test(e.language))
       throw new Error("题号、语言或提交形态不受支持。");
+    checkedSource(e);
+    if (kind === "PARTIAL_CODE") {
+      const native = e.nativeSubmission, mirror = c.nativeSubmission;
+      const keys = ["kind", "codePath", "codeUrl", "codeSha256", "submitEndpoint"];
+      const exactFields = value => value && typeof value === "object" && !Array.isArray(value) &&
+        Object.keys(value).length === keys.length && keys.every(key => Object.hasOwn(value, key));
+      if (!exactFields(native) || !exactFields(mirror) || native.kind !== "VERIFIED_ASSEMBLED_CODE" ||
+          keys.some(key => native[key] !== mirror[key]) ||
+          judgeURL(native.submitEndpoint).pathname !== STANDARD)
+        throw new Error("单填空题缺少一致的已核验完整程序证据，未发送评测。");
+      checkedSource(native);
+    } else if (e.nativeSubmission || c.nativeSubmission) throw new Error("普通题含未知替代提交配置。");
+    return Object.freeze({...e, submissionKind: kind});
+  }
+  function checkedSource(e) {
     const source = new URL(e.codeUrl);
     if (!e.codePath || !/^(?:代码库|题解)\//.test(e.codePath) ||
         e.codePath.split("/").some(p => p === "." || p === ".." || !p) ||
@@ -51,7 +66,6 @@
         decodeURIComponent(source.href.slice(RAW.length)) !== e.codePath ||
         !/^[a-f0-9]{64}$/.test(e.codeSha256))
       throw new Error("公开源码地址或 SHA-256 无效。");
-    return Object.freeze({...e, submissionKind: kind});
   }
   async function prepareBatch(numbers, manifest, catalog, fetcher, cryptoAPI) {
     const ids = parseNumbers(numbers.join(","));
@@ -64,8 +78,7 @@
       if (es.length !== 1 || cs.length !== 1) throw new Error(`题目 ${n} 不存在或清单不唯一。`);
       return checkedEntry(es[0], cs[0]);
     });
-    const ready = [];
-    for (const entry of entries) {
+    async function verifiedCode(entry) {
       const response = await fetcher(entry.codeUrl, {cache: "no-store", credentials: "omit", redirect: "error"});
       if (!response.ok) throw new Error(`题目 ${entry.problemNo} 源码下载失败，未发送任何评测。`);
       const bytes = new Uint8Array(await response.arrayBuffer());
@@ -74,7 +87,17 @@
       if (hash !== entry.codeSha256) throw new Error(`题目 ${entry.problemNo} 源码哈希不匹配，未发送任何评测。`);
       const code = new TextDecoder("utf-8", {fatal: true, ignoreBOM: true}).decode(bytes);
       if (!code.trim()) throw new Error("源码内容为空，未发送评测。");
-      ready.push(Object.freeze({...entry, code}));
+      return code;
+    }
+    const ready = [];
+    for (const entry of entries) {
+      const code = await verifiedCode(entry);
+      if (entry.submissionKind === "PARTIAL_CODE") {
+        const native = entry.nativeSubmission;
+        const fullCode = await verifiedCode({...native, problemNo: entry.problemNo});
+        ready.push(Object.freeze({...entry, ...native, code: fullCode,
+          submissionKind: "STANDARD_CODE", originalSubmissionKind: "PARTIAL_CODE", fragmentCode: code}));
+      } else ready.push(Object.freeze({...entry, code}));
     }
     return Object.freeze(ready);
   }
@@ -94,9 +117,9 @@
   function createRunner(items, io) {
     parseNumbers(items.map(item => item.problemNo).join(","));
     const rows = items.map(item => ({problemNo: item.problemNo, state: "WAITING"}));
-    let phase = "READY", used = false;
+    let phase = "READY", used = false, detail = "";
     const controller = new AbortController();
-    const snapshot = () => ({phase, rows: rows.map(row => ({...row}))});
+    const snapshot = () => ({phase, detail, rows: rows.map(row => ({...row}))});
     const notify = () => io.onChange?.(snapshot());
     async function start() {
       if (used) return;
@@ -112,8 +135,9 @@
         try { io.remember(items[i].problemNo); }
         catch (_) { phase = "BLOCKED"; break; }
         rows[i].state = "UNCERTAIN";
-        try { io.send(items[i], target.name); }
-        catch (_) { phase = "STOPPED"; notify(); return; }
+        notify();
+        try { await io.send(items[i], target, controller.signal); }
+        catch (error) { phase = "STOPPED"; detail = String(error?.message || "响应未确认").slice(0, 240); notify(); return; }
         rows[i].state = "REQUESTED"; notify();
         if (i < items.length - 1) await (io.pause || pause)(INTERVAL, controller.signal);
       }

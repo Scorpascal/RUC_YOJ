@@ -6,6 +6,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+from urllib.parse import quote
 from pathlib import Path
 from typing import Any
 
@@ -137,6 +138,18 @@ def main() -> int:
         for key, value in quick_expected.items():
             if str(submit.get(key) or "") != value:
                 failures.append(f"{number}: quick-submit.{key} differs from public-ready")
+        if release.get('submissionKind') == 'PARTIAL_CODE':
+            native = {
+                'kind': 'VERIFIED_ASSEMBLED_CODE', 'codePath': complete_path,
+                'codeUrl': 'https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/' + quote(complete_path, safe='/-_.~'),
+                'codeSha256': str(release.get('completeCodeSha256') or ''),
+                'submitEndpoint': 'http://yoj.ruc.edu.cn/index.php/index/index/prob_submit.html',
+            }
+            if (submit.get('nativeSubmission') != native or catalog_row.get('nativeSubmission') != native
+                    or release.get('assembledProgramSha256') != native['codeSha256']):
+                failures.append(f'{number}: native browser submission differs from assembled public-ready evidence')
+        elif submit.get('nativeSubmission') or catalog_row.get('nativeSubmission'):
+            failures.append(f'{number}: unexpected native browser submission projection')
         if catalog_row.get("verified") is not True:
             failures.append(f"{number}: catalog is not verified")
         if str(catalog_row.get("submissionNo") or "") != str(release.get("submissionNo") or ""):
