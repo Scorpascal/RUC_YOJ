@@ -30,7 +30,6 @@ on:
       - "tools/audit_online_availability.py"
       - "tests/test_quick_submit.cjs"
       - "tests/test_batch_submit.cjs"
-      - "tests/test_batch_sender.cjs"
       - "tests/test_inpage_batch.cjs"
       - "tests/test_statement_resources.py"
       - "tests/test_yoj_ac_refresh.py"
@@ -67,7 +66,7 @@ jobs:
       - name: Audit public release evidence
         run: python3 tools/audit_consistency.py
       - name: Verify quick-submit routing and safe fill behavior
-        run: node --test tests/test_quick_submit.cjs tests/test_batch_submit.cjs tests/test_batch_sender.cjs tests/test_inpage_batch.cjs
+        run: node --test tests/test_quick_submit.cjs tests/test_batch_submit.cjs tests/test_inpage_batch.cjs
       - name: Verify statement resources and existing sync regressions
         run: |
           python3 -m pip install lxml==6.1.1

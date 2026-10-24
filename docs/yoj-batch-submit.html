@@ -25,18 +25,23 @@
   <section class="card">
     <a href="./#catalog">← 返回主页选题</a>
     <h1>批量提交 <span id="count">0 / 10</span></h1>
-    <p class="muted">一次确认 · 最多10题 · 每题间隔3秒 · 评测结果到YOJ查看</p>
+    <p class="muted">一次确认 · 最多10题 · 每题至少间隔3秒 · 评测结果到YOJ查看</p>
     <div class="notice">
-      <p>请先在YOJ登录。这里只有通过发布门禁的代码，不保存或读取账号、密码、Cookie。</p>
-      <p>单填空题发送的是发布清单绑定、哈希校验通过的完整组装程序，避开专用填空接口的原生表单兼容问题；原填空片段和发布证据不变，缺少完整程序证据时不会发送。</p>
-      <p>“已请求发起”只代表浏览器执行了提交动作，<strong>不代表原站已受理或Accepted</strong>。浏览器可能要求你确认HTTP提交，或阻止弹窗。特殊题需有相应课程/考试权限，可先打开下方带<code>eno</code>的原站链接。</p>
-      <p>核对清单后确认一次即可执行整批，本站不逐题确认。发送前会打开并关闭两个空白检测窗口，间隔3秒验证后续弹窗能力；检测失败不会发送任何题目。检测通过后每题独立响应页（最多10个），至少间隔3秒发起，后续不会覆盖上一题响应。浏览器自身的HTTP安全确认仍需你处理。</p>
-      <details id="popup-help"><summary>Safari 只打开第一题？查看一次性设置</summary><p>在本页打开 Safari菜单 → 本网站设置 → 弹出式窗口，选择“允许”，仅对本站生效；然后重新点击检测按钮。不要只临时显示单个已阻止窗口。检测通过不代表原站受理，运行中若更改权限仍可能受阻。</p></details>
-      <p>请保持本页打开，勿刷新或离开。本站无法读取跨站响应或可靠检测弹窗是否打开，统一到YOJ提交记录核对受理和评测结果；关闭某个响应页不会停止队列，请用“停止后续提交”。停止不能撤回当前请求，结果不明时不要重复发送。</p>
+      <p><strong>推荐：YOJ 页内整批提交（Safari / Chrome）</strong></p>
+      <p>首次将 <a id="inpage-bookmark" href="#">YOJ 整批提交</a> 拖到书签栏保存。核对下方清单后点“确认此批并打开YOJ”，在YOJ页面点一次该书签，即可执行整批。请先登录YOJ；页内提交无需逐题确认不安全表单，也无需扩展或本机服务。书签会自动打开核验窗口并在核验完成后关闭；若窗口被拦截，请仅为YOJ允许本次弹窗。</p>
+      <p>批次确认在本机保存30分钟，包含公开题号、语言及源码哈希；已尝试题号用于防止重复发送。公开代码仍逐题过原发布与哈希校验，并核对原站新增记录。结果不明会暂停，不自动重发。</p>
     </div>
+    <details class="notice"><summary>跨站直发兼容入口及注意事项</summary>
+      <p>原跨站入口保留，但 Safari 可能中断导航或无法携带登录态；允许弹窗也不保证受理。需要稳定整批发送时，请使用上方 YOJ 页内入口。</p>
+      <p>跨站直发仍会检测首次及延时弹窗能力，每题独立响应页、至少间隔3秒。浏览器可能逐题确认不安全表单。“已请求发起”不代表原站受理或Accepted；结果请到YOJ核对。</p>
+      <details id="popup-help"><summary>跨站入口的弹窗设置</summary><p>Safari菜单 → 本网站设置 → 弹出式窗口 → 允许，仅对本站生效。设置后仍失败时，请使用YOJ页内入口，不要反复重发。</p></details>
+      <p>单填空题发送清单绑定且双哈希核验通过的完整组装程序；特殊题保留eno。原始AC归档和发布门禁不变。本站不保存账号、密码、Cookie或源码。</p>
+      <p>停止只能取消后续请求，无法撤回已发送请求；结果不明不会自动重试。新建批次允许再次选择同题，请先核对原站记录。</p>
+    </details>
     <div class="table-wrap"><table><thead><tr><th>题号 / 题目</th><th>语言 / 形态</th><th>浏览器发起状态</th></tr></thead><tbody id="queue"></tbody></table></div>
     <div class="actions">
-      <button id="start" class="primary" type="button" disabled>检测弹窗并开始批量提交</button>
+      <button id="inpage" class="primary" type="button" disabled>确认此批并打开YOJ</button>
+      <button id="start" type="button" disabled>跨站直发（兼容入口）</button>
       <button id="stop" type="button" disabled>停止后续提交</button>
       <button id="new-batch" type="button" disabled>新建批次（可再次选同题）</button>
       <a class="button" href="http://yoj.ruc.edu.cn/index.php/index/submissions/index.html" target="_blank" rel="noopener">到YOJ查看评测结果 ↗</a>
@@ -49,6 +54,8 @@
 <script src="assets/batch-submit.js"></script>
 <script src="assets/batch-session.js"></script>
 <script src="assets/batch-transport.js"></script>
+<script src="assets/inpage-batch-core.js"></script>
+<script src="assets/batch-entry.js"></script>
 <script src="assets/batch-page.js"></script>
 </body>
 </html>

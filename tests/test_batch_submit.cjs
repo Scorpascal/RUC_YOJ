@@ -331,9 +331,10 @@ async function batchPage({numbers='1726,285',batchId=batchA,resume=false,confirm
   const ctx=vm.createContext({document:{body,getElementById:id=>elements[id],createElement:node},
     location,history:{replaceState(_,__,url){const u=new URL(url,location.href);location.href=u.href;location.search=u.search;}},URL,URLSearchParams,crypto:{subtle:webcrypto.subtle,randomUUID:()=>ids.shift()},
     sessionStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},
+    localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},navigator:{locks:{request:async(k,o,f)=>f({name:k})}},
     fetch:async url=>url==='data/quick-submit.json'?{ok:true,json:async()=>manifest(entries)}:
       url==='data/catalog.json'?{ok:true,json:async()=>catalog(entries)}:fetchCode(url),
-    window:{YOJBatchSession:S,YOJBatchTransport:{createTransport(options){return T.createTransport({...options,
+    window:{YOJBatchEntry:require("../docs/assets/batch-entry.js"),YOJBatchSession:S,YOJBatchTransport:{createTransport(options){return T.createTransport({...options,
       openWindow:()=>({closed:false,close(){}}),pause:async()=>{}});}},YOJBatch:{...B,createRunner(items,io){return B.createRunner(items,{...io,pause});}},
       open(url,name){opens.push({url,name});throw new Error('preopening is not allowed');},
       confirm(text){confirmations.push(text);return confirm;},addEventListener(){}}});
