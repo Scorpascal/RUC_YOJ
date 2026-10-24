@@ -102,19 +102,19 @@ function readable(fg, bg, label) {
         }
         for (const key of ['card', 'ink', 'muted', 'notice', 'noticeInk', 'link', 'primary', 'primaryInk', 'bg'])
           assert.equal(palettes[0][key], palettes[1][key], `${key}: both submit pages must share the palette`);
-        await batch.locator('summary').first().click();
-        assert.equal(await batch.locator('details').first().getAttribute('open'), '');
+        await batch.locator('#previews summary').first().click();
+        assert.equal(await batch.locator('#previews details').first().getAttribute('open'), '');
         assert.equal(await batch.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
         if (process.env.QA_SCREENSHOTS) {
           fs.mkdirSync(process.env.QA_SCREENSHOTS, {recursive: true});
           await batch.screenshot({path: path.join(process.env.QA_SCREENSHOTS, `batch-${mode}-${width}.png`), fullPage: true});
           await single.screenshot({path: path.join(process.env.QA_SCREENSHOTS, `single-${mode}-${width}.png`)});
         }
-        await batch.locator('summary').first().click();
+        await batch.locator('#previews summary').first().click();
         checks.push(`${width}/${mode}`);
       }
       assert.equal(await batch.locator('#start').isEnabled(), true);
-      assert.match(await batch.locator('#start').innerText(), /确认并开始/);
+      assert.match(await batch.locator('#start').innerText(), /检测弹窗并开始/);
     }
     await batch.goto(base + '/yoj-batch-submit.html?pnos=0');
     await single.goto(base + '/yoj-quick-submit.html?pno=0');

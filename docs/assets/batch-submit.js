@@ -125,9 +125,16 @@
       if (used) return;
       used = true;
       let target;
-      try { target = io.openTarget(); }
-      catch (_) { phase = "BLOCKED"; notify(); return; }
-      if (!target || target.closed) { phase = "BLOCKED"; notify(); return; }
+      phase = "PREPARING"; notify();
+      try {
+        target = io.openTarget();
+        if (!target || target.closed) throw new Error("提交环境不可用。");
+        if (io.prepare) await io.prepare(target, controller.signal);
+      } catch (error) {
+        phase = controller.signal.aborted ? "STOPPED" : "BLOCKED";
+        detail = String(error?.message || "提交环境检测失败").slice(0, 240); notify(); return;
+      }
+      if (controller.signal.aborted) { phase = "STOPPED"; notify(); return; }
       phase = "RUNNING"; notify();
       for (let i = 0; i < items.length; i++) {
         if (controller.signal.aborted) break;
@@ -145,7 +152,7 @@
       notify();
     }
     function stop() {
-      if (phase !== "RUNNING") return;
+      if (!["PREPARING", "RUNNING"].includes(phase)) return;
       phase = "STOPPED"; controller.abort(); notify();
     }
     return Object.freeze({start, stop, snapshot});

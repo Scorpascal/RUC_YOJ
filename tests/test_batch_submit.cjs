@@ -6,6 +6,8 @@ const vm = require('node:vm');
 // A missing feature is an assertion failure, not a module-loader error.
 const B = fs.existsSync('docs/assets/batch-submit.js') ? require('../docs/assets/batch-submit.js') : {};
 const T = fs.existsSync('docs/assets/batch-transport.js') ? require('../docs/assets/batch-transport.js') : {};
+const S = fs.existsSync('docs/assets/batch-session.js') ? require('../docs/assets/batch-session.js') : {};
+const batchA='11111111-1111-4111-8111-111111111111', batchB='22222222-2222-4222-8222-222222222222';
 const bytes = new TextEncoder().encode('int main() { return 0; }\n');
 const sha = createHash('sha256').update(bytes).digest('hex');
 const fullSource='int main() { return 7; }\n';
@@ -125,6 +127,19 @@ function runner(items, overrides={}) {
     onChange(s){states.push(s);},...overrides});
   return {r,sent,remembered,waits,states,target};
 }
+test('failed popup preparation prevents every POST and attempted-problem write',async()=>{
+  const t=runner(await prepared([entry(1),entry(2)]),{prepare:async()=>{throw Error('POPUP_BLOCKED');}});
+  await t.r.start();
+  assert.deepEqual(t.sent,[]);assert.deepEqual(t.remembered,[]);
+  assert.equal(t.r.snapshot().phase,'BLOCKED');
+});
+test('Stop during popup preparation prevents all judge traffic',async()=>{
+  let release;
+  const t=runner(await prepared([entry(1),entry(2)]),{prepare:()=>new Promise(r=>{release=r;})});
+  const active=t.r.start();t.r.stop();release?.();await active;
+  assert.deepEqual(t.sent,[]);assert.deepEqual(t.remembered,[]);
+  assert.equal(t.r.snapshot().phase,'STOPPED');
+});
 test('ten distinct requests are paced 3 seconds apart in one batch, never auto-restarted',async()=>{
   assert.equal(typeof B.createRunner,'function');
   const p=await prepared(Array.from({length:10},(_,i)=>entry(i+1)));
@@ -185,9 +200,28 @@ function nativeDocument() {
   }};
   return {owner,sent,forms};
 }
-test('native transport uses direct independent responses without preopening or reusing a window',async()=>{
-  const f=nativeDocument(), io=T.createTransport({document:f.owner});
+test('native popup probe checks a delayed independent window before any form exists',async()=>{
+  const f=nativeDocument();let opens=0,closed=0;
+  const io=T.createTransport({document:f.owner,openWindow:()=>++opens===1?{closed:false,close(){closed++;}}:null,pause:async()=>{}});
+  assert.equal(typeof io.prepare,'function');
+  const target=io.openTarget();
+  await assert.rejects(()=>io.prepare(target,new AbortController().signal),/弹窗/);
+  assert.equal(closed,1);assert.equal(f.sent.length,0);assert.equal(f.forms.length,0);
+});
+test('native send cannot bypass a failed or missing popup preparation',async()=>{
+  const f=nativeDocument();
+  const io=T.createTransport({document:f.owner,openWindow:()=>null,pause:async()=>{}});
+  await assert.rejects(()=>io.send({...entry(1),code:'A'},io.openTarget(),new AbortController().signal));
+  assert.equal(f.sent.length,0);
+});
+test('native transport uses independent judge responses and closes its empty capability probes',async()=>{
+  const f=nativeDocument(), probes=[];
+  const io=T.createTransport({document:f.owner,pause:async()=>{},openWindow:(url,target)=>{
+    assert.equal(url,'about:blank');assert.equal(target,'_blank');
+    const p={closed:false,close(){this.closed=true;}};probes.push(p);return p;
+  }});
   const target=io.openTarget(), signal=new AbortController().signal;
+  await io.prepare(target,signal);
   await io.send({...entry(1726),code:'CODE'},target,signal);
   await io.send({...entry(285,{submissionKind:'PARTIAL_CODE'}),code:'FRAGMENT'},target,signal);
   assert.equal(f.sent.length,2);
@@ -197,9 +231,10 @@ test('native transport uses direct independent responses without preopening or r
   assert.deepEqual(f.sent[0].fields,{pid:'1726',language:'cpp17',code:'CODE'});
   assert.deepEqual(f.sent[1].fields,{pno:'285',compiler:'cpp17',codes:'["FRAGMENT"]'});
   assert.equal(f.forms.length,2,'keep forms available while browser confirmation may still be pending');
+  assert.equal(probes.length,2);assert.ok(probes.every(p=>p.closed));
 });
 test('aborted transport never starts a native POST',async()=>{
-  const f=nativeDocument(), io=T.createTransport({document:f.owner}), c=new AbortController();
+  const f=nativeDocument(), io=T.createTransport({document:f.owner,openWindow:()=>null}), c=new AbortController();
   c.abort();await assert.rejects(()=>io.send({...entry(1),code:'A'},io.openTarget(),c.signal),{name:'AbortError'});
   assert.equal(f.sent.length,0);
 });
@@ -247,9 +282,42 @@ test('all currently published entries pass preflight against their real local by
   assert.equal(checked,manifest.entries.length);
 });
 
+test('batch ledger preserves attempts on reload while allowing intentional overlap in a new batch',()=>{
+  assert.equal(typeof S.createLedger,'function');
+  const data=new Map(), storage={getItem:k=>data.get(k)||null,setItem:(k,v)=>data.set(k,v)};
+  const a=S.createLedger(storage,batchA,[1,2]);a.remember(1);
+  assert.deepEqual([...S.createLedger(storage,batchA,[1,2]).attempted()],[1]);
+  assert.throws(()=>a.remember(1));
+  const b=S.createLedger(storage,batchB,[1,3]);
+  assert.deepEqual([...b.attempted()],[]);assert.deepEqual(b.overlaps(),[1]);
+  b.remember(1);assert.deepEqual([...b.attempted()],[1]);
+  assert.throws(()=>S.createLedger(storage,batchA,[2,1]),/选择|题目/);
+});
+test('batch ledger validates selection and refuses corrupted or unwritable storage',()=>{
+  assert.equal(typeof S.createLedger,'function');
+  assert.throws(()=>S.createLedger({getItem:()=>'{',setItem(){}},batchA,[1]));
+  assert.throws(()=>S.createLedger({getItem:()=>null,setItem(){throw Error('quota');}},batchA,[1]));
+  const data=new Map(), storage={getItem:k=>data.get(k)||null,setItem:(k,v)=>data.set(k,v)};
+  const a=S.createLedger(storage,batchA,[1]);assert.throws(()=>a.remember(2));
+  storage.setItem=()=>{throw Error('quota');};assert.throws(()=>a.remember(1));
+  assert.deepEqual([...a.attempted()],[]);
+});
+test('legacy problem-global ledger warns without blocking a new intentional batch',()=>{
+  assert.equal(typeof S.createLedger,'function');
+  const data=new Map([['yoj-batch-attempts-v1','[1,2]']]);
+  const a=S.createLedger({getItem:k=>data.get(k)||null,setItem:(k,v)=>data.set(k,v)},batchA,[2,3]);
+  assert.deepEqual([...a.attempted()],[]);assert.deepEqual(a.overlaps(),[2]);a.remember(2);
+});
+test('resuming an existing batch URL refuses missing storage or a missing batch row',()=>{
+  const data=new Map(), storage={getItem:k=>data.get(k)||null,setItem:(k,v)=>data.set(k,v)};
+  assert.throws(()=>S.createLedger(storage,batchA,[1],{resume:true}),/记录|批次/);
+  S.createLedger(storage,batchB,[1]).remember(1);
+  assert.throws(()=>S.createLedger(storage,batchA,[1],{resume:true}),/记录|批次/);
+});
+
 // Run the actual page; only DOM and external transport/timing are doubled.
-async function batchPage({numbers='1726,285',confirm=true,saved=new Map(),badHash=false}={}) {
-  const elements=Object.fromEntries(['start','stop','status','count','queue','previews'].map(id=>[id,node()]));
+async function batchPage({numbers='1726,285',batchId=batchA,resume=false,confirm=true,saved=new Map(),badHash=false,pause=async()=>{}}={}) {
+  const elements=Object.fromEntries(['start','stop','status','count','queue','previews','new-batch','overlap','popup-help'].map(id=>[id,node()]));
   const sent=[],opens=[],confirmations=[],body=node();
   function node() {return {children:[],listeners:{},disabled:true,textContent:'',append(...items){this.children.push(...items);},
     addEventListener(event,fn){this.listeners[event]=fn;},remove(){},
@@ -257,22 +325,64 @@ async function batchPage({numbers='1726,285',confirm=true,saved=new Map(),badHas
   const entries=[entry(1726,{problemUrl:'http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1726/eno/2095.html'}),
     entry(285,{submissionKind:'PARTIAL_CODE',submitEndpoint:'http://yoj.ruc.edu.cn/index.php/index/index/prob_submit_tk.html',
       ...(badHash?{codeSha256:'0'.repeat(64)}:{})})];
+  const query='?pnos='+numbers+(resume?'&batch='+batchId:'');
+  const location={search:query,href:'https://example.invalid/yoj-batch-submit.html'+query};
+  const ids=resume?[batchB]:[batchId,batchId===batchA?batchB:batchA];
   const ctx=vm.createContext({document:{body,getElementById:id=>elements[id],createElement:node},
-    location:{search:'?pnos='+numbers},URLSearchParams,crypto:webcrypto,
+    location,history:{replaceState(_,__,url){const u=new URL(url,location.href);location.href=u.href;location.search=u.search;}},URL,URLSearchParams,crypto:{subtle:webcrypto.subtle,randomUUID:()=>ids.shift()},
     sessionStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},
     fetch:async url=>url==='data/quick-submit.json'?{ok:true,json:async()=>manifest(entries)}:
       url==='data/catalog.json'?{ok:true,json:async()=>catalog(entries)}:fetchCode(url),
-    window:{YOJBatchTransport:T,YOJBatch:{...B,createRunner(items,io){return B.createRunner(items,{...io,pause:async()=>{}});}},
+    window:{YOJBatchSession:S,YOJBatchTransport:{createTransport(options){return T.createTransport({...options,
+      openWindow:()=>({closed:false,close(){}}),pause:async()=>{}});}},YOJBatch:{...B,createRunner(items,io){return B.createRunner(items,{...io,pause});}},
       open(url,name){opens.push({url,name});throw new Error('preopening is not allowed');},
       confirm(text){confirmations.push(text);return confirm;},addEventListener(){}}});
   vm.runInContext(fs.readFileSync('docs/assets/batch-page.js','utf8'),ctx);
   for(let i=0;i<40 && elements.status.textContent==='';i++) await new Promise(r=>setTimeout(r,2));
   return {elements,sent,opens,confirmations,saved};
 }
+test('intentional new batch can include problems attempted by an earlier batch',async()=>{
+  const first=await batchPage({batchId:batchA});first.elements.start.listeners.click();
+  await new Promise(r=>setImmediate(r));assert.equal(first.sent.length,2);
+  const next=await batchPage({batchId:batchB,saved:first.saved});
+  assert.equal(next.elements.start.disabled,false,'different batch must remain startable despite overlapping problems');
+  assert.match(next.elements.overlap.textContent,/1726/);
+  next.elements.start.listeners.click();await new Promise(r=>setImmediate(r));assert.equal(next.sent.length,2);
+});
+test('same batch identity cannot silently change its problem selection',async()=>{
+  const first=await batchPage({batchId:batchA});
+  const changed=await batchPage({batchId:batchA,resume:true,numbers:'1726',saved:first.saved});
+  assert.equal(changed.elements.start.disabled,true);assert.match(changed.elements.status.textContent,/批次.*题目|选择/);
+});
+test('reload continuation sends only problems never attempted in this batch',async()=>{
+  let release;
+  const first=await batchPage({pause:()=>new Promise(r=>{release=r;})});
+  first.elements.start.listeners.click();await new Promise(r=>setImmediate(r));
+  first.elements.stop.listeners.click();release?.();await new Promise(r=>setImmediate(r));
+  assert.equal(first.sent.length,1);
+  const resumed=await batchPage({saved:first.saved,resume:true});
+  assert.equal(resumed.elements.start.disabled,false);
+  resumed.elements.start.listeners.click();await new Promise(r=>setImmediate(r));
+  assert.deepEqual(resumed.sent.map(s=>s.fields.pid),['285']);
+});
+test('unknown batch URL holds sends until an explicit fresh batch is created',async()=>{
+  const p=await batchPage({resume:true});
+  assert.equal(p.elements.start.disabled,true);assert.equal(p.elements['new-batch'].disabled,false);
+  assert.match(p.elements.status.textContent,/批次.*记录|记录.*批次/);assert.equal(p.sent.length,0);
+  p.elements['new-batch'].listeners.click();
+  assert.equal(p.elements.start.disabled,false);assert.equal(p.sent.length,0);
+});
+test('explicit new batch replaces the previous terminal status with a fresh ready message',async()=>{
+  const p=await batchPage();p.elements.start.listeners.click();await new Promise(r=>setImmediate(r));
+  assert.match(p.elements.status.textContent,/本批次已全部尝试/);
+  p.elements['new-batch'].listeners.click();
+  assert.match(p.elements.status.textContent,/尚未发送/);
+  assert.doesNotMatch(p.elements.status.textContent,/已全部尝试/);
+});
 test('batch page never submits or asks for confirmation on load',async()=>{
   const p=await batchPage({confirm:false});
   assert.equal(p.elements.start.disabled,false);assert.equal(p.sent.length,0);
-  assert.match(p.elements.status.textContent,/至少需要 3 秒/);
+  assert.match(p.elements.status.textContent,/弹窗检测/);
   assert.equal(p.opens.length,0);assert.equal(p.confirmations.length,0);
 });
 test('one confirmed page click sends both native forms once and blocks refresh resends',async()=>{
@@ -285,7 +395,7 @@ test('one confirmed page click sends both native forms once and blocks refresh r
   assert.equal(new Set(p.sent.map(s=>s.form)).size,2);
   assert.ok(p.sent.every(s=>s.target==='_blank'));
   assert.match(p.elements.status.textContent,/不代表已受理或Accepted/);
-  const refreshed=await batchPage({saved:p.saved});
+  const refreshed=await batchPage({saved:p.saved,resume:true});
   assert.equal(refreshed.elements.start.disabled,true);
   assert.equal(refreshed.sent.length,0); assert.match(refreshed.elements.status.textContent,/不会自动重发/);
 });
