@@ -78,6 +78,7 @@
       }
     };
   }
+  function itemUnavailable(message){return Object.assign(Error(message),{code:'ITEM_UNAVAILABLE'});}
   function createRunner(items,io){
     const controller=new AbortController(),rows=items.map(e=>({problemNo:e.problemNo,state:'WAITING'}));let phase='READY',detail='',used=false;
     const snapshot=()=>({phase,detail,rows:rows.map(r=>({...r}))}),notify=()=>io.onChange?.(snapshot());
@@ -87,10 +88,27 @@
       try {
         await io.guard();if(controller.signal.aborted)return;
         const attempted=io.attempted(),pending=items.filter((item,i)=>{if(attempted.has(item.problemNo)){rows[i].state='PREVIOUS';return false;}return true;});notify();
-        if(pending.length)await io.preflight(pending,controller.signal);if(controller.signal.aborted)return;
+        if(pending.length)await io.baseline(controller.signal);if(controller.signal.aborted)return;
+        // Older already-open pages use the array preflight contract. Preserve it
+        // when their cache mixes an older executor with the updated shared core.
+        if(!io.preflightItem&&pending.length)await io.preflight(pending,controller.signal);
+        for(const item of io.preflightItem?pending:[]){
+          await io.guard();if(controller.signal.aborted)return;
+          try{await io.preflightItem(item,controller.signal);}catch(error){
+            if(controller.signal.aborted)return;
+            if(error.code!=='ITEM_UNAVAILABLE')throw error;
+            // A problem error page is not evidence of global session expiry.
+            // Continue only after an independent authenticated list succeeds.
+            await io.baseline(controller.signal);if(controller.signal.aborted)return;
+            await io.guard();if(controller.signal.aborted)return;
+            const row=rows.find(r=>r.problemNo===item.problemNo);row.state='BLOCKED';row.reason=error.message;notify();
+          }
+          if(controller.signal.aborted)return;
+        }
         phase='RUNNING';notify();let posted=false;
         for(let i=0;i<items.length;i++) {
           const item=items[i],row=rows[i];
+          if(row.state==='BLOCKED')continue;
           if(io.attempted().has(item.problemNo)){row.state='PREVIOUS';notify();continue;}
           if(posted)await (io.pause||pause)(3000,controller.signal);
           if(controller.signal.aborted)return;
@@ -110,5 +128,5 @@
     }
     return Object.freeze({start,stop,snapshot});
   }
-  return Object.freeze({parseHandoff,makeHandoff,saveApproved,loadApproved,matchItems,createRunner,pause,matchesTemplate,createRequester});
+  return Object.freeze({parseHandoff,makeHandoff,saveApproved,loadApproved,matchItems,createRunner,pause,matchesTemplate,createRequester,itemUnavailable});
 });

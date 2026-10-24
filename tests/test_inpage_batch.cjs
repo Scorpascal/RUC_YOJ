@@ -7,7 +7,7 @@ const rows=[8,9].map(problemNo=>({problemNo,codeSha256:'a'.repeat(64),language:'
 function fixture(options={}) {
  assert.equal(typeof H.createRunner,'function');
  const posts=[],remembered=[],states=[];let clock=0;
- const runner=H.createRunner(rows,{attempted:()=>new Set(),remember:n=>remembered.push(n),guard:()=>{},preflight:async()=>{},baseline:async()=>100,
+ const runner=H.createRunner(rows,{attempted:()=>new Set(),remember:n=>remembered.push(n),guard:()=>{},preflightItem:async()=>{},baseline:async()=>100,
   post:async item=>posts.push({n:item.problemNo,at:clock}),receipt:async(item)=>({submissionNo:100+item.problemNo,problemNo:item.problemNo,status:'Accepted'}),
   pause:async ms=>{clock+=ms;},onChange:s=>states.push(s),...options});
  return {runner,posts,remembered,states};
@@ -33,7 +33,7 @@ test('missing receipt stops without retry; failed POST response reconciles real 
  await h.runner.start();assert.equal(h.runner.snapshot().phase,'STOPPED');assert.deepEqual(h.remembered,[8]);
 });
 test('Stop during async preflight or polling never sends another item',async()=>{
- let release;const f=fixture({preflight:()=>new Promise(r=>{release=r;})});const pending=f.runner.start();await new Promise(r=>setImmediate(r));f.runner.stop();release();await pending;
+ let release;const f=fixture({preflightItem:()=>new Promise(r=>{release=r;})});const pending=f.runner.start();await new Promise(r=>setImmediate(r));f.runner.stop();release();await pending;
  assert.equal(f.posts.length,0);assert.equal(f.remembered.length,0);
  const g=fixture({receipt:async()=>{g.runner.stop();return {submissionNo:108};}});await g.runner.start();assert.equal(g.posts.length,1);
 });
@@ -114,6 +114,40 @@ test('a live single-slot template must exactly surround the approved full progra
  for(const [template,code] of [['a____qcodep____b','changed\nanswer\nb'],['a____qcodep____b','ab'],['a____qcodep____b____qcodep____c','axbxc'],['a____qcodep____b','a____qcodep____b']])assert.equal(H.matchesTemplate(template,code),false);
 });
 test('resume validates only never-attempted problems so an old failed item cannot block the rest',async()=>{
- const seen=[];const f=fixture({attempted:()=>new Set([8]),preflight:async items=>{seen.push(...items.map(e=>e.problemNo));if(items.some(e=>e.problemNo===8))throw Error('old inaccessible');}});
+ const seen=[];const f=fixture({attempted:()=>new Set([8]),preflightItem:async item=>{seen.push(item.problemNo);if(item.problemNo===8)throw Error('old inaccessible');}});
  await f.runner.start();assert.deepEqual(seen,[9]);assert.equal(f.runner.snapshot().phase,'DONE');assert.deepEqual(f.posts.map(p=>p.n),[9]);
+});
+test('an unavailable first or last item does not block verified items or mark it attempted',async()=>{
+ for(const blocked of [8,9]){
+  let probes=0;const f=fixture({baseline:async()=>{probes++;return 100;},preflightItem:async item=>{if(item.problemNo===blocked)throw H.itemUnavailable('permission denied');}});
+  await f.runner.start();assert.equal(f.runner.snapshot().phase,'DONE');assert.deepEqual(f.remembered,[blocked===8?9:8]);
+  assert.equal(f.runner.snapshot().rows.find(r=>r.problemNo===blocked).state,'BLOCKED');
+  assert.equal(f.runner.snapshot().rows.find(r=>r.problemNo===blocked).reason,'permission denied');assert.ok(probes>=3);
+ }
+});
+test('failed session recheck, unexpected preflight errors and Stop stay global failures',async()=>{
+ let probes=0;const f=fixture({baseline:async()=>{if(++probes>1)throw Error('session unknown');return 100;},preflightItem:async()=>{throw H.itemUnavailable('item denied');}});
+ await f.runner.start();assert.equal(f.runner.snapshot().phase,'STOPPED');assert.deepEqual(f.remembered,[]);assert.match(f.runner.snapshot().detail,/session unknown/);
+ const g=fixture({preflightItem:async()=>{throw Error('unexpected bug');}});await g.runner.start();assert.equal(g.runner.snapshot().phase,'STOPPED');assert.deepEqual(g.remembered,[]);
+ const h=fixture({preflightItem:async()=>{h.runner.stop();throw H.itemUnavailable('denied');}});await h.runner.start();assert.deepEqual(h.remembered,[]);assert.equal(h.runner.snapshot().phase,'STOPPED');
+});
+test('all blocked ends without attempts and a resumed batch rechecks only blocked items',async()=>{
+ const remembered=new Set();let blocked=true;
+ const make=()=>fixture({attempted:()=>remembered,remember:n=>remembered.add(n),preflightItem:async()=>{if(blocked)throw H.itemUnavailable('template unavailable');}});
+ const f=make();await f.runner.start();assert.equal(f.runner.snapshot().phase,'DONE');assert.deepEqual(f.runner.snapshot().rows.map(r=>r.state),['BLOCKED','BLOCKED']);assert.equal(remembered.size,0);
+ blocked=false;const g=make();await g.runner.start();assert.deepEqual(g.posts.map(p=>p.n),[8,9]);assert.ok(g.posts[1].at-g.posts[0].at>=3000);
+ const h=make();await h.runner.start();assert.equal(h.posts.length,0);
+});
+
+test('older cached executors retain the array preflight contract',async()=>{
+ const seen=[];const f=fixture({preflightItem:undefined,preflight:async items=>seen.push(...items.map(e=>e.problemNo))});
+ await f.runner.start();assert.deepEqual(seen,[8,9]);assert.equal(f.posts.length,2);assert.equal(f.runner.snapshot().phase,'DONE');
+});
+
+test('Stop during item session recheck or lost lease after it prevents every POST',async()=>{
+ let probes=0,release;const f=fixture({baseline:async()=>{if(++probes===2)await new Promise(r=>release=r);return 100;},preflightItem:async()=>{throw H.itemUnavailable('denied');}});
+ const running=f.runner.start();await new Promise(r=>setImmediate(r));f.runner.stop();release();await running;
+ assert.equal(f.runner.snapshot().phase,'STOPPED');assert.equal(f.posts.length,0);assert.equal(f.remembered.length,0);
+ let guards=0;const g=fixture({guard:async()=>{if(++guards===3)throw Error('lost lease');},preflightItem:async()=>{throw H.itemUnavailable('denied');}});
+ await g.runner.start();assert.equal(g.runner.snapshot().phase,'STOPPED');assert.match(g.runner.snapshot().detail,/lost lease/);assert.equal(g.posts.length,0);
 });

@@ -12,7 +12,7 @@
   const list=document.createElement('div'),stop=document.createElement('button'),hide=document.createElement('button');
   for(const b of [stop,hide])b.style.cssText='margin:8px;padding:10px 18px;background:#315dca;color:white;border:0;border-radius:8px;font:inherit;cursor:pointer';
   stop.textContent='停止后续提交';hide.textContent='收起面板';
-  const note=document.createElement('p');note.textContent='每题至少间隔3秒，逐题核对原站受理记录；最终评测结果仍在YOJ查看。停止不会撤回已发送请求，结果不明不自动重试。';
+  const note=document.createElement('p');note.textContent='每题至少间隔3秒，逐题核对原站受理记录；最终评测结果仍在YOJ查看。单题权限、模板或题面读取异常将跳过该题；账号状态无法确认或受理不明时停止。停止不会撤回已发送请求，结果不明不自动重试。';
   shadow.append(title,status,list,stop,hide,note);
   const controller=new AbortController();let runner=null,release=()=>{};
   window.__yojInPageBatch={show(){host.hidden=false;}};
@@ -38,7 +38,10 @@
   function logged(doc){return !!doc.querySelector('a[href*="/login/logout"]');}
   async function rows(signal){
     const doc=parse((await request('/index.php/index/submissions/index.html?score_min=0',{signal,label:'查询近期提交记录'})).text);
-    if(!logged(doc))throw Error('YOJ 登录已失效，已停止。');
+    if(!logged(doc)){
+      const login=doc.querySelector('input[type=password], a[href*="/login/index"]');
+      throw Error(login?'YOJ 登录已失效，已停止。':'无法确认 YOJ 登录状态，已停止；请在原站核对。');
+    }
     const table=[...doc.querySelectorAll('table')].find(t=>{const h=[...t.querySelectorAll('th')].map(e=>e.textContent).join(' ');return ['编号','题目','状态'].every(s=>h.includes(s));});
     if(!table)throw Error('无法确认原站提交列表结构，未继续发送。');
     const dataRows=[...table.querySelectorAll('tr')].filter(tr=>tr.querySelector('td'));
@@ -53,14 +56,14 @@
     return result;
   }
   try {
-    const H=await script('assets/inpage-batch-core.js?v=2','YOJInPageCore');
+    const H=await script('assets/inpage-batch-core.js?v=3','YOJInPageCore');
     request=H.createRequester({origin:location.origin,fetcher:fetch,signal:controller.signal,onRetry:message=>{status.textContent=message;}});
     const fragment=location.hash,batchId=new URLSearchParams(location.search).get('yoj_batch');
     if(batchId&&!/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/.test(batchId))throw Error('批次编号无效。');
     if(!batchId&&!fragment.startsWith('#yoj-batch='))throw Error('缺少本批次清单，请回题库选择题目并打开YOJ。');
     let payload=batchId?null:H.parseHandoff(decodeURIComponent(fragment.slice(11)));
     if(controller.signal.aborted)return;
-    if(!logged(document))throw Error('请先在YOJ登录，再从题库重新打开本批次；尚未发送。');
+    if(!logged(document))await rows(controller.signal);
     // A short settling window resolves simultaneous same-origin lease claims.
     // Persistent storage holds only a random owner, times, batch IDs and numbers.
     const gateHandle=window.__yojInPageGate;
@@ -122,23 +125,29 @@
     const cells=new Map();for(const item of items){const p=document.createElement('p');p.textContent='#'+item.problemNo+' '+item.title+'：等待原站检查';list.append(p);cells.set(item.problemNo,p);}
     runner=H.createRunner(items,{
       guard,attempted:()=>ledger.attempted(),remember:n=>ledger.remember(n),
-      async preflight(selected,signal){
-        for(const item of selected){
+      async preflightItem(item,signal){
+          const unavailable=message=>H.itemUnavailable(message);
+          const read=async(path,options)=>{
+            try{return await request(path,{...options,signal});}catch(error){
+              if(signal.aborted||error.name==='AbortError')throw error;
+              throw unavailable(error.message);
+            }
+          };
           status.textContent='正在检查 #'+item.problemNo+' 的原站题面、语言和权限；尚未发送。';
-          const page=await request(new URL(item.problemUrl).pathname,{signal,problem:true,label:'题面检查 #'+item.problemNo}),doc=parse(page.text);
+          const page=await read(new URL(item.problemUrl).pathname,{signal,problem:true,label:'题面检查 #'+item.problemNo}),doc=parse(page.text);
           problemPages.set(item.problemNo,page.url);
-          if(!logged(doc))throw Error('#'+item.problemNo+' 题面检查：YOJ 登录失效，未发送。');
+          // Error/permission pages may omit the navigation while the account is valid.
+          if(!logged(doc))await rows(signal);
           const form=doc.querySelector('#submit_code');
           if(item.originalSubmissionKind==='PARTIAL_CODE'||new URL(page.url).pathname.includes('/detailtk/')){
             const heading=[...doc.querySelectorAll('h1,h2,h3')].some(h=>new RegExp('#\\s*'+item.problemNo+'(?:\\D|$)').test(h.textContent));
-            if(!heading||(doc.querySelector('[name=pid]')&&doc.querySelector('[name=pid]').value!==String(item.problemNo))||!doc.querySelector('#btn-submit')||![...doc.querySelectorAll('#compiler_select option')].some(e=>e.value===item.language))throw Error('#'+item.problemNo+' 题面、语言或权限不可确认，整批未发送。');
-            let template;try{template=JSON.parse((await request('/index.php/index/problem/gettkcode.html',{data:{pno:String(item.problemNo)},signal,referrer:page.url,label:'读取填空模板 #'+item.problemNo})).text);}catch(error){throw Error('#'+item.problemNo+' 模板检查：'+error.message);}
-            if(String(template.status)!=='1'||typeof template.content!=='string'||!template.content.includes('____qcodep____'))throw Error('#'+item.problemNo+' 当前填空模板不可用，整批未发送。');
-            if(!H.matchesTemplate(template.content,item.code))throw Error('#'+item.problemNo+' 当前单填空模板与已发布完整程序不匹配，整批未发送。');
+            if(!heading||(doc.querySelector('[name=pid]')&&doc.querySelector('[name=pid]').value!==String(item.problemNo))||!doc.querySelector('#btn-submit')||![...doc.querySelectorAll('#compiler_select option')].some(e=>e.value===item.language))throw unavailable('当前题面、语言或权限不可确认，本题未发送。');
+            let template;try{template=JSON.parse((await read('/index.php/index/problem/gettkcode.html',{data:{pno:String(item.problemNo)},signal,referrer:page.url,label:'读取填空模板 #'+item.problemNo})).text);}catch(error){if(signal.aborted||error.name==='AbortError')throw error;throw unavailable('模板检查：'+error.message);}
+            if(!template||typeof template!=='object'||String(template.status)!=='1'||typeof template.content!=='string'||!template.content.includes('____qcodep____'))throw unavailable('当前填空模板不可用，本题未发送。');
+            if(!H.matchesTemplate(template.content,item.code))throw unavailable('当前单填空模板与已发布完整程序不匹配，本题未发送。');
           }else if(!form||form.querySelector('[name="pid"]')?.value!==String(item.problemNo)||!form.querySelector('[name="code"]')||![...doc.querySelectorAll('[data-value]')].some(e=>e.getAttribute('data-value')===item.language)){
-            throw Error('#'+item.problemNo+' 题号、语言、提交表单或权限不匹配，整批未发送。');
+            throw unavailable('题号、语言、提交表单或课程/考试权限不可确认，本题未发送。');
           }
-        }
       },
       async baseline(signal){return Math.max(0,...(await rows(signal)).map(r=>r.submissionNo));},
       async post(item,signal){
@@ -164,8 +173,9 @@
         throw Error('未找到可确认的新提交记录，已停止，勿自动重发。');
       },
       onChange(snapshot){
-        for(const row of snapshot.rows){const cell=cells.get(row.problemNo);cell.textContent='#'+row.problemNo+'：'+({WAITING:'尚未发送',UNCERTAIN:'已尝试，正在核对受理记录',PREVIOUS:'本批次已尝试，已跳过，勿重发',RECEIVED:'原站已受理 #'+row.receipt?.submissionNo+' · '+row.receipt?.status})[row.state];}
-        status.textContent=({PREPARING:'正在检查整批原站题号、语言和权限，尚未发送。',RUNNING:'正在逐题发送并核对原站记录；无需逐题确认。',DONE:'本批处理结束。已受理记录列在下方，最终评测结果请在YOJ查看。',STOPPED:(snapshot.rows.some(r=>r.state==='UNCERTAIN')?'已停止后续提交。结果不明的题目请核对原站，不会自动重发。':'本轮已停止，尚未发送的题目仍未发送。')+' 刷新本页后再点书签，可重新检查未发送题；已尝试题不会重发。'})[snapshot.phase]+(snapshot.detail?' '+snapshot.detail:'');
+        for(const row of snapshot.rows){const cell=cells.get(row.problemNo);cell.textContent='#'+row.problemNo+'：'+({BLOCKED:'已跳过，未发送 · '+row.reason,WAITING:'尚未发送',UNCERTAIN:'已尝试，正在核对受理记录',PREVIOUS:'本批次已尝试，已跳过，勿重发',RECEIVED:'原站已受理 #'+row.receipt?.submissionNo+' · '+row.receipt?.status})[row.state];}
+        const counts=state=>snapshot.rows.filter(r=>r.state===state).length;
+        status.textContent=({PREPARING:'正在检查整批原站题号、语言和权限，尚未发送。',RUNNING:'正在逐题发送并核对原站记录；无需逐题确认。',DONE:'本批处理结束：本轮已受理 '+counts('RECEIVED')+' 题，检查未通过跳过 '+counts('BLOCKED')+' 题，此批此前已尝试 '+counts('PREVIOUS')+' 题。'+(counts('BLOCKED')?' 跳过原因见各题；恢复后刷新本页再点书签，只重查未发送题。':'')+' 最终评测结果请在YOJ查看。',STOPPED:(snapshot.rows.some(r=>r.state==='UNCERTAIN')?'已停止后续提交。结果不明的题目请核对原站，不会自动重发。':'本轮已停止，尚未发送的题目仍未发送。')+' 刷新本页后再点书签，可重新检查未发送题；已尝试题不会重发。'})[snapshot.phase]+(snapshot.detail?' '+snapshot.detail:'');
       }
     });
     await runner.start();
