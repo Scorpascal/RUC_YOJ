@@ -15,6 +15,19 @@
     return p;
   }
   function makeHandoff(id,items){return parseHandoff(JSON.stringify({version:1,id,items:items.map(e=>Object.fromEntries(keys.map(k=>[k,e[k]])))}));}
+  const approvalKey=id=>'yoj-batch-approved-v1:'+id;
+  function saveApproved(storage,payload,now=Date.now()){
+    const p=parseHandoff(JSON.stringify(payload)),previous=storage.getItem(approvalKey(p.id));
+    if(previous!==null){const row=JSON.parse(previous),old=parseHandoff(JSON.stringify(row.payload));
+      if(old.id!==p.id)throw Error('批次确认不匹配，请新建批次。');matchItems(p,old.items);}
+    storage.setItem(approvalKey(p.id),JSON.stringify({payload:p,expiresAt:now+1800000}));
+  }
+  function loadApproved(storage,id,now=Date.now()){
+    if(!/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/.test(id||''))throw Error('批次编号无效。');
+    const row=JSON.parse(storage.getItem(approvalKey(id))||'null');
+    if(!row||!Number.isFinite(row.expiresAt)||row.expiresAt<=now||row.expiresAt>now+1800000)throw Error('批次确认已过期或不可读取，请回题库重新确认。');
+    const p=parseHandoff(JSON.stringify(row.payload));if(p.id!==id)throw Error('批次确认不匹配。');return p;
+  }
   function matchItems(payload,items){if(!Array.isArray(items)||items.length!==payload.items.length||items.some((e,i)=>keys.some(k=>e[k]!==payload.items[i][k])))throw Error('公开代码或题目身份已变化，请回题库重新核对。');return items;}
   function pause(ms,signal){return new Promise(resolve=>{const done=()=>{clearTimeout(timer);signal.removeEventListener('abort',done);resolve();};const timer=setTimeout(done,ms);signal.addEventListener('abort',done,{once:true});if(signal.aborted)done();});}
   function createRunner(items,io){
@@ -33,10 +46,13 @@
           if(controller.signal.aborted)return;
           await io.guard();if(controller.signal.aborted)return;const baseline=await io.baseline(controller.signal);if(controller.signal.aborted)return;
           await io.guard();if(controller.signal.aborted)return;io.remember(item.problemNo);row.state='UNCERTAIN';notify();
-          await io.post(item,controller.signal);posted=true;if(controller.signal.aborted)return;
+          // A redirect/network failure can occur after YOJ accepted the POST.
+          // Reconcile once through read-only evidence; never repeat the POST.
+          try{await io.post(item,controller.signal);}catch(error){detail='提交响应未确认，正在核对原站记录。';notify();}
+          posted=true;if(controller.signal.aborted)return;
           const receipt=await io.receipt(item,baseline,controller.signal);
           if(!receipt||!Number.isSafeInteger(receipt.submissionNo)||receipt.submissionNo<=baseline)throw Error('原站受理结果不明，已停止；请核对记录，勿重发。');
-          row.receipt=receipt;row.state='RECEIVED';notify();if(controller.signal.aborted)return;
+          detail='';row.receipt=receipt;row.state='RECEIVED';notify();if(controller.signal.aborted)return;
         }
         phase='DONE';notify();
       }catch(error){phase='STOPPED';detail=error.message||'结果不明，已停止。';notify();}
@@ -44,5 +60,5 @@
     }
     return Object.freeze({start,stop,snapshot});
   }
-  return Object.freeze({parseHandoff,makeHandoff,matchItems,createRunner,pause});
+  return Object.freeze({parseHandoff,makeHandoff,saveApproved,loadApproved,matchItems,createRunner,pause});
 });

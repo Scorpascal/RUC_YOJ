@@ -33,14 +33,15 @@
     if(!value)throw Error('核验脚本不可用，未发送。');return value;
   }
   const normalized=s=>s.replace(/\r\n|\r/g,'\n');
-  async function request(path,{data,signal=controller.signal,referrer}={}) {
+  async function request(path,{data,signal=controller.signal,referrer,judge=false}={}) {
     const url=new URL(path,location.origin);if(url.origin!==location.origin)throw Error('原站地址不一致。');
     const timeout=new AbortController(),abort=()=>timeout.abort();signal.addEventListener('abort',abort,{once:true});if(signal.aborted)abort();
     const timer=setTimeout(abort,30000);
     try {
-      const response=await fetch(url,{method:data?'POST':'GET',credentials:'same-origin',cache:'no-store',signal:timeout.signal,redirect:'error',
+      const response=await fetch(url,{method:data?'POST':'GET',credentials:'same-origin',cache:'no-store',signal:timeout.signal,redirect:judge?'manual':'error',
         ...(referrer?{referrer:new URL(referrer,location.origin).href,referrerPolicy:'same-origin'}:{}),
         headers:data?{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8','X-Requested-With':'XMLHttpRequest'}:{},body:data?new URLSearchParams(data):undefined});
+      if(judge&&response.type==='opaqueredirect')return null;
       if(!response.ok||(new URL(response.url).origin!==location.origin||new URL(response.url).pathname!==url.pathname))throw Error('YOJ 请求失败，请核对登录与网络。');
       return await response.text();
     }finally{clearTimeout(timer);signal.removeEventListener('abort',abort);}
@@ -65,8 +66,10 @@
   }
   try {
     const H=await script('assets/inpage-batch-core.js','YOJInPageCore');
-    const fragment=location.hash;if(!fragment.startsWith('#yoj-batch='))throw Error('缺少本批次清单，请回题库选择题目并打开YOJ。');
-    const payload=H.parseHandoff(decodeURIComponent(fragment.slice(11)));
+    const fragment=location.hash,batchId=new URLSearchParams(location.search).get('yoj_batch');
+    if(batchId&&!/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/.test(batchId))throw Error('批次编号无效。');
+    if(!batchId&&!fragment.startsWith('#yoj-batch='))throw Error('缺少本批次清单，请回题库选择题目并打开YOJ。');
+    let payload=batchId?null:H.parseHandoff(decodeURIComponent(fragment.slice(11)));
     if(controller.signal.aborted)return;
     if(!logged(document))throw Error('请先在YOJ登录，再从题库重新打开本批次；尚未发送。');
     // A short settling window resolves simultaneous same-origin lease claims.
@@ -108,15 +111,16 @@
     let S;window.YOJBatch=B;
     try{S=await script('assets/batch-session.js','YOJBatchSession');}finally{if(previousB===undefined)delete window.YOJBatch;else window.YOJBatch=previousB;}
     if(controller.signal.aborted)return;await guard();
-    const ledger=S.createLedger(localStorage,payload.id,payload.items.map(i=>i.problemNo));ledger.claimMode("inpage");
     const items=await new Promise((resolve,reject)=>{
       const gate=gateHandle.window;let timer,hello;
       function clean(){clearTimeout(timer);clearInterval(hello);removeEventListener('message',receive);controller.signal.removeEventListener('abort',abort);try{gate.close();}catch(_){}}
       function abort(){clean();reject(new DOMException('已停止','AbortError'));}
       function receive(event){
         if(event.origin!==new URL(SITE).origin||event.source!==gate||event.data?.nonce!==nonce)return;
-        if(event.data.type==='gate-ready')gate.postMessage({type:'verify',nonce,payload},new URL(SITE).origin);
-        else if(event.data.type==='verified'){clean();try{resolve(H.matchItems(payload,event.data.items));}catch(error){reject(error);}}
+        if(event.data.type==='gate-ready')gate.postMessage({type:'verify',nonce,...(batchId?{batchId}:{payload})},new URL(SITE).origin);
+        else if(event.data.type==='verified'){clean();try{
+          if(batchId){payload=H.parseHandoff(JSON.stringify(event.data.payload));if(payload.id!==batchId)throw Error('核验返回了其他批次，未发送。');}
+          resolve(H.matchItems(payload,event.data.items));}catch(error){reject(error);}}
         else if(event.data.type==='failed'){clean();reject(Error('公开代码核验失败或已变化，未发送；请返回题库重新核对。'));}
       }
       addEventListener('message',receive);controller.signal.addEventListener('abort',abort,{once:true});
@@ -125,6 +129,7 @@
       if(controller.signal.aborted){abort();return;}hello=setInterval(ping,500);ping();
     });
     if(controller.signal.aborted)return;
+    const ledger=S.createLedger(localStorage,payload.id,payload.items.map(i=>i.problemNo));ledger.claimMode('inpage');
     const cells=new Map();for(const item of items){const p=document.createElement('p');p.textContent='#'+item.problemNo+' '+item.title+'：等待原站检查';list.append(p);cells.set(item.problemNo,p);}
     runner=H.createRunner(items,{
       guard,attempted:()=>ledger.attempted(),remember:n=>ledger.remember(n),
@@ -145,7 +150,8 @@
       },
       async baseline(signal){return Math.max(0,...(await rows(signal)).map(r=>r.submissionNo));},
       async post(item,signal){
-        const text=await request(new URL(item.submitEndpoint).pathname,{data:{pid:String(item.problemNo),language:item.language,code:item.code},signal,referrer:new URL(item.problemUrl).pathname});
+        const text=await request(new URL(item.submitEndpoint).pathname,{data:{pid:String(item.problemNo),language:item.language,code:item.code},signal,referrer:new URL(item.problemUrl).pathname,judge:true});
+        if(text===null)return; // Redirect is not acceptance; receipt checks follow.
         let response;try{response=JSON.parse(text.replace(/^\ufeff/,''));}catch(_){throw Error('YOJ 未返回可确认的受理响应，已停止，请核对记录。');}
         if(String(response?.status)!=='1')throw Error('YOJ 拒绝或未确认本题，已停止，请查看原站记录。');
       },

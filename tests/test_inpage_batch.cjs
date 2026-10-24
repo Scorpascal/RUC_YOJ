@@ -23,11 +23,14 @@ test('one start submits entire batch with receipts and pacing; duplicate start n
  assert.ok(f.posts[1].at-f.posts[0].at>=3000);assert.equal(f.runner.snapshot().phase,'DONE');
  assert.deepEqual(f.runner.snapshot().rows.map(r=>r.receipt.submissionNo),[108,109]);
 });
-test('missing receipt or failing POST stops without retry or next item',async()=>{
- for(const options of [{receipt:async()=>{throw Error('unknown');}},{post:async()=>{throw Error('network');}}]) {
-  const f=fixture(options);await f.runner.start();await f.runner.start();assert.deepEqual(f.remembered,[8]);
-  assert.equal(f.runner.snapshot().phase,'STOPPED');assert.deepEqual(f.runner.snapshot().rows.map(r=>r.state),['UNCERTAIN','WAITING']);
- }
+test('missing receipt stops without retry; failed POST response reconciles real evidence once',async()=>{
+ const f=fixture({receipt:async()=>{throw Error('unknown');}});await f.runner.start();await f.runner.start();
+ assert.deepEqual(f.remembered,[8]);assert.equal(f.runner.snapshot().phase,'STOPPED');
+ assert.deepEqual(f.runner.snapshot().rows.map(r=>r.state),['UNCERTAIN','WAITING']);
+ let attempts=0;const g=fixture({post:async()=>{attempts++;throw Error('response lost');}});await g.runner.start();
+ assert.equal(attempts,2);assert.equal(g.runner.snapshot().phase,'DONE');
+ const h=fixture({post:async()=>{throw Error('network');},receipt:async()=>{throw Error('no evidence');}});
+ await h.runner.start();assert.equal(h.runner.snapshot().phase,'STOPPED');assert.deepEqual(h.remembered,[8]);
 });
 test('Stop during async preflight or polling never sends another item',async()=>{
  let release;const f=fixture({preflight:()=>new Promise(r=>{release=r;})});const pending=f.runner.start();await new Promise(r=>setImmediate(r));f.runner.stop();release();await pending;
@@ -43,4 +46,27 @@ test('batch execution mode persists and cannot switch silently',()=>{
  const ledger=S.createLedger(storage,id,[8,9]);ledger.claimMode('inpage');
  const resumed=S.createLedger(storage,id,[8,9],{resume:true});assert.equal(resumed.mode(),'inpage');assert.throws(()=>resumed.claimMode('cross'));
  resumed.claimMode('inpage');assert.deepEqual([...resumed.attempted()],[]);
+});
+test('shared entry lock prevents simultaneous tabs, mode switching, and same-batch resends',async()=>{
+ const E=require('../docs/assets/batch-entry.js'),data=new Map(),held=new Set();
+ const storage={getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v)};
+ const locks={async request(key,options,fn){if(held.has(key))return fn(null);held.add(key);try{return await fn({name:key});}finally{held.delete(key);}}};
+ const a=E.create(storage,locks,id,[8,9]),b=E.create(storage,locks,id,[8,9]);let release;
+ const running=a.run('cross',async()=>{a.remember(8);await new Promise(r=>release=r);});
+ await assert.rejects(b.run('inpage',()=>assert.fail('must not run')),/另一个页面/);
+ release();await running;assert.deepEqual([...b.attempted()],[8]);
+ await assert.rejects(b.run('inpage',()=>{}),/另一执行方式/);
+ await b.run('cross',()=>{assert.throws(()=>b.remember(8),/已尝试/);b.remember(9);});
+ const next=E.create(storage,locks,'22222222-2222-4222-8222-222222222222',[8,9]);
+ await next.run('inpage',()=>{});assert.equal(next.mode(),'inpage');
+ assert.throws(()=>E.create(storage,locks,id,[8]).mode(),/不一致/);
+ await assert.rejects(E.create(storage,null,id,[8,9]).run('cross',()=>{}),/跨页/);
+});
+test('short handoff reads only its unexpired exact public approval',()=>{
+ const data=new Map(),storage={getItem:k=>data.get(k)||null,setItem:(k,v)=>data.set(k,v)};
+ const p=H.makeHandoff(id,rows);H.saveApproved(storage,p,1000);assert.deepEqual(H.loadApproved(storage,id,2000),p);
+ assert.throws(()=>H.loadApproved(storage,id,1801000),/过期/);assert.throws(()=>H.loadApproved(storage,'other',2000));
+ assert.equal([...data.values()].join('').includes('int main'),false);
+ const original=data.get('yoj-batch-approved-v1:'+id);const changed=JSON.parse(JSON.stringify(p));changed.items[0].codeSha256='b'.repeat(64);assert.throws(()=>H.saveApproved(storage,changed,2000),/变化/);assert.equal(data.get('yoj-batch-approved-v1:'+id),original);H.saveApproved(storage,p,3000);assert.deepEqual(H.loadApproved(storage,id,4000),p);
+ const key='yoj-batch-approved-v1:'+id;const row=JSON.parse(data.get(key));row.payload.id='22222222-2222-4222-8222-222222222222';data.set(key,JSON.stringify(row));assert.throws(()=>H.loadApproved(storage,id,4000),/不匹配/);
 });

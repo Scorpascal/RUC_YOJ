@@ -11,12 +11,12 @@
     used=true;
     const reply=data=>caller.postMessage({nonce,...data},event.origin);
     try {
-      const p=YOJInPageCore.parseHandoff(JSON.stringify(event.data.payload));
+      const p=event.data.batchId?YOJInPageCore.loadApproved(localStorage,event.data.batchId):YOJInPageCore.parseHandoff(JSON.stringify(event.data.payload));
       const read=async path=>{const r=await fetch(path,{cache:'no-store',credentials:'omit'});if(!r.ok)throw Error('公开清单不可用');return r.json();};
       const [manifest,catalog]=await Promise.all([read('data/quick-submit.json'),read('data/catalog.json')]);
       const items=await YOJBatch.prepareBatch(p.items.map(e=>e.problemNo),manifest,catalog,fetch,crypto);
       YOJInPageCore.matchItems(p,items);
-      reply({type:'verified',items:items.map(e=>({...p.items.find(i=>i.problemNo===e.problemNo),code:e.code,title:e.title,originalSubmissionKind:e.originalSubmissionKind||'STANDARD_CODE'}))});
+      reply({type:'verified',payload:p,items:items.map(e=>({...p.items.find(i=>i.problemNo===e.problemNo),code:e.code,title:e.title,originalSubmissionKind:e.originalSubmissionKind||'STANDARD_CODE'}))});
     }catch(_){reply({type:'failed'});}
   });
   caller.postMessage({type:'gate-ready',nonce},'*'); // Public nonce only; code replies target the checked origin.
