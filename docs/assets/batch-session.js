@@ -22,6 +22,7 @@
         B.parseNumbers(row.selection.join(","));
         if (row.attempted.some(n => !row.selection.includes(n)) || new Set(row.attempted).size !== row.attempted.length)
           throw new Error("批次尝试记录损坏；未发送新评测。");
+        if (row.mode !== undefined && !["cross", "inpage"].includes(row.mode)) throw new Error("批次执行方式损坏，未发送。");
         seen.add(row.id);
       }
       return data;
@@ -54,7 +55,14 @@
       } catch (_) { /* Old-format data never authorizes a send or blocks a new intent. */ }
       return selection.filter(n => prior.has(n));
     }
-    return Object.freeze({attempted, remember, overlaps});
+    function mode() { return own(read()).mode || ""; }
+    function claimMode(value) {
+      if (!["cross", "inpage"].includes(value)) throw new Error("未知执行方式。");
+      const data = read(), row = own(data);
+      if (row.mode && row.mode !== value) throw new Error("本批次已绑定另一执行方式，请核对原站后明确新建批次，勿重复发送。");
+      row.mode = value; storage.setItem(KEY, JSON.stringify(data));
+    }
+    return Object.freeze({attempted, remember, overlaps, mode, claimMode});
   }
   return Object.freeze({createLedger});
 });
