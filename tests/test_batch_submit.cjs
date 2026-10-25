@@ -334,7 +334,7 @@ async function batchPage({numbers='1726,285',batchId=batchA,resume=false,confirm
     localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},navigator:{locks:{request:async(k,o,f)=>f({name:k})}},
     fetch:async url=>url==='data/quick-submit.json'?{ok:true,json:async()=>manifest(entries)}:
       url==='data/catalog.json'?{ok:true,json:async()=>catalog(entries)}:fetchCode(url),
-    window:{YOJBatchEntry:require("../docs/assets/batch-entry.js"),YOJBatchSession:S,YOJBatchTransport:{createTransport(options){return T.createTransport({...options,
+    window:{YOJInPageEntry:require("../docs/assets/inpage-entry.js"),YOJBatchEntry:require("../docs/assets/batch-entry.js"),YOJBatchSession:S,YOJBatchTransport:{createTransport(options){return T.createTransport({...options,
       openWindow:()=>({closed:false,close(){}}),pause:async()=>{}});}},YOJBatch:{...B,createRunner(items,io){return B.createRunner(items,{...io,pause});}},
       open(url,name){opens.push({url,name});throw new Error('preopening is not allowed');},
       confirm(text){confirmations.push(text);return confirm;},addEventListener(){}}});

@@ -151,3 +151,12 @@ test('Stop during item session recheck or lost lease after it prevents every POS
  let guards=0;const g=fixture({guard:async()=>{if(++guards===3)throw Error('lost lease');},preflightItem:async()=>{throw H.itemUnavailable('denied');}});
  await g.runner.start();assert.equal(g.runner.snapshot().phase,'STOPPED');assert.match(g.runner.snapshot().detail,/lost lease/);assert.equal(g.posts.length,0);
 });
+
+test('universal bookmark requires exact YOJ origin and explicit handoff before opening anything',()=>{
+ const I=require('../docs/assets/inpage-entry.js'),vm=require('node:vm'),script=decodeURIComponent(I.bookmarkHref().slice(11));
+ for(const url of ['https://yoj.ruc.edu.cn.invalid/?yoj_batch=x','http://yoj.ruc.edu.cn:8080/?yoj_batch=x','http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/8.html']){
+  let opens=0;const alerts=[];
+  vm.runInNewContext(script,{location:new URL(url),URLSearchParams,document:{getElementById:()=>null},window:{open(){opens++;}},alert:m=>alerts.push(m)});
+  assert.equal(opens,0);assert.equal(alerts.length,1);
+ }
+});

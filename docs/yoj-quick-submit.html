@@ -45,13 +45,15 @@
     <h1 id="title">正在读取题目…</h1>
     <div class="meta" id="meta"></div>
     <div class="notice" id="notice">
-      该页面不保存账号、密码或 Cookie。请先在 YOJ 登录；“提交到 YOJ”只在你明确点击按钮后发送当前题号、当前语言和下方代码。页面使用的是仓库中已记录为 Accepted 的原始可提交归档。
+      该页面不保存账号、密码或 Cookie。推荐确认本题后打开 YOJ，点击一次“YOJ 通用提交”书签，自动发送并核对受理记录。评测结果仍到 YOJ 查看。
     </div>
     <div class="actions">
+      <button id="inpage" type="button" disabled>确认本题并打开YOJ自动提交</button>
       <button id="copy" type="button" disabled>复制代码</button>
-      <button id="submit" type="button" disabled>一键提交到 YOJ</button>
+      <button id="submit" type="button" class="secondary" disabled>跨站直发（兼容入口）</button>
       <a id="open" class="button secondary" target="_blank" rel="noopener" href="#">打开 YOJ 题目页</a>
     </div>
+    <button id="new-single" class="secondary" type="button" disabled>新建本题提交</button>
     <p id="status" class="status" role="status">正在加载公开代码…</p>
     <h2 id="code-heading">提交代码</h2>
     <pre id="source"><code></code></pre>
@@ -60,13 +62,18 @@
       <p id="native-hash" class="muted small"></p>
       <pre id="native-source"></pre>
     </details>
-    <h2>登录后的页内填充（回退方案）</h2>
-    <p class="muted small"><strong>安装步骤：</strong>请把下面的按钮拖到浏览器收藏栏（不要直接点击；旧书签需重新安装）；然后用上方链接打开 YOJ 题目页，在收藏栏点击它。它只在题号、考试上下文和语言匹配时填入代码，随后由你在 YOJ 页面点击提交。遇到登录失效、题目不可见或考试权限不足时会停止，不会自动重试提交。</p>
-    <p><a id="bookmarklet" class="button secondary" draggable="true" href="#" title="拖到收藏栏后，在 YOJ 题目页点击">拖到收藏栏：YOJ 页内填充书签</a></p>
+    <h2>可复用的页内自动提交（单题 / 整批通用）</h2>
+    <p class="muted small">首次将下面的“YOJ 通用提交”拖到收藏栏保存。每次在单题或批量页确认清单并打开 YOJ 后，点同一个书签即可自动执行，不用再按原站提交按钮。旧“YOJ 整批提交”书签可继续使用；旧“页内填充”书签绑定固定题目，请替换一次。</p>
+    <p><a id="bookmarklet" class="button secondary" draggable="true" href="#" title="保存一次，单题和整批通用">拖到收藏栏：YOJ 通用提交</a></p>
+    <p class="muted small">书签不会猜测当前题目或选取其他未确认代码。重复点书签只打开当前结果面板；刷新同一 YOJ 任务不会重发已尝试题。确需再次提交本题时，请先核对原站记录，再点击“新建本题提交”并重新确认。确认有效期30分钟；过期时返回本页重新确认。账号状态无法确认或受理不明时停止，评测请求不自动重试。</p>
     <footer>代码来源与哈希由仓库构建脚本生成；提交结果以 YOJ 页面显示为准。</footer>
   </section>
 </main>
 <script src="assets/batch-submit.js"></script>
+<script src="assets/batch-session.js"></script>
+<script src="assets/batch-entry.js"></script>
+<script src="assets/inpage-batch-core.js"></script>
+<script src="assets/inpage-entry.js"></script>
 <script>
 (() => {
   "use strict";
@@ -76,7 +83,23 @@
   const $ = (id) => document.getElementById(id);
   const title = $("title"), meta = $("meta"), source = $("source").firstElementChild, notice = $("notice");
   const status = $("status"), copy = $("copy"), submit = $("submit"), open = $("open"), bookmarklet = $("bookmarklet");
-  let entry = null, code = "", nativeEntry = null, submissionSent = false;
+  const inpage=$("inpage"),newSingle=$("new-single");
+  let entry = null, code = "", nativeEntry = null, prepared = null, submissionSent = false, busy = false, ledger = null, control = null;
+  function openLedger(id,resume=false){
+    const next=window.YOJBatchSession.createLedger(sessionStorage,id,[problemNo],{resume});
+    const nextControl=window.YOJBatchEntry.create(localStorage,navigator.locks,id,[problemNo]);
+    nextControl.mode();
+    const url=new URL(location.href);url.searchParams.set("batch",id);history.replaceState(null,"",url.href);
+    ledger=next;control=nextControl;
+  }
+  function arm(){
+    submissionSent=ledger.attempted().size>0||control.attempted().size>0;
+    const mode=control.mode()||ledger.mode();
+    submit.disabled=busy||submissionSent||mode==='inpage'||(entry.submissionKind==='PARTIAL_CODE'&&!nativeEntry);
+    inpage.disabled=busy||!prepared||submissionSent||mode==='cross';
+    newSingle.disabled=busy;
+    inpage.textContent=mode==='inpage'?'重新打开本题YOJ任务（不重发）':'确认本题并打开YOJ自动提交';
+  }
 
   function setStatus(message, isError = false) {
     status.textContent = message;
@@ -105,81 +128,45 @@
       }
       setStatus(`已复制 ${code.length} 个字符；语言为 ${entry.language}。`);
     } catch (_) {
-      setStatus("复制失败；请手动选中下方代码复制。" + (submissionSent ? "已发起过提交，请先核对 YOJ 提交记录，不要重复发送。" : "尚未发送评测。"), true);
+      setStatus("复制失败；请手动选中下方代码复制。" + ((submissionSent || control?.mode()==='inpage') ? "已准备或发起过提交，请先核对 YOJ 提交记录，不要重复发送。" : "尚未发送评测。"), true);
     }
   }
   function addHidden(form, name, value) {
     const input = document.createElement("input");
     input.type = "hidden"; input.name = name; input.value = value; form.appendChild(input);
   }
-  function submitToYOJ() {
-    if (!entry || !code || submissionSent || (entry.submissionKind === "PARTIAL_CODE" && !nativeEntry)) return;
-    const form = document.createElement("form");
-    form.method = "post"; form.action = nativeEntry?.submitEndpoint || entry.submitEndpoint; form.target = "_blank"; form.rel = "noopener"; form.acceptCharset = "UTF-8";
-    addHidden(form, "pid", String(entry.problemNo));
-    addHidden(form, "language", entry.language);
-    addHidden(form, "code", nativeEntry ? nativeEntry.code : code);
-    document.body.appendChild(form);
-    // Do not infer success from opening a window, or retry an uncertain POST.
-    submissionSent = true; submit.disabled = true;
-    setStatus(`已发起 ${entry.language} / ${entry.problemNo} 的提交窗口；若有浏览器安全提示，请自行确认或取消。请先核对 YOJ 提交记录；结果不明时不要重复发送，确需再次提交请刷新本页。`);
-    form.submit();
-    // Retain the initiating form while Safari may be asking for confirmation.
+  async function submitToYOJ() {
+    if (!entry || !code || !control || busy || submissionSent || control.mode()==='inpage' || (entry.submissionKind === "PARTIAL_CODE" && !nativeEntry)) return;
+    busy=true;arm();
+    try{await control.run('cross',()=>{
+      ledger.claimMode('cross');
+      const form = document.createElement("form");
+      form.method = "post"; form.action = nativeEntry?.submitEndpoint || entry.submitEndpoint; form.target = "_blank"; form.rel = "noopener"; form.acceptCharset = "UTF-8";
+      addHidden(form, "pid", String(entry.problemNo));addHidden(form, "language", entry.language);addHidden(form, "code", nativeEntry ? nativeEntry.code : code);
+      control.remember(problemNo);ledger.remember(problemNo);
+      document.body.appendChild(form);submissionSent=true;
+      setStatus(`已发起 ${entry.language} / ${entry.problemNo} 的提交窗口；请核对 YOJ 记录，结果不明时不要重发。需要再次提交时，请明确新建本题提交。`);
+      form.submit();
+    });}catch(error){setStatus(error.message,true);}finally{busy=false;arm();}
   }
-  async function fillOnYOJ(payload) {
-    /* Self-contained; URL normalization removes newlines, so no // comments. */
-    const correctPage = payload.problemUrl;
-    try {
-      const expected = new URL(correctPage), current = new URL(location.href);
-      const route = /^\/index\.php\/index\/problem\/detail\/pno\/(\d+)(?:\/eno\/(\d+))?\.html$/;
-      const want = expected.pathname.match(route), have = current.pathname.match(route);
-      if (current.hostname !== "yoj.ruc.edu.cn" || current.port || !["http:","https:"].includes(current.protocol) ||
-          !want || !have || have[1] !== String(payload.problemNo) || have[1] !== want[1] || have[2] !== want[2]) {
-        throw new Error("当前题号或考试上下文不匹配；请用正确链接打开题目");
-      }
-      const form = document.querySelector("#submit_code");
-      if (!form || form.querySelector("[name='pid']")?.value !== String(payload.problemNo) || !form.querySelector("[name='code']")) {
-        throw new Error("找不到匹配的提交表单；请先登录并确认题目/考试权限");
-      }
-      const languageItem = form.querySelector("[data-value='" + payload.language + "']");
-      if (!languageItem) throw new Error("当前提交表单不提供语言 " + payload.language);
-      const response = await fetch(payload.codeUrl, {cache:"no-store", credentials:"omit"});
-      if (!response.ok) throw new Error("源码加载失败（HTTP " + response.status + "）");
-      const text = await response.text();
-      if (!text.trim()) throw new Error("源码为空，未填入编辑器");
-      languageItem.click();
-      if (!languageItem.classList.contains("active")) throw new Error("语言选择未生效，未填入代码");
-      /* Prefer the editor the original YOJ submit handler actually reads. */
-      const editors = window.monaco?.editor?.getEditors?.() || [];
-      const editor = window.editor || (editors.length === 1 ? editors[0] : null);
-      if (editor?.setValue && editor?.getValue) {
-        editor.setValue(text);
-        if (editor.getValue() !== text) throw new Error("编辑器内容未完整写入");
-      } else {
-        const textarea = form.querySelector("textarea[name='code']");
-        if (!textarea) throw new Error("找不到可安全填充的 YOJ 编辑器；请等待加载或手动粘贴");
-        const setter = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, "value")?.set;
-        if (setter) setter.call(textarea, text); else textarea.value = text;
-        textarea.dispatchEvent(new Event("input", {bubbles:true}));
-        textarea.dispatchEvent(new Event("change", {bubbles:true}));
-        if (textarea.value !== text) throw new Error("编辑框内容未完整写入");
-      }
-      alert("已填入题号 " + payload.problemNo + "，语言 " + payload.language + "；请检查后在 YOJ 页面点击提交。");
-    } catch (error) {
-      alert("YOJ 填充失败：" + (error?.message || error) + "\n正确题目链接：" + correctPage + "\n尚未发送评测；不要在结果不明时重复提交。");
-    }
-  }
-  function makeBookmarklet() {
-    const payload = {problemNo:entry.problemNo, problemUrl:entry.problemUrl, language:entry.language, codeUrl:entry.codeUrl};
-    const script = "(" + fillOnYOJ.toString() + ")(" + JSON.stringify(payload) + ");void 0";
-    // javascript: navigation decodes one URL layer before execution. Encode
-    // the script once so source-path %23 stays %23 inside the JS string,
-    // rather than becoming a URL fragment; also preserve script whitespace.
-    bookmarklet.href = "javascript:" + encodeURIComponent(script);
-  }
+  bookmarklet.href=window.YOJInPageEntry.bookmarkHref();
+  inpage.addEventListener('click',async()=>{
+    if(!prepared||busy||submissionSent||!control||control.mode()==='cross')return;
+    busy=true;arm();
+    try{
+      await window.YOJInPageEntry.approveAndOpen({id:new URL(location.href).searchParams.get('batch'),items:[prepared],entry:control,ledger,storage:localStorage,open:(...args)=>window.open(...args)});
+      setStatus('已确认本题，请在新开的YOJ页面点击“YOJ 通用提交”书签。之后自动提交并核对受理；同一任务已尝试的题不会重发。');
+    }catch(error){setStatus(error.message,true);}finally{busy=false;arm();}
+  });
+  newSingle.addEventListener('click',()=>{
+    if(busy||!entry||!code)return;
+    try{openLedger(crypto.randomUUID());arm();setStatus('已新建本题提交。请先核对先前YOJ记录；确认后可使用同一书签再次提交。');}catch(error){inpage.disabled=submit.disabled=true;setStatus(error.message,true);}
+  });
   async function load() {
     if (!Number.isInteger(problemNo) || problemNo <= 0) { title.textContent = "缺少有效题号"; setStatus("请从 README 的快捷提交链接进入。", true); return; }
-    const manifest = await (await fetch("data/quick-submit.json", { cache: "no-store" })).json();
+    const response = await fetch("data/quick-submit.json", {cache:"no-store",credentials:"omit"});
+    if(!response.ok)throw Error("公开清单下载失败，尚未发送评测。");
+    const manifest = await response.json();
     const verifiedEntries = Array.isArray(manifest.entries) ? manifest.entries : [];
     const archivedEntries = Array.isArray(manifest.archivedEntries) ? manifest.archivedEntries : [];
     entry = (archiveMode ? archivedEntries : verifiedEntries).find((item) => Number(item.problemNo) === problemNo);
@@ -191,44 +178,42 @@
     if (entry.warning) notice.textContent = `${entry.warning} 页面不保存账号、密码或 Cookie；提交结果以 YOJ 页面显示为准。`;
     open.href = entry.problemUrl;
     if (/\/eno\/\d+\.html$/.test(new URL(entry.problemUrl).pathname)) {
-      notice.textContent += " 本题来自课程/考试入口，一键直投仍可尝试；若原站提示找不到题目，请用“打开 YOJ 题目页”保留 eno 上下文，再使用页内填充书签。请勿自动重复提交。";
+      notice.textContent += " 本题来自课程/考试入口，一键直投仍可尝试；若原站提示找不到题目，请用“打开 YOJ 题目页”保留 eno 上下文，再核对课程/考试权限；页内自动提交会保留同一上下文。请勿自动重复提交。";
     }
-    if (entry.submissionKind === "PARTIAL_CODE") {
-      const catalog = await (await fetch("data/catalog.json", {cache: "no-store", credentials: "omit"})).json();
-      [nativeEntry] = await window.YOJBatch.prepareBatch([problemNo], manifest, catalog, fetch, crypto);
-      code = nativeEntry.fragmentCode;
-    } else {
-      const response = await fetch(entry.codeUrl, { cache: "no-store" });
-      if (!response.ok) throw new Error(`源码加载失败（HTTP ${response.status}）`);
-      code = await response.text();
+    if(entry.source!=='ACCEPTED_ARCHIVE'){
+      const response=await fetch("data/catalog.json",{cache:"no-store",credentials:"omit"});
+      if(!response.ok)throw Error("公开目录下载失败，尚未发送评测。");
+      [prepared]=await window.YOJBatch.prepareBatch([problemNo],manifest,await response.json(),fetch,crypto);
+      nativeEntry=entry.submissionKind==='PARTIAL_CODE'?prepared:null;
+      code=nativeEntry?nativeEntry.fragmentCode:prepared.code;
+    }else{
+      const response=await fetch(entry.codeUrl,{cache:"no-store",credentials:"omit"});
+      if(!response.ok)throw Error(`源码加载失败（HTTP ${response.status}）`);
+      code=await response.text();
     }
     source.textContent = code;
-    copy.disabled = false; submit.disabled = false;
-    if (entry.submissionKind === "PARTIAL_CODE") {
+    const id=new URL(location.href).searchParams.get('batch');
+    openLedger(id||crypto.randomUUID(),!!id);arm();copy.disabled=false;
+    if (entry.submissionKind === "PARTIAL_CODE" && nativeEntry) {
       notice.textContent += " 本题一键提交使用清单绑定且哈希校验通过的完整组装程序，兼容原生浏览器表单。下方展示和复制仍为原填空片段，可粘贴到原站待填区；原片段及发布证据不变。";
       $("code-heading").textContent = "填空片段（复制/原站手填）";
       $("native-preview").hidden = false;
       $("native-source").textContent = nativeEntry.code;
       $("native-hash").textContent = `SHA-256: ${nativeEntry.codeSha256}`;
-      bookmarklet.href = "#";
-      bookmarklet.style.pointerEvents = "none";
-      bookmarklet.textContent = "填空题请直接提交或复制片段";
-    } else {
-      makeBookmarklet();
     }
-    setStatus(`已加载；提交时会固定使用语言 ${entry.language}，请先确认 YOJ 登录态。${entry.source === "ACCEPTED_ARCHIVE" ? "这是历史 Accepted 归档，请先人工核对。" : ""}`);
+    setStatus(`已加载；提交时会固定使用语言 ${entry.language}，请先确认 YOJ 登录态。${entry.source === "ACCEPTED_ARCHIVE" ? "这是历史 Accepted 归档，不开放页内自动提交，请先人工核对。" : ""}`);
   }
   copy.addEventListener("click", copyText);
   bookmarklet.addEventListener("click", (event) => {
     event.preventDefault();
-    setStatus("请先把书签拖到收藏栏，再在 YOJ 题目页点击它；不要直接在本页点击。", true);
+    setStatus("请先把书签拖到收藏栏，确认本题并打开YOJ后点击它；不要直接在本页点击。", true);
   });
-  submit.addEventListener("click", () => {
-    if (submissionSent) return;
+  submit.addEventListener("click", async () => {
+    if (submissionSent || busy || !entry || !control || control.mode()==='inpage') return;
     const prefix = entry?.source === "ACCEPTED_ARCHIVE" ? "这是未完成本轮 PUBLIC_READY 复核的历史 Accepted 代码。" : "";
-    if (window.confirm(`${prefix}\n确认向 YOJ 题号 ${entry?.problemNo} 提交当前代码？语言：${entry?.language}`)) submitToYOJ();
+    if (window.confirm(`${prefix}\n确认向 YOJ 题号 ${entry?.problemNo} 提交当前代码？语言：${entry?.language}`)) await submitToYOJ();
   });
-  load().catch((error) => { title.textContent = "快捷提交页面加载失败"; setStatus(error.message, true); });
+  load().catch((error) => { inpage.disabled=submit.disabled=true;newSingle.disabled=!(entry&&code); title.textContent = "快捷提交页面加载失败"; setStatus(error.message, true); });
 })();
 </script>
 </body>

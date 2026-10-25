@@ -64,40 +64,30 @@
     message((text[snapshot.phase] || "尚未开始。") + (snapshot.detail ? ` ${snapshot.detail}` : ""), ["STOPPED", "BLOCKED"].includes(snapshot.phase));
     if (snapshot.phase === "BLOCKED" && snapshot.detail.includes("弹窗")) $("popup-help").open = true;
   }
-  if (bookmark) {
-    const loader = function () {
-      if (location.hostname !== "yoj.ruc.edu.cn") { alert("请先打开本批次的 YOJ 页面，再点此书签。"); return; }
-      if (window.__yojInPageBatch) { window.__yojInPageBatch.show(); return; }
-      if (document.getElementById("yoj-inpage-loader")) return;
-      if (!new URLSearchParams(location.search).get("yoj_batch") && !location.hash.startsWith("#yoj-batch=")) { alert("请从题库打开带本批次清单的YOJ页面。"); return; }
-      const nonce = Array.from(crypto.getRandomValues(new Uint8Array(16)), b => b.toString(16).padStart(2,"0")).join("");
-      const gate = window.open("https://scorpascal.github.io/RUC_YOJ/yoj-batch-gate.html#" + nonce, "_blank");
-      if (!gate) { alert("核验窗口被阻止，尚未发送；请允许本次核验窗口。"); return; }
-      window.__yojInPageGate = {window: gate, nonce};
-      const script = document.createElement("script"); script.id = "yoj-inpage-loader"; script.charset = "UTF-8";
-      script.src = "https://scorpascal.github.io/RUC_YOJ/assets/yoj-inpage-batch.js";
-      script.onerror = () => { script.remove(); gate.close(); alert("执行器未加载，尚未发送；请检查网络后重试加载。"); };
+  async function ensureInPageEntry() {
+    if (window.YOJInPageEntry) return;
+    // Cached older HTML may load this script without the new shared dependency.
+    await new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      const fail = () => { clearTimeout(timer); script.remove(); reject(new Error("提交组件加载失败，尚未发送；请刷新后重试。")); };
+      const timer = setTimeout(fail, 30000);
+      script.src = "assets/inpage-entry.js";
+      script.onerror = fail;
+      script.onload = () => {
+        if (typeof window.YOJInPageEntry?.bookmarkHref !== "function" || typeof window.YOJInPageEntry?.approveAndOpen !== "function") { fail(); return; }
+        clearTimeout(timer); resolve();
+      };
       document.head.append(script);
-    };
-    bookmark.href = "javascript:" + encodeURIComponent("(" + loader.toString() + ")();void 0");
+    });
   }
   inpage?.addEventListener("click", async () => {
     if (busy || !ledger || ledger.attempted().size || entry.attempted().size) return;
-    busy = true; let target;
+    busy = true;
     try {
-      // Open in the original gesture, then claim the batch before navigation.
-      target = window.open("about:blank", "_blank");
-      if (!target) throw Error("YOJ窗口被阻止，尚未发送；请允许本次窗口。");
-      target.opener = null;
-      await entry.run("inpage", () => {
-        ledger.claimMode("inpage");
-        const payload = window.YOJInPageCore.makeHandoff(new URL(location.href).searchParams.get("batch"), items);
-        window.YOJInPageCore.saveApproved(localStorage, payload);
-        target.location.href = "http://yoj.ruc.edu.cn/index.php/index/submissions/index.html?score_min=0&yoj_batch=" + payload.id;
-      });
+      await window.YOJInPageEntry.approveAndOpen({id:new URL(location.href).searchParams.get("batch"),items,entry,ledger,storage:localStorage,open:(...args)=>window.open(...args)});
       arm();
-      message("已准备此批：请在新开的YOJ页面点击保存的‘YOJ 整批提交’书签。本站尚未发送评测；同一批次已尝试题目不会自动重发。");
-    } catch (error) { try { target?.close(); } catch (_) {} message(error.message || "批次准备失败，尚未发送。", true); }
+      message("已准备此批：请在新开的YOJ页面点击保存的‘YOJ 通用提交’书签。本站尚未发送评测；同一批次已尝试题目不会自动重发。");
+    } catch (error) { message(error.message || "批次准备失败，尚未发送。", true); }
     finally { busy = false; }
   });
   start.addEventListener("click", () => {
@@ -131,6 +121,8 @@
     return response.json();
   }
   async function init() {
+    await ensureInPageEntry();
+    if (bookmark) bookmark.href = window.YOJInPageEntry.bookmarkHref();
     const numbers = B.parseNumbers(new URLSearchParams(location.search).get("pnos"));
     const [manifest, catalog] = await Promise.all([loadJSON("data/quick-submit.json"), loadJSON("data/catalog.json")]);
     items = await B.prepareBatch(numbers, manifest, catalog, fetch, crypto);

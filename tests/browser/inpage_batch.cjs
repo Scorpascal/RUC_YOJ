@@ -6,6 +6,7 @@ const root=path.resolve(__dirname,'../..'),site='https://scorpascal.github.io/RU
  const browser=await chromium.launch({headless:true});
  try{
   const context=await browser.newContext({viewport:{width:1400,height:1000}}),posts=[],errors=[],details=[],readFaults=new Set();let persistentReadFailure=false;const denied=new Set();let noProblemNavbar=false,expireOnDenied=false;let logged=true,failHash=false,expireAfterPost=false,badTemplate=false,badTable=false,nonzeroEmpty=false;
+  context.setDefaultTimeout(20000);
   const auth='<a href="/index.php/index/login/logout.html">退出登录</a>';
   context.on('page',p=>p.on('pageerror',e=>errors.push(e.message)));
   await context.route('**/*',async route=>{
@@ -14,7 +15,7 @@ const root=path.resolve(__dirname,'../..'),site='https://scorpascal.github.io/RU
     const file=path.resolve(root,'docs',decodeURIComponent(u.pathname.slice('/RUC_YOJ/'.length)));
     assert.ok(file.startsWith(path.join(root,'docs')+path.sep));
     if(u.pathname.endsWith('/favicon.ico'))return route.fulfill({status:204});
-    return route.fulfill({status:200,body:fs.readFileSync(file),contentType:({'.js':'text/javascript','.html':'text/html','.json':'application/json','.css':'text/css'})[path.extname(file)]||'text/plain'});
+    return route.fulfill({status:200,body:u.pathname.endsWith('/yoj-batch-submit.html')?fs.readFileSync(file,'utf8').replace('<script src="assets/inpage-entry.js"></script>',''):fs.readFileSync(file),contentType:({'.js':'text/javascript','.html':'text/html','.json':'application/json','.css':'text/css'})[path.extname(file)]||'text/plain'});
    }
    const raw='https://raw.githubusercontent.com/Scorpascal/RUC_YOJ/main/';
    if(url.startsWith(raw))return route.fulfill({status:200,body:failHash?'changed source':fs.readFileSync(path.join(root,decodeURIComponent(url.slice(raw.length)))),headers:{'Access-Control-Allow-Origin':'*'}});
@@ -120,7 +121,30 @@ const root=path.resolve(__dirname,'../..'),site='https://scorpascal.github.io/RU
   noProblemNavbar=true;before=posts.length;const navbarPage=await fresh();assert.match(await navbarPage.evaluate(()=>document.getElementById('yoj-inpage-panel').shadowRoot.textContent),/本轮已受理 5 题/);assert.equal(posts.length,before+5);noProblemNavbar=false;
   persistentReadFailure=true;before=posts.length;const netPage=await fresh();assert.match(await netPage.evaluate(()=>document.getElementById('yoj-inpage-panel').shadowRoot.textContent),/Load failed/);assert.deepEqual(posts.slice(before).map(p=>Number(p.fields.pid)),[8,1726,285,286]);persistentReadFailure=false;
   denied.add(1726);expireOnDenied=true;before=posts.length;const lost=await fresh();assert.match(await lost.evaluate(()=>document.getElementById('yoj-inpage-panel').shadowRoot.textContent),/登录已失效/);assert.equal(posts.length,before,'actual global expiry during preflight sends nothing');logged=true;denied.clear();expireOnDenied=false;
+
+  // The exact same saved bookmark handles single, repeated new single, and batch.
+  const single=await context.newPage();await single.goto(site+'yoj-quick-submit.html?pno=285');
+  await single.waitForFunction(()=>!document.getElementById('inpage').disabled);
+  assert.equal(decodeURIComponent((await single.locator('#bookmarklet').getAttribute('href')).slice(11)),bookmark);
+  assert.match(await single.title(),/快捷提交/);assert.ok((await single.locator('#native-source').textContent()).length>100);
+  await single.screenshot({path:'/private/tmp/yoj-universal-single-light.png',fullPage:true});
+  await single.emulateMedia({colorScheme:'dark'});await single.setViewportSize({width:390,height:844});
+  await single.screenshot({path:'/private/tmp/yoj-universal-single-dark-mobile.png',fullPage:true});
+  async function fromSingle(){const next=context.waitForEvent('page');await single.locator('#inpage').click();const p=await next;await p.waitForURL(/yoj_batch=/);await p.waitForLoadState();await p.evaluate(bookmark);await terminal(p);return p;}
+  before=posts.length;const one=await fromSingle();assert.deepEqual(posts.slice(before).map(p=>Number(p.fields.pid)),[285]);
+  const full=JSON.parse(fs.readFileSync(path.join(root,'docs/data/quick-submit.json'))).entries.find(e=>e.problemNo===285).nativeSubmission;
+  assert.equal(posts.at(-1).fields.code,fs.readFileSync(path.join(root,full.codePath),'utf8'));
+  assert.match(await one.evaluate(()=>document.getElementById('yoj-inpage-panel').shadowRoot.textContent),/本轮已受理 1 题/);
+  await one.evaluate(bookmark);await one.reload();await one.evaluate(bookmark);await terminal(one);assert.equal(posts.length,before+1);
+  await single.reload();await single.waitForFunction(()=>!document.getElementById('inpage').disabled);assert.equal(await single.locator('#submit').isDisabled(),true);
+  const reopened=await fromSingle();assert.equal(posts.length,before+1,'reopening a single task does not duplicate it');assert.equal(reopened.url(),one.url());
+  await single.locator('#new-single').click();const second=await fromSingle();assert.notEqual(second.url(),one.url());assert.equal(posts.length,before+2,'explicit new task permits reuse of the same bookmark');
+  await single.goto(site+'yoj-quick-submit.html?pno=144');await single.waitForFunction(()=>!document.getElementById('inpage').disabled);
+  before=posts.length;await fromSingle();assert.deepEqual(posts.slice(before).map(p=>Number(p.fields.pid)),[144]);
+  denied.add(1726);await single.goto(site+'yoj-quick-submit.html?pno=1726');await single.waitForFunction(()=>!document.getElementById('inpage').disabled);
+  before=posts.length;const blockedSingle=await fromSingle();assert.equal(posts.length,before);assert.match(await blockedSingle.evaluate(()=>document.getElementById('yoj-inpage-panel').shadowRoot.textContent),/检查未通过跳过 1 题/);
+  denied.clear();await blockedSingle.reload();await blockedSingle.evaluate(bookmark);await terminal(blockedSingle);assert.equal(posts.length,before+1);assert.equal(posts.at(-1).fields.pid,'1726');
   assert.deepEqual(errors,[]);
-  console.log(JSON.stringify({httpYOJWithSecureHashGate:'PASS',fiveReceipts:'PASS',sourceRoundTrip:'PASS',contextPreserved:'PASS',threeSecondSpacing:'PASS',duplicateBookmarkAndReload:'PASS',hashFailure:'PASS',expiredSessionStops:'PASS',atomicLease:'PASS',templateIsolation:'PASS',contextPermissionIsolation:'PASS',missingNavbarSessionCheck:'PASS',blockedOnlyResume:'PASS',exhaustedItemReadIsolation:'PASS',globalPreflightExpiryStops:'PASS',malformedBaseline:'PASS',readNetworkRecovery:'PASS',stopDuringReadRetry:'PASS',sameBatchRecovery:'PASS',realJudgeRequests:0,spacingMs:posts.slice(1,4).map((p,i)=>p.at-posts[i].at)}));
+  console.log(JSON.stringify({httpYOJWithSecureHashGate:'PASS',fiveReceipts:'PASS',sourceRoundTrip:'PASS',contextPreserved:'PASS',threeSecondSpacing:'PASS',duplicateBookmarkAndReload:'PASS',hashFailure:'PASS',expiredSessionStops:'PASS',atomicLease:'PASS',templateIsolation:'PASS',contextPermissionIsolation:'PASS',missingNavbarSessionCheck:'PASS',blockedOnlyResume:'PASS',exhaustedItemReadIsolation:'PASS',globalPreflightExpiryStops:'PASS',malformedBaseline:'PASS',readNetworkRecovery:'PASS',stopDuringReadRetry:'PASS',sameBatchRecovery:'PASS',cachedHTMLDependencyRecovery:'PASS',universalSingleAndBatchBookmark:'PASS',singleExplicitRepeat:'PASS',singleReloadNoResend:'PASS',singleContextRecovery:'PASS',realJudgeRequests:0,spacingMs:posts.slice(1,4).map((p,i)=>p.at-posts[i].at)}));
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

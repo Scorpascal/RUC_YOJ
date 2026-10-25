@@ -7,7 +7,7 @@
   const host=document.createElement('div');host.id='yoj-inpage-panel';host.style.cssText='position:fixed;inset:16px;z-index:2147483647;overflow:auto;background:var(--panel-bg);color:var(--panel-ink);border:2px solid #5f8fff;border-radius:14px;padding:24px;font:16px/1.7 -apple-system,BlinkMacSystemFont,sans-serif;box-sizing:border-box';
   const shadow=host.attachShadow({mode:'open'});document.body.append(host);
   const style=document.createElement('style');style.textContent=':host{--panel-bg:#fff;--panel-ink:#182941;color-scheme:light}button:disabled{opacity:.45;cursor:default!important}@media(prefers-color-scheme:dark){:host{--panel-bg:#172135;--panel-ink:#eef3ff;color-scheme:dark}}';shadow.append(style);
-  const title=document.createElement('h2');title.textContent='YOJ 页内批量提交';
+  const title=document.createElement('h2');title.textContent='YOJ 页内提交';
   const status=document.createElement('p');status.textContent='正在核验整批公开代码，尚未发送评测。';
   const list=document.createElement('div'),stop=document.createElement('button'),hide=document.createElement('button');
   for(const b of [stop,hide])b.style.cssText='margin:8px;padding:10px 18px;background:#315dca;color:white;border:0;border-radius:8px;font:inherit;cursor:pointer';
