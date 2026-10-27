@@ -764,6 +764,86 @@ class DeliveryTests(unittest.TestCase):
         kill.assert_called_once_with(process.pid, health.signal.SIGKILL)
         self.assertEqual((raised.exception.step, raised.exception.failure), ("ls-remote", "TIMEOUT"))
 
+    def test_interrupted_fetch_quarantines_only_its_new_regular_shallow_lock(self):
+        store = self.root / ".yoj-sync/health.git"
+        store.mkdir(parents=True)
+        lock = store / "shallow.lock"
+        for variant in ("new", "preexisting", "symlink"):
+            with self.subTest(variant=variant):
+                if lock.exists() or lock.is_symlink():
+                    lock.unlink()
+                if variant == "preexisting":
+                    lock.write_bytes(b"preexisting")
+                target = self.root / "protected-lock-target"
+                target.write_bytes(b"keep")
+                def interrupted(*args, **kwargs):
+                    if variant == "new":
+                        lock.write_bytes(b"interrupted fetch")
+                    elif variant == "symlink":
+                        lock.symlink_to(target)
+                    raise subprocess.TimeoutExpired("git", 1)
+                process = SimpleNamespace(pid=999999, returncode=-9)
+                calls = 0
+                def communicate(*args, **kwargs):
+                    nonlocal calls
+                    calls += 1
+                    if calls == 1:
+                        return interrupted()
+                    return b"", b""
+                process.communicate = communicate
+                with patch.object(health.subprocess, "Popen", return_value=process), \
+                     patch.object(health.os, "killpg"), \
+                     self.assertRaisesRegex(health.GitCommandError, "DELIVERY_TIMEOUT"):
+                    health.GitDelivery(self.root).git("fetch", "--depth=1", health.REMOTE, health.REF)
+                if variant == "new":
+                    self.assertFalse(lock.exists(), "the next fetch must not be permanently blocked")
+                    saved = list(store.glob("shallow.lock.interrupted.*"))
+                    self.assertEqual(len(saved), 1)
+                    self.assertEqual(saved[0].read_bytes(), b"interrupted fetch")
+                elif variant == "preexisting":
+                    self.assertEqual(lock.read_bytes(), b"preexisting")
+                else:
+                    self.assertTrue(lock.is_symlink())
+                    self.assertEqual(target.read_bytes(), b"keep")
+
+    def test_replay_recovers_after_its_fetch_timeout_without_changing_history(self):
+        health.GitDelivery(self.root).publish([], initialize=True)
+        original = receipt(code=3)
+        path = health.health_dir(self.root) / "receipts/2026-10-03.json"
+        health.atomic_json(path, original)
+        before = path.read_bytes()
+        main = self.git("-C", str(self.root), "rev-parse", "HEAD")
+        real_git = health.GitDelivery.git
+        fetches = 0
+        def interrupted_once(publisher, *args, **kwargs):
+            nonlocal fetches
+            if args[0] == "fetch":
+                fetches += 1
+                if fetches == 1:
+                    calls = 0
+                    def communicate(*a, **kw):
+                        nonlocal calls
+                        calls += 1
+                        if calls == 1:
+                            (publisher.directory / "shallow.lock").write_bytes(b"interrupted")
+                            raise subprocess.TimeoutExpired("git", 1)
+                        return b"", b""
+                    process = SimpleNamespace(pid=999999, returncode=-9, communicate=communicate)
+                    with patch.object(health.subprocess, "Popen", return_value=process), patch.object(health.os, "killpg"):
+                        return real_git(publisher, *args, **kwargs)
+            return real_git(publisher, *args, **kwargs)
+        with patch.dict(os.environ, {"YOJ_SYNC_ALLOW_PUSH": "1"}), \
+             patch.object(health, "now_local", return_value=at("2026-10-04T12:00:00+08:00")), \
+             patch.object(health.GitDelivery, "git", interrupted_once), patch.object(health.time, "sleep"):
+            health.deliver(self.root, replay=True)
+        self.assertEqual(fetches, 2)
+        self.assertEqual(path.read_bytes(), before)
+        remote = self.git("--git-dir", str(self.remote), "show", health.REF + ":receipts/2026-10-03.json")
+        self.assertEqual(json.loads(remote), original)
+        self.assertEqual(self.git("-C", str(self.root), "rev-parse", "HEAD"), main)
+        status = json.loads((health.health_dir(self.root) / "delivery-status.json").read_bytes())
+        self.assertEqual(status["state"], "DELIVERED")
+
     def test_git_failure_diagnostics_are_fixed_categories_not_private_stderr(self):
         cases = [
             (b"fatal: could not read Username for 'https://PRIVATE_MARKER': terminal prompts disabled", "AUTH_UNAVAILABLE"),
@@ -773,6 +853,7 @@ class DeliveryTests(unittest.TestCase):
             (b"PRIVATE_MARKER non-fast-forward", "REF_CONFLICT"),
             (b"PRIVATE_MARKER remote rejected", "REMOTE_REJECTED"),
             (b"PRIVATE_MARKER unexpected failure", "UNKNOWN"),
+            (b"fatal: Unable to create PRIVATE_MARKER/shallow.lock: File exists.", "LOCAL_LOCKED"),
         ]
         from unittest.mock import Mock
         for stderr, expected in cases:

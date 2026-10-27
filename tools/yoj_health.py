@@ -17,6 +17,7 @@ import json
 import os
 import re
 import signal
+import stat
 import subprocess
 import sys
 import tempfile
@@ -75,13 +76,15 @@ class GitCommandError(HealthError):
         } else "OTHER"
         self.failure = failure if failure in {
             "AUTH_UNAVAILABLE", "TLS_ERROR", "NETWORK_ERROR", "REF_CONFLICT",
-            "REMOTE_REJECTED", "TIMEOUT",
+            "REMOTE_REJECTED", "TIMEOUT", "LOCAL_LOCKED",
         } else "UNKNOWN"
 
 
 def git_failure(stderr: bytes) -> str:
     """Classify in memory; discard URLs, helper output and credential material."""
     message = stderr.lower()
+    if b".lock" in message and b"file exists" in message:
+        return "LOCAL_LOCKED"
     for category, markers in (
         ("AUTH_UNAVAILABLE", (b"could not read username", b"could not read password",
                               b"terminal prompts disabled", b"authentication failed")),
@@ -448,6 +451,9 @@ class GitDelivery:
         remaining = self.deadline - time.monotonic()
         if remaining <= 0:
             raise GitCommandError("DELIVERY_TIMEOUT", step, "TIMEOUT")
+        shallow_lock = self.directory / "shallow.lock"
+        started = time.time()
+        may_own_lock = step == "fetch" and not os.path.lexists(shallow_lock)
         process = subprocess.Popen(
             ["git", "-c", "core.hooksPath=/dev/null", "-c", "commit.gpgSign=false",
              # Automatic housekeeping must remain inside this command's
@@ -468,6 +474,17 @@ class GitDelivery:
             except ProcessLookupError:
                 pass
             process.communicate(timeout=1)
+            # SIGKILL prevents Git's normal lock cleanup. Only quarantine a
+            # regular shallow lock created during this now-reaped fetch;
+            # never remove a pre-existing lock or touch the main repository.
+            # deliver() serializes this private store with delivery.lock.
+            if may_own_lock and not self.directory.is_symlink():
+                try:
+                    metadata = shallow_lock.lstat()
+                    if stat.S_ISREG(metadata.st_mode) and metadata.st_mtime >= started:
+                        shallow_lock.rename(self.directory / f"shallow.lock.interrupted.{uuid.uuid4().hex}")
+                except OSError:
+                    pass  # Preserve the original timeout and fail closed.
             raise GitCommandError("DELIVERY_TIMEOUT", step, "TIMEOUT") from None
         if process.returncode:
             raise GitCommandError("GIT_DELIVERY_FAILED", step, git_failure(stderr))
