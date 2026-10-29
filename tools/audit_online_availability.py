@@ -29,10 +29,10 @@ from urllib.request import Request
 
 if __package__:
     from .yoj_http import (YoJNetworkError, build_yoj_opener, classify_yoj_error,
-                          read_public_get, source_state_for_reason, validate_yoj_url)
+                          network_error, read_public_get, source_state_for_reason, validate_yoj_url)
 else:
     from yoj_http import (YoJNetworkError, build_yoj_opener, classify_yoj_error,
-                         read_public_get, source_state_for_reason, validate_yoj_url)
+                         network_error, read_public_get, source_state_for_reason, validate_yoj_url)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -386,6 +386,7 @@ def main() -> int:
         changed = None
         result = 1
         print(f"online availability audit failed: {reason}", file=sys.stderr)
+        print("network diagnostic: " + json.dumps(network_error(exc).diagnostic, sort_keys=True), file=sys.stderr)
     if args.status_output:
         try:
             write_status(args.status_output, reason, changed)

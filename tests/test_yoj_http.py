@@ -51,6 +51,48 @@ class TransportTests(unittest.TestCase):
                 finally:
                     error.close()
 
+    def test_detailed_failure_kinds_are_fixed_and_keep_coarse_reason(self):
+        cases = [(HTTPError('http://yoj.ruc.edu.cn/?PRIVATE_MARKER', 500, 'PRIVATE_MARKER', Message(), None), 'HTTP_5XX', 500),
+                 (HTTPError(audit.PUBLIC_INDEX_URL, 429, 'PRIVATE_MARKER', Message(), None), 'HTTP_429', 429),
+                 (TimeoutError('PRIVATE_MARKER'), 'TIMEOUT', None),
+                 (ConnectionResetError('PRIVATE_MARKER'), 'CONNECTION_RESET', None),
+                 (URLError(socket.gaierror(socket.EAI_AGAIN, 'PRIVATE_MARKER')), 'DNS_TEMPORARY', None),
+                 (URLError(socket.gaierror(socket.EAI_NONAME, 'PRIVATE_MARKER')), 'DNS_FAILURE', None),
+                 (URLError(ssl.SSLCertVerificationError(1, 'PRIVATE_MARKER')), 'TLS_CERTIFICATE', None),
+                 (transport.YoJNetworkError('YOJ_CAMPUS_ACCESS_REQUIRED'), 'CAMPUS_REDIRECT', None)]
+        for error, kind, status in cases:
+            with self.subTest(kind=kind):
+                safe = transport.network_error(error, 'http://yoj.ruc.edu.cn/index.php/index/homework/index/cno/PRIVATE_MARKER.html?token=PRIVATE_MARKER', 3, 'OPEN')
+                self.assertEqual(safe.reason, transport.classify_yoj_error(error))
+                self.assertEqual(safe.diagnostic['kind'], kind)
+                self.assertEqual(safe.diagnostic['httpStatus'], status)
+                self.assertEqual(safe.diagnostic['requestGroup'], 'HOMEWORK_INDEX')
+                self.assertEqual(safe.diagnostic['attempts'], 3)
+                self.assertNotIn('PRIVATE_MARKER', str(vars(safe)))
+                if isinstance(error, HTTPError): error.close()
+
+    def test_account_failure_retains_body_read_phase_and_never_serializes_post_body(self):
+        response = self.response()
+        opener = Mock(open=Mock(return_value=response))
+        with patch.object(online_verify, 'build_yoj_opener', return_value=opener), \
+             patch.object(response, 'read', side_effect=TimeoutError('PRIVATE_MARKER')), \
+             self.assertRaises(transport.YoJNetworkError) as raised:
+            online_verify.YoJClient().request('/index.php/index/index/prob_submit.html', {'code': 'PRIVATE_MARKER'}, retry_safe=True)
+        self.assertEqual(opener.open.call_count, 1)
+        self.assertEqual(raised.exception.diagnostic['phase'], 'READ')
+        self.assertEqual(raised.exception.diagnostic['requestGroup'], 'INDEX_PROB_SUBMIT')
+        self.assertEqual(raised.exception.diagnostic['kind'], 'TIMEOUT')
+        self.assertNotIn('PRIVATE_MARKER', str(vars(raised.exception)))
+
+    def test_public_failure_preserves_http_code_without_retrying_tls(self):
+        opener = Mock()
+        opener.open.side_effect = HTTPError(audit.PUBLIC_INDEX_URL, 503, 'PRIVATE_MARKER', Message(), None)
+        with patch.object(transport.time, 'sleep'), self.assertRaises(transport.YoJNetworkError) as raised:
+            transport.read_public_get(opener, Request(audit.PUBLIC_INDEX_URL), 30)
+        self.assertEqual(raised.exception.diagnostic['httpStatus'], 503)
+        self.assertEqual(raised.exception.diagnostic['attempts'], 3)
+        self.assertEqual(raised.exception.diagnostic['requestGroup'], 'PROBLEM_INDEX')
+
     def test_account_get_recovers_from_transient_entry_error_without_relogin(self):
         opener = Mock()
         opener.open.side_effect = [HTTPError(audit.PUBLIC_INDEX_URL, 500, 'private', Message(), None),

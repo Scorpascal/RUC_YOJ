@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import errno
 import os
+import re
 import socket
 import ssl
 import sys
@@ -79,6 +80,57 @@ def source_state_for_reason(reason: str) -> str:
     return "ERROR"
 
 
+def network_error(error: BaseException, url: str = "", attempts: int = 1,
+                  phase: str = "UNKNOWN") -> YoJNetworkError:
+    """Retain fixed local diagnostics without URLs, IDs, headers or bodies.
+
+    The coarse reason remains the public receipt contract. A timeout in OPEN
+    includes connecting, TLS and response headers; READ means response body.
+    Neither phase alone proves that a proxy caused the failure.
+    """
+    if isinstance(error, YoJNetworkError) and hasattr(error, "diagnostic") and not url:
+        return error
+    safe = YoJNetworkError(classify_yoj_error(error))
+    cause = error
+    for _ in range(8):
+        if not isinstance(cause, URLError) or not isinstance(cause.reason, BaseException):
+            break
+        cause = cause.reason
+    status = cause.code if isinstance(cause, HTTPError) and type(cause.code) is int else None
+    kind = {
+        "YOJ_CAMPUS_ACCESS_REQUIRED": "CAMPUS_REDIRECT",
+        "YOJ_UNEXPECTED_DESTINATION": "UNEXPECTED_DESTINATION",
+        "YOJ_HTTPS_DOWNGRADE_REFUSED": "HTTPS_DOWNGRADE",
+    }.get(safe.reason, "UNKNOWN")
+    if status is not None:
+        kind = ("HTTP_429" if status == 429 else "HTTP_5XX" if 500 <= status <= 599
+                else "HTTP_AUTH" if status in {401, 403} else "HTTP_OTHER")
+    elif isinstance(cause, ssl.SSLCertVerificationError):
+        kind = "TLS_CERTIFICATE"
+    elif isinstance(cause, ssl.SSLError):
+        kind = "TLS_PROTOCOL"
+    elif isinstance(cause, socket.gaierror):
+        kind = "DNS_TEMPORARY" if cause.errno == socket.EAI_AGAIN else "DNS_FAILURE"
+    elif isinstance(cause, TimeoutError) or getattr(cause, "errno", None) == errno.ETIMEDOUT:
+        kind = "TIMEOUT"
+    elif isinstance(cause, ConnectionResetError) or getattr(cause, "errno", None) == errno.ECONNRESET:
+        kind = "CONNECTION_RESET"
+    elif isinstance(cause, ConnectionRefusedError) or getattr(cause, "errno", None) == errno.ECONNREFUSED:
+        kind = "CONNECTION_REFUSED"
+    elif isinstance(cause, ConnectionError) or getattr(cause, "errno", None) in {
+            errno.ECONNABORTED, errno.ENETUNREACH, errno.EHOSTUNREACH, errno.EPIPE}:
+        kind = "CONNECTION_ERROR"
+    try:
+        match = re.match(r"^/index\.php/(?:index/)?(problem|course|contest|homework|submissions|login|index)/(index|detail|detailtk|login2|gettkcode|getcode|prob_submit|prob_submit_tk)(?:/|\.html$|$)", urlparse(url).path)
+        group = "_".join(match.groups()).upper() if match else "OTHER"
+    except ValueError:
+        group = "OTHER"
+    safe.diagnostic = {"kind": kind, "httpStatus": status, "requestGroup": group,
+                       "phase": phase if phase in {"OPEN", "READ"} else "UNKNOWN",
+                       "attempts": attempts if type(attempts) is int and 1 <= attempts <= 3 else 1}
+    return safe
+
+
 def read_public_get(opener, request, timeout: float) -> tuple[bytes, str, str]:
     """Read only an idempotent public GET, with at most three short attempts.
 
@@ -91,12 +143,14 @@ def read_public_get(opener, request, timeout: float) -> tuple[bytes, str, str]:
         raise ValueError("public retry transport requires a GET without a body")
     validate_yoj_url(request.full_url)
     for attempt in range(1, 4):
+        phase = "OPEN"
         try:
             with opener.open(request, timeout=timeout) as response:
                 final_url = response.geturl()
                 validate_yoj_url(final_url)
                 if urlparse(request.full_url).scheme == "https" and urlparse(final_url).scheme != "https":
                     raise YoJNetworkError("YOJ_HTTPS_DOWNGRADE_REFUSED")
+                phase = "READ"
                 body = response.read()
                 charset = response.headers.get_content_charset() or "utf-8"
                 return body, charset, final_url
@@ -105,7 +159,7 @@ def read_public_get(opener, request, timeout: float) -> tuple[bytes, str, str]:
             if isinstance(exc, HTTPError):
                 exc.close()
             if reason != "YOJ_TRANSIENT_NETWORK_ERROR" or attempt == 3:
-                raise YoJNetworkError(reason) from None
+                raise network_error(exc, request.full_url, attempt, phase) from None
             time.sleep(2 * attempt)
 
 

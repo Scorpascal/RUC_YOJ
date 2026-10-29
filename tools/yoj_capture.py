@@ -26,7 +26,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from audit_online_availability import validate_snapshot  # noqa: E402
 from online_verify import YoJClient, clean_text, parse_submission_rows  # noqa: E402
 from yoj_context import Links, collect_problem_paths, discover_account_contexts, is_access_denied, problem_path as contextual_problem_path  # noqa: E402
-from yoj_http import classify_yoj_error  # noqa: E402
+from yoj_http import classify_yoj_error, network_error  # noqa: E402
 
 
 MANIFEST_PATH = ROOT / "代码库" / "AC抓取清单.json"
@@ -676,7 +676,8 @@ def main() -> int:
         except Exception as exc:
             reason = "YOJ_AUTH_REQUIRED" if isinstance(exc, RuntimeError) else classify_yoj_error(exc)
             save_capture_result({"schemaVersion": 2, "scope": "account_login_unavailable", "capturedAt": now,
-                                 "authenticated": False, "reason": reason})
+                                 "authenticated": False, "reason": reason,
+                                 "network": network_error(exc).diagnostic})
             raise
         logged_in = True
         save_capture_result({"schemaVersion": 2, "scope": "account_list_pending", "capturedAt": now})
@@ -698,9 +699,10 @@ def main() -> int:
                 atomic_write(STATE_DIR / "account-visible-problems.json", (json.dumps(snapshot) + "\n").encode())
         except Exception as exc:
             # Login succeeded, but an incomplete graph is not a new snapshot.
-            # Store only a fixed reason, never account URLs or response text.
+            # Fixed diagnostic fields stay local; no account URLs or response text.
             save_capture_result({"schemaVersion": 2, "scope": "account_list_unavailable", "capturedAt": now,
-                                 "authenticated": True, "reason": classify_yoj_error(exc)})
+                                 "authenticated": True, "reason": classify_yoj_error(exc),
+                                 "network": network_error(exc).diagnostic})
             raise
     elif args.public_snapshot:
         public_numbers, public_pages = load_public_snapshot(args.public_snapshot)

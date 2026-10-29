@@ -54,6 +54,8 @@ class AccountDiscoveryTests(unittest.TestCase):
             self.assertEqual(result['scope'], 'account_list_unavailable')
             self.assertEqual(result['reason'], 'YOJ_TRANSIENT_NETWORK_ERROR')
             self.assertTrue(result['authenticated'])
+            self.assertEqual(result['network']['kind'], 'HTTP_5XX')
+            self.assertEqual(result['network']['httpStatus'], 500)
             self.assertEqual(snapshot.read_text(), 'previous valid evidence')
             self.assertNotIn('PRIVATE_MARKER', (root / 'result.json').read_text())
 

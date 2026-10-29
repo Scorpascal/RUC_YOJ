@@ -27,11 +27,11 @@ from http.cookiejar import CookieJar
 
 if __package__:
     from .assemble_fill_in_candidates import is_assembled_candidate, requires_template_assembly
-    from .yoj_http import YoJNetworkError, build_yoj_opener, classify_yoj_error, validate_yoj_url
+    from .yoj_http import YoJNetworkError, build_yoj_opener, classify_yoj_error, network_error, validate_yoj_url
     from .yoj_context import is_access_denied, problem_path as contextual_problem_path
 else:
     from assemble_fill_in_candidates import is_assembled_candidate, requires_template_assembly
-    from yoj_http import YoJNetworkError, build_yoj_opener, classify_yoj_error, validate_yoj_url
+    from yoj_http import YoJNetworkError, build_yoj_opener, classify_yoj_error, network_error, validate_yoj_url
     from yoj_context import is_access_denied, problem_path as contextual_problem_path
 
 try:
@@ -99,15 +99,17 @@ class YoJClient:
         }
         attempts = 3 if data is None or safe_post else 1
         for attempt in range(1, attempts + 1):
+            phase = "OPEN"
             try:
                 with self.opener.open(request, timeout=35) as response:
+                    phase = "READ"
                     return response.read().decode("utf-8", errors="replace")
             except OSError as exc:
                 reason = classify_yoj_error(exc)
                 if isinstance(exc, HTTPError):
                     exc.close()
                 if reason != "YOJ_TRANSIENT_NETWORK_ERROR" or attempt >= attempts:
-                    raise YoJNetworkError(reason) from None
+                    raise network_error(exc, url, attempt, phase) from None
                 time.sleep(2 * attempt)
 
     def request_json(
