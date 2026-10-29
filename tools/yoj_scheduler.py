@@ -315,6 +315,45 @@ def github_repository() -> tuple[str, str] | None:
     return (parts[0], parts[1]) if len(parts) == 2 else None
 
 
+def workflow_cli_json(endpoint: str) -> dict | None:
+    """Reuse an existing local GitHub login for this repo's workflow GET only."""
+    repository = github_repository()
+    if not repository:
+        return None
+    try:
+        target = urllib.parse.urlparse(endpoint)
+        query = urllib.parse.parse_qs(target.query, keep_blank_values=True)
+        if (target.scheme != "https" or target.hostname != "api.github.com"
+                or target.username is not None or target.password is not None
+                or target.port not in {None, 443} or target.fragment
+                or target.path != f"/repos/{repository[0]}/{repository[1]}/actions/runs"
+                or set(query) != {"head_sha", "per_page"}
+                or len(query["head_sha"]) != 1
+                or not re.fullmatch(r"[0-9a-f]{40}", query["head_sha"][0])
+                or query["per_page"] != ["20"]):
+            return None
+        executable = shutil.which("gh")
+        if not executable:
+            return None
+        # No YOJ credentials or environment tokens enter this read-only helper.
+        environment = {key: os.environ[key] for key in
+                       ("PATH", "HOME", "TMPDIR", "LANG", "LC_ALL", "SSL_CERT_FILE", "SSL_CERT_DIR")
+                       if key in os.environ}
+        environment["GH_PROMPT_DISABLED"] = "1"
+        response = subprocess.run(
+            [executable, "api", "--method", "GET", "--hostname", "github.com",
+             target.path.lstrip("/") + "?" + target.query],
+            cwd=ROOT, env=environment, stdin=subprocess.DEVNULL,
+            capture_output=True, text=True, timeout=20, check=False,
+        )
+        if response.returncode:
+            return None
+        payload = json.loads(response.stdout)
+        return payload if isinstance(payload, dict) else None
+    except (OSError, subprocess.SubprocessError, ValueError):
+        return None
+
+
 def github_api_json(endpoint: str) -> tuple[object | None, str | None]:
     """Read a public GitHub API response with a verified-TLS fallback.
 
@@ -339,6 +378,9 @@ def github_api_json(endpoint: str) -> tuple[object | None, str | None]:
 
     curl = shutil.which("curl")
     if not curl:
+        authenticated = workflow_cli_json(endpoint)
+        if authenticated is not None:
+            return authenticated, None
         return None, f"Python HTTPS: {urllib_detail}; curl 不可用"
     fallback = subprocess.run(
         [
@@ -362,6 +404,11 @@ def github_api_json(endpoint: str) -> tuple[object | None, str | None]:
         check=False,
     )
     if fallback.returncode:
+        # Shared proxy exits may exhaust the anonymous API quota. The optional
+        # existing CLI login changes transport only; exact-SHA checks below stay.
+        authenticated = workflow_cli_json(endpoint)
+        if authenticated is not None:
+            return authenticated, None
         curl_detail = (fallback.stderr or fallback.stdout).strip()[-500:]
         return None, f"Python HTTPS: {urllib_detail}; curl: {curl_detail or fallback.returncode}"
     try:
