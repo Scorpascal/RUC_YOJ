@@ -11,6 +11,23 @@ from tools import yoj_scheduler as scheduler
 class RemoteQueryTests(unittest.TestCase):
     endpoint = 'https://api.github.com/repos/Scorpascal/RUC_YOJ/actions/runs?head_sha=' + 'a'*40 + '&per_page=20'
 
+    def test_macos_launch_agent_finds_homebrew_cli_outside_its_path(self):
+        def which(name, path=None):
+            self.assertEqual(name, 'gh')
+            if path is None:
+                return None
+            self.assertIn('/opt/homebrew/bin', path.split(os.pathsep))
+            return '/opt/homebrew/bin/gh'
+
+        with patch.object(scheduler.sys, 'platform', 'darwin'), \
+             patch.dict(os.environ, {'PATH': '/usr/bin:/bin:/usr/sbin:/sbin'}), \
+             patch.object(scheduler, 'github_repository', return_value=('Scorpascal', 'RUC_YOJ')), \
+             patch.object(scheduler.shutil, 'which', side_effect=which), \
+             patch.object(scheduler.subprocess, 'run', return_value=SimpleNamespace(returncode=0, stdout='{"workflow_runs":[]}')) as run:
+            self.assertEqual(scheduler.workflow_cli_json(self.endpoint), {'workflow_runs': []})
+        self.assertEqual(run.call_args.args[0][:2], ['/opt/homebrew/bin/gh', 'api'])
+        self.assertEqual(run.call_args.kwargs['env']['PATH'], '/usr/bin:/bin:/usr/sbin:/sbin')
+
     def test_anonymous_limit_uses_existing_cli_with_get_and_no_yoj_environment(self):
         payload = {'workflow_runs': [{'head_sha': 'a'*40, 'path': scheduler.PAGES_WORKFLOW_PATH,
                                      'id': 1, 'status': 'completed', 'conclusion': 'success', 'html_url': 'https://github.com/Scorpascal/RUC_YOJ/actions/runs/1'}]}
@@ -34,7 +51,7 @@ class RemoteQueryTests(unittest.TestCase):
         for available in (False,True):
             with self.subTest(available=available), \
                  patch.object(scheduler.urllib.request,'urlopen',side_effect=URLError('unavailable')), \
-                 patch.object(scheduler.shutil,'which',side_effect=lambda name:'/usr/bin/'+name if available or name=='curl' else None), \
+                 patch.object(scheduler.shutil,'which',side_effect=lambda name, path=None:'/usr/bin/'+name if available or name=='curl' else None), \
                  patch.object(scheduler,'github_repository',return_value=('Scorpascal','RUC_YOJ')), \
                  patch.object(scheduler.subprocess,'run',return_value=SimpleNamespace(returncode=22,stdout='',stderr='unavailable')):
                 payload,error=scheduler.github_api_json(self.endpoint)

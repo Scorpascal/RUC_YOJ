@@ -333,6 +333,9 @@ def workflow_cli_json(endpoint: str) -> dict | None:
                 or query["per_page"] != ["20"]):
             return None
         executable = shutil.which("gh")
+        if not executable and sys.platform == "darwin":
+            # launchd's default PATH omits both standard Homebrew prefixes.
+            executable = shutil.which("gh", path="/opt/homebrew/bin:/usr/local/bin")
         if not executable:
             return None
         # No YOJ credentials or environment tokens enter this read-only helper.
