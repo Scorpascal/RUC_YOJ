@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "capturedAt": "2026-10-29T06:50:54Z",
+  "capturedAt": "2026-11-14T14:31:00Z",
   "source": "http://yoj.ruc.edu.cn/index.php/index/problem/index.html",
-  "publicCount": 456,
+  "publicCount": 459,
   "pagesFetched": 2,
-  "problemListSha256": "07844e58a8317f613a8a4eeb067101b790299636d405364368b185adf4c696cc",
+  "problemListSha256": "5fca67191ca9e7ab67933ee510960a7d5978c78adc601f6c943b43963b37bc9a",
   "records": [
     {
       "problemNo": 1,
@@ -2285,6 +2285,21 @@
       "problemNo": 1726,
       "title": "二叉树的最近公共祖先（LCA）",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1726.html"
+    },
+    {
+      "problemNo": 1789,
+      "title": "边双连通分量",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1789.html"
+    },
+    {
+      "problemNo": 1790,
+      "title": "最少增加多少条道路",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1790.html"
+    },
+    {
+      "problemNo": 1791,
+      "title": "两座城市之间的关键道路数量",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1791.html"
     }
   ]
 }

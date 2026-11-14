@@ -1,0 +1,64 @@
+{
+  "problem": {
+    "submissionNo": "1503925",
+    "problemNo": "1790",
+    "title": "# 1790 . 最少增加多少条道路",
+    "status": "Accepted",
+    "score": "100",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1503925.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1790.html"
+  },
+  "submission": {
+    "submissionNo": "1503925",
+    "problemNo": "1790",
+    "title": "# 1790 . 最少增加多少条道路",
+    "status": "Accepted",
+    "score": "100",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1503925.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1790.html"
+  },
+  "source": {
+    "captureVersion": 2,
+    "capturedAt": "2026-11-14T14:31:01Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    }
+  },
+  "files": {
+    "problem": "1790_题目原文.html",
+    "submission": "1790_提交_1503925_详情.html",
+    "completeCode": "1790_提交_1503925_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "1790_提交_1503925_cpp17_可提交代码.cpp",
+    "metadata": "1790_元数据.json"
+  },
+  "code": {
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 4818,
+    "sha256": "08ee88ef19b32d37be12ee25f86d4f40bc3bced7990e3a028165a43052a32c3e",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1790_提交_1503925_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "1790_提交_1503925_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    },
+    "rawArchiveSha256": "08ee88ef19b32d37be12ee25f86d4f40bc3bced7990e3a028165a43052a32c3e",
+    "directlySubmittableSha256": "08ee88ef19b32d37be12ee25f86d4f40bc3bced7990e3a028165a43052a32c3e",
+    "status": "CLEANED_ONLINE_VERIFIED"
+  },
+  "publication": {
+    "status": "PUBLIC_READY",
+    "batchId": "20261114T143354Z",
+    "candidateSha256": "08ee88ef19b32d37be12ee25f86d4f40bc3bced7990e3a028165a43052a32c3e",
+    "submissionNo": 1504298,
+    "verifiedAt": "2026-11-14T14:33:30Z"
+  }
+}

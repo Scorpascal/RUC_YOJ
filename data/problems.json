@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "purpose": "offline build; only explicit PUBLIC_READY records are public releases",
   "generatedFrom": "代码库/AC抓取清单.json",
-  "capturedAt": "2026-10-17T18:55:41Z",
-  "generatedRecords": 512,
+  "capturedAt": "2026-11-14T14:31:01Z",
+  "generatedRecords": 515,
   "records": [
     {
       "problemNo": "1",
@@ -32809,7 +32809,7 @@
             "label": "img",
             "filename": "img_01_Image1.svg",
             "relativePath": "assets/img_01_Image1.svg",
-            "status": "DOWNLOADED",
+            "status": "CACHED",
             "bytes": 70697,
             "sha256": "97501982bf452d30c9fddbc1a43be4e8aa6e181ffefbba9040e2a1df6e707f81",
             "error": ""
@@ -32819,7 +32819,7 @@
             "label": "img",
             "filename": "img_02_Image2.svg",
             "relativePath": "assets/img_02_Image2.svg",
-            "status": "DOWNLOADED",
+            "status": "CACHED",
             "bytes": 128776,
             "sha256": "bba8eb7f3ba1c1bbb2542d51d0584b02a5d1dc991f6cac11eb35e67b6ffdb2ee",
             "error": ""
@@ -32829,7 +32829,7 @@
             "label": "img",
             "filename": "img_03_Image3.svg",
             "relativePath": "assets/img_03_Image3.svg",
-            "status": "DOWNLOADED",
+            "status": "CACHED",
             "bytes": 127744,
             "sha256": "fce90e01f29ad503b4b3ed301d91aa4fc0119d674eebb95aed72f48dd57a3e68",
             "error": ""
@@ -32839,7 +32839,7 @@
             "label": "img",
             "filename": "img_04_Image4.svg",
             "relativePath": "assets/img_04_Image4.svg",
-            "status": "DOWNLOADED",
+            "status": "CACHED",
             "bytes": 111068,
             "sha256": "44f486bfb61da61a4e78c13d023a68ceaa8f49029b0a4875b922d950b3902676",
             "error": ""
@@ -33138,6 +33138,186 @@
         "verifiedAt": "2026-10-17T18:57:10Z",
         "verifiedSubmissionNo": "1441724",
         "codeSha256": "e6c56f3397a24f51b88749330de0fb7ab958d0083069fd601e5d6630a8d58211"
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
+      "problemNo": "1789",
+      "title": "# 1789 . 边双连通分量",
+      "folder": "1789_#_1789_._边双连通分量",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1789.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "256MiB"
+      },
+      "language": "cpp17",
+      "archive": {
+        "status": "RAW_CAPTURED",
+        "submissionNo": "1503924",
+        "capturedAt": "2026-11-14T14:31:01Z",
+        "sourceSha256": "0979505030ea0089ff658256b938349df69a045a9888260c2440e4a8e5eb4e88",
+        "recordedSha256": "0979505030ea0089ff658256b938349df69a045a9888260c2440e4a8e5eb4e88",
+        "sourceHashMatchesMetadata": true,
+        "metadata": "代码库/1789_#_1789_._边双连通分量/1789_元数据.json",
+        "completeCode": "代码库/1789_#_1789_._边双连通分量/1789_提交_1503924_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1789_#_1789_._边双连通分量/1789_提交_1503924_cpp17_可提交代码.cpp",
+        "acceptedRun": {
+          "source": "submission_detail",
+          "status": "Accepted",
+          "score": "100",
+          "language": "cpp17",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "endpoint_returned_one_code_field",
+          "completeCodeFile": "1789_提交_1503924_cpp17_完整代码.cpp",
+          "directlySubmittableFile": "1789_提交_1503924_cpp17_可提交代码.cpp",
+          "blocks": [],
+          "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+        }
+      },
+      "public": {
+        "status": "PUBLIC_READY",
+        "publish": true,
+        "statement": "题解/1789_#_1789_._边双连通分量/1789_题目.md",
+        "cleanCode": "代码库/1789_#_1789_._边双连通分量/1789_提交_1503924_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1789_#_1789_._边双连通分量/1789_提交_1503924_cpp17_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "onlineVerificationNote": "",
+        "verifiedAt": "2026-11-14T14:33:14Z",
+        "verifiedSubmissionNo": "1504297",
+        "codeSha256": "0979505030ea0089ff658256b938349df69a045a9888260c2440e4a8e5eb4e88"
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
+      "problemNo": "1790",
+      "title": "# 1790 . 最少增加多少条道路",
+      "folder": "1790_#_1790_._最少增加多少条道路",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1790.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "256MiB"
+      },
+      "language": "cpp17",
+      "archive": {
+        "status": "RAW_CAPTURED",
+        "submissionNo": "1503925",
+        "capturedAt": "2026-11-14T14:31:01Z",
+        "sourceSha256": "08ee88ef19b32d37be12ee25f86d4f40bc3bced7990e3a028165a43052a32c3e",
+        "recordedSha256": "08ee88ef19b32d37be12ee25f86d4f40bc3bced7990e3a028165a43052a32c3e",
+        "sourceHashMatchesMetadata": true,
+        "metadata": "代码库/1790_#_1790_._最少增加多少条道路/1790_元数据.json",
+        "completeCode": "代码库/1790_#_1790_._最少增加多少条道路/1790_提交_1503925_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1790_#_1790_._最少增加多少条道路/1790_提交_1503925_cpp17_可提交代码.cpp",
+        "acceptedRun": {
+          "source": "submission_detail",
+          "status": "Accepted",
+          "score": "100",
+          "language": "cpp17",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "endpoint_returned_one_code_field",
+          "completeCodeFile": "1790_提交_1503925_cpp17_完整代码.cpp",
+          "directlySubmittableFile": "1790_提交_1503925_cpp17_可提交代码.cpp",
+          "blocks": [],
+          "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+        }
+      },
+      "public": {
+        "status": "PUBLIC_READY",
+        "publish": true,
+        "statement": "题解/1790_#_1790_._最少增加多少条道路/1790_题目.md",
+        "cleanCode": "代码库/1790_#_1790_._最少增加多少条道路/1790_提交_1503925_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1790_#_1790_._最少增加多少条道路/1790_提交_1503925_cpp17_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "onlineVerificationNote": "",
+        "verifiedAt": "2026-11-14T14:33:30Z",
+        "verifiedSubmissionNo": "1504298",
+        "codeSha256": "08ee88ef19b32d37be12ee25f86d4f40bc3bced7990e3a028165a43052a32c3e"
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
+      "problemNo": "1791",
+      "title": "# 1791 . 两座城市之间的关键道路数量",
+      "folder": "1791_#_1791_._两座城市之间的关键道路数量",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1791.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "256MiB"
+      },
+      "language": "cpp17",
+      "archive": {
+        "status": "RAW_CAPTURED",
+        "submissionNo": "1503926",
+        "capturedAt": "2026-11-14T14:31:01Z",
+        "sourceSha256": "fe84a496dd3248aac6b68120bd4035520d11395bafc17553fcf8404934a32711",
+        "recordedSha256": "fe84a496dd3248aac6b68120bd4035520d11395bafc17553fcf8404934a32711",
+        "sourceHashMatchesMetadata": true,
+        "metadata": "代码库/1791_#_1791_._两座城市之间的关键道路数量/1791_元数据.json",
+        "completeCode": "代码库/1791_#_1791_._两座城市之间的关键道路数量/1791_提交_1503926_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1791_#_1791_._两座城市之间的关键道路数量/1791_提交_1503926_cpp17_可提交代码.cpp",
+        "acceptedRun": {
+          "source": "submission_detail",
+          "status": "Accepted",
+          "score": "100",
+          "language": "cpp17",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "endpoint_returned_one_code_field",
+          "completeCodeFile": "1791_提交_1503926_cpp17_完整代码.cpp",
+          "directlySubmittableFile": "1791_提交_1503926_cpp17_可提交代码.cpp",
+          "blocks": [],
+          "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+        }
+      },
+      "public": {
+        "status": "PUBLIC_READY",
+        "publish": true,
+        "statement": "题解/1791_#_1791_._两座城市之间的关键道路数量/1791_题目.md",
+        "cleanCode": "代码库/1791_#_1791_._两座城市之间的关键道路数量/1791_提交_1503926_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1791_#_1791_._两座城市之间的关键道路数量/1791_提交_1503926_cpp17_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "onlineVerificationNote": "",
+        "verifiedAt": "2026-11-14T14:33:46Z",
+        "verifiedSubmissionNo": "1504299",
+        "codeSha256": "fe84a496dd3248aac6b68120bd4035520d11395bafc17553fcf8404934a32711"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",

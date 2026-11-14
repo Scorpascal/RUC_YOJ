@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "purpose": "public release manifest; credentials and session data are excluded",
-  "updatedAt": "2026-10-18T15:34:30Z",
+  "updatedAt": "2026-11-14T14:33:56Z",
   "records": [
     {
       "status": "PUBLIC_READY",
@@ -10443,6 +10443,69 @@
         "canonicalByteMatch": true
       },
       "readyAt": "2026-10-17T18:57:21Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1789,
+      "title": "# 1789 . 边双连通分量",
+      "completeCode": "代码库/1789_#_1789_._边双连通分量/1789_提交_1503924_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1789_#_1789_._边双连通分量/1789_提交_1503924_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "0979505030ea0089ff658256b938349df69a045a9888260c2440e4a8e5eb4e88",
+      "directlySubmittableCodeSha256": "0979505030ea0089ff658256b938349df69a045a9888260c2440e4a8e5eb4e88",
+      "statementSha256": "71cf6c90f34ca1e61cbebf12214113c845d0205ff081e316dc60521d130a9351",
+      "candidatePath": "staging/cleaned-code/1789_#_1789_._边双连通分量/1789_提交_1503924_cpp17_可提交代码.cpp",
+      "candidateSha256": "0979505030ea0089ff658256b938349df69a045a9888260c2440e4a8e5eb4e88",
+      "submissionNo": 1504297,
+      "language": "cpp17",
+      "verifiedAt": "2026-11-14T14:33:14Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-11-14T14:33:56Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1790,
+      "title": "# 1790 . 最少增加多少条道路",
+      "completeCode": "代码库/1790_#_1790_._最少增加多少条道路/1790_提交_1503925_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1790_#_1790_._最少增加多少条道路/1790_提交_1503925_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "08ee88ef19b32d37be12ee25f86d4f40bc3bced7990e3a028165a43052a32c3e",
+      "directlySubmittableCodeSha256": "08ee88ef19b32d37be12ee25f86d4f40bc3bced7990e3a028165a43052a32c3e",
+      "statementSha256": "84d446ac6ceb900f290a4baaa85ad6a0a1c5de4e4da1828b03e8176183c8b689",
+      "candidatePath": "staging/cleaned-code/1790_#_1790_._最少增加多少条道路/1790_提交_1503925_cpp17_可提交代码.cpp",
+      "candidateSha256": "08ee88ef19b32d37be12ee25f86d4f40bc3bced7990e3a028165a43052a32c3e",
+      "submissionNo": 1504298,
+      "language": "cpp17",
+      "verifiedAt": "2026-11-14T14:33:30Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-11-14T14:33:56Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1791,
+      "title": "# 1791 . 两座城市之间的关键道路数量",
+      "completeCode": "代码库/1791_#_1791_._两座城市之间的关键道路数量/1791_提交_1503926_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1791_#_1791_._两座城市之间的关键道路数量/1791_提交_1503926_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "fe84a496dd3248aac6b68120bd4035520d11395bafc17553fcf8404934a32711",
+      "directlySubmittableCodeSha256": "fe84a496dd3248aac6b68120bd4035520d11395bafc17553fcf8404934a32711",
+      "statementSha256": "0f445c474f4812cdd62ce6fe62d422d5bf30f708ead006e41db01c08abd2dc32",
+      "candidatePath": "staging/cleaned-code/1791_#_1791_._两座城市之间的关键道路数量/1791_提交_1503926_cpp17_可提交代码.cpp",
+      "candidateSha256": "fe84a496dd3248aac6b68120bd4035520d11395bafc17553fcf8404934a32711",
+      "submissionNo": 1504299,
+      "language": "cpp17",
+      "verifiedAt": "2026-11-14T14:33:46Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-11-14T14:33:56Z"
     }
   ]
 }

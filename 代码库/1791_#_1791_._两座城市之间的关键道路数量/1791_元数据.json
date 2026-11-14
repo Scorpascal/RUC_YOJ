@@ -1,0 +1,64 @@
+{
+  "problem": {
+    "submissionNo": "1503926",
+    "problemNo": "1791",
+    "title": "# 1791 . 两座城市之间的关键道路数量",
+    "status": "Accepted",
+    "score": "100",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1503926.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1791.html"
+  },
+  "submission": {
+    "submissionNo": "1503926",
+    "problemNo": "1791",
+    "title": "# 1791 . 两座城市之间的关键道路数量",
+    "status": "Accepted",
+    "score": "100",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1503926.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1791.html"
+  },
+  "source": {
+    "captureVersion": 2,
+    "capturedAt": "2026-11-14T14:31:01Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    }
+  },
+  "files": {
+    "problem": "1791_题目原文.html",
+    "submission": "1791_提交_1503926_详情.html",
+    "completeCode": "1791_提交_1503926_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "1791_提交_1503926_cpp17_可提交代码.cpp",
+    "metadata": "1791_元数据.json"
+  },
+  "code": {
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 6434,
+    "sha256": "fe84a496dd3248aac6b68120bd4035520d11395bafc17553fcf8404934a32711",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1791_提交_1503926_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "1791_提交_1503926_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    },
+    "rawArchiveSha256": "fe84a496dd3248aac6b68120bd4035520d11395bafc17553fcf8404934a32711",
+    "directlySubmittableSha256": "fe84a496dd3248aac6b68120bd4035520d11395bafc17553fcf8404934a32711",
+    "status": "CLEANED_ONLINE_VERIFIED"
+  },
+  "publication": {
+    "status": "PUBLIC_READY",
+    "batchId": "20261114T143354Z",
+    "candidateSha256": "fe84a496dd3248aac6b68120bd4035520d11395bafc17553fcf8404934a32711",
+    "submissionNo": 1504299,
+    "verifiedAt": "2026-11-14T14:33:46Z"
+  }
+}

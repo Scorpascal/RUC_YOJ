@@ -16,14 +16,14 @@
 
 | 维度 | 状态 | 题数 | 占全部题目 | 处理提示 |
 | --- | --- | ---: | ---: | --- |
-| 发布阶段 | `PUBLIC_READY` | `497` | 97.07% | 清洗、本地门禁、在线 Accepted 与源码回收均完成 |
-| 发布阶段 | `TOPIC_CAPTURED` | `5` | 0.98% | 已从 YOJ 可访问题库归档题面，但尚无本人 Accepted 源码；不生成伪代码 |
-| 发布阶段 | `RAW_CAPTURED` | `10` | 1.95% | 已归档，待清洗、复核或发布 |
-| 在线复验 | `ONLINE_ACCEPTED` | `497` | 97.07% | 在线提交为 Accepted；若仍是 RAW_CAPTURED，还需完成清洗发布 |
-| 在线复验 | `NO_LOCAL_AC` | `5` | 0.98% | 题面已归档，但尚无本人 Accepted 源码；不执行代码复验 |
-| 在线复验 | `ONLINE_SKIPPED_PROBLEM_CONTEXT_ACCESS_DENIED` | `10` | 1.95% | 原站明确拒绝该题目入口访问；保留旧归档，不提升发布状态 |
-| YOJ 可见性 | `YOJ_PUBLIC` | `456` | 89.06% | 本轮 YOJ 公开索引仍可见；不等于 Accepted 或 PUBLIC_READY |
-| YOJ 可见性 | `NOT_IN_CURRENT_PUBLIC_INDEX` | `56` | 10.94% | 本轮未登录的 YOJ 公开列表未列出；登录态列表可能不同，本站本地归档仍可查看，不等于题面或历史代码失效 |
+| 发布阶段 | `PUBLIC_READY` | `500` | 97.09% | 清洗、本地门禁、在线 Accepted 与源码回收均完成 |
+| 发布阶段 | `TOPIC_CAPTURED` | `5` | 0.97% | 已从 YOJ 可访问题库归档题面，但尚无本人 Accepted 源码；不生成伪代码 |
+| 发布阶段 | `RAW_CAPTURED` | `10` | 1.94% | 已归档，待清洗、复核或发布 |
+| 在线复验 | `ONLINE_ACCEPTED` | `500` | 97.09% | 在线提交为 Accepted；若仍是 RAW_CAPTURED，还需完成清洗发布 |
+| 在线复验 | `NO_LOCAL_AC` | `5` | 0.97% | 题面已归档，但尚无本人 Accepted 源码；不执行代码复验 |
+| 在线复验 | `ONLINE_SKIPPED_PROBLEM_CONTEXT_ACCESS_DENIED` | `10` | 1.94% | 原站明确拒绝该题目入口访问；保留旧归档，不提升发布状态 |
+| YOJ 可见性 | `YOJ_PUBLIC` | `459` | 89.13% | 本轮 YOJ 公开索引仍可见；不等于 Accepted 或 PUBLIC_READY |
+| YOJ 可见性 | `NOT_IN_CURRENT_PUBLIC_INDEX` | `56` | 10.87% | 本轮未登录的 YOJ 公开列表未列出；登录态列表可能不同，本站本地归档仍可查看，不等于题面或历史代码失效 |
 
 > 当前重点：待清洗/发布 `15` 道；在线复验非 Accepted 或跳过 `15` 道；其中在线已 Accepted 但仍待清洗发布 `0` 道。
 
@@ -43,16 +43,16 @@
 
 ## 当前状态
 
-- 原始归档时间：`2026-10-17T18:55:41Z`
-- 已生成题面：`512` 道
-- YOJ 公开列表快照：`456` 道，最近发生变化时间 `2026-10-29T06:50:54Z`；每日任务仍会复核未变化的列表，该可见性证据不替代 Accepted 或 `PUBLIC_READY`
-- YOJ 可见性投影：当前公开 `456` 道；未登录公开列表未列出 `56` 道（登录态列表可能不同）；下线只更新可见性，不降级冻结的 `PUBLIC_READY` 内容
-- 状态统计：发布阶段 `{'PUBLIC_READY': 497, 'RAW_CAPTURED': 10, 'TOPIC_CAPTURED': 5}`；在线复验 `{'NO_LOCAL_AC': 5, 'ONLINE_ACCEPTED': 497, 'ONLINE_SKIPPED_PROBLEM_CONTEXT_ACCESS_DENIED': 10}`（详细表见上方）
-- 原始代码同步：完整代码 `507/512`，可提交代码 `507/512`；原始归档不等于公开发布版本
-- 公开清洗版本：`497/512` 道通过本地门禁、YOJ Accepted 与源码回收核验
-- 在线复验：已提交 `497/512`，其中 `Accepted` `497`、明确非通过 `0`；当前状态仍标记为在线跳过 `10` 道（按 `data/problems.json` 统计，历史跳过记录不重复计数）
-- 在线源码回收：`Accepted` 中已回收并比对 `497/497`；编号、状态、跳过原因和源码回收证据保存在被忽略的 `staging/online-verification.json`
-- YOJ 快捷提交入口：严格 `PUBLIC_READY` `497` 道；另有当前公开历史 Accepted 归档 `0` 道提供带警告的人工尝试入口；当前公开且仓库有代码 `451` 道，不改变发布状态
+- 原始归档时间：`2026-11-14T14:31:01Z`
+- 已生成题面：`515` 道
+- YOJ 公开列表快照：`459` 道，最近发生变化时间 `2026-11-14T14:31:00Z`；每日任务仍会复核未变化的列表，该可见性证据不替代 Accepted 或 `PUBLIC_READY`
+- YOJ 可见性投影：当前公开 `459` 道；未登录公开列表未列出 `56` 道（登录态列表可能不同）；下线只更新可见性，不降级冻结的 `PUBLIC_READY` 内容
+- 状态统计：发布阶段 `{'PUBLIC_READY': 500, 'RAW_CAPTURED': 10, 'TOPIC_CAPTURED': 5}`；在线复验 `{'NO_LOCAL_AC': 5, 'ONLINE_ACCEPTED': 500, 'ONLINE_SKIPPED_PROBLEM_CONTEXT_ACCESS_DENIED': 10}`（详细表见上方）
+- 原始代码同步：完整代码 `510/515`，可提交代码 `510/515`；原始归档不等于公开发布版本
+- 公开清洗版本：`500/515` 道通过本地门禁、YOJ Accepted 与源码回收核验
+- 在线复验：已提交 `500/515`，其中 `Accepted` `500`、明确非通过 `0`；当前状态仍标记为在线跳过 `10` 道（按 `data/problems.json` 统计，历史跳过记录不重复计数）
+- 在线源码回收：`Accepted` 中已回收并比对 `500/500`；编号、状态、跳过原因和源码回收证据保存在被忽略的 `staging/online-verification.json`
+- YOJ 快捷提交入口：严格 `PUBLIC_READY` `500` 道；另有当前公开历史 Accepted 归档 `0` 道提供带警告的人工尝试入口；当前公开且仓库有代码 `454` 道，不改变发布状态
 - 题面中的时间/内存是题目页限制；每条归档记录的 `archive.acceptedRun` 单独保存某次 AC 的实测耗时/内存，二者不混用
 - 自动调度：每天北京时间 22:30–23:30 执行主流程；23:30–23:55 为维护前弹性缓冲，不启动新一轮。优先登录本人账号，扫描登录题库及账号页面实际提供的课程、课程作业和考试入口（含分页），不枚举考试编号、不自动报名。题目来源的 `eno` 上下文贯穿题面抓取、在线复核和快捷链接；账号完整入口快照及覆盖统计仅保存在被忽略的 `.yoj-sync/`，公开文件只保留题目必要的来源地址，不公开成员或个人信息。复查账号可见且未完成发布的题目是否有本人新 Accepted；已 `PUBLIC_READY` 的源码不自动替换。登录不可用时降级核对匿名公开列表、抓取公开新题面；降级或入口扫描不完整不推进 README 的最近完整检查日期。匿名公开快照继续独立记录原站公开可见性。发布仍须通过脱敏、本地门禁、在线 Accepted 与源码回收核验，凭据不进入 GitHub。
 - 逐题访问边界：历史考试中列出的旧题不一定仍可读；若其所有已发现入口均明确拒绝访问，逐题记录阻塞并保留原归档，不阻断其他题目，也不提升被阻塞题的发布状态。新题访问失败、网络异常或题面结构不完整仍停止本轮，不能以旧快照或空结果冒充成功。
@@ -588,6 +588,9 @@
 | 1724 | # 1724 . 根据前序和中序恢复后序 | [查看题面](%E9%A2%98%E8%A7%A3/1724_%23_1724_._%E6%A0%B9%E6%8D%AE%E5%89%8D%E5%BA%8F%E5%92%8C%E4%B8%AD%E5%BA%8F%E6%81%A2%E5%A4%8D%E5%90%8E%E5%BA%8F/1724_%E9%A2%98%E7%9B%AE.md) | [已发布（清洗并核验；在线 `Accepted` #1441716）](%E4%BB%A3%E7%A0%81%E5%BA%93/1724_%23_1724_._%E6%A0%B9%E6%8D%AE%E5%89%8D%E5%BA%8F%E5%92%8C%E4%B8%AD%E5%BA%8F%E6%81%A2%E5%A4%8D%E5%90%8E%E5%BA%8F/1724_%E6%8F%90%E4%BA%A4_1441711_cpp17_%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81.cpp) | [已发布（可提交形态已核验；在线 `Accepted` #1441716）](%E4%BB%A3%E7%A0%81%E5%BA%93/1724_%23_1724_._%E6%A0%B9%E6%8D%AE%E5%89%8D%E5%BA%8F%E5%92%8C%E4%B8%AD%E5%BA%8F%E6%81%A2%E5%A4%8D%E5%90%8E%E5%BA%8F/1724_%E6%8F%90%E4%BA%A4_1441711_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp) | `cpp17` | [复制并提交](https://scorpascal.github.io/RUC_YOJ/yoj-quick-submit.html?pno=1724) | `PUBLIC_READY; ONLINE_ACCEPTED` |
 | 1725 | # 1725 . 合并果子的最小代价 | [查看题面](%E9%A2%98%E8%A7%A3/1725_%23_1725_._%E5%90%88%E5%B9%B6%E6%9E%9C%E5%AD%90%E7%9A%84%E6%9C%80%E5%B0%8F%E4%BB%A3%E4%BB%B7/1725_%E9%A2%98%E7%9B%AE.md) | [已发布（清洗并核验；在线 `Accepted` #1441718）](%E4%BB%A3%E7%A0%81%E5%BA%93/1725_%23_1725_._%E5%90%88%E5%B9%B6%E6%9E%9C%E5%AD%90%E7%9A%84%E6%9C%80%E5%B0%8F%E4%BB%A3%E4%BB%B7/1725_%E6%8F%90%E4%BA%A4_1441712_cpp17_%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81.cpp) | [已发布（可提交形态已核验；在线 `Accepted` #1441718）](%E4%BB%A3%E7%A0%81%E5%BA%93/1725_%23_1725_._%E5%90%88%E5%B9%B6%E6%9E%9C%E5%AD%90%E7%9A%84%E6%9C%80%E5%B0%8F%E4%BB%A3%E4%BB%B7/1725_%E6%8F%90%E4%BA%A4_1441712_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp) | `cpp17` | [复制并提交](https://scorpascal.github.io/RUC_YOJ/yoj-quick-submit.html?pno=1725) | `PUBLIC_READY; ONLINE_ACCEPTED` |
 | 1726 | # 1726 . 二叉树的最近公共祖先（LCA） | [查看题面](%E9%A2%98%E8%A7%A3/1726_%23_1726_._%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88%EF%BC%88LCA%EF%BC%89/1726_%E9%A2%98%E7%9B%AE.md) | [已发布（清洗并核验；在线 `Accepted` #1441724）](%E4%BB%A3%E7%A0%81%E5%BA%93/1726_%23_1726_._%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88%EF%BC%88LCA%EF%BC%89/1726_%E6%8F%90%E4%BA%A4_1441715_cpp17_%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81.cpp) | [已发布（可提交形态已核验；在线 `Accepted` #1441724）](%E4%BB%A3%E7%A0%81%E5%BA%93/1726_%23_1726_._%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88%EF%BC%88LCA%EF%BC%89/1726_%E6%8F%90%E4%BA%A4_1441715_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp) | `cpp17` | [复制并提交](https://scorpascal.github.io/RUC_YOJ/yoj-quick-submit.html?pno=1726) | `PUBLIC_READY; ONLINE_ACCEPTED` |
+| 1789 | # 1789 . 边双连通分量 | [查看题面](%E9%A2%98%E8%A7%A3/1789_%23_1789_._%E8%BE%B9%E5%8F%8C%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F/1789_%E9%A2%98%E7%9B%AE.md) | [已发布（清洗并核验；在线 `Accepted` #1504297）](%E4%BB%A3%E7%A0%81%E5%BA%93/1789_%23_1789_._%E8%BE%B9%E5%8F%8C%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F/1789_%E6%8F%90%E4%BA%A4_1503924_cpp17_%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81.cpp) | [已发布（可提交形态已核验；在线 `Accepted` #1504297）](%E4%BB%A3%E7%A0%81%E5%BA%93/1789_%23_1789_._%E8%BE%B9%E5%8F%8C%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F/1789_%E6%8F%90%E4%BA%A4_1503924_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp) | `cpp17` | [复制并提交](https://scorpascal.github.io/RUC_YOJ/yoj-quick-submit.html?pno=1789) | `PUBLIC_READY; ONLINE_ACCEPTED` |
+| 1790 | # 1790 . 最少增加多少条道路 | [查看题面](%E9%A2%98%E8%A7%A3/1790_%23_1790_._%E6%9C%80%E5%B0%91%E5%A2%9E%E5%8A%A0%E5%A4%9A%E5%B0%91%E6%9D%A1%E9%81%93%E8%B7%AF/1790_%E9%A2%98%E7%9B%AE.md) | [已发布（清洗并核验；在线 `Accepted` #1504298）](%E4%BB%A3%E7%A0%81%E5%BA%93/1790_%23_1790_._%E6%9C%80%E5%B0%91%E5%A2%9E%E5%8A%A0%E5%A4%9A%E5%B0%91%E6%9D%A1%E9%81%93%E8%B7%AF/1790_%E6%8F%90%E4%BA%A4_1503925_cpp17_%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81.cpp) | [已发布（可提交形态已核验；在线 `Accepted` #1504298）](%E4%BB%A3%E7%A0%81%E5%BA%93/1790_%23_1790_._%E6%9C%80%E5%B0%91%E5%A2%9E%E5%8A%A0%E5%A4%9A%E5%B0%91%E6%9D%A1%E9%81%93%E8%B7%AF/1790_%E6%8F%90%E4%BA%A4_1503925_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp) | `cpp17` | [复制并提交](https://scorpascal.github.io/RUC_YOJ/yoj-quick-submit.html?pno=1790) | `PUBLIC_READY; ONLINE_ACCEPTED` |
+| 1791 | # 1791 . 两座城市之间的关键道路数量 | [查看题面](%E9%A2%98%E8%A7%A3/1791_%23_1791_._%E4%B8%A4%E5%BA%A7%E5%9F%8E%E5%B8%82%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E9%94%AE%E9%81%93%E8%B7%AF%E6%95%B0%E9%87%8F/1791_%E9%A2%98%E7%9B%AE.md) | [已发布（清洗并核验；在线 `Accepted` #1504299）](%E4%BB%A3%E7%A0%81%E5%BA%93/1791_%23_1791_._%E4%B8%A4%E5%BA%A7%E5%9F%8E%E5%B8%82%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E9%94%AE%E9%81%93%E8%B7%AF%E6%95%B0%E9%87%8F/1791_%E6%8F%90%E4%BA%A4_1503926_cpp17_%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81.cpp) | [已发布（可提交形态已核验；在线 `Accepted` #1504299）](%E4%BB%A3%E7%A0%81%E5%BA%93/1791_%23_1791_._%E4%B8%A4%E5%BA%A7%E5%9F%8E%E5%B8%82%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E9%94%AE%E9%81%93%E8%B7%AF%E6%95%B0%E9%87%8F/1791_%E6%8F%90%E4%BA%A4_1503926_cpp17_%E5%8F%AF%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81.cpp) | `cpp17` | [复制并提交](https://scorpascal.github.io/RUC_YOJ/yoj-quick-submit.html?pno=1791) | `PUBLIC_READY; ONLINE_ACCEPTED` |
 
 ## 后续门禁
 
