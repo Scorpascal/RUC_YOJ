@@ -1,7 +1,7 @@
 {
   "version": 1,
   "purpose": "YOJ accepted source archive; raw capture materialization only",
-  "capturedAt": "2026-10-17T18:55:41Z",
+  "capturedAt": "2026-11-14T14:31:01Z",
   "account": {
     "username": "已脱敏"
   },
@@ -12,9 +12,9 @@
   "totals": {
     "submissionRecords": 1028,
     "acceptedSubmissionRecords": 644,
-    "uniqueProblems": 512,
-    "materializedProblemDirectories": 512,
-    "materializedCodeFiles": 507
+    "uniqueProblems": 515,
+    "materializedProblemDirectories": 515,
+    "materializedCodeFiles": 510
   },
   "problems": [
     {
@@ -7687,6 +7687,54 @@
       },
       "codeSha256": "b1cf7b55e5783443c721903e1d7b78101fce629be4039212b8a912ead4d1c153",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1726/eno/2095.html"
+    },
+    {
+      "problemNo": "1789",
+      "title": "# 1789 . 边双连通分量",
+      "folder": "1789_#_1789_._边双连通分量",
+      "submissionNo": "1503924",
+      "language": "cpp17",
+      "files": {
+        "problem": "1789_#_1789_._边双连通分量/1789_题目原文.html",
+        "submission": "1789_#_1789_._边双连通分量/1789_提交_1503924_详情.html",
+        "completeCode": "1789_#_1789_._边双连通分量/1789_提交_1503924_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "1789_#_1789_._边双连通分量/1789_提交_1503924_cpp17_可提交代码.cpp",
+        "metadata": "1789_#_1789_._边双连通分量/1789_元数据.json"
+      },
+      "codeSha256": "0979505030ea0089ff658256b938349df69a045a9888260c2440e4a8e5eb4e88",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1789.html"
+    },
+    {
+      "problemNo": "1790",
+      "title": "# 1790 . 最少增加多少条道路",
+      "folder": "1790_#_1790_._最少增加多少条道路",
+      "submissionNo": "1503925",
+      "language": "cpp17",
+      "files": {
+        "problem": "1790_#_1790_._最少增加多少条道路/1790_题目原文.html",
+        "submission": "1790_#_1790_._最少增加多少条道路/1790_提交_1503925_详情.html",
+        "completeCode": "1790_#_1790_._最少增加多少条道路/1790_提交_1503925_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "1790_#_1790_._最少增加多少条道路/1790_提交_1503925_cpp17_可提交代码.cpp",
+        "metadata": "1790_#_1790_._最少增加多少条道路/1790_元数据.json"
+      },
+      "codeSha256": "08ee88ef19b32d37be12ee25f86d4f40bc3bced7990e3a028165a43052a32c3e",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1790.html"
+    },
+    {
+      "problemNo": "1791",
+      "title": "# 1791 . 两座城市之间的关键道路数量",
+      "folder": "1791_#_1791_._两座城市之间的关键道路数量",
+      "submissionNo": "1503926",
+      "language": "cpp17",
+      "files": {
+        "problem": "1791_#_1791_._两座城市之间的关键道路数量/1791_题目原文.html",
+        "submission": "1791_#_1791_._两座城市之间的关键道路数量/1791_提交_1503926_详情.html",
+        "completeCode": "1791_#_1791_._两座城市之间的关键道路数量/1791_提交_1503926_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "1791_#_1791_._两座城市之间的关键道路数量/1791_提交_1503926_cpp17_可提交代码.cpp",
+        "metadata": "1791_#_1791_._两座城市之间的关键道路数量/1791_元数据.json"
+      },
+      "codeSha256": "fe84a496dd3248aac6b68120bd4035520d11395bafc17553fcf8404934a32711",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1791.html"
     }
   ],
   "errors": {
