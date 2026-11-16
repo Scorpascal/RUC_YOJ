@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-14T14:31:00Z",
+  "generatedAt": "2026-11-16T14:31:02Z",
   "source": {
     "problemRecords": 515,
     "verifiedSubmissions": 500,
@@ -11,8 +11,8 @@
     "repositoryProblemsNotInCurrentPublicIndex": 56,
     "archivedCodeEntries": 0,
     "archivedQuickSubmitEntries": 0,
-    "onlineSnapshotCapturedAt": "2026-11-14T14:31:00Z",
-    "onlineSnapshotSha256": "5fca67191ca9e7ab67933ee510960a7d5978c78adc601f6c943b43963b37bc9a",
+    "onlineSnapshotCapturedAt": "2026-11-16T14:31:02Z",
+    "onlineSnapshotSha256": "0cd7ee98565ab6413c8736b14d9d56c7de2d4064ecb3d214053a65ef2bad72d8",
     "tagging": "title-heuristic-v1",
     "note": "YOJ 可见性来自独立的原站未登录公开列表快照；本站目录仍展示本地全部归档题目，因此本地可见不等于原站当前公开。该快照不替代仓库自己的 Accepted/PUBLIC_READY 证据。知识点标签为根据题名生成的初步导航标签，需逐题人工校准。"
   },

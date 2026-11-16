@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "capturedAt": "2026-11-14T14:31:00Z",
+  "capturedAt": "2026-11-16T14:31:02Z",
   "source": "http://yoj.ruc.edu.cn/index.php/index/problem/index.html",
   "publicCount": 459,
   "pagesFetched": 2,
-  "problemListSha256": "5fca67191ca9e7ab67933ee510960a7d5978c78adc601f6c943b43963b37bc9a",
+  "problemListSha256": "0cd7ee98565ab6413c8736b14d9d56c7de2d4064ecb3d214053a65ef2bad72d8",
   "records": [
     {
       "problemNo": 1,
@@ -2223,52 +2223,52 @@
     },
     {
       "problemNo": 1710,
-      "title": "第 40 次 CCF 计算机软件能力认证 第一题 集合 (set)",
+      "title": "第 40 次 CCF 计算机软件能力认证 第一题 集合 (set) （CSP 202512-1）",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1710.html"
     },
     {
       "problemNo": 1711,
-      "title": "第 40 次 CCF 计算机软件能力认证 第二题：数字变换 (transform)",
+      "title": "第 40 次 CCF 计算机软件能力认证 第二题：数字变换 (transform) （CSP 202512-2）",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1711.html"
     },
     {
       "problemNo": 1712,
-      "title": "第 40 次 CCF 计算机软件能力认证 第三题：图片解码 (decode)",
+      "title": "第 40 次 CCF 计算机软件能力认证 第三题：图片解码 (decode) （CSP 202512-3）",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1712.html"
     },
     {
       "problemNo": 1713,
-      "title": "第 40 次 CCF 计算机软件能力认证 第四题：C 形阵 (square)",
+      "title": "第 40 次 CCF 计算机软件能力认证 第四题：C 形阵 (square)（CSP 202512-4）",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1713.html"
     },
     {
       "problemNo": 1714,
-      "title": "第 40 次 CCF 计算机软件能力认证 第五题：数据抢修 (repair)",
+      "title": "第 40 次 CCF 计算机软件能力认证 第五题：数据抢修 (repair)（CSP 202512-5）",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1714.html"
     },
     {
       "problemNo": 1715,
-      "title": "第 41 次 CCF 计算机软件能力认证 第一题：平衡数（balance）",
+      "title": "第 41 次 CCF 计算机软件能力认证 第一题：平衡数（balance）（CSP 202603-1）",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1715.html"
     },
     {
       "problemNo": 1716,
-      "title": "第 41 次 CCF 计算机软件能力认证 第二题：机器人项目管理（crashing）",
+      "title": "第 41 次 CCF 计算机软件能力认证 第二题：机器人项目管理（crashing）（CSP 202603-2）",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1716.html"
     },
     {
       "problemNo": 1717,
-      "title": "第 41 次 CCF 计算机软件能力认证 第三题：进程通信（communicate）",
+      "title": "第 41 次 CCF 计算机软件能力认证 第三题：进程通信（communicate）（CSP 202603-3）",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1717.html"
     },
     {
       "problemNo": 1718,
-      "title": "第 41 次 CCF 计算机软件能力认证 第四题：异或（xor）",
+      "title": "第 41 次 CCF 计算机软件能力认证 第四题：异或（xor）（CSP 202603-4）",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1718.html"
     },
     {
       "problemNo": 1719,
-      "title": "第 41 次 CCF 计算机软件能力认证 第五题：旅游计划（travel）",
+      "title": "第 41 次 CCF 计算机软件能力认证 第五题：旅游计划（travel）（CSP 202603-5）",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1719.html"
     },
     {
