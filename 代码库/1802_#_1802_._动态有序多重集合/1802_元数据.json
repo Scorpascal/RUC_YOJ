@@ -1,0 +1,64 @@
+{
+  "problem": {
+    "submissionNo": "1518128",
+    "problemNo": "1802",
+    "title": "# 1802 . 动态有序多重集合",
+    "status": "Accepted",
+    "score": "100",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1518128.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1802.html"
+  },
+  "submission": {
+    "submissionNo": "1518128",
+    "problemNo": "1802",
+    "title": "# 1802 . 动态有序多重集合",
+    "status": "Accepted",
+    "score": "100",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1518128.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1802.html"
+  },
+  "source": {
+    "captureVersion": 2,
+    "capturedAt": "2026-11-23T14:31:10Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    }
+  },
+  "files": {
+    "problem": "1802_题目原文.html",
+    "submission": "1802_提交_1518128_详情.html",
+    "completeCode": "1802_提交_1518128_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "1802_提交_1518128_cpp17_可提交代码.cpp",
+    "metadata": "1802_元数据.json"
+  },
+  "code": {
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 5064,
+    "sha256": "345848c344da73ed97c1825f86e69bf5f0cb12b78d92afa3bd4a1431c344b635",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1802_提交_1518128_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "1802_提交_1518128_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    },
+    "rawArchiveSha256": "345848c344da73ed97c1825f86e69bf5f0cb12b78d92afa3bd4a1431c344b635",
+    "directlySubmittableSha256": "345848c344da73ed97c1825f86e69bf5f0cb12b78d92afa3bd4a1431c344b635",
+    "status": "CLEANED_ONLINE_VERIFIED"
+  },
+  "publication": {
+    "status": "PUBLIC_READY",
+    "batchId": "20261123T143524Z",
+    "candidateSha256": "345848c344da73ed97c1825f86e69bf5f0cb12b78d92afa3bd4a1431c344b635",
+    "submissionNo": 1520556,
+    "verifiedAt": "2026-11-23T14:34:43Z"
+  }
+}

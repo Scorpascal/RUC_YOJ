@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "purpose": "offline build; only explicit PUBLIC_READY records are public releases",
   "generatedFrom": "代码库/AC抓取清单.json",
-  "capturedAt": "2026-11-14T14:31:01Z",
-  "generatedRecords": 515,
+  "capturedAt": "2026-11-23T14:31:10Z",
+  "generatedRecords": 521,
   "records": [
     {
       "problemNo": "1",
@@ -33318,6 +33318,366 @@
         "verifiedAt": "2026-11-14T14:33:46Z",
         "verifiedSubmissionNo": "1504299",
         "codeSha256": "fe84a496dd3248aac6b68120bd4035520d11395bafc17553fcf8404934a32711"
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
+      "problemNo": "1799",
+      "title": "# 1799 . 伸展树的插入与访问",
+      "folder": "1799_#_1799_._伸展树的插入与访问",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1799.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "256MiB"
+      },
+      "language": "cpp17",
+      "archive": {
+        "status": "RAW_CAPTURED",
+        "submissionNo": "1518110",
+        "capturedAt": "2026-11-23T14:31:10Z",
+        "sourceSha256": "0bccbd7665a0655e9e44af1bc9fa1590dfed33bef003dc2f79de895748ee84d7",
+        "recordedSha256": "0bccbd7665a0655e9e44af1bc9fa1590dfed33bef003dc2f79de895748ee84d7",
+        "sourceHashMatchesMetadata": true,
+        "metadata": "代码库/1799_#_1799_._伸展树的插入与访问/1799_元数据.json",
+        "completeCode": "代码库/1799_#_1799_._伸展树的插入与访问/1799_提交_1518110_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1799_#_1799_._伸展树的插入与访问/1799_提交_1518110_cpp17_可提交代码.cpp",
+        "acceptedRun": {
+          "source": "submission_detail",
+          "status": "Accepted",
+          "score": "100",
+          "language": "cpp17",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "endpoint_returned_one_code_field",
+          "completeCodeFile": "1799_提交_1518110_cpp17_完整代码.cpp",
+          "directlySubmittableFile": "1799_提交_1518110_cpp17_可提交代码.cpp",
+          "blocks": [],
+          "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+        }
+      },
+      "public": {
+        "status": "PUBLIC_READY",
+        "publish": true,
+        "statement": "题解/1799_#_1799_._伸展树的插入与访问/1799_题目.md",
+        "cleanCode": "代码库/1799_#_1799_._伸展树的插入与访问/1799_提交_1518110_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1799_#_1799_._伸展树的插入与访问/1799_提交_1518110_cpp17_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "onlineVerificationNote": "",
+        "verifiedAt": "2026-11-23T14:33:55Z",
+        "verifiedSubmissionNo": "1520548",
+        "codeSha256": "0bccbd7665a0655e9e44af1bc9fa1590dfed33bef003dc2f79de895748ee84d7"
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
+      "problemNo": "1800",
+      "title": "# 1800 . B 树的磁盘访问统计",
+      "folder": "1800_#_1800_._B_树的磁盘访问统计",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1800.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "256MiB"
+      },
+      "language": "cpp17",
+      "archive": {
+        "status": "RAW_CAPTURED",
+        "submissionNo": "1518177",
+        "capturedAt": "2026-11-23T14:31:10Z",
+        "sourceSha256": "a86a6349359c9ad649cd13fa706033cc2c9b41a250fd9747af5cdf9e13043038",
+        "recordedSha256": "a86a6349359c9ad649cd13fa706033cc2c9b41a250fd9747af5cdf9e13043038",
+        "sourceHashMatchesMetadata": true,
+        "metadata": "代码库/1800_#_1800_._B_树的磁盘访问统计/1800_元数据.json",
+        "completeCode": "代码库/1800_#_1800_._B_树的磁盘访问统计/1800_提交_1518177_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1800_#_1800_._B_树的磁盘访问统计/1800_提交_1518177_cpp17_可提交代码.cpp",
+        "acceptedRun": {
+          "source": "submission_detail",
+          "status": "Accepted",
+          "score": "100",
+          "language": "cpp17",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "endpoint_returned_one_code_field",
+          "completeCodeFile": "1800_提交_1518177_cpp17_完整代码.cpp",
+          "directlySubmittableFile": "1800_提交_1518177_cpp17_可提交代码.cpp",
+          "blocks": [],
+          "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+        }
+      },
+      "public": {
+        "status": "PUBLIC_READY",
+        "publish": true,
+        "statement": "题解/1800_#_1800_._B_树的磁盘访问统计/1800_题目.md",
+        "cleanCode": "代码库/1800_#_1800_._B_树的磁盘访问统计/1800_提交_1518177_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1800_#_1800_._B_树的磁盘访问统计/1800_提交_1518177_cpp17_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "onlineVerificationNote": "",
+        "verifiedAt": "2026-11-23T14:34:11Z",
+        "verifiedSubmissionNo": "1520552",
+        "codeSha256": "a86a6349359c9ad649cd13fa706033cc2c9b41a250fd9747af5cdf9e13043038"
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
+      "problemNo": "1801",
+      "title": "# 1801 . 序列区间剪切与移动",
+      "folder": "1801_#_1801_._序列区间剪切与移动",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1801.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "256MiB"
+      },
+      "language": "cpp17",
+      "archive": {
+        "status": "RAW_CAPTURED",
+        "submissionNo": "1518119",
+        "capturedAt": "2026-11-23T14:31:10Z",
+        "sourceSha256": "cfa817074442ee7c3b8dac691ce7ad88d936cac8bd1e159a2fff6eff4c8ae593",
+        "recordedSha256": "cfa817074442ee7c3b8dac691ce7ad88d936cac8bd1e159a2fff6eff4c8ae593",
+        "sourceHashMatchesMetadata": true,
+        "metadata": "代码库/1801_#_1801_._序列区间剪切与移动/1801_元数据.json",
+        "completeCode": "代码库/1801_#_1801_._序列区间剪切与移动/1801_提交_1518119_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1801_#_1801_._序列区间剪切与移动/1801_提交_1518119_cpp17_可提交代码.cpp",
+        "acceptedRun": {
+          "source": "submission_detail",
+          "status": "Accepted",
+          "score": "100",
+          "language": "cpp17",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "endpoint_returned_one_code_field",
+          "completeCodeFile": "1801_提交_1518119_cpp17_完整代码.cpp",
+          "directlySubmittableFile": "1801_提交_1518119_cpp17_可提交代码.cpp",
+          "blocks": [],
+          "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+        }
+      },
+      "public": {
+        "status": "PUBLIC_READY",
+        "publish": true,
+        "statement": "题解/1801_#_1801_._序列区间剪切与移动/1801_题目.md",
+        "cleanCode": "代码库/1801_#_1801_._序列区间剪切与移动/1801_提交_1518119_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1801_#_1801_._序列区间剪切与移动/1801_提交_1518119_cpp17_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "onlineVerificationNote": "",
+        "verifiedAt": "2026-11-23T14:34:27Z",
+        "verifiedSubmissionNo": "1520554",
+        "codeSha256": "cfa817074442ee7c3b8dac691ce7ad88d936cac8bd1e159a2fff6eff4c8ae593"
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
+      "problemNo": "1802",
+      "title": "# 1802 . 动态有序多重集合",
+      "folder": "1802_#_1802_._动态有序多重集合",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1802.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "256MiB"
+      },
+      "language": "cpp17",
+      "archive": {
+        "status": "RAW_CAPTURED",
+        "submissionNo": "1518128",
+        "capturedAt": "2026-11-23T14:31:10Z",
+        "sourceSha256": "345848c344da73ed97c1825f86e69bf5f0cb12b78d92afa3bd4a1431c344b635",
+        "recordedSha256": "345848c344da73ed97c1825f86e69bf5f0cb12b78d92afa3bd4a1431c344b635",
+        "sourceHashMatchesMetadata": true,
+        "metadata": "代码库/1802_#_1802_._动态有序多重集合/1802_元数据.json",
+        "completeCode": "代码库/1802_#_1802_._动态有序多重集合/1802_提交_1518128_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1802_#_1802_._动态有序多重集合/1802_提交_1518128_cpp17_可提交代码.cpp",
+        "acceptedRun": {
+          "source": "submission_detail",
+          "status": "Accepted",
+          "score": "100",
+          "language": "cpp17",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "endpoint_returned_one_code_field",
+          "completeCodeFile": "1802_提交_1518128_cpp17_完整代码.cpp",
+          "directlySubmittableFile": "1802_提交_1518128_cpp17_可提交代码.cpp",
+          "blocks": [],
+          "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+        }
+      },
+      "public": {
+        "status": "PUBLIC_READY",
+        "publish": true,
+        "statement": "题解/1802_#_1802_._动态有序多重集合/1802_题目.md",
+        "cleanCode": "代码库/1802_#_1802_._动态有序多重集合/1802_提交_1518128_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1802_#_1802_._动态有序多重集合/1802_提交_1518128_cpp17_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "onlineVerificationNote": "",
+        "verifiedAt": "2026-11-23T14:34:43Z",
+        "verifiedSubmissionNo": "1520556",
+        "codeSha256": "345848c344da73ed97c1825f86e69bf5f0cb12b78d92afa3bd4a1431c344b635"
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
+      "problemNo": "1803",
+      "title": "# 1803 . B 树的插入与分裂",
+      "folder": "1803_#_1803_._B_树的插入与分裂",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1803.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "256MiB"
+      },
+      "language": "cpp17",
+      "archive": {
+        "status": "RAW_CAPTURED",
+        "submissionNo": "1518184",
+        "capturedAt": "2026-11-23T14:31:10Z",
+        "sourceSha256": "b4beb78b351f2b69afda53197543629d313ad58d22403edb92f79e7af6a40223",
+        "recordedSha256": "b4beb78b351f2b69afda53197543629d313ad58d22403edb92f79e7af6a40223",
+        "sourceHashMatchesMetadata": true,
+        "metadata": "代码库/1803_#_1803_._B_树的插入与分裂/1803_元数据.json",
+        "completeCode": "代码库/1803_#_1803_._B_树的插入与分裂/1803_提交_1518184_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1803_#_1803_._B_树的插入与分裂/1803_提交_1518184_cpp17_可提交代码.cpp",
+        "acceptedRun": {
+          "source": "submission_detail",
+          "status": "Accepted",
+          "score": "100",
+          "language": "cpp17",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "endpoint_returned_one_code_field",
+          "completeCodeFile": "1803_提交_1518184_cpp17_完整代码.cpp",
+          "directlySubmittableFile": "1803_提交_1518184_cpp17_可提交代码.cpp",
+          "blocks": [],
+          "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+        }
+      },
+      "public": {
+        "status": "PUBLIC_READY",
+        "publish": true,
+        "statement": "题解/1803_#_1803_._B_树的插入与分裂/1803_题目.md",
+        "cleanCode": "代码库/1803_#_1803_._B_树的插入与分裂/1803_提交_1518184_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1803_#_1803_._B_树的插入与分裂/1803_提交_1518184_cpp17_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "onlineVerificationNote": "",
+        "verifiedAt": "2026-11-23T14:34:59Z",
+        "verifiedSubmissionNo": "1520559",
+        "codeSha256": "b4beb78b351f2b69afda53197543629d313ad58d22403edb92f79e7af6a40223"
+      },
+      "statement": {
+        "status": "CONVERTED_FROM_HTML_SNAPSHOT",
+        "formulaCount": 0,
+        "imageCount": 0,
+        "imageUrls": [],
+        "imageAssets": [],
+        "imageLocalCount": 0,
+        "assets": [],
+        "warnings": []
+      }
+    },
+    {
+      "problemNo": "1804",
+      "title": "# 1804 . B 树的删除与下溢",
+      "folder": "1804_#_1804_._B_树的删除与下溢",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1804.html",
+      "limits": {
+        "source": "problem_statement",
+        "time": "1000 ms",
+        "memory": "256MiB"
+      },
+      "language": "cpp17",
+      "archive": {
+        "status": "RAW_CAPTURED",
+        "submissionNo": "1518191",
+        "capturedAt": "2026-11-23T14:31:10Z",
+        "sourceSha256": "63c4213d168943ca57297657373b70e49b6bd792abcbb3b2f925806ac26aa678",
+        "recordedSha256": "63c4213d168943ca57297657373b70e49b6bd792abcbb3b2f925806ac26aa678",
+        "sourceHashMatchesMetadata": true,
+        "metadata": "代码库/1804_#_1804_._B_树的删除与下溢/1804_元数据.json",
+        "completeCode": "代码库/1804_#_1804_._B_树的删除与下溢/1804_提交_1518191_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1804_#_1804_._B_树的删除与下溢/1804_提交_1518191_cpp17_可提交代码.cpp",
+        "acceptedRun": {
+          "source": "submission_detail",
+          "status": "Accepted",
+          "score": "100",
+          "language": "cpp17",
+          "time": "未记录",
+          "memory": "未记录"
+        },
+        "blockHandling": {
+          "status": "endpoint_returned_one_code_field",
+          "completeCodeFile": "1804_提交_1518191_cpp17_完整代码.cpp",
+          "directlySubmittableFile": "1804_提交_1518191_cpp17_可提交代码.cpp",
+          "blocks": [],
+          "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+        }
+      },
+      "public": {
+        "status": "PUBLIC_READY",
+        "publish": true,
+        "statement": "题解/1804_#_1804_._B_树的删除与下溢/1804_题目.md",
+        "cleanCode": "代码库/1804_#_1804_._B_树的删除与下溢/1804_提交_1518191_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "代码库/1804_#_1804_._B_树的删除与下溢/1804_提交_1518191_cpp17_可提交代码.cpp",
+        "onlineVerification": "ONLINE_ACCEPTED",
+        "onlineVerificationNote": "",
+        "verifiedAt": "2026-11-23T14:35:15Z",
+        "verifiedSubmissionNo": "1520561",
+        "codeSha256": "63c4213d168943ca57297657373b70e49b6bd792abcbb3b2f925806ac26aa678"
       },
       "statement": {
         "status": "CONVERTED_FROM_HTML_SNAPSHOT",

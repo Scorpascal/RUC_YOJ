@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "capturedAt": "2026-11-16T14:31:02Z",
+  "capturedAt": "2026-11-23T14:31:09Z",
   "source": "http://yoj.ruc.edu.cn/index.php/index/problem/index.html",
-  "publicCount": 459,
+  "publicCount": 465,
   "pagesFetched": 2,
-  "problemListSha256": "0cd7ee98565ab6413c8736b14d9d56c7de2d4064ecb3d214053a65ef2bad72d8",
+  "problemListSha256": "a1bac5e077b10ef127a314af84ed79d66fc7041c93acce0153c184c990117309",
   "records": [
     {
       "problemNo": 1,
@@ -2300,6 +2300,36 @@
       "problemNo": 1791,
       "title": "两座城市之间的关键道路数量",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1791.html"
+    },
+    {
+      "problemNo": 1799,
+      "title": "伸展树的插入与访问",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1799.html"
+    },
+    {
+      "problemNo": 1800,
+      "title": "B 树的磁盘访问统计",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1800.html"
+    },
+    {
+      "problemNo": 1801,
+      "title": "序列区间剪切与移动",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1801.html"
+    },
+    {
+      "problemNo": 1802,
+      "title": "动态有序多重集合",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1802.html"
+    },
+    {
+      "problemNo": 1803,
+      "title": "B 树的插入与分裂",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1803.html"
+    },
+    {
+      "problemNo": 1804,
+      "title": "B 树的删除与下溢",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1804.html"
     }
   ]
 }

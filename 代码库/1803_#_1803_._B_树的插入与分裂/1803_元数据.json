@@ -1,0 +1,64 @@
+{
+  "problem": {
+    "submissionNo": "1518184",
+    "problemNo": "1803",
+    "title": "# 1803 . B 树的插入与分裂",
+    "status": "Accepted",
+    "score": "100",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1518184.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1803.html"
+  },
+  "submission": {
+    "submissionNo": "1518184",
+    "problemNo": "1803",
+    "title": "# 1803 . B 树的插入与分裂",
+    "status": "Accepted",
+    "score": "100",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1518184.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1803.html"
+  },
+  "source": {
+    "captureVersion": 2,
+    "capturedAt": "2026-11-23T14:31:10Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    }
+  },
+  "files": {
+    "problem": "1803_题目原文.html",
+    "submission": "1803_提交_1518184_详情.html",
+    "completeCode": "1803_提交_1518184_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "1803_提交_1518184_cpp17_可提交代码.cpp",
+    "metadata": "1803_元数据.json"
+  },
+  "code": {
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 7409,
+    "sha256": "b4beb78b351f2b69afda53197543629d313ad58d22403edb92f79e7af6a40223",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1803_提交_1518184_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "1803_提交_1518184_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    },
+    "rawArchiveSha256": "b4beb78b351f2b69afda53197543629d313ad58d22403edb92f79e7af6a40223",
+    "directlySubmittableSha256": "b4beb78b351f2b69afda53197543629d313ad58d22403edb92f79e7af6a40223",
+    "status": "CLEANED_ONLINE_VERIFIED"
+  },
+  "publication": {
+    "status": "PUBLIC_READY",
+    "batchId": "20261123T143524Z",
+    "candidateSha256": "b4beb78b351f2b69afda53197543629d313ad58d22403edb92f79e7af6a40223",
+    "submissionNo": 1520559,
+    "verifiedAt": "2026-11-23T14:34:59Z"
+  }
+}

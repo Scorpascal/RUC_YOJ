@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "purpose": "public release manifest; credentials and session data are excluded",
-  "updatedAt": "2026-11-14T14:33:56Z",
+  "updatedAt": "2026-11-23T14:35:26Z",
   "records": [
     {
       "status": "PUBLIC_READY",
@@ -10506,6 +10506,132 @@
         "canonicalByteMatch": true
       },
       "readyAt": "2026-11-14T14:33:56Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1799,
+      "title": "# 1799 . 伸展树的插入与访问",
+      "completeCode": "代码库/1799_#_1799_._伸展树的插入与访问/1799_提交_1518110_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1799_#_1799_._伸展树的插入与访问/1799_提交_1518110_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "0bccbd7665a0655e9e44af1bc9fa1590dfed33bef003dc2f79de895748ee84d7",
+      "directlySubmittableCodeSha256": "0bccbd7665a0655e9e44af1bc9fa1590dfed33bef003dc2f79de895748ee84d7",
+      "statementSha256": "e3ed10aa91c8ca899107d4cbf95b66c397b4d6cbd54c8a3dc2c3fb235c1acca6",
+      "candidatePath": "staging/cleaned-code/1799_#_1799_._伸展树的插入与访问/1799_提交_1518110_cpp17_可提交代码.cpp",
+      "candidateSha256": "0bccbd7665a0655e9e44af1bc9fa1590dfed33bef003dc2f79de895748ee84d7",
+      "submissionNo": 1520548,
+      "language": "cpp17",
+      "verifiedAt": "2026-11-23T14:33:55Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-11-23T14:35:26Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1800,
+      "title": "# 1800 . B 树的磁盘访问统计",
+      "completeCode": "代码库/1800_#_1800_._B_树的磁盘访问统计/1800_提交_1518177_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1800_#_1800_._B_树的磁盘访问统计/1800_提交_1518177_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "a86a6349359c9ad649cd13fa706033cc2c9b41a250fd9747af5cdf9e13043038",
+      "directlySubmittableCodeSha256": "a86a6349359c9ad649cd13fa706033cc2c9b41a250fd9747af5cdf9e13043038",
+      "statementSha256": "e9d970a138a34dc3e45d5d58b014e7c0dfcd044855f7514738bf4948fc2e1965",
+      "candidatePath": "staging/cleaned-code/1800_#_1800_._B_树的磁盘访问统计/1800_提交_1518177_cpp17_可提交代码.cpp",
+      "candidateSha256": "a86a6349359c9ad649cd13fa706033cc2c9b41a250fd9747af5cdf9e13043038",
+      "submissionNo": 1520552,
+      "language": "cpp17",
+      "verifiedAt": "2026-11-23T14:34:11Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-11-23T14:35:26Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1801,
+      "title": "# 1801 . 序列区间剪切与移动",
+      "completeCode": "代码库/1801_#_1801_._序列区间剪切与移动/1801_提交_1518119_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1801_#_1801_._序列区间剪切与移动/1801_提交_1518119_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "cfa817074442ee7c3b8dac691ce7ad88d936cac8bd1e159a2fff6eff4c8ae593",
+      "directlySubmittableCodeSha256": "cfa817074442ee7c3b8dac691ce7ad88d936cac8bd1e159a2fff6eff4c8ae593",
+      "statementSha256": "9eb23ff885452530f72bcebe2757b54fd805cfe47fe038cfbfa052646ee0a59c",
+      "candidatePath": "staging/cleaned-code/1801_#_1801_._序列区间剪切与移动/1801_提交_1518119_cpp17_可提交代码.cpp",
+      "candidateSha256": "cfa817074442ee7c3b8dac691ce7ad88d936cac8bd1e159a2fff6eff4c8ae593",
+      "submissionNo": 1520554,
+      "language": "cpp17",
+      "verifiedAt": "2026-11-23T14:34:27Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-11-23T14:35:26Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1802,
+      "title": "# 1802 . 动态有序多重集合",
+      "completeCode": "代码库/1802_#_1802_._动态有序多重集合/1802_提交_1518128_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1802_#_1802_._动态有序多重集合/1802_提交_1518128_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "345848c344da73ed97c1825f86e69bf5f0cb12b78d92afa3bd4a1431c344b635",
+      "directlySubmittableCodeSha256": "345848c344da73ed97c1825f86e69bf5f0cb12b78d92afa3bd4a1431c344b635",
+      "statementSha256": "f03390d72e71f48c72122d8710e8202fb8870fa153150022af21c7442171ce21",
+      "candidatePath": "staging/cleaned-code/1802_#_1802_._动态有序多重集合/1802_提交_1518128_cpp17_可提交代码.cpp",
+      "candidateSha256": "345848c344da73ed97c1825f86e69bf5f0cb12b78d92afa3bd4a1431c344b635",
+      "submissionNo": 1520556,
+      "language": "cpp17",
+      "verifiedAt": "2026-11-23T14:34:43Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-11-23T14:35:26Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1803,
+      "title": "# 1803 . B 树的插入与分裂",
+      "completeCode": "代码库/1803_#_1803_._B_树的插入与分裂/1803_提交_1518184_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1803_#_1803_._B_树的插入与分裂/1803_提交_1518184_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "b4beb78b351f2b69afda53197543629d313ad58d22403edb92f79e7af6a40223",
+      "directlySubmittableCodeSha256": "b4beb78b351f2b69afda53197543629d313ad58d22403edb92f79e7af6a40223",
+      "statementSha256": "1cca852ea52cf0b73fff39b210ee4d0350310d23c6d4135c004ca056f7e9be85",
+      "candidatePath": "staging/cleaned-code/1803_#_1803_._B_树的插入与分裂/1803_提交_1518184_cpp17_可提交代码.cpp",
+      "candidateSha256": "b4beb78b351f2b69afda53197543629d313ad58d22403edb92f79e7af6a40223",
+      "submissionNo": 1520559,
+      "language": "cpp17",
+      "verifiedAt": "2026-11-23T14:34:59Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-11-23T14:35:26Z"
+    },
+    {
+      "status": "PUBLIC_READY",
+      "problemNo": 1804,
+      "title": "# 1804 . B 树的删除与下溢",
+      "completeCode": "代码库/1804_#_1804_._B_树的删除与下溢/1804_提交_1518191_cpp17_完整代码.cpp",
+      "directlySubmittableCode": "代码库/1804_#_1804_._B_树的删除与下溢/1804_提交_1518191_cpp17_可提交代码.cpp",
+      "completeCodeSha256": "63c4213d168943ca57297657373b70e49b6bd792abcbb3b2f925806ac26aa678",
+      "directlySubmittableCodeSha256": "63c4213d168943ca57297657373b70e49b6bd792abcbb3b2f925806ac26aa678",
+      "statementSha256": "6a930fe34643b52f2eb702b548ef96c490195e11c9860e1040fee07a7946ee94",
+      "candidatePath": "staging/cleaned-code/1804_#_1804_._B_树的删除与下溢/1804_提交_1518191_cpp17_可提交代码.cpp",
+      "candidateSha256": "63c4213d168943ca57297657373b70e49b6bd792abcbb3b2f925806ac26aa678",
+      "submissionNo": 1520561,
+      "language": "cpp17",
+      "verifiedAt": "2026-11-23T14:35:15Z",
+      "roundTrip": {
+        "status": "VISIBLE",
+        "exactByteMatch": true,
+        "canonicalByteMatch": true
+      },
+      "readyAt": "2026-11-23T14:35:26Z"
     }
   ]
 }

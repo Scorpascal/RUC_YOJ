@@ -1,0 +1,64 @@
+{
+  "problem": {
+    "submissionNo": "1518119",
+    "problemNo": "1801",
+    "title": "# 1801 . 序列区间剪切与移动",
+    "status": "Accepted",
+    "score": "100",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1518119.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1801.html"
+  },
+  "submission": {
+    "submissionNo": "1518119",
+    "problemNo": "1801",
+    "title": "# 1801 . 序列区间剪切与移动",
+    "status": "Accepted",
+    "score": "100",
+    "language": "cpp17",
+    "submitter": "本人(已脱敏)",
+    "submissionUrl": "http://yoj.ruc.edu.cn/index.php/index/submissions/detail/subno/1518119.html",
+    "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1801.html"
+  },
+  "source": {
+    "captureVersion": 2,
+    "capturedAt": "2026-11-23T14:31:10Z",
+    "site": "http://yoj.ruc.edu.cn",
+    "codeEndpoint": "/index.php/index/submissions/getcode.html",
+    "endpointResponse": {
+      "status": 1,
+      "tkhide": 0
+    }
+  },
+  "files": {
+    "problem": "1801_题目原文.html",
+    "submission": "1801_提交_1518119_详情.html",
+    "completeCode": "1801_提交_1518119_cpp17_完整代码.cpp",
+    "directlySubmittableCode": "1801_提交_1518119_cpp17_可提交代码.cpp",
+    "metadata": "1801_元数据.json"
+  },
+  "code": {
+    "language": "cpp17",
+    "extension": ".cpp",
+    "bytesUtf8": 3247,
+    "sha256": "cfa817074442ee7c3b8dac691ce7ad88d936cac8bd1e159a2fff6eff4c8ae593",
+    "blockHandling": {
+      "status": "endpoint_returned_one_code_field",
+      "completeCodeFile": "1801_提交_1518119_cpp17_完整代码.cpp",
+      "directlySubmittableFile": "1801_提交_1518119_cpp17_可提交代码.cpp",
+      "blocks": [],
+      "note": "getcode 接口返回一个 code 字段；未猜测多框边界。"
+    },
+    "rawArchiveSha256": "cfa817074442ee7c3b8dac691ce7ad88d936cac8bd1e159a2fff6eff4c8ae593",
+    "directlySubmittableSha256": "cfa817074442ee7c3b8dac691ce7ad88d936cac8bd1e159a2fff6eff4c8ae593",
+    "status": "CLEANED_ONLINE_VERIFIED"
+  },
+  "publication": {
+    "status": "PUBLIC_READY",
+    "batchId": "20261123T143524Z",
+    "candidateSha256": "cfa817074442ee7c3b8dac691ce7ad88d936cac8bd1e159a2fff6eff4c8ae593",
+    "submissionNo": 1520554,
+    "verifiedAt": "2026-11-23T14:34:27Z"
+  }
+}
