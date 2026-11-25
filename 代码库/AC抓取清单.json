@@ -1,7 +1,7 @@
 {
   "version": 1,
   "purpose": "YOJ accepted source archive; raw capture materialization only",
-  "capturedAt": "2026-11-14T14:31:01Z",
+  "capturedAt": "2026-11-23T14:31:10Z",
   "account": {
     "username": "已脱敏"
   },
@@ -12,9 +12,9 @@
   "totals": {
     "submissionRecords": 1028,
     "acceptedSubmissionRecords": 644,
-    "uniqueProblems": 515,
-    "materializedProblemDirectories": 515,
-    "materializedCodeFiles": 510
+    "uniqueProblems": 521,
+    "materializedProblemDirectories": 521,
+    "materializedCodeFiles": 516
   },
   "problems": [
     {
@@ -7735,6 +7735,102 @@
       },
       "codeSha256": "fe84a496dd3248aac6b68120bd4035520d11395bafc17553fcf8404934a32711",
       "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1791.html"
+    },
+    {
+      "problemNo": "1799",
+      "title": "# 1799 . 伸展树的插入与访问",
+      "folder": "1799_#_1799_._伸展树的插入与访问",
+      "submissionNo": "1518110",
+      "language": "cpp17",
+      "files": {
+        "problem": "1799_#_1799_._伸展树的插入与访问/1799_题目原文.html",
+        "submission": "1799_#_1799_._伸展树的插入与访问/1799_提交_1518110_详情.html",
+        "completeCode": "1799_#_1799_._伸展树的插入与访问/1799_提交_1518110_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "1799_#_1799_._伸展树的插入与访问/1799_提交_1518110_cpp17_可提交代码.cpp",
+        "metadata": "1799_#_1799_._伸展树的插入与访问/1799_元数据.json"
+      },
+      "codeSha256": "0bccbd7665a0655e9e44af1bc9fa1590dfed33bef003dc2f79de895748ee84d7",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1799.html"
+    },
+    {
+      "problemNo": "1800",
+      "title": "# 1800 . B 树的磁盘访问统计",
+      "folder": "1800_#_1800_._B_树的磁盘访问统计",
+      "submissionNo": "1518177",
+      "language": "cpp17",
+      "files": {
+        "problem": "1800_#_1800_._B_树的磁盘访问统计/1800_题目原文.html",
+        "submission": "1800_#_1800_._B_树的磁盘访问统计/1800_提交_1518177_详情.html",
+        "completeCode": "1800_#_1800_._B_树的磁盘访问统计/1800_提交_1518177_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "1800_#_1800_._B_树的磁盘访问统计/1800_提交_1518177_cpp17_可提交代码.cpp",
+        "metadata": "1800_#_1800_._B_树的磁盘访问统计/1800_元数据.json"
+      },
+      "codeSha256": "a86a6349359c9ad649cd13fa706033cc2c9b41a250fd9747af5cdf9e13043038",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1800.html"
+    },
+    {
+      "problemNo": "1801",
+      "title": "# 1801 . 序列区间剪切与移动",
+      "folder": "1801_#_1801_._序列区间剪切与移动",
+      "submissionNo": "1518119",
+      "language": "cpp17",
+      "files": {
+        "problem": "1801_#_1801_._序列区间剪切与移动/1801_题目原文.html",
+        "submission": "1801_#_1801_._序列区间剪切与移动/1801_提交_1518119_详情.html",
+        "completeCode": "1801_#_1801_._序列区间剪切与移动/1801_提交_1518119_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "1801_#_1801_._序列区间剪切与移动/1801_提交_1518119_cpp17_可提交代码.cpp",
+        "metadata": "1801_#_1801_._序列区间剪切与移动/1801_元数据.json"
+      },
+      "codeSha256": "cfa817074442ee7c3b8dac691ce7ad88d936cac8bd1e159a2fff6eff4c8ae593",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1801.html"
+    },
+    {
+      "problemNo": "1802",
+      "title": "# 1802 . 动态有序多重集合",
+      "folder": "1802_#_1802_._动态有序多重集合",
+      "submissionNo": "1518128",
+      "language": "cpp17",
+      "files": {
+        "problem": "1802_#_1802_._动态有序多重集合/1802_题目原文.html",
+        "submission": "1802_#_1802_._动态有序多重集合/1802_提交_1518128_详情.html",
+        "completeCode": "1802_#_1802_._动态有序多重集合/1802_提交_1518128_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "1802_#_1802_._动态有序多重集合/1802_提交_1518128_cpp17_可提交代码.cpp",
+        "metadata": "1802_#_1802_._动态有序多重集合/1802_元数据.json"
+      },
+      "codeSha256": "345848c344da73ed97c1825f86e69bf5f0cb12b78d92afa3bd4a1431c344b635",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1802.html"
+    },
+    {
+      "problemNo": "1803",
+      "title": "# 1803 . B 树的插入与分裂",
+      "folder": "1803_#_1803_._B_树的插入与分裂",
+      "submissionNo": "1518184",
+      "language": "cpp17",
+      "files": {
+        "problem": "1803_#_1803_._B_树的插入与分裂/1803_题目原文.html",
+        "submission": "1803_#_1803_._B_树的插入与分裂/1803_提交_1518184_详情.html",
+        "completeCode": "1803_#_1803_._B_树的插入与分裂/1803_提交_1518184_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "1803_#_1803_._B_树的插入与分裂/1803_提交_1518184_cpp17_可提交代码.cpp",
+        "metadata": "1803_#_1803_._B_树的插入与分裂/1803_元数据.json"
+      },
+      "codeSha256": "b4beb78b351f2b69afda53197543629d313ad58d22403edb92f79e7af6a40223",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1803.html"
+    },
+    {
+      "problemNo": "1804",
+      "title": "# 1804 . B 树的删除与下溢",
+      "folder": "1804_#_1804_._B_树的删除与下溢",
+      "submissionNo": "1518191",
+      "language": "cpp17",
+      "files": {
+        "problem": "1804_#_1804_._B_树的删除与下溢/1804_题目原文.html",
+        "submission": "1804_#_1804_._B_树的删除与下溢/1804_提交_1518191_详情.html",
+        "completeCode": "1804_#_1804_._B_树的删除与下溢/1804_提交_1518191_cpp17_完整代码.cpp",
+        "directlySubmittableCode": "1804_#_1804_._B_树的删除与下溢/1804_提交_1518191_cpp17_可提交代码.cpp",
+        "metadata": "1804_#_1804_._B_树的删除与下溢/1804_元数据.json"
+      },
+      "codeSha256": "63c4213d168943ca57297657373b70e49b6bd792abcbb3b2f925806ac26aa678",
+      "problemUrl": "http://yoj.ruc.edu.cn/index.php/index/problem/detail/pno/1804.html"
     }
   ],
   "errors": {
